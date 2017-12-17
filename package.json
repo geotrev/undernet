@@ -1,9 +1,9 @@
 {
-  "name": "mono-pack",
+  "name": "<< add a name >>",
   "version": "1.0.0",
-  "description": "the anti-css framework",
+  "description": "<< add a description >>",
   "main": "index.js",
-  "author": "George",
+  "author": "<< add a name >>",
   "license": "MIT",
   "private": false,
   "dependencies": {
