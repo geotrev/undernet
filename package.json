@@ -32,5 +32,8 @@
       "env",
       "react"
     ]
+  },
+  "devDependencies": {
+    "uglifyjs-webpack-plugin": "^1.1.4"
   }
 }
