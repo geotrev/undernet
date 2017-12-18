@@ -1,15 +1,14 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import './App.scss';
-import hand from './assets/waving-hand-sign.png';
+
+import Home from './components/Home';
 
 const App = () => {
   return (
-    <h1>
-      Hello, World!
-      <img src={hand} />
-    </h1>
+    <div id="site">
+      <Home />
+    </div>
   );
 }
 
-ReactDOM.render( <App />, document.getElementById('root') );
+ReactDOM.render(<App />, document.getElementById('root'));
