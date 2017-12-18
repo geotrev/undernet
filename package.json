@@ -1,9 +1,9 @@
 {
-  "name": "<< add a name >>",
+  "name": "Little-Webpack-Template",
   "version": "1.0.0",
-  "description": "<< add a description >>",
+  "description": "A little boilerplate for webpack!",
   "main": "index.js",
-  "author": "<< add a name >>",
+  "author": "George Treviranus",
   "license": "MIT",
   "private": false,
   "dependencies": {
