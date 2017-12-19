@@ -11,9 +11,16 @@
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
+    "chai": "^4.1.2",
+    "chai-enzyme": "^1.0.0-beta.0",
+    "cheerio": "^1.0.0-rc.2",
     "css-loader": "^0.28.7",
+    "enzyme": "^3.2.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "file-loader": "^1.1.6",
     "html-webpack-plugin": "^2.30.1",
+    "ignore-styles": "^5.0.1",
+    "mocha": "^4.0.1",
     "node-sass": "^4.7.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -26,6 +33,7 @@
     "webpack-merge": "^4.1.1"
   },
   "scripts": {
+    "test": "mocha --require ignore-styles --require babel-register ./tests",
     "build": "webpack --config webpack.prod.js",
     "watch": "webpack-dev-server --open --config webpack.dev.js"
   },
