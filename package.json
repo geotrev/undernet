@@ -33,7 +33,7 @@
     "webpack-merge": "^4.1.1"
   },
   "scripts": {
-    "test": "mocha --require ignore-styles --require babel-register ./tests",
+    "test": "mocha --require ignore-styles --require babel-register --recursive ./tests/*_test.js",
     "build": "webpack --config webpack.prod.js",
     "watch": "webpack-dev-server --open --config webpack.dev.js"
   },
