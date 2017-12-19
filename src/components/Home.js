@@ -8,7 +8,7 @@ export default class Home extends Component {
   render() {
     return (
       <h1>
-        Hello, World! <img src={Hand} />
+        Hello, {this.props.name}! <img src={Hand} />
       </h1>
     );
   }

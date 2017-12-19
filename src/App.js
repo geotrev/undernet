@@ -6,7 +6,7 @@ import Home from './components/Home';
 const App = () => {
   return (
     <div id="site">
-      <Home />
+      <Home name="Jeff" />
     </div>
   );
 }

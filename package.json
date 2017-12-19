@@ -20,6 +20,7 @@
     "file-loader": "^1.1.6",
     "html-webpack-plugin": "^2.30.1",
     "ignore-styles": "^5.0.1",
+    "jsdom": "^11.5.1",
     "mocha": "^4.0.1",
     "node-sass": "^4.7.2",
     "nyc": "^11.3.0",
