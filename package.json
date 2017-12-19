@@ -22,6 +22,7 @@
     "ignore-styles": "^5.0.1",
     "mocha": "^4.0.1",
     "node-sass": "^4.7.2",
+    "nyc": "^11.3.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "sass-loader": "^6.0.6",
@@ -33,7 +34,7 @@
     "webpack-merge": "^4.1.1"
   },
   "scripts": {
-    "test": "mocha --require ignore-styles --require babel-register --recursive ./tests/*_test.js",
+    "test": "nyc mocha --require ignore-styles --require babel-register --recursive ./tests/*_test.js",
     "build": "webpack --config webpack.prod.js",
     "watch": "webpack-dev-server --open --config webpack.dev.js"
   },
