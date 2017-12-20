@@ -31,13 +31,13 @@ module.exports = {
         use: [{
           loader: 'url-loader',
           options: {
-            limit: 10000
+            limit: 5000
           },
         }]
       },
       {
-        test: /\.(eot|svg|ttf|woff2?|otf)$/,
-        use: 'file-loader',
+        test: /\.(ico|eot|svg|ttf|woff2?|otf)$/,
+        use: 'file-loader?name=[name].[ext]',
       },
     ]
   },
@@ -45,5 +45,5 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'public', 'index.html')
     }),
-  ]
+  ],
 }
