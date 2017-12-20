@@ -1,5 +1,4 @@
 $navy: #001e38;
-$green: #15b78f;
 
 html {
   background-color: $navy;
@@ -14,21 +13,5 @@ body {
   align-items: center;
   font-family: monospace;
   font-size: 16px;
-}
-
-h1 {
-  color: $green;
-  font-weight: bold;
-  font-size: 3.5rem;
-  
-  img {
-    width: 3rem;
-    height: 3rem;
-  }
-}
-
-@keyframes wave {
-  100% {
-    transform: rotate(20deg);
-  }
+  text-align: center;
 }
