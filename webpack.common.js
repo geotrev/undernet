@@ -8,6 +8,11 @@ module.exports = {
     path: path.join(__dirname, 'build'),
     publicPath: '/'
   },
+  resolve: {
+    alias: {
+      'components': path.resolve(__dirname, 'src/components/')
+    }
+  },
   module: {
     rules: [
       {
