@@ -1,1 +1,12 @@
-// Add global styles here
+$navy: #001e38;
+
+html {
+  background-color: $navy;
+}
+
+body, 
+#site {
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+}

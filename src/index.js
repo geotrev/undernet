@@ -8,7 +8,9 @@ import { Home } from './pages/Home/Home';
 
 ReactDOM.render(
   <Router>
-    <Route exact path='/' component={ Home } />
+    <div id="site">
+      <Route exact path='/' component={ Home } />
+    </div>
   </Router>, 
   document.getElementById('root')
 );
