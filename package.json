@@ -6,6 +6,12 @@
   "author": "George Treviranus",
   "license": "MIT",
   "private": false,
+  "scripts": {
+    "test": "nyc mocha -r ignore-styles -r babel-register -r ./tests/helpers.js --recursive ./src/**/*.spec.js --progress",
+    "test:w": "mocha --watch -r ignore-styles -r babel-register -r ./tests/helpers.js --recursive ./src/**/*.spec.js",
+    "build": "webpack --config webpack.prod.js",
+    "watch": "webpack-dev-server --config webpack.dev.js --progress --open"
+  },
   "dependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
@@ -33,11 +39,6 @@
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.9.7",
     "webpack-merge": "^4.1.1"
-  },
-  "scripts": {
-    "test": "nyc mocha -r ignore-styles -r babel-register -r ./tests/helpers.js --recursive ./tests/*_test.js",
-    "build": "webpack --config webpack.prod.js",
-    "watch": "webpack-dev-server --open --config webpack.dev.js"
   },
   "babel": {
     "presets": [

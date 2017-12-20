@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-import Home from 'components/Home';
+import FeatureImage from './pages/Home/FeatureImage/FeatureImage';
+import Intro from './pages/Home/Intro/Intro';
 
 const App = () => {
   return (
     <div id="site">
-      <Home name="Jeff" />
+      <FeatureImage />
+      <Intro greeting="This is a boilerplate built with webpack and React." />
     </div>
   );
 }
