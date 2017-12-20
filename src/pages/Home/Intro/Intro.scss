@@ -1,21 +1,4 @@
-$navy: #001e38;
 $green: #15b78f;
-
-html {
-  background-color: $navy;
-}
-
-body {
-  margin: 0;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: monospace;
-  font-size: 16px;
-  text-align: center;
-}
 
 .intro-wrapper {
   h1 {
@@ -27,11 +10,5 @@ body {
   p {
     font-size: 1.5rem;
     color: white;
-  }
-}
-
-@keyframes wave {
-  100% {
-    transform: rotate(20deg);
   }
 }

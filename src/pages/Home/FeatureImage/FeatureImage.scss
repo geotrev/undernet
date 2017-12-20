@@ -3,4 +3,11 @@ img {
   margin: 0 auto;
   width: 4rem;
   height: 4rem;
+  animation: wave 0.75s alternate infinite;
+}
+
+@keyframes wave {
+  100% {
+    transform: rotate(20deg);
+  }
 }

@@ -45,5 +45,9 @@
       "env",
       "react"
     ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gtreviranus/little-webpack-template.git"
   }
 }

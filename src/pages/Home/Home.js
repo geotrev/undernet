@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import './Home.scss';
 
-import FeatureImage from './pages/Home/FeatureImage/FeatureImage';
-import Intro from './pages/Home/Intro/Intro';
+import FeatureImage from './FeatureImage/FeatureImage';
+import Intro from './Intro/Intro';
 
-const App = () => {
+export const Home = () => {
   return (
     <div id="site">
       <FeatureImage />
@@ -12,5 +13,3 @@ const App = () => {
     </div>
   );
 }
-
-ReactDOM.render(<App />, document.getElementById('root'));
