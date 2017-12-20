@@ -1,6 +1,6 @@
 import { Home } from './Home';
 
-describe("<Intro />", () => {
+describe("<Home />", () => {
   it("renders", () => {
     const wrapper = shallow(<Home />);
     expect(wrapper).to.have.length(1);
