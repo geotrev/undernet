@@ -1,0 +1,14 @@
+$green: #15b78f;
+
+.bio-wrapper {
+  h1 {
+    color: $green;
+    font-weight: bold;
+    font-size: 3rem;
+  }
+  
+  p {
+    font-size: 1.5rem;
+    color: white;
+  }
+}
