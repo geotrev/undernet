@@ -10,9 +10,7 @@ module.exports = {
   },
   resolve: {
     alias: {
-      // add custom routes here using import,
-      // e.g. > import 'thing' from 'components/button'
-      //        (where 'components/button' is actually 'src/components/button')
+      'components': path.resolve(__dirname, 'src/components/components.js'),
     }
   },
   module: {

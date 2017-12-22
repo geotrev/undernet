@@ -5,7 +5,7 @@ import '../public/favicon.ico';
 
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import Nav from './components/Nav/Nav';
+import { Nav } from 'components';
 import { Home } from './pages/Home/Home';
 import { About } from './pages/About/About';
 
