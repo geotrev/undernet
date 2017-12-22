@@ -10,9 +10,8 @@ module.exports = {
   },
   resolve: {
     alias: {
-      // add custom routes here using import,
-      // e.g. > import 'thing' from 'components/button'
-      //        (where 'components/button' is actually 'src/components/button')
+      'components': path.resolve(__dirname, 'src/components/components.js'),
+      'pages': path.resolve(__dirname, 'src/pages/pages.js'),
     }
   },
   module: {
@@ -31,13 +30,13 @@ module.exports = {
         use: [{
           loader: 'url-loader',
           options: {
-            limit: 10000
+            limit: 5000
           },
         }]
       },
       {
-        test: /\.(eot|svg|ttf|woff2?|otf)$/,
-        use: 'file-loader',
+        test: /\.(ico|eot|svg|ttf|woff2?|otf)$/,
+        use: 'file-loader?name=[name].[ext]',
       },
     ]
   },
@@ -45,5 +44,5 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'public', 'index.html')
     }),
-  ]
+  ],
 }

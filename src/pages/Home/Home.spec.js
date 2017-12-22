@@ -1,8 +1,8 @@
 import { Home } from './Home';
 
-describe("<Intro />", () => {
-  it("renders", () => {
+describe("<Home />", () => {
+  it("renders #home", () => {
     const wrapper = shallow(<Home />);
-    expect(wrapper).to.have.length(1);
+    expect(wrapper).to.have.id('home');
   })
 })

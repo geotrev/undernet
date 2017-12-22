@@ -1,0 +1,25 @@
+nav {
+  display: flex;
+  flex: 0 0 100%;
+  max-width: 100%;
+  font-family: -apple-system, sans-serif;
+  justify-content: center;
+}
+
+ul {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+li a, li a:visited, li a:focus, li a:hover, li a:active {
+  display: flex;
+  color: white;
+  text-decoration: none;
+  padding: 1rem;
+  
+  &.selected {
+    color: rgba(255, 255, 255, 0.5);
+  }
+}

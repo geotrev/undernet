@@ -7,7 +7,7 @@ import Intro from './Intro/Intro';
 
 export const Home = () => {
   return (
-    <div id="site">
+    <div id="home">
       <FeatureImage />
       <Intro greeting="This is a boilerplate built with webpack and React." />
     </div>
