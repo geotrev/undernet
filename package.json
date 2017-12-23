@@ -10,7 +10,8 @@
     "test": "nyc mocha -r ignore-styles -r babel-register -r ./tests/helpers.js --recursive ./src/**/*.spec.js --progress",
     "test:w": "mocha --watch -r ignore-styles -r babel-register -r ./tests/helpers.js --recursive ./src/**/*.spec.js",
     "build": "webpack --config webpack.prod.js",
-    "watch": "webpack-dev-server --config webpack.dev.js --progress --open"
+    "watch": "webpack-dev-server --config webpack.dev.js --progress --open",
+    "deploy": "webpack --config webpack.prod.js && surge -p ./build -d dev.geotrev.com"
   },
   "dependencies": {
     "babel-core": "^6.26.0",
@@ -35,6 +36,7 @@
     "react-router-dom": "^4.2.2",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.19.1",
+    "surge": "^0.19.0",
     "uglifyjs-webpack-plugin": "^1.1.4",
     "url-loader": "^0.6.2",
     "webpack": "^3.10.0",
