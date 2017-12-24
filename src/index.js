@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.scss';
 import '../public/favicon.ico';
 
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { HashRouter as Router, Route } from 'react-router-dom';
 
 import { Nav } from 'components';
 import { Home, About } from 'pages';
