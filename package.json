@@ -31,6 +31,7 @@
     "mocha": "^4.0.1",
     "node-sass": "^4.7.2",
     "nyc": "^11.3.0",
+    "postcss-loader": "^2.0.9",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-router-dom": "^4.2.2",
