@@ -1,20 +1,12 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import './index.scss';
-import '../public/favicon.ico';
+import App from './App';
 
-import { HashRouter as Router, Route } from 'react-router-dom';
-
-import { Nav } from 'components';
-import { Home, About } from 'pages';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 ReactDOM.render(
   <Router>
-    <div id="site">
-      <Route path='/' component={ Nav } />
-      <Route exact path='/' component={ Home } />
-      <Route exact path='/about' component={ About } />
-    </div>
+    <App />
   </Router>, 
   document.getElementById('root')
 );

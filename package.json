@@ -10,8 +10,7 @@
     "test": "nyc mocha -r ignore-styles -r babel-register -r ./tests/helpers.js --recursive ./src/**/*.spec.js --progress",
     "test:w": "mocha --watch -r ignore-styles -r babel-register -r ./tests/helpers.js --recursive ./src/**/*.spec.js",
     "build": "webpack --config webpack.prod.js",
-    "watch": "webpack-dev-server --config webpack.dev.js --progress --open",
-    "_comment": '"deploy": "webpack --config webpack.prod.js && surge -p ./build -d dev.geotrev.com"'
+    "watch": "webpack-dev-server --config webpack.dev.js --progress --open"
   },
   "dependencies": {
     "babel-core": "^6.26.0",
