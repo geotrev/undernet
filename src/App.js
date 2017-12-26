@@ -10,9 +10,13 @@ export default class App extends Component {
   render() {
     return (
       <div id="site">
-        <Route path='/' component={ Nav } />
-        <Route exact path='/' component={ Home } />
-        <Route exact path='/about' component={ About } />
+        <header>
+          <Route path='/' component={ Nav } />
+        </header>
+        <main>
+          <Route exact path='/' component={ Home } />
+          <Route exact path='/about' component={ About } />
+        </main>
       </div>
     )
   }

@@ -9,11 +9,11 @@ export default class Nav extends Component {
     return (
       <nav className="intro-wrapper">
         <ul>
-          <li>
-            <NavLink activeClassName="selected" exact to='/'>Home</NavLink>
+          <li> 
+            <NavLink activeClassName="selected" exact to='/'>Home</NavLink> 
           </li>
-          <li>
-            <NavLink activeClassName="selected" to='/about'>About</NavLink>
+          <li> 
+            <NavLink activeClassName="selected" exact to='/about'>About</NavLink> 
           </li>
         </ul>
       </nav>
