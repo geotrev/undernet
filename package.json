@@ -7,8 +7,8 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "test": "nyc mocha -r ignore-styles -r babel-register -r ./tests/helpers.js --recursive ./src/**/*.spec.js --progress",
-    "test:w": "mocha --watch -r ignore-styles -r babel-register -r ./tests/helpers.js --recursive ./src/**/*.spec.js",
+    "test": "nyc mocha -r ignore-styles -r babel-register -r ./testHelpers.js --recursive ./src/**/*.spec.js --progress",
+    "test:w": "mocha --watch -r ignore-styles -r babel-register -r ./testHelpers.js --recursive ./src/**/*.spec.js",
     "build": "webpack --config webpack.prod.js",
     "watch": "webpack-dev-server --config webpack.dev.js --progress --open"
   },
