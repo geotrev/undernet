@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import './App.scss';
 import '../public/favicon.ico';
 
@@ -14,8 +14,10 @@ export default class App extends Component {
           <Route path='/' component={ Nav } />
         </header>
         <main>
-          <Route exact path='/' component={ Home } />
-          <Route exact path='/about' component={ About } />
+          <Switch>
+            <Route path='/about' component={ About } />
+            <Route path='/' component={ Home } />
+          </Switch>
         </main>
       </div>
     )
