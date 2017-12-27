@@ -1,4 +1,6 @@
 .DS_store
-/node_modules/
 yarn-error.log
+
+/build/
+/node_modules/
 /.nyc_output/
