@@ -1,6 +1,8 @@
 # Little Webpack Template
 Made with the help of the internet, from zero to deployable, by a person (me) with almost zero webpack experience. This setup isn't perfect but it's enough to get going fast and with some semblance of confidence that you can build and deploy simple websites. :)
 
+See this simple site running at https://george-lwt.herokuapp.com
+
 ## Starter pack for simple one page apps, or deployable to heroku for sites with multiple pages
 The ethos for this project was to explore useful starting points for new projects and understand webpack's many offerings.
 
