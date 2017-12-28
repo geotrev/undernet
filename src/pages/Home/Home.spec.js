@@ -10,9 +10,4 @@ describe("<Home />", () => {
     const wrapper = mount(<Home />);
     expect(wrapper).to.have.descendants('.intro-wrapper');
   })
-  
-  it("has one <img> (<FeatureImage />)", () => {
-    const wrapper = mount(<Home />);
-    expect(wrapper).to.have.descendants('img');
-  })
 })
