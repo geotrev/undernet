@@ -4,8 +4,12 @@ Made with the help of the internet, from zero to deployable, by a person (me) wi
 ## Starter pack for simple one page apps, or deployable to heroku for sites with multiple pages
 The ethos for this project was to explore useful starting points for new projects and understand webpack's many offerings.
 
-### Features
-Needs info...
+### Development options/features
+- React with React Router v4 for views
+- SCSS (with autoprefixer) for styling
+- Build and development configurations for deployments and dev builds
+- Unit tests with mocha/chai-enzyme
+- Deployment compatibility with Heroku
 
 ### Clone and set up with Yarn
 ```shell 
@@ -44,5 +48,5 @@ $ git push heroku master
 ...
 $ heroku open
 # or
-$ open https://your-new-app.herokuapp.com
+$ open https://some-new-url.herokuapp.com
 ```
