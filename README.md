@@ -4,6 +4,9 @@ Made with the help of the internet, from zero to deployable, by a person (me) wi
 ## Starter pack for simple one page apps, or deployable to heroku for sites with multiple pages
 The ethos for this project was to explore useful starting points for new projects and understand webpack's many offerings.
 
+### Features
+Needs info...
+
 ### Clone and set up with Yarn
 ```shell 
 $ brew install yarn
