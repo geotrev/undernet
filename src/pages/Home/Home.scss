@@ -8,4 +8,14 @@
   font-family: monospace;
   font-size: 16px;
   text-align: center;
+  
+  .emoji {
+    animation: wave 0.75s alternate infinite;
+  }  
+}
+
+@keyframes wave {
+  100% {
+    transform: rotate(20deg);
+  }
 }

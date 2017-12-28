@@ -9,9 +9,11 @@ module.exports = {
     publicPath: '/',
   },
   resolve: {
+    extensions: [".js", ".jsx"],
     alias: {
-      'components': path.resolve(__dirname, 'src/components/components.js'),
-      'pages': path.resolve(__dirname, 'src/pages/pages.js'),
+      'components': path.resolve(__dirname, 'src/components/components'),
+      'pages': path.resolve(__dirname, 'src/pages/pages'),
+      'assets': path.resolve(__dirname, 'src/assets/'),
     }
   },
   module: {
