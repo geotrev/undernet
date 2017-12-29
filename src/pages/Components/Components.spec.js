@@ -1,13 +1,13 @@
-import { About } from './About';
+import { Components } from './Components';
 
-describe("<About />", () => {
+describe("<Components />", () => {
   it("renders #about", () => {
-    const wrapper = shallow(<About />);
-    expect(wrapper).to.have.id('overview');
+    const wrapper = shallow(<Components />);
+    expect(wrapper).to.have.id('components');
   })
   
   it("has one .bio-wrapper (<Bio />)", () => {
-    const wrapper = mount(<About />);
+    const wrapper = mount(<Components />);
     expect(wrapper).to.have.descendants(".overview-wrapper");
   })
 })

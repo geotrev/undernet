@@ -11,6 +11,7 @@ describe("<Nav />", () => {
   it("renders", () => {
     const wrapper = NavComponent();
     expect(wrapper).to.have.length(1);
+    expect(wrapper).to.exist
   })
   
   it("is a <nav>", () => {
