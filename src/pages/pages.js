@@ -1,6 +1,6 @@
-import { About } from './About/About';
+import { Components } from './Components/Components';
 import { Home } from './Home/Home';
 
 export {
-  About, Home,
+  Components, Home,
 }

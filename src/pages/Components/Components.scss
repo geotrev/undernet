@@ -1,11 +1,13 @@
-#about {
+@import '../../global';
+
+#components {
   width: 100vw;
   height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-family: monospace;
   font-size: 16px;
   text-align: center;
+  background: $white;
 }

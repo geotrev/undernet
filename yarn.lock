@@ -3607,6 +3607,10 @@ mocha@^4.0.1:
     mkdirp "0.5.1"
     supports-color "4.4.0"
 
+monolith-css@^1.1.7:
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/monolith-css/-/monolith-css-1.1.7.tgz#bcb910a32b2641a88b57103a2a4e903c0aa85070"
+
 move-concurrently@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/move-concurrently/-/move-concurrently-1.0.1.tgz#be2c005fda32e0b29af1f05d7c4b33214c701f92"

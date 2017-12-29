@@ -1,8 +1,8 @@
-import Bio from './Bio';
+import Overview from './Overview';
 
 describe("<Bio />", () => {
   it("renders", () => {
-    const wrapper = shallow(<Bio />);
+    const wrapper = shallow(<Overview />);
     expect(wrapper).to.have.length(1);
   })
 })

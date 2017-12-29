@@ -1,14 +1,13 @@
-$navy: #001e38;
+@import 'global';
 
-html { background-color: $navy; }
+@import 'node_modules/monolith-css/src/SCSS/helpers/classes/base';
 
-body {
-  margin: 0;
-  padding: 0;
-}
+// Choose Your Components
+// ----------------------
 
-.emoji {
-  display: block;
-  margin: 0 auto;
-  font-size: 4rem;
-}
+@import 'node_modules/monolith-css/src/SCSS/components/global/base';
+@import 'node_modules/monolith-css/src/SCSS/components/grid/base';
+@import 'node_modules/monolith-css/src/SCSS/components/typography/base';
+@import 'node_modules/monolith-css/src/SCSS/components/link/base';
+@import 'node_modules/monolith-css/src/SCSS/components/button/base';
+@import 'node_modules/monolith-css/src/SCSS/components/form/base';
