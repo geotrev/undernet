@@ -11,9 +11,16 @@ describe('<Button />', () => {
     expect(wrapper).to.have.tagName('a');
   })
   
-  it('button receives disabled attribute', () => {
+  it('receives disabled attribute if button is not a link', () => {
     const wrapper = shallow(<Button disabled>Test</Button>);
     expect(wrapper).to.have.attr('disabled');
+  })
+  
+  it('calls console.warn if link button has disabled attribute', () => {
+    const wrapper = mount(<Button href="#" disabled>Test</Button>);
+    console.warn = chai.spy();
+    wrapper.instance().getDisabledStatus();
+    expect(console.warn).to.have.been.called();
   })
   
   it('renders a "submit" button if [type="button"]', () => {
