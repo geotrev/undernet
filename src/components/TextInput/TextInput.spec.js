@@ -1,15 +1,20 @@
 import TextInput from './TextInput';
 
 describe('<TextInput />', () => {
-  it('renders with label', () => {
+  it('renders with label tag', () => {
     const wrapper = shallow(<TextInput label="Test" />);
     expect(wrapper).to.have.tagName('label');
   })
   
-  xit('calls console.warn if this.props.label is not received', () => {
-    const wrapper = mount(<TextInput />);
+  it('renders label text if this.props.label is received', () => {
+    const wrapper = mount(<TextInput label="Test" />);
+    expect(wrapper).to.include.text('Test');
+  })
+  
+  it('calls console.warn if no label is received', () => {
+    const wrapper = mount(<TextInput label="" />);
     console.warn = chai.spy();
-    wrapper.instance();
+    wrapper.instance().getLabel();
     expect(console.warn).to.have.been.called();
   })
   
