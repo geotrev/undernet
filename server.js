@@ -1,3 +1,8 @@
+// This is here for Heroku support. :)
+// -> Don't use Express for development
+//    unless you're just testing that it works...
+//    in which case, test using `node server.js`
+
 const express = require('express');
 const path = require('path');
 const app = express();
