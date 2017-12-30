@@ -7,7 +7,7 @@ Currently running at http://monolith.geotrev.com
 ```shell 
 $ brew install yarn
 $ git clone git@github.com:gtreviranus/monolith-site.git
-$ cd little-webpack-template/
+$ cd monolith-site/
 $ yarn install
 ```
 
@@ -21,12 +21,12 @@ $ yarn watch
 $ yarn build
 ```
 
-### Run tests with istanbul coverage
+### Run tests with istanbuljs/nyc coverage stats
 ```shell
 $ yarn test
 ```
 
-### Load tests on each file save/refresh
+### Load tests on file save
 ```shell
 $ yarn test:w
 ```
