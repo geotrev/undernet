@@ -11,21 +11,16 @@ describe('<TextInput />', () => {
     expect(wrapper).to.include.text('Test');
   })
   
-  it('calls console.warn if no label is received', () => {
+  it('calls console.warn if this.props.label is not received', () => {
     const wrapper = mount(<TextInput label="" />);
     console.warn = chai.spy();
     wrapper.instance().getLabel();
     expect(console.warn).to.have.been.called();
   })
   
-  it('renders a text input', () => {
+  it('renders input[type="text"]', () => {
     const wrapper = shallow(<TextInput label="Test" />);
     expect(wrapper).to.have.descendants('[type="text"]');
-  })
-  
-  it('renders input', () => {
-    const wrapper = shallow(<TextInput label="Test" />);
-    expect(wrapper).to.have.descendants('input');
   })
   
   it('renders textarea if textarea="true"', () => {

@@ -11,7 +11,7 @@ describe('<RadioInput />', () => {
     expect(wrapper).to.include.text('Test');
   })
   
-  it('calls console.warn if no label is received', () => {
+  it('calls console.warn if this.props.label is not received', () => {
     const wrapper = mount(<RadioInput label="" />);
     console.warn = chai.spy();
     wrapper.instance().getLabel();
