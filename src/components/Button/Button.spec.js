@@ -1,7 +1,7 @@
 import Button from './Button';
 
 describe('<Button />', () => {
-  it('renders a button by default', () => {
+  it('renders with button tag by default', () => {
     const wrapper = shallow(<Button>Test</Button>);
     expect(wrapper).to.have.tagName('button');
   })

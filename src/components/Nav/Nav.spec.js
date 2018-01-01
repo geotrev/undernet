@@ -14,7 +14,7 @@ describe("<Nav />", () => {
     expect(wrapper).to.exist
   })
   
-  it("is a <nav>", () => {
+  it("renders with nav tag", () => {
     const wrapper = NavComponent();
     expect(wrapper).to.have.tagName('nav');
   })
