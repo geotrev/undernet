@@ -1,5 +1,5 @@
 # Monolith CSS Website
-Marketing site for Monolith CSS framework.
+Marketing site for [Monolith CSS](https://github.com/gtreviranus/monolith).
 
 Currently running at http://monolith.geotrev.com
 
