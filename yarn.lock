@@ -3621,8 +3621,8 @@ mocha@^4.0.1:
     supports-color "4.4.0"
 
 monolith-css@^1.1.7:
-  version "1.1.7"
-  resolved "https://registry.yarnpkg.com/monolith-css/-/monolith-css-1.1.7.tgz#bcb910a32b2641a88b57103a2a4e903c0aa85070"
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/monolith-css/-/monolith-css-1.2.0.tgz#9a15582adcb65da8f6679ecfa82eedef0e82b38d"
 
 move-concurrently@^1.0.1:
   version "1.0.1"

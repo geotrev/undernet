@@ -1,4 +1,5 @@
 @import 'node_modules/monolith-css/src/SCSS/helpers/functions/base';
+@import 'node_modules/monolith-css/src/SCSS/helpers/mixins/base';
 
 // Monolith CSS
 // A CSS framework that acts as a single, organized system.
@@ -550,6 +551,3 @@ $fieldset-legend-background: $white;
 $fieldset-legend-box-shadow: 0 8px 30px $gray800;
 $fieldset-legend-border: none;
 $fieldset-legend-border-radius: $global-border-radius;
-
-
-@import 'node_modules/monolith-css/src/SCSS/helpers/mixins/base';
