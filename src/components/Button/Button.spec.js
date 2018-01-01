@@ -11,7 +11,7 @@ describe('<Button />', () => {
     expect(wrapper).to.have.tagName('a');
   })
   
-  it('receives disabled attribute if button is not a link', () => {
+  it('button tag can receive disabled state with this.props.disabled', () => {
     const wrapper = shallow(<Button disabled>Test</Button>);
     expect(wrapper).to.have.attr('disabled');
   })

@@ -10,9 +10,9 @@ export default class Button extends Component {
   }
   
   getDisabledStatus() {
-    const warnMsg = "*** You can't use a `disabled` state on anchor tags ***"
+    const warnMsg = "*** You can't use a `disabled` state on anchor tags ***";
     if (this.props.disabled) {
-      return this.props.href ? console.warn(warnMsg) : this.props.disabled
+      return this.props.href ? console.warn(warnMsg) : this.props.disabled;
     }
   }
 
