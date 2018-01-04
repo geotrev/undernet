@@ -12,8 +12,8 @@ describe('<TextInput />', () => {
   })
   
   it('calls console.warn if this.props.label is not received', () => {
-    const wrapper = mount(<TextInput label="" />);
     console.warn = chai.spy();
+    const wrapper = mount(<TextInput label="" />);
     wrapper.instance().getLabel();
     expect(console.warn).to.have.been.called();
   })

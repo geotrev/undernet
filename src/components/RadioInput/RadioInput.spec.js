@@ -12,8 +12,8 @@ describe('<RadioInput />', () => {
   })
   
   it('calls console.warn if this.props.label is not received', () => {
-    const wrapper = mount(<RadioInput label="" />);
     console.warn = chai.spy();
+    const wrapper = mount(<RadioInput label="" />);
     wrapper.instance().getLabel();
     expect(console.warn).to.have.been.called();
   })

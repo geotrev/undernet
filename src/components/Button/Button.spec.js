@@ -17,8 +17,8 @@ describe('<Button />', () => {
   })
   
   it('calls console.warn if link button has disabled attribute', () => {
-    const wrapper = mount(<Button href="#" disabled>Test</Button>);
     console.warn = chai.spy();
+    const wrapper = mount(<Button href="#" disabled>Test</Button>);
     wrapper.instance().getDisabledStatus();
     expect(console.warn).to.have.been.called();
   })
