@@ -1,7 +1,7 @@
 import { Components } from './Components';
 
 describe("<Components />", () => {
-  it("renders #about", () => {
+  it("renders #components", () => {
     const wrapper = shallow(<Components />);
     expect(wrapper).to.have.id('components');
   })
