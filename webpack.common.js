@@ -1,5 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
 
 module.exports = {
@@ -15,17 +15,16 @@ module.exports = {
       'components': path.resolve(__dirname, 'src/components/components'),
       'pages': path.resolve(__dirname, 'src/pages/pages'),
       'assets': path.resolve(__dirname, 'src/assets/'),
+      'articles': path.resolve(__dirname, 'monolith.wiki/'),
     }
   },
   module: {
     rules: [
-      {
-        test: /\.(js|jsx)?$/,
+      { test: /\.(js|jsx)?$/,
         exclude: /node_modules/,
         use: 'babel-loader',
       },
-      {
-        test: /\.scss$/,
+      { test: /\.scss$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [ 
@@ -41,8 +40,7 @@ module.exports = {
           ],
         })
       },
-      {
-        test: /\.(jpe?g|png|gif)$/,
+      { test: /\.(jpe?g|png|gif)$/,
         use: [{
           loader: 'url-loader',
           options: {
@@ -50,9 +48,14 @@ module.exports = {
           },
         }]
       },
-      {
-        test: /\.(ico|eot|svg|ttf|woff2?|otf)$/,
+      { test: /\.(ico|eot|svg|ttf|woff2?|otf)$/,
         use: 'file-loader?name=[name].[ext]',
+      },
+      { test: /\.md$/,
+        use: [
+          { loader: 'html-loader' },
+          { loader: 'markdown-loader' }
+        ]
       },
     ]
   },
@@ -60,6 +63,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'public', 'index.html')
     }),
-    new ExtractTextPlugin("app-[contentHash].css"),
+    new ExtractTextPlugin('app-[contentHash].css'),
   ],
 }
