@@ -6,5 +6,10 @@ import TextInput from './TextInput/TextInput';
 import Article from './Article/Article';
 
 export { 
-  Nav, Button, CheckInput, RadioInput, TextInput,
+  Nav, 
+  Button, 
+  CheckInput, 
+  RadioInput, 
+  TextInput, 
+  Article,
 }
