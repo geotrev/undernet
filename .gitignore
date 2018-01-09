@@ -1,6 +1,7 @@
 .DS_store
 yarn-error.log
 
+/monolith.wiki/
 /build/
 /node_modules/
 /.nyc_output/
