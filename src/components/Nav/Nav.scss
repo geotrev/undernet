@@ -1,6 +1,6 @@
 @import '../../global';
 
-nav {
+.nav {
   display: flex;
   flex: 0 0 100%;
   max-width: 100%;
@@ -9,12 +9,9 @@ nav {
   background: transparent;
   padding-left: 1rem;
   padding-right: 1rem;
-  
-  // create overlap with rest of page
-  height: 0;
 }
 
-ul {
+.nav-list {
   display: flex;
   margin: 0;
   padding: 0;
@@ -24,7 +21,11 @@ ul {
   list-style-type: none;
 }
 
-li a, li a:visited, li a:focus, li a:hover, li a:active {
+.nav-item a, 
+.nav-item a:visited, 
+.nav-item a:focus, 
+.nav-item a:hover, 
+.nav-item a:active {
   display: flex;
   color: $black;
   text-decoration: none;
@@ -38,7 +39,6 @@ li a, li a:visited, li a:focus, li a:hover, li a:active {
   &.selected {
     color: $black;
     opacity: 0.5;
-    padding: 0.5rem 1rem;
     border-bottom: 2px solid $black;
   }
 }

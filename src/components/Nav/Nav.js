@@ -7,12 +7,12 @@ import { NavLink } from 'react-router-dom';
 export default class Nav extends Component {
   render() {
     return (
-      <nav className="intro-wrapper">
-        <ul>
-          <li> 
+      <nav className="intro-wrapper nav">
+        <ul className="nav-list">
+          <li className="nav-item"> 
             <NavLink activeClassName="selected" exact to='/'>Home</NavLink> 
           </li>
-          <li> 
+          <li className="nav-item"> 
             <NavLink activeClassName="selected" to='/components'>Components</NavLink> 
           </li>
         </ul>

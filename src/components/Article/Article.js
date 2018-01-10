@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import './Article.scss';
+
 import Markdown from 'react-markdown';
 
 export default class Article extends Component {

@@ -1,0 +1,9 @@
+@import '../../global';
+
+ul {
+  display: block;
+  
+  li {
+    margin-bottom: $global-space;
+  }
+}
