@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
 import { Article } from 'components';
-import md from 'articles/Home.md';
+import md from 'articles/Download.md';
 
-export default class Overview extends Component {
+export default class Download extends Component {
   render() {
     return (
-      <div className="overview-wrapper row">
+      <div className="download-wrapper row">
         <div class="column">
           <Article>{md}</Article>
         </div>

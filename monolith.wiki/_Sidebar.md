@@ -1,15 +1,15 @@
 ### Getting Started
-* [Ethos](Home)
-* [Download & Install](Download-&-Install)
-* [Configuration](Configuration)
+* [Ethos](home)
+* [Download](download)
+* [Configuration](configuration)
 
 ### Components
-* [Grid](Grid)
-* [Typography](Typography)
-* [Buttons](Buttons)
-* [Forms](Forms)
+* [Grid](grid)
+* [Typography](typography)
+* [Buttons](buttons)
+* [Forms](forms)
 
 ### Helpers / Utilities
-* [Classes](Classes)
-* [Mixins](Mixins)
-* [Functions](Functions)
+* [Classes](classes)
+* [Mixins](mixins)
+* [Functions](functions)

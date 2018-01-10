@@ -33,4 +33,4 @@ You can also add the compiled CSS to your project (much like you would with Boot
 
 _NOTE: Monolith will have all styles set to its defaults in the compiled CSS. You can simply override them by adding styles after Monolith in the source order, if you need to._
 
-[Next: Configuration =>](Configuration)
+[Next: Configuration ⟶](Configuration)

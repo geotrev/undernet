@@ -43,4 +43,4 @@ You can create any form structure you want with the same tags you already know:
 </form>
 ```
 
-[Next: Helper Classes =>](Classes)
+[Next: Helper Classes ⟶](Classes)
