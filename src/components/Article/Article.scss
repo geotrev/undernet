@@ -1,9 +1,11 @@
 @import '../../global';
 
-ul {
-  display: block;
-  
-  li {
-    margin-bottom: $global-space;
+.article-wrapper {
+  ul {
+    display: block;
+    
+    li {
+      margin-bottom: $global-space;
+    }
   }
 }
