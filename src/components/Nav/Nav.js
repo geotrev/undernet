@@ -7,7 +7,7 @@ import { NavLink } from 'react-router-dom';
 export default class Nav extends Component {
   render() {
     return (
-      <nav className="intro-wrapper">
+      <nav className="nav-wrapper">
         <ul>
           <li> 
             <NavLink activeClassName="selected" exact to='/'>Home</NavLink> 
