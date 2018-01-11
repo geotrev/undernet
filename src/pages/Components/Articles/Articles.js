@@ -5,12 +5,10 @@ import { Article } from 'components';
 import HomeMd from 'articles/Home.md';
 import DownloadMd from 'articles/Download.md';
 import ConfigMd from 'articles/Configuration.md';
-
 import GridMd from 'articles/Grid.md';
 import TypeMd from 'articles/Typography.md';
 import ButtonsMd from 'articles/Buttons.md';
 import FormsMd from 'articles/Forms.md';
-
 import ClassesMd from 'articles/Classes.md';
 import MixinsMd from 'articles/Mixins.md';
 import FunctionsMd from 'articles/Functions.md';
@@ -28,56 +26,36 @@ class Template extends Component {
 }
 
 const Home = () => {
-  return (
-    <Template><Article>{HomeMd}</Article></Template>
-  )
+  return ( <Template><Article>{HomeMd}</Article></Template> )
 }
 const Download = () => {
-  return (
-    <Template><Article>{DownloadMd}</Article></Template>
-  )
+  return ( <Template><Article>{DownloadMd}</Article></Template> )
 }
 const Config = () => {
-  return (
-    <Template><Article>{ConfigMd}</Article></Template>
-  )
+  return ( <Template><Article>{ConfigMd}</Article></Template> )
 }
 
 const Grid = () => {
-  return (
-    <Template><Article>{GridMd}</Article></Template>
-  )
+  return ( <Template><Article>{GridMd}</Article></Template> )
 }
 const Type = () => {
-  return (
-    <Template><Article>{TypeMd}</Article></Template>
-  )
+  return ( <Template><Article>{TypeMd}</Article></Template> )
 }
 const Buttons = () => {
-  return (
-    <Template><Article>{ButtonsMd}</Article></Template>
-  )
+  return ( <Template><Article>{ButtonsMd}</Article></Template> )
 }
 const Forms = () => {
-  return (
-    <Template><Article>{FormsMd}</Article></Template>
-  )
+  return ( <Template><Article>{FormsMd}</Article></Template> )
 }
 
 const Classes = () => {
-  return (
-    <Template><Article>{ClassesMd}</Article></Template>
-  )
+  return ( <Template><Article>{ClassesMd}</Article></Template> )
 }
 const Mixins = () => {
-  return (
-    <Template><Article>{MixinsMd}</Article></Template>
-  )
+  return ( <Template><Article>{MixinsMd}</Article></Template> )
 }
 const Functions = () => {
-  return (
-    <Template><Article>{FunctionsMd}</Article></Template>
-  )
+  return ( <Template><Article>{FunctionsMd}</Article></Template> )
 }
 
 export {
