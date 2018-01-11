@@ -1,10 +1,10 @@
 There are a number of mixins used in Monolith to generate the many components. Learn about those mixins here along with how you can use them for your own custom components.
 
-1. Button
-2. Flex
-3. Grid
-4. Media Queries
-5. Typography
+1. [Button](#button)
+2. [Flex](#flex)
+3. [Grid](#grid)
+4. [Media Queries](#media-queries)
+5. [Typography](#typography)
 
 ### Button
 
