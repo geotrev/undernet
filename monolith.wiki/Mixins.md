@@ -15,21 +15,22 @@ The mixin sets all defaults of these arguments to the default values in `_config
 Defaults:
 ```sass
 @mixin button-style(
+  // default state
   $box-shadow: $button-box-shadow,
   $border-color: $button-border-color,
   $color: $button-color,
   $background: $button-background,
-
+  // :hover
   $box-shadow-hover: $button-box-shadow-hover,
   $border-color-hover: $button-border-color-hover,
   $color-hover: $button-color-hover,
   $background-hover: $button-background-hover,
-
+  // :active
   $box-shadow-active: $button-box-shadow-active,
   $border-color-active: $button-border-color-active,
   $color-active: $button-color-active,
   $background-active: $button-background-active,
-
+  // :focus
   $box-shadow-focus: $button-box-shadow-focus,
   $border-color-focus: $button-border-color-focus,
   $color-focus: $button-color-focus,
@@ -71,9 +72,7 @@ Used in many parts of Monolith, these simply generate various breakpoint `@media
 
 ```sass
 @mixin breakpoint-up($size) { ... }
-
 @mixin breakpoint-down($size) { ... }
-
 @mixin breakpoint-between($min, $max) { ... }
 ```
 

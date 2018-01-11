@@ -1,6 +1,15 @@
 @import '../../global';
 
 .article-wrapper {
+  h2 { font-size: 24px; }
+  h3 { font-size: 20px; }
+  code { color: $gray600; }
+  
+  pre { 
+    overflow-y: scroll; 
+    line-height: 1.5;
+  }
+
   ul {
     display: block;
     

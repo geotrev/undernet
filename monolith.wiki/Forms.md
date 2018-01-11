@@ -8,20 +8,17 @@ You can create any form structure you want with the same tags you already know:
     <legend>
       Fieldset (no classes)
     </legend>
-
     <div class="row">
       <div class="medium-6 xsmall-12 columns">
         <label for="form">
           Email
           <input type="email" />
         </label>
-
         <label for="form">
           Password
           <input type="password" />
         </label>
       </div>
-
       <div class="medium-6 xsmall-12 columns">
         <label for="form">
           Address Ln 1
@@ -33,12 +30,10 @@ You can create any form structure you want with the same tags you already know:
           <input type="password" />
         </label>
       </div>
-
       <div class="column">
         <input type="submit" value="Submit" />
       </div>
     </div>
-
   </fieldset>
 </form>
 ```

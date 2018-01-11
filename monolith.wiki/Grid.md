@@ -58,11 +58,9 @@ You can also add more rows within your columns without fear. This is great for i
 ```html
 <div class=“grid”>
   <div class=“row”>
-
     <div class=“xsmall-12 large-3 columns”>
       <p>First column</p>
     </div>
-
     <div class=“xsmall-12 large-7 columns”>
       <div class=“row”>
         <div class=“xsmall-12 columns”>
@@ -73,11 +71,9 @@ You can also add more rows within your columns without fear. This is great for i
         </div>
       </div>
     </div>
-
     <div class=“xsmall-12 large-2 columns”>
       <p>Third column</p>
     </div>
-
   </div>
 </div>
 ```
@@ -138,7 +134,6 @@ You can add `.collapsed` to a `.row` if you want _all_ columns in the containing
 ```html
 <div class=“grid”>
   <div class=“row collapsed”>
-
     <div class=“column”>
       <p>No padding for me.</p>
     </div>
@@ -148,7 +143,6 @@ You can add `.collapsed` to a `.row` if you want _all_ columns in the containing
     <div class=“column”>
       <p>Still no padding.</p>
     </div>
-
   </div>
 </div>
 ```
@@ -160,14 +154,12 @@ It was common in the past to offset grids with left and right margin. With flex,
 ```html
 <div class=“grid”>
   <div class=“row”>
-
     <div class=“xsmall-order-2 large-order-1 columns”>
       <p>I’m last when small, first when large!</p>
     </div>
     <div class=“xsmall-order-1 large-order-2 columns”>
       <p>Ordered first at small breakpoints, last at large and above.</p>
     </div>
-
   </div>
 </div>
 ```
@@ -177,14 +169,12 @@ But you can also use offset if you need to break out of the grid for some reason
 ```html
 <div class=“grid”>
   <div class=“row”>
-
     <div class=“xsmall-offset-6 large-offset-0 columns”>
       <p>I’m last when small, first when large!</p>
     </div>
     <div class=“xsmall-offset-0 large-offset-6 columns”>
       <p>Ordered first at small breakpoints, last at large and above.</p>
     </div>
-
   </div>
 </div>
 ```
@@ -195,13 +185,11 @@ Create a grid that always takes up the full width and height as the device/brows
 
 ```html
 <div class=“grid”>
-
   <div class=“row”>
     <div class=“columns”>
       <p>I’m huge, woohoo!</p>
     </div>
   </div>
-
 </div>
 ```
 
@@ -211,25 +199,21 @@ By default, your `.row` will be vertically centered. To change this, add a modif
 
 ```html
 <div class=“fullscreen grid”>
-
   <div class=“row align-top”>
     <div class=“columns”>
       <p>I’m on the top.</p>
     </div>
   </div>
-
 </div>
 ```
 
 ```html
 <div class=“fullscreen grid”>
-
   <div class=“row align-bottom”>
     <div class=“columns”>
       <p>I’m on the bottom.</p>
     </div>
   </div>
-
 </div>
 ```
 
@@ -237,19 +221,16 @@ And if you really want, you can even add multiple rows. They’ll be evenly spac
 
 ```html
 <div class=“fullscreen grid”>
-
   <div class=“row”>
     <div class=“columns”>
       <p>I’m on the top.</p>
     </div>
   </div>
-
   <div class=“row”>
     <div class=“columns”>
       <p>I’m on the bottom.</p>
     </div>
   </div>
-
 </div>
 ```
 
