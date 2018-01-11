@@ -1,10 +1,10 @@
 There are a number of mixins used in Monolith to generate the many components. Learn about those mixins here along with how you can use them for your own custom components.
 
-1. Button
-2. Flex
-3. Grid
-4. Media Queries
-5. Typography
+1. [Button](#button)
+2. [Flex](#flex)
+3. [Grid](#grid)
+4. [Media Queries](#media-queries)
+5. [Typography](#typography)
 
 ### Button
 
@@ -15,21 +15,22 @@ The mixin sets all defaults of these arguments to the default values in `_config
 Defaults:
 ```sass
 @mixin button-style(
+  // default state
   $box-shadow: $button-box-shadow,
   $border-color: $button-border-color,
   $color: $button-color,
   $background: $button-background,
-
+  // :hover
   $box-shadow-hover: $button-box-shadow-hover,
   $border-color-hover: $button-border-color-hover,
   $color-hover: $button-color-hover,
   $background-hover: $button-background-hover,
-
+  // :active
   $box-shadow-active: $button-box-shadow-active,
   $border-color-active: $button-border-color-active,
   $color-active: $button-color-active,
   $background-active: $button-background-active,
-
+  // :focus
   $box-shadow-focus: $button-box-shadow-focus,
   $border-color-focus: $button-border-color-focus,
   $color-focus: $button-color-focus,
@@ -71,9 +72,7 @@ Used in many parts of Monolith, these simply generate various breakpoint `@media
 
 ```sass
 @mixin breakpoint-up($size) { ... }
-
 @mixin breakpoint-down($size) { ... }
-
 @mixin breakpoint-between($min, $max) { ... }
 ```
 
@@ -85,4 +84,4 @@ There's one mixin used here to generate responsive behavior for header tags. Thi
 @mixin header-sizes($size) { ... }
 ```
 
-[Next: Helper Functions =>](Functions)
+[Next: Helper Functions ⟶](functions)

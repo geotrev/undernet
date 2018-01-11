@@ -72,4 +72,4 @@ In addition to having access to button styling, you can do the same for your lin
 <a>Just a link!</a>
 ```
 
-[Next: Forms =>](Forms)
+[Next: Forms ⟶](forms)
