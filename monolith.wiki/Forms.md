@@ -24,7 +24,6 @@ You can create any form structure you want with the same tags you already know:
           Address Ln 1
           <input type="email" />
         </label>
-
         <label for="form">
           Address Ln 2
           <input type="password" />
