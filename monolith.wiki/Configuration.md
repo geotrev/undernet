@@ -101,7 +101,7 @@ $column-order-classes: true;
 
 ### 3. Typography
 
-Typography can be tough to get right on the web. Here, you’ll have the flexibility to customize the key properties (margin, font-size, etc) on a per-breakpoint scale, as well as give unique stylings to each heading (h1-h6). In addition, you can customize a few other text tags like `mark, `code`, and `p`.
+Typography can be tough to get right on the web. Here, you’ll have the flexibility to customize the key properties (margin, font-size, etc) on a per-breakpoint scale, as well as give unique stylings to each heading (h1-h6). In addition, you can customize a few other text tags like `mark`, `code`, and `p`.
 
 ```sass
 $type-header-sizes: (
