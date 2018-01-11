@@ -13,4 +13,4 @@ Currently there are only a few core pieces. Plans are under way to flesh out eve
 Cheers! 
 – George T. 
 
-[Next: Download ⟶](Download-&-Install)
+[Next: Download ⟶](download)

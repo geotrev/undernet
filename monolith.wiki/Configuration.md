@@ -331,4 +331,4 @@ $fieldset-legend-border: none;
 $fieldset-legend-border-radius: $global-border-radius;
 ```
 
-[Next: Grid ⟶](Grid)
+[Next: Grid ⟶](grid)

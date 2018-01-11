@@ -85,4 +85,4 @@ There's one mixin used here to generate responsive behavior for header tags. Thi
 @mixin header-sizes($size) { ... }
 ```
 
-[Next: Helper Functions ⟶](Functions)
+[Next: Helper Functions ⟶](functions)
