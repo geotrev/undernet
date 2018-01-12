@@ -1,7 +1,7 @@
-import { MonoDocs } from './MonoDocs/MonoDocs';
+import { Docs } from './Docs/Docs';
 import { Home } from './Home/Home';
 
 export {
-  MonoDocs, 
+  Docs, 
   Home,
 }

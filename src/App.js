@@ -4,7 +4,7 @@ import './App.scss';
 import '../public/favicon.ico';
 
 import { Nav } from 'components';
-import { Home, MonoDocs } from 'pages';
+import { Home, Docs } from 'pages';
 
 export default class App extends Component {
   render() {
@@ -15,7 +15,7 @@ export default class App extends Component {
         </header>
         <main>
           <Route exact path='/' component={ Home } />
-          <Route path='/components' component={ MonoDocs } />
+          <Route path='/docs' component={ Docs } />
         </main>
       </div>
     )

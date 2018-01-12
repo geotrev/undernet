@@ -12,7 +12,7 @@ export default class Nav extends Component {
             <NavLink activeClassName="selected" exact to='/'>Home</NavLink> 
           </li>
           <li> 
-            <NavLink activeClassName="selected" to='/components'>Components</NavLink> 
+            <NavLink activeClassName="selected" to='/docs'>Docs</NavLink> 
           </li>
         </ul>
       </nav>
