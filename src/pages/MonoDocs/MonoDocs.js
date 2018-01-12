@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Switch, Route } from 'react-router-dom';
 
 import {
@@ -8,7 +7,7 @@ import {
   Classes, Mixins, Functions
 } from './Articles/Articles';
 
-export const Components = () => {
+export const MonoDocs = () => {
   return (
     <div id="components" class="small-section grid">
       <Route exact path="/components" component={ Home } />

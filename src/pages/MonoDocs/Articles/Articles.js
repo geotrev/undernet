@@ -16,7 +16,7 @@ import FunctionsMd from 'articles/Functions.md';
 class Template extends Component {
   render() {
     return (
-      <div className="overview-wrapper row">
+      <div className="row">
         <div class="column">
           {this.props.children}
         </div>
