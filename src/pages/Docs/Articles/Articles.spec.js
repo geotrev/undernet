@@ -1,3 +1,7 @@
+import mock from 'mock-require';
+
+mock('components', '../../../components/exports.js');
+
 import {
   Home, Download, Config,
   Grid, Type, Buttons, Forms,

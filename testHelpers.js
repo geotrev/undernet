@@ -26,3 +26,8 @@ global.document = window.document;
 global.navigator = {
   userAgent: 'node.js',
 };
+
+import mock from 'mock-require';
+mock('components', './src/components/exports.js');
+
+mock('articles/Home.md', './monolith.wiki/Home.md');
