@@ -2,7 +2,7 @@ import {
   Home, Download, Config,
   Grid, Type, Buttons, Forms,
   Classes, Mixins, Functions
-} from './Articles/Articles';
+} from './Articles';
 
 describe("Article markdown output", () => {
   it("renders Home")
