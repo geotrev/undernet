@@ -36,5 +36,3 @@ You can create any form structure you want with the same tags you already know:
   </fieldset>
 </form>
 ```
-
-[Next: Helper Classes ⟶](classes)

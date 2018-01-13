@@ -83,5 +83,3 @@ There's one mixin used here to generate responsive behavior for header tags. Thi
 ```sass
 @mixin header-sizes($size) { ... }
 ```
-
-[Next: Helper Functions ⟶](functions)

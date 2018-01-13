@@ -1,12 +1,22 @@
 @import '../../global';
 
 .article-wrapper {
+  max-width: 100%; 
+  
   h2 { font-size: 24px; }
   h3 { font-size: 20px; }
   code { color: $gray600; }
   
+  h2, h3 {
+    padding-top: 16px;
+  }
+  
+  pre, code {
+    background: #f4f4f4;
+  }
+  
   pre { 
-    overflow-y: scroll; 
+    overflow-y: scroll ; 
     line-height: 1.5;
   }
 

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './Nav.scss';
 
+import { Github, Twitter } from 'react-feather';
+
 import { NavLink } from 'react-router-dom';
 
 export default class Nav extends Component {
@@ -8,16 +10,16 @@ export default class Nav extends Component {
     return (
       <nav className="nav-wrapper">
         <ul>
-          <li> 
+          <li className="left"> 
             <NavLink exact to='/'>Home</NavLink> 
           </li>
-          <li>
+          <li className="right">
             <ul>
               <li> 
-                <a href='https://www.twitter.com/monolithcss'>Twitter</a> 
+                <a className="has-feather" href='https://www.twitter.com/monolithcss'><Twitter /></a> 
               </li>
               <li>
-                <a href='https://www.github.com/geotrev/monolith'>Github</a> 
+                <a className="has-feather" href='https://www.github.com/geotrev/monolith'><Github /></a> 
               </li>
               <li> 
                 <NavLink activeClassName="selected" to='/docs'>Docs</NavLink> 

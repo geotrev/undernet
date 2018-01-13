@@ -23,11 +23,24 @@
     justify-content: space-between;
     list-style-type: none;
     
-    li ul {
+    li.left, li.right {
       flex: 0 0 50%;
+      display: flex;
       max-width: 50%;
       justify-content: space-between;
+      
+      ul {
+        flex: 0 0 100%;
+        display: flex;
+        max-width: 100%;
+        justify-content: flex-end;
+      }
     }
+  }
+  
+  li a.has-feather {
+    height: 20px;
+    width: 20px;
   }
   
   li a, 

@@ -12,7 +12,7 @@ export const Docs = () => {
   return (
     <div id="docs" class="medium-section fluid grid">
       <div class="row">
-        <div class="xsmall-12 large-2 columns docs-nav-bg">
+        <div class="xsmall-12 xlarge-2 columns docs-nav-bg">
           
           <div className="docs-nav">
             <nav>
@@ -40,7 +40,7 @@ export const Docs = () => {
           </div>
             
         </div>
-        <div class="xsmall-12 large-10 columns">
+        <div class="xsmall-12 xlarge-10 columns">
           <div class="small-section grid">
             
             <div className="docs-content">
