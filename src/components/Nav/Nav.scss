@@ -9,6 +9,8 @@
   background: transparent;
   padding-left: 1rem;
   padding-right: 1rem;
+  
+  border-bottom: 1px solid $gray900;
 
   ul {
     display: flex;
@@ -18,6 +20,12 @@
     max-width: 100%;
     justify-content: space-between;
     list-style-type: none;
+    
+    li ul {
+      flex: 0 0 50%;
+      max-width: 50%;
+      justify-content: space-between;
+    }
   }
   
   li a, 
@@ -31,14 +39,9 @@
     padding: 0.5rem 1rem;
     margin: 0.5rem 0;
     
-    &:hover, &:active {
+    &:hover, &:active, &.selected {
       opacity: 0.5;
     }
     
-    &.selected {
-      color: $black;
-      opacity: 0.5;
-      border-bottom: 2px solid $black;
-    }
   }
 }

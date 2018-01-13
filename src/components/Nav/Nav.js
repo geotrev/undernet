@@ -9,10 +9,20 @@ export default class Nav extends Component {
       <nav className="nav-wrapper">
         <ul>
           <li> 
-            <NavLink activeClassName="selected" exact to='/'>Home</NavLink> 
+            <NavLink exact to='/'>Home</NavLink> 
           </li>
-          <li> 
-            <NavLink activeClassName="selected" to='/docs'>Docs</NavLink> 
+          <li>
+            <ul>
+              <li> 
+                <a href='https://www.twitter.com/monolithcss'>Twitter</a> 
+              </li>
+              <li>
+                <a href='https://www.github.com/geotrev/monolith'>Github</a> 
+              </li>
+              <li> 
+                <NavLink activeClassName="selected" to='/docs'>Docs</NavLink> 
+              </li>
+            </ul>
           </li>
         </ul>
       </nav>
