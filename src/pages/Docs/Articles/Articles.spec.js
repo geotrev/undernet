@@ -1,22 +1,15 @@
-import mock from 'mock-require';
+import { Template, Home } from './Articles';
 
-mock('components', '../../../components/exports.js');
-
-import {
-  Home, Download, Config,
-  Grid, Type, Buttons, Forms,
-  Classes, Mixins, Functions
-} from './Articles';
-
-describe("Article markdown output", () => {
-  it("renders Home")
-  it("renders Download")
-  it("renders Config")
-  it("renders Grid")
-  it("renders Type")
-  it("renders Buttons")
-  it("renders Forms")
-  it("renders Classes")
-  it("renders Mixins")
-  it("renders Functions")
+describe("<Articles />", () => {  
+  let wrapper;
+  
+  it("renders #articles-wrapper", () => {
+    wrapper = shallow(<Template />);
+    expect(wrapper).to.have.length(1);
+  })
+  
+  it("can render with children", () => {
+    wrapper = shallow(<Template>Testiness</Template>);
+    expect(wrapper).to.include.text("Testiness")
+  })
 })

@@ -1,3 +1,4 @@
+import mock from 'mock-require';
 import React from 'react';
 import chai, { expect } from 'chai';
 import spies from 'chai-spies';
@@ -27,7 +28,26 @@ global.navigator = {
   userAgent: 'node.js',
 };
 
-import mock from 'mock-require';
-mock('components', './src/components/exports.js');
+function noop() { return null }
+require.extensions['.md'] = noop;
+require.extensions['.scss'] = noop;
+require.extensions['.css'] = noop;
+require.extensions['.svg'] = noop;
+require.extensions['.png'] = noop;
+require.extensions['.jpg'] = noop;
 
+// webpack aliases
+mock('components', './src/components/exports.js');
+mock('pages', './src/pages/exports.js');
+
+// markdown for articles
 mock('articles/Home.md', './monolith.wiki/Home.md');
+mock('articles/Download.md', './monolith.wiki/Download.md');
+mock('articles/Configuration.md', './monolith.wiki/Configuration.md');
+mock('articles/Grid.md', './monolith.wiki/Grid.md');
+mock('articles/Typography.md', './monolith.wiki/Typography.md');
+mock('articles/Buttons.md', './monolith.wiki/Buttons.md');
+mock('articles/Forms.md', './monolith.wiki/Forms.md');
+mock('articles/Classes.md', './monolith.wiki/Classes.md');
+mock('articles/Mixins.md', './monolith.wiki/Mixins.md');
+mock('articles/Functions.md', './monolith.wiki/Forms.md');
