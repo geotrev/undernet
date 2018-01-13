@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import './Intro.scss';
 
 export default class Intro extends Component {
@@ -7,7 +6,7 @@ export default class Intro extends Component {
     return (
       <div className="intro-wrapper row">
         <div className="column">
-          <h1>Hello there!</h1>
+          <h1>The core of your text front-end project.</h1>
           <p>{this.props.greeting}</p>
         </div>
       </div>
