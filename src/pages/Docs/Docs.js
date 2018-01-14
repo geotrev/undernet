@@ -14,13 +14,14 @@ export const Docs = () => {
   return (
     <div id="docs" className="medium-section fluid grid">
       <div className="row">
-        <div className="xsmall-order-1 xsmall-12 show-for-xsmall hide-for-small columns docs-nav-bg">
-          <a className="explore-link" href="#explore-components">Explore Components <ChevronDown size={20} /></a>
+        <div className="xsmall-order-1 xsmall-12 columns collapsed show-for-xsmall hide-for-xlarge">
+          <a className="docs-nav-expand show-for-xsmall hide-for-xlarge" href="#">
+            Explore Components <ChevronDown size={20} />
+          </a>
         </div>
         
-        <div className="xsmall-order-3 xlarge-order-2 xsmall-12 xlarge-2 columns docs-nav-bg">
-          
-          <div id="explore-components" className="docs-nav">
+        <div className="xsmall-order-2 xlarge-order-1 xsmall-12 xlarge-2 columns docs-nav-bg">
+          <div className="docs-nav">
             <nav>
               <h3 className="paragraph"><strong>Explore Monolith</strong></h3>
               <h4 className="paragraph">Getting Started</h4>
@@ -44,11 +45,10 @@ export const Docs = () => {
               </ul>
             </nav>
           </div>
-            
         </div>
-        <div className="xsmall-order-2 xlarge-order-3 xsmall-12 xlarge-10 columns">
+        
+        <div className="xsmall-order-3 xlarge-order-2 xsmall-12 xlarge-10 columns">
           <div className="small-section grid">
-            
             <div className="docs-content">
               <Route exact path="/docs/overview" component={ Overview } />
               <Route exact path="/docs/download" component={ Download } />
@@ -61,7 +61,6 @@ export const Docs = () => {
               <Route exact path="/docs/mixins" component={ Mixins } />
               <Route exact path="/docs/functions" component={ Functions } />
             </div>
-            
           </div>
         </div>
       </div>
