@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import './DocsRoutes.scss';
 import { Route } from 'react-router-dom';
 
-import { ChevronDown } from 'react-feather';
-
 import {
   Overview, Download, Config,
   Grid, Type, Buttons, Forms,
