@@ -3,7 +3,7 @@ import './Articles.scss';
 
 import { Article } from 'components';
 
-import HomeMd from 'articles/Home.md';
+import OverviewMd from 'articles/Home.md';
 import DownloadMd from 'articles/Download.md';
 import ConfigMd from 'articles/Configuration.md';
 import GridMd from 'articles/Grid.md';
@@ -24,11 +24,11 @@ export class Template extends Component {
   }
 }
 
-export const Home = () => {
+export const Overview = () => {
   return ( 
     <div class="column">
       <h1>Overview</h1>
-      <Template><Article>{HomeMd}</Article></Template>
+      <Template><Article>{OverviewMd}</Article></Template>
     </div>
   )
 }

@@ -22,7 +22,7 @@ export default class Nav extends Component {
                 <a className="has-feather" href='https://www.github.com/geotrev/monolith'><Github /></a> 
               </li>
               <li> 
-                <NavLink activeClassName="selected" to='/docs'>Docs</NavLink> 
+                <NavLink activeClassName="selected" to='/docs/overview'>Docs</NavLink> 
               </li>
             </ul>
           </li>

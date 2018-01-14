@@ -3,7 +3,7 @@ import './Docs.scss';
 import { Switch, Route, NavLink } from 'react-router-dom';
 
 import {
-  Home, Download, Config,
+  Overview, Download, Config,
   Grid, Type, Buttons, Forms,
   Classes, Mixins, Functions
 } from './Articles/Articles';
@@ -19,14 +19,14 @@ export const Docs = () => {
               <h3 className="paragraph"><strong>Explore Monolith</strong></h3>
               <h4 className="paragraph">Getting Started</h4>
               <ul>
-                <li><NavLink activeClassName="selected" to='/docs/'>Overview</NavLink></li>
+                <li><NavLink activeClassName="selected" to='/docs/overview'>Overview</NavLink></li>
                 <li><NavLink activeClassName="selected" to='/docs/download'>Download</NavLink></li>
                 <li><NavLink activeClassName="selected" to='/docs/configuration'>Configuration</NavLink></li>
               </ul>
               <h4 className="paragraph">Components</h4>
               <ul>
                 <li><NavLink activeClassName="selected" to='/docs/grid'>Grid</NavLink></li>
-                <li><NavLink activeClassName="selected" to='/docs/Typography'>Typography</NavLink></li>
+                <li><NavLink activeClassName="selected" to='/docs/typography'>Typography</NavLink></li>
                 <li><NavLink activeClassName="selected" to='/docs/buttons'>Buttons</NavLink></li>
                 <li><NavLink activeClassName="selected" to='/docs/forms'>Forms</NavLink></li>
               </ul>
@@ -44,7 +44,7 @@ export const Docs = () => {
           <div class="small-section grid">
             
             <div className="docs-content">
-              <Route exact path="/docs" component={ Home } />
+              <Route exact path="/docs/overview" component={ Overview } />
               <Route exact path="/docs/download" component={ Download } />
               <Route exact path="/docs/configuration" component={ Config } />
               <Route exact path="/docs/grid" component={ Grid } />
