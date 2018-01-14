@@ -1,5 +1,5 @@
 import { 
-  Template, Home, Download, Config,
+  Template, Overview, Download, Config,
   Grid, Type, Buttons, Forms,
   Classes, Mixins, Functions 
 } from './Articles';
@@ -12,13 +12,13 @@ describe("<Articles />", () => {
     expect(wrapper).to.have.length(1);
   })
   
-  it("can render with children", () => {
+  it("can render Template (with children)", () => {
     wrapper = shallow(<Template>Testiness</Template>);
     expect(wrapper).to.include.text("Testiness")
   })
   
-  it("can render Home", () => {
-    wrapper = shallow(<Home />);
+  it("can render Overview", () => {
+    wrapper = shallow(<Overview />);
     expect(wrapper).to.have.length(1);
   })
   
