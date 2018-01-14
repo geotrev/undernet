@@ -10,10 +10,6 @@
   @import 'node_modules/monolith-css/src/SCSS/components/form/base';
 // }
 
-html, body, #root, #site {
-  min-height: 100vh;
-}
-
-main {
-  min-height: 95vh;
+html, body, #root, #site, main {
+  height: 100%;
 }
