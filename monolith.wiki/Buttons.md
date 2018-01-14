@@ -68,6 +68,5 @@ Also in `$button-types`, you can find status buttons. By default, there are four
 In addition to having access to button styling, you can do the same for your links. They also have a `.link` class should you want that option as well.
 
 ```html
-
 <a>Just a link!</a>
 ```

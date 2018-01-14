@@ -1,9 +1,31 @@
 @import '../../global';
 
+.show-for-xsmall {
+  @include breakpoint-up(xsmall) {
+    display: flex;
+  }
+}
+
+.hide-for-small {
+  @include breakpoint-up(xlarge) {
+    display: none;
+  }
+}
+
 #docs {
   flex-direction: row;
   padding: 0;
-  min-height: 95vh;
+  min-height: 100%;
+  
+  .explore-link {
+    display: flex;
+    align-content: center;
+    width: 100%;
+    padding-top: 20px;
+    justify-content: center;
+    
+    > svg { margin-left: 5px; }
+  }
 }
 
 .docs-nav-bg { background: #F9F9F9; }
