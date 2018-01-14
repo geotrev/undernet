@@ -33,5 +33,3 @@ $type-header-sizes: (
 ```
 
 You can use any of the default (or custom, if you added any) breakpoints as extra cases for responsive behavior. 
-
-[Next: Buttons ⟶](buttons)

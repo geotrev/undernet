@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import './Home.scss';
 
-import Intro from './Intro/Intro';
-
 export const Home = () => {
   return (
     <div id="home" className="small-section grid">
-      <Intro greeting="This is a boilerplate built with webpack and React." />
+      <h1>The core of your next front-end project.</h1>
+      <h2>Write vanilla HTML and get beautiful components.</h2>
     </div>
   );
 }

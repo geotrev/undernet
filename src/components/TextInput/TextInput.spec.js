@@ -28,7 +28,7 @@ describe('<TextInput />', () => {
     expect(wrapper).to.have.descendants('textarea');
   })
   
-  it('handleChange is called when user types text', () => {
+  it('handleChange is called when state.value changes', () => {
     const wrapper = mount(<TextInput label="Test" />);
     const input = wrapper.find('input');
     input.simulate('change', {target: {value: 'some value'}});

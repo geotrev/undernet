@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import './Articles.scss';
 
 import { Article } from 'components';
 
-import HomeMd from 'articles/Home.md';
+import OverviewMd from 'articles/Home.md';
 import DownloadMd from 'articles/Download.md';
 import ConfigMd from 'articles/Configuration.md';
 import GridMd from 'articles/Grid.md';
@@ -17,43 +18,91 @@ export class Template extends Component {
   render() {
     return (
       <div className="articles-wrapper row">
-        <div class="column">
-          {this.props.children}
-        </div>
+        {this.props.children}
       </div>
     );
   }
 }
 
-export const Home = () => {
-  return ( <Template><Article>{HomeMd}</Article></Template> )
+export const Overview = () => {
+  return ( 
+    <div class="column">
+      <h1>Overview</h1>
+      <Template><Article>{OverviewMd}</Article></Template>
+    </div>
+  )
 }
 export const Download = () => {
-  return ( <Template><Article>{DownloadMd}</Article></Template> )
+  return ( 
+    <div class="column">
+      <h1>Download</h1>
+      <Template><Article>{DownloadMd}</Article></Template>
+    </div>
+  )
 }
 export const Config = () => {
-  return ( <Template><Article>{ConfigMd}</Article></Template> )
+  return ( 
+    <div class="column">
+      <h1>Configuration</h1>
+      <Template><Article>{ConfigMd}</Article></Template>
+    </div>
+  )
 }
 
 export const Grid = () => {
-  return ( <Template><Article>{GridMd}</Article></Template> )
+  return ( 
+    <div class="column">
+      <h1>Grid</h1>
+      <Template><Article>{GridMd}</Article></Template>
+    </div>
+  )
 }
 export const Type = () => {
-  return ( <Template><Article>{TypeMd}</Article></Template> )
+  return ( 
+    <div class="column">
+      <h1>Typography</h1>
+      <Template><Article>{TypeMd}</Article></Template>
+    </div>
+  )
 }
 export const Buttons = () => {
-  return ( <Template><Article>{ButtonsMd}</Article></Template> )
+  return ( 
+    <div class="column">
+      <h1>Buttons</h1>
+      <Template><Article>{ButtonsMd}</Article></Template>
+    </div>
+  )
 }
 export const Forms = () => {
-  return ( <Template><Article>{FormsMd}</Article></Template> )
+  return ( 
+    <div class="column">
+      <h1>Forms</h1>
+      <Template><Article>{FormsMd}</Article></Template>
+    </div>
+  )
 }
 
 export const Classes = () => {
-  return ( <Template><Article>{ClassesMd}</Article></Template> )
+  return ( 
+    <div class="column">
+      <h1>Classes</h1>
+      <Template><Article>{ClassesMd}</Article></Template>
+    </div>
+  )
 }
 export const Mixins = () => {
-  return ( <Template><Article>{MixinsMd}</Article></Template> )
+  return ( 
+    <div class="column">
+      <h1>Mixins</h1>
+      <Template><Article>{MixinsMd}</Article></Template>
+    </div>
+  )
 }
 export const Functions = () => {
-  return ( <Template><Article>{FunctionsMd}</Article></Template> )
+  return ( 
+    <div class="column">
+      <h1>Functions</h1>
+      <Template><Article>{FunctionsMd}</Article></Template>
+    </div>
+  )
 }

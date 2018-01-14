@@ -233,5 +233,3 @@ And if you really want, you can even add multiple rows. They’ll be evenly spac
   </div>
 </div>
 ```
-
-[Next: Typography ⟶](typography)
