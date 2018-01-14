@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './Docs.scss';
 import { Switch, Route, NavLink } from 'react-router-dom';
 
+import { ChevronDown } from 'react-feather';
+
 import {
   Overview, Download, Config,
   Grid, Type, Buttons, Forms,
@@ -10,11 +12,15 @@ import {
 
 export const Docs = () => {
   return (
-    <div id="docs" class="medium-section fluid grid">
-      <div class="row">
-        <div class="xsmall-12 xlarge-2 columns docs-nav-bg">
+    <div id="docs" className="medium-section fluid grid">
+      <div className="row">
+        <div className="xsmall-order-1 xsmall-12 show-for-xsmall hide-for-small columns docs-nav-bg">
+          <a className="explore-link" href="#explore-components">Explore Components <ChevronDown size={20} /></a>
+        </div>
+        
+        <div className="xsmall-order-3 xlarge-order-2 xsmall-12 xlarge-2 columns docs-nav-bg">
           
-          <div className="docs-nav">
+          <div id="explore-components" className="docs-nav">
             <nav>
               <h3 className="paragraph"><strong>Explore Monolith</strong></h3>
               <h4 className="paragraph">Getting Started</h4>
@@ -40,8 +46,8 @@ export const Docs = () => {
           </div>
             
         </div>
-        <div class="xsmall-12 xlarge-10 columns">
-          <div class="small-section grid">
+        <div className="xsmall-order-2 xlarge-order-3 xsmall-12 xlarge-10 columns">
+          <div className="small-section grid">
             
             <div className="docs-content">
               <Route exact path="/docs/overview" component={ Overview } />

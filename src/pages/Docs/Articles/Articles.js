@@ -26,7 +26,7 @@ export class Template extends Component {
 
 export const Overview = () => {
   return ( 
-    <div class="column">
+    <div className="column">
       <h1>Overview</h1>
       <Template><Article>{OverviewMd}</Article></Template>
     </div>
@@ -34,7 +34,7 @@ export const Overview = () => {
 }
 export const Download = () => {
   return ( 
-    <div class="column">
+    <div className="column">
       <h1>Download</h1>
       <Template><Article>{DownloadMd}</Article></Template>
     </div>
@@ -42,7 +42,7 @@ export const Download = () => {
 }
 export const Config = () => {
   return ( 
-    <div class="column">
+    <div className="column">
       <h1>Configuration</h1>
       <Template><Article>{ConfigMd}</Article></Template>
     </div>
@@ -51,7 +51,7 @@ export const Config = () => {
 
 export const Grid = () => {
   return ( 
-    <div class="column">
+    <div className="column">
       <h1>Grid</h1>
       <Template><Article>{GridMd}</Article></Template>
     </div>
@@ -59,7 +59,7 @@ export const Grid = () => {
 }
 export const Type = () => {
   return ( 
-    <div class="column">
+    <div className="column">
       <h1>Typography</h1>
       <Template><Article>{TypeMd}</Article></Template>
     </div>
@@ -67,7 +67,7 @@ export const Type = () => {
 }
 export const Buttons = () => {
   return ( 
-    <div class="column">
+    <div className="column">
       <h1>Buttons</h1>
       <Template><Article>{ButtonsMd}</Article></Template>
     </div>
@@ -75,7 +75,7 @@ export const Buttons = () => {
 }
 export const Forms = () => {
   return ( 
-    <div class="column">
+    <div className="column">
       <h1>Forms</h1>
       <Template><Article>{FormsMd}</Article></Template>
     </div>
@@ -84,7 +84,7 @@ export const Forms = () => {
 
 export const Classes = () => {
   return ( 
-    <div class="column">
+    <div className="column">
       <h1>Classes</h1>
       <Template><Article>{ClassesMd}</Article></Template>
     </div>
@@ -92,7 +92,7 @@ export const Classes = () => {
 }
 export const Mixins = () => {
   return ( 
-    <div class="column">
+    <div className="column">
       <h1>Mixins</h1>
       <Template><Article>{MixinsMd}</Article></Template>
     </div>
@@ -100,7 +100,7 @@ export const Mixins = () => {
 }
 export const Functions = () => {
   return ( 
-    <div class="column">
+    <div className="column">
       <h1>Functions</h1>
       <Template><Article>{FunctionsMd}</Article></Template>
     </div>
