@@ -10,6 +10,7 @@ export default class DocsNav extends Component {
     this.state = {
       menuIsOpen: true,
       menuClasses: '',
+      buttonClasses: '',
       buttonText: ''
     }
     this.checkWidth = this.checkWidth.bind(this);
@@ -19,6 +20,12 @@ export default class DocsNav extends Component {
   componentWillMount() {
     this.checkWidth();
     window.addEventListener('resize', this.checkWidth);
+    this.setState({
+      menuIsOpen: true,
+      menuClasses: 'xsmall-order-2 xsmall-12 columns docs-nav-menu',
+      buttonClasses: 'show-on-xsmall hide-on-xlarge',
+      buttonText: 'Hide Menu'
+    })
   }
 
   componentWillUnmount() {
@@ -26,16 +33,11 @@ export default class DocsNav extends Component {
   }
 
   checkWidth() {
-    if (window.outerWidth < 1200) {
-      this.setState({
-        menuIsOpen: false,
-        menuClasses: 'xsmall-order-2 xsmall-12 columns docs-nav-menu is-not-displayed',
-        buttonText: 'Show Menu'
-      })
-    } else {
+    if (window.outerWidth > 1199) {
       this.setState({
         menuIsOpen: true,
         menuClasses: 'xsmall-order-2 xsmall-12 columns docs-nav-menu',
+        buttonClasses: 'show-on-xsmall hide-on-xlarge',
         buttonText: 'Hide Menu'
       })
     }
@@ -45,18 +47,20 @@ export default class DocsNav extends Component {
     e.preventDefault();
     let hideClass = '';
     let label = '';
+    let rotateClass = '';
 
     if (this.state.menuIsOpen === true) {
       hideClass = 'is-not-displayed';
       label = 'Show Menu';
+      rotateClass = 'rotate-180';
     } else {
-      hideClass = '';
       label = 'Hide Menu';
     }
 
     this.setState({
       menuIsOpen: !this.state.menuIsOpen,
       menuClasses: `xsmall-order-2 xsmall-12 docs-nav-menu columns ${hideClass}`,
+      buttonClasses: `show-on-xsmall hide-on-xlarge ${rotateClass}`,
       buttonText: label
     });
   }
@@ -67,7 +71,7 @@ export default class DocsNav extends Component {
         <div className="docs-nav-expand show-on-xsmall hide-on-xlarge">
           <a
             onClick={this.handleClick}
-            className="show-on-xsmall hide-on-xlarge"
+            className={this.state.buttonClasses}
             href="#">
               {this.state.buttonText} <ChevronDown size={20} />
           </a>
