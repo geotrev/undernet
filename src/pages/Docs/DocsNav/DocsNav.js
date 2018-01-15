@@ -12,13 +12,31 @@ export default class DocsNav extends Component {
       menuClasses: '',
       buttonText: ''
     }
+    this.checkWidth = this.checkWidth.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentWillMount() {
+    this.checkWidth();
+    window.addEventListener('resize', this.checkWidth);
     this.setState({
       menuClasses: 'xsmall-order-2 xsmall-12 columns docs-nav-menu',
       buttonText: 'Hide Menu'
     })
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.checkWidth);
+  }
+
+  checkWidth() {
+    if (window.outerWidth > 1199) {
+      this.setState({
+        menuIsOpen: true,
+        menuClasses: 'xsmall-order-2 xsmall-12 columns docs-nav-menu',
+        buttonText: 'Hide Menu'
+      })
+    }
   }
 
   handleClick(e) {
@@ -46,7 +64,7 @@ export default class DocsNav extends Component {
       <div className="docs-nav-wrapper row">
         <div className="docs-nav-expand show-on-xsmall hide-on-xlarge">
           <a
-            onClick={this.handleClick.bind(this)}
+            onClick={this.handleClick}
             className="show-on-xsmall hide-on-xlarge"
             href="#">
               {this.state.buttonText} <ChevronDown size={20} />
