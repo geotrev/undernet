@@ -7,61 +7,52 @@ import { ChevronDown } from 'react-feather';
 export default class DocsNav extends Component {
   constructor(props) {
     super(props)
-    this.state = { 
-      menuIsOpen: true, 
+    this.state = {
+      menuIsOpen: true,
       menuClasses: '',
       buttonText: ''
     }
   }
-  
+
   componentWillMount() {
     this.setState({
       menuClasses: 'xsmall-order-2 xsmall-12 columns docs-nav-menu',
-      buttonText: this.getButtonText()
+      buttonText: 'Hide Menu'
     })
   }
-  
-  getButtonText() {
-    let label = '';
-    
-    if (this.state.menuIsOpen === true) {
-      label = 'Hide Menu'
-    } else {
-      label = 'Show Menu'
-    }
-    
-    return label;
-  }
-  
+
   handleClick(e) {
     e.preventDefault();
     let hideClass = '';
-    
+    let label = '';
+
     if (this.state.menuIsOpen === true) {
       hideClass = 'is-not-displayed';
+      label = 'Show Menu';
     } else {
       hideClass = '';
+      label = 'Hide Menu';
     }
-    
+
     this.setState({
       menuIsOpen: !this.state.menuIsOpen,
       menuClasses: `xsmall-order-2 xsmall-12 columns docs-nav-menu ${hideClass}`,
-      buttonText: this.getButtonText()
+      buttonText: label
     });
   }
-  
+
   render() {
     return (
       <div className="docs-nav-wrapper row">
         <div className="docs-nav-expand show-on-xsmall hide-on-xlarge">
           <a
             onClick={this.handleClick.bind(this)}
-            className="show-on-xsmall hide-on-xlarge" 
+            className="show-on-xsmall hide-on-xlarge"
             href="#">
               {this.state.buttonText} <ChevronDown size={20} />
           </a>
         </div>
-        
+
         <div className={this.state.menuClasses}>
           <nav>
             <h3 className="paragraph"><strong>Explore Monolith</strong></h3>
