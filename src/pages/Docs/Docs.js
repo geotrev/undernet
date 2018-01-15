@@ -8,10 +8,10 @@ export const Docs = () => {
   return (
     <div id="docs" className="medium-section fluid grid">
       <div className="row">
-        <div className="xsmall-12 xlarge-2 columns collapsed">
+        <div className="xsmall-12 xlarge-2 columns collapsed docs-nav-menu">
           <DocsNav />
         </div>
-        
+
         <div className="xsmall-12 xlarge-10 columns">
           <DocsRoutes />
         </div>
