@@ -1,0 +1,60 @@
+@import '../../../global';
+
+.docs-nav-wrapper {
+  .show-on-xsmall {
+    @include breakpoint-up(xsmall) {
+      display: flex;
+    }
+  }
+
+  .hide-on-xlarge {
+    @include breakpoint-up(xlarge) {
+      display: none;
+    }
+  }
+
+  .docs-nav-expand {
+    background: $white;
+    width: 100%;
+    display: flex;
+
+    @include breakpoint-up(xsmall) {
+      border-bottom: 1px solid $gray900;
+    }
+
+    @include breakpoint-up(xlarge) {
+      border-bottom: none;
+    }
+
+    a {
+      align-content: center;
+      width: 100%;
+      padding: 20px;
+      justify-content: center;
+
+      > svg { margin-left: 5px; }
+    }
+  }
+
+  nav {
+    padding: 30px 25px 0 25px;
+
+    h3 {
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    h4 { color: $gray800; }
+
+    ul {
+      list-style-type: none;
+      padding-left: 12px;
+
+      li a {
+        display: flex;
+        padding-bottom: 8px;
+        font-size: 14px;
+      }
+    }
+  }
+}

@@ -20,8 +20,9 @@
     line-height: 1.5;
   }
 
-  ul {
+  ul, ol {
     display: block;
+    padding-left: 22px;
     
     li {
       margin-bottom: $global-space;
