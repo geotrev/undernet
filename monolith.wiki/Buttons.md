@@ -54,7 +54,7 @@ This should make it easier to quickly make new buttons without completely writin
 
 ### Status Buttons
 
-Also in `$button-types`, you can find status buttons. By default, there are four: `success`, `notice`, ‘destroy`, and `warning`. If anything, they’ll give you an idea of how to create more buttons in this pattern.
+Also in `$button-types`, you can find status buttons. By default, there are four: `success`, `notice`, `destroy`, and `warning`. If anything, they’ll give you an idea of how to create more buttons in this pattern.
 
 ```html
 <button class=“success”>Button</button>
