@@ -3,11 +3,11 @@ You’ll rarely ever need to edit Monolith components directly, but if you want 
 ## Table of Contents
 Monolith has five core sections, all of which can be included/excluded, in any combination, from your project(s):
 
-1. [Global](#1-global)
-2. [Grid](#2-grid)
-3. [Typography](#3-typography)
-4. [Buttons](#4-buttons)
-5. [Forms](#5-forms)
+1. Global
+2. Grid
+3. Typography
+4. Buttons
+5. Forms
 
 ### 1. Global
 

@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 import './App.scss';
 import '../public/favicon.ico';
 
-import { Nav } from 'components';
+import { Nav, Footer } from 'components';
 import { Home, Docs } from 'pages';
 
 export default class App extends Component {
@@ -17,6 +17,9 @@ export default class App extends Component {
           <Route exact path='/' component={ Home } />
           <Route path='/docs' component={ Docs } />
         </main>
+        <footer>
+          <Route path='/' component={ Footer } />
+        </footer>
       </div>
     )
   }

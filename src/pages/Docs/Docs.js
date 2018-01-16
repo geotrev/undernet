@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './Docs.scss';
 
 import DocsNav from './DocsNav/DocsNav';
 import DocsRoutes from './DocsRoutes/DocsRoutes';
 
-export const Docs = () => {
+const Docs = () => {
   return (
     <div id="docs" className="medium-section fluid grid">
       <div className="row">
@@ -19,3 +19,5 @@ export const Docs = () => {
     </div>
   );
 }
+
+export default Docs;
