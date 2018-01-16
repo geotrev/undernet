@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './DocsRoutes.scss';
 import { Route } from 'react-router-dom';
 
 import {
