@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './Article.scss';
 
 import Markdown from 'react-markdown';
 
-export default class Article extends Component {
-  render() {
-    return (
-      <article className="article-wrapper">
-        <Markdown source={this.props.children} escapeHtml={false} />
-      </article>
-    );
-  }
+const Article = (props) => {
+  return (
+    <article className="article-wrapper">
+      <Markdown source={props.children} escapeHtml={false} />
+    </article>
+  );
 }
+
+export default Article;

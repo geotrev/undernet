@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Home.scss';
 
-export const Home = () => {
+const Home = () => {
   return (
     <div id="home" className="large-section grid">
       <h1>The core of your next front-end project.</h1>
@@ -9,3 +9,5 @@ export const Home = () => {
     </div>
   );
 }
+
+export default Home;

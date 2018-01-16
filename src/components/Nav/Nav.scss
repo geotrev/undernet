@@ -10,7 +10,7 @@
   padding-left: 1rem;
   padding-right: 1rem;
   z-index: 9999;
-  
+
   border-bottom: 1px solid $gray900;
 
   ul {
@@ -21,13 +21,13 @@
     max-width: 100%;
     justify-content: space-between;
     list-style-type: none;
-    
+
     li.left, li.right {
       flex: 0 0 50%;
       display: flex;
       max-width: 50%;
       justify-content: space-between;
-      
+
       ul {
         flex: 0 0 100%;
         display: flex;
@@ -36,21 +36,21 @@
       }
     }
   }
-  
-  li a, 
+
+  li a,
   li a:visited {
     display: flex;
     color: $black;
     text-decoration: none;
     padding: 1rem;
   }
-  
+
   li a {
     &:hover, &:active, &.selected {
       opacity: 0.5;
     }
   }
-  
+
   li a.has-feather {
     padding: 0.8rem 1rem;
   }
