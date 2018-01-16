@@ -32,7 +32,13 @@
       padding: 20px;
       justify-content: center;
 
-      > svg { margin-left: 5px; }
+      &.rotate-180 {
+        svg {
+          transform: rotate(180deg);
+        }
+      }
+
+      svg { margin-left: 5px; }
     }
   }
 
