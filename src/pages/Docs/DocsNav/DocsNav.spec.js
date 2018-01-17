@@ -5,7 +5,7 @@ describe("<DocsNav />", () => {
   it("can render", () => {
     const wrapper = mount(<Router><DocsNav/></Router>);
     expect(wrapper).to.have.length(1);
-    expect(wrapper).to.exist
+    expect(wrapper).to.exist;
   })
 
   it("is collapsable/expandable with .docs-nav-expand", () => {
