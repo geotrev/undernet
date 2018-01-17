@@ -32,10 +32,10 @@ const resizeEvent = document.createEvent('Event');
 resizeEvent.initEvent('resize', true, true);
 
 global.window.resizeTo = (width, height) => {
-  global.window.innerWidth = width || global.window.innerWidth;
-  global.window.innerHeight = width || global.window.innerHeight;
+  global.window.outerWidth = width || global.window.outerWidth;
+  global.window.outerHeight = height || global.window.outerHeight;
   global.window.dispatchEvent(resizeEvent);
-};
+}
 
 function noop() { return null }
 require.extensions['.md'] = noop;
@@ -45,8 +45,11 @@ require.extensions['.svg'] = noop;
 require.extensions['.png'] = noop;
 require.extensions['.jpg'] = noop;
 
+global.window.scrollTo = noop;
+
 // webpack aliases
 mock('components', './src/components/exports.js');
+mock('helpers', './src/helpers/exports.js');
 mock('pages', './src/pages/exports.js');
 
 // markdown for articles
