@@ -1,4 +1,5 @@
-import Template, {
+import {
+  Template,
   Overview, Download, Config,
   Grid, Type, Buttons, Forms,
   Classes, Mixins, Functions

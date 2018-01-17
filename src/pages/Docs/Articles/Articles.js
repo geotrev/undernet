@@ -1,6 +1,7 @@
 import React from 'react';
 import './Articles.scss';
 
+import { ScrollUpOnMount } from 'helpers';
 import { Article } from 'components';
 
 import OverviewMd from 'articles/Home.md';
@@ -14,15 +15,14 @@ import ClassesMd from 'articles/Classes.md';
 import MixinsMd from 'articles/Mixins.md';
 import FunctionsMd from 'articles/Functions.md';
 
-const Template = (props) => {
+export const Template = (props) => {
   return (
     <div className="articles-wrapper row">
+      <ScrollUpOnMount />
       {props.children}
     </div>
   );
 }
-
-export default Template;
 
 export const Overview = () => {
   return (
