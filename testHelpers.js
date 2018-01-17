@@ -45,8 +45,13 @@ require.extensions['.svg'] = noop;
 require.extensions['.png'] = noop;
 require.extensions['.jpg'] = noop;
 
+// until scrolling is being tested,
+// ignore calls to the method.
+global.window.scrollTo = noop;
+
 // webpack aliases
 mock('components', './src/components/exports.js');
+mock('helpers', './src/helpers/exports.js');
 mock('pages', './src/pages/exports.js');
 
 // markdown for articles
