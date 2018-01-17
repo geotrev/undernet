@@ -1,4 +1,4 @@
-import ScrollUpOnMount from './ScrollUpOnMount';
+import ScrollUpOnMount from './ScrollUpOnMount/ScrollUpOnMount';
 
 export {
   ScrollUpOnMount,

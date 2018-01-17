@@ -35,7 +35,7 @@ global.window.resizeTo = (width, height) => {
   global.window.innerWidth = width || global.window.innerWidth;
   global.window.innerHeight = width || global.window.innerHeight;
   global.window.dispatchEvent(resizeEvent);
-};
+}
 
 function noop() { return null }
 require.extensions['.md'] = noop;
@@ -45,8 +45,6 @@ require.extensions['.svg'] = noop;
 require.extensions['.png'] = noop;
 require.extensions['.jpg'] = noop;
 
-// until scrolling is being tested,
-// ignore calls to the method.
 global.window.scrollTo = noop;
 
 // webpack aliases
