@@ -9,8 +9,8 @@ describe("<DocsNav />", () => {
   })
 
   it("is collapsable/expandable with .docs-nav-expand", () => {
-    const wrapper = mount(<Router><DocsNav/></Router>);
-    const button = wrapper.find('.docs-nav-expand > a');
+    const wrapper = mount(<Router><DocsNav /></Router>);
+    const button = wrapper.find('.docs-nav-expand a');
     button.simulate('click');
     expect(wrapper).to.include.text('Show Menu');
     button.simulate('click');
