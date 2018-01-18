@@ -1,17 +1,19 @@
 import React from 'react';
 import './Nav.scss';
 
+import Logo from '../../../public/mono-logo.png'
+// import Logo from 'public/mono-logo.png';
 import { Github, Twitter } from 'react-feather';
 import { NavLink } from 'react-router-dom';
 
 const Nav = () => {
   return (
-    <nav className="nav-wrapper">
-      <ul>
-        <li className="left">
-          <NavLink exact to='/'>Home</NavLink>
+    <nav className="nav-wrapper fluid grid">
+      <ul className="row collapsed">
+        <li className="small-6 xsmall-12 columns">
+          <NavLink exact to='/'><img height="30px" width="auto" src={Logo} alt="Monolith CSS logo"/></NavLink>
         </li>
-        <li className="right">
+        <li className="small-6 xsmall-12 columns">
           <ul>
             <li>
               <a className="has-feather" href='https://www.twitter.com/monolithcss'>
