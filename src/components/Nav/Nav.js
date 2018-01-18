@@ -1,8 +1,7 @@
 import React from 'react';
 import './Nav.scss';
 
-import Logo from '../../../public/mono-logo.png'
-// import Logo from 'public/mono-logo.png';
+import Logo from '../../assets/images/mono-logo.png'
 import { Github, Twitter } from 'react-feather';
 import { NavLink } from 'react-router-dom';
 
