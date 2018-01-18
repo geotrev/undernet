@@ -24,12 +24,22 @@ export default class DocsNav extends Component {
   componentWillMount() {
     this.checkWidth();
     window.addEventListener('resize', this.checkWidth);
-    this.setState({
-      menuIsOpen: true,
-      menuClasses: 'xsmall-order-2 xsmall-12 columns docs-nav-menu',
-      buttonClasses: 'show-on-xsmall hide-on-xlarge',
-      buttonText: 'Hide Menu'
-    })
+
+    if (window.outerWidth < 1200) {
+      this.setState({
+        menuIsOpen: false,
+        menuClasses: 'xsmall-order-2 xsmall-12 columns docs-nav-menu is-not-displayed',
+        buttonClasses: 'show-on-xsmall hide-on-xlarge rotate-180',
+        buttonText: 'Show Menu'
+      })
+    } else {
+      this.setState({
+        menuIsOpen: true,
+        menuClasses: 'xsmall-order-2 xsmall-12 columns docs-nav-menu',
+        buttonClasses: 'show-on-xsmall hide-on-xlarge',
+        buttonText: 'Hide Menu'
+      })
+    }
   }
 
   componentWillUnmount() {
