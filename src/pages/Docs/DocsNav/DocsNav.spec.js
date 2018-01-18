@@ -16,4 +16,11 @@ describe("<DocsNav />", () => {
     button.simulate('click');
     expect(wrapper).to.include.text('Hide Menu');
   })
+
+  it("closes menu when nav link is clicked", () => {
+    const wrapper = mount(<Router><DocsNav /></Router>);
+    const link = wrapper.find('nav ul a').first();
+    link.simulate('click');
+    expect(wrapper).to.include.text('Show Menu');
+  })
 })

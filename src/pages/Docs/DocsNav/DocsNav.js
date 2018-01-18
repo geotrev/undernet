@@ -8,14 +8,14 @@ import { ChevronDown } from 'react-feather';
 export default class DocsNav extends Component {
   constructor(props) {
     super(props)
-    
+
     this.state = {
       menuIsOpen: true,
       menuClasses: '',
       buttonClasses: '',
       buttonText: ''
     }
-    
+
     this.checkWidth = this.checkWidth.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleCollapseClick = this.handleCollapseClick.bind(this);
@@ -35,13 +35,13 @@ export default class DocsNav extends Component {
   componentWillUnmount() {
     window.removeEventListener('resize', this.checkWidth);
   }
-  
+
   handleCollapseClick() {
     if (window.outerWidth > 1199) return;
     this.setState({
       menuIsOpen: false,
       menuClasses: 'xsmall-order-2 xsmall-12 columns docs-nav-menu is-not-displayed',
-      buttonClasses: 'show-on-xsmall hide-on-xlarge',
+      buttonClasses: 'show-on-xsmall hide-on-xlarge rotate-180',
       buttonText: 'Show Menu'
     })
   }
@@ -60,22 +60,22 @@ export default class DocsNav extends Component {
   handleClick(e) {
     e.preventDefault();
     let hideClass = '';
-    let label = '';
+    let buttonText = '';
     let rotateClass = '';
 
     if (this.state.menuIsOpen === true) {
       hideClass = 'is-not-displayed';
-      label = 'Show Menu';
+      buttonText = 'Show Menu';
       rotateClass = 'rotate-180';
     } else {
-      label = 'Hide Menu';
+      buttonText = 'Hide Menu';
     }
 
     this.setState({
       menuIsOpen: !this.state.menuIsOpen,
       menuClasses: `xsmall-order-2 xsmall-12 docs-nav-menu columns ${hideClass}`,
       buttonClasses: `show-on-xsmall hide-on-xlarge ${rotateClass}`,
-      buttonText: label
+      buttonText: buttonText
     });
   }
 
