@@ -12,9 +12,9 @@ describe("<DocsNav />", () => {
     const wrapper = mount(<Router><DocsNav /></Router>);
     const button = wrapper.find('.docs-nav-expand a');
     button.simulate('click');
-    expect(wrapper).to.include.text('Show Menu');
-    button.simulate('click');
     expect(wrapper).to.include.text('Hide Menu');
+    button.simulate('click');
+    expect(wrapper).to.include.text('Show Menu');
   })
 
   it("closes menu when nav link is clicked", () => {
