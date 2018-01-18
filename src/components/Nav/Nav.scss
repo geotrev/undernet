@@ -3,13 +3,7 @@
 .nav-wrapper {
   background: $white;
   border-bottom: 1px solid $gray900;
-  display: flex;
-  flex: 0 0 100%;
-  font-family: -apple-system, sans-serif;
-  justify-content: center;
-  max-width: 100%;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding: 0 1rem;
   z-index: 9999;
 
   ul {    
@@ -21,9 +15,13 @@
       ul { 
         display: flex;
         height: 100%;
-        justify-content: flex-end;
+        justify-content: flex-start;
         margin: 0;
         padding: 0; 
+        
+        @include breakpoint-up(medium) {
+          justify-content: flex-end;
+        }
       }
     }
   }
@@ -33,16 +31,12 @@
     display: flex;
     color: $black;
     text-decoration: none;
-    padding: 1rem;
+    padding: 1.5rem;
   }
 
   li a {
     &:hover, &:active, &.selected {
       opacity: 0.5;
     }
-  }
-
-  li a.has-feather {
-    padding: 0.8rem 1rem;
   }
 }
