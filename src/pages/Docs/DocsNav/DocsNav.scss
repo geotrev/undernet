@@ -43,21 +43,44 @@
   }
 
   nav {
-    padding: 30px 25px 0 25px;
+    padding: ($global-space * 2) 25px $global-space ($global-space * 2);
+    margin: 0 auto;
+    max-width: 992px;
+    display: flex;
+    flex-direction: column;
+
+    @include breakpoint-only(small, xlarge) {
+      flex-direction: row;
+      flex-flow: row wrap;
+      padding: ($global-space * 2) 24px;
+      text-align: center;
+    }
 
     h3 {
-      font-size: 12px;
+      font-size: 14px;
       text-transform: uppercase;
+      flex: 1 1 auto;
+
+      @include breakpoint-only(small, xlarge) {
+        flex: 0 0 100%;
+      }
     }
 
     h4 { color: $gray800; }
 
     ul {
       list-style-type: none;
-      padding-left: 12px;
+      padding: 0 0 $global-space 10px;
+      margin: 0;
+      flex: 1 1 auto;
+
+      @include breakpoint-only(small, xlarge) {
+        flex: 0 0 33.333%;
+        padding: 0;
+      }
 
       li a {
-        display: flex;
+        display: block;
         padding-bottom: 8px;
         font-size: 14px;
       }

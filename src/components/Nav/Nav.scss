@@ -1,57 +1,56 @@
 @import '../../global';
 
-.nav-wrapper {
-  display: flex;
-  flex: 0 0 100%;
-  max-width: 100%;
-  font-family: -apple-system, sans-serif;
+@mixin align-nav-item($justify) {
   justify-content: center;
+
+  @include breakpoint-up(small) {
+    justify-content: $justify;
+  }
+}
+
+.nav-wrapper {
   background: $white;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  border-bottom: 1px solid $gray900;
+  padding: 0 1rem;
   z-index: 9999;
 
-  border-bottom: 1px solid $gray900;
-
-  ul {
-    display: flex;
+  > ul {
+    list-style-type: none;
     margin: 0;
     padding: 0;
-    flex: 0 0 100%;
-    max-width: 100%;
-    justify-content: space-between;
-    list-style-type: none;
 
-    li.left, li.right {
-      flex: 0 0 50%;
-      display: flex;
-      max-width: 50%;
-      justify-content: space-between;
+    > li:first-child {
+      @include align-nav-item(flex-start);
+      display: inline-flex;
+    }
 
+    > li:last-child {
       ul {
-        flex: 0 0 100%;
+        @include align-nav-item(flex-end);
         display: flex;
-        max-width: 100%;
-        justify-content: flex-end;
+        height: 100%;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+
+        li {
+          display: flex;
+          align-items: center;
+        }
       }
     }
   }
 
-  li a,
-  li a:visited {
+  li a, li a:visited {
     display: flex;
     color: $black;
     text-decoration: none;
-    padding: 1rem;
+    padding: 1.5rem;
   }
 
   li a {
     &:hover, &:active, &.selected {
       opacity: 0.5;
     }
-  }
-
-  li a.has-feather {
-    padding: 0.8rem 1rem;
   }
 }

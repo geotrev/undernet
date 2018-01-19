@@ -15,7 +15,6 @@ module.exports = {
       'components': path.resolve(__dirname, 'src/components/exports'),
       'helpers': path.resolve(__dirname, 'src/helpers/exports'),
       'pages': path.resolve(__dirname, 'src/pages/exports'),
-      'assets': path.resolve(__dirname, 'src/assets/'),
       'articles': path.resolve(__dirname, 'monolith.wiki/'),
     }
   },
@@ -62,7 +61,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'public', 'index.html')
+      template: path.join(__dirname, 'public/index.html')
     }),
     new ExtractTextPlugin('app-[contentHash].css'),
   ],
