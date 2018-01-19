@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './DocsNav.scss';
 
+import classNames from 'classnames';
 import { Button } from 'components'
 import { Link } from 'react-router-dom';
 import { ChevronDown } from 'react-feather';
@@ -11,8 +12,6 @@ export default class DocsNav extends Component {
 
     this.state = {
       menuIsOpen: true,
-      hidden: '',
-      rotated: '',
       buttonText: ''
     }
 
@@ -28,15 +27,11 @@ export default class DocsNav extends Component {
     if (window.outerWidth < 1200) {
       this.setState({
         menuIsOpen: false,
-        hidden: 'is-not-displayed',
-        rotated: 'rotate-180',
         buttonText: 'Show Menu'
       })
     } else {
       this.setState({
         menuIsOpen: true,
-        hidden: '',
-        rotated: '',
         buttonText: 'Hide Menu'
       })
     }
@@ -50,8 +45,6 @@ export default class DocsNav extends Component {
     if (window.outerWidth > 1199) return;
     this.setState({
       menuIsOpen: false,
-      hidden: 'is-not-displayed',
-      rotated: 'rotate-180',
       buttonText: 'Show Menu'
     })
   }
@@ -60,8 +53,6 @@ export default class DocsNav extends Component {
     if (window.outerWidth > 1199) {
       this.setState({
         menuIsOpen: true,
-        hidden: '',
-        rotated: '',
         buttonText: 'Hide Menu'
       })
     }
@@ -69,22 +60,16 @@ export default class DocsNav extends Component {
 
   handleClick(e) {
     e.preventDefault();
-    let hidden = '';
     let buttonText = '';
-    let rotated = '';
 
     if (this.state.menuIsOpen === true) {
-      hidden = 'is-not-displayed';
       buttonText = 'Show Menu';
-      rotated = 'rotate-180';
     } else {
       buttonText = 'Hide Menu';
     }
 
     this.setState({
       menuIsOpen: !this.state.menuIsOpen,
-      hidden: hidden,
-      rotated: rotated,
       buttonText: buttonText
     });
   }
@@ -92,16 +77,24 @@ export default class DocsNav extends Component {
   render() {
     return (
       <div className="row docs-nav-wrapper">
-        <div className="show-on-xsmall hide-on-xlarge docs-nav-expand ">
+        <div className="show-on-xsmall hide-on-xlarge docs-nav-expand">
           <Button
             onClick={this.handleClick}
-            className={"show-on-xsmall hide-on-xlarge " + this.state.rotated}
+            className={
+              classNames("show-on-xsmall hide-on-xlarge", {
+                "rotate-180": !this.state.menuIsOpen
+              })
+            }
             href="#">
               {this.state.buttonText} <ChevronDown size={20} />
           </Button>
         </div>
 
-        <nav className={"xsmall-order-2 xsmall-12 columns docs-nav-menu " + this.state.hidden}>
+        <nav className={
+          classNames("xsmall-order-2 xsmall-12 columns docs-nav-menu", {
+            "is-not-displayed": !this.state.menuIsOpen
+          })
+        }>
           <h3 className="paragraph"><strong>Explore Monolith</strong></h3>
           <ul>
             <li><h4 className="paragraph">Getting Started</h4></li>
