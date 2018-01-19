@@ -5,7 +5,7 @@ import Markdown from 'react-markdown';
 
 const Article = (props) => {
   return (
-    <article className="article-wrapper">
+    <article className="article-wrapper collapsed column">
       <Markdown source={props.children} escapeHtml={false} />
     </article>
   );

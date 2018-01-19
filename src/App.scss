@@ -1,8 +1,9 @@
 @import 'global';
 
+@import 'node_modules/monolith-css/src/SCSS/components/global/base';
+
 // .#{$scope} {
   @import 'node_modules/monolith-css/src/SCSS/helpers/classes/base';
-  @import 'node_modules/monolith-css/src/SCSS/components/global/base';
   @import 'node_modules/monolith-css/src/SCSS/components/grid/base';
   @import 'node_modules/monolith-css/src/SCSS/components/typography/base';
   @import 'node_modules/monolith-css/src/SCSS/components/link/base';
