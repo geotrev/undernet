@@ -47,7 +47,8 @@ require.extensions['.jpg'] = noop;
 
 global.window.scrollTo = noop;
 
-// webpack aliases
+// directory aliases
+mock('articles', './monolith.wiki/');
 mock('components', './src/components/exports.js');
 mock('helpers', './src/helpers/exports.js');
 mock('pages', './src/pages/exports.js');

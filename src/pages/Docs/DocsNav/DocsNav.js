@@ -11,8 +11,8 @@ export default class DocsNav extends Component {
 
     this.state = {
       menuIsOpen: true,
-      menuClasses: '',
-      buttonClasses: '',
+      hidden: '',
+      rotated: '',
       buttonText: ''
     }
 
@@ -28,15 +28,15 @@ export default class DocsNav extends Component {
     if (window.outerWidth < 1200) {
       this.setState({
         menuIsOpen: false,
-        menuClasses: 'xsmall-order-2 xsmall-12 columns docs-nav-menu is-not-displayed',
-        buttonClasses: 'show-on-xsmall hide-on-xlarge rotate-180',
+        hidden: 'is-not-displayed',
+        rotated: 'rotate-180',
         buttonText: 'Show Menu'
       })
     } else {
       this.setState({
         menuIsOpen: true,
-        menuClasses: 'xsmall-order-2 xsmall-12 columns docs-nav-menu',
-        buttonClasses: 'show-on-xsmall hide-on-xlarge',
+        hidden: '',
+        rotated: '',
         buttonText: 'Hide Menu'
       })
     }
@@ -50,8 +50,8 @@ export default class DocsNav extends Component {
     if (window.outerWidth > 1199) return;
     this.setState({
       menuIsOpen: false,
-      menuClasses: 'xsmall-order-2 xsmall-12 columns docs-nav-menu is-not-displayed',
-      buttonClasses: 'show-on-xsmall hide-on-xlarge rotate-180',
+      hidden: 'is-not-displayed',
+      rotated: 'rotate-180',
       buttonText: 'Show Menu'
     })
   }
@@ -60,8 +60,8 @@ export default class DocsNav extends Component {
     if (window.outerWidth > 1199) {
       this.setState({
         menuIsOpen: true,
-        menuClasses: 'xsmall-order-2 xsmall-12 columns docs-nav-menu',
-        buttonClasses: 'show-on-xsmall hide-on-xlarge',
+        hidden: '',
+        rotated: '',
         buttonText: 'Hide Menu'
       })
     }
@@ -69,55 +69,55 @@ export default class DocsNav extends Component {
 
   handleClick(e) {
     e.preventDefault();
-    let hideClass = '';
+    let hidden = '';
     let buttonText = '';
-    let rotateClass = '';
+    let rotated = '';
 
     if (this.state.menuIsOpen === true) {
-      hideClass = 'is-not-displayed';
+      hidden = 'is-not-displayed';
       buttonText = 'Show Menu';
-      rotateClass = 'rotate-180';
+      rotated = 'rotate-180';
     } else {
       buttonText = 'Hide Menu';
     }
 
     this.setState({
       menuIsOpen: !this.state.menuIsOpen,
-      menuClasses: `xsmall-order-2 xsmall-12 docs-nav-menu columns ${hideClass}`,
-      buttonClasses: `show-on-xsmall hide-on-xlarge ${rotateClass}`,
+      hidden: hidden,
+      rotated: rotated,
       buttonText: buttonText
     });
   }
 
   render() {
     return (
-      <div className="docs-nav-wrapper row">
-        <div className="docs-nav-expand show-on-xsmall hide-on-xlarge">
+      <div className="row docs-nav-wrapper">
+        <div className="show-on-xsmall hide-on-xlarge docs-nav-expand ">
           <Button
             onClick={this.handleClick}
-            className={this.state.buttonClasses}
+            className={"show-on-xsmall hide-on-xlarge " + this.state.rotated}
             href="#">
               {this.state.buttonText} <ChevronDown size={20} />
           </Button>
         </div>
 
-        <nav className={this.state.menuClasses}>
+        <nav className={"xsmall-order-2 xsmall-12 columns docs-nav-menu " + this.state.hidden}>
           <h3 className="paragraph"><strong>Explore Monolith</strong></h3>
-          <h4 className="paragraph">Getting Started</h4>
           <ul>
+            <li><h4 className="paragraph">Getting Started</h4></li>
             <li><Link onClick={this.handleCollapseClick} to='/docs/overview'>Overview</Link></li>
             <li><Link onClick={this.handleCollapseClick} to='/docs/download'>Download</Link></li>
             <li><Link onClick={this.handleCollapseClick} to='/docs/configuration'>Configuration</Link></li>
           </ul>
-          <h4 className="paragraph">Components</h4>
           <ul>
+            <li><h4 className="paragraph">Components</h4></li>
             <li><Link onClick={this.handleCollapseClick} to='/docs/grid'>Grid</Link></li>
             <li><Link onClick={this.handleCollapseClick} to='/docs/typography'>Typography</Link></li>
             <li><Link onClick={this.handleCollapseClick} to='/docs/buttons'>Buttons</Link></li>
             <li><Link onClick={this.handleCollapseClick} to='/docs/forms'>Forms</Link></li>
           </ul>
-          <h4 className="paragraph">Helpers</h4>
           <ul>
+            <li><h4 className="paragraph">Helpers</h4></li>
             <li><Link onClick={this.handleCollapseClick} to='/docs/classes'>Classes</Link></li>
             <li><Link onClick={this.handleCollapseClick} to='/docs/mixins'>Mixins</Link></li>
             <li><Link onClick={this.handleCollapseClick} to='/docs/functions'>Functions</Link></li>
