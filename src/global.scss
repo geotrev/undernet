@@ -2,7 +2,7 @@
 @import 'node_modules/monolith-css/src/SCSS/helpers/mixins/base';
 
 // Monolith CSS
-// A CSS framework that acts as a single, organized system.
+// The core of your next front-end project.
 // --------------------------------------------------------
 // 1. Globals
 // 2. Grid
@@ -23,6 +23,9 @@ $global-font-sans: 'Fira Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", R
 $global-font-serif: Constantia, "Lucida Bright", Lucidabright, "Lucida Serif", Lucida, "DejaVu Serif", "Bitstream Vera Serif", "Liberation Serif", Georgia, serif;
 $global-monospace: monospace, monospace;
 $global-font-size: 16px;
+$global-font-bold: 700;
+$global-font-normal: 400;
+$global-font-italic: 400i;
 
 $primary-color: goldenrod;
 $secondary-color: crimson;

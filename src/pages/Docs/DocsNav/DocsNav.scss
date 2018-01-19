@@ -44,7 +44,7 @@
   }
 
   .docs-nav-menu {
-    @include breakpoint-only(small, xlarge) {
+    @include breakpoint-between(small, xlarge) {
       text-align: center;
     }
 
@@ -62,7 +62,7 @@
       margin: 0;
       flex: 1 1 auto;
 
-      @include breakpoint-only(small, xlarge) {
+      @include breakpoint-between(small, xlarge) {
         padding: 0 0 28px 0;
       }
 
