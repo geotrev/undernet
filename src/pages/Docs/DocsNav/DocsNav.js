@@ -76,8 +76,8 @@ export default class DocsNav extends Component {
 
   render() {
     return (
-      <div className="row docs-nav-wrapper">
-        <div className="show-on-xsmall hide-on-xlarge docs-nav-expand">
+      <div className="fluid grid docs-nav-wrapper">
+        <div className="row show-on-xsmall hide-on-xlarge docs-nav-expand">
           <Button
             onClick={this.handleClick}
             className={
@@ -91,30 +91,38 @@ export default class DocsNav extends Component {
         </div>
 
         <nav className={
-          classNames("xsmall-order-2 xsmall-12 columns docs-nav-menu", {
+          classNames("row collapsed docs-nav-menu", {
             "is-not-displayed": !this.state.menuIsOpen
           })
         }>
-          <h3 className="paragraph"><strong>Explore Monolith</strong></h3>
-          <ul>
-            <li><h4 className="paragraph">Getting Started</h4></li>
-            <li><Link onClick={this.handleCollapseClick} to='/docs/overview'>Overview</Link></li>
-            <li><Link onClick={this.handleCollapseClick} to='/docs/download'>Download</Link></li>
-            <li><Link onClick={this.handleCollapseClick} to='/docs/configuration'>Configuration</Link></li>
-          </ul>
-          <ul>
-            <li><h4 className="paragraph">Components</h4></li>
-            <li><Link onClick={this.handleCollapseClick} to='/docs/grid'>Grid</Link></li>
-            <li><Link onClick={this.handleCollapseClick} to='/docs/typography'>Typography</Link></li>
-            <li><Link onClick={this.handleCollapseClick} to='/docs/buttons'>Buttons</Link></li>
-            <li><Link onClick={this.handleCollapseClick} to='/docs/forms'>Forms</Link></li>
-          </ul>
-          <ul>
-            <li><h4 className="paragraph">Helpers</h4></li>
-            <li><Link onClick={this.handleCollapseClick} to='/docs/classes'>Classes</Link></li>
-            <li><Link onClick={this.handleCollapseClick} to='/docs/mixins'>Mixins</Link></li>
-            <li><Link onClick={this.handleCollapseClick} to='/docs/functions'>Functions</Link></li>
-          </ul>
+          <div className="xsmall-12 columns">
+            <h3 className="paragraph"><strong>Explore Monolith</strong></h3>
+          </div>
+          <div className="xsmall-12 small-4 xlarge-12 columns">
+            <ul>
+              <li><h4 className="paragraph">Getting Started</h4></li>
+              <li><Link onClick={this.handleCollapseClick} to='/docs/overview'>Overview</Link></li>
+              <li><Link onClick={this.handleCollapseClick} to='/docs/download'>Download</Link></li>
+              <li><Link onClick={this.handleCollapseClick} to='/docs/configuration'>Configuration</Link></li>
+            </ul>
+          </div>
+          <div className="xsmall-12 small-4 xlarge-12 columns">
+            <ul>
+              <li><h4 className="paragraph">Components</h4></li>
+              <li><Link onClick={this.handleCollapseClick} to='/docs/grid'>Grid</Link></li>
+              <li><Link onClick={this.handleCollapseClick} to='/docs/typography'>Typography</Link></li>
+              <li><Link onClick={this.handleCollapseClick} to='/docs/buttons'>Buttons</Link></li>
+              <li><Link onClick={this.handleCollapseClick} to='/docs/forms'>Forms</Link></li>
+            </ul>
+          </div>
+          <div className="xsmall-12 small-4 xlarge-12 columns">
+            <ul>
+              <li><h4 className="paragraph">Helpers</h4></li>
+              <li><Link onClick={this.handleCollapseClick} to='/docs/classes'>Classes</Link></li>
+              <li><Link onClick={this.handleCollapseClick} to='/docs/mixins'>Mixins</Link></li>
+              <li><Link onClick={this.handleCollapseClick} to='/docs/functions'>Functions</Link></li>
+            </ul>
+          </div>
         </nav>
       </div>
     )
