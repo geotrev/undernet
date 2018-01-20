@@ -9,11 +9,7 @@ import { ChevronDown } from 'react-feather';
 export default class DocsNav extends Component {
   constructor(props) {
     super(props)
-
-    this.state = {
-      menuIsOpen: true,
-      buttonText: ''
-    }
+    this.state = { menuIsOpen: null }
 
     this.checkWidth = this.checkWidth.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -25,15 +21,9 @@ export default class DocsNav extends Component {
     window.addEventListener('resize', this.checkWidth);
 
     if (window.outerWidth < 1200) {
-      this.setState({
-        menuIsOpen: false,
-        buttonText: 'Show Menu'
-      })
+      this.setState({ menuIsOpen: false })
     } else {
-      this.setState({
-        menuIsOpen: true,
-        buttonText: 'Hide Menu'
-      })
+      this.setState({ menuIsOpen: true })
     }
   }
 
@@ -43,58 +33,41 @@ export default class DocsNav extends Component {
 
   handleCollapseClick() {
     if (window.outerWidth > 1199) return;
-    this.setState({
-      menuIsOpen: false,
-      buttonText: 'Show Menu'
-    })
+    this.setState({ menuIsOpen: false })
   }
 
   checkWidth() {
     if (window.outerWidth > 1199) {
-      this.setState({
-        menuIsOpen: true,
-        buttonText: 'Hide Menu'
-      })
+      this.setState({ menuIsOpen: true })
     }
   }
 
   handleClick(e) {
     e.preventDefault();
-    let buttonText = '';
-
-    if (this.state.menuIsOpen === true) {
-      buttonText = 'Show Menu';
-    } else {
-      buttonText = 'Hide Menu';
-    }
-
-    this.setState({
-      menuIsOpen: !this.state.menuIsOpen,
-      buttonText: buttonText
-    });
+    this.setState({ menuIsOpen: !this.state.menuIsOpen });
   }
 
   render() {
+    const buttonClasses = classNames("show-on-xsmall hide-on-xlarge", {
+      "rotate-180": !this.state.menuIsOpen
+    })
+
+    const menuClasses = classNames("row collapsed docs-nav-menu", {
+      "is-not-displayed": !this.state.menuIsOpen
+    })
+
     return (
       <div className="fluid grid docs-nav-wrapper">
         <div className="row show-on-xsmall hide-on-xlarge docs-nav-expand">
           <Button
             onClick={this.handleClick}
             href="#"
-            className={ classNames("show-on-xsmall hide-on-xlarge", {
-              "rotate-180": !this.state.menuIsOpen
-            }
-          )}>
-            {this.state.buttonText} <ChevronDown size={20} />
+            className={ buttonClasses }>
+            Explore <ChevronDown size={20} />
           </Button>
         </div>
 
-        <nav className={ classNames("row collapsed docs-nav-menu", {
-          "is-not-displayed": !this.state.menuIsOpen
-        })}>
-          <div className="xsmall-12 columns">
-            <h3 className="paragraph"><strong>Explore Monolith</strong></h3>
-          </div>
+        <nav className={ menuClasses }>
           <div className="xsmall-12 small-4 xlarge-12 columns">
             <ul>
               <li><h4 className="paragraph">Getting Started</h4></li>

@@ -5,4 +5,15 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+
+  h2 { margin-bottom: 40px; }
+
+  .has-feather {
+    display: inline-flex;
+    align-items: center;
+
+    svg {
+      margin-left: 10px;
+    }
+  }
 }
