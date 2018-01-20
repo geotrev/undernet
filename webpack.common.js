@@ -15,6 +15,7 @@ module.exports = {
       'components': path.resolve(__dirname, 'src/components/exports'),
       'helpers': path.resolve(__dirname, 'src/helpers/exports'),
       'pages': path.resolve(__dirname, 'src/pages/exports'),
+      'images': path.resolve(__dirname, 'src/assets/images/'),
       'articles': path.resolve(__dirname, 'monolith.wiki/'),
     }
   },
