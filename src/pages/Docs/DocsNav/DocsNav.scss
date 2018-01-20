@@ -17,7 +17,6 @@
 
   .docs-nav-expand {
     background: $white;
-    display: flex;
 
     @include breakpoint-up(xsmall) {
       border-bottom: 1px solid $gray900;
@@ -34,9 +33,7 @@
       justify-content: center;
 
       &.rotate-180 {
-        svg {
-          transform: rotate(180deg);
-        }
+        svg { transform: rotate(180deg); }
       }
 
       svg { margin-left: 5px; }
@@ -51,19 +48,19 @@
     h3 {
       font-size: 14px;
       text-transform: uppercase;
-      padding: 32px 25px 0 32px;
+      padding: 32px 25px 0 ($global-space * 2);
     }
 
     h4 { color: $gray800; }
 
     ul {
       list-style-type: none;
-      padding: 0 24px $global-space 44px;
+      padding: 0 24px $global-space ($global-space * 2);
       margin: 0;
       flex: 1 1 auto;
 
       @include breakpoint-between(small, xlarge) {
-        padding: 0 0 28px 0;
+        padding: 0 0 ($global-space * 1.75) 0;
       }
 
       li a {
