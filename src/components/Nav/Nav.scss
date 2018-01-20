@@ -41,16 +41,9 @@
     }
   }
 
-  li a, li a:visited {
+  li a {
     display: flex;
-    color: $black;
     text-decoration: none;
     padding: 1.5rem;
-  }
-
-  li a {
-    &:hover, &:active, &.selected {
-      opacity: 0.5;
-    }
   }
 }

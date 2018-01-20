@@ -8,10 +8,5 @@
   .has-feather {
     display: inline-block;
     padding: 1rem;
-    color: $black;
-
-    &:hover, &:active, &.selected {
-      opacity: 0.5;
-    }
   }
 }
