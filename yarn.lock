@@ -3723,8 +3723,8 @@ mock-require@^3.0.1:
     get-caller-file "^1.0.2"
 
 monolith-css@^1.1.7:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/monolith-css/-/monolith-css-1.2.2.tgz#e644890fe6ee1420b64918361169c2b7496e8190"
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/monolith-css/-/monolith-css-1.2.3.tgz#c32c7274026152c5fa60cd51fb61833290c35d52"
 
 move-concurrently@^1.0.1:
   version "1.0.1"

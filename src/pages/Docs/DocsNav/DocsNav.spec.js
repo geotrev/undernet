@@ -12,15 +12,15 @@ describe("<DocsNav />", () => {
     const wrapper = mount(<Router><DocsNav /></Router>);
     const button = wrapper.find('.docs-nav-expand a');
     button.simulate('click');
-    expect(wrapper).to.include.text('Hide Menu');
+    expect(wrapper).to.not.have.descendants('.is-not-displayed');
     button.simulate('click');
-    expect(wrapper).to.include.text('Show Menu');
+    expect(wrapper).to.have.descendants('.is-not-displayed');
   })
 
-  it("closes menu when nav link is clicked", () => {
+  it("closes menu when a <Link /> is clicked", () => {
     const wrapper = mount(<Router><DocsNav /></Router>);
-    const link = wrapper.find('nav ul a').first();
+    const link = wrapper.find('.docs-nav-menu ul a').first();
     link.simulate('click');
-    expect(wrapper).to.include.text('Show Menu');
+    expect(wrapper).to.have.descendants('.is-not-displayed');
   })
 })

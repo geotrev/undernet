@@ -41,14 +41,10 @@
   }
 
   .docs-nav-menu {
+    padding-top: 32px;
+
     @include breakpoint-between(small, xlarge) {
       text-align: center;
-    }
-
-    h3 {
-      font-size: 14px;
-      text-transform: uppercase;
-      padding: 32px 25px 0 ($global-space * 2);
     }
 
     h4 { color: $gray800; }
