@@ -41,16 +41,16 @@ module.exports = {
           ],
         })
       },
-      { test: /\.(jpe?g|png|gif)$/,
-        use: [{
-          loader: 'url-loader',
-          options: {
-            limit: 10000
-          },
-        }]
-      },
-      { test: /\.(ico|eot|svg|ttf|woff2?|otf)$/,
-        use: 'file-loader?name=[name].[ext]',
+      { test: /\.(ico|png|jpe?g|gif|eot|svg|ttf|woff2?|otf)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'assets/images/'
+            }
+          }
+        ]
       },
       { test: /\.md$/,
         use: [

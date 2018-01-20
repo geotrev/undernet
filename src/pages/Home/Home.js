@@ -1,10 +1,13 @@
 import React from 'react';
+import './Home.scss';
+
+import 'images/home-bg.jpg';
 
 import { ScrollUpOnMount } from 'helpers';
 
 const Home = () => {
   return (
-    <div id="home" className="medium-section grid">
+    <div id="home" className="medium-section fullscreen grid">
       <ScrollUpOnMount />
       <div className="row">
         <div className="column has-center-text">

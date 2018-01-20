@@ -46,6 +46,7 @@ mock('pages', './src/pages/exports.js');
 
 // images
 mock('images/mono-logo.png', './src/assets/images/mono-logo.png');
+mock('images/home-bg.jpg', './src/assets/images/home-bg.jpg');
 
 // markdown for articles
 mock('articles/Home.md', './monolith.wiki/Home.md');
