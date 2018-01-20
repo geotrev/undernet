@@ -28,15 +28,6 @@ global.navigator = {
   userAgent: 'node.js',
 };
 
-const resizeEvent = document.createEvent('Event');
-resizeEvent.initEvent('resize', true, true);
-
-global.window.resizeTo = (width, height) => {
-  global.window.outerWidth = width || global.window.outerWidth;
-  global.window.outerHeight = height || global.window.outerHeight;
-  global.window.dispatchEvent(resizeEvent);
-}
-
 function noop() { return null }
 require.extensions['.md'] = noop;
 require.extensions['.scss'] = noop;
@@ -52,6 +43,9 @@ mock('articles', './monolith.wiki/');
 mock('components', './src/components/exports.js');
 mock('helpers', './src/helpers/exports.js');
 mock('pages', './src/pages/exports.js');
+
+// images
+mock('assets/images/mono-logo.png', './src/assets/images/mono-logo.png');
 
 // markdown for articles
 mock('articles/Home.md', './monolith.wiki/Home.md');

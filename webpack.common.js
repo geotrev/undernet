@@ -13,6 +13,7 @@ module.exports = {
     extensions: [".js", ".jsx"],
     alias: {
       'components': path.resolve(__dirname, 'src/components/exports'),
+      'assets': path.resolve(__dirname, 'src/assets/'),
       'helpers': path.resolve(__dirname, 'src/helpers/exports'),
       'pages': path.resolve(__dirname, 'src/pages/exports'),
       'articles': path.resolve(__dirname, 'monolith.wiki/'),
