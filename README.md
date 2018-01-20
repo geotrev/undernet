@@ -3,8 +3,10 @@ Marketing site for [Monolith CSS](https://github.com/gtreviranus/monolith).
 
 Currently running at http://monolith.geotrev.com
 
+[![CircleCI](https://circleci.com/gh/geotrev/monolith-site/tree/master.svg?style=svg)](https://circleci.com/gh/geotrev/monolith-site/tree/master)
+
 ### Clone and set up with Yarn
-```shell 
+```shell
 $ brew install yarn
 $ git clone git@github.com:gtreviranus/monolith-site.git
 $ cd monolith-site/
