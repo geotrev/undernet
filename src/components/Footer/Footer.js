@@ -2,6 +2,7 @@ import React from 'react';
 import './Footer.scss';
 
 import Nav from '../Nav/Nav';
+import { Github, Twitter } from 'react-feather';
 
 const Footer = () => {
   return (
@@ -9,6 +10,14 @@ const Footer = () => {
       <div className="row">
         <div className="collapsed column">
           <p className="has-center-text">Monolith is a CSS framework created and maintained by <a href="http://www.geotrev.com">George Treviranus</a>.</p>
+          <p className="has-center-text">
+            <a className="has-feather" href='https://www.twitter.com/monolithcss'>
+              <Twitter />
+            </a>
+            <a className="has-feather" href='https://www.github.com/geotrev/monolith'>
+              <Github />
+            </a>
+          </p>
         </div>
       </div>
     </div>
