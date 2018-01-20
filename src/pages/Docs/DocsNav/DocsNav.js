@@ -80,21 +80,18 @@ export default class DocsNav extends Component {
         <div className="row show-on-xsmall hide-on-xlarge docs-nav-expand">
           <Button
             onClick={this.handleClick}
-            className={
-              classNames("show-on-xsmall hide-on-xlarge", {
-                "rotate-180": !this.state.menuIsOpen
-              })
+            href="#"
+            className={ classNames("show-on-xsmall hide-on-xlarge", {
+              "rotate-180": !this.state.menuIsOpen
             }
-            href="#">
-              {this.state.buttonText} <ChevronDown size={20} />
+          )}>
+            {this.state.buttonText} <ChevronDown size={20} />
           </Button>
         </div>
 
-        <nav className={
-          classNames("row collapsed docs-nav-menu", {
-            "is-not-displayed": !this.state.menuIsOpen
-          })
-        }>
+        <nav className={ classNames("row collapsed docs-nav-menu", {
+          "is-not-displayed": !this.state.menuIsOpen
+        })}>
           <div className="xsmall-12 columns">
             <h3 className="paragraph"><strong>Explore Monolith</strong></h3>
           </div>
