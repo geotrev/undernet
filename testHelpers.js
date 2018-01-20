@@ -45,7 +45,7 @@ mock('helpers', './src/helpers/exports.js');
 mock('pages', './src/pages/exports.js');
 
 // images
-mock('assets/images/mono-logo.png', './src/assets/images/mono-logo.png');
+mock('images/mono-logo.png', './src/assets/images/mono-logo.png');
 
 // markdown for articles
 mock('articles/Home.md', './monolith.wiki/Home.md');
