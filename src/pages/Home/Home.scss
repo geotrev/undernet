@@ -6,9 +6,7 @@
   background-position: center;
   background-size: cover;
 
-  h2 { margin-bottom: 40px; }
-
-  a:not(.primary) { margin-right: $global-space; }
+  a { margin: 0 8px $global-space 8px; }
 
   .has-feather {
     display: inline-flex;

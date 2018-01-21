@@ -231,17 +231,15 @@ $type-mark-padding: 10px;
 $type-mark-color: $gray200;
 $type-mark-background: status(warning);
 
-// 4. Lists
-// --------
-
 $list-padding: 0 0 0 18px;
 $list-margin: 0;
 $list-font: $global-font-sans;
-
 $list-item-margin: 0;
 $list-item-padding: 8px 0;
+$ul-list-style: disc;
+$ol-list-style: decimal;
 
-// 5. Buttons
+// 4. Buttons
 // ----------
 
 $button-sizes: (
@@ -481,7 +479,7 @@ $link-font-size: $global-font-size;
 $link-hover: $primary-color;
 $link-active: $link-hover;
 
-// 6. Forms
+// 5. Forms
 // --------
 
 // Form tag
