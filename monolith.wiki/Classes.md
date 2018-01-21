@@ -18,3 +18,5 @@ Along with Monolith’s component core includes several helper classes for handl
 
 * `.is-visually-hidden`: General-use class to complete hide an element, visually, but leave it accessible to screen readers.
 * `.is-visually-hidden-focusable`: Extends `.is-visually-hidden` to allow keyboard focus.
+
+Next: [Mixins ►](mixins)

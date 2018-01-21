@@ -6,9 +6,11 @@ The framework emphasizes…
    including colors, typography, grid, forms, and more.
 * **Semantics:** HTML that is logical and written with accessibility in mind. 
 * **Modularity:** The struggle with frameworks is they are usually dependent on being your core stylesheet. Monolith is specifically designed to be scoped and controlled as an alternative, to existing projects.
-* **Fast & Furious:** After reading the wiki and taking a little time to understand the component structure, you should be able to hit the ground running, aka, never need to read the docs again. :)
+* **Agility:** After reading the wiki and taking a little time to understand the component structure, you should be able to hit the ground running, aka, never need to read the docs again.
 
 Currently there are only a few core pieces. Plans are under way to flesh out even more in future versions. Stay tuned! Until then, check out the rest of this guide for a crash course in Monolith’s offerings. 
 
 Cheers! 
 – George T. 
+
+Next: [Download ►](download)

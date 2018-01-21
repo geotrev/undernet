@@ -70,3 +70,5 @@ In addition to having access to button styling, you can do the same for your lin
 ```html
 <a>Just a link!</a>
 ```
+
+Next: [Forms ►](forms)
