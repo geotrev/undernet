@@ -1,20 +1,6 @@
 @import 'node_modules/monolith-css/src/SCSS/helpers/functions/base';
 @import 'node_modules/monolith-css/src/SCSS/helpers/mixins/base';
 
-// Monolith CSS
-// The core of your next front-end project.
-// --------------------------------------------------------
-// 1. Globals
-// 2. Grid
-// 3. Typography
-// 4. Lists
-// 5. Buttons
-// 6. Forms
-// --------------------------------------------------------
-
-// 1. Globals
-// ----------
-
 $scope: '';
 
 $global-space: 16px;
@@ -253,7 +239,7 @@ $list-margin: 0;
 $list-font: $global-font-sans;
 
 $list-item-margin: 0;
-$list-item-padding: 0;
+$list-item-padding: 8px 0;
 
 // 5. Buttons
 // ----------

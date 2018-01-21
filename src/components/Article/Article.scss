@@ -5,25 +5,11 @@
   h3 { font-size: 20px; }
   code { color: $gray600; }
 
-  h2, h3 {
-    padding-top: 16px;
-  }
-
-  pre, code {
-    background: #f4f4f4;
-  }
+  h2, h3 { padding-top: 16px; }
+  code { background: transparent; }
 
   pre {
-    overflow-y: scroll ;
-    line-height: 1.5;
-  }
-
-  ul, ol {
-    display: block;
-    padding-left: 22px;
-
-    li {
-      margin-bottom: $global-space;
-    }
+    background: #f4f4f4;
+    overflow-y: scroll;
   }
 }

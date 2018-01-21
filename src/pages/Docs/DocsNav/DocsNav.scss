@@ -3,18 +3,6 @@
 .docs-nav-wrapper {
   padding: 0;
 
-  // .show-on-xsmall {
-  //   @include breakpoint-up(xsmall) {
-  //     display: flex;
-  //   }
-  // }
-  //
-  // .hide-on-xlarge {
-  //   @include breakpoint-up(xlarge) {
-  //     display: none;
-  //   }
-  // }
-
   .docs-nav-expand {
     background: $white;
 
@@ -58,6 +46,8 @@
       @include breakpoint-between(small, xlarge) {
         padding: 0 0 ($global-space * 1.75) 0;
       }
+
+      li { padding: 0; }
 
       li a {
         display: block;
