@@ -8,6 +8,8 @@
 
   h2 { margin-bottom: 40px; }
 
+  a:not(.primary) { margin-right: $global-space; }
+
   .has-feather {
     display: inline-flex;
     align-items: center;

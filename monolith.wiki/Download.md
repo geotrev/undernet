@@ -1,6 +1,6 @@
 Monolith is a set of configurable components, so the most effective way to use it is to integrate it with your asset pipeline. Monolith can easily sit inside its own folder for you to customize when needed, then you can link to it via your global stylesheets/layouts.
 
-[Download SCSS](https://github.com/gtreviranus/monolith/tree/master/src/scss/monolith-scss.zip)
+[Download SCSS](https://github.com/geotrev/monolith/raw/master/src/SCSS/monolith-scss.zip)
 
 Contents:
 ```
@@ -25,7 +25,7 @@ Now you can import `monolith.scss` as if it were any other stylesheet:
 ### Grab the compiled CSS
 You can also add the compiled CSS to your project (much like you would with Bootstrap or Foundation) by downloading it and adding it to your layouts:
 
-[Get CSS](https://github.com/geotrev/monolith/blob/master/src/CSS/monolith.css)
+[Get CSS](https://www.github.com/geotrev/monolith/raw/master/src/CSS/monolith-css.zip)
 
 ```html
 <link rel=“stylesheet” href=“path/to/monolith.css” />
