@@ -8,12 +8,14 @@ import { ScrollUpOnMount } from 'helpers';
 
 const Home = () => {
   return (
-    <div id="home" className="medium-section fullscreen grid">
+    <div id="home" className="medium-section fluid grid">
       <ScrollUpOnMount />
       <div className="row">
-        <div className="column has-center-text">
+        <div className="xsmall-12 columns has-center-text">
           <h1 className="h3">The core of your next front-end project.</h1>
           <h2 className="h6">Write vanilla HTML and get beautiful components.</h2>
+        </div>
+        <div className="xsmall-12 columns has-center-text">
           <Link to="docs/download" className="medium button has-feather">Download CSS <ChevronRight size={20} /></Link>
           <Link to="docs/overview" className="primary medium button has-feather">Read Docs <ChevronRight size={20} /></Link>
         </div>
