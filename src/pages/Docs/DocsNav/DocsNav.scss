@@ -3,17 +3,17 @@
 .docs-nav-wrapper {
   padding: 0;
 
-  .show-on-xsmall {
-    @include breakpoint-up(xsmall) {
-      display: flex;
-    }
-  }
-
-  .hide-on-xlarge {
-    @include breakpoint-up(xlarge) {
-      display: none;
-    }
-  }
+  // .show-on-xsmall {
+  //   @include breakpoint-up(xsmall) {
+  //     display: flex;
+  //   }
+  // }
+  //
+  // .hide-on-xlarge {
+  //   @include breakpoint-up(xlarge) {
+  //     display: none;
+  //   }
+  // }
 
   .docs-nav-expand {
     background: $white;

@@ -22,6 +22,7 @@
     > li:first-child {
       @include align-nav-item(flex-start);
       display: inline-flex;
+      align-items: center;
     }
 
     > li:last-child {

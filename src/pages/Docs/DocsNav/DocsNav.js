@@ -48,17 +48,17 @@ export default class DocsNav extends Component {
   }
 
   render() {
-    const buttonClasses = classNames("show-on-xsmall hide-on-xlarge", {
+    const buttonClasses = classNames("is-flex is-hidden-on-xlarge", {
       "rotate-180": !this.state.menuIsOpen
     })
 
     const menuClasses = classNames("row collapsed docs-nav-menu", {
-      "is-not-displayed": !this.state.menuIsOpen
+      "is-hidden": !this.state.menuIsOpen
     })
 
     return (
       <div className="fluid grid docs-nav-wrapper">
-        <div className="row show-on-xsmall hide-on-xlarge docs-nav-expand">
+        <div className="row is-flex is-hidden-on-xlarge docs-nav-expand">
           <Button
             onClick={this.handleClick}
             href="#"

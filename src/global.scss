@@ -7,8 +7,9 @@
 // 1. Globals
 // 2. Grid
 // 3. Typography
-// 4. Buttons
-// 5. Forms
+// 4. Lists
+// 5. Buttons
+// 6. Forms
 // --------------------------------------------------------
 
 // 1. Globals
@@ -23,9 +24,11 @@ $global-font-sans: 'Fira Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", R
 $global-font-serif: Constantia, "Lucida Bright", Lucidabright, "Lucida Serif", Lucida, "DejaVu Serif", "Bitstream Vera Serif", "Liberation Serif", Georgia, serif;
 $global-monospace: monospace, monospace;
 $global-font-size: 16px;
-$global-font-weight-bold: 700;
-$global-font-weight-regular: 400;
+$global-font-weight-normal: normal;
+$global-font-weight-bold: bold;
+$global-font-style-normal: normal;
 $global-font-style-italic: italic;
+$global-line-height: 1.5;
 
 $primary-color: goldenrod;
 $secondary-color: crimson;
@@ -206,7 +209,7 @@ $type-header-styles: (
   h6: (
     color: $gray200,
     font-style: normal,
-    font-weight: $global-font-weight-regular,
+    font-weight: $global-font-weight-normal,
   ),
 );
 
@@ -242,7 +245,17 @@ $type-mark-padding: 10px;
 $type-mark-color: $gray200;
 $type-mark-background: status(warning);
 
-// 4. Buttons
+// 4. Lists
+// --------
+
+$list-padding: 0 0 0 18px;
+$list-margin: 0;
+$list-font: $global-font-sans;
+
+$list-item-margin: 0;
+$list-item-padding: 0;
+
+// 5. Buttons
 // ----------
 
 $button-sizes: (
@@ -482,7 +495,7 @@ $link-font-size: $global-font-size;
 $link-hover: $primary-color;
 $link-active: $link-hover;
 
-// 5. Forms
+// 6. Forms
 // --------
 
 // Form tag
