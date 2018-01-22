@@ -3,13 +3,6 @@
 .article-wrapper {
   h2 { font-size: 24px; }
   h3 { font-size: 20px; }
-  code { color: $gray600; }
-
   h2, h3 { padding-top: 16px; }
-  code { background: transparent; }
-
-  pre {
-    background: #f4f4f4;
-    overflow-y: scroll;
-  }
+  pre { overflow-y: scroll; }
 }
