@@ -8,7 +8,10 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(express.static(path.join(__dirname, 'build')));
+const expressStaticGzip = require('express-static-gzip')
+
+// app.use(express.static(path.join(__dirname, 'build')));
+app.use("/", expressStaticGzip("build"));
 
 app.get('*', function (req, res) {
   res.sendFile(path.join(__dirname, '/build/index.html'));
