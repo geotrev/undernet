@@ -1,7 +1,7 @@
-You’ll rarely ever need to edit Monolith components directly, but if you want to, you can do so in `components/`. For this article, we’ll look at `_config.scss`, which is where all core styling is set up for Monolith. This is merely a starting point; it's expected that you'll add extra configuration, such as variables and maps, to better suit your needs.
+Your `_config.scss` is where you'll spend the majority of your time styling Monolith. If you must, you can also delve into `components/` as well. Note that you shouldn't delete or change the names of the variables in these files as that will cause errors when compiling into CSS.
 
 ## Table of Contents
-Monolith has five core sections, all of which can be included/excluded, in any combination, from your project(s):
+Monolith has five core components
 
 1. [Global](#1-global)
 2. [Grid](#2-grid)
@@ -11,44 +11,51 @@ Monolith has five core sections, all of which can be included/excluded, in any c
 
 ### 1. Global
 
-Global settings for Monolith are pretty self-explanatory. The only thing worth pointing out is if you change any of these values or variable names, be sure to double check that they are still being used appropriately in the rest of your configuration.
+From here you can define a global scope class which, when defined and enabled, acts as a flag* for you to start using Monolith components inside it.
 
-In most cases, the other components also inherit from global variables. You can quickly override this however by simply re-assigning to new variables you define in this file. It's ultimately up to you on the degree of consistency you need.
+Say you define `$scope` as `mono`. This means this will not work on its own:
 
-**Options**
+```html
+<div class="narrow grid></div>
+```
 
-* Scope: A parent class you can define which will completely* scope all of monolith's components within
-* Spacing: Define a global spacing variable.
-* Font: Choose your font families for sans serif and serif fonts, 
-* Color Palette: A set of colors for branding.
-* Borders: Defines radius, width, and styling of your borders. 
+Instead, you need to have a parent class somewhere with `.mono`:
 
-*With the exception of global styles, which you can comment out of component imports (`monolith.scss`).
+```html
+<div class="mono">
+  <div class="narrow grid"></div>
+</div>
+```
+
+This is helpful for encapsulating Monolith when adding it to existing projects. 
+
+Also here, you can find other global definitions for typography, spacing, and colors. These are used everywhere in the framework so make sure not to delete them, or in the case of maps, delete the entire collection.
 
 ### 2. Grid
 
-Monolith comes with a handy flex grid for layouts. It’s nothing fancy – and you can exclude it from your project if you already use one. Otherwise, you have a very wide set of options for naming your grid classes, creating grid widths, grid sections (containers with vertical padding), as well as breakpoints and column spacing.
+Monolith comes with a handy flex grid for layouts. It’s nothing fancy – and you can exclude it if you already use one. Otherwise, you have a very wide set of options for naming your grid classes, creating grid widths, grid sections (containers with vertical padding), as well as breakpoints and column spacing.
 
 **Options**
 
-* Class Names: Change the names of your grid classes. Don't like `grid`? Use `container` or something else instead.
-* Widths: Horizontal spacing modifiers for `.grid`.
-* Sections: Vertical spacing modifiers for `.grid`.
-* Breakpoints: Used for media queries _and_ the grid classes for monolith.
-* Gutters: Define your global gutters for the grid.
-* Offset: Switch `$column-offset-classes` to true to include offsets.
-* Order: Switch `$column-order-classes` to true to include flex ordering modifiers. 
+* `$grid-classes`: Change the names of your grid classes. Don't like `grid`? Use `container` or something else instead.
+* `$grid-widths`: Horizontal spacing modifiers for `.grid`.
+* `$grid-sections`: Vertical spacing modifiers for `.grid`.
+* `$breakpoints`: Used for media queries _and_ the grid classes for monolith. Note if you remove one, make sure it isn't mentioned in other configurations as a possible map key!
+* Spacing & Gutters: Configure gutters and other spacing for column containers.
+* `$column-offset-classes`: Switch to `true` to include conventional offset modifiers.
+* `$column-order-classes`: Switch to `true` to include flex order modifiers. 
 
-_Note: You'll need to define an order threshold to ensure there is a default order property placed on all column elements. I.e., for `20`, you will end up with all columns having their order set to `20`, but using an order class will override this._
+_Note: You'll need to define an order threshold to ensure there is a default order property placed on all column elements (the default is `20`). I.e., for `15`, you will end up with all columns having their order set to `15`, but using an order class will override this. This enables you to have some siblings with order classes but not others, for simplicity._
 
 ### 3. Typography
 
-Typography can be tough to get right on the web. Here, you’ll have the flexibility to customize the key properties (margin, font-size, etc) on a per-breakpoint scale, as well as give unique stylings to each heading (h1-h6).
+Typography can be tough to get right. Here, you’ll have the flexibility to customize the key properties (margin, font-size, etc) on a per-breakpoint scale, as well as give unique stylings to each heading (h1-h6).
 
 **Options**
 
-* Headers: Styles for `h1`-`h6`, as well as `p`.
-* Inline Type: Includes modifiers for `mark`, `pre`, `code`, `em`, and the like.
+* `$type-header-styles`: Styles for `h1`-`h6`, as well as `p`.
+* `$type-header-sizes`: Defines breakpoint behavior for header font-size and margin.
+* Inline Type: Includes modifiers for `mark`, `pre`, `code`, `em`, and other inline text tags.
 * Lists: Choose how to space your `ul` and `li` elements.
 
 ### 4. Buttons
@@ -58,13 +65,13 @@ There is a lot of flexibility in how you want to configure your buttons. Monolit
 **Options**
 
 * Defaults: Define the core default button style.
-* Sizes: There are a four extra sizes to add to or remove from in `$button-sizes`.
-* Types: Create a complete button style, including active/hover/focus states, by creating more definitions in `$button-types`.
+* `$button-sizes`: A map containing custom button sizes. 
+* `$button-types`: A map defining custom button stylings. Defaults are `primary`, `secondary`, `tertiary`, `inverted`, and `inverted-outline`.
 * Links: Passively included in the button section are styles for anchor links.
 
 ### 5. Forms
 
-You can (almost 100%) guarantee your forms will look on any platform/device!
+You can (almost 100%) guarantee your forms will look right in modern browsers and IE11.
 
 **Tags**
 

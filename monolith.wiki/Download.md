@@ -14,7 +14,7 @@ monolith-scss/
 * Components: Source code for Monolith’s core components.
 * Helpers: Mixins, functions, and class helpers to help with generating styles in `components/`.
 * _config.scss: Configuration for core components. E.g., branding, color, typography, spacing, etc.
-* monolith.scss: 
+* monolith.scss: Where all components are imported and optional global scope is enabled.
 
 Now you can import `monolith.scss` as if it were any other stylesheet:
 

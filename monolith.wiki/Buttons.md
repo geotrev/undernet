@@ -1,48 +1,45 @@
-Monolith’s button are fairly customizable and easy to use.
+Monolith’s button are fairly customizable and easy to use. Configuration can be found in `_config.scss`.
 
 ### Default Button
 
-You should have nearly full control over your button’s various states within `_config.scss`. You’ll also be able to see these styles across relevant tags.
-
-In this usage, you can use these tags with or without the `.button` class, which is especially helpful for anchor tags.
+You should have nearly full control over your button’s various states. You’ll also be able to see these styles across relevant tags: `a`, `button`, and `input`.
 
 ```html
-<button>Go!</button>
-<a class=“button” href=“#”>Go!</a>
+<button>Submit</button>
+<a class=“button” href=“#”>Submit</a>
+<input type="button" value="Submit" />
 ```
 
-For inputs, you can use `submit`, `button`, `file`, and `reset`:
-
-```html
-<input type=“submit” value=“Go!”>
-```
+For `input`, valid `type`s are `button`, `submit`, `reset`, and `file`. If you're using a newer button type that isn't supported by monolith, just add `.button` to the element and it should work as expected.
 
 ### Block button
 
-Using `.wide` as a modifier class, your buttons stretch full-wide in their container.
+Using `.wide` as a modifier class, your buttons stretch full-width in their container.
 
 ```html
-<a class=“wide button” href=“#”>Go!</a>
+<button class="wide">Submit</button>
+<a class=“wide button” href=“#”>Submit</a>
+<input type="button" class="wide" value="Submit" />
 ```
 
 ### Button Sizes
 
-By default, there are five button sizes, including the default (no size modifier class):
+Defined in `$button-sizes` is a list of classes mapped to padding and font-sizes to modify your buttons.
 
 ```html
-<button class=“small”>Button</button>
-<button class=“medium”>Button</button>
-<button class=“large”>Button</button>
-<button class=“huge”>Button</button>
+<button class=“small”>Submit</button>
+<button class=“medium”>Submit</button>
+<button class=“large”>Submit</button>
+<button class=“huge”>Submit</button>
 ```
 
-You can remove, edit, or add extra sizes to fit your needs, as well.
+You can remove, edit, or add extra sizes to fit your needs.
 
 ### Custom Button Types
 
-In `$button-types`, you can find some pre-made button types, like primary, secondary, and tertiary buttons. You can remove, edit, or add new ones if you want.
+In the `$button-types` map, you can find some pre-made button types, like primary, secondary, and tertiary buttons. Like with `$button-sizes`, you can remove, edit, or add new ones if you want.
 
-This should make it easier to quickly make new buttons without completely writing new state cases in long-form CSS.
+This should make it easier to quickly make new buttons with explicit `:focus`, `:active`, `:hover` styling.
 
 ```html
 <button class=“primary”>Primary Button</button>
@@ -65,7 +62,7 @@ Also in `$button-types`, you can find status buttons. By default, there are four
 
 ### Links
 
-In addition to having access to button styling, you can do the same for your links. They also have a `.link` class should you want that option as well.
+In addition to having access to button styling, you can do the same for your links. Then write links like you normally would:
 
 ```html
 <a>Just a link!</a>
