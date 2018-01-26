@@ -12,7 +12,17 @@ Along with Monolith’s component core includes several helper classes for handl
 
 * `.is-block`: Sets the element to `display: block;`.
 * `.is-flex`: Sets the element to `display: flex;`.
-* `.is-not-displayed`: Sets the element to `display: none;`.
+* `.is-hidden`: Sets the element to `display: none;`.
+
+### Display at breakpoint
+
+To override a smaller breakpoint visibility modifier, use one at a larger breakpoint. 
+
+`SIZE` = breakpoint name. E.g., `small`, `medium`, etc.
+
+* `.is-block-SIZE`
+* `.is-flex-SIZE`
+* `.is-hidden-SIZE`
 
 ### A11y (accessibility / screen readers)
 
