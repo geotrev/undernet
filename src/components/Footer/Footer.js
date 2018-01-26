@@ -11,9 +11,6 @@ const Footer = () => {
         <div className="collapsed column">
           <p className="has-center-text">Monolith is a CSS framework created and maintained by <a href="http://www.geotrev.com">George Treviranus</a>.</p>
           <p className="has-center-text">
-            <a className="has-feather" href='https://www.twitter.com/monolithcss'>
-              <Twitter />
-            </a>
             <a className="has-feather" href='https://www.github.com/geotrev/monolith'>
               <Github />
             </a>

@@ -17,11 +17,6 @@ const Nav = () => {
         <li className="small-6 xsmall-12 columns">
           <ul className="row">
             <li>
-              <a className="has-feather" href='https://www.twitter.com/monolithcss'>
-                <Twitter />
-              </a>
-            </li>
-            <li>
               <a className="has-feather" href='https://www.github.com/geotrev/monolith'>
                 <Github />
               </a>
