@@ -1,9 +1,9 @@
-@import '../../../global';
+@import '../../global';
 
-.docs-nav-wrapper {
+.side-nav-wrapper {
   padding: 0;
 
-  .docs-nav-expand {
+  .side-nav-expand {
     background: $white;
 
     @include breakpoint-up(xsmall) {
@@ -28,7 +28,7 @@
     }
   }
 
-  .docs-nav-menu {
+  .side-nav-menu {
     padding-top: 32px;
 
     @include breakpoint-between(small, xlarge) {
