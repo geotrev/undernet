@@ -1,7 +1,7 @@
 {
-  "name": "Little-Webpack-Template",
+  "name": "Monolith-Website",
   "version": "1.0.0",
-  "description": "A little boilerplate for webpack!",
+  "description": "Website for the Monolith CSS Framework.",
   "main": "index.js",
   "author": "George Treviranus",
   "license": "MIT",
@@ -61,6 +61,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gtreviranus/little-webpack-template.git"
+    "url": "git+https://github.com/geotrev/monolith-site.git"
   }
 }
