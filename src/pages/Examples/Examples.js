@@ -4,9 +4,9 @@ import './Examples.scss';
 import { ScrollUpOnMount } from 'helpers';
 import { SideNav } from 'components';
 import Grid from './Sections/Grid';
-// import Typography from './Typography/Typography';
-// import Buttons from './Buttons/Buttons';
-// import Forms from './Forms/Forms';
+import Typography from './Typography/Typography';
+import Buttons from './Buttons/Buttons';
+import Forms from './Forms/Forms';
 
 const Examples = () => {
   const navItems = [
@@ -31,9 +31,9 @@ const Examples = () => {
 
         <div className="xsmall-12 xlarge-10 columns">
           <Grid />
-          {/* <Typography /> */}
-          {/* <Buttons />    */}
-          {/* <Forms />      */}
+          <Typography />
+          <Buttons />
+          <Forms />
         </div>
       </div>
     </div>
