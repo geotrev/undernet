@@ -1,13 +1,16 @@
 import SideNav from './SideNav';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-const navItems = {
-  getting_starting: {
-    overview: "/docs/overview",
-    download: "/docs/download",
-    configuration: "/docs/configuration",
+const navItems = [
+  {
+    header: "Test Header",
+    links: [
+      { name: "Test 1", url: "#" },
+      { name: "Test 2", url: "#" },
+      { name: "Test 3", url: "#" },
+    ],
   },
-}
+]
 
 function SideNavComponent() {
   return mount(<Router><SideNav navItems={navItems} /></Router>);

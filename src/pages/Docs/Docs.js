@@ -7,31 +7,43 @@ import DocsRoutes from './DocsRoutes/DocsRoutes';
 
 
 const Docs = () => {
-  const navItems = {
-    getting_starting: {
-      overview: "/docs/overview",
-      download: "/docs/download",
-      configuration: "/docs/configuration",
+  const navItems = [
+    {
+      header: "Getting Started",
+      links: [
+        { name: "Overview", url: "/docs/overview" },
+        { name: "Download", url: "/docs/download" },
+        { name: "Configuration", url: "/docs/configuration" },
+      ],
     },
-    components: {
-      grid: "/docs/grid",
-      typography: "/docs/typography",
-      buttons: "/docs/buttons",
-      forms: "/docs/forms",
+    {
+      header: "Components",
+      links: [
+        { name: "Grid", url: "/docs/grid" },
+        { name: "Typography", url: "/docs/typography" },
+        { name: "Buttons", url: "/docs/buttons" },
+        { name: "Forms", url: "/docs/forms" },
+      ],
     },
-    helpers: {
-      classes: "/docs/classes",
-      mixins: "/docs/mixins",
-      functions: "/docs/functions",
+    {
+      header: "Helpers",
+      links: [
+        { name: "Classes", url: "/docs/classes" },
+        { name: "Mixins", url: "/docs/mixins" },
+        { name: "Functions", url: "/docs/functions" },
+      ],
     },
-  }
+  ]
 
   return (
     <div id="docs" className="medium-section fluid grid">
       <ScrollUpOnMount />
       <div className="row">
         <div className="xsmall-12 xlarge-2 columns collapsed docs-nav-menu">
-          <SideNav navItems={navItems} />
+          <SideNav
+            navListClasses="xsmall-12 small-4 xlarge-12 columns"
+            navItems={navItems}
+          />
         </div>
 
         <div className="xsmall-12 xlarge-10 columns">

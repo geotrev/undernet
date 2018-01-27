@@ -48,35 +48,6 @@ export default class SideNav extends Component {
     this.setState({ menuIsOpen: !this.state.menuIsOpen });
   }
 
-  getHumanText(str) {
-    let words = str.split("_");
-    let humanized = [];
-
-    for (let i = 0; i < words.length; i++) {
-      let word = words[i];
-      humanized.push(word.charAt(0).toUpperCase() + word.slice(1));
-    }
-
-    return humanized.join(" ");
-  }
-
-  getListItems(obj) {
-    let items = [];
-
-    for (let item in obj) {
-      let name = this.getHumanText(item);
-      let route = obj[item];
-
-      items.push(
-        <li>
-          <Link onClick={this.handleCollapseClick} to={route}>{name}</Link>
-        </li>
-      );
-    }
-
-    return items;
-  }
-
   render() {
     const buttonClasses = classNames("is-flex is-hidden-on-xlarge", {
       "rotate-180": !this.state.menuIsOpen
@@ -104,24 +75,39 @@ export default class SideNav extends Component {
     )
   }
 
+  renderListItems(items) {
+    let list = [];
+
+    for (let i = 0; i < items.length; i++) {
+      let name = items[i].name;
+      let url = items[i].url;
+
+      list.push(
+        <li key={i}>
+          <Link onClick={this.handleCollapseClick} to={url}>{name}</Link>
+        </li>
+      );
+    };
+
+    return list;
+  }
+
   renderLists() {
     const listData = this.props.navItems;
     let navSections = [];
 
-    for (let section in listData) {
-      let list = listData[section];
-      let header = this.getHumanText(section);
-      let listItems = this.getListItems(list);
+    listData.map((section, index) => {
+      let listItems = this.renderListItems(section.links);
 
-      navSections.push([
-        <div className="xsmall-12 small-4 xlarge-12 columns">
+      return navSections.push(
+        <div className={this.props.navListClasses} key={index}>
           <ul>
-            <li><h4 className="paragraph">{header}</h4></li>
+            <li><h4 className="paragraph">{section.header}</h4></li>
             {listItems}
           </ul>
         </div>
-      ])
-    }
+      );
+    });
 
     return navSections;
   }

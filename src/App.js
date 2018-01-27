@@ -26,7 +26,7 @@ import 'images/mstile-310x150.png';
 import 'images/mstile-310x310.png';
 
 import { Nav, Footer } from 'components';
-import { Home, Docs } from 'pages';
+import { Home, Docs, Examples } from 'pages';
 
 export default class App extends Component {
   render() {
@@ -38,6 +38,7 @@ export default class App extends Component {
         <main>
           <Route exact path='/' component={ Home } />
           <Route path='/docs' component={ Docs } />
+          <Route path='/examples' component={ Examples } />
         </main>
         <footer>
           <Route path='/' component={ Footer } />
