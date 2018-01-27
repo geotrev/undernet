@@ -3,10 +3,10 @@ import './Examples.scss';
 
 import { ScrollUpOnMount } from 'helpers';
 import { SideNav } from 'components';
-// import Grid from './Sections/Grid';
-// import Typography from './Sections/Typography';
-// import Buttons from './Sections/Buttons';
-// import Forms from './Sections/Forms';
+import Grid from './Sections/Grid';
+// import Typography from './Typography/Typography';
+// import Buttons from './Buttons/Buttons';
+// import Forms from './Forms/Forms';
 
 const Examples = () => {
   const navItems = [
@@ -30,7 +30,7 @@ const Examples = () => {
         </div>
 
         <div className="xsmall-12 xlarge-10 columns">
-          {/* <Grid />       */}
+          <Grid />
           {/* <Typography /> */}
           {/* <Buttons />    */}
           {/* <Forms />      */}
