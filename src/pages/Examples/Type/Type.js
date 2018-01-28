@@ -36,7 +36,9 @@ const Type = () => {
             <h6>Header 6</h6>
           </div>
         </div>
+      </div>
 
+      <div className="small-section grid">
         <div className="row">
           <div className="xsmall-12 collapsed columns">
             <h3 className="section-header">
@@ -51,7 +53,9 @@ const Type = () => {
             </p>
           </div>
         </div>
+      </div>
 
+      <div className="small-section grid">
         <div className="row">
           <div className="xsmall-12 collapsed columns">
             <h3 className="section-header">

@@ -11,3 +11,10 @@
 // }
 
 main { display: block; }
+
+.has-feather {
+  display: inline-flex;
+  align-items: center;
+
+  svg { margin-left: 5px; }
+}

@@ -32,7 +32,9 @@ const Forms = () => {
             </form>
           </div>
         </div>
+      </div>
 
+      <div className="small-section grid">
         <div className="row">
           <div className="xsmall-12 collapsed columns">
             <h3 className="section-header">
@@ -64,7 +66,9 @@ const Forms = () => {
             </form>
           </div>
         </div>
+      </div>
 
+      <div className="small-section grid">
         <div className="row">
           <div className="xsmall-12 collapsed columns">
             <h3 className="section-header">
@@ -100,7 +104,9 @@ const Forms = () => {
             </form>
           </div>
         </div>
+      </div>
 
+      <div className="small-section grid">
         <div className="row">
           <div className="xsmall-12 collapsed columns">
             <h3 className="section-header">

@@ -44,7 +44,11 @@ const Buttons = () => {
             <Button href="#0" className="huge button">Huge Link Button</Button>
             <input className="huge" type="button" value="Huge Input Button" />
           </div>
+        </div>
+      </div>
 
+      <div className="small-section grid">
+        <div className="row">
           <div className="xsmall-12 collapsed columns">
             <h3 className="section-header">
               Disabled State
@@ -56,7 +60,11 @@ const Buttons = () => {
             <Button href="#0" className="disabled button">Disabled Link Button (visual only)</Button>
             <input disabled className="disabled" type="submit" value="Disabled Input Button" />
           </div>
+        </div>
+      </div>
 
+      <div className="small-section grid">
+        <div className="row">
           <div className="xsmall-12 collapsed columns">
             <h3 className="section-header">
               Wide (block) Buttons
@@ -68,7 +76,11 @@ const Buttons = () => {
             <Button href="#0" className="wide button">Wide Link Button</Button>
             <input className="wide" type="button" value="Wide Input Button" />
           </div>
+        </div>
+      </div>
 
+      <div className="small-section grid">
+        <div className="row">
           <div className="xsmall-12 collapsed columns">
             <h3 className="section-header">
               Primary, Secondary, and Tertiary Buttons
@@ -92,7 +104,11 @@ const Buttons = () => {
             <Button href="#0" className="tertiary button">Tertiary Link Button</Button>
             <input className="tertiary" type="button" value="Tertiary Input Button" />
           </div>
+        </div>
+      </div>
 
+      <div className="small-section grid">
+        <div className="row">
           <div className="xsmall-12 collapsed columns">
             <h3 className="section-header">
               Status Buttons
@@ -122,7 +138,11 @@ const Buttons = () => {
             <Button href="#0" className="notice button">Notice Link Button</Button>
             <input className="notice" type="button" value="Notice Input Button" />
           </div>
+        </div>
+      </div>
 
+      <div className="small-section grid">
+        <div className="row">
           <div className="xsmall-12 collapsed columns">
             <h3 className="section-header">
               Inverted Buttons
@@ -142,7 +162,11 @@ const Buttons = () => {
               <input className="inverted-outline" type="button" value="Inverted Outline Input Button" />
             </div>
           </div>
+        </div>
+      </div>
 
+      <div className="small-section grid">
+        <div className="row">
           <div className="xsmall-12 collapsed columns">
             <h3 className="section-header">
               Links
