@@ -4,11 +4,11 @@ export default class Button extends Component {
   getTag() {
     return this.props.href ? 'a' : 'button';
   }
-  
+
   getType() {
     return (this.props.href || !this.props.type) ? null : this.props.type;
   }
-  
+
   getDisabledStatus() {
     const warnMsg = "*** You can't use a `disabled` state on anchor tags ***";
     if (this.props.disabled) {

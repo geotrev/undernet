@@ -6,12 +6,7 @@
   background-position: center;
   background-size: cover;
 
+  h2 { font-weight: normal; }
+
   a { margin: 0 8px $global-space 8px; }
-
-  .has-feather {
-    display: inline-flex;
-    align-items: center;
-
-    svg { margin-left: 5px; }
-  }
 }

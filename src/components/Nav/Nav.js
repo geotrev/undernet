@@ -26,6 +26,11 @@ const Nav = () => {
                 Docs
               </Link>
             </li>
+            <li>
+              <Link to='/examples/grid'>
+                Examples
+              </Link>
+            </li>
           </ul>
         </li>
       </ul>

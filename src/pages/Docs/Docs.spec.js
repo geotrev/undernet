@@ -1,7 +1,6 @@
 import Docs from './Docs';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import DocsNav from './DocsNav/DocsNav';
 import DocsRoutes from './DocsRoutes/DocsRoutes';
 
 describe("<Docs />", () => {
@@ -12,7 +11,7 @@ describe("<Docs />", () => {
 
   it("has one <DocsNav />", () => {
     const wrapper = mount(<Router><Docs/></Router>);
-    expect(wrapper).to.have.exactly(1).descendants('.docs-nav-wrapper');
+    expect(wrapper).to.have.exactly(1).descendants('.side-nav-wrapper');
   })
 
   it("has one <DocsRoutes />", () => {

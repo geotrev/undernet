@@ -1,7 +1,9 @@
 import React from 'react';
 
 import { ScrollUpOnMount } from 'helpers';
-import { Article } from 'components';
+import { Article, HeaderText } from 'components';
+import { Link } from 'react-router-dom';
+import { ChevronRight } from 'react-feather'; <ChevronRight size={16} />
 
 import OverviewMd from 'articles/Home.md';
 import DownloadMd from 'articles/Download.md';
@@ -26,7 +28,7 @@ export const Template = (props) => {
 export const Overview = () => {
   return (
     <div className="column">
-      <h1 className="h5">Overview</h1>
+      <HeaderText>Overview</HeaderText>
       <Template><Article>{OverviewMd}</Article></Template>
     </div>
   )
@@ -34,7 +36,7 @@ export const Overview = () => {
 export const Download = () => {
   return (
     <div className="column">
-      <h1 className="h5">Download</h1>
+      <HeaderText>Download</HeaderText>
       <Template><Article>{DownloadMd}</Article></Template>
     </div>
   )
@@ -42,7 +44,7 @@ export const Download = () => {
 export const Config = () => {
   return (
     <div className="column">
-      <h1 className="h5">Configuration</h1>
+      <HeaderText>Configuration</HeaderText>
       <Template><Article>{ConfigMd}</Article></Template>
     </div>
   )
@@ -51,7 +53,8 @@ export const Config = () => {
 export const Grid = () => {
   return (
     <div className="column">
-      <h1 className="h5">Grid</h1>
+      <HeaderText>Grid</HeaderText>
+      <Link className="small secondary button has-feather" to='/examples/grid'>See Examples <ChevronRight size={16} /></Link>
       <Template><Article>{GridMd}</Article></Template>
     </div>
   )
@@ -59,7 +62,8 @@ export const Grid = () => {
 export const Type = () => {
   return (
     <div className="column">
-      <h1 className="h5">Typography</h1>
+      <HeaderText>Typography</HeaderText>
+      <Link className="small secondary button has-feather" to='/examples/typography'>See Examples <ChevronRight size={16} /></Link>
       <Template><Article>{TypeMd}</Article></Template>
     </div>
   )
@@ -67,7 +71,8 @@ export const Type = () => {
 export const Buttons = () => {
   return (
     <div className="column">
-      <h1 className="h5">Buttons</h1>
+      <HeaderText>Buttons</HeaderText>
+      <Link className="small secondary button has-feather" to='/examples/buttons'>See Examples <ChevronRight size={16} /></Link>
       <Template><Article>{ButtonsMd}</Article></Template>
     </div>
   )
@@ -75,7 +80,8 @@ export const Buttons = () => {
 export const Forms = () => {
   return (
     <div className="column">
-      <h1 className="h5">Forms</h1>
+      <HeaderText>Forms</HeaderText>
+      <Link className="small secondary button has-feather" to='/examples/forms'>See Examples <ChevronRight size={16} /></Link>
       <Template><Article>{FormsMd}</Article></Template>
     </div>
   )
@@ -84,7 +90,7 @@ export const Forms = () => {
 export const Classes = () => {
   return (
     <div className="column">
-      <h1 className="h5">Classes</h1>
+      <HeaderText>Classes</HeaderText>
       <Template><Article>{ClassesMd}</Article></Template>
     </div>
   )
@@ -92,7 +98,7 @@ export const Classes = () => {
 export const Mixins = () => {
   return (
     <div className="column">
-      <h1 className="h5">Mixins</h1>
+      <HeaderText>Mixins</HeaderText>
       <Template><Article>{MixinsMd}</Article></Template>
     </div>
   )
@@ -100,7 +106,7 @@ export const Mixins = () => {
 export const Functions = () => {
   return (
     <div className="column">
-      <h1 className="h5">Functions</h1>
+      <HeaderText>Functions</HeaderText>
       <Template><Article>{FunctionsMd}</Article></Template>
     </div>
   )
