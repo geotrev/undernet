@@ -1,6 +1,4 @@
-Monolith has only a couple functions it needs to get the job done, and they are primarily helpers for finding styles and managing `scss maps`.
-
-Currently, `map-deep-get` from Hugo Giraudel and a simple color helper for the status palette are the only
+Monolith has only a couple functions it needs to get the job done, and they are primarily helpers for navigating simple and complex SCSS maps.
 
 * [map-deep-get](https://css-tricks.com/snippets/sass/deep-getset-maps/)
 * [scss maps](https://www.sitepoint.com/using-sass-maps/)

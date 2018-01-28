@@ -9,3 +9,12 @@
   @import 'node_modules/monolith-css/src/SCSS/components/button/base';
   @import 'node_modules/monolith-css/src/SCSS/components/form/base';
 // }
+
+main { display: block; }
+
+.has-feather {
+  display: inline-flex;
+  align-items: center;
+
+  svg { margin-left: 5px; }
+}
