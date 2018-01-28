@@ -1,9 +1,12 @@
 import React from 'react';
+
+import { ScrollUpOnMount } from 'helpers';
 import { Button, DemoSection } from 'components';
 
 const Buttons = () => {
   return (
     <DemoSection>
+      <ScrollUpOnMount />
       <div className="small-section grid">
         <div className="row">
           <div className="xsmall-12 collapsed columns">

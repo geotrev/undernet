@@ -1,15 +1,19 @@
 import React from 'react';
+
+import { ScrollUpOnMount } from 'helpers';
 import { DemoSection } from 'components';
 
 const Grid = () => {
   return (
     <DemoSection>
+      <ScrollUpOnMount />
       <div className="small-section grid">
         <div className="row">
           <div className="xsmall-12 collapsed columns">
             <h3 className="section-header">
-              Grid (try resizing)
+              Grid
             </h3>
+            <p>Resize to see columns change</p>
           </div>
         </div>
 
@@ -76,6 +80,7 @@ const Grid = () => {
             <h3 className="section-header">
               Grid Reordering
             </h3>
+            <p>Resize to see colored blocks change</p>
           </div>
         </div>
 

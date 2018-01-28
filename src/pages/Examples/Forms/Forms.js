@@ -1,10 +1,21 @@
 import React from 'react';
+
+import { ScrollUpOnMount } from 'helpers';
 import { Button, TextInput, RadioInput, CheckInput, DemoSection } from 'components';
 
 const Forms = () => {
   return (
     <DemoSection>
+      <ScrollUpOnMount />
       <div className="small-section grid">
+        <div className="row">
+          <div className="xsmall-12 collapsed columns">
+            <h3 className="section-header">
+              Input Field and Textarea
+            </h3>
+          </div>
+        </div>
+
         <div className="row">
 
           <div className="xsmall-12 columns">
@@ -20,7 +31,17 @@ const Forms = () => {
               <TextInput textarea="true" label="Disabled Text Area" id="textinput4" className="disabled" disabled />
             </form>
           </div>
+        </div>
 
+        <div className="row">
+          <div className="xsmall-12 collapsed columns">
+            <h3 className="section-header">
+              Radio Input
+            </h3>
+          </div>
+        </div>
+
+        <div className="row">
           <div className="xsmall-12 columns">
             <form>
               <label> Radio Column </label>
@@ -31,9 +52,7 @@ const Forms = () => {
               </div>
             </form>
           </div>
-        </div>
 
-        <div className="row">
           <div className="xsmall-12 columns">
             <form>
               <label> Radio Row </label>
@@ -44,7 +63,17 @@ const Forms = () => {
               </div>
             </form>
           </div>
+        </div>
 
+        <div className="row">
+          <div className="xsmall-12 collapsed columns">
+            <h3 className="section-header">
+              Checkbox Input
+            </h3>
+          </div>
+        </div>
+
+        <div className="row">
           <div className="xsmall-12 columns">
             <form>
               <label> Checkboxes Column </label>
@@ -70,7 +99,18 @@ const Forms = () => {
               </div>
             </form>
           </div>
+        </div>
 
+        <div className="row">
+          <div className="xsmall-12 collapsed columns">
+            <h3 className="section-header">
+              Fieldset
+            </h3>
+            <p>Laid out using grid classes.</p>
+          </div>
+        </div>
+
+        <div className="row">
           <div className="xsmall-12 columns">
             <form>
               <fieldset>

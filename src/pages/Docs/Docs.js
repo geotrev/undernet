@@ -46,7 +46,7 @@ const Docs = () => {
           />
         </div>
 
-        <div className="xsmall-12 xlarge-10 columns">
+        <div className="xsmall-12 xlarge-10 collapsed columns">
           <DocsRoutes />
         </div>
       </div>
