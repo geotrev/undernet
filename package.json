@@ -1,6 +1,6 @@
 {
   "name": "Monolith-Website",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Website for the Monolith CSS Framework.",
   "main": "index.js",
   "author": "George Treviranus",
