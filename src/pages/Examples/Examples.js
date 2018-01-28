@@ -13,10 +13,10 @@ const Examples = () => {
     {
       header: "Jump To Example",
       links: [
-        { name: "Grid", url: "#grid" },
-        { name: "Typography", url: "#typography" },
-        { name: "Buttons", url: "#buttons" },
-        { name: "Forms", url: "#forms" },
+        { name: "Grid", url: "/examples#grid" },
+        { name: "Typography", url: "/examples#typography" },
+        { name: "Buttons", url: "/examples#buttons" },
+        { name: "Forms", url: "/examples#forms" },
       ],
     },
   ]

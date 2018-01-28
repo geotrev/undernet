@@ -1,12 +1,27 @@
 @import 'node_modules/monolith-css/src/SCSS/helpers/functions/base';
 @import 'node_modules/monolith-css/src/SCSS/helpers/mixins/base';
 
+// Monolith CSS
+// The core of your next front-end project.
+// --------------------------------------------------------
+// 1. Globals
+// 2. Grid
+// 3. Typography
+// 4. Buttons
+// 5. Forms
+// --------------------------------------------------------
+
+// 1. Globals
+// ----------
+
+// If you have a scope, don't forget to
+// uncomment the scope wrapper in monolith.scss
 $scope: '';
 
 $global-space: 16px;
 $global-ease: ease-out 0.2s;
 
-$global-font-sans: 'Fira Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif !default;
+$global-font-sans: "Fira Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif !default;
 $global-font-serif: Constantia, "Lucida Bright", Lucidabright, "Lucida Serif", Lucida, "DejaVu Serif", "Bitstream Vera Serif", "Liberation Serif", Georgia, serif;
 $global-monospace: monospace, monospace;
 $global-font-size: 16px;
@@ -28,7 +43,6 @@ $gray800: #888;
 $gray900: #ddd;
 $white: #ffffff;
 
-// retrieve a color using `status( name )`, where `name` == `warning`, `succcess`, etc...
 $status-palette: (
   warning: khaki,
   success: green,
@@ -69,7 +83,7 @@ $breakpoints: (
   xlarge: 1200px,
 );
 
-$grid-gutter: $global-space / 2;
+$grid-gutter: $global-space;
 $grid-width: 992px;
 
 $order-threshold: 20;
@@ -85,6 +99,9 @@ $column-order-classes: true;
 // 3. Typography
 // -------------
 
+// Note: You can't add extra CSS properties here.
+//       Do that in a separate stylesheet as
+//       a class modifier instead.
 $type-header-sizes: (
   xsmall: (
     h1: (
@@ -134,7 +151,7 @@ $type-header-sizes: (
       margin-bottom: 14px,
     ),
     h6: (
-      font-size: 20px,
+      font-size: 24px,
       margin-bottom: 12px,
     ),
   ),
@@ -160,58 +177,61 @@ $type-header-sizes: (
       margin-bottom: 12px,
     ),
     h6: (
-      font-size: 24px,
+      font-size: 32px,
       margin-bottom: 10px,
     ),
   ),
 );
 
+// Note: You can't add extra CSS properties here.
+//       Do that in a separate stylesheet as
+//       a class modifier instead.
 $type-header-styles: (
   h1: (
     color: $gray200,
     font-style: normal,
-    font-weight: $global-font-weight-bold,
+    font-weight: bold,
   ),
   h2: (
     color: $gray200,
     font-style: normal,
-    font-weight: $global-font-weight-bold,
+    font-weight: bold,
   ),
   h3: (
     color: $gray200,
     font-style: normal,
-    font-weight: $global-font-weight-bold,
+    font-weight: bold,
   ),
   h4: (
     color: $gray200,
     font-style: normal,
-    font-weight: $global-font-weight-bold,
+    font-weight: bold,
   ),
   h5: (
     color: $gray200,
     font-style: normal,
-    font-weight: $global-font-weight-bold,
+    font-weight: bold,
   ),
   h6: (
     color: $gray200,
     font-style: normal,
-    font-weight: $global-font-weight-normal,
+    font-weight: bold,
   ),
 );
 
-$type-header-line-height: 1.5;
+$type-header-line-height: $global-line-height;
 
 $type-p-color: $gray200;
 $type-p-font-size: 16px;
 $type-p-font-style: normal;
 $type-p-font-weight: normal;
-$type-p-line-height: 1.5;
+$type-p-line-height: $global-line-height;
 $type-p-margin-bottom: 16px;
 
 $type-code-font: $global-monospace;
 $type-code-font-size: 1em;
-$type-code-color: $gray600;
-$type-code-background: #f4f4f4;
+$type-code-color: $black;
+$type-code-background: lighten($gray900, 5%);
 $type-code-border: none;
 $type-code-radius: $global-border-radius;
 $type-code-padding: 0 4px;
@@ -231,7 +251,7 @@ $type-mark-padding: 10px;
 $type-mark-color: $gray200;
 $type-mark-background: status(warning);
 
-$list-padding: 0 0 16px 18px;
+$list-padding: 0 0 0 18px;
 $list-margin: 0;
 $list-font: $global-font-sans;
 $list-item-margin: 0;
@@ -242,6 +262,9 @@ $ol-list-style: decimal;
 // 4. Buttons
 // ----------
 
+// Note: You can't add extra CSS properties here.
+//       Do that in a separate stylesheet as
+//       a class modifier instead.
 $button-sizes: (
   small: (
     padding: 8px 14px,
@@ -297,6 +320,9 @@ $button-box-shadow-focus: $button-box-shadow;
 
 // Branded & specialized buttons
 
+// Note: You can't add extra CSS properties here.
+//       Do that in a separate stylesheet as
+//       a class modifier instead.
 $button-types: (
   // basic
   primary: (
@@ -304,14 +330,17 @@ $button-types: (
     background-hover: $primary-color,
     background-active: darken($primary-color, 2%),
     background-focus: $primary-color,
+
     color: $white,
     color-hover: $white,
     color-active: $white,
     color-focus: $white,
+
     border-color: transparent,
     border-color-hover: transparent,
     border-color-active: transparent,
     border-color-focus: transparent,
+
     box-shadow: none,
     box-shadow-hover: none,
     box-shadow-active: none,
@@ -322,14 +351,17 @@ $button-types: (
     background-hover: transparent,
     background-active: transparent,
     background-focus: transparent,
+
     color: lighten($primary-color, 5%),
     color-hover: $primary-color,
     color-active: darken($primary-color, 2%),
     color-focus: $primary-color,
+
     border-color: lighten($primary-color, 5%),
     border-color-hover: $primary-color,
     border-color-active: darken($primary-color, 2%),
     border-color-focus: $primary-color,
+
     box-shadow: none,
     box-shadow-hover: none,
     box-shadow-active: none,
@@ -340,14 +372,17 @@ $button-types: (
     background-hover: rgba($gray900, 0.2),
     background-active: rgba($gray900, 0.3),
     background-focus: rgba($gray900, 0.2),
+
     color: $primary-color,
     color-hover: $primary-color,
     color-active: $primary-color,
     color-focus: $primary-color,
+
     border-color: transparent,
     border-color-hover: transparent,
     border-color-active: transparent,
     border-color-focus: transparent,
+
     box-shadow: none,
     box-shadow-hover: none,
     box-shadow-active: none,
@@ -360,14 +395,17 @@ $button-types: (
     background-hover: $white,
     background-active: $gray900,
     background-focus: $white,
+
     color: $gray200,
     color-hover: $gray200,
     color-active: $gray200,
     color-focus: $gray200,
+
     border-color: transparent,
     border-color-hover: transparent,
     border-color-active: transparent,
     border-color-focus: transparent,
+
     box-shadow: none,
     box-shadow-hover: none,
     box-shadow-active: none,
@@ -378,14 +416,17 @@ $button-types: (
     background-hover: transparent,
     background-active: transparent,
     background-focus: transparent,
+
     color: $white,
     color-hover: $white,
     color-active: $white,
     color-focus: $white,
+
     border-color: $gray900,
     border-color-hover: $white,
     border-color-active: darken($gray900, 2%),
     border-color-focus: $white,
+
     box-shadow: none,
     box-shadow-hover: none,
     box-shadow-active: none,
@@ -398,14 +439,17 @@ $button-types: (
     background-hover: status(warning),
     background-active: darken(status(warning), 2%),
     background-focus: status(warning),
+
     color: $black,
     color-hover: $black,
     color-active: $black,
     color-focus: $black,
+
     border-color: transparent,
     border-color-hover: transparent,
     border-color-active: transparent,
     border-color-focus: transparent,
+
     box-shadow: none,
     box-shadow-hover: none,
     box-shadow-active: none,
@@ -416,14 +460,17 @@ $button-types: (
     background-hover: status(success),
     background-active: darken(status(success), 2%),
     background-focus: status(success),
+
     color: $white,
     color-hover: $white,
     color-active: $white,
     color-focus: $white,
+
     border-color: transparent,
     border-color-hover: transparent,
     border-color-active: transparent,
     border-color-focus: transparent,
+
     box-shadow: none,
     box-shadow-hover: none,
     box-shadow-active: none,
@@ -434,14 +481,17 @@ $button-types: (
     background-hover: status(destroy),
     background-active: darken(status(destroy), 2%),
     background-focus: status(destroy),
+
     color: $white,
     color-hover: $white,
     color-active: $white,
     color-focus: $white,
+
     border-color: transparent,
     border-color-hover: transparent,
     border-color-active: transparent,
     border-color-focus: transparent,
+
     box-shadow: none,
     box-shadow-hover: none,
     box-shadow-active: none,
@@ -452,14 +502,17 @@ $button-types: (
     background-hover: status(notice),
     background-active: darken(status(notice), 2%),
     background-focus: status(notice),
+
     color: $white,
     color-hover: $white,
     color-active: $white,
     color-focus: $white,
+
     border-color: transparent,
     border-color-hover: transparent,
     border-color-active: transparent,
     border-color-focus: transparent,
+
     box-shadow: none,
     box-shadow-hover: none,
     box-shadow-active: none,
@@ -469,7 +522,7 @@ $button-types: (
 
 // Text links
 
-$link-color: lighten($primary-color, 3%);
+$link-color: lighten($primary-color, 10%);
 $link-decoration: none;
 $link-decoration-hover: underline;
 $link-font: $global-font-sans;

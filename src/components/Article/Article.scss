@@ -1,8 +1,9 @@
 @import '../../global';
 
 .article-wrapper {
-  h2 { font-size: 24px; }
-  h3 { font-size: 20px; }
+  h2 { font-size: 28px; }
+  h3 { font-size: 24px; }
   h2, h3 { padding-top: 16px; }
   pre { overflow-y: scroll; }
+  pre, code { color: $gray800; background: #fafafa; }
 }
