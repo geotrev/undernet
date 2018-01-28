@@ -1,19 +1,14 @@
 import React from 'react';
+import DemoSection from '../DemoSection/DemoSection';
 
-import { ScrollUpOnMount } from 'helpers';
-import { Button, DemoSection } from 'components';
+import { Button, HeaderText } from 'components';
 
 const Buttons = () => {
   return (
     <DemoSection>
-      <ScrollUpOnMount />
       <div className="small-section grid">
         <div className="row">
-          <div className="xsmall-12 collapsed columns">
-            <h3 className="section-header">
-              Button Sizes
-            </h3>
-          </div>
+          <HeaderText>Button Sizes</HeaderText>
 
           <div className="xsmall-12 collapsed columns">
             <Button className="small">Small Button</Button>
@@ -49,11 +44,7 @@ const Buttons = () => {
 
       <div className="small-section grid">
         <div className="row">
-          <div className="xsmall-12 collapsed columns">
-            <h3 className="section-header">
-              Disabled State
-            </h3>
-          </div>
+          <HeaderText>Disabled State</HeaderText>
 
           <div className="xsmall-12 collapsed columns">
             <Button disabled>Disabled Button</Button>
@@ -65,11 +56,7 @@ const Buttons = () => {
 
       <div className="small-section grid">
         <div className="row">
-          <div className="xsmall-12 collapsed columns">
-            <h3 className="section-header">
-              Wide (block) Buttons
-            </h3>
-          </div>
+          <HeaderText>Wide (block) Buttons</HeaderText>
 
           <div className="xsmall-12 collapsed columns">
             <Button className="wide">Wide Button</Button>
@@ -81,11 +68,7 @@ const Buttons = () => {
 
       <div className="small-section grid">
         <div className="row">
-          <div className="xsmall-12 collapsed columns">
-            <h3 className="section-header">
-              Primary, Secondary, and Tertiary Buttons
-            </h3>
-          </div>
+          <HeaderText>Primary, Secondary, and Tertiary Buttons</HeaderText>
 
           <div className="xsmall-12 collapsed columns">
             <Button className="primary">Primary Button</Button>
@@ -109,11 +92,7 @@ const Buttons = () => {
 
       <div className="small-section grid">
         <div className="row">
-          <div className="xsmall-12 collapsed columns">
-            <h3 className="section-header">
-              Status Buttons
-            </h3>
-          </div>
+          <HeaderText>Status Buttons</HeaderText>
 
           <div className="xsmall-12 collapsed columns">
             <Button className="warning">Warning Button</Button>
@@ -143,11 +122,7 @@ const Buttons = () => {
 
       <div className="small-section grid">
         <div className="row">
-          <div className="xsmall-12 collapsed columns">
-            <h3 className="section-header">
-              Inverted Buttons
-            </h3>
-          </div>
+          <HeaderText>Inverted Buttons</HeaderText>
 
           <div className="xsmall-12 collapsed columns">
             <div className="xsmall-12 columns invert-block">
@@ -167,11 +142,7 @@ const Buttons = () => {
 
       <div className="small-section grid">
         <div className="row">
-          <div className="xsmall-12 collapsed columns">
-            <h3 className="section-header">
-              Links
-            </h3>
-          </div>
+          <HeaderText>Links</HeaderText>
 
           <div className="xsmall-12 collapsed columns">
             <Button href="#0">This is a link!</Button>

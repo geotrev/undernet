@@ -1,18 +1,15 @@
 import React from 'react';
+import DemoSection from '../DemoSection/DemoSection';
 
-import { ScrollUpOnMount } from 'helpers';
-import { DemoSection } from 'components';
+import { HeaderText } from 'components';
 
 const Grid = () => {
   return (
     <DemoSection>
-      <ScrollUpOnMount />
       <div className="small-section grid">
         <div className="row">
+          <HeaderText>Grid</HeaderText>
           <div className="xsmall-12 collapsed columns">
-            <h3 className="section-header">
-              Grid
-            </h3>
             <p>Resize to see columns change</p>
           </div>
         </div>
@@ -76,10 +73,8 @@ const Grid = () => {
 
       <div className="small-section grid">
         <div className="row">
+          <HeaderText>Grid Reordering</HeaderText>
           <div className="xsmall-12 collapsed columns">
-            <h3 className="section-header">
-              Grid Reordering
-            </h3>
             <p>Resize to see colored blocks change</p>
           </div>
         </div>
@@ -108,11 +103,7 @@ const Grid = () => {
 
       <div className="small-section grid">
         <div className="row">
-          <div className="xsmall-12 collapsed columns">
-            <h3 className="section-header">
-              Grid Offsets
-            </h3>
-          </div>
+          <HeaderText>Grid Offsets</HeaderText>
         </div>
 
         <div className="row">

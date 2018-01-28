@@ -1,23 +1,23 @@
 import React from 'react';
+import DemoSection from '../DemoSection/DemoSection';
 
-import { ScrollUpOnMount } from 'helpers';
-import { Button, TextInput, RadioInput, CheckInput, DemoSection } from 'components';
+import {
+  Button,
+  TextInput,
+  RadioInput,
+  CheckInput,
+  HeaderText
+} from 'components';
 
 const Forms = () => {
   return (
     <DemoSection>
-      <ScrollUpOnMount />
       <div className="small-section grid">
         <div className="row">
-          <div className="xsmall-12 collapsed columns">
-            <h3 className="section-header">
-              Input Field and Textarea
-            </h3>
-          </div>
+          <HeaderText>Input Field and Textarea</HeaderText>
         </div>
 
         <div className="row">
-
           <div className="xsmall-12 columns">
             <form>
               <TextInput label="Input Field" id="textinput1" />
@@ -36,11 +36,7 @@ const Forms = () => {
 
       <div className="small-section grid">
         <div className="row">
-          <div className="xsmall-12 collapsed columns">
-            <h3 className="section-header">
-              Radio Input
-            </h3>
-          </div>
+          <HeaderText>Radio Input</HeaderText>
         </div>
 
         <div className="row">
@@ -70,11 +66,7 @@ const Forms = () => {
 
       <div className="small-section grid">
         <div className="row">
-          <div className="xsmall-12 collapsed columns">
-            <h3 className="section-header">
-              Checkbox Input
-            </h3>
-          </div>
+          <HeaderText>Checkbox Input</HeaderText>
         </div>
 
         <div className="row">
@@ -108,10 +100,8 @@ const Forms = () => {
 
       <div className="small-section grid">
         <div className="row">
+          <HeaderText>Fieldset</HeaderText>
           <div className="xsmall-12 collapsed columns">
-            <h3 className="section-header">
-              Fieldset
-            </h3>
             <p>Laid out using grid classes.</p>
           </div>
         </div>

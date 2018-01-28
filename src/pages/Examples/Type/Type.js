@@ -1,19 +1,14 @@
 import React from 'react';
+import DemoSection from '../DemoSection/DemoSection';
 
-import { ScrollUpOnMount } from 'helpers';
-import { DemoSection } from 'components';
+import { HeaderText } from 'components';
 
 const Type = () => {
   return (
     <DemoSection>
-      <ScrollUpOnMount />
       <div className="small-section grid">
         <div className="row">
-          <div className="xsmall-12 collapsed columns">
-            <h3 className="section-header">
-              Headers
-            </h3>
-          </div>
+          <HeaderText>Headers</HeaderText>
         </div>
 
         <div className="row">
@@ -40,11 +35,7 @@ const Type = () => {
 
       <div className="small-section grid">
         <div className="row">
-          <div className="xsmall-12 collapsed columns">
-            <h3 className="section-header">
-              Paragraph & inline text
-            </h3>
-          </div>
+          <HeaderText> Paragraph & Inline Text </HeaderText>
         </div>
 
         <div className="row">
@@ -57,11 +48,7 @@ const Type = () => {
 
       <div className="small-section grid">
         <div className="row">
-          <div className="xsmall-12 collapsed columns">
-            <h3 className="section-header">
-              Unordered & Ordered Lists
-            </h3>
-          </div>
+          <HeaderText>Unordered & Ordered Lists</HeaderText>
         </div>
 
         <div className="row">

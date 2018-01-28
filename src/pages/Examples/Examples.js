@@ -13,7 +13,7 @@ import Forms from './Forms/Forms';
 const Examples = () => {
   const navItems = [
     {
-      header: "Components",
+      header: "See Examples",
       links: [
         { name: "Grid", url: "/examples/grid" },
         { name: "Typography", url: "/examples/typography" },
@@ -26,6 +26,7 @@ const Examples = () => {
   return (
     <div id="examples" className="medium-section fluid grid">
       <ScrollUpOnMount />
+
       <div className="row">
         <div className="xsmall-12 xlarge-2 columns collapsed examples-nav-menu">
           <SideNav navListClasses="column" navItems={navItems} />
