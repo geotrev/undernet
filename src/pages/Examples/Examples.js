@@ -3,8 +3,8 @@ import './Examples.scss';
 
 import { ScrollUpOnMount } from 'helpers';
 import { SideNav } from 'components';
-import Grid from './Sections/Grid';
-import Typography from './Typography/Typography';
+import Grid from './Grid/Grid';
+import Type from './Type/Type';
 import Buttons from './Buttons/Buttons';
 import Forms from './Forms/Forms';
 
@@ -13,10 +13,10 @@ const Examples = () => {
     {
       header: "Jump To Example",
       links: [
-        { name: "Grid", url: "/examples#grid" },
-        { name: "Typography", url: "/examples#typography" },
-        { name: "Buttons", url: "/examples#buttons" },
-        { name: "Forms", url: "/examples#forms" },
+        { name: "Grid", url: "#grid" },
+        { name: "Typography", url: "#typography" },
+        { name: "Buttons", url: "#buttons" },
+        { name: "Forms", url: "#forms" },
       ],
     },
   ]
@@ -31,7 +31,7 @@ const Examples = () => {
 
         <div className="xsmall-12 xlarge-10 columns">
           <Grid />
-          <Typography />
+          <Type />
           <Buttons />
           <Forms />
         </div>

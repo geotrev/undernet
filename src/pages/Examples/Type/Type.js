@@ -1,12 +1,12 @@
 import React from 'react';
 import { DemoSection } from 'components';
 
-const Forms = () => {
+const Type = () => {
   return (
-    <DemoSection header="Forms">
+    <DemoSection header="Typography">
 
     </DemoSection>
   );
 }
 
-export default Forms;
+export default Type;

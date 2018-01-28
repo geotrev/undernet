@@ -6,7 +6,36 @@
 
   .examples-nav-menu { background: #f9f9f9; }
 
-  // demo styling per component
+  .content {
+    padding: 16px 0;
+    width: 100%;
+    background: lightgray;
+    border-radius: 40px;
+  }
 
+  .content{
+    &.blue { background: teal; }
+    &.red { background: crimson; }
+    &.green { background: green; }
+  }
 
+  .gray {
+    background: lightgray;
+
+    .content { background: white; }
+  }
+
+  .invert-block {
+    background: black;
+    border-radius: 4px;
+    padding: 1rem;
+    margin: 16px 0;
+  }
+
+  button.button, button,
+  a.button, input.button,
+  input[type=submit],
+  input[type=button] {
+    margin-right: 10px;
+  }
 }

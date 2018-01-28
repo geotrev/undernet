@@ -1,8 +1,8 @@
-import Grid from './Grid';
+import Type from './Type';
 
-describe("<Grid />", () => {
+describe("<Type />", () => {
   it("can render", () => {
-    const wrapper = shallow(<Grid />);
+    const wrapper = shallow(<Type />);
     expect(wrapper).to.have.length(1);
     expect(wrapper).to.exist;
   })
