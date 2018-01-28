@@ -4,11 +4,7 @@ import './App.scss';
 
 // favicons
 import 'images/favicon.ico';
-import 'images/favicon-128.png';
-import 'images/favicon-16x16.png';
 import 'images/favicon-32x32.png';
-import 'images/favicon-96x96.png';
-import 'images/favicon-196x196.png';
 // apple touch icons
 import 'images/apple-touch-icon-57x57.png';
 import 'images/apple-touch-icon-60x60.png';
