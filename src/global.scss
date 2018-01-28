@@ -592,7 +592,7 @@ $fieldset-border-radius: $form-radius;
 $fieldset-box-shadow: none;
 $fieldset-background: transparent;
 $fieldset-margin: 0;
-$fieldset-padding: $global-space;
+$fieldset-padding: 48px $global-space $global-space $global-space;
 
 // Fieldset legend
 

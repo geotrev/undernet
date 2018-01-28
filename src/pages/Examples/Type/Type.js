@@ -6,22 +6,22 @@ const Type = () => {
     <DemoSection header="Typography">
       <div className="small-section wide grid">
         <div className="row">
-          <div className="xsmall-12 medium-6 collapsed columns">
+          <div className="xsmall-12 medium-6 columns">
             <h1>Header 1</h1>
           </div>
-          <div className="xsmall-12 medium-6 collapsed columns">
+          <div className="xsmall-12 medium-6 columns">
             <h2>Header 2</h2>
           </div>
-          <div className="xsmall-12 medium-6 collapsed columns">
+          <div className="xsmall-12 medium-6 columns">
             <h3>Header 3</h3>
           </div>
-          <div className="xsmall-12 medium-6 collapsed columns">
+          <div className="xsmall-12 medium-6 columns">
             <h4>Header 4</h4>
           </div>
-          <div className="xsmall-12 medium-6 collapsed columns">
+          <div className="xsmall-12 medium-6 columns">
             <h5>Header 5</h5>
           </div>
-          <div className="xsmall-12 medium-6 collapsed columns">
+          <div className="xsmall-12 medium-6 columns">
             <h6>Header 6</h6>
           </div>
         </div>

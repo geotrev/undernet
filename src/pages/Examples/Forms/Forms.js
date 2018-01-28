@@ -79,18 +79,26 @@ const Forms = () => {
                 </legend>
 
                 <div className="row">
-                  <div className="medium-6 xsmall-12 columns trim-padding-bottom">
+                  <div className="medium-6 xsmall-12 columns">
                     <TextInput label="Email" id="field1"  className="text-field" type="email" />
+                  </div>
+                  <div className="medium-6 xsmall-12 columns">
                     <TextInput label="Password" id="field2" className="text-field" type="password" />
                   </div>
+                </div>
 
-                  <div className="medium-6 xsmall-12 columns trim-padding-bottom">
+                <div className="row">
+                  <div className="medium-6 xsmall-12 columns">
                     <TextInput label="Address Ln 1" id="field3" />
+                  </div>
+                  <div className="medium-6 xsmall-12 columns">
                     <TextInput label="Address Ln 2" id="field4" />
                   </div>
+                </div>
 
+                <div className="row">
                   <div className="column">
-                    <Button type="button" className="trim-margin">Submit</Button>
+                    <Button type="button">Submit</Button>
                   </div>
                 </div>
 

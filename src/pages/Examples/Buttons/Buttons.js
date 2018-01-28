@@ -91,15 +91,15 @@ const Buttons = () => {
 
           <div className="xsmall-12 collapsed columns">
             <div className="xsmall-12 columns invert-block">
-              <Button className="trim-margin-bottom inverted">Inverted Button</Button>
-              <Button href="#0" className="trim-margin-bottom inverted button">Inverted Lint Button</Button>
-              <input className="trim-margin-bottom inverted" type="button" value="Inverted Input Button" />
+              <Button className="inverted">Inverted Button</Button>
+              <Button href="#0" className="inverted button">Inverted Link Button</Button>
+              <input className="inverted" type="button" value="Inverted Input Button" />
             </div>
 
             <div className="xsmall-12 columns invert-block">
-              <Button className="trim-margin-bottom inverted-outline">Inverted Outline Button</Button>
-              <Button href="#0" className="trim-margin-bottom inverted-outline button">Inverted Outline Link Button</Button>
-              <input className="trim-margin-bottom inverted-outline" type="button" value="Inverted Outline Input Button" />
+              <Button className="inverted-outline">Inverted Outline Button</Button>
+              <Button href="#0" className="inverted-outline button">Inverted Outline Link Button</Button>
+              <input className="inverted-outline" type="button" value="Inverted Outline Input Button" />
             </div>
           </div>
 

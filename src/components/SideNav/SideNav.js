@@ -78,16 +78,16 @@ export default class SideNav extends Component {
   renderListItems(items) {
     let list = [];
 
-    for (let i = 0; i < items.length; i++) {
-      let name = items[i].name;
-      let url = items[i].url;
+    items.map((item, index) => {
+      let name = item.name;
+      let url = item.url;
 
-      list.push(
-        <li key={i}>
+      return list.push(
+        <li key={index}>
           <Link onClick={this.handleCollapseClick} to={url}>{name}</Link>
         </li>
       );
-    };
+    });
 
     return list;
   }
