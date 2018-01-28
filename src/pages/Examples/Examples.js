@@ -1,6 +1,8 @@
 import React from 'react';
 import './Examples.scss';
 
+import { Route } from 'react-router-dom';
+
 import { ScrollUpOnMount } from 'helpers';
 import { SideNav } from 'components';
 import Grid from './Grid/Grid';
@@ -11,12 +13,12 @@ import Forms from './Forms/Forms';
 const Examples = () => {
   const navItems = [
     {
-      header: "Jump To Example",
+      header: "Components",
       links: [
-        { name: "Grid", url: "/examples#grid" },
-        { name: "Typography", url: "/examples#typography" },
-        { name: "Buttons", url: "/examples#buttons" },
-        { name: "Forms", url: "/examples#forms" },
+        { name: "Grid", url: "/examples/grid" },
+        { name: "Typography", url: "/examples/typography" },
+        { name: "Buttons", url: "/examples/buttons" },
+        { name: "Forms", url: "/examples/forms" },
       ],
     },
   ]
@@ -30,10 +32,10 @@ const Examples = () => {
         </div>
 
         <div className="xsmall-12 xlarge-10 columns">
-          <Grid />
-          <Type />
-          <Buttons />
-          <Forms />
+          <Route exact path="/examples/grid" component={ Grid } />
+          <Route exact path="/examples/typography" component={ Type } />
+          <Route exact path="/examples/buttons" component={ Buttons } />
+          <Route exact path="/examples/forms" component={ Forms } />
         </div>
       </div>
     </div>

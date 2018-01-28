@@ -27,7 +27,7 @@ const Nav = () => {
               </Link>
             </li>
             <li>
-              <Link to='/examples'>
+              <Link to='/examples/grid'>
                 Examples
               </Link>
             </li>

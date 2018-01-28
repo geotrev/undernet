@@ -1,8 +1,10 @@
+@import '../../global';
+
 .demo-section-wrapper {
   .section-header {
     text-transform: uppercase;
-    color: goldenrod;
-    border-bottom: 2px solid goldenrod;
+    color: status(notice);
+    border-bottom: 2px solid status(notice);
     padding: 15px 0 10px 0;
     font-size: 18px;
   }
