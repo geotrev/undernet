@@ -3,7 +3,7 @@ import { Button, TextInput, RadioInput, CheckInput, DemoSection } from 'componen
 
 const Forms = () => {
   return (
-    <DemoSection header="Forms">
+    <DemoSection>
       <div className="small-section grid">
         <div className="row">
 

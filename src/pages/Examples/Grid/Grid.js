@@ -3,8 +3,16 @@ import { DemoSection } from 'components';
 
 const Grid = () => {
   return (
-    <DemoSection header="Grid">
+    <DemoSection>
       <div className="small-section grid">
+        <div className="row">
+          <div className="xsmall-12 collapsed columns">
+            <h3 className="section-header">
+              Grid (try resizing)
+            </h3>
+          </div>
+        </div>
+
         <div className="row">
           <div className="column">
             <div className="content"></div>
@@ -64,6 +72,14 @@ const Grid = () => {
 
       <div className="small-section grid">
         <div className="row">
+          <div className="xsmall-12 collapsed columns">
+            <h3 className="section-header">
+              Grid Reordering
+            </h3>
+          </div>
+        </div>
+
+        <div className="row">
           <div className="xsmall-4 columns">
             <div className="content"></div>
           </div>
@@ -86,6 +102,14 @@ const Grid = () => {
       </div>
 
       <div className="small-section grid">
+        <div className="row">
+          <div className="xsmall-12 collapsed columns">
+            <h3 className="section-header">
+              Grid Offsets
+            </h3>
+          </div>
+        </div>
+
         <div className="row">
           <div className="xsmall-1 xsmall-offset-11 columns">
             <div className="content"></div>

@@ -3,7 +3,7 @@ import { DemoSection } from 'components';
 
 const Type = () => {
   return (
-    <DemoSection header="Typography">
+    <DemoSection>
       <div className="small-section grid">
         <div className="row">
           <div className="xsmall-12 medium-6 columns">

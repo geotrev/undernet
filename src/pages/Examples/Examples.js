@@ -31,7 +31,7 @@ const Examples = () => {
           <SideNav navListClasses="column" navItems={navItems} />
         </div>
 
-        <div className="xsmall-12 xlarge-10 columns">
+        <div className="xsmall-12 xlarge-10 collapsed columns">
           <Route exact path="/examples/grid" component={ Grid } />
           <Route exact path="/examples/typography" component={ Type } />
           <Route exact path="/examples/buttons" component={ Buttons } />
