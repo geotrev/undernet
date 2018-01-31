@@ -4,7 +4,9 @@
   flex-direction: row;
   padding: 0;
 
-  .examples-nav-menu { background: #f9f9f9; }
+  .examples-nav-menu {
+    background: #fbfbfb;
+  }
 
   .content {
     padding: 16px 0;
@@ -14,15 +16,25 @@
   }
 
   .content{
-    &.blue { background: teal; }
-    &.red { background: crimson; }
-    &.green { background: green; }
+    &.blue {
+      background: teal;
+    }
+
+    &.red {
+      background: crimson;
+    }
+
+    &.green {
+      background: green;
+    }
   }
 
   .gray {
     background: lightgray;
 
-    .content { background: white; }
+    .content {
+      background: white;
+    }
   }
 
   .invert-block {

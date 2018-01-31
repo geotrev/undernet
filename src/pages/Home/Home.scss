@@ -6,7 +6,11 @@
   background-position: center;
   background-size: cover;
 
-  h2 { font-weight: normal; }
+  h2 {
+    font-weight: normal;
+  }
 
-  a { margin: 0 8px $global-space 8px; }
+  a {
+    margin: 0 8px $global-space 8px;
+  }
 }
