@@ -3,7 +3,9 @@
 .footer-wrapper {
   border-top: 1px solid $gray900;
 
-  p { margin-bottom: 0; }
+  p {
+    margin-bottom: 0;
+  }
 
   .has-feather {
     display: inline-block;
