@@ -75,32 +75,18 @@ export default class SideNav extends Component {
     )
   }
 
-  renderListItems(items) {
-    let list = [];
-
-    items.map((item, index) => {
-      let name = item.name;
-      let url = item.url;
-
-      return list.push(
-        <li key={index}>
-          <Link onClick={this.handleCollapseClick} to={url}>{name}</Link>
-        </li>
-      );
-    });
-
-    return list;
-  }
-
   renderLists() {
-    const listData = this.props.navItems;
-    let navSections = [];
+    return this.props.navItems.map((section, i) => {
+      let listItems = section.links.map((item, j) => {
+        return (
+          <li key={j}>
+            <Link onClick={this.handleCollapseClick} to={item.url}>{item.name}</Link>
+          </li>
+        );
+      });
 
-    listData.map((section, index) => {
-      let listItems = this.renderListItems(section.links);
-
-      return navSections.push(
-        <div className={this.props.navListClasses} key={index}>
+      return (
+        <div className={this.props.navListClasses} key={i}>
           <ul>
             <li><h4 className="paragraph">{section.header}</h4></li>
             {listItems}
@@ -108,7 +94,5 @@ export default class SideNav extends Component {
         </div>
       );
     });
-
-    return navSections;
   }
 }
