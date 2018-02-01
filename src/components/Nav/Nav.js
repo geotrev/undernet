@@ -9,12 +9,12 @@ const Nav = () => {
   return (
     <nav className="nav-wrapper fluid grid">
       <ul className="row collapsed">
-        <li className="small-6 xsmall-12 columns">
+        <li className="small-5 xsmall-12 columns">
           <Link to='/'>
             <img height="30px" width="auto" src={Logo} alt="Monolith CSS logo"/>
           </Link>
         </li>
-        <li className="small-6 xsmall-12 columns">
+        <li className="small-7 xsmall-12 columns">
           <ul className="row">
             <li>
               <a className="has-feather" href='https://www.github.com/geotrev/monolith'>
