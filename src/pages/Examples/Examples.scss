@@ -42,6 +42,10 @@
     border-radius: 4px;
     padding: 1rem;
     margin: 16px 0;
+
+    > button, a.button, input[type=button] {
+      margin: 0;
+    }
   }
 
   button.button, button,
