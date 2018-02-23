@@ -1,15 +1,6 @@
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
-
-const pathsToClean = [
-  'build/**/*'
-]
-
-const cleanOptions = {
-  verbose: true
-}
 
 module.exports = {
   entry: path.join(__dirname, 'src', 'index.js'),
@@ -70,7 +61,6 @@ module.exports = {
     ]
   },
   plugins: [
-    new CleanWebpackPlugin(pathsToClean, cleanOptions),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'public/index.html')
     }),
