@@ -11,7 +11,7 @@ const Nav = () => {
       <ul className="row collapsed">
         <li className="small-5 xsmall-12 columns">
           <Link to='/'>
-            <img class="logo" src={Logo} alt="Monolith CSS logo"/>
+            <img className="logo" src={Logo} alt="Monolith CSS logo"/>
           </Link>
         </li>
         <li className="small-7 xsmall-12 columns">
