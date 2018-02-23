@@ -3758,8 +3758,8 @@ mocha@^4.0.1:
     supports-color "4.4.0"
 
 monolith-css@^1.1.7:
-  version "1.2.8"
-  resolved "https://registry.yarnpkg.com/monolith-css/-/monolith-css-1.2.8.tgz#cd1c1c646fbe666e43ae9cb6d9e2c6e3a273ed2a"
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/monolith-css/-/monolith-css-1.3.0.tgz#737370b5b66c398241c5c74b2a2568f504a58d39"
 
 move-concurrently@^1.0.1:
   version "1.0.1"

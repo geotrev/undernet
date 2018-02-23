@@ -1,6 +1,6 @@
 {
   "name": "Monolith-Website",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Website for the Monolith CSS Framework.",
   "main": "index.js",
   "author": "George Treviranus",
@@ -58,9 +58,17 @@
     "url": "git+https://github.com/geotrev/monolith-site.git"
   },
   "babel": {
-    "presets": [ "env", "react" ],
+    "presets": [
+      "env",
+      "react"
+    ],
     "plugins": [
-      [ "babel-plugin-webpack-aliases", { "config": "./webpack.dev.js" } ]
+      [
+        "babel-plugin-webpack-aliases",
+        {
+          "config": "./webpack.dev.js"
+        }
+      ]
     ]
   }
 }
