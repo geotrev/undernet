@@ -19,6 +19,11 @@
     margin: 0;
     padding: 0;
 
+    .logo {
+      height: 30px;
+      width: auto;
+    }
+
     > li:first-child {
       @include align-nav-item(flex-start);
       display: inline-flex;
