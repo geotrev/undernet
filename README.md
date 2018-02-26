@@ -1,5 +1,5 @@
 # Monolith CSS Website
-Marketing site for [Monolith CSS](https://github.com/gtreviranus/monolith).
+Marketing site for [Monolith CSS](https://github.com/geotrev/monolith).
 
 [![CircleCI](https://circleci.com/gh/geotrev/monolith-site/tree/master.svg?style=svg)](https://circleci.com/gh/geotrev/monolith-site/tree/master)
 
