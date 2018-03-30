@@ -15,10 +15,12 @@
 
   pre {
     overflow-y: scroll;
+    margin-bottom: 16px;
   }
 
   pre, code {
-    color: $gray800; background: #fafafa;
+    color: $gray800; 
+    background: #fafafa;
   }
 
   ul {
