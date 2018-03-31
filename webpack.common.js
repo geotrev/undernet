@@ -64,6 +64,9 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'public/index.html')
     }),
-    new ExtractTextPlugin('app-[contentHash].css'),
+    new ExtractTextPlugin({
+      filename: 'app-[hash].css',
+      allChunks: true
+    }),
   ],
 }

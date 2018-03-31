@@ -26,5 +26,6 @@ module.exports = merge(common, {
       test: /\.js$|.css$/,
       algorithm: "gzip",
     }),
-  ]
+  ],
+  mode: 'production'
 });
