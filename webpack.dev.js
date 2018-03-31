@@ -9,4 +9,5 @@ module.exports = merge(common, {
     historyApiFallback: true,
     port: 3000,
   },
+  mode: 'development'
 });
