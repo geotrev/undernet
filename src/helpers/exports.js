@@ -1,5 +1,1 @@
-import ScrollUpOnMount from './ScrollUpOnMount/ScrollUpOnMount';
-
-export {
-  ScrollUpOnMount,
-}
+export { default as ScrollUpOnMount } from './ScrollUpOnMount/ScrollUpOnMount';

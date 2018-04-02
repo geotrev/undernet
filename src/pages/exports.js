@@ -1,9 +1,3 @@
-import Docs from './Docs/Docs';
-import Home from './Home/Home';
-import Examples from './Examples/Examples';
-
-export {
-  Docs,
-  Home,
-  Examples,
-}
+export { default as Docs } from './Docs/Docs';
+export { default as Home } from './Home/Home';
+export { default as Examples } from './Examples/Examples';
