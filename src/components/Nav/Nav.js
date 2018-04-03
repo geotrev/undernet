@@ -2,7 +2,8 @@ import React from 'react';
 import './Nav.scss';
 
 import Logo from 'images/mono-logo.png';
-import { Github, Twitter } from 'react-feather';
+import Github from 'react-feather/dist/icons/github';
+import Twitter from 'react-feather/dist/icons/twitter';
 import { Link } from 'react-router-dom';
 
 const Nav = () => {

@@ -3,7 +3,7 @@ import './SideNav.scss';
 
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
-import { ChevronDown } from 'react-feather';
+import ChevronDown from 'react-feather/dist/icons/chevron-down';
 
 import Button from '../Button/Button';
 
@@ -11,7 +11,6 @@ export default class SideNav extends Component {
   constructor(props) {
     super(props)
     this.state = { menuIsOpen: null }
-
     this.getWidth = this.getWidth.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleCollapseClick = this.handleCollapseClick.bind(this);

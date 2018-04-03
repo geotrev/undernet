@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import './App.scss';
 
+import { Nav, Footer } from 'components';
+import { Home, Docs, Examples } from 'pages';
+
 // favicons
 import 'images/favicon.ico';
 import 'images/favicon-32x32.png';
@@ -21,15 +24,13 @@ import 'images/mstile-150x150.png';
 import 'images/mstile-310x150.png';
 import 'images/mstile-310x310.png';
 
-import { Nav, Footer } from 'components';
-import { Home, Docs, Examples } from 'pages';
 
 export default class App extends Component {
   render() {
     return (
       <div id="site">
         <header>
-          <Route path='/' component={ Nav } />
+          <Nav />
         </header>
         <main>
           <Route exact path='/' component={ Home } />
@@ -37,7 +38,7 @@ export default class App extends Component {
           <Route path='/examples/' component={ Examples } />
         </main>
         <footer>
-          <Route path='/' component={ Footer } />
+          <Footer />
         </footer>
       </div>
     )

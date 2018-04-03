@@ -1,8 +1,8 @@
 import React from 'react';
 import './Footer.scss';
 
-import Nav from '../Nav/Nav';
-import { Github, Twitter } from 'react-feather';
+import Github from 'react-feather/dist/icons/github';
+import Twitter from 'react-feather/dist/icons/twitter';
 
 const Footer = () => {
   return (
