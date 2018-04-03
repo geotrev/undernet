@@ -1,7 +1,6 @@
 import React from 'react';
 import './Footer.scss';
 
-import Nav from '../Nav/Nav';
 import { Github, Twitter } from 'react-feather';
 
 const Footer = () => {
