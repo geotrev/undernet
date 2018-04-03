@@ -3,7 +3,7 @@ import React from 'react';
 import { ScrollUpOnMount } from 'helpers';
 import { Article, HeaderText } from 'components';
 import { Link } from 'react-router-dom';
-import { ChevronRight } from 'react-feather'; <ChevronRight size={16} />
+import ChevronRight from 'react-feather/dist/icons/chevron-right';
 
 import OverviewMd from 'articles/Home.md';
 import DownloadMd from 'articles/Download.md';

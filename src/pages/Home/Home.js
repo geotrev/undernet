@@ -3,7 +3,7 @@ import './Home.scss';
 
 import 'images/home-bg.jpg';
 import { Link } from 'react-router-dom';
-import { ChevronRight } from 'react-feather';
+import ChevronRight from 'react-feather/dist/icons/chevron-right';
 import { ScrollUpOnMount } from 'helpers';
 
 const Home = () => {
