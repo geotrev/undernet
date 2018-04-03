@@ -3,11 +3,18 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
 
 module.exports = {
-  entry: path.join(__dirname, 'src', 'index.js'),
+  entry: {
+    main: path.join(__dirname, 'src/index.js'),
+  },
   output: {
-    filename: 'bundle.js',
+    filename: '[name].[chunkhash].js',
+    chunkFilename: '[name].[chunkhash].js',
     path: path.join(__dirname, 'build'),
     publicPath: '/',
+  },
+  optimization: {
+    splitChunks: { chunks: 'all' },
+    runtimeChunk: { name: 'manifest' }
   },
   resolve: {
     extensions: [".js", ".jsx"],
@@ -21,11 +28,13 @@ module.exports = {
   },
   module: {
     rules: [
-      { test: /\.(js|jsx)?$/,
+      { 
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         use: 'babel-loader',
       },
-      { test: /\.scss$/,
+      { 
+        test: /\.scss$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [
@@ -41,7 +50,8 @@ module.exports = {
           ],
         })
       },
-      { test: /\.(ico|png|jpe?g|gif|eot|svg|ttf|woff2?|otf)$/,
+      { 
+        test: /\.(ico|png|jpe?g|gif|eot|svg|ttf|woff2?|otf)$/,
         use: [
           {
             loader: 'file-loader',
@@ -52,7 +62,8 @@ module.exports = {
           }
         ]
       },
-      { test: /\.md$/,
+      { 
+        test: /\.md$/,
         use: [
           { loader: 'html-loader' },
           { loader: 'markdown-loader' }
@@ -65,8 +76,7 @@ module.exports = {
       template: path.join(__dirname, 'public/index.html')
     }),
     new ExtractTextPlugin({
-      filename: 'app-[hash].css',
-      allChunks: true
+      filename: '[name].[chunkhash].css',
     }),
   ],
 }
