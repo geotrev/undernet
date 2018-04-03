@@ -28,11 +28,13 @@ module.exports = {
   },
   module: {
     rules: [
-      { test: /\.jsx?$/,
+      { 
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         use: 'babel-loader',
       },
-      { test: /\.scss$/,
+      { 
+        test: /\.scss$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [
@@ -48,7 +50,8 @@ module.exports = {
           ],
         })
       },
-      { test: /\.(ico|png|jpe?g|gif|eot|svg|ttf|woff2?|otf)$/,
+      { 
+        test: /\.(ico|png|jpe?g|gif|eot|svg|ttf|woff2?|otf)$/,
         use: [
           {
             loader: 'file-loader',
@@ -59,7 +62,8 @@ module.exports = {
           }
         ]
       },
-      { test: /\.md$/,
+      { 
+        test: /\.md$/,
         use: [
           { loader: 'html-loader' },
           { loader: 'markdown-loader' }
