@@ -7,10 +7,10 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "test": "nyc mocha -r babel-register -r ./testHelpers.js --recursive ./src/**/*.spec.js",
-    "test:w": "mocha --watch -r babel-register -r ./testHelpers.js --recursive ./src/**/*.spec.js",
-    "build": "webpack --config webpack.prod.js --progress",
-    "start": "webpack-dev-server --config webpack.dev.js --progress --open"
+    "test": "nyc mocha -r babel-register -r ./config/testHelpers.js --recursive ./src/**/*.spec.js",
+    "test:w": "mocha --watch -r babel-register -r ./config/testHelpers.js --recursive ./src/**/*.spec.js",
+    "build": "webpack --config ./config/webpack.prod.js --progress",
+    "start": "webpack-dev-server --config ./config/webpack.dev.js --progress --open"
   },
   "dependencies": {
     "babel-core": "^6.26.0",
@@ -67,7 +67,7 @@
       [
         "babel-plugin-webpack-aliases",
         {
-          "config": "./webpack.dev.js"
+          "config": "./config/webpack.dev.js"
         }
       ]
     ]
