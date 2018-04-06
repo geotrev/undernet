@@ -28,9 +28,7 @@ module.exports = merge(common, {
       to: 'manifest.json',
       toType: 'file',
       cache: true
-    }], {
-      debug: 'info'
-    }),
+    }]),
   ],
   mode: 'production'
 });
