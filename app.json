@@ -1,0 +1,22 @@
+{
+  "name": "getmonolith.io",
+  "description": "",
+  "scripts": {
+  },
+  "env": {
+    "NODE_ENV": "staging"
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
