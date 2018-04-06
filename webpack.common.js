@@ -16,6 +16,7 @@ module.exports = {
     splitChunks: { chunks: 'all' },
     runtimeChunk: { name: 'manifest' }
   },
+  stats: { children: false },
   resolve: {
     extensions: [".js", ".jsx"],
     alias: {
