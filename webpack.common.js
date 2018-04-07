@@ -4,12 +4,12 @@ const path = require('path');
 
 module.exports = {
   entry: {
-    main: path.join(__dirname, 'src/index.js'),
+    main: path.resolve(__dirname, 'src/index.js'),
   },
   output: {
     filename: '[name].[chunkhash].js',
     chunkFilename: '[name].[chunkhash].js',
-    path: path.join(__dirname, 'build'),
+    path: path.resolve(__dirname, 'build'),
     publicPath: '/',
   },
   optimization: {
@@ -23,7 +23,7 @@ module.exports = {
       'components': path.resolve(__dirname, 'src/components/exports'),
       'helpers': path.resolve(__dirname, 'src/helpers/exports'),
       'pages': path.resolve(__dirname, 'src/pages/exports'),
-      'images': path.resolve(__dirname, 'src/assets/images/'),
+      'assets': path.resolve(__dirname, 'src/assets/'),
       'articles': path.resolve(__dirname, 'monolith.wiki/'),
     }
   },
@@ -74,7 +74,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'public/index.html')
+      template: path.resolve(__dirname, 'public/index.html')
     }),
     new ExtractTextPlugin({
       filename: '[name].[chunkhash].css',

@@ -1,7 +1,7 @@
 import React from 'react';
 import './Nav.scss';
 
-import Logo from 'images/mono-logo.png';
+import Logo from 'assets/images/mono-logo.png';
 import Github from 'react-feather/dist/icons/github';
 import Twitter from 'react-feather/dist/icons/twitter';
 import { Link } from 'react-router-dom';

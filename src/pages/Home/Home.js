@@ -1,7 +1,7 @@
 import React from 'react';
 import './Home.scss';
 
-import 'images/home-bg.jpg';
+import 'assets/images/home-bg.jpg';
 import { Link } from 'react-router-dom';
 import ChevronRight from 'react-feather/dist/icons/chevron-right';
 import { ScrollUpOnMount } from 'helpers';
