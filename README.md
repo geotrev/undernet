@@ -3,30 +3,30 @@ Marketing site for [Monolith CSS](https://github.com/geotrev/monolith).
 
 [![CircleCI](https://circleci.com/gh/geotrev/getmonolith.io/tree/master.svg?style=svg)](https://circleci.com/gh/geotrev/monolith-site/tree/master) [![dependencies Status](https://david-dm.org/geotrev/getmonolith.io/status.svg)](https://david-dm.org/geotrev/getmonolith.io)
 
-### Clone and set up with Yarn
+### Getting started
 ```shell
-$ brew install yarn
+$ brew install npm
 $ git clone git@github.com:gtreviranus/monolith-site.git
 $ cd monolith-site/
-$ yarn install
+$ npm install
 ```
 
 ### Run the dev server
 ```shell
-$ yarn watch
+$ npm run watch
 ```
 
 ### Make production builds
 ```shell
-$ yarn build
+$ npm run build
 ```
 
 ### Run tests with istanbuljs/nyc coverage stats
 ```shell
-$ yarn test
+$ npm test
 ```
 
 ### Load tests on file save
 ```shell
-$ yarn test:w
+$ npm run test:w
 ```
