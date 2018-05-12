@@ -10,7 +10,7 @@
     "test": "nyc mocha -r babel-register -r ./config/testHelpers.js --recursive ./src/**/*.spec.js",
     "test:w": "mocha --watch -r babel-register -r ./config/testHelpers.js --recursive ./src/**/*.spec.js",
     "build": "yarn prepublish && webpack --config ./config/webpack.prod.js --progress",
-    "start": "webpack-dev-server --config ./config/webpack.dev.js --progress --open",
+    "start": "yarn prepublish && webpack-dev-server --config ./config/webpack.dev.js --progress --open",
     "watch:css": "sass --watch framework/scss/monolith.scss:dist/css/monolith.css",
 
     "clean": "rm -rf dist/ && mkdir dist/ && mkdir dist/css && mkdir dist/scss/ && mkdir dist/js/",

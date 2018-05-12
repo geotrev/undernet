@@ -15,8 +15,8 @@
 // uncomment the scope wrapper in monolith.scss
 $scope: '';
 
-$global-space: 16px;
-$global-ease: ease-out 0.2s;
+$global-space: 16px !default;
+$global-ease: ease-out 0.2s !default;
 
 $global-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif !default;
 $global-font-serif: Constantia, "Lucida Bright", Lucidabright, "Lucida Serif", Lucida, "DejaVu Serif", "Bitstream Vera Serif", "Liberation Serif", Georgia, serif;
