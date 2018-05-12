@@ -2,10 +2,16 @@ import React, { Component } from 'react';
 
 export default class RadioInput extends Component {
   getLabel() {
-    const warnMsg = "*** You have radio inputs without labels ***";
-    return this.props.label ? this.props.label : console.warn(warnMsg)
+    return this.props.label ? this.props.label : this.getWarning()
   }
-  
+
+  getWarning() {
+    const warnMsg = "*** You have radio inputs without labels ***";
+    if (!this.props.no_label) {
+      return console.warn(warnMsg)
+    }
+  }
+
   render() {
     return (
       <label htmlFor={this.props.id}>
@@ -20,6 +26,7 @@ export default class RadioInput extends Component {
           id={this.props.id}
           className={this.props.className}
           value={this.props.value}
+          has_label={this.props.no_label ? true : false}
         />
         {this.getLabel()}
       </label>
