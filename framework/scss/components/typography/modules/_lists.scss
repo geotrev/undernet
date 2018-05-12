@@ -1,0 +1,13 @@
+ul, ol {
+  padding: $list-padding;
+  margin: $list-margin;
+  font-family: $list-font;
+
+  li {
+    margin: $list-item-margin;
+    padding: $list-item-padding;
+  }
+}
+
+ul { list-style-type: $ul-list-style; }
+ol { list-style-type: $ol-list-style; }

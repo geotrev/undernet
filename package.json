@@ -10,7 +10,9 @@
     "test": "nyc mocha -r babel-register -r ./config/testHelpers.js --recursive ./src/**/*.spec.js",
     "test:w": "mocha --watch -r babel-register -r ./config/testHelpers.js --recursive ./src/**/*.spec.js",
     "build": "webpack --config ./config/webpack.prod.js --progress",
-    "start": "webpack-dev-server --config ./config/webpack.dev.js --progress --open"
+    "start": "webpack-dev-server --config ./config/webpack.dev.js --progress --open",
+    "watch:scss": "sass --watch framework/scss/monolith.scss:framework/css/monolith.css",
+    "build:scss": "sass framework/scss/monolith.scss:framework/css/monolith.css"
   },
   "dependencies": {
     "babel-core": "^6.26.0",
