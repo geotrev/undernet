@@ -1,0 +1,46 @@
+p, .paragraph {
+  font-size: $type-p-font-size;
+  font-style: $type-p-font-style;
+  font-weight: $type-p-font-weight;
+  line-height: $type-p-line-height;
+  margin-bottom: $type-p-margin-bottom;
+  color: $type-p-color;
+}
+
+pre, code, kbd, samp, tt,
+.pre, .code, .kbd, .samp, .tt  {
+  font-family: $type-code-font;
+  font-size: $type-code-font-size;
+  background: $type-code-background;
+  border: $type-code-border;
+  border-radius: $type-code-radius;
+  padding: $type-code-padding;
+  color: $type-code-color;
+}
+pre, .pre {
+  padding: $type-pre-padding;
+}
+
+strong, .strong {
+  font-size: inherit;
+  font-style: $type-strong-font-style;
+  font-weight: $type-strong-font-weight;
+}
+
+em, .em {
+  font-size: inherit;
+  font-style: $type-em-font-style;
+  font-weight: $type-em-font-weight;
+}
+
+mark, .mark {
+  font-size: inherit;
+  padding: $type-mark-padding;
+  background: $type-mark-background;
+  color: $type-mark-color;
+}
+
+small, .small {
+  font-weight: $type-small-font-weight;
+  font-size: $type-small-font-size;
+}

@@ -9,4 +9,8 @@ npm-error.log*
 .ruby-version
 .sass-cache
 
-/dist/
+/src/
+/public/
+/monolith.wiki/
+/config/
+/.circleci/
