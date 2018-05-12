@@ -7,7 +7,6 @@ Marketing site for [Monolith CSS](https://github.com/geotrev/monolith).
 Install dependencies and get the site up and running.
 
 ```shell
-$ brew install npm
 $ git clone git@github.com:gtreviranus/getmonolith.io.git
 $ cd monolith-site/
 $ npm install
@@ -42,6 +41,7 @@ Once ruby is installed, globally install sass. Don't use npm's sass package as i
 
 ```shell
 $ gem install sass
+$ yarn setup
 ```
 
 From there, everything should build/work correctly. If not, check that your ruby version is set and your global sass version is recent (at least version 3.4).
