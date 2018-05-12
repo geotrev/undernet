@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import './App.scss';
+import './Main.scss';
 
 import { Nav, Footer } from 'components';
 import { Home, Docs, Examples } from 'pages';
@@ -30,7 +30,7 @@ import 'assets/icons/icon-192x192.png';
 import 'assets/icons/icon-384x384.png';
 import 'assets/icons/icon-512x512.png';
 
-export default class App extends Component {
+export default class Main extends Component {
   render() {
     return (
       <div id="site">

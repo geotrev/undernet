@@ -54,7 +54,8 @@ module.exports = {
                 }
               }
             },
-            { loader: 'sass-loader' }
+            { loader: 'resolve-url-loader' },
+            { loader: 'sass-loader?sourceMap' }
           ],
         })
       },

@@ -1,0 +1,21 @@
+@import '../fonts';
+@import '../global';
+@import '../../framework/scss/components/global/base';
+
+// .#{$scope} {
+  @import '../../framework/scss/helpers/classes/base';
+  @import '../../framework/scss/components/grid/base';
+  @import '../../framework/scss/components/typography/base';
+  @import '../../framework/scss/components/link/base';
+  @import '../../framework/scss/components/button/base';
+  @import '../../framework/scss/components/form/base';
+// }
+
+main { display: block; }
+
+.has-feather {
+  display: inline-flex;
+  align-items: center;
+
+  svg { margin-left: 5px; }
+}
