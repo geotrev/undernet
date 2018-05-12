@@ -1,18 +1,26 @@
 {
-  "name": "Monolith-Website",
+  "name": "monolith",
   "version": "1.1.0",
   "description": "Website for the Monolith CSS Framework.",
-  "main": "index.js",
+  "main": "dist/js/monolith.js",
   "author": "George Treviranus",
   "license": "MIT",
   "private": false,
   "scripts": {
     "test": "nyc mocha -r babel-register -r ./config/testHelpers.js --recursive ./src/**/*.spec.js",
     "test:w": "mocha --watch -r babel-register -r ./config/testHelpers.js --recursive ./src/**/*.spec.js",
-    "build": "webpack --config ./config/webpack.prod.js --progress",
+    "build": "yarn prepublish && webpack --config ./config/webpack.prod.js --progress",
     "start": "webpack-dev-server --config ./config/webpack.dev.js --progress --open",
-    "watch:scss": "sass --watch framework/scss/monolith.scss:framework/css/monolith.css",
-    "build:scss": "sass framework/scss/monolith.scss:framework/css/monolith.css"
+    "watch:css": "sass --watch framework/scss/monolith.scss:dist/css/monolith.css",
+
+    "clean": "rm -rf dist/ && mkdir dist/ && mkdir dist/css && mkdir dist/scss/ && mkdir dist/js/",
+    "build:css": "sass framework/scss/monolith.scss:dist/css/monolith.css",
+    "pack:scss": "cp -a framework/scss/. dist/scss/",
+    "prepublish:scss": "cd framework/scss/ && zip -r ../../dist/monolith-scss.zip .",
+    "prepublish:css": "cd dist/css/ && zip -r ../monolith-css.zip .",
+    "prepublish:styles": "yarn build:css && yarn pack:scss && yarn prepublish:scss && yarn prepublish:css",
+    "prepublish": "yarn clean && yarn prepublish:styles",
+    "publish": "npm publish"
   },
   "dependencies": {
     "babel-core": "^6.26.0",
