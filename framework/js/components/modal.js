@@ -8,6 +8,7 @@ const keyCodes = {
 
 const selectors = {
   MODAL_CONTAINER: 'data-modal',
+  MODAL_NAME: 'data-modal-name',
   MODAL_VISIBLE: 'data-modal-visible',
   MODAL_CLOSE: 'data-modal-close',
   MODAL_BUTTON: 'data-modal-button',
@@ -79,7 +80,7 @@ export default class Modal extends Utils {
   setupModal(button) {
     // setup core lightbox properties
     this.modalButton = button
-    this.modalOverlayAttr = `[data-${button.id}]`
+    this.modalOverlayAttr = `[${selectors.MODAL_NAME}='${button.id}']`
     this.modalOverlay = document.querySelector(this.modalOverlayAttr)
 
     if (!this.modalOverlay) {

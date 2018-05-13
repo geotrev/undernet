@@ -1,3 +1,7 @@
+@import '../../global';
+
+$modal-fade-duration: 0.2s;
+
 // scroll stopper class
 
 .no-scroll {
@@ -7,14 +11,12 @@
 // modal
 
 [data-modal-button] {
-  padding: 1rem;
-  margin: 1rem 0;
+  padding: $global-space;
+  margin: $global-space 0;
   display: inline-block;
 }
 
 // modal visibility & layout
-
-$modal-fade-duration: 0.2s;
 
 [data-modal-overlay] {
   display: block;
@@ -59,21 +61,25 @@ $modal-fade-duration: 0.2s;
   }
 
   header {
+    display: flex;
+    align-items: center;
+
     h1, h2, h3, h4, h5, h6 {
       display: inline-block;
+      margin-bottom: 0;
     }
   }
 
-  header > button[data-modal-close], header > a[data-modal-close] {
-    position: absolute;
-    right: 0rem;
-    top: 0rem;
-    padding: 1rem;
-    font-size: 28px;
+  header > button[data-modal-close],
+  header > a[data-modal-close] {
+    margin-left: auto;
+    font-size: 24px;
+    text-decoration: none;
+    padding: 8px;
   }
 
   header, section, footer {
-    padding: 1rem;
+    padding: $global-space;
   }
 
   header, section {
@@ -86,5 +92,6 @@ $modal-fade-duration: 0.2s;
     justify-content: flex-end;
 
     a:first-child, button:first-child { margin-right: 16px; }
+    a, button { margin-bottom: 0; }
   }
 }
