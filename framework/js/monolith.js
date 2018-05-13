@@ -11,7 +11,3 @@ export default class Monolith {
     if (Modal !== undefined) new Modal()
   }
 }
-
-window.addEventListener('DOMContentLoaded', () => {
-  new Monolith()
-})

@@ -7,3 +7,4 @@ export { default as Nav } from './Nav/Nav';
 export { default as RadioInput } from './RadioInput/RadioInput';
 export { default as SideNav } from './SideNav/SideNav';
 export { default as TextInput } from './TextInput/TextInput';
+export { default as Modal } from './Modal/Modal';

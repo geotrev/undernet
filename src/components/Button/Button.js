@@ -27,7 +27,8 @@ export default class Button extends Component {
         onClick={this.props.onClick}
         href={this.props.href}
         type={this.getType()}
-        tabIndex={this.props.tabIndex}>
+        tabIndex={this.props.tabIndex}
+        id={this.props.id}>
           {this.props.children}
       </Tag>
     );
