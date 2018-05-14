@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import './Modal.scss'
+import React, { Component } from "react"
+import "./Modal.scss"
 
 export default class Modal extends Component {
   render() {
@@ -10,7 +10,7 @@ export default class Modal extends Component {
             <h2 className="h6" id={this.props.modalLabel}>
               {this.props.title}
             </h2>
-            <a data-modal-close href='#'>
+            <a data-modal-close href="#">
               <span aria-hidden="true">&times;</span>
             </a>
           </header>

@@ -1,10 +1,10 @@
-import React from 'react';
-import './Home.scss';
+import React from "react"
+import "./Home.scss"
 
-import 'assets/images/home-bg.jpg';
-import { Link } from 'react-router-dom';
-import ChevronRight from 'react-feather/dist/icons/chevron-right';
-import { ScrollUpOnMount } from 'helpers';
+import "assets/images/home-bg.jpg"
+import { Link } from "react-router-dom"
+import ChevronRight from "react-feather/dist/icons/chevron-right"
+import { ScrollUpOnMount } from "helpers"
 
 const Home = () => {
   return (
@@ -16,12 +16,16 @@ const Home = () => {
           <h2 className="h6">Write vanilla HTML and get beautiful components.</h2>
         </div>
         <div className="xsmall-12 columns has-center-text">
-          <Link to="docs/download" className="medium button has-feather">Download <ChevronRight size={20} /></Link>
-          <Link to="docs/overview" className="primary medium button has-feather">Read Docs <ChevronRight size={20} /></Link>
+          <Link to="docs/download" className="medium button has-feather">
+            Download <ChevronRight size={20} />
+          </Link>
+          <Link to="docs/overview" className="primary medium button has-feather">
+            Read Docs <ChevronRight size={20} />
+          </Link>
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Home;
+export default Home

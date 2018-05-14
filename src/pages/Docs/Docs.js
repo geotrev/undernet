@@ -1,10 +1,9 @@
-import React from 'react';
-import './Docs.scss';
+import React from "react"
+import "./Docs.scss"
 
-import { ScrollUpOnMount } from 'helpers';
-import { SideNav } from 'components';
-import DocsRoutes from './DocsRoutes/DocsRoutes';
-
+import { ScrollUpOnMount } from "helpers"
+import { SideNav } from "components"
+import DocsRoutes from "./DocsRoutes/DocsRoutes"
 
 const Docs = () => {
   const navItems = [
@@ -17,7 +16,7 @@ const Docs = () => {
       ],
     },
     {
-      header: "Components",
+      header: "Elements",
       links: [
         { name: "Grid", url: "/docs/grid" },
         { name: "Typography", url: "/docs/typography" },
@@ -40,10 +39,7 @@ const Docs = () => {
       <ScrollUpOnMount />
       <div className="row">
         <div className="xsmall-12 xlarge-2 columns collapsed docs-nav-menu">
-          <SideNav
-            navListClasses="xsmall-12 small-4 xlarge-12 columns"
-            navItems={navItems}
-          />
+          <SideNav navListClasses="xsmall-12 small-4 xlarge-12 columns" navItems={navItems} />
         </div>
 
         <div className="xsmall-12 xlarge-10 collapsed columns">
@@ -51,7 +47,7 @@ const Docs = () => {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Docs;
+export default Docs

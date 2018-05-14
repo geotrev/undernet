@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component } from "react"
 
 export default class CheckInput extends Component {
   getLabel() {
-    const warnMsg = "*** You have checkbox inputs without labels ***";
+    const warnMsg = "*** You have checkbox inputs without labels ***"
     return this.props.label ? this.props.label : console.warn(warnMsg)
   }
-  
+
   render() {
     return (
       <label htmlFor={this.props.id}>
@@ -23,6 +23,6 @@ export default class CheckInput extends Component {
         />
         {this.getLabel()}
       </label>
-    );
+    )
   }
 }

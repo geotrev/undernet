@@ -1,1 +1,1 @@
-export { default as ScrollUpOnMount } from './ScrollUpOnMount/ScrollUpOnMount';
+export { default as ScrollUpOnMount } from "./ScrollUpOnMount/ScrollUpOnMount"

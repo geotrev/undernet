@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react"
 
 export default class RadioInput extends Component {
   getLabel() {
@@ -6,7 +6,7 @@ export default class RadioInput extends Component {
   }
 
   getWarning() {
-    const warnMsg = "*** You have radio inputs without labels ***";
+    const warnMsg = "*** You have radio inputs without labels ***"
     if (!this.props.no_label) {
       return console.warn(warnMsg)
     }
@@ -30,6 +30,6 @@ export default class RadioInput extends Component {
         />
         {this.getLabel()}
       </label>
-    );
+    )
   }
 }

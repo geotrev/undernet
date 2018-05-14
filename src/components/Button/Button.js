@@ -1,12 +1,12 @@
-import React, { Component } from 'react'
+import React, { Component } from "react"
 
 export default class Button extends Component {
   getTag() {
-    return this.props.href ? 'a' : 'button'
+    return this.props.href ? "a" : "button"
   }
 
   getType() {
-    return (this.props.href || !this.props.type) ? null : this.props.type
+    return this.props.href || !this.props.type ? null : this.props.type
   }
 
   getDisabledStatus() {
@@ -28,8 +28,9 @@ export default class Button extends Component {
         href={this.props.href}
         type={this.getType()}
         tabIndex={this.props.tabIndex}
-        id={this.props.id}>
-          {this.props.children}
+        id={this.props.id}
+      >
+        {this.props.children}
       </Tag>
     )
   }
