@@ -12,7 +12,6 @@
     "test:w": "mocha --watch -r babel-register -r ./config/testHelpers.js --recursive ./src/**/*.spec.js",
     "build": "webpack --config ./config/webpack.prod.js --progress",
     "watch": "webpack-dev-server --config ./config/webpack.dev.js --progress --open",
-    "clean": "rm -rf dist/ && mkdir dist/ && mkdir dist/css && mkdir dist/scss/ && mkdir dist/js/",
     "build:js": "babel framework/js/ --out-dir dist/js/",
     "watch:js": "babel framework/js/ --watch --out-dir dist/js/",
     "pack:js": "cd dist/js/ && zip -r ../monolith-js.zip .",
@@ -22,7 +21,8 @@
     "pack:scss": "cp -a framework/scss/. dist/scss/",
     "prepublish:scss": "cd framework/scss/ && zip -r ../../dist/monolith-scss.zip .",
     "prepublish:css": "yarn build:css && cd dist/css/ && zip -r ../monolith-css.zip .",
-    "build:package": "yarn clean && yarn pack:scss && yarn prepublish:scss && yarn prepublish:css && yarn prepublish:js"
+    "clean": "rm -rf dist/ && mkdir dist/ && mkdir dist/css && mkdir dist/scss/ && mkdir dist/js/",
+    "build:release": "yarn clean && yarn pack:scss && yarn prepublish:scss && yarn prepublish:css && yarn prepublish:js"
   },
   "dependencies": {
     "babel-core": "^6.26.0",
