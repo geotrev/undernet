@@ -44,11 +44,12 @@ export default class Modal extends Utils {
     this.body = document.body
     this.html = document.querySelector('html')
 
-    // bind events to Modal
+    // bind events to class
     this.closeModal = this.closeModal.bind(this)
     this.getOffsetValue = this.getOffsetValue.bind(this)
     this.handleEscape = this.handleEscape.bind(this)
     this.handleOverlayClick = this.handleOverlayClick.bind(this)
+    this.findModal = this.findModal.bind(this)
 
     this.getModals()
   }
@@ -65,22 +66,39 @@ export default class Modal extends Utils {
     })
 
     this.modalButtons.forEach(button => {
-      button.addEventListener(events.CLICK, (e) => {
-        e.preventDefault()
-        this.setupModal(button)
-      })
+      button.addEventListener(events.CLICK, this.findModal)
     })
   }
 
   /**
-   * Using a button id, find a coresponding data attribute and then render it
-   * @param {Object} button - DOM element that calls its corresponding modal.
+   * Locate a button's corresponding modal container.
+   * @param {Object} event - The event object
    * @return {null}
    */
-  setupModal(button) {
+  findModal(event) {
+    event.preventDefault()
+    this.show(event)
+  }
+
+  /**
+   * Stop listening to modal buttons
+   * @return {null}
+   */
+  stopModals() {
+    this.modalButtons.forEach(button => {
+      button.removeEventListener(events.CLICK, this.findModal)
+    })
+  }
+
+  /**
+   * Find a button through event.target, then render the corresponding modal attribute via matching target id
+   * @param {Object} event - The event object
+   * @return {null}
+   */
+  show(event) {
     // setup core lightbox properties
-    this.modalButton = button
-    this.modalOverlayAttr = `[${selectors.MODAL_NAME}='${button.id}']`
+    this.modalButton = event.target
+    this.modalOverlayAttr = `[${selectors.MODAL_NAME}='${event.target.id}']`
     this.modalOverlay = document.querySelector(this.modalOverlayAttr)
 
     if (!this.modalOverlay) {
@@ -97,14 +115,6 @@ export default class Modal extends Utils {
     this.modal = document.querySelector(this.activeModal)
     this.modalCloseButtons = this.findElements(`${this.modalOverlayAttr} ${this.closeButton}`)
 
-    this.render()
-  }
-
-  /**
-   * Sets up event listeners and initial behavior (focusing on modal heading) for a modal
-   * @return {null}
-   */
-  render() {
     this.handleScrollStop()
     this.getOffsetValue(this.modalOverlay)
     this.captureFocus(this.activeModal)
