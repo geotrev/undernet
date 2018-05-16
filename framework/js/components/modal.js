@@ -22,7 +22,7 @@ const events = {
 }
 
 const timeouts = {
-  MODAL_MOVE_DURATION: 500,
+  MODAL_MOVE_DURATION: 200,
 }
 
 const messages = {
@@ -37,17 +37,18 @@ const messages = {
 export default class Modal extends Utils {
   constructor() {
     super()
-    this.closeButton = `[${selectors.MODAL_CLOSE}]`
+    this.closeButtonAttr = `[${selectors.MODAL_CLOSE}]`
+    this.modalContainerAttr = `[${selectors.MODAL_CONTAINER}]`
     this.modals = this.findElements(`[${selectors.MODAL_CONTAINER}]`)
     this.modalButtons = this.findElements(`[${selectors.MODAL_BUTTON}]`)
-    this.closeButtons = this.findElements(this.closeButton)
-    this.body = document.body
-    this.html = document.querySelector('html')
+    this.closeButtons = this.findElements(this.closeButtonAttr)
+    this.bodyTag = document.body
+    this.htmlTag = document.querySelector('html')
 
     // bind events to class
-    this.closeModal = this.closeModal.bind(this)
+    this.handleModalClose = this.handleModalClose.bind(this)
     this.getOffsetValue = this.getOffsetValue.bind(this)
-    this.handleEscape = this.handleEscape.bind(this)
+    this.handleEscapeKeyPress = this.handleEscapeKeyPress.bind(this)
     this.handleOverlayClick = this.handleOverlayClick.bind(this)
     this.findModal = this.findModal.bind(this)
 
@@ -77,14 +78,14 @@ export default class Modal extends Utils {
    */
   findModal(event) {
     event.preventDefault()
-    this.show(event)
+    this.renderModal(event)
   }
 
   /**
    * Stop listening to modal buttons
    * @return {null}
    */
-  stopModals() {
+  stop() {
     this.modalButtons.forEach(button => {
       button.removeEventListener(events.CLICK, this.findModal)
     })
@@ -95,7 +96,7 @@ export default class Modal extends Utils {
    * @param {Object} event - The event object
    * @return {null}
    */
-  show(event) {
+  renderModal(event) {
     // setup core lightbox properties
     this.modalButton = event.target
     this.modalOverlayAttr = `[${selectors.MODAL_NAME}='${event.target.id}']`
@@ -110,28 +111,27 @@ export default class Modal extends Utils {
     // trapped by relative positioning
     document.body.appendChild(this.modalOverlay)
 
-    this.modalContainer = `[${selectors.MODAL_CONTAINER}]`
-    this.activeModal = `${this.modalOverlayAttr} ${this.modalContainer}`
-    this.modal = document.querySelector(this.activeModal)
-    this.modalCloseButtons = this.findElements(`${this.modalOverlayAttr} ${this.closeButton}`)
+    this.activeModalSelector = `${this.modalOverlayAttr} ${this.modalContainerAttr}`
+    this.activeModal = document.querySelector(this.activeModalSelector)
+    this.modalCloseButtons = this.findElements(`${this.modalOverlayAttr} ${this.closeButtonAttr}`)
 
     this.handleScrollStop()
     this.getOffsetValue(this.modalOverlay)
-    this.captureFocus(this.activeModal)
+    this.captureFocus(this.activeModalSelector)
     this.modalOverlay.setAttribute(selectors.MODAL_VISIBLE, '')
     this.modalOverlay.setAttribute('aria-hidden', 'false')
-    this.modal.setAttribute('tabindex', '-1')
-    this.modal.focus()
+    this.activeModal.setAttribute('tabindex', '-1')
+    this.activeModal.focus()
 
     // offset slight scroll caused by this.modal.focus()
     this.modalOverlay.scrollTop = 0
 
     // begin listening to events
     window.addEventListener(events.RESIZE, this.getOffsetValue)
-    document.addEventListener(events.KEYDOWN, this.handleEscape)
+    document.addEventListener(events.KEYDOWN, this.handleEscapeKeyPress)
     document.addEventListener(events.CLICK, this.handleOverlayClick)
     this.modalCloseButtons.forEach(button => {
-      button.addEventListener(events.CLICK, this.closeModal)
+      button.addEventListener(events.CLICK, this.handleModalClose)
     })
   }
 
@@ -140,21 +140,21 @@ export default class Modal extends Utils {
    * @param {Object} event - Event (keydown or click)
    * @return {null}
    */
-  closeModal(event) {
+  handleModalClose(event) {
     event.preventDefault()
     this.modalOverlay.removeAttribute(selectors.MODAL_VISIBLE)
     this.modalOverlay.setAttribute('aria-hidden', 'true')
-    this.modal.removeAttribute('tabindex')
+    this.activeModal.removeAttribute('tabindex')
     this.releaseFocus()
     this.handleReturnFocus()
     this.handleScrollRestore()
 
     // stop listening to events
     window.removeEventListener(events.RESIZE, this.getOffsetValue)
-    document.removeEventListener(events.KEYDOWN, this.handleEscape)
+    document.removeEventListener(events.KEYDOWN, this.handleEscapeKeyPress)
     document.removeEventListener(events.CLICK, this.handleOverlayClick)
     this.modalCloseButtons.forEach(button => {
-      button.removeEventListener(events.CLICK, this.closeModal)
+      button.removeEventListener(events.CLICK, this.handleModalClose)
     })
 
     // move the modal back to its original location after timeouts.MODAL_MOVE_DURATION
@@ -170,7 +170,7 @@ export default class Modal extends Utils {
    */
   handleOverlayClick(event) {
     if (event.target !== this.modalOverlay) return
-    this.closeModal(event)
+    this.handleModalClose(event)
   }
 
   /**
@@ -178,10 +178,10 @@ export default class Modal extends Utils {
    * @param {Object} event - Event (keydown)
    * @return {null}
    */
-  handleEscape(event) {
+  handleEscapeKeyPress(event) {
     const escapeKey = event.which === keyCodes.ESCAPE
     if (escapeKey) {
-      this.closeModal(event)
+      this.handleModalClose(event)
     }
   }
 
@@ -211,8 +211,8 @@ export default class Modal extends Utils {
    * @return {null}
    */
   handleScrollRestore() {
-    this.body.classList.remove(selectors.NO_SCROLL)
-    this.html.classList.remove(selectors.NO_SCROLL)
+    this.bodyTag.classList.remove(selectors.NO_SCROLL)
+    this.htmlTag.classList.remove(selectors.NO_SCROLL)
   }
 
   /**
@@ -220,7 +220,7 @@ export default class Modal extends Utils {
    * @return {null}
    */
   handleScrollStop() {
-    this.body.classList.add(selectors.NO_SCROLL)
-    this.html.classList.add(selectors.NO_SCROLL)
+    this.bodyTag.classList.add(selectors.NO_SCROLL)
+    this.htmlTag.classList.add(selectors.NO_SCROLL)
   }
 }

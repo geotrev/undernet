@@ -2,12 +2,8 @@
 
 import Modal from './components/modal'
 
-export default class Monolith {
-  constructor() {
-    this.load()
-  }
-
-  load() {
-    if (Modal !== undefined) new Modal()
-  }
+const Monolith = {
+  modal: () => new Modal(),
 }
+
+export default Monolith
