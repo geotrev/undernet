@@ -3,7 +3,7 @@
 import Modal from './components/modal'
 
 const Monolith = {
-  modal: () => new Modal(),
+  modals: () => new Modal(),
 }
 
 export default Monolith

@@ -46,13 +46,11 @@ export default class Modal extends Utils {
     this.htmlTag = document.querySelector('html')
 
     // bind events to class
+    this.getModal = this.getModal.bind(this)
     this.handleModalClose = this.handleModalClose.bind(this)
     this.getOffsetValue = this.getOffsetValue.bind(this)
     this.handleEscapeKeyPress = this.handleEscapeKeyPress.bind(this)
     this.handleOverlayClick = this.handleOverlayClick.bind(this)
-    this.findModal = this.findModal.bind(this)
-
-    this.getModals()
   }
 
   /**
@@ -60,14 +58,14 @@ export default class Modal extends Utils {
    * Begin listening to elements with [data-modal-button]
    * @return {null}
    */
-  getModals() {
+  start() {
     this.modals.forEach(modal => {
       modal.setAttribute('aria-modal', 'true')
       modal.setAttribute('role', 'dialog')
     })
 
     this.modalButtons.forEach(button => {
-      button.addEventListener(events.CLICK, this.findModal)
+      button.addEventListener(events.CLICK, this.getModal)
     })
   }
 
@@ -76,7 +74,7 @@ export default class Modal extends Utils {
    * @param {Object} event - The event object
    * @return {null}
    */
-  findModal(event) {
+  getModal(event) {
     event.preventDefault()
     this.renderModal(event)
   }
@@ -87,7 +85,7 @@ export default class Modal extends Utils {
    */
   stop() {
     this.modalButtons.forEach(button => {
-      button.removeEventListener(events.CLICK, this.findModal)
+      button.removeEventListener(events.CLICK, this.getModal)
     })
   }
 
@@ -123,7 +121,7 @@ export default class Modal extends Utils {
     this.activeModal.setAttribute('tabindex', '-1')
     this.activeModal.focus()
 
-    // offset slight scroll caused by this.modal.focus()
+    // offset slight scroll caused by this.activeModal.focus()
     this.modalOverlay.scrollTop = 0
 
     // begin listening to events

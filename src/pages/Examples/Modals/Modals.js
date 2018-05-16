@@ -6,11 +6,11 @@ import Monolith from "monolith"
 
 export default class Buttons extends Component {
   componentDidMount() {
-    return Monolith.modal()
+    Monolith.modals().start()
   }
 
   componentWillUnmount() {
-    return Monolith.modal().stop()
+    Monolith.modals().stop()
   }
 
   render() {
