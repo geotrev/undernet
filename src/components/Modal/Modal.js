@@ -4,10 +4,10 @@ import "./Modal.scss"
 export default class Modal extends Component {
   render() {
     return (
-      <div data-modal-overlay data-modal-name={this.props.modalId}>
-        <div aria-labelledby={this.props.modalLabel} data-modal>
+      <div data-modal-overlay data-modal-name={this.props.id}>
+        <div aria-labelledby={this.props.labelledby} data-modal>
           <header>
-            <h2 className="h6" id={this.props.modalLabel}>
+            <h2 className="h6" id={this.props.labelledby}>
               {this.props.title}
             </h2>
             <a data-modal-close href="#">

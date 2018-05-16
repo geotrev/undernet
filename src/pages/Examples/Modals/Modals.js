@@ -26,7 +26,7 @@ export default class Buttons extends Component {
               Modal button
             </button>
 
-            <Modal modalLabel="heading1" title="Modal heading" modalId="my-new-modal">
+            <Modal labelledby="heading1" title="Modal heading" id="my-new-modal">
               <section>
                 <p>
                   Dolor labore non sint consectetur commodo enim do aute duis veniam esse enim
