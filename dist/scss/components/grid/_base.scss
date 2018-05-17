@@ -1,0 +1,66 @@
+$grid: map-get($grid-classes, grid);
+$row: map-get($grid-classes, row);
+$column: map-get($grid-classes, column);
+
+.#{$grid}::before,
+.#{$grid}::after,
+.#{$grid} .#{$row}::before,
+.#{$grid} .#{$row}::after,
+.#{$row} .#{$column}::before, .#{$row} .#{$column}::after,
+.#{$row} .#{$column}s::before, .#{$row} .#{$column}s::after {
+  display: block;
+  height: 0;
+  width: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.#{$grid} {
+  @include flex(flex, column, nowrap, 1, 1, 0);
+
+  box-sizing: border-box;
+  margin: 0 auto;
+  max-width: $grid-width;
+  padding-left: $grid-gutter;
+  padding-right: $grid-gutter;
+  position: relative;
+}
+
+.#{$row} {
+  @include flex(flex, row, wrap, 1, 1, auto);
+  position: relative;
+  max-width: 100%;
+  min-height: 1px;
+}
+
+.#{$column}s, .#{$column} {
+  @include flex($grow: 1, $shrink: 1, $basis: 0);
+  box-sizing: border-box;
+  max-width: 100%;
+  min-height: 1px;
+  min-width: 0;
+  padding-bottom: $column-padding-bottom;
+  padding-left: $column-gutter;
+  padding-right: $column-gutter;
+  padding-top: $column-padding-top;
+  word-wrap: break-word;
+
+  @if $column-order-classes == true {
+    order: 999;
+  }
+}
+
+@each $breakpoint in $breakpoints {
+  $break-name: nth($breakpoint, 1);
+  $smallest-break-name: nth(nth($breakpoints, 1), 1);
+
+  @if $break-name == $smallest-break-name {
+    @include grid-classes($break-name);
+  } @else {
+    @include breakpoint-up($break-name) {
+      @include grid-classes($break-name)
+    } // end @include
+  } // end @if
+} // end @each
+
+@import 'utilities';

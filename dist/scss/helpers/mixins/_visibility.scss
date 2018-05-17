@@ -1,0 +1,14 @@
+
+@mixin visibility($size) {
+  .is-flex-on-#{$size} {
+    display: flex !important;
+  }
+
+  .is-block-on-#{$size} {
+    display: block !important;
+  }
+
+  .is-hidden-on-#{$size} {
+    display: none !important;
+  }
+}

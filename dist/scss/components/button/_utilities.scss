@@ -1,0 +1,54 @@
+input[type=button], input[type=submit],
+input[type=file], input[type=reset],
+button, .button {
+
+  @each $size in $button-sizes {
+    $button-size: nth($size, 1);
+    $button-padding: map-deep-get($button-sizes, $button-size, padding);
+    $button-font-size: map-deep-get($button-sizes, $button-size, font-size);
+
+    &.#{$button-size} {
+      font-size: $button-font-size;
+      padding: $button-padding;
+    }
+  }
+
+  &.wide {
+    display: block;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  @each $type in $button-types {
+    $name: nth($type, 1);
+
+    $background: map-deep-get($button-types, $name, background);
+    $background-hover: map-deep-get($button-types, $name, background-hover);
+    $background-active: map-deep-get($button-types, $name, background-active);
+    $background-focus: map-deep-get($button-types, $name, background-focus);
+
+    $color: map-deep-get($button-types, $name, color);
+    $color-hover: map-deep-get($button-types, $name, color-hover);
+    $color-active: map-deep-get($button-types, $name, color-active);
+    $color-focus: map-deep-get($button-types, $name, color-focus);
+
+    $border-color: map-deep-get($button-types, $name, border-color);
+    $border-color-hover: map-deep-get($button-types, $name, border-color-hover);
+    $border-color-active: map-deep-get($button-types, $name, border-color-active);
+    $border-color-focus: map-deep-get($button-types, $name, border-color-focus);
+
+    $box-shadow: map-deep-get($button-types, $name, box-shadow);
+    $box-shadow-hover: map-deep-get($button-types, $name, box-shadow-hover);
+    $box-shadow-active: map-deep-get($button-types, $name, box-shadow-active);
+    $box-shadow-focus: map-deep-get($button-types, $name, box-shadow-focus);
+
+    &.#{$name} {
+      @include button-style(
+        $box-shadow, $border-color, $color, $background,
+        $box-shadow-hover, $border-color-hover, $color-hover, $background-hover,
+        $box-shadow-active, $border-color-active, $color-active, $background-active,
+        $box-shadow-focus, $border-color-focus, $color-focus, $background-focus
+      );
+    }
+  }
+}

@@ -1,14 +1,14 @@
 @import '../fonts';
 @import '../global';
-@import '../../framework/scss/components/global/base';
+@import '../../dist/scss/components/global/base';
 
 // .#{$scope} {
-  @import '../../framework/scss/helpers/classes/base';
-  @import '../../framework/scss/components/grid/base';
-  @import '../../framework/scss/components/typography/base';
-  @import '../../framework/scss/components/link/base';
-  @import '../../framework/scss/components/button/base';
-  @import '../../framework/scss/components/form/base';
+  @import '../../dist/scss/helpers/classes/base';
+  @import '../../dist/scss/components/grid/base';
+  @import '../../dist/scss/components/typography/base';
+  @import '../../dist/scss/components/link/base';
+  @import '../../dist/scss/components/button/base';
+  @import '../../dist/scss/components/form/base';
 // }
 
 main { display: block; }
