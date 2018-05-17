@@ -1,13 +1,7 @@
-import React from 'react';
-import DemoSection from '../DemoSection/DemoSection';
+import React from "react"
+import DemoSection from "../DemoSection/DemoSection"
 
-import {
-  Button,
-  TextInput,
-  RadioInput,
-  CheckInput,
-  HeaderText
-} from 'components';
+import { Button, TextInput, RadioInput, CheckInput, HeaderText } from "components"
 
 const Forms = () => {
   return (
@@ -27,7 +21,13 @@ const Forms = () => {
         <div className="xsmall-12 columns">
           <form>
             <TextInput textarea="true" label="Text Area" id="textinput2" />
-            <TextInput textarea="true" label="Disabled Text Area" id="textinput4" className="disabled" disabled />
+            <TextInput
+              textarea="true"
+              label="Disabled Text Area"
+              id="textinput4"
+              className="disabled"
+              disabled
+            />
           </form>
         </div>
       </div>
@@ -103,13 +103,11 @@ const Forms = () => {
         <div className="xsmall-12 columns">
           <form>
             <fieldset>
-              <legend>
-                Fieldset
-              </legend>
+              <legend>Fieldset</legend>
 
               <div className="row">
                 <div className="medium-6 xsmall-12 columns">
-                  <TextInput label="Email" id="field1"  className="text-field" type="email" />
+                  <TextInput label="Email" id="field1" className="text-field" type="email" />
                 </div>
                 <div className="medium-6 xsmall-12 columns">
                   <TextInput label="Password" id="field2" className="text-field" type="password" />
@@ -130,14 +128,12 @@ const Forms = () => {
                   <Button type="button">Submit</Button>
                 </div>
               </div>
-
             </fieldset>
           </form>
         </div>
-
       </div>
     </DemoSection>
-  );
+  )
 }
 
-export default Forms;
+export default Forms
