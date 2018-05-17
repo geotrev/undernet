@@ -7,6 +7,7 @@ jobs:
   build:
     docker:
       - image: circleci/node:9.8.0
+      - image: circleci/ruby:2.4
 
     working_directory: ~/monolith-site
 
