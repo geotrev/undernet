@@ -7,7 +7,7 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "setup": "yarn install && yarn clean && yarn build:js && yarn build:css && yarn pack:scss",
+    "setup": "yarn install && yarn build:development",
     "test": "nyc mocha -r babel-register -r ./config/testHelpers.js --recursive ./src/**/*.spec.js",
     "test:w": "mocha --watch -r babel-register -r ./config/testHelpers.js --recursive ./src/**/*.spec.js",
     "build": "webpack --config ./config/webpack.prod.js --progress",
@@ -22,6 +22,7 @@
     "prepublish:scss": "cd framework/scss/ && zip -r ../../dist/monolith-scss.zip .",
     "prepublish:css": "yarn build:css && cd dist/css/ && zip -r ../monolith-css.zip .",
     "clean": "rm -rf dist/ && mkdir dist/ && mkdir dist/css && mkdir dist/scss/ && mkdir dist/js/",
+    "build:development": "yarn clean && yarn build:js && yarn build:css && yarn pack:scss",
     "build:release": "yarn clean && yarn pack:scss && yarn prepublish:scss && yarn prepublish:css && yarn prepublish:js"
   },
   "dependencies": {

@@ -34,5 +34,4 @@ require.extensions['.css'] = noop;
 require.extensions['.svg'] = noop;
 require.extensions['.png'] = noop;
 require.extensions['.jpg'] = noop;
-
 global.window.scrollTo = noop;
