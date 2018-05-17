@@ -8,3 +8,5 @@ npm-error.log*
 
 .ruby-version
 .sass-cache
+
+/dist/
