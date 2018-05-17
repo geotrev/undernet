@@ -11,6 +11,10 @@ jobs:
 
     working_directory: ~/monolith-site
 
+    dependencies:
+      pre:
+        - gem install sass
+
     steps:
       - checkout
       - restore_cache:
@@ -18,7 +22,6 @@ jobs:
           - v1-dependencies-{{ checksum "package.json" }}
           - v1-dependencies-
 
-      - run: gem install sass
       - run: yarn setup
       - save_cache:
           paths:
