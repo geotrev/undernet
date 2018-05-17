@@ -17,6 +17,7 @@ jobs:
           - v1-dependencies-{{ checksum "package.json" }}
           - v1-dependencies-
 
+      - run: gem install sass
       - run: yarn setup
       - save_cache:
           paths:
