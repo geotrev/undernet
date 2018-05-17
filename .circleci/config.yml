@@ -3,6 +3,9 @@
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
 version: 2
+dependencies:
+  pre:
+    - gem install sass
 jobs:
   build:
     docker:
@@ -10,10 +13,6 @@ jobs:
       - image: circleci/ruby:2.4
 
     working_directory: ~/monolith-site
-
-    dependencies:
-      pre:
-        - gem install sass
 
     steps:
       - checkout
