@@ -6,4 +6,12 @@ const Monolith = {
   modals: () => new Modal(),
 }
 
+Monolith.start = () => {
+  Monolith.modals().start()
+}
+
+Monolith.stop = () => {
+  Monolith.modals().stop()
+}
+
 export default Monolith

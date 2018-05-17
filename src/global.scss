@@ -1,5 +1,6 @@
 @import '../framework/scss/helpers/functions/base';
-@import '../framework/scss/helpers/mixins/base';
 @import '../framework/scss/config';
 
-$global-font-sans: "Fira Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif !important;
+$global-font-sans: "Fira Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+
+@import '../framework/scss/helpers/mixins/base';

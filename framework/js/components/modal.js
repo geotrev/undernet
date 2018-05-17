@@ -59,14 +59,18 @@ export default class Modal extends Utils {
    * @return {null}
    */
   start() {
-    this.modals.forEach(modal => {
-      modal.setAttribute('aria-modal', 'true')
-      modal.setAttribute('role', 'dialog')
-    })
+    if (this.modals.length > 0) {
+      this.modals.forEach(modal => {
+        modal.setAttribute('aria-modal', 'true')
+        modal.setAttribute('role', 'dialog')
+      })
+    }
 
-    this.modalButtons.forEach(button => {
-      button.addEventListener(events.CLICK, this.getModal)
-    })
+    if (this.modalButtons.length > 0) {
+      this.modalButtons.forEach(button => {
+        button.addEventListener(events.CLICK, this.getModal)
+      })
+    }
   }
 
   /**
