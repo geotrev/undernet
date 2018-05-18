@@ -11,6 +11,7 @@
     "test:w": "mocha --watch -r babel-register -r config/testHelpers.js --recursive src/**/*.spec.js",
     "build": "webpack --config config/webpack.prod.js --progress",
     "watch": "yarn build:js && webpack-dev-server --config config/webpack.dev.js --progress --open",
+    "lint": "prettier --write src/**/*",
     "build:js": "babel framework/js/ --out-dir dist/js/",
     "watch:js": "babel framework/js/ --watch --out-dir dist/js/",
     "pack:js": "cd dist/js/ && zip -r ../monolith-js.zip .",

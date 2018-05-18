@@ -5,7 +5,7 @@ import { HeaderText } from "components"
 
 const Grid = () => {
   return (
-    <DemoSection>
+    <DemoSection id="grid-demo">
       <div className="row">
         <div className="xsmall-12 columns">
           <HeaderText>Grid</HeaderText>

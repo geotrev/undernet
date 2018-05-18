@@ -1,63 +1,69 @@
-@import '../../global';
+@import "../../global";
 
 #examples {
   flex-direction: row;
   padding: 0;
 
-  .content {
-    padding: 16px 0;
-    width: 100%;
-    background: lightgray;
-    border-radius: 40px;
-  }
-
-  .content{
-    &.blue {
-      background: teal;
+  #grid-demo {
+    .content {
+      padding: 16px 0;
+      width: 100%;
+      background: lightgray;
+      border-radius: 40px;
     }
-
-    &.red {
-      background: crimson;
-    }
-
-    &.green {
-      background: green;
-    }
-  }
-
-  .gray {
-    background: lightgray;
 
     .content {
-      background: white;
+      &.blue {
+        background: teal;
+      }
+
+      &.red {
+        background: crimson;
+      }
+
+      &.green {
+        background: green;
+      }
     }
-  }
 
-  .invert-block {
-    background: black;
-    border-radius: 4px;
-    padding: 1rem;
-    margin: 16px 0;
+    .gray {
+      background: lightgray;
 
-    > button, a.button, input[type=button] {
-      margin: 0;
+      .content {
+        background: white;
+      }
     }
   }
 
   #buttons-demo {
-    button.button, button,
-    a.button, input.button,
-    input[type=submit],
-    input[type=button] {
+    .invert-block {
+      background: black;
+      border-radius: 4px;
+      padding: 1rem;
+      margin: 16px 0;
+
+      > button,
+      a.button,
+      input[type="button"] {
+        margin: 0;
+      }
+    }
+
+    button.button,
+    button,
+    a.button,
+    input.button,
+    input[type="submit"],
+    input[type="button"] {
       margin-right: 10px;
     }
   }
-  
+
   #modals-demo {
     [data-modal-button] {
       margin-right: 16px;
     }
-    
+
     .modal-demo {
       margin: 16px 0 0 0;
       border: 1px solid $gray900;
