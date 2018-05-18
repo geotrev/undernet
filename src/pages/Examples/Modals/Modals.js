@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import DemoSection from "../DemoSection/DemoSection"
 
 import { Button, HeaderText, Modal } from "components"
-import Monolith from "monolith"
+import Monolith from "monolith-suite"
 
 export default class Buttons extends Component {
   componentDidMount() {
@@ -26,20 +26,15 @@ export default class Buttons extends Component {
             <button data-modal-button id="my-new-modal-1">
               Modal button - press me!
             </button>
-            
+
             <button data-modal-button id="my-new-modal-2">
               Modal with a lot of content
             </button>
-            
+
             <div className="modal-demo" aria-labelledby={this.props.labelledby} role="dialog">
               <header>
-                <h2 className="h6">
-                  Modal Heading
-                </h2>
-                <a 
-                  data-modal-close
-                  href="#0"
-                >
+                <h2 className="h6">Modal Heading</h2>
+                <a data-modal-close href="#0">
                   <span aria-hidden="true">&times;</span>
                 </a>
               </header>
@@ -50,17 +45,10 @@ export default class Buttons extends Component {
                 </p>
               </section>
               <footer>
-                <a 
-                  className="button modal-button" 
-                  data-modal-close
-                  href="#0"
-                >
+                <a className="button modal-button" data-modal-close href="#0">
                   Cancel
                 </a>
-                <Button 
-                  className="primary button modal-button" 
-                  href="#0"
-                >
+                <Button className="primary button modal-button" href="#0">
                   OK
                 </Button>
               </footer>
@@ -79,7 +67,7 @@ export default class Buttons extends Component {
                 </Button>
               </footer>
             </Modal>
-            
+
             <Modal labelledby="heading1" title="Modal heading" id="my-new-modal-2">
               <section>
                 <p>
