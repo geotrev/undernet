@@ -15,7 +15,7 @@ export default class Buttons extends Component {
 
   render() {
     return (
-      <DemoSection id="modals-wrapper">
+      <DemoSection id="modals-demo">
         <div className="row">
           <div className="xsmall-12 columns">
             <HeaderText>Standard Modal</HeaderText>

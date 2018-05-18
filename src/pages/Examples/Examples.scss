@@ -4,10 +4,6 @@
   flex-direction: row;
   padding: 0;
 
-  .examples-nav-menu {
-    background: #fbfbfb;
-  }
-
   .content {
     padding: 16px 0;
     width: 100%;
@@ -48,26 +44,23 @@
     }
   }
 
-  button.button, button,
-  a.button, input.button,
-  input[type=submit],
-  input[type=button] {
-    margin-right: 10px;
+  #buttons-demo {
+    button.button, button,
+    a.button, input.button,
+    input[type=submit],
+    input[type=button] {
+      margin-right: 10px;
+    }
   }
   
-  #modals-wrapper {
-    .modal-demo {
-      margin: 16px 0 0 0;
-      border: 1px solid lightgray;
+  #modals-demo {
+    [data-modal-button] {
+      margin-right: 16px;
     }
     
-    footer {
-      .modal-button {
-        margin-right: 0;
-      }
-      .modal-button:first-child {
-        margin-right: 16px;
-      }
+    .modal-demo {
+      margin: 16px 0 0 0;
+      border: 1px solid $gray900;
     }
   }
 }

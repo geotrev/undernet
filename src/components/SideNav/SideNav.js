@@ -57,14 +57,16 @@ export default class SideNav extends Component {
     })
 
     return (
-      <div className="fluid grid side-nav-wrapper">
-        <div className="row is-flex is-hidden-on-xlarge side-nav-expand">
-          <Button onClick={this.handleClick} href="#" className={buttonClasses}>
-            Explore <ChevronDown size={20} />
-          </Button>
-        </div>
+      <div className="xsmall-12 xlarge-2 columns collapsed" id="side-nav">
+        <div className="fluid grid side-nav-wrapper">
+          <div className="row is-flex is-hidden-on-xlarge side-nav-expand">
+            <Button onClick={this.handleClick} href="#" className={buttonClasses}>
+              Explore <ChevronDown size={20} />
+            </Button>
+          </div>
 
-        <nav className={menuClasses}>{this.renderLists()}</nav>
+          <nav className={menuClasses}>{this.renderLists()}</nav>
+        </div>
       </div>
     )
   }
