@@ -10,7 +10,7 @@ const Footer = () => {
       <div className="row">
         <div className="collapsed column">
           <p className="has-center-text">
-            Monolith is a CSS framework created and maintained by{" "}
+            Monolith is front-end framework created and maintained by{" "}
             <a href="http://www.geotrev.com">George Treviranus</a>.
           </p>
           <p className="has-center-text">

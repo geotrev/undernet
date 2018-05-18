@@ -54,4 +54,20 @@
   input[type=button] {
     margin-right: 10px;
   }
+  
+  #modals-wrapper {
+    .modal-demo {
+      margin: 16px 0 0 0;
+      border: 1px solid lightgray;
+    }
+    
+    footer {
+      .modal-button {
+        margin-right: 0;
+      }
+      .modal-button:first-child {
+        margin-right: 16px;
+      }
+    }
+  }
 }

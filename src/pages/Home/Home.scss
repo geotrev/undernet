@@ -5,12 +5,16 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+  
+  h1 {
+    margin-bottom: 0;
+  }
 
   h2 {
     font-weight: normal;
   }
 
   a {
-    margin: 0 8px $global-space 8px;
+    margin: $global-space 8px $global-space 8px;
   }
 }
