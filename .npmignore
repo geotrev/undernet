@@ -14,3 +14,6 @@ npm-error.log*
 /monolith.wiki/
 /config/
 /.circleci/
+/dist/monolith-css.zip
+/dist/monolith-scss.zip
+/dist/monolith-js.zip
