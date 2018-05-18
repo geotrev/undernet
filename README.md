@@ -1,6 +1,14 @@
 # Monolith
 
-Marketing site for [Monolith CSS](https://github.com/geotrev/monolith).
+A powerful, configuration-first front-end framework.
+
+## In the box
+
+The framework features:
+- A flex-grid for layouts
+- Styling for common tags: buttons, paragraphs, headers, etc.
+- Configuration file to apply core brand styling to all elements, including an option for name-spacing.
+- Functional JavaScript components: modals, accordions, etc.
 
 [![CircleCI](https://circleci.com/gh/geotrev/getmonolith.io/tree/master.svg?style=svg)](https://circleci.com/gh/geotrev/monolith-site/tree/master) [![dependencies Status](https://david-dm.org/geotrev/getmonolith.io/status.svg)](https://david-dm.org/geotrev/getmonolith.io)
 
