@@ -37,10 +37,6 @@ var events = {
   RESIZE: "resize"
 };
 
-var timeouts = {
-  MODAL_MOVE_DURATION: 200
-};
-
 var messages = {
   MISSING_MODAL: "Your button is missing its corresponding modal. Check to make sure your modal is in the DOM, and that is has a [data-*] attribute matching the button ID."
 

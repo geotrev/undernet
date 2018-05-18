@@ -1,22 +1,10 @@
-@import "../../global";
-
-$modal-fade-duration: 0.2s;
-
 // scroll stopper class
 
 .no-scroll {
   overflow: hidden;
 }
 
-// modal
-
-[data-modal-button] {
-  padding: $global-space;
-  margin: $global-space 0;
-  display: inline-block;
-}
-
-// modal visibility & layout
+// modal visibility & positioning
 
 [data-modal-overlay] {
   display: block;
@@ -32,7 +20,7 @@ $modal-fade-duration: 0.2s;
   bottom: 0;
   left: 0;
   right: 0;
-  transition: opacity $modal-fade-duration ease-out;
+  transition: opacity 0.2s ease-out;
   pointer-events: none;
 
   &[data-modal-visible] {
@@ -41,7 +29,7 @@ $modal-fade-duration: 0.2s;
   }
 }
 
-// modal content
+// modal container
 
 [role="dialog"] {
   background: white;
