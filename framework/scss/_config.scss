@@ -21,7 +21,7 @@ $global-ease: ease-out 0.2s !default;
 $global-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu,
   Cantarell, "Helvetica Neue", sans-serif !default;
 $global-font-serif: Constantia, "Lucida Bright", Lucidabright, "Lucida Serif", Lucida,
-  "DejaVu Serif", "Bitstream Vera Serif", "Liberation Serif", Georgia, serif;
+  "DejaVu Serif", "Bitstream Vera Serif", "Liberation Serif", Georgia, serif !default;
 $global-monospace: monospace, monospace;
 $global-font-size: 16px;
 $global-font-weight-normal: normal;
@@ -47,7 +47,7 @@ $status-palette: (
   success: green,
   destroy: red,
   notice: steelblue
-);
+) !default;
 
 $global-border-radius: 4px;
 $global-border-width: 2px;
@@ -60,19 +60,19 @@ $grid-classes: (
   grid: "grid",
   row: "row",
   column: "column"
-);
+) !default;
 
 $grid-widths: (
   fluid: 100%,
   narrow: 768px,
   wide: 1200px
-);
+) !default;
 
 $grid-sections: (
   small: 48px,
   medium: 96px,
   large: 144px
-);
+) !default;
 
 $breakpoints: (
   xsmall: 0,
@@ -80,7 +80,7 @@ $breakpoints: (
   medium: 768px,
   large: 992px,
   xlarge: 1200px
-);
+) !default;
 
 $grid-gutter: $global-space;
 $grid-width: 992px;
@@ -129,7 +129,7 @@ $type-header-sizes: (
       h5: (font-size: 36px, margin-bottom: 12px),
       h6: (font-size: 32px, margin-bottom: 10px)
     )
-);
+) !default;
 
 // Note: You can't add extra CSS properties here.
 //       Do that in a separate stylesheet as
@@ -141,7 +141,7 @@ $type-header-styles: (
   h4: (color: $gray200, font-style: normal, font-weight: bold),
   h5: (color: $gray200, font-style: normal, font-weight: bold),
   h6: (color: $gray200, font-style: normal, font-weight: bold)
-);
+) !default;
 
 $type-header-line-height: $global-line-height;
 
@@ -194,7 +194,7 @@ $button-sizes: (
   medium: (padding: 12px 18px, font-size: 16px),
   large: (padding: 16px 22px, font-size: 20px),
   huge: (padding: 20px 30px, font-size: 24px)
-);
+) !default;
 
 // Default button
 
@@ -236,7 +236,7 @@ $button-box-shadow-focus: $button-box-shadow;
 //       Do that in a separate stylesheet as
 //       a class modifier instead.
 $button-types: (
-  /* basic*/ primary:
+  primary:
     (
       background: lighten($primary-color, 5%),
       background-hover: $primary-color,
@@ -293,7 +293,7 @@ $button-types: (
       box-shadow-active: none,
       box-shadow-focus: none
     ),
-  /* inverted*/ inverted:
+  inverted:
     (
       background: lighten($gray900, 5%),
       background-hover: $white,
@@ -331,7 +331,7 @@ $button-types: (
       box-shadow-active: none,
       box-shadow-focus: none
     ),
-  /* status*/ warning:
+  warning:
     (
       background: darken(status(warning), 5%),
       background-hover: status(warning),
@@ -407,7 +407,7 @@ $button-types: (
       box-shadow-active: none,
       box-shadow-focus: none
     )
-);
+) !default;
 
 // Text links
 

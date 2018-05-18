@@ -23,7 +23,7 @@ const events = {
 
 const messages = {
   MISSING_MODAL:
-    "Your button is missing its corresponding modal. Check to make sure your modal is in the DOM, and that is has a [data-*] attribute matching the button ID.",
+    "Your button is missing its corresponding modal. Check to make sure your modal is in the DOM, and that is has a [data-modal-name=*] attribute matching the button ID.",
 }
 
 /**
@@ -71,16 +71,6 @@ export default class Modal extends Utils {
   }
 
   /**
-   * Locate a button's corresponding modal container.
-   * @param {Object} event - The event object
-   * @return {null}
-   */
-  getModal(event) {
-    event.preventDefault()
-    this.renderModal(event)
-  }
-
-  /**
    * Stop listening to modal buttons
    * @return {null}
    */
@@ -88,6 +78,16 @@ export default class Modal extends Utils {
     this.modalButtons.forEach(button => {
       button.removeEventListener(events.CLICK, this.getModal)
     })
+  }
+
+  /**
+   * Locate a button's corresponding modal container.
+   * @param {Object} event - The event object
+   * @return {null}
+   */
+  getModal(event) {
+    event.preventDefault()
+    this.renderModal(event)
   }
 
   /**
