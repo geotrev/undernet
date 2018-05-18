@@ -1,7 +1,9 @@
-input[type=button], input[type=submit],
-input[type=file], input[type=reset],
-button, .button {
-
+input[type="button"],
+input[type="submit"],
+input[type="file"],
+input[type="reset"],
+button,
+.button {
   @each $size in $button-sizes {
     $button-size: nth($size, 1);
     $button-padding: map-deep-get($button-sizes, $button-size, padding);
@@ -44,10 +46,22 @@ button, .button {
 
     &.#{$name} {
       @include button-style(
-        $box-shadow, $border-color, $color, $background,
-        $box-shadow-hover, $border-color-hover, $color-hover, $background-hover,
-        $box-shadow-active, $border-color-active, $color-active, $background-active,
-        $box-shadow-focus, $border-color-focus, $color-focus, $background-focus
+        $box-shadow,
+        $border-color,
+        $color,
+        $background,
+        $box-shadow-hover,
+        $border-color-hover,
+        $color-hover,
+        $background-hover,
+        $box-shadow-active,
+        $border-color-active,
+        $color-active,
+        $background-active,
+        $box-shadow-focus,
+        $border-color-focus,
+        $color-focus,
+        $background-focus
       );
     }
   }

@@ -1,11 +1,16 @@
-
-input[type=text],
-input[type=password], input[type=email],
-input[type=date], input[type=datetime-local],
-input[type=month], input[type=number],
-input[type=tel], input[type=search],
-input[type=time], input[type=url],
-input[type=week], textarea {
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="date"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="number"],
+input[type="tel"],
+input[type="search"],
+input[type="time"],
+input[type="url"],
+input[type="week"],
+textarea {
   background: $input-background;
   appearance: none;
   border-radius: $input-border-radius;
@@ -17,6 +22,7 @@ input[type=week], textarea {
   padding: $input-padding;
 }
 
-textarea, input[type=text] {
+textarea,
+input[type="text"] {
   resize: $input-resize;
 }

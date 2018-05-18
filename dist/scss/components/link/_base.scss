@@ -10,10 +10,13 @@ a {
     color: $link-color;
   }
 
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     color: $link-hover;
     text-decoration: $link-decoration-hover;
   }
 
-  &:active { color: $link-active; }
+  &:active {
+    color: $link-active;
+  }
 }

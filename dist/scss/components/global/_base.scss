@@ -53,7 +53,9 @@ html {
   box-sizing: border-box;
 }
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
 
@@ -82,7 +84,8 @@ th {
   text-align: left;
 }
 
-html, body {
+html,
+body {
   font-family: $global-font-sans;
   font-size: $global-font-size;
   margin: 0;

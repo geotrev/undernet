@@ -4,7 +4,8 @@
   $header-font-style: map-deep-get($type-header-styles, $header-tag, font-style);
   $header-font-weight: map-deep-get($type-header-styles, $header-tag, font-weight);
 
-  #{$header-tag}, .#{$header-tag} {
+  #{$header-tag},
+  .#{$header-tag} {
     color: $header-color;
     font-style: $header-font-style;
     font-weight: $header-font-weight;

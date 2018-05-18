@@ -6,8 +6,10 @@ $column: map-get($grid-classes, column);
 .#{$grid}::after,
 .#{$grid} .#{$row}::before,
 .#{$grid} .#{$row}::after,
-.#{$row} .#{$column}::before, .#{$row} .#{$column}::after,
-.#{$row} .#{$column}s::before, .#{$row} .#{$column}s::after {
+.#{$row} .#{$column}::before,
+.#{$row} .#{$column}::after,
+.#{$row} .#{$column}s::before,
+.#{$row} .#{$column}s::after {
   display: block;
   height: 0;
   width: 0;
@@ -33,7 +35,8 @@ $column: map-get($grid-classes, column);
   min-height: 1px;
 }
 
-.#{$column}s, .#{$column} {
+.#{$column}s,
+.#{$column} {
   @include flex($grow: 1, $shrink: 1, $basis: 0);
   box-sizing: border-box;
   max-width: 100%;
@@ -58,9 +61,9 @@ $column: map-get($grid-classes, column);
     @include grid-classes($break-name);
   } @else {
     @include breakpoint-up($break-name) {
-      @include grid-classes($break-name)
+      @include grid-classes($break-name);
     } // end @include
   } // end @if
 } // end @each
 
-@import 'utilities';
+@import "utilities";

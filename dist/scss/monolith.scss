@@ -1,14 +1,14 @@
-@import 'helpers/functions/base';
-@import 'config';
-@import 'helpers/mixins/base';
+@import "helpers/functions/base";
+@import "config";
+@import "helpers/mixins/base";
 
-@import 'components/global/base';
+@import "components/global/base";
 
 // .#{$scope} {
-  @import 'helpers/classes/base';
-  @import 'components/grid/base';
-  @import 'components/typography/base';
-  @import 'components/link/base';
-  @import 'components/button/base';
-  @import 'components/form/base';
+@import "helpers/classes/base";
+@import "components/grid/base";
+@import "components/typography/base";
+@import "components/link/base";
+@import "components/button/base";
+@import "components/form/base";
 // }

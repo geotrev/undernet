@@ -1,4 +1,3 @@
-
 @mixin breakpoint-up($size) {
   @media screen and (min-width: #{map-get($breakpoints, $size)}) {
     @content;
@@ -15,6 +14,6 @@
   @media screen
     and (min-width: #{map-get($breakpoints, $min)})
     and (max-width: #{map-get($breakpoints, $max) - 1}) {
-      @content;
+    @content;
   }
 }

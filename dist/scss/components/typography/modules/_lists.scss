@@ -1,4 +1,5 @@
-ul, ol {
+ul,
+ol {
   padding: $list-padding;
   margin: $list-margin;
   font-family: $list-font;
@@ -9,5 +10,9 @@ ul, ol {
   }
 }
 
-ul { list-style-type: $ul-list-style; }
-ol { list-style-type: $ol-list-style; }
+ul {
+  list-style-type: $ul-list-style;
+}
+ol {
+  list-style-type: $ol-list-style;
+}

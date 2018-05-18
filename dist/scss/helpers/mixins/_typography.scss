@@ -1,7 +1,7 @@
-
 @mixin header-sizes($size) {
   @for $i from 1 through 6 {
-    h#{$i}, .h#{$i} {
+    h#{$i},
+    .h#{$i} {
       $header-size: map-deep-get($type-header-sizes, $size, h#{$i}, font-size);
       $margin-bottom: map-deep-get($type-header-sizes, $size, h#{$i}, margin-bottom);
 

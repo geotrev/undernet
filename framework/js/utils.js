@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 const keyCodes = {
   SHIFT: 16,
@@ -6,12 +6,12 @@ const keyCodes = {
 }
 
 const selectors = {
-  FOCUSABLE_SELECTOR: ':not(.is-visually-hidden)',
-  FOCUSABLE_TAGS: [ 'a', 'button', 'input', 'object', 'select', 'textarea', '[tabindex]' ],
+  FOCUSABLE_SELECTOR: ":not(.is-visually-hidden)",
+  FOCUSABLE_TAGS: ["a", "button", "input", "object", "select", "textarea", "[tabindex]"],
 }
 
 const events = {
-  KEYDOWN: 'keydown',
+  KEYDOWN: "keydown",
 }
 
 /**
@@ -39,8 +39,10 @@ export default class Utils {
    */
   getFocusableElements(container) {
     let focusables = []
-    selectors.FOCUSABLE_TAGS.map(element => focusables.push(`${container} ${element}${selectors.FOCUSABLE_SELECTOR}`))
-    return this.findElements(focusables.join(', '))
+    selectors.FOCUSABLE_TAGS.map(element =>
+      focusables.push(`${container} ${element}${selectors.FOCUSABLE_SELECTOR}`),
+    )
+    return this.findElements(focusables.join(", "))
   }
 
   /**

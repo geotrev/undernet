@@ -1,14 +1,25 @@
-
-input[type=text], input[type=password],
-input[type=email], input[type=date],
-input[type=datetime-local], input[type=month],
-input[type=number], input[type=tel],
-input[type=search], input[type=time],
-input[type=url], input[type=week],
-input[type=submit], input[type=file],
-input[type=reset], input[type=button],
-textarea, button, a, .button {
-  &:disabled, &.disabled {
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="date"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="number"],
+input[type="tel"],
+input[type="search"],
+input[type="time"],
+input[type="url"],
+input[type="week"],
+input[type="submit"],
+input[type="file"],
+input[type="reset"],
+input[type="button"],
+textarea,
+button,
+a,
+.button {
+  &:disabled,
+  &.disabled {
     background: $input-disabled-background !important;
     border: $input-disabled-border !important;
     color: $input-disabled-color !important;
@@ -24,16 +35,23 @@ textarea, button, a, .button {
   }
 }
 
-input[type=text], input[type=password],
-input[type=email], input[type=date],
-input[type=datetime-local], input[type=month],
-input[type=number], input[type=tel],
-input[type=search], input[type=time],
-input[type=url], input[type=week],
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="date"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="number"],
+input[type="tel"],
+input[type="search"],
+input[type="time"],
+input[type="url"],
+input[type="week"],
 textarea {
   transition: $global-ease;
 
-  &:focus, &:active {
+  &:focus,
+  &:active {
     background: $input-focus-background !important;
     border: $input-focus-border !important;
     box-shadow: $input-focus-box-shadow !important;
