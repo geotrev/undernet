@@ -1,4 +1,4 @@
-@import '../../global';
+@import "../../global";
 
 $modal-fade-duration: 0.2s;
 
@@ -20,7 +20,7 @@ $modal-fade-duration: 0.2s;
 
 [data-modal-overlay] {
   display: block;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.5);
   z-index: 9999;
   overflow-y: auto;
   overflow-x: hidden;
@@ -43,7 +43,7 @@ $modal-fade-duration: 0.2s;
 
 // modal content
 
-[role=dialog] {
+[role="dialog"] {
   background: white;
   width: 100vw;
   position: relative;
@@ -64,7 +64,12 @@ $modal-fade-duration: 0.2s;
     display: flex;
     align-items: center;
 
-    h1, h2, h3, h4, h5, h6 {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
       display: inline-block;
       margin-bottom: 0;
     }
@@ -73,16 +78,19 @@ $modal-fade-duration: 0.2s;
   header > button[data-modal-close],
   header > a[data-modal-close] {
     margin-left: auto;
-    font-size: 24px;
+    font-size: 32px;
     text-decoration: none;
-    padding: 8px;
+    padding: 0 8px;
   }
 
-  header, section, footer {
+  header,
+  section,
+  footer {
     padding: $global-space;
   }
 
-  header, section {
+  header,
+  section {
     border-bottom: 1px solid #ddd;
   }
 
@@ -91,7 +99,13 @@ $modal-fade-duration: 0.2s;
     flex-flow: row nowrap;
     justify-content: flex-end;
 
-    a:first-child, button:first-child { margin-right: 16px; }
-    a, button { margin-bottom: 0; }
+    a:first-child,
+    button:first-child {
+      margin-right: 16px;
+    }
+    a,
+    button {
+      margin-bottom: 0;
+    }
   }
 }

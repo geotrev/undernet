@@ -21,10 +21,6 @@ const events = {
   RESIZE: "resize",
 }
 
-const timeouts = {
-  MODAL_MOVE_DURATION: 200,
-}
-
 const messages = {
   MISSING_MODAL:
     "Your button is missing its corresponding modal. Check to make sure your modal is in the DOM, and that is has a [data-*] attribute matching the button ID.",
@@ -112,7 +108,9 @@ export default class Modal extends Utils {
 
     // move modal to the body tag so it doesn't get
     // trapped by relative positioning
-    document.body.appendChild(this.modalOverlay)
+    if (this.modalOverlay.parentNode !== this.bodyTag) {
+      this.bodyTag.appendChild(this.modalOverlay)
+    }
 
     this.activeModalSelector = `${this.modalOverlayAttr} ${this.modalContainerAttr}`
     this.activeModal = document.querySelector(this.activeModalSelector)
@@ -159,11 +157,6 @@ export default class Modal extends Utils {
     this.modalCloseButtons.forEach(button => {
       button.removeEventListener(events.CLICK, this.handleModalClose)
     })
-
-    // move the modal back to its original location after timeouts.MODAL_MOVE_DURATION
-    window.setTimeout(() => {
-      this.modalButton.parentNode.appendChild(this.modalOverlay)
-    }, timeouts.MODAL_MOVE_DURATION)
   }
 
   /**

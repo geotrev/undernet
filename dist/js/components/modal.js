@@ -152,7 +152,9 @@ var Modal = function (_Utils) {
 
       // move modal to the body tag so it doesn't get
       // trapped by relative positioning
-      document.body.appendChild(this.modalOverlay);
+      if (this.modalOverlay.parentNode !== this.bodyTag) {
+        this.bodyTag.appendChild(this.modalOverlay);
+      }
 
       this.activeModalSelector = this.modalOverlayAttr + " " + this.modalContainerAttr;
       this.activeModal = document.querySelector(this.activeModalSelector);
@@ -204,11 +206,6 @@ var Modal = function (_Utils) {
       this.modalCloseButtons.forEach(function (button) {
         button.removeEventListener(events.CLICK, _this5.handleModalClose);
       });
-
-      // move the modal back to its original location after timeouts.MODAL_MOVE_DURATION
-      window.setTimeout(function () {
-        _this5.modalButton.parentNode.appendChild(_this5.modalOverlay);
-      }, timeouts.MODAL_MOVE_DURATION);
     }
 
     /**

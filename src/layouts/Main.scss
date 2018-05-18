@@ -1,21 +1,25 @@
-@import '../fonts';
-@import '../global';
-@import '../../dist/scss/components/global/base';
+@import "../fonts";
+@import "../global";
+@import "../../framework/scss/elements/global/base";
 
 // .#{$scope} {
-  @import '../../dist/scss/helpers/classes/base';
-  @import '../../dist/scss/components/grid/base';
-  @import '../../dist/scss/components/typography/base';
-  @import '../../dist/scss/components/link/base';
-  @import '../../dist/scss/components/button/base';
-  @import '../../dist/scss/components/form/base';
+@import "../../framework/scss/helpers/classes/base";
+@import "../../framework/scss/elements/grid/base";
+@import "../../framework/scss/elements/typography/base";
+@import "../../framework/scss/elements/link/base";
+@import "../../framework/scss/elements/button/base";
+@import "../../framework/scss/elements/form/base";
 // }
 
-main { display: block; }
+main {
+  display: block;
+}
 
 .has-feather {
   display: inline-flex;
   align-items: center;
 
-  svg { margin-left: 5px; }
+  svg {
+    margin-left: 5px;
+  }
 }
