@@ -5,10 +5,11 @@ A powerful, configuration-first front-end framework.
 ## In the box
 
 The framework features:
-- A flex-grid for layouts
-- Styling for common tags: buttons, paragraphs, headers, etc.
-- Configuration file to apply core brand styling to all elements, including an option for name-spacing.
-- Functional JavaScript components: modals, accordions, etc.
+
+* A flex-grid for layouts
+* Styling for common tags: buttons, paragraphs, headers, etc.
+* Configuration file to apply core brand styling to all elements, including an option for name-spacing.
+* Functional JavaScript components: modals, accordions, etc.
 
 [![CircleCI](https://circleci.com/gh/geotrev/getmonolith.io/tree/master.svg?style=svg)](https://circleci.com/gh/geotrev/monolith-site/tree/master) [![dependencies Status](https://david-dm.org/geotrev/getmonolith.io/status.svg)](https://david-dm.org/geotrev/getmonolith.io)
 
@@ -19,6 +20,7 @@ Install dependencies and get the site up and running.
 ```shell
 $ git clone git@github.com:gtreviranus/getmonolith.io.git
 $ cd monolith-site/
+$ git clone https://github.com/geotrev/getmonolith.io.wiki.git
 $ yarn install
 ```
 
