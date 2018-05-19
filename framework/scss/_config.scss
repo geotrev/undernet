@@ -1,12 +1,21 @@
 // Monolith CSS
 // The core of your next front-end project.
-// --------------------------------------------------------
+
+// ----------------
+// --> Elements <--
+// ----------------
 // 1. Globals
 // 2. Grid
 // 3. Typography
 // 4. Buttons
 // 5. Forms
-// --------------------------------------------------------
+// ----------------
+
+// ----------------
+// --> Components <--
+// ----------------
+// 6. Modals
+// ----------------
 
 // 1. Globals
 // ----------
@@ -493,3 +502,20 @@ $fieldset-legend-background: $white;
 $fieldset-legend-box-shadow: 0 8px 30px $gray800;
 $fieldset-legend-border: none;
 $fieldset-legend-border-radius: $global-border-radius;
+
+// 6. Modals
+// ---------
+
+$modal-overlay-color: rgba(0, 0, 0, 0.5);
+$modal-transition-duration: 0.2s;
+$modal-transition-ease: ease-out;
+
+$modal-container-background-color: $white;
+$modal-container-border-radius: $global-border-radius;
+$modal-container-padding: $global-space;
+$modal-header-border: 1px solid $gray900;
+$modal-footer-border: 1px solid $gray900;
+$modal-container-button-alignment: flex-end;
+
+$modal-horizontal-breakpoint: map-get($breakpoints, small);
+$modal-vertical-breakpoint: map-get($breakpoints, small);

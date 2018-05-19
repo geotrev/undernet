@@ -8,7 +8,7 @@
 
 [data-modal-overlay] {
   display: block;
-  background: rgba(0, 0, 0, 0.5);
+  background: $modal-overlay-color;
   z-index: 9999;
   overflow-y: auto;
   overflow-x: hidden;
@@ -20,7 +20,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  transition: opacity 0.2s ease-out;
+  transition: opacity $modal-transition-duration $modal-transition-ease;
   pointer-events: none;
 
   &[data-modal-visible] {
@@ -32,7 +32,7 @@
 // modal container
 
 [role="dialog"] {
-  background: white;
+  background: $modal-container-background-color;
   width: 100vw;
   position: relative;
   flex-flow: column nowrap;
@@ -41,11 +41,10 @@
   // windows high contrast mode
   border: 1px solid transparent;
 
-  @media screen and (min-width: map-get($breakpoints, small)) and (min-height: map-get($breakpoints, small)) {
+  @media screen and (min-width: $modal-horizontal-breakpoint) and (min-height: $modal-vertical-breakpoint) {
     width: 500px;
-    margin: 40px auto 0 auto;
-    border-radius: 4px;
-    margin-bottom: 40px;
+    margin: 40px auto 40px auto;
+    border-radius: $modal-container-border-radius;
   }
 
   header {
@@ -74,23 +73,27 @@
   header,
   section,
   footer {
-    padding: $global-space;
+    padding: $modal-container-padding;
   }
 
-  header,
+  header {
+    border-bottom: $modal-header-border;
+  }
+
   section {
-    border-bottom: 1px solid #ddd;
+    border-bottom: $modal-footer-border;
   }
 
   footer {
     display: flex;
     flex-flow: row nowrap;
-    justify-content: flex-end;
+    justify-content: $modal-container-button-alignment;
 
     a:first-child,
     button:first-child {
       margin-right: 16px;
     }
+
     a,
     button {
       margin-bottom: 0;
