@@ -12,6 +12,7 @@ import {
   Classes,
   Mixins,
   Functions,
+  Modals,
 } from "../Articles/Articles"
 
 const DocsRoutes = () => {
@@ -28,6 +29,7 @@ const DocsRoutes = () => {
         <Route exact path="/docs/classes" component={Classes} />
         <Route exact path="/docs/mixins" component={Mixins} />
         <Route exact path="/docs/functions" component={Functions} />
+        <Route exact path="/docs/modals" component={Modals} />
       </div>
     </div>
   )

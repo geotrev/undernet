@@ -25,6 +25,10 @@ const Docs = () => {
       ],
     },
     {
+      header: "Components",
+      links: [{ name: "Modals", url: "/docs/modals" }],
+    },
+    {
       header: "Helpers",
       links: [
         { name: "Classes", url: "/docs/classes" },

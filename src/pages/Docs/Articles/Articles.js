@@ -15,6 +15,7 @@ import FormsMd from "articles/Forms.md"
 import ClassesMd from "articles/Classes.md"
 import MixinsMd from "articles/Mixins.md"
 import FunctionsMd from "articles/Functions.md"
+import ModalsMd from "articles/Modals.md"
 
 export const Template = props => {
   return (
@@ -31,6 +32,19 @@ export const Overview = () => {
       <HeaderText>Overview</HeaderText>
       <Template>
         <Article>{OverviewMd}</Article>
+      </Template>
+    </div>
+  )
+}
+export const Modals = () => {
+  return (
+    <div className="column">
+      <HeaderText>Modals</HeaderText>
+      <Link className="small secondary button has-feather" to="/examples/modals">
+        See Examples <ChevronRight size={16} />
+      </Link>
+      <Template>
+        <Article>{ModalsMd}</Article>
       </Template>
     </div>
   )
