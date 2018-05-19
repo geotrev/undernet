@@ -39,7 +39,7 @@ const Docs = () => {
       <ScrollUpOnMount />
       <div className="row">
         <SideNav navListClasses="xsmall-12 small-4 xlarge-12 columns" navItems={navItems} />
-        
+
         <div className="xsmall-12 xlarge-10 collapsed columns">
           <DocsRoutes />
         </div>
