@@ -26,7 +26,7 @@ export default class RadioInput extends Component {
           id={this.props.id}
           className={this.props.className}
           value={this.props.value}
-          has_label={this.props.no_label ? true : false}
+          no_label={this.props.no_label ? true : false}
         />
         {this.getLabel()}
       </label>

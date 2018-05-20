@@ -6,6 +6,8 @@ const Monolith = {
   modals: () => new Modal(),
 }
 
+window.Monolith = Monolith || {}
+
 Monolith.start = () => {
   Monolith.modals().start()
 }

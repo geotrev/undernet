@@ -16,6 +16,8 @@ var Monolith = {
   }
 };
 
+window.Monolith = Monolith || {};
+
 Monolith.start = function () {
   Monolith.modals().start();
 };
