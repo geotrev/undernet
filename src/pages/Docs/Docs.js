@@ -31,9 +31,8 @@ const Docs = () => {
     {
       header: "Helpers",
       links: [
-        { name: "Classes", url: "/docs/classes" },
-        { name: "Mixins", url: "/docs/mixins" },
-        { name: "Functions", url: "/docs/functions" },
+        { name: "Style Utilities", url: "/docs/style-utilities" },
+        { name: "JavaScript Utilities", url: "/docs/javascript-utilities" },
       ],
     },
   ]

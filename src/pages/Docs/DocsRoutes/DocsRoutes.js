@@ -9,10 +9,9 @@ import {
   Type,
   Buttons,
   Forms,
-  Classes,
-  Mixins,
-  Functions,
   Modals,
+  StyleUtilities,
+  JSUtilities,
 } from "../Articles/Articles"
 
 const DocsRoutes = () => {
@@ -26,10 +25,9 @@ const DocsRoutes = () => {
         <Route exact path="/docs/typography" component={Type} />
         <Route exact path="/docs/buttons" component={Buttons} />
         <Route exact path="/docs/forms" component={Forms} />
-        <Route exact path="/docs/classes" component={Classes} />
-        <Route exact path="/docs/mixins" component={Mixins} />
-        <Route exact path="/docs/functions" component={Functions} />
         <Route exact path="/docs/modals" component={Modals} />
+        <Route exact path="/docs/style-utilities" component={StyleUtilities} />
+        <Route exact path="/docs/javascript-utilities" component={JSUtilities} />
       </div>
     </div>
   )

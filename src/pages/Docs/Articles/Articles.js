@@ -12,9 +12,8 @@ import GridMd from "articles/Grid.md"
 import TypeMd from "articles/Typography.md"
 import ButtonsMd from "articles/Buttons.md"
 import FormsMd from "articles/Forms.md"
-import ClassesMd from "articles/Classes.md"
-import MixinsMd from "articles/Mixins.md"
-import FunctionsMd from "articles/Functions.md"
+import StyleUtilitiesMd from "articles/Style-Utilities.md"
+import JSUtilitiesMd from "articles/JS-Utilities.md"
 import ModalsMd from "articles/Modals.md"
 
 export const Template = props => {
@@ -32,19 +31,6 @@ export const Overview = () => {
       <HeaderText>Overview</HeaderText>
       <Template>
         <Article>{OverviewMd}</Article>
-      </Template>
-    </div>
-  )
-}
-export const Modals = () => {
-  return (
-    <div className="column">
-      <HeaderText>Modals</HeaderText>
-      <Link className="small secondary button has-feather" to="/examples/modals">
-        See Examples <ChevronRight size={16} />
-      </Link>
-      <Template>
-        <Article>{ModalsMd}</Article>
       </Template>
     </div>
   )
@@ -122,33 +108,35 @@ export const Forms = () => {
     </div>
   )
 }
-
-export const Classes = () => {
+export const Modals = () => {
   return (
     <div className="column">
-      <HeaderText>Classes</HeaderText>
+      <HeaderText>Modals</HeaderText>
+      <Link className="small secondary button has-feather" to="/examples/modals">
+        See Examples <ChevronRight size={16} />
+      </Link>
       <Template>
-        <Article>{ClassesMd}</Article>
+        <Article>{ModalsMd}</Article>
       </Template>
     </div>
   )
 }
-export const Mixins = () => {
+export const StyleUtilities = () => {
   return (
     <div className="column">
-      <HeaderText>Mixins</HeaderText>
+      <HeaderText>Style Utilities</HeaderText>
       <Template>
-        <Article>{MixinsMd}</Article>
+        <Article>{StyleUtilitiesMd}</Article>
       </Template>
     </div>
   )
 }
-export const Functions = () => {
+export const JSUtilities = () => {
   return (
     <div className="column">
-      <HeaderText>Functions</HeaderText>
+      <HeaderText>JavaScript Utilities</HeaderText>
       <Template>
-        <Article>{FunctionsMd}</Article>
+        <Article>{JSUtilitiesMd}</Article>
       </Template>
     </div>
   )
