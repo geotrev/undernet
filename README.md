@@ -18,7 +18,7 @@ The framework features:
 Install dependencies and get the site up and running.
 
 ```shell
-$ git clone git@github.com:gtreviranus/getmonolith.io.git
+$ git clone git@github.com:geotrev/getmonolith.io.git
 $ cd monolith-site/
 $ git clone https://github.com/geotrev/getmonolith.io.wiki.git
 $ yarn install

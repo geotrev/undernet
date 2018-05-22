@@ -1,27 +1,27 @@
-// Monolith CSS
+// Monolith
 // The core of your next front-end project.
 
+// Contents:
 // ----------------
-// --> Elements <--
+// --> ELEMENTS <--
 // ----------------
 // 1. Globals
 // 2. Grid
 // 3. Typography
 // 4. Buttons
 // 5. Forms
-// ----------------
-
-// ----------------
-// --> Components <--
-// ----------------
+// ------------------
+// --> COMPONENTS <--
+// ------------------
 // 6. Modals
-// ----------------
+// ------------------
+
+// *** --- *** --- ***
 
 // 1. Globals
 // ----------
 
-// If you have a scope, don't forget to
-// uncomment the scope wrapper in monolith.scss
+// Uncomment the scope wrapper in monolith.scss if you use this!
 $scope: "";
 
 $global-space: 16px !default;
