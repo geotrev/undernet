@@ -1,6 +1,6 @@
 # Contributing to Monolith
 
-We love your input! We want to make contributing to this project as easy and transparent as possible, whether it's:
+All input is good input! Contributing to this project should be as easy and transparent as possible, whether it's:
 
 * Reporting a bug
 * Discussing the current state of the code
@@ -10,18 +10,19 @@ We love your input! We want to make contributing to this project as easy and tra
 
 ## We Develop with Github
 
-We use github to host code, to track issues and feature requests, as well as accept pull requests.
+We use github to track pretty much everything: pull requests, feature discussion, and issue resolution.
 
-## We Use [Github Flow](https://guides.github.com/introduction/flow/index.html), So All Code Changes Happen Through Pull Requests
+## We Use [Github Flow](https://guides.github.com/introduction/flow/index.html)
 
-Pull requests are the best way to propose changes to the codebase (we use [Github Flow](https://guides.github.com/introduction/flow/index.html)). We actively welcome your pull requests:
+All code changes happen through pull requests
 
-1.  Fork the repo and create your branch from `master`.
+Pull requests are the best way to propose changes to the codebase. Any kind of idea or change is welcome.
+
+1.  Fork the repo and create your branch from `develop`.
 2.  If you've added code that should be tested, add tests.
 3.  If you've changed APIs, update the documentation.
-4.  Ensure the test suite passes.
-5.  Make sure your code lints.
-6.  Issue that pull request!
+4.  If you've added dependencies, note what they are and why they are needed.
+5.  Make sure your code and tests run without errors. It's also helpful if you've done a regression check against other areas of the framework, but not strictly required.
 
 ## Any contributions you make will be under the MIT Software License
 
@@ -29,20 +30,20 @@ In short, when you submit code changes, your submissions are understood to be un
 
 ## Report bugs using Github's [issues](https://github.com/geotrev/getmonolith.io/issues)
 
-We use GitHub issues to track public bugs. Report a bug by [opening a new issue](); it's that easy!
+We use GitHub issues to track public bugs. Report a bug by [opening a new issue](https://github.com/geotrev/getmonolith.io/issues/new).
 
 ## Write bug reports with detail, background, and sample code
 
 Always included expected vs. actual behavior with supporting information such as screenshots, browser/OS versions, and the like. If you have a specific solution to the problem, call it out in a separate "proposed solution" portion of your issue.
 
-People _love_ thorough bug reports. I'm not even kidding.
+The more detail, the less confusion!
 
 ## Use a Consistent Coding Style
 
 Reference `.prettierrc` for code styling. Run `yarn lint` to apply styling, or manually write updates with this command:
 
 ```shell
-$ prettier --write path/to/folder/(\*\*/\*)(file.ext)
+$ prettier --write path/to/folder/**/*
 ```
 
 ## License
