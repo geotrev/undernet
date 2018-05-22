@@ -7,9 +7,8 @@ export default class RadioInput extends Component {
 
   getWarning() {
     const warnMsg = "*** You have radio inputs without labels ***"
-    if (!this.props.no_label) {
-      return console.warn(warnMsg)
-    }
+    if (this.props.no_label) return
+    return console.warn(warnMsg)
   }
 
   render() {
@@ -26,7 +25,7 @@ export default class RadioInput extends Component {
           id={this.props.id}
           className={this.props.className}
           value={this.props.value}
-          no_label={this.props.no_label ? true : false}
+          no_label={this.props.no_label}
         />
         {this.getLabel()}
       </label>

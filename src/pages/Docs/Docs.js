@@ -41,7 +41,10 @@ const Docs = () => {
     <div id="docs" className="medium-section fluid grid">
       <ScrollUpOnMount />
       <div className="row">
-        <SideNav navListClasses="xsmall-12 small-4 xlarge-12 columns" navItems={navItems} />
+        <SideNav
+          navListClasses="xsmall-12 small-4 medium-3 xlarge-12 columns"
+          navItems={navItems}
+        />
 
         <div className="xsmall-12 xlarge-10 collapsed columns">
           <DocsRoutes />
