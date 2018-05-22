@@ -33,9 +33,7 @@ const Examples = () => {
       <ScrollUpOnMount />
 
       <div className="row">
-        <div className="xsmall-12 xlarge-2 columns collapsed examples-nav-menu">
-          <SideNav navListClasses="xsmall-12 small-4 xlarge-12 columns" navItems={navItems} />
-        </div>
+        <SideNav navListClasses="xsmall-12 small-6 xlarge-12 columns" navItems={navItems} />
 
         <div className="xsmall-12 xlarge-10 collapsed columns">
           <Route exact path="/examples/grid" component={Grid} />

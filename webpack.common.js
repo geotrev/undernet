@@ -1,92 +1,89 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const path = require('path');
+const HtmlWebpackPlugin = require("html-webpack-plugin")
+const ExtractTextPlugin = require("extract-text-webpack-plugin")
+const path = require("path")
 
 module.exports = {
   entry: {
-    main: path.resolve(__dirname, 'src/index.js'),
+    main: path.resolve(__dirname, "src/index.js"),
   },
   output: {
-    filename: '[name].[chunkhash].js',
-    chunkFilename: '[name].[chunkhash].js',
-    path: path.resolve(__dirname, 'build'),
-    publicPath: '/',
+    filename: "[name].[chunkhash].js",
+    chunkFilename: "[name].[chunkhash].js",
+    path: path.resolve(__dirname, "build"),
+    publicPath: "/",
   },
   optimization: {
-    splitChunks: { chunks: 'all' },
-    runtimeChunk: { name: 'manifest' }
+    splitChunks: { chunks: "all" },
+    runtimeChunk: { name: "manifest" },
   },
   stats: { children: false },
   resolve: {
     extensions: [".js", ".jsx"],
     alias: {
-      'components': path.resolve(__dirname, 'src/components/exports'),
-      'helpers': path.resolve(__dirname, 'src/helpers/exports'),
-      'pages': path.resolve(__dirname, 'src/pages/exports'),
-      'assets': path.resolve(__dirname, 'src/assets/'),
-      'articles': path.resolve(__dirname, 'monolith.wiki/'),
-      'monolith': path.resolve(__dirname, 'dist/js/monolith'),
-    }
+      components: path.resolve(__dirname, "src/components/exports"),
+      helpers: path.resolve(__dirname, "src/helpers/exports"),
+      pages: path.resolve(__dirname, "src/pages/exports"),
+      assets: path.resolve(__dirname, "src/assets/"),
+      articles: path.resolve(__dirname, "getmonolith.io.wiki/"),
+      "monolith-suite": path.resolve(__dirname, "dist/js/monolith"),
+    },
   },
   module: {
     rules: [
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        use: 'babel-loader',
+        use: "babel-loader",
       },
       {
         test: /\.scss$/,
         use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
+          fallback: "style-loader",
           use: [
             {
-              loader: 'css-loader',
+              loader: "css-loader",
               options: {
                 minimize: true,
-                sourceMap: true
-              }
+                sourceMap: true,
+              },
             },
             {
-              loader: 'postcss-loader',
+              loader: "postcss-loader",
               options: {
                 config: {
-                  path: 'config/postcss.config.js'
-                }
-              }
+                  path: "config/postcss.config.js",
+                },
+              },
             },
-            { loader: 'resolve-url-loader' },
-            { loader: 'sass-loader?sourceMap' }
+            { loader: "resolve-url-loader" },
+            { loader: "sass-loader?sourceMap" },
           ],
-        })
+        }),
       },
       {
         test: /\.(ico|png|jpe?g|gif|eot|svg|ttf|woff2?|otf)$/,
         use: [
           {
-            loader: 'file-loader',
+            loader: "file-loader",
             options: {
-              name: '[name].[ext]',
-              outputPath: 'assets/'
-            }
-          }
-        ]
+              name: "[name].[ext]",
+              outputPath: "assets/",
+            },
+          },
+        ],
       },
       {
         test: /\.md$/,
-        use: [
-          { loader: 'html-loader' },
-          { loader: 'markdown-loader' }
-        ]
+        use: [{ loader: "html-loader" }, { loader: "markdown-loader" }],
       },
-    ]
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, 'public/index.html')
+      template: path.resolve(__dirname, "public/index.html"),
     }),
     new ExtractTextPlugin({
-      filename: '[name].[chunkhash].css',
+      filename: "[name].[chunkhash].css",
     }),
   ],
 }

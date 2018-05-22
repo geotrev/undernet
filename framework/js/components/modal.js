@@ -1,32 +1,29 @@
-'use strict'
+"use strict"
 
-import Utils from '../utils'
+import Utils from "../utils"
 
 const keyCodes = {
   ESCAPE: 27,
 }
 
 const selectors = {
-  MODAL_CONTAINER: 'data-modal',
-  MODAL_NAME: 'data-modal-name',
-  MODAL_VISIBLE: 'data-modal-visible',
-  MODAL_CLOSE: 'data-modal-close',
-  MODAL_BUTTON: 'data-modal-button',
-  NO_SCROLL: 'no-scroll',
+  MODAL_CONTAINER: "data-modal",
+  MODAL_NAME: "data-modal-name",
+  MODAL_VISIBLE: "data-modal-visible",
+  MODAL_CLOSE: "data-modal-close",
+  MODAL_BUTTON: "data-modal-button",
+  NO_SCROLL: "no-scroll",
 }
 
 const events = {
-  KEYDOWN: 'keydown',
-  CLICK: 'click',
-  RESIZE: 'resize',
-}
-
-const timeouts = {
-  MODAL_MOVE_DURATION: 200,
+  KEYDOWN: "keydown",
+  CLICK: "click",
+  RESIZE: "resize",
 }
 
 const messages = {
-  MISSING_MODAL: 'Your button is missing its corresponding modal. Check to make sure your modal is in the DOM, and that is has a [data-*] attribute matching the button ID.'
+  MISSING_MODAL:
+    "Your button is missing its corresponding modal. Check to make sure your modal is in the DOM, and that is has a [data-modal-name=*] attribute matching the button ID.",
 }
 
 /**
@@ -43,7 +40,7 @@ export default class Modal extends Utils {
     this.modalButtons = this.findElements(`[${selectors.MODAL_BUTTON}]`)
     this.closeButtons = this.findElements(this.closeButtonAttr)
     this.bodyTag = document.body
-    this.htmlTag = document.querySelector('html')
+    this.htmlTag = document.querySelector("html")
 
     // bind events to class
     this.getModal = this.getModal.bind(this)
@@ -61,8 +58,8 @@ export default class Modal extends Utils {
   start() {
     if (this.modals.length > 0) {
       this.modals.forEach(modal => {
-        modal.setAttribute('aria-modal', 'true')
-        modal.setAttribute('role', 'dialog')
+        modal.setAttribute("aria-modal", "true")
+        modal.setAttribute("role", "dialog")
       })
     }
 
@@ -74,16 +71,6 @@ export default class Modal extends Utils {
   }
 
   /**
-   * Locate a button's corresponding modal container.
-   * @param {Object} event - The event object
-   * @return {null}
-   */
-  getModal(event) {
-    event.preventDefault()
-    this.renderModal(event)
-  }
-
-  /**
    * Stop listening to modal buttons
    * @return {null}
    */
@@ -91,6 +78,16 @@ export default class Modal extends Utils {
     this.modalButtons.forEach(button => {
       button.removeEventListener(events.CLICK, this.getModal)
     })
+  }
+
+  /**
+   * Locate a button's corresponding modal container.
+   * @param {Object} event - The event object
+   * @return {null}
+   */
+  getModal(event) {
+    event.preventDefault()
+    this.renderModal(event)
   }
 
   /**
@@ -111,7 +108,9 @@ export default class Modal extends Utils {
 
     // move modal to the body tag so it doesn't get
     // trapped by relative positioning
-    document.body.appendChild(this.modalOverlay)
+    if (this.modalOverlay.parentNode !== this.bodyTag) {
+      this.bodyTag.appendChild(this.modalOverlay)
+    }
 
     this.activeModalSelector = `${this.modalOverlayAttr} ${this.modalContainerAttr}`
     this.activeModal = document.querySelector(this.activeModalSelector)
@@ -120,9 +119,9 @@ export default class Modal extends Utils {
     this.handleScrollStop()
     this.getOffsetValue(this.modalOverlay)
     this.captureFocus(this.activeModalSelector)
-    this.modalOverlay.setAttribute(selectors.MODAL_VISIBLE, '')
-    this.modalOverlay.setAttribute('aria-hidden', 'false')
-    this.activeModal.setAttribute('tabindex', '-1')
+    this.modalOverlay.setAttribute(selectors.MODAL_VISIBLE, "")
+    this.modalOverlay.setAttribute("aria-hidden", "false")
+    this.activeModal.setAttribute("tabindex", "-1")
     this.activeModal.focus()
 
     // offset slight scroll caused by this.activeModal.focus()
@@ -145,8 +144,8 @@ export default class Modal extends Utils {
   handleModalClose(event) {
     event.preventDefault()
     this.modalOverlay.removeAttribute(selectors.MODAL_VISIBLE)
-    this.modalOverlay.setAttribute('aria-hidden', 'true')
-    this.activeModal.removeAttribute('tabindex')
+    this.modalOverlay.setAttribute("aria-hidden", "true")
+    this.activeModal.removeAttribute("tabindex")
     this.releaseFocus()
     this.handleReturnFocus()
     this.handleScrollRestore()
@@ -158,11 +157,6 @@ export default class Modal extends Utils {
     this.modalCloseButtons.forEach(button => {
       button.removeEventListener(events.CLICK, this.handleModalClose)
     })
-
-    // move the modal back to its original location after timeouts.MODAL_MOVE_DURATION
-    window.setTimeout(() => {
-      this.modalButton.parentNode.appendChild(this.modalOverlay)
-    }, timeouts.MODAL_MOVE_DURATION)
   }
 
   /**
@@ -193,9 +187,9 @@ export default class Modal extends Utils {
    * @return {null}
    */
   handleReturnFocus() {
-    this.modalButton.setAttribute('tabindex', '-1')
+    this.modalButton.setAttribute("tabindex", "-1")
     this.modalButton.focus()
-    this.modalButton.removeAttribute('tabindex')
+    this.modalButton.removeAttribute("tabindex")
   }
 
   /**

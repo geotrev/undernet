@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _utils = require('../utils');
+var _utils = require("../utils");
 
 var _utils2 = _interopRequireDefault(_utils);
 
@@ -23,26 +23,22 @@ var keyCodes = {
 };
 
 var selectors = {
-  MODAL_CONTAINER: 'data-modal',
-  MODAL_NAME: 'data-modal-name',
-  MODAL_VISIBLE: 'data-modal-visible',
-  MODAL_CLOSE: 'data-modal-close',
-  MODAL_BUTTON: 'data-modal-button',
-  NO_SCROLL: 'no-scroll'
+  MODAL_CONTAINER: "data-modal",
+  MODAL_NAME: "data-modal-name",
+  MODAL_VISIBLE: "data-modal-visible",
+  MODAL_CLOSE: "data-modal-close",
+  MODAL_BUTTON: "data-modal-button",
+  NO_SCROLL: "no-scroll"
 };
 
 var events = {
-  KEYDOWN: 'keydown',
-  CLICK: 'click',
-  RESIZE: 'resize'
-};
-
-var timeouts = {
-  MODAL_MOVE_DURATION: 200
+  KEYDOWN: "keydown",
+  CLICK: "click",
+  RESIZE: "resize"
 };
 
 var messages = {
-  MISSING_MODAL: 'Your button is missing its corresponding modal. Check to make sure your modal is in the DOM, and that is has a [data-*] attribute matching the button ID.'
+  MISSING_MODAL: "Your button is missing its corresponding modal. Check to make sure your modal is in the DOM, and that is has a [data-modal-name=*] attribute matching the button ID."
 
   /**
    * Modal component class.
@@ -58,13 +54,13 @@ var Modal = function (_Utils) {
 
     var _this = _possibleConstructorReturn(this, (Modal.__proto__ || Object.getPrototypeOf(Modal)).call(this));
 
-    _this.closeButtonAttr = '[' + selectors.MODAL_CLOSE + ']';
-    _this.modalContainerAttr = '[' + selectors.MODAL_CONTAINER + ']';
-    _this.modals = _this.findElements('[' + selectors.MODAL_CONTAINER + ']');
-    _this.modalButtons = _this.findElements('[' + selectors.MODAL_BUTTON + ']');
+    _this.closeButtonAttr = "[" + selectors.MODAL_CLOSE + "]";
+    _this.modalContainerAttr = "[" + selectors.MODAL_CONTAINER + "]";
+    _this.modals = _this.findElements("[" + selectors.MODAL_CONTAINER + "]");
+    _this.modalButtons = _this.findElements("[" + selectors.MODAL_BUTTON + "]");
     _this.closeButtons = _this.findElements(_this.closeButtonAttr);
     _this.bodyTag = document.body;
-    _this.htmlTag = document.querySelector('html');
+    _this.htmlTag = document.querySelector("html");
 
     // bind events to class
     _this.getModal = _this.getModal.bind(_this);
@@ -83,14 +79,14 @@ var Modal = function (_Utils) {
 
 
   _createClass(Modal, [{
-    key: 'start',
+    key: "start",
     value: function start() {
       var _this2 = this;
 
       if (this.modals.length > 0) {
         this.modals.forEach(function (modal) {
-          modal.setAttribute('aria-modal', 'true');
-          modal.setAttribute('role', 'dialog');
+          modal.setAttribute("aria-modal", "true");
+          modal.setAttribute("role", "dialog");
         });
       }
 
@@ -102,25 +98,12 @@ var Modal = function (_Utils) {
     }
 
     /**
-     * Locate a button's corresponding modal container.
-     * @param {Object} event - The event object
-     * @return {null}
-     */
-
-  }, {
-    key: 'getModal',
-    value: function getModal(event) {
-      event.preventDefault();
-      this.renderModal(event);
-    }
-
-    /**
      * Stop listening to modal buttons
      * @return {null}
      */
 
   }, {
-    key: 'stop',
+    key: "stop",
     value: function stop() {
       var _this3 = this;
 
@@ -130,19 +113,32 @@ var Modal = function (_Utils) {
     }
 
     /**
+     * Locate a button's corresponding modal container.
+     * @param {Object} event - The event object
+     * @return {null}
+     */
+
+  }, {
+    key: "getModal",
+    value: function getModal(event) {
+      event.preventDefault();
+      this.renderModal(event);
+    }
+
+    /**
      * Find a button through event.target, then render the corresponding modal attribute via matching target id
      * @param {Object} event - The event object
      * @return {null}
      */
 
   }, {
-    key: 'renderModal',
+    key: "renderModal",
     value: function renderModal(event) {
       var _this4 = this;
 
       // setup core lightbox properties
       this.modalButton = event.target;
-      this.modalOverlayAttr = '[' + selectors.MODAL_NAME + '=\'' + event.target.id + '\']';
+      this.modalOverlayAttr = "[" + selectors.MODAL_NAME + "='" + event.target.id + "']";
       this.modalOverlay = document.querySelector(this.modalOverlayAttr);
 
       if (!this.modalOverlay) {
@@ -152,18 +148,20 @@ var Modal = function (_Utils) {
 
       // move modal to the body tag so it doesn't get
       // trapped by relative positioning
-      document.body.appendChild(this.modalOverlay);
+      if (this.modalOverlay.parentNode !== this.bodyTag) {
+        this.bodyTag.appendChild(this.modalOverlay);
+      }
 
-      this.activeModalSelector = this.modalOverlayAttr + ' ' + this.modalContainerAttr;
+      this.activeModalSelector = this.modalOverlayAttr + " " + this.modalContainerAttr;
       this.activeModal = document.querySelector(this.activeModalSelector);
-      this.modalCloseButtons = this.findElements(this.modalOverlayAttr + ' ' + this.closeButtonAttr);
+      this.modalCloseButtons = this.findElements(this.modalOverlayAttr + " " + this.closeButtonAttr);
 
       this.handleScrollStop();
       this.getOffsetValue(this.modalOverlay);
       this.captureFocus(this.activeModalSelector);
-      this.modalOverlay.setAttribute(selectors.MODAL_VISIBLE, '');
-      this.modalOverlay.setAttribute('aria-hidden', 'false');
-      this.activeModal.setAttribute('tabindex', '-1');
+      this.modalOverlay.setAttribute(selectors.MODAL_VISIBLE, "");
+      this.modalOverlay.setAttribute("aria-hidden", "false");
+      this.activeModal.setAttribute("tabindex", "-1");
       this.activeModal.focus();
 
       // offset slight scroll caused by this.activeModal.focus()
@@ -185,14 +183,14 @@ var Modal = function (_Utils) {
      */
 
   }, {
-    key: 'handleModalClose',
+    key: "handleModalClose",
     value: function handleModalClose(event) {
       var _this5 = this;
 
       event.preventDefault();
       this.modalOverlay.removeAttribute(selectors.MODAL_VISIBLE);
-      this.modalOverlay.setAttribute('aria-hidden', 'true');
-      this.activeModal.removeAttribute('tabindex');
+      this.modalOverlay.setAttribute("aria-hidden", "true");
+      this.activeModal.removeAttribute("tabindex");
       this.releaseFocus();
       this.handleReturnFocus();
       this.handleScrollRestore();
@@ -204,11 +202,6 @@ var Modal = function (_Utils) {
       this.modalCloseButtons.forEach(function (button) {
         button.removeEventListener(events.CLICK, _this5.handleModalClose);
       });
-
-      // move the modal back to its original location after timeouts.MODAL_MOVE_DURATION
-      window.setTimeout(function () {
-        _this5.modalButton.parentNode.appendChild(_this5.modalOverlay);
-      }, timeouts.MODAL_MOVE_DURATION);
     }
 
     /**
@@ -218,7 +211,7 @@ var Modal = function (_Utils) {
      */
 
   }, {
-    key: 'handleOverlayClick',
+    key: "handleOverlayClick",
     value: function handleOverlayClick(event) {
       if (event.target !== this.modalOverlay) return;
       this.handleModalClose(event);
@@ -231,7 +224,7 @@ var Modal = function (_Utils) {
      */
 
   }, {
-    key: 'handleEscapeKeyPress',
+    key: "handleEscapeKeyPress",
     value: function handleEscapeKeyPress(event) {
       var escapeKey = event.which === keyCodes.ESCAPE;
       if (escapeKey) {
@@ -246,11 +239,11 @@ var Modal = function (_Utils) {
      */
 
   }, {
-    key: 'handleReturnFocus',
+    key: "handleReturnFocus",
     value: function handleReturnFocus() {
-      this.modalButton.setAttribute('tabindex', '-1');
+      this.modalButton.setAttribute("tabindex", "-1");
       this.modalButton.focus();
-      this.modalButton.removeAttribute('tabindex');
+      this.modalButton.removeAttribute("tabindex");
     }
 
     /**
@@ -260,10 +253,10 @@ var Modal = function (_Utils) {
      */
 
   }, {
-    key: 'getOffsetValue',
+    key: "getOffsetValue",
     value: function getOffsetValue() {
       var scrollPosition = Math.round(document.body.scrollTop || window.pageYOffset);
-      this.modalOverlay.style.top = scrollPosition + 'px';
+      this.modalOverlay.style.top = scrollPosition + "px";
     }
 
     /**
@@ -272,7 +265,7 @@ var Modal = function (_Utils) {
      */
 
   }, {
-    key: 'handleScrollRestore',
+    key: "handleScrollRestore",
     value: function handleScrollRestore() {
       this.bodyTag.classList.remove(selectors.NO_SCROLL);
       this.htmlTag.classList.remove(selectors.NO_SCROLL);
@@ -284,7 +277,7 @@ var Modal = function (_Utils) {
      */
 
   }, {
-    key: 'handleScrollStop',
+    key: "handleScrollStop",
     value: function handleScrollStop() {
       this.bodyTag.classList.add(selectors.NO_SCROLL);
       this.htmlTag.classList.add(selectors.NO_SCROLL);

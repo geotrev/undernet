@@ -1,42 +1,39 @@
-const path = require('path');
-const merge = require('webpack-merge');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const path = require("path")
+const merge = require("webpack-merge")
+const UglifyJSPlugin = require("uglifyjs-webpack-plugin")
 const CompressionPlugin = require("compression-webpack-plugin")
-const common = require('../webpack.common.js');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const common = require("../webpack.common.js")
+const CopyWebpackPlugin = require("copy-webpack-plugin")
+const CleanWebpackPlugin = require("clean-webpack-plugin")
 
 module.exports = merge(common, {
   plugins: [
-    
     // remove previous build assets
-    new CleanWebpackPlugin(
-      [ '../build' ], 
-      { 
-        root: path.resolve(__dirname),
-        verbose: true,
-        allowExternal: true
-      }
-    ),
-    
+    new CleanWebpackPlugin(["../build"], {
+      root: path.resolve(__dirname),
+      verbose: true,
+      allowExternal: true,
+    }),
+
     // make the js ugly
     new UglifyJSPlugin({
-      sourceMap: true
+      sourceMap: true,
     }),
-    
+
     // create gzip assets
     new CompressionPlugin({
-      test: /\.js$|.css$/,
+      test: /\.(js|css)$/,
       algorithm: "gzip",
     }),
-    
+
     // copy app manifest one-to-one from public/ to build/
-    new CopyWebpackPlugin([{ 
-      from: 'public/manifest.json',
-      to: 'manifest.json',
-      cache: true
-    }]),
-    
+    new CopyWebpackPlugin([
+      {
+        from: "public/manifest.json",
+        to: "manifest.json",
+        cache: true,
+      },
+    ]),
   ],
-  mode: 'production'
-});
+  mode: "production",
+})

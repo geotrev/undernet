@@ -25,11 +25,14 @@ const Docs = () => {
       ],
     },
     {
+      header: "Components",
+      links: [{ name: "Modals", url: "/docs/modals" }],
+    },
+    {
       header: "Helpers",
       links: [
-        { name: "Classes", url: "/docs/classes" },
-        { name: "Mixins", url: "/docs/mixins" },
-        { name: "Functions", url: "/docs/functions" },
+        { name: "Style Utilities", url: "/docs/style-utilities" },
+        { name: "JavaScript Utilities", url: "/docs/javascript-utilities" },
       ],
     },
   ]
@@ -38,9 +41,10 @@ const Docs = () => {
     <div id="docs" className="medium-section fluid grid">
       <ScrollUpOnMount />
       <div className="row">
-        <div className="xsmall-12 xlarge-2 columns collapsed docs-nav-menu">
-          <SideNav navListClasses="xsmall-12 small-4 xlarge-12 columns" navItems={navItems} />
-        </div>
+        <SideNav
+          navListClasses="xsmall-12 small-4 medium-3 xlarge-12 columns"
+          navItems={navItems}
+        />
 
         <div className="xsmall-12 xlarge-10 collapsed columns">
           <DocsRoutes />

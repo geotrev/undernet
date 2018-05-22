@@ -1,6 +1,7 @@
-@import '../dist/scss/helpers/functions/base';
-@import '../dist/scss/config';
+@import "../framework/scss/helpers/functions/base";
 
-$global-font-sans: "Fira Sans", sans-serif;
+// Put overrides here.
+// Avoid selectors as they will be repeated with every include of this file.
 
-@import '../dist/scss/helpers/mixins/base';
+@import "../framework/scss/config";
+@import "../framework/scss/helpers/mixins/base";

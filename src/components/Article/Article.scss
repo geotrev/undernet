@@ -1,4 +1,4 @@
-@import '../../global';
+@import "../../global";
 
 .article-wrapper {
   h2 {
@@ -9,7 +9,12 @@
     font-size: 24px;
   }
 
-  h2, h3 {
+  h4 {
+    font-size: 20px;
+  }
+
+  h2,
+  h3 {
     padding-top: 16px;
   }
 
@@ -18,8 +23,9 @@
     margin-bottom: 16px;
   }
 
-  pre, code {
-    color: $gray800; 
+  pre,
+  code {
+    color: $gray800;
     background: #fafafa;
   }
 

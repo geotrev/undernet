@@ -1,10 +1,10 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _modal = require('./components/modal');
+var _modal = require("./components/modal");
 
 var _modal2 = _interopRequireDefault(_modal);
 
@@ -15,6 +15,8 @@ var Monolith = {
     return new _modal2.default();
   }
 };
+
+window.Monolith = Monolith || {};
 
 Monolith.start = function () {
   Monolith.modals().start();

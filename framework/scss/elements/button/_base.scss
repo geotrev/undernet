@@ -1,0 +1,29 @@
+input[type="button"],
+input[type="submit"],
+input[type="file"],
+input[type="reset"],
+button,
+.button {
+  -webkit-appearance: none;
+  align-self: flex-start;
+  border-radius: $button-border-radius;
+  border-style: $button-border-style;
+  border-width: $button-border-width;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: inline-block;
+  font-family: $button-font;
+  font-size: $button-font-size;
+  font-style: $button-font-style;
+  font-weight: $button-font-weight;
+  line-height: $global-line-height;
+  margin: $button-margin;
+  padding: $button-padding;
+  text-align: center;
+  text-decoration: $button-decoration;
+  transition: $global-ease;
+
+  @include button-style();
+}
+
+@import "utilities";

@@ -12,8 +12,8 @@ const Home = () => {
       <ScrollUpOnMount />
       <div className="row">
         <div className="xsmall-12 columns has-center-text">
-          <h1 className="h3">The core of your next front-end project.</h1>
-          <h2 className="h6">Write vanilla HTML and get beautiful components.</h2>
+          <h1 className="h3">The core of your next front-end project</h1>
+          <h2 className="h6">Powerful, configuration-first interface development</h2>
         </div>
         <div className="xsmall-12 columns has-center-text">
           <Link to="docs/download" className="medium button has-feather">

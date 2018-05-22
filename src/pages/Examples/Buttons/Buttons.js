@@ -5,7 +5,7 @@ import { Button, HeaderText } from "components"
 
 const Buttons = () => {
   return (
-    <DemoSection>
+    <DemoSection id="buttons-demo">
       <div className="row">
         <div className="xsmall-12 columns">
           <HeaderText>Button Sizes</HeaderText>

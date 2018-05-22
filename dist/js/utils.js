@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -14,12 +14,12 @@ var keyCodes = {
 };
 
 var selectors = {
-  FOCUSABLE_SELECTOR: ':not(.is-visually-hidden)',
-  FOCUSABLE_TAGS: ['a', 'button', 'input', 'object', 'select', 'textarea', '[tabindex]']
+  FOCUSABLE_SELECTOR: ":not(.is-visually-hidden)",
+  FOCUSABLE_TAGS: ["a", "button", "input", "object", "select", "textarea", "[tabindex]"]
 };
 
 var events = {
-  KEYDOWN: 'keydown'
+  KEYDOWN: "keydown"
 
   /**
    * Utility methods for DOM traversal and focus trapping.
@@ -41,7 +41,7 @@ var Utils = function () {
 
 
   _createClass(Utils, [{
-    key: 'findElements',
+    key: "findElements",
     value: function findElements(element) {
       return Array.apply(null, document.querySelectorAll(element));
     }
@@ -53,13 +53,13 @@ var Utils = function () {
      */
 
   }, {
-    key: 'getFocusableElements',
+    key: "getFocusableElements",
     value: function getFocusableElements(container) {
       var focusables = [];
       selectors.FOCUSABLE_TAGS.map(function (element) {
-        return focusables.push(container + ' ' + element + selectors.FOCUSABLE_SELECTOR);
+        return focusables.push(container + " " + element + selectors.FOCUSABLE_SELECTOR);
       });
-      return this.findElements(focusables.join(', '));
+      return this.findElements(focusables.join(", "));
     }
 
     /**
@@ -69,7 +69,7 @@ var Utils = function () {
      */
 
   }, {
-    key: 'captureFocus',
+    key: "captureFocus",
     value: function captureFocus(container) {
       this.focusContainer = container;
       var children = this.getFocusableElements(this.focusContainer);
@@ -86,7 +86,7 @@ var Utils = function () {
      */
 
   }, {
-    key: 'handleFocusTrap',
+    key: "handleFocusTrap",
     value: function handleFocusTrap(event) {
       var active = document.activeElement;
       var containerElement = document.querySelector(this.focusContainer);
@@ -112,7 +112,7 @@ var Utils = function () {
       }
     }
   }, {
-    key: 'releaseFocus',
+    key: "releaseFocus",
     value: function releaseFocus() {
       document.removeEventListener(events.KEYDOWN, this.handleFocusTrap);
     }
