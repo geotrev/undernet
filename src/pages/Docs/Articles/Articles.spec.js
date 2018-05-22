@@ -7,9 +7,8 @@ import {
   Type,
   Buttons,
   Forms,
-  Classes,
-  Mixins,
-  Functions,
+  StyleUtilities,
+  JSUtilities,
 } from "./Articles"
 
 describe("<Articles />", () => {
@@ -60,18 +59,13 @@ describe("<Articles />", () => {
     expect(wrapper).to.have.length(1)
   })
 
-  it("can render Classes", () => {
-    wrapper = shallow(<Classes />)
+  it("can render StyleUtilities", () => {
+    wrapper = shallow(<StyleUtilities />)
     expect(wrapper).to.have.length(1)
   })
 
-  it("can render Mixins", () => {
-    wrapper = shallow(<Mixins />)
-    expect(wrapper).to.have.length(1)
-  })
-
-  it("can render Functions", () => {
-    wrapper = shallow(<Functions />)
+  it("can render JSUtilities", () => {
+    wrapper = shallow(<JSUtilities />)
     expect(wrapper).to.have.length(1)
   })
 })
