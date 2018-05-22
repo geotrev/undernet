@@ -17,7 +17,6 @@
     "pack:js": "cd dist/js/ && zip -r ../monolith-js.zip .",
     "lint:js": "prettier --write 'framework/js/**/*.js'",
     "prepublish:js": "yarn build:js && yarn pack:js",
-    "watch:css": "sass --watch framework/scss/monolith.scss:dist/css/monolith.css",
     "build:css": "sass framework/scss/monolith.scss:dist/css/monolith.css",
     "lint:scss": "prettier --write 'framework/scss/**/*.scss'",
     "prepublish:scss": "cd framework/scss/ && zip -r ../../dist/monolith-scss.zip .",
