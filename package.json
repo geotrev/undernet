@@ -1,7 +1,7 @@
 {
   "name": "monolith-suite",
   "version": "2.0.0",
-  "description": "Website for the Monolith CSS Framework.",
+  "description": "Monolith Front-End Framework and Website",
   "main": "dist/js/monolith.js",
   "author": "George Treviranus",
   "license": "MIT",
@@ -26,7 +26,7 @@
     "build:lint": "yarn lint:js && yarn lint:scss",
     "build:release": "yarn clean && yarn build:lint && yarn prepublish:scss && yarn prepublish:css && yarn prepublish:js"
   },
-  "dependencies": {
+  "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
     "babel-plugin-webpack-aliases": "^1.1.3",
@@ -72,7 +72,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/geotrev/monolith-site.git"
+    "url": "git+https://github.com/geotrev/getmonolith.io.git"
   },
   "babel": {
     "presets": [
