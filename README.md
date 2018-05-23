@@ -23,6 +23,8 @@ $ cd getmonolith.io/
 $ yarn install
 ```
 
+The site is both a demo and marketing tool. It is built with my own webpack setup called [Pulsar](https://github.com/geotrev/pulsar).
+
 ### Run the dev server
 
 ```shell
@@ -66,7 +68,7 @@ $ gem install sass
 $ yarn build:development
 ```
 
-From there, everything should build/work correctly. If not, check that your ruby version is set and your global sass version is recent (at least version 3.4).
+From there, everything should build correctly: the framework scss and js will be prettified by `prettier` and distributions of js and css will be output using `babel-cli` and the sass gem. If something goes wrong, double check your ruby version.
 
 ### New releases
 
