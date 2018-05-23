@@ -1959,18 +1959,17 @@ textarea {
     pointer-events: auto; }
 
 [role="dialog"] {
-  background: white;
+  background: #ffffff;
   width: 100vw;
   position: relative;
   flex-flow: column nowrap;
   display: flex;
   border: 1px solid transparent; }
-  @media screen and (min-width: 568px) and (min-height: 568px) {
+  @media screen and (min-width: 576px) and (min-height: 576px) {
     [role="dialog"] {
       width: 500px;
-      margin: 40px auto 0 auto;
-      border-radius: 4px;
-      margin-bottom: 40px; } }
+      margin: 40px auto 40px auto;
+      border-radius: 4px; } }
   [role="dialog"] header {
     display: flex;
     align-items: center; }
@@ -1980,7 +1979,7 @@ textarea {
     [role="dialog"] header h4,
     [role="dialog"] header h5,
     [role="dialog"] header h6 {
-      display: inline-block;
+      display: inline-flex;
       margin-bottom: 0; }
   [role="dialog"] header > button[data-modal-close],
   [role="dialog"] header > a[data-modal-close] {
@@ -1992,7 +1991,8 @@ textarea {
   [role="dialog"] section,
   [role="dialog"] footer {
     padding: 16px; }
-  [role="dialog"] header,
+  [role="dialog"] header {
+    border-bottom: 1px solid #ddd; }
   [role="dialog"] section {
     border-bottom: 1px solid #ddd; }
   [role="dialog"] footer {

@@ -19,8 +19,7 @@ Install dependencies and get the site up and running.
 
 ```shell
 $ git clone git@github.com:geotrev/getmonolith.io.git
-$ cd monolith-site/
-$ git clone https://github.com/geotrev/getmonolith.io.wiki.git
+$ cd getmonolith.io/
 $ yarn install
 ```
 
@@ -56,9 +55,11 @@ See CONTRIBUTING.md for more details.
 
 The site itself is a demo of the framework, so you should be able to work on the framework source itself while the site runs in the background.
 
-To compile and test the framework in this project, you'll need to have a stable version of ruby to compile the framework. I recommend using [ruby-install](https://www.ruby-lang.org/en/documentation/installation/#ruby-install) and managing your version for this project with [chruby](https://www.ruby-lang.org/en/documentation/installation/#chruby) or [rvm](https://www.ruby-lang.org/en/documentation/installation/#rvm). You can use whatever setup is easiest for your machine, though.
+**NOTE**: The build environment works only for macOS at the moment.
 
-Once ruby is installed, globally install sass. Don't use npm's sass package as it doesn't have the same cli flags as the gem package. The build scripts are written to work for mac only right now.
+To compile and test the framework in this project, you'll need to have a stable version of ruby to compile the framework. I recommend using [ruby-install](https://www.ruby-lang.org/en/documentation/installation/#ruby-install) and managing your version for this project with [chruby](https://www.ruby-lang.org/en/documentation/installation/#chruby) or [rvm](https://www.ruby-lang.org/en/documentation/installation/#rvm). Use whatever setup is easiest for your machine.
+
+Then globally install sass. Don't use `npm`'s sass package as it doesn't have the same cli flags as the gem package.
 
 ```shell
 $ gem install sass
