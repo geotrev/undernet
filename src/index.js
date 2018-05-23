@@ -8,5 +8,5 @@ ReactDOM.render(
   <Router>
     <Main />
   </Router>,
-  document.getElementById("root"),
+  document.getElementById("__main__"),
 )
