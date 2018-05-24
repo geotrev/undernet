@@ -65,7 +65,6 @@ var Modal = function (_Utils) {
     // bind events to class
     _this.getModal = _this.getModal.bind(_this);
     _this.handleModalClose = _this.handleModalClose.bind(_this);
-    _this.getOffsetValue = _this.getOffsetValue.bind(_this);
     _this.handleEscapeKeyPress = _this.handleEscapeKeyPress.bind(_this);
     _this.handleOverlayClick = _this.handleOverlayClick.bind(_this);
     return _this;
@@ -157,7 +156,6 @@ var Modal = function (_Utils) {
       this.modalCloseButtons = this.findElements(this.modalOverlayAttr + " " + this.closeButtonAttr);
 
       this.handleScrollStop();
-      this.getOffsetValue(this.modalOverlay);
       this.captureFocus(this.activeModalSelector);
       this.modalOverlay.setAttribute(selectors.MODAL_VISIBLE, "");
       this.modalOverlay.setAttribute("aria-hidden", "false");
@@ -168,7 +166,6 @@ var Modal = function (_Utils) {
       this.modalOverlay.scrollTop = 0;
 
       // begin listening to events
-      window.addEventListener(events.RESIZE, this.getOffsetValue);
       document.addEventListener(events.KEYDOWN, this.handleEscapeKeyPress);
       document.addEventListener(events.CLICK, this.handleOverlayClick);
       this.modalCloseButtons.forEach(function (button) {
@@ -196,7 +193,6 @@ var Modal = function (_Utils) {
       this.handleScrollRestore();
 
       // stop listening to events
-      window.removeEventListener(events.RESIZE, this.getOffsetValue);
       document.removeEventListener(events.KEYDOWN, this.handleEscapeKeyPress);
       document.removeEventListener(events.CLICK, this.handleOverlayClick);
       this.modalCloseButtons.forEach(function (button) {
@@ -244,19 +240,6 @@ var Modal = function (_Utils) {
       this.modalButton.setAttribute("tabindex", "-1");
       this.modalButton.focus();
       this.modalButton.removeAttribute("tabindex");
-    }
-
-    /**
-     * Finds the pixel value to offset the modal by to keep it in the current scroll area.
-     * @param {Object} container - Currently active modal.
-     * @return {null}
-     */
-
-  }, {
-    key: "getOffsetValue",
-    value: function getOffsetValue() {
-      var scrollPosition = Math.round(document.body.scrollTop || window.pageYOffset);
-      this.modalOverlay.style.top = scrollPosition + "px";
     }
 
     /**
