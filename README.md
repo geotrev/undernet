@@ -1,6 +1,6 @@
 ![Monolith](src/assets/images/github-logo.png?raw=true)
 
-[![CircleCI](https://circleci.com/gh/geotrev/getmonolith.io/tree/master.svg?style=svg)](https://circleci.com/gh/geotrev/monolith-site/tree/master) [![dependencies Status](https://david-dm.org/geotrev/getmonolith.io/status.svg)](https://david-dm.org/geotrev/getmonolith.io)
+[![CircleCI](https://circleci.com/gh/geotrev/getmonolith.io/tree/master.svg?style=svg)](https://circleci.com/gh/geotrev/monolith-site/tree/master) [![devDependencies Status](https://david-dm.org/geotrev/getmonolith.io/dev-status.svg)](https://david-dm.org/geotrev/getmonolith.io?type=dev)
 
 # Monolith
 
