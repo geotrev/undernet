@@ -45,7 +45,6 @@ export default class Modal extends Utils {
     // bind events to class
     this.getModal = this.getModal.bind(this)
     this.handleModalClose = this.handleModalClose.bind(this)
-    this.getOffsetValue = this.getOffsetValue.bind(this)
     this.handleEscapeKeyPress = this.handleEscapeKeyPress.bind(this)
     this.handleOverlayClick = this.handleOverlayClick.bind(this)
   }
@@ -117,7 +116,6 @@ export default class Modal extends Utils {
     this.modalCloseButtons = this.findElements(`${this.modalOverlayAttr} ${this.closeButtonAttr}`)
 
     this.handleScrollStop()
-    this.getOffsetValue(this.modalOverlay)
     this.captureFocus(this.activeModalSelector)
     this.modalOverlay.setAttribute(selectors.MODAL_VISIBLE, "")
     this.modalOverlay.setAttribute("aria-hidden", "false")
@@ -128,7 +126,6 @@ export default class Modal extends Utils {
     this.modalOverlay.scrollTop = 0
 
     // begin listening to events
-    window.addEventListener(events.RESIZE, this.getOffsetValue)
     document.addEventListener(events.KEYDOWN, this.handleEscapeKeyPress)
     document.addEventListener(events.CLICK, this.handleOverlayClick)
     this.modalCloseButtons.forEach(button => {
@@ -151,7 +148,6 @@ export default class Modal extends Utils {
     this.handleScrollRestore()
 
     // stop listening to events
-    window.removeEventListener(events.RESIZE, this.getOffsetValue)
     document.removeEventListener(events.KEYDOWN, this.handleEscapeKeyPress)
     document.removeEventListener(events.CLICK, this.handleOverlayClick)
     this.modalCloseButtons.forEach(button => {
@@ -190,16 +186,6 @@ export default class Modal extends Utils {
     this.modalButton.setAttribute("tabindex", "-1")
     this.modalButton.focus()
     this.modalButton.removeAttribute("tabindex")
-  }
-
-  /**
-   * Finds the pixel value to offset the modal by to keep it in the current scroll area.
-   * @param {Object} container - Currently active modal.
-   * @return {null}
-   */
-  getOffsetValue() {
-    const scrollPosition = Math.round(document.body.scrollTop || window.pageYOffset)
-    this.modalOverlay.style.top = `${scrollPosition}px`
   }
 
   /**
