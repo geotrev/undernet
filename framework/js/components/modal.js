@@ -97,7 +97,7 @@ export default class Modal extends Utils {
   renderModal(event) {
     // setup core lightbox properties
     this.modalButton = event.target
-    this.modalOverlayAttr = `[${selectors.MODAL_NAME}='${event.target.id}']`
+    this.modalOverlayAttr = `[${selectors.MODAL_NAME}='${this.modalButton.id}']`
     this.modalOverlay = document.querySelector(this.modalOverlayAttr)
 
     if (!this.modalOverlay) {
@@ -117,7 +117,6 @@ export default class Modal extends Utils {
 
     this.handleScrollStop()
     this.captureFocus(this.activeModalSelector)
-    this.modalOverlay.setAttribute(selectors.MODAL_VISIBLE, "")
     this.modalOverlay.setAttribute("aria-hidden", "false")
     this.activeModal.setAttribute("tabindex", "-1")
     this.activeModal.focus()
@@ -131,6 +130,8 @@ export default class Modal extends Utils {
     this.modalCloseButtons.forEach(button => {
       button.addEventListener(events.CLICK, this.handleModalClose)
     })
+
+    this.modalOverlay.setAttribute(selectors.MODAL_VISIBLE, "")
   }
 
   /**
@@ -141,11 +142,11 @@ export default class Modal extends Utils {
   handleModalClose(event) {
     event.preventDefault()
     this.modalOverlay.removeAttribute(selectors.MODAL_VISIBLE)
-    this.modalOverlay.setAttribute("aria-hidden", "true")
-    this.activeModal.removeAttribute("tabindex")
-    this.releaseFocus()
     this.handleReturnFocus()
     this.handleScrollRestore()
+    this.releaseFocus()
+    this.modalOverlay.setAttribute("aria-hidden", "true")
+    this.activeModal.removeAttribute("tabindex")
 
     // stop listening to events
     document.removeEventListener(events.KEYDOWN, this.handleEscapeKeyPress)

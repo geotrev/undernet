@@ -137,7 +137,7 @@ var Modal = function (_Utils) {
 
       // setup core lightbox properties
       this.modalButton = event.target;
-      this.modalOverlayAttr = "[" + selectors.MODAL_NAME + "='" + event.target.id + "']";
+      this.modalOverlayAttr = "[" + selectors.MODAL_NAME + "='" + this.modalButton.id + "']";
       this.modalOverlay = document.querySelector(this.modalOverlayAttr);
 
       if (!this.modalOverlay) {
@@ -157,7 +157,6 @@ var Modal = function (_Utils) {
 
       this.handleScrollStop();
       this.captureFocus(this.activeModalSelector);
-      this.modalOverlay.setAttribute(selectors.MODAL_VISIBLE, "");
       this.modalOverlay.setAttribute("aria-hidden", "false");
       this.activeModal.setAttribute("tabindex", "-1");
       this.activeModal.focus();
@@ -171,6 +170,8 @@ var Modal = function (_Utils) {
       this.modalCloseButtons.forEach(function (button) {
         button.addEventListener(events.CLICK, _this4.handleModalClose);
       });
+
+      this.modalOverlay.setAttribute(selectors.MODAL_VISIBLE, "");
     }
 
     /**
@@ -186,11 +187,11 @@ var Modal = function (_Utils) {
 
       event.preventDefault();
       this.modalOverlay.removeAttribute(selectors.MODAL_VISIBLE);
-      this.modalOverlay.setAttribute("aria-hidden", "true");
-      this.activeModal.removeAttribute("tabindex");
-      this.releaseFocus();
       this.handleReturnFocus();
       this.handleScrollRestore();
+      this.releaseFocus();
+      this.modalOverlay.setAttribute("aria-hidden", "true");
+      this.activeModal.removeAttribute("tabindex");
 
       // stop listening to events
       document.removeEventListener(events.KEYDOWN, this.handleEscapeKeyPress);
