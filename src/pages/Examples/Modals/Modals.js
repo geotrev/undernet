@@ -4,7 +4,7 @@ import DemoSection from "../DemoSection/DemoSection"
 import { Button, HeaderText, Modal } from "components"
 import Monolith from "monolith-suite"
 
-export default class Buttons extends Component {
+export default class Modals extends Component {
   componentDidMount() {
     Monolith.modals().start()
   }
