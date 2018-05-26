@@ -19,6 +19,7 @@ const events = {
   KEYDOWN: "keydown",
   CLICK: "click",
   RESIZE: "resize",
+  TOUCHSTART: "touchstart",
 }
 
 const messages = {
@@ -105,12 +106,6 @@ export default class Modal extends Utils {
       return
     }
 
-    // move modal to the body tag so it doesn't get
-    // trapped by relative positioning
-    if (this.modalOverlay.parentNode !== this.bodyTag) {
-      this.bodyTag.appendChild(this.modalOverlay)
-    }
-
     this.activeModalSelector = `${this.modalOverlayAttr} ${this.modalContainerAttr}`
     this.activeModal = document.querySelector(this.activeModalSelector)
     this.modalCloseButtons = this.findElements(`${this.modalOverlayAttr} ${this.closeButtonAttr}`)
@@ -119,6 +114,7 @@ export default class Modal extends Utils {
     this.captureFocus(this.activeModalSelector)
     this.modalOverlay.setAttribute("aria-hidden", "false")
     this.activeModal.setAttribute("tabindex", "-1")
+    this.modalOverlay.setAttribute(selectors.MODAL_VISIBLE, "")
     this.activeModal.focus()
 
     // offset slight scroll caused by this.activeModal.focus()
@@ -127,11 +123,10 @@ export default class Modal extends Utils {
     // begin listening to events
     document.addEventListener(events.KEYDOWN, this.handleEscapeKeyPress)
     document.addEventListener(events.CLICK, this.handleOverlayClick)
+    document.addEventListener(events.TOUCHSTART, this.handleOverlayClick)
     this.modalCloseButtons.forEach(button => {
       button.addEventListener(events.CLICK, this.handleModalClose)
     })
-
-    this.modalOverlay.setAttribute(selectors.MODAL_VISIBLE, "")
   }
 
   /**
@@ -151,6 +146,7 @@ export default class Modal extends Utils {
     // stop listening to events
     document.removeEventListener(events.KEYDOWN, this.handleEscapeKeyPress)
     document.removeEventListener(events.CLICK, this.handleOverlayClick)
+    document.removeEventListener(events.TOUCHSTART, this.handleOverlayClick)
     this.modalCloseButtons.forEach(button => {
       button.removeEventListener(events.CLICK, this.handleModalClose)
     })

@@ -9,7 +9,7 @@
 [data-modal-overlay] {
   display: block;
   background: $modal-overlay-color;
-  z-index: 9999;
+  z-index: $modal-z-index;
   overflow-y: auto;
   overflow-x: hidden;
   opacity: 0;
@@ -57,6 +57,7 @@
     h4,
     h5,
     h6 {
+      font-size: $modal-header-font-size;
       display: inline-flex;
       margin-bottom: 0;
     }

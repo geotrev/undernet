@@ -506,6 +506,7 @@ $fieldset-legend-border-radius: $global-border-radius;
 // 6. Modals
 // ---------
 
+$modal-z-index: 9999;
 $modal-overlay-color: rgba(0, 0, 0, 0.5);
 $modal-transition-duration: 0.2s;
 $modal-transition-ease: ease-out;
@@ -513,6 +514,7 @@ $modal-transition-ease: ease-out;
 $modal-container-background-color: $white;
 $modal-container-border-radius: $global-border-radius;
 $modal-container-padding: $global-space;
+$modal-header-font-size: 24px;
 $modal-header-border: 1px solid $gray900;
 $modal-footer-border: 1px solid $gray900;
 $modal-container-button-alignment: flex-end;

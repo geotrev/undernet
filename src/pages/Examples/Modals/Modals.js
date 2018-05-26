@@ -33,7 +33,7 @@ export default class Buttons extends Component {
 
             <div className="modal-demo" aria-labelledby={this.props.labelledby} role="dialog">
               <header>
-                <h2 className="h6">Modal Heading</h2>
+                <h2>Modal Heading</h2>
                 <a data-modal-close href="#0">
                   <span aria-hidden="true">&times;</span>
                 </a>
