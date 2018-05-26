@@ -136,6 +136,39 @@ export default class Buttons extends Component {
                 </Button>
               </footer>
             </Modal>
+
+            <div className="xsmall-12 columns">
+              <HeaderText>Centered Modal</HeaderText>
+              <p>A vertically centered modal.</p>
+              <p>
+                Add the <code>.modal-centered</code> class to the modal overlay.
+              </p>
+            </div>
+
+            <div className="xsmall-12 columns">
+              <button data-modal-button id="my-new-modal-3">
+                Modal button - press me!
+              </button>
+
+              <Modal
+                modalClass="modal-centered"
+                labelledby="heading1"
+                title="Modal heading"
+                id="my-new-modal-3"
+              >
+                <section>
+                  <p>This is a fully accessible modal!</p>
+                </section>
+                <footer>
+                  <a className="button" data-modal-close href="#">
+                    Cancel
+                  </a>
+                  <Button className="primary button" href="#0">
+                    OK
+                  </Button>
+                </footer>
+              </Modal>
+            </div>
           </div>
         </div>
       </DemoSection>

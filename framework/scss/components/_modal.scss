@@ -27,6 +27,13 @@
     opacity: 1;
     pointer-events: auto;
   }
+
+  &.modal-centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: row nowrap;
+  }
 }
 
 // modal container
