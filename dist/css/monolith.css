@@ -1945,7 +1945,7 @@ textarea {
   overflow-y: auto;
   overflow-x: hidden;
   opacity: 0;
-  position: absolute;
+  position: fixed;
   height: 100%;
   width: 100%;
   top: 0;
@@ -1957,6 +1957,11 @@ textarea {
   [data-modal-overlay][data-modal-visible] {
     opacity: 1;
     pointer-events: auto; }
+  [data-modal-overlay].modal-centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: row nowrap; }
 
 [role="dialog"] {
   background: #ffffff;
@@ -1979,6 +1984,7 @@ textarea {
     [role="dialog"] header h4,
     [role="dialog"] header h5,
     [role="dialog"] header h6 {
+      font-size: 24px;
       display: inline-flex;
       margin-bottom: 0; }
   [role="dialog"] header > button[data-modal-close],
