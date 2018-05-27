@@ -1,13 +1,21 @@
-import resolve from "rollup-plugin-node-resolve"
-import babel from "rollup-plugin-babel"
+const path = require("path")
+const resolve = require("rollup-plugin-node-resolve")
+const babel = require("rollup-plugin-babel")
+const pkg = require(path.resolve(__dirname, "../package.json"))
+const year = new Date().getFullYear()
 
-export default {
-  input: "framework/js/src/monolith.js",
+module.exports = {
+  input: path.resolve("framework/js/src/monolith.js"),
   output: {
-    file: "dist/monolith.bundle.js",
+    file: path.resolve("dist/monolith.bundle.js"),
     format: "umd",
     name: "getmonolith",
     sourcemap: true,
+    banner: `/*!
+  * @license MIT (https://github.com/geotrev/getmonolith.io/blob/master/LICENSE)
+  * Monolith v${pkg.version} (${pkg.homepage})
+  * Copyright 2017-${year} ${pkg.author}
+  */`,
   },
   plugins: [
     resolve(),

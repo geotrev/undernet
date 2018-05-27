@@ -1,3 +1,8 @@
+/*!
+  * @license MIT (https://github.com/geotrev/getmonolith.io/blob/master/LICENSE)
+  * Monolith v2.0.0 (https://getmonolith.io)
+  * Copyright 2017-2018 George Treviranus
+  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
