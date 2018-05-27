@@ -63,14 +63,15 @@ The site itself is a demo of the framework, so you should be able to work on the
 
 To compile and test the framework in this project, you'll need to have a stable version of ruby to compile the framework. I recommend using [ruby-install](https://www.ruby-lang.org/en/documentation/installation/#ruby-install) and managing your version for this project with [chruby](https://www.ruby-lang.org/en/documentation/installation/#chruby) or [rvm](https://www.ruby-lang.org/en/documentation/installation/#rvm). Use whatever setup is easiest for your machine.
 
-Then globally install sass. Don't use `npm`'s sass package as it doesn't have the same cli flags as the gem package.
+Then globally install `sass` and `rollup`. Don't use `npm`'s sass package as it doesn't have the same cli flags as the gem package.
 
 ```shell
 $ gem install sass
+$ npm install -g rollup
 $ yarn build:development
 ```
 
-From there, everything should build correctly: the framework scss and js will be prettified by `prettier` and distributions of js and css will be output using `babel-cli` and the sass gem. If something goes wrong, double check your ruby version.
+From there, everything should build correctly: the framework scss and js will be prettified by `prettier` and distributions of js and css will be output using `babel-cli`, `rollup`, and `sass`.
 
 ### New releases
 

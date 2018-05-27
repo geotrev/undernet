@@ -19,7 +19,7 @@ var Monolith = {
     return new _modal2.default();
   },
   accordions: function accordions() {
-    return new Accordions();
+    return new _accordion2.default();
   }
 };
 

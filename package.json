@@ -1,8 +1,8 @@
 {
-  "name": "monolith-suite",
+  "name": "getmonolith",
   "version": "2.0.0",
   "description": "Monolith Front-End Framework and Website",
-  "main": "dist/js/monolith.js",
+  "main": "framework/js/dist/monolith.js",
   "author": "George Treviranus",
   "license": "MIT",
   "private": false,
@@ -12,22 +12,27 @@
     "build": "webpack --config config/webpack.prod.js --progress",
     "watch": "yarn build:js && webpack-dev-server --config config/webpack.dev.js --progress --open",
     "lint": "prettier --write 'src/**/*.js' && prettier --write 'src/**/*.scss'",
-    "build:js": "babel framework/js/ --out-dir dist/js/",
-    "watch:js": "babel framework/js/ --watch --out-dir dist/js/",
-    "pack:js": "cd dist/js/ && zip -r ../monolith-js.zip .",
-    "lint:js": "prettier --write 'framework/js/**/*.js'",
-    "build:css": "sass framework/scss/monolith.scss:dist/css/monolith.css",
+    "build:js": "yarn compile:js && babel framework/js/src/ --out-dir framework/js/dist/",
+    "compile:js": "BABEL_ENV=rollup rollup -c config/rollup.config.js",
+    "watch:js": "babel framework/src/js/ --watch --out-dir framework/js/dist/",
+    "prepublish:js": "yarn build:js && cd framework/js/dist/ && zip -r ../../../dist/monolith.modules.js.zip . && yarn pack:js",
+    "pack:js": "cd dist/ && zip -r monolith.bundle.js.zip . -x *.css *.zip *.css.map",
+    "lint:js": "prettier --write 'framework/js/src/**/*.js'",
+    "build:minified:css": "sass framework/scss/monolith.scss:dist/monolith.min.css --style compressed",
+    "build:css": "sass framework/scss/monolith.scss:dist/monolith.css",
+    "build:css:all": "yarn build:css && yarn build:minified:css",
     "lint:scss": "prettier --write 'framework/scss/**/*.scss'",
-    "prepublish:scss": "cd framework/scss/ && zip -r ../../dist/monolith-scss.zip .",
-    "prepublish:css": "yarn build:css && cd dist/css/ && zip -r ../monolith-css.zip .",
-    "clean": "rm -rf dist/css/ dist/js/ && mkdir dist/css/ && mkdir dist/js/",
-    "build:development": "yarn clean && yarn build:lint && yarn build:js && yarn build:css",
+    "prepublish:scss": "cd framework/scss/ && zip -r ../../dist/monolith.scss.zip .",
+    "prepublish:css": "yarn build:css:all && cd dist/ && zip -r monolith.css.zip . -x *.js *.zip *.js.map",
+    "clean": "rm -rf dist/ && mkdir dist/",
+    "build:development": "yarn clean && yarn build:lint && yarn build:js && yarn build:css:all",
     "build:lint": "yarn lint:js && yarn lint:scss",
-    "build:release": "yarn clean && yarn build:lint && yarn prepublish:scss && yarn prepublish:css && yarn build:js"
+    "build:release": "yarn clean && yarn build:lint && yarn prepublish:scss && yarn prepublish:css && yarn prepublish:js"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
+    "babel-plugin-external-helpers": "^6.22.0",
     "babel-plugin-webpack-aliases": "^1.1.3",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
@@ -61,6 +66,8 @@
     "react-markdown": "^3.1.4",
     "react-router-dom": "^4.2.2",
     "resolve-url-loader": "^2.3.0",
+    "rollup-plugin-babel": "^3.0.4",
+    "rollup-plugin-node-resolve": "^3.3.0",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.20.3",
     "uglifyjs-webpack-plugin": "^1.2.4",
@@ -72,19 +79,5 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/geotrev/getmonolith.io.git"
-  },
-  "babel": {
-    "presets": [
-      "env",
-      "react"
-    ],
-    "plugins": [
-      [
-        "babel-plugin-webpack-aliases",
-        {
-          "config": "config/webpack.dev.js"
-        }
-      ]
-    ]
   }
 }

@@ -5,7 +5,7 @@ import Accordion from "./components/accordion"
 
 const Monolith = {
   modals: () => new Modal(),
-  accordions: () => new Accordions(),
+  accordions: () => new Accordion(),
 }
 
 window.Monolith = Monolith || {}

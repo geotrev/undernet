@@ -64,7 +64,7 @@ Monolith.start()
 Monolith.COMPONENT_NAME().start()
 ```
 
-_Note: if you use the npm package, replace `path/to/monolith` with `monolith-suite`._
+_Note: if you use the npm package, replace `path/to/monolith` with `getmonolith`._
 
 Or...
 
@@ -83,7 +83,7 @@ _Note: Monolith does not run simply from importing or requiring the file. You sp
 
 ### Advanced
 
-If you choose to use the `monolith-suite` module, things are easier in some places but harder in others. Overall, it's a lot more flexible, though. Especially for React! 🎉
+If you choose to use the `getmonolith` module, things are easier in some places but harder in others. Overall, it's a lot more flexible, though. Especially for React! 🎉
 
 #### SCSS
 
@@ -117,6 +117,6 @@ Finally, you can include the rest of the elements styling, but make sure it's al
 
 #### JavaScript
 
-The default export from `monolith-suite` is the `Monolith` object. See the [basic installation](#basic-installation) on `import`/`require` options.
+The default export from `getmonolith` is the `Monolith` object. See the [basic installation](#basic-installation) on `import`/`require` options.
 
 Next: [Configuration ►](configuration)

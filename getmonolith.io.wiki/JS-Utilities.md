@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", startMonolith)
 ```js
 // React
 import React from 'react'
-import Monolith from 'monolith-suite'
+import Monolith from 'getmonolith'
 export default someComponent extends React.Component {
   componentDidMount() {
     Monolith.start()
@@ -32,7 +32,7 @@ Monolith.stop()
 
 ```js
 // React
-import Monolith from 'monolith-suite'
+import Monolith from 'getmonolith'
 export default someComponent extends React.Component {
   componentWillUnmount() {
     Monolith.stop()
@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", startAccordions)
 ```js
 // React
 import React from 'react'
-import Monolith from 'monolith-suite'
+import Monolith from 'getmonolith'
 export default someComponent extends React.Component {
   componentDidMount() {
     Monolith.accordions().start()

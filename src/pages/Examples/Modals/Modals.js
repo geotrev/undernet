@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import DemoSection from "../DemoSection/DemoSection"
 
 import { Button, HeaderText, Modal } from "components"
-import Monolith from "monolith-suite"
+import Monolith from "getmonolith"
 
 export default class Modals extends Component {
   componentDidMount() {
