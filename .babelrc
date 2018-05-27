@@ -9,16 +9,16 @@
       ]
     },
     "development": {
-      "presets": [
-        "env",
-        "react"
-      ],
+      "presets": [ "env", "react" ],
       "plugins": [
         [
           "babel-plugin-webpack-aliases",
           { "config": "config/webpack.dev.js" }
         ]
       ]
+    },
+    "production": {
+      "presets": [ "env", "react" ]
     }
   }
 }
