@@ -23,7 +23,45 @@ export default class Accordions extends Component {
           </div>
 
           <div className="xsmall-12 columns">
-            <div data-accordion>
+            <div data-accordion id="accordion-1">
+              <div data-accordion-item>
+                <a href="#" data-accordion-button>
+                  Accordion Button 1
+                </a>
+                <div data-accordion-content>
+                  <p>
+                    Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
+                    ipsum ut voluptate.
+                  </p>
+                </div>
+              </div>
+              <div data-accordion-item>
+                <a href="#" data-accordion-button>
+                  Accordion Button 2
+                </a>
+                <div data-accordion-content>
+                  <p>
+                    Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
+                    ipsum ut voluptate.
+                  </p>
+                </div>
+              </div>
+              <div data-accordion-item>
+                <a href="#" data-accordion-button>
+                  Accordion Button 3
+                </a>
+                <div data-accordion-content>
+                  <p>
+                    Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
+                    ipsum ut voluptate.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="xsmall-12 columns">
+            <div data-accordion id="accordion-2">
               <div data-accordion-item>
                 <a href="#" data-accordion-button>
                   Accordion Button 1

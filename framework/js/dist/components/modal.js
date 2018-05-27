@@ -83,14 +83,14 @@ var Modal = function (_Utils) {
     value: function start() {
       var _this2 = this;
 
-      if (this.modals.length > 0) {
+      if (this.modals.length) {
         this.modals.forEach(function (modal) {
           modal.setAttribute("aria-modal", "true");
           modal.setAttribute("role", "dialog");
         });
       }
 
-      if (this.modalButtons.length > 0) {
+      if (this.modalButtons.length) {
         this.modalButtons.forEach(function (button) {
           button.addEventListener(events.CLICK, _this2.getModal);
         });

@@ -29,7 +29,8 @@ export default class Utils {
    * @return {Array}
    */
   findElements(element) {
-    return Array.apply(null, document.querySelectorAll(element))
+    const nodeList = document.querySelectorAll(element)
+    return Array.apply(null, nodeList)
   }
 
   /**

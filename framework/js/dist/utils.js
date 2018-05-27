@@ -43,7 +43,8 @@ var Utils = function () {
   _createClass(Utils, [{
     key: "findElements",
     value: function findElements(element) {
-      return Array.apply(null, document.querySelectorAll(element));
+      var nodeList = document.querySelectorAll(element);
+      return Array.apply(null, nodeList);
     }
 
     /**
