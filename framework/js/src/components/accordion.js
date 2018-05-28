@@ -73,7 +73,7 @@ export default class Accordion extends Utils {
     const containerId = container.getAttribute(selectors.ACCORDION_CONTAINER)
     const containerAttr = `[${selectors.ACCORDION_CONTAINER}='${containerId}']`
     const allAccordionRows = this.findElements(`${containerAttr} [${selectors.ACCORDION_EXPANDED}]`)
-    const allAccordionContents = this.findElements(
+    const allAccordionContent = this.findElements(
       `${containerAttr} [${selectors.ACCORDION_CONTENT}]`,
     )
 
@@ -85,17 +85,13 @@ export default class Accordion extends Utils {
       accordionContent.getAttribute("aria-hidden") === "false" ? "true" : "false"
 
     if (!container.hasAttribute(selectors.ACCORDION_MULTIPLE)) {
-      allAccordionRows.forEach(item => {
-        if (item.hasAttribute(selectors.ACCORDION_EXPANDED, "true")) {
-          item.setAttribute(selectors.ACCORDION_EXPANDED, "false")
-        }
-      })
-
-      allAccordionContents.forEach(content => {
-        if (content.hasAttribute(selectors.ACCORDION_CONTENT, "visible")) {
-          content.setAttribute(selectors.ACCORDION_CONTENT, "hidden")
-        }
-      })
+      this.toggleChildAttributes(allAccordionRows, selectors.ACCORDION_EXPANDED, "true", "false")
+      this.toggleChildAttributes(
+        allAccordionContent,
+        selectors.ACCORDION_CONTENT,
+        "visible",
+        "hidden",
+      )
     }
 
     accordionRow.setAttribute(selectors.ACCORDION_EXPANDED, toggleExpandState)
@@ -107,6 +103,14 @@ export default class Accordion extends Utils {
   stop() {
     this.accordionButtons.forEach(button => {
       button.removeEventListener(events.CLICK, this.getAccordion)
+    })
+  }
+
+  toggleChildAttributes(elements, selector, currentAttr, newAttr) {
+    elements.forEach(element => {
+      if (element.hasAttribute(selector, currentAttr)) {
+        element.setAttribute(selector, newAttr)
+      }
     })
   }
 }

@@ -98,7 +98,7 @@ var Accordion = function (_Utils) {
       var containerId = container.getAttribute(selectors.ACCORDION_CONTAINER);
       var containerAttr = "[" + selectors.ACCORDION_CONTAINER + "='" + containerId + "']";
       var allAccordionRows = this.findElements(containerAttr + " [" + selectors.ACCORDION_EXPANDED + "]");
-      var allAccordionContents = this.findElements(containerAttr + " [" + selectors.ACCORDION_CONTENT + "]");
+      var allAccordionContent = this.findElements(containerAttr + " [" + selectors.ACCORDION_CONTENT + "]");
 
       var accordionButtonState = accordionRow.getAttribute(selectors.ACCORDION_EXPANDED);
       var accordionContentState = accordionContent.getAttribute(selectors.ACCORDION_CONTENT);
@@ -107,17 +107,8 @@ var Accordion = function (_Utils) {
       var toggleHiddenState = accordionContent.getAttribute("aria-hidden") === "false" ? "true" : "false";
 
       if (!container.hasAttribute(selectors.ACCORDION_MULTIPLE)) {
-        allAccordionRows.forEach(function (item) {
-          if (item.hasAttribute(selectors.ACCORDION_EXPANDED, "true")) {
-            item.setAttribute(selectors.ACCORDION_EXPANDED, "false");
-          }
-        });
-
-        allAccordionContents.forEach(function (content) {
-          if (content.hasAttribute(selectors.ACCORDION_CONTENT, "visible")) {
-            content.setAttribute(selectors.ACCORDION_CONTENT, "hidden");
-          }
-        });
+        this.toggleChildAttributes(allAccordionRows, selectors.ACCORDION_EXPANDED, "true", "false");
+        this.toggleChildAttributes(allAccordionContent, selectors.ACCORDION_CONTENT, "visible", "hidden");
       }
 
       accordionRow.setAttribute(selectors.ACCORDION_EXPANDED, toggleExpandState);
@@ -132,6 +123,15 @@ var Accordion = function (_Utils) {
 
       this.accordionButtons.forEach(function (button) {
         button.removeEventListener(events.CLICK, _this3.getAccordion);
+      });
+    }
+  }, {
+    key: "toggleChildAttributes",
+    value: function toggleChildAttributes(elements, selector, currentAttr, newAttr) {
+      elements.forEach(function (element) {
+        if (element.hasAttribute(selector, currentAttr)) {
+          element.setAttribute(selector, newAttr);
+        }
       });
     }
   }]);
