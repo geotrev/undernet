@@ -20,7 +20,8 @@ const events = {
 }
 
 const messages = {
-  MISSING_ACCORDION_CONTENT: "You have an accordion button that is missing it's content block.",
+  MISSING_ACCORDION_CONTENT:
+    "You have an accordion button that is missing its content block or its [data-accordion-content] attribute.",
   MISSING_ACCORDION_BUTTONS:
     "You have an accordion component with no [data-accordion-button] children.",
 }
@@ -61,6 +62,13 @@ export default class Accordion extends Utils {
     }
   }
 
+  stop() {
+    this.accordionButtons.forEach(button => {
+      button.removeEventListener(events.CLICK, this.getAccordion)
+      button.removeEventListener(events.KEYDOWN, this.handleSpaceKeyPress)
+    })
+  }
+
   handleSpaceKeyPress(event) {
     if (event.which === keyCodes.SPACE) this.getAccordion(event)
   }
@@ -75,6 +83,15 @@ export default class Accordion extends Utils {
     const accordionRow = button.parentNode
     const container = button.parentNode.parentNode
     const accordionContent = button.nextElementSibling
+    const accordionContentHasAttr = button.nextElementSibling.hasAttribute(
+      selectors.ACCORDION_CONTENT,
+    )
+
+    if (!accordionContentHasAttr) {
+      throw messages.MISSING_ACCORDION_CONTENT
+      return
+    }
+
     const containerId = container.getAttribute(selectors.ACCORDION_CONTAINER)
     const containerAttr = `[${selectors.ACCORDION_CONTAINER}='${containerId}']`
     const allAccordionRows = this.findElements(`${containerAttr} [${selectors.ACCORDION_EXPANDED}]`)
@@ -103,12 +120,6 @@ export default class Accordion extends Utils {
     accordionContent.setAttribute(selectors.ACCORDION_CONTENT, toggleAccordionContentState)
     button.setAttribute("aria-expanded", toggleExpandState)
     accordionContent.setAttribute("aria-hidden", toggleHiddenState)
-  }
-
-  stop() {
-    this.accordionButtons.forEach(button => {
-      button.removeEventListener(events.CLICK, this.getAccordion)
-    })
   }
 
   toggleChildAttributes(elements, selector, currentAttr, newAttr) {

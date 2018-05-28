@@ -36,7 +36,7 @@ var events = {
 };
 
 var messages = {
-  MISSING_ACCORDION_CONTENT: "You have an accordion button that is missing it's content block.",
+  MISSING_ACCORDION_CONTENT: "You have an accordion button that is missing its content block or its [data-accordion-content] attribute.",
   MISSING_ACCORDION_BUTTONS: "You have an accordion component with no [data-accordion-button] children."
 };
 
@@ -54,7 +54,7 @@ var Accordion = function (_Utils) {
 
     // bind events to calss
     _this.getAccordion = _this.getAccordion.bind(_this);
-    _this.handleKeydown = _this.handleKeydown.bind(_this);
+    _this.handleSpaceKeyPress = _this.handleSpaceKeyPress.bind(_this);
     return _this;
   }
 
@@ -71,7 +71,7 @@ var Accordion = function (_Utils) {
           button.setAttribute("aria-expanded", buttonExpandState);
 
           button.addEventListener(events.CLICK, _this2.getAccordion);
-          button.addEventListener(events.KEYDOWN, _this2.handleKeydown);
+          button.addEventListener(events.KEYDOWN, _this2.handleSpaceKeyPress);
         });
       }
 
@@ -85,8 +85,18 @@ var Accordion = function (_Utils) {
       }
     }
   }, {
-    key: "handleKeydown",
-    value: function handleKeydown(event) {
+    key: "stop",
+    value: function stop() {
+      var _this3 = this;
+
+      this.accordionButtons.forEach(function (button) {
+        button.removeEventListener(events.CLICK, _this3.getAccordion);
+        button.removeEventListener(events.KEYDOWN, _this3.handleSpaceKeyPress);
+      });
+    }
+  }, {
+    key: "handleSpaceKeyPress",
+    value: function handleSpaceKeyPress(event) {
       if (event.which === keyCodes.SPACE) this.getAccordion(event);
     }
   }, {
@@ -102,6 +112,13 @@ var Accordion = function (_Utils) {
       var accordionRow = button.parentNode;
       var container = button.parentNode.parentNode;
       var accordionContent = button.nextElementSibling;
+      var accordionContentHasAttr = button.nextElementSibling.hasAttribute(selectors.ACCORDION_CONTENT);
+
+      if (!accordionContentHasAttr) {
+        throw messages.MISSING_ACCORDION_CONTENT;
+        return;
+      }
+
       var containerId = container.getAttribute(selectors.ACCORDION_CONTAINER);
       var containerAttr = "[" + selectors.ACCORDION_CONTAINER + "='" + containerId + "']";
       var allAccordionRows = this.findElements(containerAttr + " [" + selectors.ACCORDION_EXPANDED + "]");
@@ -122,15 +139,6 @@ var Accordion = function (_Utils) {
       accordionContent.setAttribute(selectors.ACCORDION_CONTENT, toggleAccordionContentState);
       button.setAttribute("aria-expanded", toggleExpandState);
       accordionContent.setAttribute("aria-hidden", toggleHiddenState);
-    }
-  }, {
-    key: "stop",
-    value: function stop() {
-      var _this3 = this;
-
-      this.accordionButtons.forEach(function (button) {
-        button.removeEventListener(events.CLICK, _this3.getAccordion);
-      });
     }
   }, {
     key: "toggleChildAttributes",
