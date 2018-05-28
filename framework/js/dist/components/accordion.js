@@ -30,7 +30,8 @@ var selectors = {
 };
 
 var events = {
-  CLICK: "click"
+  CLICK: "click",
+  FOCUS: "focus"
 };
 
 var messages = {
@@ -76,18 +77,28 @@ var Accordion = function (_Utils) {
     key: "expandAccordion",
     value: function expandAccordion(event) {
       var button = event.target;
+      var accordionItem = button.parentNode;
       var container = button.parentNode.parentNode;
-      var content = button.nextElementSibling;
+      var containerId = container.getAttribute(selectors.ACCORDION_CONTAINER);
+      var containerAttr = "[" + selectors.ACCORDION_CONTAINER + "='" + containerId + "']";
+      var allItems = this.findElements(containerAttr + " [" + selectors.ACCORDION_ITEM + "]");
+      var allContents = this.findElements(containerAttr + " [" + selectors.ACCORDION_CONTENT + "]");
+      var buttonContent = button.nextElementSibling;
 
-      var allContents = this.findElements("#" + container.id + " [" + selectors.ACCORDION_CONTENT + "]");
-
-      allContents.forEach(function (content) {
-        if (content.classList.contains("is-block")) {
-          content.classList.remove("is-block");
+      allItems.forEach(function (item) {
+        if (item.hasAttribute(selectors.ACCORDION_ITEM, "active")) {
+          item.setAttribute(selectors.ACCORDION_ITEM, "inactive");
         }
       });
 
-      content.classList.toggle("is-block");
+      allContents.forEach(function (content) {
+        if (content.hasAttribute(selectors.ACCORDION_CONTENT, "visible")) {
+          content.setAttribute(selectors.ACCORDION_CONTENT, "hidden");
+        }
+      });
+
+      accordionItem.setAttribute(selectors.ACCORDION_ITEM, "active");
+      buttonContent.setAttribute(selectors.ACCORDION_CONTENT, "visible");
     }
   }, {
     key: "stop",

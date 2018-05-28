@@ -15,6 +15,7 @@ const selectors = {
 
 const events = {
   CLICK: "click",
+  FOCUS: "focus",
 }
 
 const messages = {
@@ -49,18 +50,28 @@ export default class Accordion extends Utils {
 
   expandAccordion(event) {
     const button = event.target
+    const accordionItem = button.parentNode
     const container = button.parentNode.parentNode
-    const content = button.nextElementSibling
+    const containerId = container.getAttribute(selectors.ACCORDION_CONTAINER)
+    const containerAttr = `[${selectors.ACCORDION_CONTAINER}='${containerId}']`
+    const allItems = this.findElements(`${containerAttr} [${selectors.ACCORDION_ITEM}]`)
+    const allContents = this.findElements(`${containerAttr} [${selectors.ACCORDION_CONTENT}]`)
+    const buttonContent = button.nextElementSibling
 
-    let allContents = this.findElements(`#${container.id} [${selectors.ACCORDION_CONTENT}]`)
-
-    allContents.forEach(content => {
-      if (content.classList.contains("is-block")) {
-        content.classList.remove("is-block")
+    allItems.forEach(item => {
+      if (item.hasAttribute(selectors.ACCORDION_ITEM, "active")) {
+        item.setAttribute(selectors.ACCORDION_ITEM, "inactive")
       }
     })
 
-    content.classList.toggle("is-block")
+    allContents.forEach(content => {
+      if (content.hasAttribute(selectors.ACCORDION_CONTENT, "visible")) {
+        content.setAttribute(selectors.ACCORDION_CONTENT, "hidden")
+      }
+    })
+
+    accordionItem.setAttribute(selectors.ACCORDION_ITEM, "active")
+    buttonContent.setAttribute(selectors.ACCORDION_CONTENT, "visible")
   }
 
   stop() {

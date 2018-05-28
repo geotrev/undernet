@@ -1,3 +1,57 @@
-[data-accordion-content] {
-  display: none;
+[data-accordion] {
+  border: 2px solid lightgray;
+  overflow: hidden;
+  border-radius: $global-border-radius;
+
+  [data-accordion-content="hidden"] {
+    display: none;
+  }
+
+  [data-accordion-content="visible"] {
+    display: block;
+  }
+
+  [data-accordion-content] {
+    padding: 16px;
+  }
+
+  [data-accordion-button] {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    text-decoration: none;
+    align-items: center;
+    padding: 0 16px;
+    border-bottom: 2px solid lightgray;
+
+    span {
+      font-size: 32px;
+      text-rendering: optimize;
+    }
+  }
+
+  [data-accordion-item="inactive"] {
+    [data-accordion-button] {
+      span {
+        transform: rotate(45deg);
+      }
+    }
+  }
+
+  [data-accordion-item="active"] {
+    [data-accordion-button] {
+      border-bottom: none;
+    }
+
+    [data-accordion-content] {
+      border-bottom: 2px solid lightgray;
+    }
+  }
+
+  [data-accordion-item]:last-child {
+    [data-accordion-button],
+    [data-accordion-content] {
+      border-bottom: none;
+    }
+  }
 }
