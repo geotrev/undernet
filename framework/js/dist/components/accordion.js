@@ -31,7 +31,8 @@ var selectors = {
 };
 
 var events = {
-  CLICK: "click"
+  CLICK: "click",
+  KEYDOWN: "keydown"
 };
 
 var messages = {
@@ -53,6 +54,7 @@ var Accordion = function (_Utils) {
 
     // bind events to calss
     _this.getAccordion = _this.getAccordion.bind(_this);
+    _this.handleKeydown = _this.handleKeydown.bind(_this);
     return _this;
   }
 
@@ -69,17 +71,23 @@ var Accordion = function (_Utils) {
           button.setAttribute("aria-expanded", buttonExpandState);
 
           button.addEventListener(events.CLICK, _this2.getAccordion);
+          button.addEventListener(events.KEYDOWN, _this2.handleKeydown);
         });
       }
 
       if (this.accordionContents.length) {
         this.accordionContents.forEach(function (content) {
           content.setAttribute("role", "region");
-
-          var contentHiddenState = content.parentNode.getAttribute("data-accordion-expanded") === "true" ? "false" : "true";
+          var contentHiddenState = content.parentNode.getAttribute("data-accordion-expanded");
+          var toggleContentHiddenState = contentHiddenState === "true" ? "false" : "true";
           content.setAttribute("aria-hidden", contentHiddenState);
         });
       }
+    }
+  }, {
+    key: "handleKeydown",
+    value: function handleKeydown(event) {
+      if (event.which === keyCodes.SPACE) this.getAccordion(event);
     }
   }, {
     key: "getAccordion",

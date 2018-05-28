@@ -16,6 +16,7 @@ const selectors = {
 
 const events = {
   CLICK: "click",
+  KEYDOWN: "keydown",
 }
 
 const messages = {
@@ -33,6 +34,7 @@ export default class Accordion extends Utils {
 
     // bind events to calss
     this.getAccordion = this.getAccordion.bind(this)
+    this.handleSpaceKeyPress = this.handleSpaceKeyPress.bind(this)
   }
 
   start() {
@@ -45,18 +47,22 @@ export default class Accordion extends Utils {
         button.setAttribute("aria-expanded", buttonExpandState)
 
         button.addEventListener(events.CLICK, this.getAccordion)
+        button.addEventListener(events.KEYDOWN, this.handleSpaceKeyPress)
       })
     }
 
     if (this.accordionContents.length) {
       this.accordionContents.forEach(content => {
         content.setAttribute("role", "region")
-
-        const contentHiddenState =
-          content.parentNode.getAttribute("data-accordion-expanded") === "true" ? "false" : "true"
+        const contentHiddenState = content.parentNode.getAttribute("data-accordion-expanded")
+        const toggleContentHiddenState = contentHiddenState === "true" ? "false" : "true"
         content.setAttribute("aria-hidden", contentHiddenState)
       })
     }
+  }
+
+  handleSpaceKeyPress(event) {
+    if (event.which === keyCodes.SPACE) this.getAccordion(event)
   }
 
   getAccordion(event) {
