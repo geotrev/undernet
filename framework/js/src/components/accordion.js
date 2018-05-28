@@ -8,9 +8,10 @@ const keyCodes = {
 
 const selectors = {
   ACCORDION_CONTAINER: "data-accordion",
-  ACCORDION_ITEM: "data-accordion-item",
+  ACCORDION_EXPANDED: "data-accordion-expanded",
   ACCORDION_BUTTON: "data-accordion-button",
   ACCORDION_CONTENT: "data-accordion-content",
+  ACCORDION_MULTIPLE: "data-accordion-toggle-multiple",
 }
 
 const events = {
@@ -38,7 +39,23 @@ export default class Accordion extends Utils {
   start() {
     if (this.accordionButtons.length) {
       this.accordionButtons.forEach(button => {
+        button.setAttribute("role", "heading")
+
+        const buttonExpandState =
+          button.parentNode.getAttribute("data-accordion-expanded") === "true" ? "true" : "false"
+        button.setAttribute("aria-expanded", buttonExpandState)
+
         button.addEventListener(events.CLICK, this.getAccordion)
+      })
+    }
+
+    if (this.accordionContents.length) {
+      this.accordionContents.forEach(content => {
+        content.setAttribute("role", "region")
+
+        const contentHiddenState =
+          content.parentNode.getAttribute("data-accordion-expanded") === "true" ? "false" : "true"
+        content.setAttribute("aria-hidden", contentHiddenState)
       })
     }
   }
@@ -50,28 +67,41 @@ export default class Accordion extends Utils {
 
   expandAccordion(event) {
     const button = event.target
-    const accordionItem = button.parentNode
+    const accordionRow = button.parentNode
     const container = button.parentNode.parentNode
+    const accordionContent = button.nextElementSibling
     const containerId = container.getAttribute(selectors.ACCORDION_CONTAINER)
     const containerAttr = `[${selectors.ACCORDION_CONTAINER}='${containerId}']`
-    const allItems = this.findElements(`${containerAttr} [${selectors.ACCORDION_ITEM}]`)
-    const allContents = this.findElements(`${containerAttr} [${selectors.ACCORDION_CONTENT}]`)
-    const buttonContent = button.nextElementSibling
+    const allAccordionRows = this.findElements(`${containerAttr} [${selectors.ACCORDION_EXPANDED}]`)
+    const allAccordionContents = this.findElements(
+      `${containerAttr} [${selectors.ACCORDION_CONTENT}]`,
+    )
 
-    allItems.forEach(item => {
-      if (item.hasAttribute(selectors.ACCORDION_ITEM, "active")) {
-        item.setAttribute(selectors.ACCORDION_ITEM, "inactive")
-      }
-    })
+    const accordionButtonState = accordionRow.getAttribute(selectors.ACCORDION_EXPANDED)
+    const accordionContentState = accordionContent.getAttribute(selectors.ACCORDION_CONTENT)
+    const toggleExpandState = accordionButtonState === "true" ? "false" : "true"
+    const toggleAccordionContentState = accordionContentState === "visible" ? "hidden" : "visible"
+    const toggleHiddenState =
+      accordionContent.getAttribute("aria-hidden") === "false" ? "true" : "false"
 
-    allContents.forEach(content => {
-      if (content.hasAttribute(selectors.ACCORDION_CONTENT, "visible")) {
-        content.setAttribute(selectors.ACCORDION_CONTENT, "hidden")
-      }
-    })
+    if (!container.hasAttribute(selectors.ACCORDION_MULTIPLE)) {
+      allAccordionRows.forEach(item => {
+        if (item.hasAttribute(selectors.ACCORDION_EXPANDED, "true")) {
+          item.setAttribute(selectors.ACCORDION_EXPANDED, "false")
+        }
+      })
 
-    accordionItem.setAttribute(selectors.ACCORDION_ITEM, "active")
-    buttonContent.setAttribute(selectors.ACCORDION_CONTENT, "visible")
+      allAccordionContents.forEach(content => {
+        if (content.hasAttribute(selectors.ACCORDION_CONTENT, "visible")) {
+          content.setAttribute(selectors.ACCORDION_CONTENT, "hidden")
+        }
+      })
+    }
+
+    accordionRow.setAttribute(selectors.ACCORDION_EXPANDED, toggleExpandState)
+    accordionContent.setAttribute(selectors.ACCORDION_CONTENT, toggleAccordionContentState)
+    button.setAttribute("aria-expanded", toggleExpandState)
+    accordionContent.setAttribute("aria-hidden", toggleHiddenState)
   }
 
   stop() {

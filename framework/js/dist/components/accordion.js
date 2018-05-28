@@ -24,9 +24,10 @@ var keyCodes = {
 
 var selectors = {
   ACCORDION_CONTAINER: "data-accordion",
-  ACCORDION_ITEM: "data-accordion-item",
+  ACCORDION_EXPANDED: "data-accordion-expanded",
   ACCORDION_BUTTON: "data-accordion-button",
-  ACCORDION_CONTENT: "data-accordion-content"
+  ACCORDION_CONTENT: "data-accordion-content",
+  ACCORDION_MULTIPLE: "data-accordion-toggle-multiple"
 };
 
 var events = {
@@ -63,7 +64,21 @@ var Accordion = function (_Utils) {
 
       if (this.accordionButtons.length) {
         this.accordionButtons.forEach(function (button) {
+          button.setAttribute("role", "heading");
+
+          var buttonExpandState = button.parentNode.getAttribute("data-accordion-expanded") === "true" ? "true" : "false";
+          button.setAttribute("aria-expanded", buttonExpandState);
+
           button.addEventListener(events.CLICK, _this2.getAccordion);
+        });
+      }
+
+      if (this.accordionContents.length) {
+        this.accordionContents.forEach(function (content) {
+          content.setAttribute("role", "region");
+
+          var contentHiddenState = content.parentNode.getAttribute("data-accordion-expanded") === "true" ? "false" : "true";
+          content.setAttribute("aria-hidden", contentHiddenState);
         });
       }
     }
@@ -77,28 +92,38 @@ var Accordion = function (_Utils) {
     key: "expandAccordion",
     value: function expandAccordion(event) {
       var button = event.target;
-      var accordionItem = button.parentNode;
+      var accordionRow = button.parentNode;
       var container = button.parentNode.parentNode;
+      var accordionContent = button.nextElementSibling;
       var containerId = container.getAttribute(selectors.ACCORDION_CONTAINER);
       var containerAttr = "[" + selectors.ACCORDION_CONTAINER + "='" + containerId + "']";
-      var allItems = this.findElements(containerAttr + " [" + selectors.ACCORDION_ITEM + "]");
-      var allContents = this.findElements(containerAttr + " [" + selectors.ACCORDION_CONTENT + "]");
-      var buttonContent = button.nextElementSibling;
+      var allAccordionRows = this.findElements(containerAttr + " [" + selectors.ACCORDION_EXPANDED + "]");
+      var allAccordionContents = this.findElements(containerAttr + " [" + selectors.ACCORDION_CONTENT + "]");
 
-      allItems.forEach(function (item) {
-        if (item.hasAttribute(selectors.ACCORDION_ITEM, "active")) {
-          item.setAttribute(selectors.ACCORDION_ITEM, "inactive");
-        }
-      });
+      var accordionButtonState = accordionRow.getAttribute(selectors.ACCORDION_EXPANDED);
+      var accordionContentState = accordionContent.getAttribute(selectors.ACCORDION_CONTENT);
+      var toggleExpandState = accordionButtonState === "true" ? "false" : "true";
+      var toggleAccordionContentState = accordionContentState === "visible" ? "hidden" : "visible";
+      var toggleHiddenState = accordionContent.getAttribute("aria-hidden") === "false" ? "true" : "false";
 
-      allContents.forEach(function (content) {
-        if (content.hasAttribute(selectors.ACCORDION_CONTENT, "visible")) {
-          content.setAttribute(selectors.ACCORDION_CONTENT, "hidden");
-        }
-      });
+      if (!container.hasAttribute(selectors.ACCORDION_MULTIPLE)) {
+        allAccordionRows.forEach(function (item) {
+          if (item.hasAttribute(selectors.ACCORDION_EXPANDED, "true")) {
+            item.setAttribute(selectors.ACCORDION_EXPANDED, "false");
+          }
+        });
 
-      accordionItem.setAttribute(selectors.ACCORDION_ITEM, "active");
-      buttonContent.setAttribute(selectors.ACCORDION_CONTENT, "visible");
+        allAccordionContents.forEach(function (content) {
+          if (content.hasAttribute(selectors.ACCORDION_CONTENT, "visible")) {
+            content.setAttribute(selectors.ACCORDION_CONTENT, "hidden");
+          }
+        });
+      }
+
+      accordionRow.setAttribute(selectors.ACCORDION_EXPANDED, toggleExpandState);
+      accordionContent.setAttribute(selectors.ACCORDION_CONTENT, toggleAccordionContentState);
+      button.setAttribute("aria-expanded", toggleExpandState);
+      accordionContent.setAttribute("aria-hidden", toggleHiddenState);
     }
   }, {
     key: "stop",

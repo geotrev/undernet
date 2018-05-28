@@ -21,24 +21,24 @@
     justify-content: space-between;
     text-decoration: none;
     align-items: center;
-    padding: 0 16px;
+    padding: 16px;
     border-bottom: 2px solid lightgray;
 
     span {
-      font-size: 32px;
+      font-size: 12px;
       text-rendering: optimize;
     }
   }
 
-  [data-accordion-item="inactive"] {
+  [data-accordion-expanded="false"] {
     [data-accordion-button] {
       span {
-        transform: rotate(45deg);
+        transform: rotate(180deg);
       }
     }
   }
 
-  [data-accordion-item="active"] {
+  [data-accordion-expanded="true"] {
     [data-accordion-button] {
       border-bottom: none;
     }
@@ -48,7 +48,7 @@
     }
   }
 
-  [data-accordion-item]:last-child {
+  [data-accordion-expanded]:last-child {
     [data-accordion-button],
     [data-accordion-content] {
       border-bottom: none;
