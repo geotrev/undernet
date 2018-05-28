@@ -57,7 +57,7 @@ export default class Accordion extends Utils {
         content.setAttribute("role", "region")
         const contentHiddenState = content.parentNode.getAttribute("data-accordion-expanded")
         const toggleContentHiddenState = contentHiddenState === "true" ? "false" : "true"
-        content.setAttribute("aria-hidden", contentHiddenState)
+        content.setAttribute("aria-hidden", toggleContentHiddenState)
       })
     }
   }
@@ -83,9 +83,7 @@ export default class Accordion extends Utils {
     const accordionRow = button.parentNode
     const container = button.parentNode.parentNode
     const accordionContent = button.nextElementSibling
-    const accordionContentHasAttr = button.nextElementSibling.hasAttribute(
-      selectors.ACCORDION_CONTENT,
-    )
+    const accordionContentHasAttr = accordionContent.hasAttribute(selectors.ACCORDION_CONTENT)
 
     if (!accordionContentHasAttr) {
       throw messages.MISSING_ACCORDION_CONTENT
@@ -94,17 +92,16 @@ export default class Accordion extends Utils {
 
     const containerId = container.getAttribute(selectors.ACCORDION_CONTAINER)
     const containerAttr = `[${selectors.ACCORDION_CONTAINER}='${containerId}']`
+    const accordionContentsAttr = `${containerAttr} [${selectors.ACCORDION_CONTENT}]`
     const allAccordionRows = this.findElements(`${containerAttr} [${selectors.ACCORDION_EXPANDED}]`)
-    const allAccordionContent = this.findElements(
-      `${containerAttr} [${selectors.ACCORDION_CONTENT}]`,
-    )
+    const allAccordionContent = this.findElements(accordionContentsAttr)
 
     const accordionButtonState = accordionRow.getAttribute(selectors.ACCORDION_EXPANDED)
     const accordionContentState = accordionContent.getAttribute(selectors.ACCORDION_CONTENT)
     const toggleExpandState = accordionButtonState === "true" ? "false" : "true"
     const toggleAccordionContentState = accordionContentState === "visible" ? "hidden" : "visible"
-    const toggleHiddenState =
-      accordionContent.getAttribute("aria-hidden") === "false" ? "true" : "false"
+    const accordionContentAriaHiddenState = accordionContent.getAttribute("aria-hidden")
+    const toggleHiddenState = accordionContentAriaHiddenState === "false" ? "true" : "false"
 
     if (!container.hasAttribute(selectors.ACCORDION_MULTIPLE)) {
       this.toggleChildAttributes(allAccordionRows, selectors.ACCORDION_EXPANDED, "true", "false")

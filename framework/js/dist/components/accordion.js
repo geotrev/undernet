@@ -80,7 +80,7 @@ var Accordion = function (_Utils) {
           content.setAttribute("role", "region");
           var contentHiddenState = content.parentNode.getAttribute("data-accordion-expanded");
           var toggleContentHiddenState = contentHiddenState === "true" ? "false" : "true";
-          content.setAttribute("aria-hidden", contentHiddenState);
+          content.setAttribute("aria-hidden", toggleContentHiddenState);
         });
       }
     }
@@ -112,7 +112,7 @@ var Accordion = function (_Utils) {
       var accordionRow = button.parentNode;
       var container = button.parentNode.parentNode;
       var accordionContent = button.nextElementSibling;
-      var accordionContentHasAttr = button.nextElementSibling.hasAttribute(selectors.ACCORDION_CONTENT);
+      var accordionContentHasAttr = accordionContent.hasAttribute(selectors.ACCORDION_CONTENT);
 
       if (!accordionContentHasAttr) {
         throw messages.MISSING_ACCORDION_CONTENT;
@@ -121,14 +121,16 @@ var Accordion = function (_Utils) {
 
       var containerId = container.getAttribute(selectors.ACCORDION_CONTAINER);
       var containerAttr = "[" + selectors.ACCORDION_CONTAINER + "='" + containerId + "']";
+      var accordionContentsAttr = containerAttr + " [" + selectors.ACCORDION_CONTENT + "]";
       var allAccordionRows = this.findElements(containerAttr + " [" + selectors.ACCORDION_EXPANDED + "]");
-      var allAccordionContent = this.findElements(containerAttr + " [" + selectors.ACCORDION_CONTENT + "]");
+      var allAccordionContent = this.findElements(accordionContentsAttr);
 
       var accordionButtonState = accordionRow.getAttribute(selectors.ACCORDION_EXPANDED);
       var accordionContentState = accordionContent.getAttribute(selectors.ACCORDION_CONTENT);
       var toggleExpandState = accordionButtonState === "true" ? "false" : "true";
       var toggleAccordionContentState = accordionContentState === "visible" ? "hidden" : "visible";
-      var toggleHiddenState = accordionContent.getAttribute("aria-hidden") === "false" ? "true" : "false";
+      var accordionContentAriaHiddenState = accordionContent.getAttribute("aria-hidden");
+      var toggleHiddenState = accordionContentAriaHiddenState === "false" ? "true" : "false";
 
       if (!container.hasAttribute(selectors.ACCORDION_MULTIPLE)) {
         this.toggleChildAttributes(allAccordionRows, selectors.ACCORDION_EXPANDED, "true", "false");
