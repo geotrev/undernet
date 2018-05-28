@@ -27,7 +27,6 @@ export default class Accordions extends Component {
               <div data-accordion-expanded="true">
                 <a href="#" id="accordion-button-1" data-accordion-button>
                   Accordion Button 1
-                  <span aria-hidden="true">&#9650;</span>
                 </a>
                 <div aria-labelledby="accordion-button-1" data-accordion-content="visible">
                   Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
@@ -37,7 +36,6 @@ export default class Accordions extends Component {
               <div data-accordion-expanded="false">
                 <a href="#" id="accordion-button-2" data-accordion-button>
                   Accordion Button 2
-                  <span aria-hidden="true">&#9650;</span>
                 </a>
                 <div aria-labelledby="accordion-button-2" data-accordion-content="hidden">
                   Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
@@ -47,7 +45,6 @@ export default class Accordions extends Component {
               <div data-accordion-expanded="false">
                 <a href="#" id="accordion-button-3" data-accordion-button>
                   Accordion Button 3
-                  <span aria-hidden="true">&#9650;</span>
                 </a>
                 <div aria-labelledby="accordion-button-3" data-accordion-content="hidden">
                   Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
@@ -63,8 +60,7 @@ export default class Accordions extends Component {
             <div data-accordion="accordion-2" data-accordion-toggle-multiple>
               <div data-accordion-expanded="false">
                 <a href="#" id="accordion-button-4" data-accordion-button>
-                  Accordion Button 1
-                  <span aria-hidden="true">&#9650;</span>
+                  Accordion Button 4
                 </a>
                 <div aria-labelledby="accordion-button-4" data-accordion-content="hidden">
                   Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
@@ -73,8 +69,7 @@ export default class Accordions extends Component {
               </div>
               <div data-accordion-expanded="false">
                 <a href="#" id="accordion-button-5" data-accordion-button>
-                  Accordion Button 2
-                  <span aria-hidden="true">&#9650;</span>
+                  Accordion Button 5
                 </a>
                 <div aria-labelledby="accordion-button-5" data-accordion-content="hidden">
                   Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
@@ -83,8 +78,7 @@ export default class Accordions extends Component {
               </div>
               <div data-accordion-expanded="false">
                 <a href="#" id="accordion-button-6" data-accordion-button>
-                  Accordion Button 3
-                  <span aria-hidden="true">&#9650;</span>
+                  Accordion Button 6
                 </a>
                 <div aria-labelledby="accordion-button-6" data-accordion-content="hidden">
                   Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna

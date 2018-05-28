@@ -16,7 +16,6 @@ const selectors = {
 
 const events = {
   CLICK: "click",
-  FOCUS: "focus",
 }
 
 const messages = {

@@ -24,7 +24,8 @@
     padding: 16px;
     border-bottom: 2px solid lightgray;
 
-    span {
+    &::after {
+      content: "\25B2";
       font-size: 12px;
       text-rendering: optimize;
     }
@@ -32,7 +33,7 @@
 
   [data-accordion-expanded="false"] {
     [data-accordion-button] {
-      span {
+      &::after {
         transform: rotate(180deg);
       }
     }

@@ -31,8 +31,7 @@ var selectors = {
 };
 
 var events = {
-  CLICK: "click",
-  FOCUS: "focus"
+  CLICK: "click"
 };
 
 var messages = {
