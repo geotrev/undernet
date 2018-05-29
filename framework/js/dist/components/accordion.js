@@ -95,22 +95,18 @@ var Accordion = function (_Utils) {
       });
     }
   }, {
-    key: "handleSpaceKeyPress",
-    value: function handleSpaceKeyPress(event) {
-      if (event.which === keyCodes.SPACE) this.getAccordion(event);
-    }
-  }, {
     key: "getAccordion",
     value: function getAccordion(event) {
       event.preventDefault();
-      this.expandAccordion(event);
+      this.renderAccordionContent(event);
     }
   }, {
-    key: "expandAccordion",
-    value: function expandAccordion(event) {
+    key: "renderAccordionContent",
+    value: function renderAccordionContent(event) {
       var button = event.target;
       var accordionRow = button.parentNode;
-      var container = button.parentNode.parentNode;
+
+      this.container = accordionRow.parentNode;
       var accordionContent = button.nextElementSibling;
       var accordionContentHasAttr = accordionContent.hasAttribute(selectors.ACCORDION_CONTENT);
 
@@ -119,28 +115,39 @@ var Accordion = function (_Utils) {
         return;
       }
 
-      var containerId = container.getAttribute(selectors.ACCORDION_CONTAINER);
-      var containerAttr = "[" + selectors.ACCORDION_CONTAINER + "='" + containerId + "']";
-      var accordionContentsAttr = containerAttr + " [" + selectors.ACCORDION_CONTENT + "]";
-      var allAccordionRows = this.findElements(containerAttr + " [" + selectors.ACCORDION_EXPANDED + "]");
-      var allAccordionContent = this.findElements(accordionContentsAttr);
-
       var accordionButtonState = accordionRow.getAttribute(selectors.ACCORDION_EXPANDED);
       var accordionContentState = accordionContent.getAttribute(selectors.ACCORDION_CONTENT);
+
       var toggleExpandState = accordionButtonState === "true" ? "false" : "true";
       var toggleAccordionContentState = accordionContentState === "visible" ? "hidden" : "visible";
       var accordionContentAriaHiddenState = accordionContent.getAttribute("aria-hidden");
       var toggleHiddenState = accordionContentAriaHiddenState === "false" ? "true" : "false";
 
-      if (!container.hasAttribute(selectors.ACCORDION_MULTIPLE)) {
-        this.toggleChildAttributes(allAccordionRows, selectors.ACCORDION_EXPANDED, "true", "false");
-        this.toggleChildAttributes(allAccordionContent, selectors.ACCORDION_CONTENT, "visible", "hidden");
-      }
+      this.toggleIfMultipleAllowed();
 
       accordionRow.setAttribute(selectors.ACCORDION_EXPANDED, toggleExpandState);
       accordionContent.setAttribute(selectors.ACCORDION_CONTENT, toggleAccordionContentState);
       button.setAttribute("aria-expanded", toggleExpandState);
       accordionContent.setAttribute("aria-hidden", toggleHiddenState);
+    }
+  }, {
+    key: "handleSpaceKeyPress",
+    value: function handleSpaceKeyPress(event) {
+      if (event.which === keyCodes.SPACE) this.getAccordion(event);
+    }
+  }, {
+    key: "toggleIfMultipleAllowed",
+    value: function toggleIfMultipleAllowed() {
+      if (this.container.hasAttribute(selectors.ACCORDION_MULTIPLE)) return;
+
+      var containerId = this.container.getAttribute(selectors.ACCORDION_CONTAINER);
+      var containerAttr = "[" + selectors.ACCORDION_CONTAINER + "='" + containerId + "']";
+      var accordionContentsAttr = containerAttr + " [" + selectors.ACCORDION_CONTENT + "]";
+      var allAccordionRows = this.findElements(containerAttr + " [" + selectors.ACCORDION_EXPANDED + "]");
+      var allAccordionContent = this.findElements(accordionContentsAttr);
+
+      this.toggleChildAttributes(allAccordionRows, selectors.ACCORDION_EXPANDED, "true", "false");
+      this.toggleChildAttributes(allAccordionContent, selectors.ACCORDION_CONTENT, "visible", "hidden");
     }
   }, {
     key: "toggleChildAttributes",

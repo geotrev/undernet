@@ -33,6 +33,7 @@ var Utils = function () {
     // bind events to Utils
     this.handleFocusTrap = this.handleFocusTrap.bind(this);
   }
+
   /**
    * Because IE does not recognize NodeList.forEach(), we use a cross-browser solution for returning an array of DOM nodes.
    * @param {String} element - A DOM node's class, attribute, etc., to search the document.

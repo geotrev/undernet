@@ -69,19 +69,16 @@ export default class Accordion extends Utils {
     })
   }
 
-  handleSpaceKeyPress(event) {
-    if (event.which === keyCodes.SPACE) this.getAccordion(event)
-  }
-
   getAccordion(event) {
     event.preventDefault()
-    this.expandAccordion(event)
+    this.renderAccordionContent(event)
   }
 
-  expandAccordion(event) {
+  renderAccordionContent(event) {
     const button = event.target
     const accordionRow = button.parentNode
-    const container = button.parentNode.parentNode
+
+    this.container = accordionRow.parentNode
     const accordionContent = button.nextElementSibling
     const accordionContentHasAttr = accordionContent.hasAttribute(selectors.ACCORDION_CONTENT)
 
@@ -90,33 +87,42 @@ export default class Accordion extends Utils {
       return
     }
 
-    const containerId = container.getAttribute(selectors.ACCORDION_CONTAINER)
-    const containerAttr = `[${selectors.ACCORDION_CONTAINER}='${containerId}']`
-    const accordionContentsAttr = `${containerAttr} [${selectors.ACCORDION_CONTENT}]`
-    const allAccordionRows = this.findElements(`${containerAttr} [${selectors.ACCORDION_EXPANDED}]`)
-    const allAccordionContent = this.findElements(accordionContentsAttr)
-
     const accordionButtonState = accordionRow.getAttribute(selectors.ACCORDION_EXPANDED)
     const accordionContentState = accordionContent.getAttribute(selectors.ACCORDION_CONTENT)
+
     const toggleExpandState = accordionButtonState === "true" ? "false" : "true"
     const toggleAccordionContentState = accordionContentState === "visible" ? "hidden" : "visible"
     const accordionContentAriaHiddenState = accordionContent.getAttribute("aria-hidden")
     const toggleHiddenState = accordionContentAriaHiddenState === "false" ? "true" : "false"
 
-    if (!container.hasAttribute(selectors.ACCORDION_MULTIPLE)) {
-      this.toggleChildAttributes(allAccordionRows, selectors.ACCORDION_EXPANDED, "true", "false")
-      this.toggleChildAttributes(
-        allAccordionContent,
-        selectors.ACCORDION_CONTENT,
-        "visible",
-        "hidden",
-      )
-    }
+    this.toggleIfMultipleAllowed()
 
     accordionRow.setAttribute(selectors.ACCORDION_EXPANDED, toggleExpandState)
     accordionContent.setAttribute(selectors.ACCORDION_CONTENT, toggleAccordionContentState)
     button.setAttribute("aria-expanded", toggleExpandState)
     accordionContent.setAttribute("aria-hidden", toggleHiddenState)
+  }
+
+  handleSpaceKeyPress(event) {
+    if (event.which === keyCodes.SPACE) this.getAccordion(event)
+  }
+
+  toggleIfMultipleAllowed() {
+    if (this.container.hasAttribute(selectors.ACCORDION_MULTIPLE)) return
+
+    const containerId = this.container.getAttribute(selectors.ACCORDION_CONTAINER)
+    const containerAttr = `[${selectors.ACCORDION_CONTAINER}='${containerId}']`
+    const accordionContentsAttr = `${containerAttr} [${selectors.ACCORDION_CONTENT}]`
+    const allAccordionRows = this.findElements(`${containerAttr} [${selectors.ACCORDION_EXPANDED}]`)
+    const allAccordionContent = this.findElements(accordionContentsAttr)
+
+    this.toggleChildAttributes(allAccordionRows, selectors.ACCORDION_EXPANDED, "true", "false")
+    this.toggleChildAttributes(
+      allAccordionContent,
+      selectors.ACCORDION_CONTENT,
+      "visible",
+      "hidden",
+    )
   }
 
   toggleChildAttributes(elements, selector, currentAttr, newAttr) {
