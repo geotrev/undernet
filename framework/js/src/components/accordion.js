@@ -89,16 +89,16 @@ export default class Accordion extends Utils {
 
     const accordionButtonState = accordionRow.getAttribute(selectors.ACCORDION_EXPANDED)
     const accordionContentState = accordionContent.getAttribute(selectors.ACCORDION_CONTENT)
+    const accordionContentAriaHiddenState = accordionContent.getAttribute("aria-hidden")
 
     const toggleExpandState = accordionButtonState === "true" ? "false" : "true"
-    const toggleAccordionContentState = accordionContentState === "visible" ? "hidden" : "visible"
-    const accordionContentAriaHiddenState = accordionContent.getAttribute("aria-hidden")
+    const toggleContentState = accordionContentState === "visible" ? "hidden" : "visible"
     const toggleHiddenState = accordionContentAriaHiddenState === "false" ? "true" : "false"
 
     this.toggleIfMultipleAllowed()
 
     accordionRow.setAttribute(selectors.ACCORDION_EXPANDED, toggleExpandState)
-    accordionContent.setAttribute(selectors.ACCORDION_CONTENT, toggleAccordionContentState)
+    accordionContent.setAttribute(selectors.ACCORDION_CONTENT, toggleContentState)
     button.setAttribute("aria-expanded", toggleExpandState)
     accordionContent.setAttribute("aria-hidden", toggleHiddenState)
   }

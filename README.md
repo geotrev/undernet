@@ -71,7 +71,7 @@ $ npm install -g rollup
 $ yarn build:development
 ```
 
-From there, everything should build correctly: the framework scss and js will be prettified by `prettier` and distributions of js and css will be output using `babel-cli`, `rollup`, and `sass`.
+From there, everything should build correctly: the framework scss and js will be prettified by `prettier` and distributions of js and css will be output using `babel-cli`, `rollup`, `sass`, and a few macOS specific commands for zipping/prepping files for release.
 
 ### New releases
 
