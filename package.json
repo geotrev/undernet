@@ -30,7 +30,8 @@
     "css:build:all": "yarn css:build && yarn css:minify",
     "scss:lint": "prettier --write 'framework/scss/**/*.scss'",
     "scss:prepublish": "cd framework/scss/ && zip -r ../../dist/monolith.scss.zip .",
-    "css:prepublish": "yarn css:build:all && cd dist/ && zip -r monolith.css.zip . -x *.js *.zip *.js.map"
+    "css:prepublish": "yarn css:build:all && cd dist/ && zip -r monolith.css.zip . -x *.js *.zip *.js.map",
+    "heroku:default": "heroku git:remote -a"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
