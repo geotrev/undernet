@@ -117,16 +117,16 @@ var Accordion = function (_Utils) {
 
       var accordionButtonState = accordionRow.getAttribute(selectors.ACCORDION_EXPANDED);
       var accordionContentState = accordionContent.getAttribute(selectors.ACCORDION_CONTENT);
+      var accordionContentAriaHiddenState = accordionContent.getAttribute("aria-hidden");
 
       var toggleExpandState = accordionButtonState === "true" ? "false" : "true";
-      var toggleAccordionContentState = accordionContentState === "visible" ? "hidden" : "visible";
-      var accordionContentAriaHiddenState = accordionContent.getAttribute("aria-hidden");
+      var toggleContentState = accordionContentState === "visible" ? "hidden" : "visible";
       var toggleHiddenState = accordionContentAriaHiddenState === "false" ? "true" : "false";
 
       this.toggleIfMultipleAllowed();
 
       accordionRow.setAttribute(selectors.ACCORDION_EXPANDED, toggleExpandState);
-      accordionContent.setAttribute(selectors.ACCORDION_CONTENT, toggleAccordionContentState);
+      accordionContent.setAttribute(selectors.ACCORDION_CONTENT, toggleContentState);
       button.setAttribute("aria-expanded", toggleExpandState);
       accordionContent.setAttribute("aria-hidden", toggleHiddenState);
     }

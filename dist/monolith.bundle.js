@@ -82,6 +82,7 @@
       // bind events to Utils
       this.handleFocusTrap = this.handleFocusTrap.bind(this);
     }
+
     /**
      * Because IE does not recognize NodeList.forEach(), we use a cross-browser solution for returning an array of DOM nodes.
      * @param {String} element - A DOM node's class, attribute, etc., to search the document.
@@ -92,7 +93,8 @@
     createClass(Utils, [{
       key: "findElements",
       value: function findElements(element) {
-        return Array.apply(null, document.querySelectorAll(element));
+        var nodeList = document.querySelectorAll(element);
+        return Array.apply(null, nodeList);
       }
 
       /**
@@ -234,14 +236,14 @@
       value: function start() {
         var _this2 = this;
 
-        if (this.modals.length > 0) {
+        if (this.modals.length) {
           this.modals.forEach(function (modal) {
             modal.setAttribute("aria-modal", "true");
             modal.setAttribute("role", "dialog");
           });
         }
 
-        if (this.modalButtons.length > 0) {
+        if (this.modalButtons.length) {
           this.modalButtons.forEach(function (button) {
             button.addEventListener(events$1.CLICK, _this2.getModal);
           });
@@ -417,20 +419,146 @@
     return Modal;
   }(Utils);
 
+  var keyCodes$2 = {
+    SPACE: 32
+  };
+
+  var selectors$2 = {
+    ACCORDION_CONTAINER: "data-accordion",
+    ACCORDION_EXPANDED: "data-accordion-expanded",
+    ACCORDION_BUTTON: "data-accordion-button",
+    ACCORDION_CONTENT: "data-accordion-content",
+    ACCORDION_MULTIPLE: "data-accordion-toggle-multiple"
+  };
+
+  var events$2 = {
+    CLICK: "click",
+    KEYDOWN: "keydown"
+  };
+
+  var messages$1 = {
+    MISSING_ACCORDION_CONTENT: "You have an accordion button that is missing its content block or its [data-accordion-content] attribute.",
+    MISSING_ACCORDION_BUTTONS: "You have an accordion component with no [data-accordion-button] children."
+  };
+
   var Accordion = function (_Utils) {
     inherits(Accordion, _Utils);
 
     function Accordion() {
       classCallCheck(this, Accordion);
-      return possibleConstructorReturn(this, (Accordion.__proto__ || Object.getPrototypeOf(Accordion)).call(this));
+
+      var _this = possibleConstructorReturn(this, (Accordion.__proto__ || Object.getPrototypeOf(Accordion)).call(this));
+
+      _this.accordionContainers = _this.findElements("[" + selectors$2.ACCORDION_CONTAINER + "]");
+      _this.accordionButtons = _this.findElements("[" + selectors$2.ACCORDION_BUTTON + "]");
+      _this.accordionContents = _this.findElements("[" + selectors$2.ACCORDION_CONTENT + "]");
+
+      // bind events to calss
+      _this.getAccordion = _this.getAccordion.bind(_this);
+      _this.handleSpaceKeyPress = _this.handleSpaceKeyPress.bind(_this);
+      return _this;
     }
 
     createClass(Accordion, [{
       key: "start",
-      value: function start() {}
+      value: function start() {
+        var _this2 = this;
+
+        if (this.accordionButtons.length) {
+          this.accordionButtons.forEach(function (button) {
+            button.setAttribute("role", "heading");
+
+            var buttonExpandState = button.parentNode.getAttribute("data-accordion-expanded") === "true" ? "true" : "false";
+            button.setAttribute("aria-expanded", buttonExpandState);
+
+            button.addEventListener(events$2.CLICK, _this2.getAccordion);
+            button.addEventListener(events$2.KEYDOWN, _this2.handleSpaceKeyPress);
+          });
+        }
+
+        if (this.accordionContents.length) {
+          this.accordionContents.forEach(function (content) {
+            content.setAttribute("role", "region");
+            var contentHiddenState = content.parentNode.getAttribute("data-accordion-expanded");
+            var toggleContentHiddenState = contentHiddenState === "true" ? "false" : "true";
+            content.setAttribute("aria-hidden", toggleContentHiddenState);
+          });
+        }
+      }
     }, {
       key: "stop",
-      value: function stop() {}
+      value: function stop() {
+        var _this3 = this;
+
+        this.accordionButtons.forEach(function (button) {
+          button.removeEventListener(events$2.CLICK, _this3.getAccordion);
+          button.removeEventListener(events$2.KEYDOWN, _this3.handleSpaceKeyPress);
+        });
+      }
+    }, {
+      key: "getAccordion",
+      value: function getAccordion(event) {
+        event.preventDefault();
+        this.renderAccordionContent(event);
+      }
+    }, {
+      key: "renderAccordionContent",
+      value: function renderAccordionContent(event) {
+        var button = event.target;
+        var accordionRow = button.parentNode;
+
+        this.container = accordionRow.parentNode;
+        var accordionContent = button.nextElementSibling;
+        var accordionContentHasAttr = accordionContent.hasAttribute(selectors$2.ACCORDION_CONTENT);
+
+        if (!accordionContentHasAttr) {
+          throw messages$1.MISSING_ACCORDION_CONTENT;
+          return;
+        }
+
+        var accordionButtonState = accordionRow.getAttribute(selectors$2.ACCORDION_EXPANDED);
+        var accordionContentState = accordionContent.getAttribute(selectors$2.ACCORDION_CONTENT);
+        var accordionContentAriaHiddenState = accordionContent.getAttribute("aria-hidden");
+
+        var toggleExpandState = accordionButtonState === "true" ? "false" : "true";
+        var toggleContentState = accordionContentState === "visible" ? "hidden" : "visible";
+        var toggleHiddenState = accordionContentAriaHiddenState === "false" ? "true" : "false";
+
+        this.toggleIfMultipleAllowed();
+
+        accordionRow.setAttribute(selectors$2.ACCORDION_EXPANDED, toggleExpandState);
+        accordionContent.setAttribute(selectors$2.ACCORDION_CONTENT, toggleContentState);
+        button.setAttribute("aria-expanded", toggleExpandState);
+        accordionContent.setAttribute("aria-hidden", toggleHiddenState);
+      }
+    }, {
+      key: "handleSpaceKeyPress",
+      value: function handleSpaceKeyPress(event) {
+        if (event.which === keyCodes$2.SPACE) this.getAccordion(event);
+      }
+    }, {
+      key: "toggleIfMultipleAllowed",
+      value: function toggleIfMultipleAllowed() {
+        if (this.container.hasAttribute(selectors$2.ACCORDION_MULTIPLE)) return;
+
+        var containerId = this.container.getAttribute(selectors$2.ACCORDION_CONTAINER);
+        var containerAttr = "[" + selectors$2.ACCORDION_CONTAINER + "='" + containerId + "']";
+        var accordionContentsAttr = containerAttr + " [" + selectors$2.ACCORDION_CONTENT + "]";
+        var allAccordionRows = this.findElements(containerAttr + " [" + selectors$2.ACCORDION_EXPANDED + "]");
+        var allAccordionContent = this.findElements(accordionContentsAttr);
+
+        this.toggleChildAttributes(allAccordionRows, selectors$2.ACCORDION_EXPANDED, "true", "false");
+        this.toggleChildAttributes(allAccordionContent, selectors$2.ACCORDION_CONTENT, "visible", "hidden");
+      }
+    }, {
+      key: "toggleChildAttributes",
+      value: function toggleChildAttributes(elements, selector, currentAttr, newAttr) {
+        elements.forEach(function (element) {
+          if (element.hasAttribute(selector, currentAttr)) {
+            element.setAttribute(selector, newAttr);
+          }
+        });
+      }
     }]);
     return Accordion;
   }(Utils);

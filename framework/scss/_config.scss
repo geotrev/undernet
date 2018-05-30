@@ -55,7 +55,7 @@ $status-palette: (
   warning: khaki,
   success: green,
   destroy: red,
-  notice: steelblue
+  notice: steelblue,
 ) !default;
 
 $global-border-radius: 4px;
@@ -68,19 +68,19 @@ $global-outline: 2px solid $primary-color;
 $grid-classes: (
   grid: "grid",
   row: "row",
-  column: "column"
+  column: "column",
 ) !default;
 
 $grid-widths: (
   fluid: 100%,
   narrow: 768px,
-  wide: 1200px
+  wide: 1200px,
 ) !default;
 
 $grid-sections: (
   small: 48px,
   medium: 96px,
-  large: 144px
+  large: 144px,
 ) !default;
 
 $breakpoints: (
@@ -88,7 +88,7 @@ $breakpoints: (
   small: 576px,
   medium: 768px,
   large: 992px,
-  xlarge: 1200px
+  xlarge: 1200px,
 ) !default;
 
 $grid-gutter: $global-space;
@@ -111,45 +111,120 @@ $column-order-classes: true;
 //       Do that in a separate stylesheet as
 //       a class modifier instead.
 $type-header-sizes: (
-  xsmall:
-    (
-      h1: (font-size: 32px, margin-bottom: 20px),
-      h2: (font-size: 28px, margin-bottom: 18px),
-      h3: (font-size: 24px, margin-bottom: $global-space),
-      h4: (font-size: 20px, margin-bottom: 14px),
-      h5: (font-size: 18px, margin-bottom: 12px),
-      h6: (font-size: $global-font-size, margin-bottom: 10px)
+  xsmall: (
+    h1: (
+      font-size: 32px,
+      margin-bottom: 20px,
     ),
-  medium:
-    (
-      h1: (font-size: 48px, margin-bottom: 24px),
-      h2: (font-size: 42px, margin-bottom: 20px),
-      h3: (font-size: 36px, margin-bottom: 18px),
-      h4: (font-size: 30px, margin-bottom: $global-space),
-      h5: (font-size: 27px, margin-bottom: 14px),
-      h6: (font-size: 24px, margin-bottom: 12px)
+    h2: (
+      font-size: 28px,
+      margin-bottom: 18px,
     ),
-  large:
-    (
-      h1: (font-size: 64px, margin-bottom: 32px),
-      h2: (font-size: 56px, margin-bottom: 26px),
-      h3: (font-size: 48px, margin-bottom: 22px),
-      h4: (font-size: 40px, margin-bottom: $global-space),
-      h5: (font-size: 36px, margin-bottom: 12px),
-      h6: (font-size: 32px, margin-bottom: 10px)
-    )
+    h3: (
+      font-size: 24px,
+      margin-bottom: $global-space,
+    ),
+    h4: (
+      font-size: 20px,
+      margin-bottom: 14px,
+    ),
+    h5: (
+      font-size: 18px,
+      margin-bottom: 12px,
+    ),
+    h6: (
+      font-size: $global-font-size,
+      margin-bottom: 10px,
+    ),
+  ),
+  medium: (
+    h1: (
+      font-size: 48px,
+      margin-bottom: 24px,
+    ),
+    h2: (
+      font-size: 42px,
+      margin-bottom: 20px,
+    ),
+    h3: (
+      font-size: 36px,
+      margin-bottom: 18px,
+    ),
+    h4: (
+      font-size: 30px,
+      margin-bottom: $global-space,
+    ),
+    h5: (
+      font-size: 27px,
+      margin-bottom: 14px,
+    ),
+    h6: (
+      font-size: 24px,
+      margin-bottom: 12px,
+    ),
+  ),
+  large: (
+    h1: (
+      font-size: 64px,
+      margin-bottom: 32px,
+    ),
+    h2: (
+      font-size: 56px,
+      margin-bottom: 26px,
+    ),
+    h3: (
+      font-size: 48px,
+      margin-bottom: 22px,
+    ),
+    h4: (
+      font-size: 40px,
+      margin-bottom: $global-space,
+    ),
+    h5: (
+      font-size: 36px,
+      margin-bottom: 12px,
+    ),
+    h6: (
+      font-size: 32px,
+      margin-bottom: 10px,
+    ),
+  ),
 ) !default;
 
 // Note: You can't add extra CSS properties here.
 //       Do that in a separate stylesheet as
 //       a class modifier instead.
 $type-header-styles: (
-  h1: (color: $gray200, font-style: normal, font-weight: bold),
-  h2: (color: $gray200, font-style: normal, font-weight: bold),
-  h3: (color: $gray200, font-style: normal, font-weight: bold),
-  h4: (color: $gray200, font-style: normal, font-weight: bold),
-  h5: (color: $gray200, font-style: normal, font-weight: bold),
-  h6: (color: $gray200, font-style: normal, font-weight: bold)
+  h1: (
+    color: $gray200,
+    font-style: normal,
+    font-weight: bold,
+  ),
+  h2: (
+    color: $gray200,
+    font-style: normal,
+    font-weight: bold,
+  ),
+  h3: (
+    color: $gray200,
+    font-style: normal,
+    font-weight: bold,
+  ),
+  h4: (
+    color: $gray200,
+    font-style: normal,
+    font-weight: bold,
+  ),
+  h5: (
+    color: $gray200,
+    font-style: normal,
+    font-weight: bold,
+  ),
+  h6: (
+    color: $gray200,
+    font-style: normal,
+    font-weight: bold,
+  ),
 ) !default;
 
 $type-header-line-height: $global-line-height;
@@ -199,10 +274,22 @@ $ol-list-style: decimal;
 //       Do that in a separate stylesheet as
 //       a class modifier instead.
 $button-sizes: (
-  small: (padding: 8px 14px, font-size: 14px),
-  medium: (padding: 12px 18px, font-size: 16px),
-  large: (padding: 16px 22px, font-size: 20px),
-  huge: (padding: 20px 30px, font-size: 24px)
+  small: (
+    padding: 8px 14px,
+    font-size: 14px,
+  ),
+  medium: (
+    padding: 12px 18px,
+    font-size: 16px,
+  ),
+  large: (
+    padding: 16px 22px,
+    font-size: 20px,
+  ),
+  huge: (
+    padding: 20px 30px,
+    font-size: 24px,
+  ),
 ) !default;
 
 // Default button
@@ -245,177 +332,168 @@ $button-box-shadow-focus: $button-box-shadow;
 //       Do that in a separate stylesheet as
 //       a class modifier instead.
 $button-types: (
-  primary:
-    (
-      background: lighten($primary-color, 5%),
-      background-hover: $primary-color,
-      background-active: darken($primary-color, 2%),
-      background-focus: $primary-color,
-      color: $white,
-      color-hover: $white,
-      color-active: $white,
-      color-focus: $white,
-      border-color: transparent,
-      border-color-hover: transparent,
-      border-color-active: transparent,
-      border-color-focus: transparent,
-      box-shadow: none,
-      box-shadow-hover: none,
-      box-shadow-active: none,
-      box-shadow-focus: none
-    ),
-  secondary:
-    (
-      background: transparent,
-      background-hover: transparent,
-      background-active: transparent,
-      background-focus: transparent,
-      color: lighten($primary-color, 5%),
-      color-hover: $primary-color,
-      color-active: darken($primary-color, 2%),
-      color-focus: $primary-color,
-      border-color: lighten($primary-color, 5%),
-      border-color-hover: $primary-color,
-      border-color-active: darken($primary-color, 2%),
-      border-color-focus: $primary-color,
-      box-shadow: none,
-      box-shadow-hover: none,
-      box-shadow-active: none,
-      box-shadow-focus: none
-    ),
-  tertiary:
-    (
-      background: transparent,
-      background-hover: rgba($gray900, 0.2),
-      background-active: rgba($gray900, 0.3),
-      background-focus: rgba($gray900, 0.2),
-      color: $primary-color,
-      color-hover: $primary-color,
-      color-active: $primary-color,
-      color-focus: $primary-color,
-      border-color: transparent,
-      border-color-hover: transparent,
-      border-color-active: transparent,
-      border-color-focus: transparent,
-      box-shadow: none,
-      box-shadow-hover: none,
-      box-shadow-active: none,
-      box-shadow-focus: none
-    ),
-  inverted:
-    (
-      background: lighten($gray900, 5%),
-      background-hover: $white,
-      background-active: $gray900,
-      background-focus: $white,
-      color: $gray200,
-      color-hover: $gray200,
-      color-active: $gray200,
-      color-focus: $gray200,
-      border-color: transparent,
-      border-color-hover: transparent,
-      border-color-active: transparent,
-      border-color-focus: transparent,
-      box-shadow: none,
-      box-shadow-hover: none,
-      box-shadow-active: none,
-      box-shadow-focus: none
-    ),
-  inverted-outline:
-    (
-      background: transparent,
-      background-hover: transparent,
-      background-active: transparent,
-      background-focus: transparent,
-      color: $white,
-      color-hover: $white,
-      color-active: $white,
-      color-focus: $white,
-      border-color: $gray900,
-      border-color-hover: $white,
-      border-color-active: darken($gray900, 2%),
-      border-color-focus: $white,
-      box-shadow: none,
-      box-shadow-hover: none,
-      box-shadow-active: none,
-      box-shadow-focus: none
-    ),
-  warning:
-    (
-      background: darken(status(warning), 5%),
-      background-hover: status(warning),
-      background-active: darken(status(warning), 2%),
-      background-focus: status(warning),
-      color: $black,
-      color-hover: $black,
-      color-active: $black,
-      color-focus: $black,
-      border-color: transparent,
-      border-color-hover: transparent,
-      border-color-active: transparent,
-      border-color-focus: transparent,
-      box-shadow: none,
-      box-shadow-hover: none,
-      box-shadow-active: none,
-      box-shadow-focus: none
-    ),
-  success:
-    (
-      background: darken(status(success), 5%),
-      background-hover: status(success),
-      background-active: darken(status(success), 2%),
-      background-focus: status(success),
-      color: $white,
-      color-hover: $white,
-      color-active: $white,
-      color-focus: $white,
-      border-color: transparent,
-      border-color-hover: transparent,
-      border-color-active: transparent,
-      border-color-focus: transparent,
-      box-shadow: none,
-      box-shadow-hover: none,
-      box-shadow-active: none,
-      box-shadow-focus: none
-    ),
-  destroy:
-    (
-      background: darken(status(destroy), 5%),
-      background-hover: status(destroy),
-      background-active: darken(status(destroy), 2%),
-      background-focus: status(destroy),
-      color: $white,
-      color-hover: $white,
-      color-active: $white,
-      color-focus: $white,
-      border-color: transparent,
-      border-color-hover: transparent,
-      border-color-active: transparent,
-      border-color-focus: transparent,
-      box-shadow: none,
-      box-shadow-hover: none,
-      box-shadow-active: none,
-      box-shadow-focus: none
-    ),
-  notice:
-    (
-      background: darken(status(notice), 5%),
-      background-hover: status(notice),
-      background-active: darken(status(notice), 2%),
-      background-focus: status(notice),
-      color: $white,
-      color-hover: $white,
-      color-active: $white,
-      color-focus: $white,
-      border-color: transparent,
-      border-color-hover: transparent,
-      border-color-active: transparent,
-      border-color-focus: transparent,
-      box-shadow: none,
-      box-shadow-hover: none,
-      box-shadow-active: none,
-      box-shadow-focus: none
-    )
+  primary: (
+    background: lighten($primary-color, 5%),
+    background-hover: $primary-color,
+    background-active: darken($primary-color, 2%),
+    background-focus: $primary-color,
+    color: $white,
+    color-hover: $white,
+    color-active: $white,
+    color-focus: $white,
+    border-color: transparent,
+    border-color-hover: transparent,
+    border-color-active: transparent,
+    border-color-focus: transparent,
+    box-shadow: none,
+    box-shadow-hover: none,
+    box-shadow-active: none,
+    box-shadow-focus: none,
+  ),
+  secondary: (
+    background: transparent,
+    background-hover: transparent,
+    background-active: transparent,
+    background-focus: transparent,
+    color: lighten($primary-color, 5%),
+    color-hover: $primary-color,
+    color-active: darken($primary-color, 2%),
+    color-focus: $primary-color,
+    border-color: lighten($primary-color, 5%),
+    border-color-hover: $primary-color,
+    border-color-active: darken($primary-color, 2%),
+    border-color-focus: $primary-color,
+    box-shadow: none,
+    box-shadow-hover: none,
+    box-shadow-active: none,
+    box-shadow-focus: none,
+  ),
+  tertiary: (
+    background: transparent,
+    background-hover: rgba($gray900, 0.2),
+    background-active: rgba($gray900, 0.3),
+    background-focus: rgba($gray900, 0.2),
+    color: $primary-color,
+    color-hover: $primary-color,
+    color-active: $primary-color,
+    color-focus: $primary-color,
+    border-color: transparent,
+    border-color-hover: transparent,
+    border-color-active: transparent,
+    border-color-focus: transparent,
+    box-shadow: none,
+    box-shadow-hover: none,
+    box-shadow-active: none,
+    box-shadow-focus: none,
+  ),
+  inverted: (
+    background: lighten($gray900, 5%),
+    background-hover: $white,
+    background-active: $gray900,
+    background-focus: $white,
+    color: $gray200,
+    color-hover: $gray200,
+    color-active: $gray200,
+    color-focus: $gray200,
+    border-color: transparent,
+    border-color-hover: transparent,
+    border-color-active: transparent,
+    border-color-focus: transparent,
+    box-shadow: none,
+    box-shadow-hover: none,
+    box-shadow-active: none,
+    box-shadow-focus: none,
+  ),
+  inverted-outline: (
+    background: transparent,
+    background-hover: transparent,
+    background-active: transparent,
+    background-focus: transparent,
+    color: $white,
+    color-hover: $white,
+    color-active: $white,
+    color-focus: $white,
+    border-color: $gray900,
+    border-color-hover: $white,
+    border-color-active: darken($gray900, 2%),
+    border-color-focus: $white,
+    box-shadow: none,
+    box-shadow-hover: none,
+    box-shadow-active: none,
+    box-shadow-focus: none,
+  ),
+  warning: (
+    background: darken(status(warning), 5%),
+    background-hover: status(warning),
+    background-active: darken(status(warning), 2%),
+    background-focus: status(warning),
+    color: $black,
+    color-hover: $black,
+    color-active: $black,
+    color-focus: $black,
+    border-color: transparent,
+    border-color-hover: transparent,
+    border-color-active: transparent,
+    border-color-focus: transparent,
+    box-shadow: none,
+    box-shadow-hover: none,
+    box-shadow-active: none,
+    box-shadow-focus: none,
+  ),
+  success: (
+    background: darken(status(success), 5%),
+    background-hover: status(success),
+    background-active: darken(status(success), 2%),
+    background-focus: status(success),
+    color: $white,
+    color-hover: $white,
+    color-active: $white,
+    color-focus: $white,
+    border-color: transparent,
+    border-color-hover: transparent,
+    border-color-active: transparent,
+    border-color-focus: transparent,
+    box-shadow: none,
+    box-shadow-hover: none,
+    box-shadow-active: none,
+    box-shadow-focus: none,
+  ),
+  destroy: (
+    background: darken(status(destroy), 5%),
+    background-hover: status(destroy),
+    background-active: darken(status(destroy), 2%),
+    background-focus: status(destroy),
+    color: $white,
+    color-hover: $white,
+    color-active: $white,
+    color-focus: $white,
+    border-color: transparent,
+    border-color-hover: transparent,
+    border-color-active: transparent,
+    border-color-focus: transparent,
+    box-shadow: none,
+    box-shadow-hover: none,
+    box-shadow-active: none,
+    box-shadow-focus: none,
+  ),
+  notice: (
+    background: darken(status(notice), 5%),
+    background-hover: status(notice),
+    background-active: darken(status(notice), 2%),
+    background-focus: status(notice),
+    color: $white,
+    color-hover: $white,
+    color-active: $white,
+    color-focus: $white,
+    border-color: transparent,
+    border-color-hover: transparent,
+    border-color-active: transparent,
+    border-color-focus: transparent,
+    box-shadow: none,
+    box-shadow-hover: none,
+    box-shadow-active: none,
+    box-shadow-focus: none,
+  ),
 ) !default;
 
 // Text links

@@ -22,7 +22,7 @@ Install dependencies and get the site up and running.
 ```shell
 $ git clone git@github.com:geotrev/getmonolith.io.git
 $ cd getmonolith.io/
-$ yarn install
+$ npm install
 ```
 
 The site is both a demo and marketing tool. It is built with my own webpack setup called [Pulsar](https://github.com/geotrev/pulsar).
@@ -30,25 +30,25 @@ The site is both a demo and marketing tool. It is built with my own webpack setu
 ### Run the dev server
 
 ```shell
-$ yarn watch
+$ npm run watch
 ```
 
 ### Make production builds
 
 ```shell
-$ yarn build
+$ npm run build
 ```
 
 ### Run tests with istanbuljs/nyc coverage stats
 
 ```shell
-$ yarn test
+$ npm run test
 ```
 
 ### Load tests on file save
 
 ```shell
-$ yarn test:w
+$ npm run test:w
 ```
 
 ## Contributing
@@ -68,7 +68,7 @@ Then globally install `sass` and `rollup`. Don't use `npm`'s sass package as it 
 ```shell
 $ gem install sass
 $ npm install -g rollup
-$ yarn build:development
+$ npm run build:development
 ```
 
 From there, everything should build correctly: the framework scss and js will be prettified by `prettier` and distributions of js and css will be output using `babel-cli`, `rollup`, `sass`, and a few macOS specific commands for zipping/prepping files for release.
@@ -78,7 +78,7 @@ From there, everything should build correctly: the framework scss and js will be
 New releases are simply zipped and compiled files. You can create a new release using:
 
 ```shell
-$ yarn build:release
+$ npm run build:release
 ```
 
 This will compile and zip framework assets for a new version.
