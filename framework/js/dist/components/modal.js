@@ -57,9 +57,9 @@ var Modal = function (_Utils) {
 
     _this.closeButtonAttr = "[" + selectors.MODAL_CLOSE + "]";
     _this.modalContainerAttr = "[" + selectors.MODAL_CONTAINER + "]";
-    _this.modals = _this.findElements("[" + selectors.MODAL_CONTAINER + "]");
-    _this.modalButtons = _this.findElements("[" + selectors.MODAL_BUTTON + "]");
-    _this.closeButtons = _this.findElements(_this.closeButtonAttr);
+    _this.modals = _this.getElements("[" + selectors.MODAL_CONTAINER + "]");
+    _this.modalButtons = _this.getElements("[" + selectors.MODAL_BUTTON + "]");
+    _this.closeButtons = _this.getElements(_this.closeButtonAttr);
     _this.bodyTag = document.body;
     _this.htmlTag = document.querySelector("html");
 
@@ -148,7 +148,7 @@ var Modal = function (_Utils) {
 
       this.activeModalSelector = this.modalOverlayAttr + " " + this.modalContainerAttr;
       this.activeModal = document.querySelector(this.activeModalSelector);
-      this.modalCloseButtons = this.findElements(this.modalOverlayAttr + " " + this.closeButtonAttr);
+      this.modalCloseButtons = this.getElements(this.modalOverlayAttr + " " + this.closeButtonAttr);
 
       this.handleScrollStop();
       this.captureFocus(this.activeModalSelector);

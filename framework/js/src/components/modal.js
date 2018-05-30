@@ -37,9 +37,9 @@ export default class Modal extends Utils {
     super()
     this.closeButtonAttr = `[${selectors.MODAL_CLOSE}]`
     this.modalContainerAttr = `[${selectors.MODAL_CONTAINER}]`
-    this.modals = this.findElements(`[${selectors.MODAL_CONTAINER}]`)
-    this.modalButtons = this.findElements(`[${selectors.MODAL_BUTTON}]`)
-    this.closeButtons = this.findElements(this.closeButtonAttr)
+    this.modals = this.getElements(`[${selectors.MODAL_CONTAINER}]`)
+    this.modalButtons = this.getElements(`[${selectors.MODAL_BUTTON}]`)
+    this.closeButtons = this.getElements(this.closeButtonAttr)
     this.bodyTag = document.body
     this.htmlTag = document.querySelector("html")
 
@@ -108,7 +108,7 @@ export default class Modal extends Utils {
 
     this.activeModalSelector = `${this.modalOverlayAttr} ${this.modalContainerAttr}`
     this.activeModal = document.querySelector(this.activeModalSelector)
-    this.modalCloseButtons = this.findElements(`${this.modalOverlayAttr} ${this.closeButtonAttr}`)
+    this.modalCloseButtons = this.getElements(`${this.modalOverlayAttr} ${this.closeButtonAttr}`)
 
     this.handleScrollStop()
     this.captureFocus(this.activeModalSelector)

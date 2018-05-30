@@ -42,8 +42,8 @@ var Utils = function () {
 
 
   _createClass(Utils, [{
-    key: "findElements",
-    value: function findElements(element) {
+    key: "getElements",
+    value: function getElements(element) {
       var nodeList = document.querySelectorAll(element);
       return Array.apply(null, nodeList);
     }
@@ -61,7 +61,7 @@ var Utils = function () {
       selectors.FOCUSABLE_TAGS.map(function (element) {
         return focusables.push(container + " " + element + selectors.FOCUSABLE_SELECTOR);
       });
-      return this.findElements(focusables.join(", "));
+      return this.getElements(focusables.join(", "));
     }
 
     /**

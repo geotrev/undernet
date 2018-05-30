@@ -29,7 +29,7 @@ export default class Utils {
    * @param {String} element - A DOM node's class, attribute, etc., to search the document.
    * @return {Array}
    */
-  findElements(element) {
+  getElements(element) {
     const nodeList = document.querySelectorAll(element)
     return Array.apply(null, nodeList)
   }
@@ -44,7 +44,7 @@ export default class Utils {
     selectors.FOCUSABLE_TAGS.map(element =>
       focusables.push(`${container} ${element}${selectors.FOCUSABLE_SELECTOR}`),
     )
-    return this.findElements(focusables.join(", "))
+    return this.getElements(focusables.join(", "))
   }
 
   /**

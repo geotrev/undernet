@@ -48,9 +48,10 @@ var Accordion = function (_Utils) {
 
     var _this = _possibleConstructorReturn(this, (Accordion.__proto__ || Object.getPrototypeOf(Accordion)).call(this));
 
-    _this.accordionContainers = _this.findElements("[" + selectors.ACCORDION_CONTAINER + "]");
-    _this.accordionButtons = _this.findElements("[" + selectors.ACCORDION_BUTTON + "]");
-    _this.accordionContents = _this.findElements("[" + selectors.ACCORDION_CONTENT + "]");
+    _this.accordionContainers = _this.getElements("[" + selectors.ACCORDION_CONTAINER + "]");
+    _this.accordionButtons = _this.getElements("[" + selectors.ACCORDION_BUTTON + "]");
+    _this.accordionContents = _this.getElements("[" + selectors.ACCORDION_CONTENT + "]");
+    _this.activeContainer = null;
 
     // bind events to calss
     _this.getAccordion = _this.getAccordion.bind(_this);
@@ -103,32 +104,27 @@ var Accordion = function (_Utils) {
   }, {
     key: "renderAccordionContent",
     value: function renderAccordionContent(event) {
-      var button = event.target;
-      var accordionRow = button.parentNode;
-
-      this.container = accordionRow.parentNode;
-      var accordionContent = button.nextElementSibling;
-      var accordionContentHasAttr = accordionContent.hasAttribute(selectors.ACCORDION_CONTENT);
+      this.activeButton = event.target;
+      this.activeRow = this.activeButton.parentNode;
+      this.activeContainer = this.activeRow.parentNode;
+      this.activeContent = this.activeButton.nextElementSibling;
+      var accordionContentHasAttr = this.activeContent.hasAttribute(selectors.ACCORDION_CONTENT);
 
       if (!accordionContentHasAttr) {
         throw messages.MISSING_ACCORDION_CONTENT;
         return;
       }
 
-      var accordionButtonState = accordionRow.getAttribute(selectors.ACCORDION_EXPANDED);
-      var accordionContentState = accordionContent.getAttribute(selectors.ACCORDION_CONTENT);
-      var accordionContentAriaHiddenState = accordionContent.getAttribute("aria-hidden");
+      var accordionButtonState = this.activeRow.getAttribute(selectors.ACCORDION_EXPANDED);
+      var accordionContentState = this.activeContent.getAttribute(selectors.ACCORDION_CONTENT);
+      var accordionContentAriaHiddenState = this.activeContent.getAttribute("aria-hidden");
 
-      var toggleExpandState = accordionButtonState === "true" ? "false" : "true";
-      var toggleContentState = accordionContentState === "visible" ? "hidden" : "visible";
-      var toggleHiddenState = accordionContentAriaHiddenState === "false" ? "true" : "false";
+      this.toggleExpandState = accordionButtonState === "true" ? "false" : "true";
+      this.toggleContentState = accordionContentState === "visible" ? "hidden" : "visible";
+      this.toggleHiddenState = this.toggleExpandState === "false" ? "true" : "false";
 
-      this.toggleIfMultipleAllowed();
-
-      accordionRow.setAttribute(selectors.ACCORDION_EXPANDED, toggleExpandState);
-      accordionContent.setAttribute(selectors.ACCORDION_CONTENT, toggleContentState);
-      button.setAttribute("aria-expanded", toggleExpandState);
-      accordionContent.setAttribute("aria-hidden", toggleHiddenState);
+      this.closeAllIfToggleable();
+      this.toggleSelectedAccordionRow();
     }
   }, {
     key: "handleSpaceKeyPress",
@@ -136,25 +132,36 @@ var Accordion = function (_Utils) {
       if (event.which === keyCodes.SPACE) this.getAccordion(event);
     }
   }, {
-    key: "toggleIfMultipleAllowed",
-    value: function toggleIfMultipleAllowed() {
-      if (this.container.hasAttribute(selectors.ACCORDION_MULTIPLE)) return;
+    key: "closeAllIfToggleable",
+    value: function closeAllIfToggleable() {
+      if (this.activeContainer.hasAttribute(selectors.ACCORDION_MULTIPLE)) return;
 
-      var containerId = this.container.getAttribute(selectors.ACCORDION_CONTAINER);
+      var containerId = this.activeContainer.getAttribute(selectors.ACCORDION_CONTAINER);
       var containerAttr = "[" + selectors.ACCORDION_CONTAINER + "='" + containerId + "']";
-      var accordionContentsAttr = containerAttr + " [" + selectors.ACCORDION_CONTENT + "]";
-      var allAccordionRows = this.findElements(containerAttr + " [" + selectors.ACCORDION_EXPANDED + "]");
-      var allAccordionContent = this.findElements(accordionContentsAttr);
+      var allContentsAttr = containerAttr + " [" + selectors.ACCORDION_CONTENT + "]";
+      var allRows = this.getElements(containerAttr + " [" + selectors.ACCORDION_EXPANDED + "]");
+      var allContent = this.getElements(allContentsAttr);
+      var allButtons = this.getElements(containerAttr + " [" + selectors.ACCORDION_BUTTON + "]");
 
-      this.toggleChildAttributes(allAccordionRows, selectors.ACCORDION_EXPANDED, "true", "false");
-      this.toggleChildAttributes(allAccordionContent, selectors.ACCORDION_CONTENT, "visible", "hidden");
+      this.toggleAttributeInCollection(allRows, selectors.ACCORDION_EXPANDED, "true", "false");
+      this.toggleAttributeInCollection(allButtons, "aria-expanded", "true", "false");
+      this.toggleAttributeInCollection(allContent, "aria-hidden", "false", "true");
+      this.toggleAttributeInCollection(allContent, selectors.ACCORDION_CONTENT, "visible", "hidden");
     }
   }, {
-    key: "toggleChildAttributes",
-    value: function toggleChildAttributes(elements, selector, currentAttr, newAttr) {
+    key: "toggleSelectedAccordionRow",
+    value: function toggleSelectedAccordionRow() {
+      this.activeRow.setAttribute(selectors.ACCORDION_EXPANDED, this.toggleExpandState);
+      this.activeContent.setAttribute(selectors.ACCORDION_CONTENT, this.toggleContentState);
+      this.activeButton.setAttribute("aria-expanded", this.toggleExpandState);
+      this.activeContent.setAttribute("aria-hidden", this.toggleHiddenState);
+    }
+  }, {
+    key: "toggleAttributeInCollection",
+    value: function toggleAttributeInCollection(elements, selector, firstAttr, secondAttr) {
       elements.forEach(function (element) {
-        if (element.hasAttribute(selector, currentAttr)) {
-          element.setAttribute(selector, newAttr);
+        if (element.hasAttribute(selector, firstAttr)) {
+          element.setAttribute(selector, secondAttr);
         }
       });
     }
