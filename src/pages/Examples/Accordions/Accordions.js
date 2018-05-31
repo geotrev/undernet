@@ -29,8 +29,10 @@ export default class Accordions extends Component {
                   Accordion Button 1
                 </a>
                 <div aria-labelledby="accordion-button-1" data-accordion-content="visible">
-                  Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
-                  ipsum ut voluptate.
+                  <p>
+                    Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
+                    ipsum ut voluptate.
+                  </p>
                 </div>
               </div>
               <div data-accordion-expanded="false">
@@ -38,8 +40,12 @@ export default class Accordions extends Component {
                   Accordion Button 2
                 </a>
                 <div aria-labelledby="accordion-button-2" data-accordion-content="hidden">
-                  Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
-                  ipsum ut voluptate.
+                  <p>
+                    Nostrud enim qui ex sint incididunt aliquip ex laborum. Dolore velit Lorem
+                    consectetur magna non eu incididunt ex irure cillum consequat nisi. Fugiat nisi
+                    sunt amet adipisicing non sit ipsum ad pariatur do elit est officia magna. Enim
+                    deserunt duis irure do cupidatat laboris nostrud sint nulla nulla.
+                  </p>
                 </div>
               </div>
               <div data-accordion-expanded="false">
@@ -47,8 +53,10 @@ export default class Accordions extends Component {
                   Accordion Button 3
                 </a>
                 <div aria-labelledby="accordion-button-3" data-accordion-content="hidden">
-                  Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
-                  ipsum ut voluptate.
+                  <p>
+                    Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
+                    ipsum ut voluptate.
+                  </p>
                 </div>
               </div>
             </div>
@@ -63,8 +71,12 @@ export default class Accordions extends Component {
                   Accordion Button 4
                 </a>
                 <div aria-labelledby="accordion-button-4" data-accordion-content="hidden">
-                  Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
-                  ipsum ut voluptate.
+                  <p>
+                    Nostrud enim qui ex sint incididunt aliquip ex laborum. Dolore velit Lorem
+                    consectetur magna non eu incididunt ex irure cillum consequat nisi. Fugiat nisi
+                    sunt amet adipisicing non sit ipsum ad pariatur do elit est officia magna. Enim
+                    deserunt duis irure do cupidatat laboris nostrud sint nulla nulla.
+                  </p>
                 </div>
               </div>
               <div data-accordion-expanded="false">
@@ -72,8 +84,10 @@ export default class Accordions extends Component {
                   Accordion Button 5
                 </a>
                 <div aria-labelledby="accordion-button-5" data-accordion-content="hidden">
-                  Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
-                  ipsum ut voluptate.
+                  <p>
+                    Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
+                    ipsum ut voluptate.
+                  </p>
                 </div>
               </div>
               <div data-accordion-expanded="false">
@@ -81,8 +95,12 @@ export default class Accordions extends Component {
                   Accordion Button 6
                 </a>
                 <div aria-labelledby="accordion-button-6" data-accordion-content="hidden">
-                  Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
-                  ipsum ut voluptate.
+                  <p>
+                    Nostrud enim qui ex sint incididunt aliquip ex laborum. Dolore velit Lorem
+                    consectetur magna non eu incididunt ex irure cillum consequat nisi. Fugiat nisi
+                    sunt amet adipisicing non sit ipsum ad pariatur do elit est officia magna. Enim
+                    deserunt duis irure do cupidatat laboris nostrud sint nulla nulla.
+                  </p>
                 </div>
               </div>
             </div>

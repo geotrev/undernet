@@ -27,7 +27,10 @@ var selectors = {
   ACCORDION_EXPANDED: "data-accordion-expanded",
   ACCORDION_BUTTON: "data-accordion-button",
   ACCORDION_CONTENT: "data-accordion-content",
-  ACCORDION_MULTIPLE: "data-accordion-toggle-multiple"
+  ACCORDION_MULTIPLE: "data-accordion-toggle-multiple",
+  ARIA_EXPANDED: "aria-expanded",
+  ARIA_HIDDEN: "aria-hidden",
+  ROLE: "role"
 };
 
 var events = {
@@ -53,7 +56,7 @@ var Accordion = function (_Utils) {
     _this.accordionContents = _this.getElements("[" + selectors.ACCORDION_CONTENT + "]");
     _this.activeContainer = null;
 
-    // bind events to calss
+    // bind events to class
     _this.getAccordion = _this.getAccordion.bind(_this);
     _this.handleSpaceKeyPress = _this.handleSpaceKeyPress.bind(_this);
     return _this;
@@ -66,10 +69,17 @@ var Accordion = function (_Utils) {
 
       if (this.accordionButtons.length) {
         this.accordionButtons.forEach(function (button) {
-          button.setAttribute("role", "heading");
+          button.setAttribute(selectors.ROLE, "heading");
 
-          var buttonExpandState = button.parentNode.getAttribute("data-accordion-expanded") === "true" ? "true" : "false";
-          button.setAttribute("aria-expanded", buttonExpandState);
+          var buttonExpandState = button.parentNode.getAttribute(selectors.ACCORDION_EXPANDED);
+          var buttonContent = button.nextElementSibling;
+
+          if (buttonExpandState === "true") {
+            buttonContent.style.maxHeight = buttonContent.scrollHeight + "px";
+            button.setAttribute(selectors.ARIA_EXPANDED, "true");
+          } else {
+            button.setAttribute(selectors.ARIA_EXPANDED, "false");
+          }
 
           button.addEventListener(events.CLICK, _this2.getAccordion);
           button.addEventListener(events.KEYDOWN, _this2.handleSpaceKeyPress);
@@ -78,10 +88,10 @@ var Accordion = function (_Utils) {
 
       if (this.accordionContents.length) {
         this.accordionContents.forEach(function (content) {
-          content.setAttribute("role", "region");
-          var contentHiddenState = content.parentNode.getAttribute("data-accordion-expanded");
+          content.setAttribute(selectors.ROLE, "region");
+          var contentHiddenState = content.parentNode.getAttribute(selectors.ACCORDION_EXPANDED);
           var toggleContentHiddenState = contentHiddenState === "true" ? "false" : "true";
-          content.setAttribute("aria-hidden", toggleContentHiddenState);
+          content.setAttribute(selectors.ARIA_HIDDEN, toggleContentHiddenState);
         });
       }
     }
@@ -117,7 +127,7 @@ var Accordion = function (_Utils) {
 
       var accordionButtonState = this.activeRow.getAttribute(selectors.ACCORDION_EXPANDED);
       var accordionContentState = this.activeContent.getAttribute(selectors.ACCORDION_CONTENT);
-      var accordionContentAriaHiddenState = this.activeContent.getAttribute("aria-hidden");
+      var accordionContentAriaHiddenState = this.activeContent.getAttribute(selectors.ARIA_HIDDEN);
 
       this.toggleExpandState = accordionButtonState === "true" ? "false" : "true";
       this.toggleContentState = accordionContentState === "visible" ? "hidden" : "visible";
@@ -134,18 +144,25 @@ var Accordion = function (_Utils) {
   }, {
     key: "closeAllIfToggleable",
     value: function closeAllIfToggleable() {
+      var _this4 = this;
+
       if (this.activeContainer.hasAttribute(selectors.ACCORDION_MULTIPLE)) return;
 
-      var containerId = this.activeContainer.getAttribute(selectors.ACCORDION_CONTAINER);
-      var containerAttr = "[" + selectors.ACCORDION_CONTAINER + "='" + containerId + "']";
-      var allContentsAttr = containerAttr + " [" + selectors.ACCORDION_CONTENT + "]";
-      var allRows = this.getElements(containerAttr + " [" + selectors.ACCORDION_EXPANDED + "]");
-      var allContent = this.getElements(allContentsAttr);
-      var allButtons = this.getElements(containerAttr + " [" + selectors.ACCORDION_BUTTON + "]");
+      var activeContainerId = this.activeContainer.getAttribute(selectors.ACCORDION_CONTAINER);
+      var activeContainerAttr = "[" + selectors.ACCORDION_CONTAINER + "='" + activeContainerId + "']";
+      var allRows = this.getElements(activeContainerAttr + " [" + selectors.ACCORDION_EXPANDED + "]");
+      var allContent = this.getElements(activeContainerAttr + " [" + selectors.ACCORDION_CONTENT + "]");
+      var allButtons = this.getElements(activeContainerAttr + " [" + selectors.ACCORDION_BUTTON + "]");
+
+      allContent.forEach(function (content) {
+        if (!(content === _this4.activeContent)) {
+          content.style.maxHeight = null;
+        }
+      });
 
       this.toggleAttributeInCollection(allRows, selectors.ACCORDION_EXPANDED, "true", "false");
-      this.toggleAttributeInCollection(allButtons, "aria-expanded", "true", "false");
-      this.toggleAttributeInCollection(allContent, "aria-hidden", "false", "true");
+      this.toggleAttributeInCollection(allButtons, selectors.ARIA_EXPANDED, "true", "false");
+      this.toggleAttributeInCollection(allContent, selectors.ARIA_HIDDEN, "false", "true");
       this.toggleAttributeInCollection(allContent, selectors.ACCORDION_CONTENT, "visible", "hidden");
     }
   }, {
@@ -153,8 +170,10 @@ var Accordion = function (_Utils) {
     value: function toggleSelectedAccordionRow() {
       this.activeRow.setAttribute(selectors.ACCORDION_EXPANDED, this.toggleExpandState);
       this.activeContent.setAttribute(selectors.ACCORDION_CONTENT, this.toggleContentState);
-      this.activeButton.setAttribute("aria-expanded", this.toggleExpandState);
-      this.activeContent.setAttribute("aria-hidden", this.toggleHiddenState);
+      this.activeButton.setAttribute(selectors.ARIA_EXPANDED, this.toggleExpandState);
+      this.activeContent.setAttribute(selectors.ARIA_HIDDEN, this.toggleHiddenState);
+
+      this.activeContent.style.maxHeight ? this.activeContent.style.maxHeight = null : this.activeContent.style.maxHeight = this.activeContent.scrollHeight + "px";
     }
   }, {
     key: "toggleAttributeInCollection",
