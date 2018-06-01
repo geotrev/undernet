@@ -71,10 +71,10 @@ var Accordion = function (_Utils) {
         this.accordionButtons.forEach(function (button) {
           button.setAttribute(selectors.ROLE, "heading");
 
-          var buttonExpandState = button.parentNode.getAttribute(selectors.ACCORDION_EXPANDED);
-          var buttonContent = button.nextElementSibling;
+          var expandState = button.parentNode.parentNode.getAttribute(selectors.ACCORDION_EXPANDED);
+          var buttonContent = button.parentNode.nextElementSibling;
 
-          if (buttonExpandState === "true") {
+          if (expandState === "true") {
             buttonContent.style.maxHeight = buttonContent.scrollHeight + "px";
             button.setAttribute(selectors.ARIA_EXPANDED, "true");
           } else {
@@ -115,11 +115,15 @@ var Accordion = function (_Utils) {
     key: "renderAccordionContent",
     value: function renderAccordionContent(event) {
       this.activeButton = event.target;
-      this.activeRow = this.activeButton.parentNode;
-      this.activeContainer = this.activeRow.parentNode;
-      this.activeContent = this.activeButton.nextElementSibling;
-      var accordionContentHasAttr = this.activeContent.hasAttribute(selectors.ACCORDION_CONTENT);
+      var activeContentId = this.activeButton.getAttribute(selectors.ACCORDION_BUTTON);
 
+      this.activeRow = this.activeButton.parentNode.parentNode;
+      this.activeContainer = this.activeRow.parentNode;
+      this.activeContent = document.getElementById(activeContentId);
+
+      console.log(this.activeContent);
+
+      var accordionContentHasAttr = this.activeContent.hasAttribute(selectors.ACCORDION_CONTENT);
       if (!accordionContentHasAttr) {
         throw messages.MISSING_ACCORDION_CONTENT;
         return;

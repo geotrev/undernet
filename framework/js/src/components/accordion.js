@@ -47,10 +47,10 @@ export default class Accordion extends Utils {
       this.accordionButtons.forEach(button => {
         button.setAttribute(selectors.ROLE, "heading")
 
-        const buttonExpandState = button.parentNode.getAttribute(selectors.ACCORDION_EXPANDED)
-        const buttonContent = button.nextElementSibling
+        const expandState = button.parentNode.parentNode.getAttribute(selectors.ACCORDION_EXPANDED)
+        const buttonContent = button.parentNode.nextElementSibling
 
-        if (buttonExpandState === "true") {
+        if (expandState === "true") {
           buttonContent.style.maxHeight = `${buttonContent.scrollHeight}px`
           button.setAttribute(selectors.ARIA_EXPANDED, "true")
         } else {
@@ -86,11 +86,15 @@ export default class Accordion extends Utils {
 
   renderAccordionContent(event) {
     this.activeButton = event.target
-    this.activeRow = this.activeButton.parentNode
-    this.activeContainer = this.activeRow.parentNode
-    this.activeContent = this.activeButton.nextElementSibling
-    const accordionContentHasAttr = this.activeContent.hasAttribute(selectors.ACCORDION_CONTENT)
+    const activeContentId = this.activeButton.getAttribute(selectors.ACCORDION_BUTTON)
 
+    this.activeRow = this.activeButton.parentNode.parentNode
+    this.activeContainer = this.activeRow.parentNode
+    this.activeContent = document.getElementById(activeContentId)
+
+    console.log(this.activeContent)
+
+    const accordionContentHasAttr = this.activeContent.hasAttribute(selectors.ACCORDION_CONTENT)
     if (!accordionContentHasAttr) {
       throw messages.MISSING_ACCORDION_CONTENT
       return
