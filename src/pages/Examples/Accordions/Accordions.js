@@ -27,6 +27,7 @@ export default class Accordions extends Component {
               <div data-accordion-expanded="true">
                 <h5 id="accordion-button-1">
                   <button
+                    data-accordion-parent="accordion-1"
                     aria-controls="accordion-content-1"
                     data-accordion-button="accordion-content-1"
                   >
@@ -38,7 +39,7 @@ export default class Accordions extends Component {
                   aria-labelledby="accordion-button-1"
                   data-accordion-content="visible"
                 >
-                  <p className="modal-content">
+                  <p className="accordion-content">
                     Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
                     ipsum ut voluptate.
                   </p>
@@ -47,6 +48,7 @@ export default class Accordions extends Component {
               <div data-accordion-expanded="false">
                 <h5 id="accordion-button-2">
                   <button
+                    data-accordion-parent="accordion-1"
                     aria-controls="accordion-content-2"
                     data-accordion-button="accordion-content-2"
                   >
@@ -58,7 +60,7 @@ export default class Accordions extends Component {
                   aria-labelledby="accordion-button-2"
                   data-accordion-content="hidden"
                 >
-                  <p className="modal-content">
+                  <p className="accordion-content">
                     Nostrud enim qui ex sint incididunt aliquip ex laborum. Dolore velit Lorem
                     consectetur magna non eu incididunt ex irure cillum consequat nisi. Fugiat nisi
                     sunt amet adipisicing non sit ipsum ad pariatur do elit est officia magna. Enim
@@ -69,6 +71,7 @@ export default class Accordions extends Component {
               <div data-accordion-expanded="false">
                 <h5 id="accordion-button-3">
                   <button
+                    data-accordion-parent="accordion-1"
                     aria-controls="accordion-content-3"
                     data-accordion-button="accordion-content-3"
                   >
@@ -80,7 +83,7 @@ export default class Accordions extends Component {
                   aria-labelledby="accordion-button-3"
                   data-accordion-content="hidden"
                 >
-                  <p className="modal-content">
+                  <p className="accordion-content">
                     Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
                     ipsum ut voluptate.
                   </p>
@@ -99,6 +102,7 @@ export default class Accordions extends Component {
               <div data-accordion-expanded="false">
                 <h5 id="accordion-button-4">
                   <button
+                    data-accordion-parent="accordion-2"
                     aria-controls="accordion-content-4"
                     data-accordion-button="accordion-content-4"
                   >
@@ -110,7 +114,7 @@ export default class Accordions extends Component {
                   aria-labelledby="accordion-button-4"
                   data-accordion-content="hidden"
                 >
-                  <p className="modal-content">
+                  <p className="accordion-content">
                     Nostrud enim qui ex sint incididunt aliquip ex laborum. Dolore velit Lorem
                     consectetur magna non eu incididunt ex irure cillum consequat nisi. Fugiat nisi
                     sunt amet adipisicing non sit ipsum ad pariatur do elit est officia magna. Enim
@@ -121,6 +125,7 @@ export default class Accordions extends Component {
               <div data-accordion-expanded="false">
                 <h5 id="accordion-button-5">
                   <button
+                    data-accordion-parent="accordion-2"
                     aria-controls="accordion-content-5"
                     data-accordion-button="accordion-content-5"
                   >
@@ -132,7 +137,7 @@ export default class Accordions extends Component {
                   aria-labelledby="accordion-button-5"
                   data-accordion-content="hidden"
                 >
-                  <p className="modal-content">
+                  <p className="accordion-content">
                     Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
                     ipsum ut voluptate.
                   </p>
@@ -141,6 +146,7 @@ export default class Accordions extends Component {
               <div data-accordion-expanded="false">
                 <h5 id="accordion-button-6">
                   <button
+                    data-accordion-parent="accordion-2"
                     aria-controls="accordion-content-6"
                     data-accordion-button="accordion-content-6"
                   >
@@ -152,7 +158,7 @@ export default class Accordions extends Component {
                   aria-labelledby="accordion-button-6"
                   data-accordion-content="hidden"
                 >
-                  <p className="modal-content">
+                  <p className="accordion-content">
                     Nostrud enim qui ex sint incididunt aliquip ex laborum. Dolore velit Lorem
                     consectetur magna non eu incididunt ex irure cillum consequat nisi. Fugiat nisi
                     sunt amet adipisicing non sit ipsum ad pariatur do elit est officia magna. Enim

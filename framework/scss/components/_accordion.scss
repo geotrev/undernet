@@ -16,7 +16,7 @@
     }
   }
 
-  .modal-content {
+  .accordion-content {
     padding: $global-space;
   }
 
@@ -25,6 +25,7 @@
     padding: 0;
     max-height: 0;
     transition: max-height 0.2s ease-out;
+    border-bottom: 2px solid lightgray;
   }
 
   [data-accordion-button] {
@@ -47,21 +48,11 @@
     }
   }
 
-  [data-accordion-content] {
-    border-bottom: 2px solid lightgray;
+  [data-accordion-expanded="false"] [data-accordion-button]::after {
+    transform: rotate(180deg);
   }
 
-  [data-accordion-expanded="false"] {
-    [data-accordion-button] {
-      &::after {
-        transform: rotate(180deg);
-      }
-    }
-  }
-
-  [data-accordion-expanded]:last-child {
-    [data-accordion-content] {
-      border-bottom: none;
-    }
+  [data-accordion-expanded]:last-child [data-accordion-content] {
+    border-bottom: none;
   }
 }

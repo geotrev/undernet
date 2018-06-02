@@ -51,7 +51,6 @@ var Accordion = function (_Utils) {
 
     var _this = _possibleConstructorReturn(this, (Accordion.__proto__ || Object.getPrototypeOf(Accordion)).call(this));
 
-    _this.accordionContainers = _this.getElements("[" + selectors.ACCORDION_CONTAINER + "]");
     _this.accordionButtons = _this.getElements("[" + selectors.ACCORDION_BUTTON + "]");
     _this.accordionContents = _this.getElements("[" + selectors.ACCORDION_CONTENT + "]");
     _this.activeContainer = null;
@@ -118,10 +117,10 @@ var Accordion = function (_Utils) {
       var activeContentId = this.activeButton.getAttribute(selectors.ACCORDION_BUTTON);
 
       this.activeRow = this.activeButton.parentNode.parentNode;
-      this.activeContainer = this.activeRow.parentNode;
+      this.activeContainerId = this.activeButton.getAttribute("data-accordion-parent");
+      this.activeContainerSelector = "[" + selectors.ACCORDION_CONTAINER + "='" + this.activeContainerId + "']";
+      this.activeContainer = document.querySelector(this.activeContainerSelector);
       this.activeContent = document.getElementById(activeContentId);
-
-      console.log(this.activeContent);
 
       var accordionContentHasAttr = this.activeContent.hasAttribute(selectors.ACCORDION_CONTENT);
       if (!accordionContentHasAttr) {
@@ -131,14 +130,13 @@ var Accordion = function (_Utils) {
 
       var accordionButtonState = this.activeRow.getAttribute(selectors.ACCORDION_EXPANDED);
       var accordionContentState = this.activeContent.getAttribute(selectors.ACCORDION_CONTENT);
-      var accordionContentAriaHiddenState = this.activeContent.getAttribute(selectors.ARIA_HIDDEN);
 
       this.toggleExpandState = accordionButtonState === "true" ? "false" : "true";
       this.toggleContentState = accordionContentState === "visible" ? "hidden" : "visible";
       this.toggleHiddenState = this.toggleExpandState === "false" ? "true" : "false";
 
       this.closeAllIfToggleable();
-      this.toggleSelectedAccordionRow();
+      this.toggleSelectedAccordion();
     }
   }, {
     key: "handleSpaceKeyPress",
@@ -152,16 +150,14 @@ var Accordion = function (_Utils) {
 
       if (this.activeContainer.hasAttribute(selectors.ACCORDION_MULTIPLE)) return;
 
-      var activeContainerId = this.activeContainer.getAttribute(selectors.ACCORDION_CONTAINER);
-      var activeContainerAttr = "[" + selectors.ACCORDION_CONTAINER + "='" + activeContainerId + "']";
-      var allRows = this.getElements(activeContainerAttr + " [" + selectors.ACCORDION_EXPANDED + "]");
-      var allContent = this.getElements(activeContainerAttr + " [" + selectors.ACCORDION_CONTENT + "]");
-      var allButtons = this.getElements(activeContainerAttr + " [" + selectors.ACCORDION_BUTTON + "]");
+      var allRows = this.getElements(this.activeContainerSelector + " [" + selectors.ACCORDION_EXPANDED + "]");
+
+      var allContent = this.getElements(this.activeContainerSelector + " [" + selectors.ACCORDION_CONTENT + "]");
+
+      var allButtons = this.getElements(this.activeContainerSelector + " [" + selectors.ACCORDION_BUTTON + "]");
 
       allContent.forEach(function (content) {
-        if (!(content === _this4.activeContent)) {
-          content.style.maxHeight = null;
-        }
+        if (!(content === _this4.activeContent)) content.style.maxHeight = null;
       });
 
       this.toggleAttributeInCollection(allRows, selectors.ACCORDION_EXPANDED, "true", "false");
@@ -170,8 +166,8 @@ var Accordion = function (_Utils) {
       this.toggleAttributeInCollection(allContent, selectors.ACCORDION_CONTENT, "visible", "hidden");
     }
   }, {
-    key: "toggleSelectedAccordionRow",
-    value: function toggleSelectedAccordionRow() {
+    key: "toggleSelectedAccordion",
+    value: function toggleSelectedAccordion() {
       this.activeRow.setAttribute(selectors.ACCORDION_EXPANDED, this.toggleExpandState);
       this.activeContent.setAttribute(selectors.ACCORDION_CONTENT, this.toggleContentState);
       this.activeButton.setAttribute(selectors.ARIA_EXPANDED, this.toggleExpandState);
