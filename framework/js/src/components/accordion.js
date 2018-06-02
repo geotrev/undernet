@@ -92,8 +92,6 @@ export default class Accordion extends Utils {
     this.activeContainer = this.activeRow.parentNode
     this.activeContent = document.getElementById(activeContentId)
 
-    console.log(this.activeContent)
-
     const accordionContentHasAttr = this.activeContent.hasAttribute(selectors.ACCORDION_CONTENT)
     if (!accordionContentHasAttr) {
       throw messages.MISSING_ACCORDION_CONTENT

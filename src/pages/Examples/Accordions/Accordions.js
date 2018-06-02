@@ -19,7 +19,7 @@ export default class Accordions extends Component {
         <div className="row">
           <div className="xsmall-12 columns">
             <HeaderText>Accordion Menu</HeaderText>
-            <p>Expand and collapse items in a menu.</p>
+            <p>Toggle a single item in a menu.</p>
           </div>
 
           <div className="xsmall-12 columns">
@@ -90,8 +90,11 @@ export default class Accordions extends Component {
           </div>
 
           <div className="xsmall-12 columns">
-            <p>Expand multiple rows at once.</p>
+            <HeaderText>Multi-Item Accordion</HeaderText>
+            <p>Expand and collapse any or all items in a menu.</p>
+          </div>
 
+          <div className="xsmall-12 columns">
             <div data-accordion="accordion-2" data-accordion-toggle-multiple>
               <div data-accordion-expanded="false">
                 <h5 id="accordion-button-4">
