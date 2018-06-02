@@ -12,6 +12,7 @@ const selectors = {
   ACCORDION_BUTTON: "data-accordion-button",
   ACCORDION_CONTENT: "data-accordion-content",
   ACCORDION_MULTIPLE: "data-accordion-toggle-multiple",
+  ACCORDION_PARENT: "data-accordion-parent",
   ARIA_EXPANDED: "aria-expanded",
   ARIA_HIDDEN: "aria-hidden",
   ROLE: "role",
@@ -25,10 +26,13 @@ const events = {
 const messages = {
   MISSING_ACCORDION_CONTENT:
     "You have an accordion button that is missing its content block or its [data-accordion-content] attribute.",
-  MISSING_ACCORDION_BUTTONS:
-    "You have an accordion component with no [data-accordion-button] children.",
 }
 
+/**
+ * Accordion component class.
+ * @module Accordion
+ * @requires Utils
+ */
 export default class Accordion extends Utils {
   constructor() {
     super()
@@ -37,15 +41,17 @@ export default class Accordion extends Utils {
     this.activeContainer = null
 
     // bind events to class
-    this.getAccordion = this.getAccordion.bind(this)
+    this.renderAccordionContent = this.renderAccordionContent.bind(this)
     this.handleSpaceKeyPress = this.handleSpaceKeyPress.bind(this)
   }
 
+  /**
+   * Add accessible attributes to accordions
+   * Begin listening to elements with [data-accordion-button]
+   */
   start() {
     if (this.accordionButtons.length) {
       this.accordionButtons.forEach(button => {
-        button.setAttribute(selectors.ROLE, "heading")
-
         const expandState = button.parentNode.parentNode.getAttribute(selectors.ACCORDION_EXPANDED)
         const buttonContent = button.parentNode.nextElementSibling
 
@@ -56,7 +62,7 @@ export default class Accordion extends Utils {
           button.setAttribute(selectors.ARIA_EXPANDED, "false")
         }
 
-        button.addEventListener(events.CLICK, this.getAccordion)
+        button.addEventListener(events.CLICK, this.renderAccordionContent)
         button.addEventListener(events.KEYDOWN, this.handleSpaceKeyPress)
       })
     }
@@ -71,26 +77,31 @@ export default class Accordion extends Utils {
     }
   }
 
+  /**
+   * Stop listening to accordion buttons.
+   */
   stop() {
     this.accordionButtons.forEach(button => {
-      button.removeEventListener(events.CLICK, this.getAccordion)
+      button.removeEventListener(events.CLICK, this.renderAccordionContent)
       button.removeEventListener(events.KEYDOWN, this.handleSpaceKeyPress)
     })
   }
 
-  getAccordion(event) {
-    event.preventDefault()
-    this.renderAccordionContent(event)
-  }
-
+  /**
+   * Open accordion content associated with a [data-accordion-button] element.
+   * @param {Object} event - The event object.
+   */
   renderAccordionContent(event) {
+    event.preventDefault()
+
     this.activeButton = event.target
-    const activeContentId = this.activeButton.getAttribute(selectors.ACCORDION_BUTTON)
 
     this.activeRow = this.activeButton.parentNode.parentNode
-    this.activeContainerId = this.activeButton.getAttribute("data-accordion-parent")
-    this.activeContainerSelector = `[${selectors.ACCORDION_CONTAINER}='${this.activeContainerId}']`
-    this.activeContainer = document.querySelector(this.activeContainerSelector)
+    this.activeContainerId = this.activeButton.getAttribute(selectors.ACCORDION_PARENT)
+    this.activeContainerAttr = `[${selectors.ACCORDION_CONTAINER}='${this.activeContainerId}']`
+    this.activeContainer = document.querySelector(this.activeContainerAttr)
+
+    const activeContentId = this.activeButton.getAttribute(selectors.ACCORDION_BUTTON)
     this.activeContent = document.getElementById(activeContentId)
 
     const accordionContentHasAttr = this.activeContent.hasAttribute(selectors.ACCORDION_CONTENT)
@@ -110,23 +121,31 @@ export default class Accordion extends Utils {
     this.toggleSelectedAccordion()
   }
 
+  /**
+   * If a keypress is the spacebar on a button, open its correlated content.
+   * @param {Object} event - The event object.
+   */
   handleSpaceKeyPress(event) {
-    if (event.which === keyCodes.SPACE) this.getAccordion(event)
+    if (event.which === keyCodes.SPACE) this.renderAccordionContent(event)
   }
 
+  /**
+   * If toggling multiple rows at once isn't enabled, close all rows except the selected one.
+   * This ensures the selected one can be closed if it's already open.
+   */
   closeAllIfToggleable() {
     if (this.activeContainer.hasAttribute(selectors.ACCORDION_MULTIPLE)) return
 
     const allRows = this.getElements(
-      `${this.activeContainerSelector} [${selectors.ACCORDION_EXPANDED}]`,
+      `${this.activeContainerAttr} [${selectors.ACCORDION_EXPANDED}]`,
     )
 
     const allContent = this.getElements(
-      `${this.activeContainerSelector} [${selectors.ACCORDION_CONTENT}]`,
+      `${this.activeContainerAttr} [${selectors.ACCORDION_CONTENT}]`,
     )
 
     const allButtons = this.getElements(
-      `${this.activeContainerSelector} [${selectors.ACCORDION_BUTTON}]`,
+      `${this.activeContainerAttr} [${selectors.ACCORDION_BUTTON}]`,
     )
 
     allContent.forEach(content => {
@@ -139,6 +158,9 @@ export default class Accordion extends Utils {
     this.toggleAttributeInCollection(allContent, selectors.ACCORDION_CONTENT, "visible", "hidden")
   }
 
+  /**
+   * Toggle a [data-accordion-button]'s related [data-accordion-content] element.
+   */
   toggleSelectedAccordion() {
     this.activeRow.setAttribute(selectors.ACCORDION_EXPANDED, this.toggleExpandState)
     this.activeContent.setAttribute(selectors.ACCORDION_CONTENT, this.toggleContentState)
@@ -150,10 +172,13 @@ export default class Accordion extends Utils {
       : (this.activeContent.style.maxHeight = `${this.activeContent.scrollHeight}px`)
   }
 
-  toggleAttributeInCollection(elements, selector, firstAttr, secondAttr) {
+  /**
+   * Toggles a single attribute of a series of elements within a parent.
+   */
+  toggleAttributeInCollection(elements, attributeName, currentValue, newValue) {
     elements.forEach(element => {
-      if (element.hasAttribute(selector, firstAttr)) {
-        element.setAttribute(selector, secondAttr)
+      if (element.hasAttribute(attributeName, currentValue)) {
+        element.setAttribute(attributeName, newValue)
       }
     })
   }

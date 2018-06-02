@@ -74,7 +74,6 @@ var Modal = function (_Utils) {
   /**
    * Add accessible attributes to modal containers
    * Begin listening to elements with [data-modal-button]
-   * @return {null}
    */
 
 
@@ -99,7 +98,6 @@ var Modal = function (_Utils) {
 
     /**
      * Stop listening to modal buttons
-     * @return {null}
      */
 
   }, {
@@ -115,7 +113,6 @@ var Modal = function (_Utils) {
     /**
      * Locate a button's corresponding modal container.
      * @param {Object} event - The event object
-     * @return {null}
      */
 
   }, {
@@ -128,7 +125,6 @@ var Modal = function (_Utils) {
     /**
      * Find a button through event.target, then render the corresponding modal attribute via matching target id
      * @param {Object} event - The event object
-     * @return {null}
      */
 
   }, {
@@ -172,7 +168,6 @@ var Modal = function (_Utils) {
     /**
      * Turn off event listeners and reset focus to last selected DOM node (button)
      * @param {Object} event - Event (keydown or click)
-     * @return {null}
      */
 
   }, {
@@ -200,7 +195,6 @@ var Modal = function (_Utils) {
     /**
      * Handles click event on the modal background to close it.
      * @param {Object} event - Event (keydown)
-     * @return {null}
      */
 
   }, {
@@ -213,7 +207,6 @@ var Modal = function (_Utils) {
     /**
      * Handles escape key event to close the current modal
      * @param {Object} event - Event (keydown)
-     * @return {null}
      */
 
   }, {
@@ -228,7 +221,6 @@ var Modal = function (_Utils) {
     /**
      * Returns focus to the last focused element before the modal was called.
      * @param {Object} button - The current modal's corresponding button.
-     * @return {null}
      */
 
   }, {
@@ -241,7 +233,6 @@ var Modal = function (_Utils) {
 
     /**
      * Restores scroll behavior to <html> and <body>
-     * @return {null}
      */
 
   }, {
@@ -253,7 +244,6 @@ var Modal = function (_Utils) {
 
     /**
      * Prevents scroll behavior on <html> and <body>
-     * @return {null}
      */
 
   }, {

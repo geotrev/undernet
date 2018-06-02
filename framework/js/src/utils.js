@@ -50,7 +50,6 @@ export default class Utils {
   /**
    * Listens to the first and last elements matched from this.getFocusableElements()
    * @param {String} container - The container's class, attribute, etc.
-   * @return {null}
    */
   captureFocus(container) {
     this.focusContainer = container
@@ -63,8 +62,7 @@ export default class Utils {
 
   /**
    * Handles focus on first or last child in a container.
-   * @param {Object} e - Event (keypress)
-   * @return {null}
+   * @param {Object} event - Event (keypress)
    */
   handleFocusTrap(event) {
     const active = document.activeElement
@@ -91,6 +89,9 @@ export default class Utils {
     }
   }
 
+  /**
+   * Stop trapping focus set in this.captureFocus()
+   */
   releaseFocus() {
     document.removeEventListener(events.KEYDOWN, this.handleFocusTrap)
   }

@@ -67,7 +67,6 @@ var Utils = function () {
     /**
      * Listens to the first and last elements matched from this.getFocusableElements()
      * @param {String} container - The container's class, attribute, etc.
-     * @return {null}
      */
 
   }, {
@@ -83,8 +82,7 @@ var Utils = function () {
 
     /**
      * Handles focus on first or last child in a container.
-     * @param {Object} e - Event (keypress)
-     * @return {null}
+     * @param {Object} event - Event (keypress)
      */
 
   }, {
@@ -113,6 +111,11 @@ var Utils = function () {
         this.focusableFirstChild.focus();
       }
     }
+
+    /**
+     * Stop trapping focus set in this.captureFocus()
+     */
+
   }, {
     key: "releaseFocus",
     value: function releaseFocus() {

@@ -53,7 +53,6 @@ export default class Modal extends Utils {
   /**
    * Add accessible attributes to modal containers
    * Begin listening to elements with [data-modal-button]
-   * @return {null}
    */
   start() {
     if (this.modals.length) {
@@ -72,7 +71,6 @@ export default class Modal extends Utils {
 
   /**
    * Stop listening to modal buttons
-   * @return {null}
    */
   stop() {
     this.modalButtons.forEach(button => {
@@ -83,7 +81,6 @@ export default class Modal extends Utils {
   /**
    * Locate a button's corresponding modal container.
    * @param {Object} event - The event object
-   * @return {null}
    */
   getModal(event) {
     event.preventDefault()
@@ -93,7 +90,6 @@ export default class Modal extends Utils {
   /**
    * Find a button through event.target, then render the corresponding modal attribute via matching target id
    * @param {Object} event - The event object
-   * @return {null}
    */
   renderModal(event) {
     // setup core lightbox properties
@@ -132,7 +128,6 @@ export default class Modal extends Utils {
   /**
    * Turn off event listeners and reset focus to last selected DOM node (button)
    * @param {Object} event - Event (keydown or click)
-   * @return {null}
    */
   handleModalClose(event) {
     event.preventDefault()
@@ -155,7 +150,6 @@ export default class Modal extends Utils {
   /**
    * Handles click event on the modal background to close it.
    * @param {Object} event - Event (keydown)
-   * @return {null}
    */
   handleOverlayClick(event) {
     if (event.target !== this.modalOverlay) return
@@ -165,7 +159,6 @@ export default class Modal extends Utils {
   /**
    * Handles escape key event to close the current modal
    * @param {Object} event - Event (keydown)
-   * @return {null}
    */
   handleEscapeKeyPress(event) {
     const escapeKey = event.which === keyCodes.ESCAPE
@@ -177,7 +170,6 @@ export default class Modal extends Utils {
   /**
    * Returns focus to the last focused element before the modal was called.
    * @param {Object} button - The current modal's corresponding button.
-   * @return {null}
    */
   handleReturnFocus() {
     this.modalButton.setAttribute("tabindex", "-1")
@@ -187,7 +179,6 @@ export default class Modal extends Utils {
 
   /**
    * Restores scroll behavior to <html> and <body>
-   * @return {null}
    */
   handleScrollRestore() {
     this.bodyTag.classList.remove(selectors.NO_SCROLL)
@@ -196,7 +187,6 @@ export default class Modal extends Utils {
 
   /**
    * Prevents scroll behavior on <html> and <body>
-   * @return {null}
    */
   handleScrollStop() {
     this.bodyTag.classList.add(selectors.NO_SCROLL)
