@@ -30,8 +30,7 @@ var selectors = {
   ACCORDION_MULTIPLE: "data-accordion-toggle-multiple",
   ACCORDION_PARENT: "data-accordion-parent",
   ARIA_EXPANDED: "aria-expanded",
-  ARIA_HIDDEN: "aria-hidden",
-  ROLE: "role"
+  ARIA_HIDDEN: "aria-hidden"
 };
 
 var events = {
@@ -79,16 +78,7 @@ var Accordion = function (_Utils) {
 
       if (this.accordionButtons.length) {
         this.accordionButtons.forEach(function (button) {
-          var expandState = button.parentNode.parentNode.getAttribute(selectors.ACCORDION_EXPANDED);
-          var buttonContent = button.parentNode.nextElementSibling;
-
-          if (expandState === "true") {
-            buttonContent.style.maxHeight = buttonContent.scrollHeight + "px";
-            button.setAttribute(selectors.ARIA_EXPANDED, "true");
-          } else {
-            button.setAttribute(selectors.ARIA_EXPANDED, "false");
-          }
-
+          _this2.setupButtons(button);
           button.addEventListener(events.CLICK, _this2.renderAccordionContent);
           button.addEventListener(events.KEYDOWN, _this2.handleSpaceKeyPress);
         });
@@ -96,7 +86,6 @@ var Accordion = function (_Utils) {
 
       if (this.accordionContents.length) {
         this.accordionContents.forEach(function (content) {
-          content.setAttribute(selectors.ROLE, "region");
           var contentHiddenState = content.parentNode.getAttribute(selectors.ACCORDION_EXPANDED);
           var toggleContentHiddenState = contentHiddenState === "true" ? "false" : "true";
           content.setAttribute(selectors.ARIA_HIDDEN, toggleContentHiddenState);
@@ -117,6 +106,19 @@ var Accordion = function (_Utils) {
         button.removeEventListener(events.CLICK, _this3.renderAccordionContent);
         button.removeEventListener(events.KEYDOWN, _this3.handleSpaceKeyPress);
       });
+    }
+  }, {
+    key: "setupButtons",
+    value: function setupButtons(button) {
+      var expandState = button.parentNode.parentNode.getAttribute(selectors.ACCORDION_EXPANDED);
+      var buttonContent = button.parentNode.nextElementSibling;
+
+      if (expandState === "true") {
+        buttonContent.style.maxHeight = buttonContent.scrollHeight + "px";
+        button.setAttribute(selectors.ARIA_EXPANDED, "true");
+      } else {
+        button.setAttribute(selectors.ARIA_EXPANDED, "false");
+      }
     }
 
     /**

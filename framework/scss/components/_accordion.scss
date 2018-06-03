@@ -42,6 +42,11 @@
     margin: 0;
     border-radius: 0;
 
+    &:hover {
+      color: darken($primary-color, 2%);
+      background: lighten($gray900, 10%);
+    }
+
     &::after {
       content: "\25B2";
       font-size: 12px;

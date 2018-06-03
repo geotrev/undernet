@@ -15,7 +15,6 @@ const selectors = {
   ACCORDION_PARENT: "data-accordion-parent",
   ARIA_EXPANDED: "aria-expanded",
   ARIA_HIDDEN: "aria-hidden",
-  ROLE: "role",
 }
 
 const events = {
@@ -52,16 +51,7 @@ export default class Accordion extends Utils {
   start() {
     if (this.accordionButtons.length) {
       this.accordionButtons.forEach(button => {
-        const expandState = button.parentNode.parentNode.getAttribute(selectors.ACCORDION_EXPANDED)
-        const buttonContent = button.parentNode.nextElementSibling
-
-        if (expandState === "true") {
-          buttonContent.style.maxHeight = `${buttonContent.scrollHeight}px`
-          button.setAttribute(selectors.ARIA_EXPANDED, "true")
-        } else {
-          button.setAttribute(selectors.ARIA_EXPANDED, "false")
-        }
-
+        this.setupButtons(button)
         button.addEventListener(events.CLICK, this.renderAccordionContent)
         button.addEventListener(events.KEYDOWN, this.handleSpaceKeyPress)
       })
@@ -69,7 +59,6 @@ export default class Accordion extends Utils {
 
     if (this.accordionContents.length) {
       this.accordionContents.forEach(content => {
-        content.setAttribute(selectors.ROLE, "region")
         const contentHiddenState = content.parentNode.getAttribute(selectors.ACCORDION_EXPANDED)
         const toggleContentHiddenState = contentHiddenState === "true" ? "false" : "true"
         content.setAttribute(selectors.ARIA_HIDDEN, toggleContentHiddenState)
@@ -85,6 +74,18 @@ export default class Accordion extends Utils {
       button.removeEventListener(events.CLICK, this.renderAccordionContent)
       button.removeEventListener(events.KEYDOWN, this.handleSpaceKeyPress)
     })
+  }
+
+  setupButtons(button) {
+    const expandState = button.parentNode.parentNode.getAttribute(selectors.ACCORDION_EXPANDED)
+    const buttonContent = button.parentNode.nextElementSibling
+
+    if (expandState === "true") {
+      buttonContent.style.maxHeight = `${buttonContent.scrollHeight}px`
+      button.setAttribute(selectors.ARIA_EXPANDED, "true")
+    } else {
+      button.setAttribute(selectors.ARIA_EXPANDED, "false")
+    }
   }
 
   /**
