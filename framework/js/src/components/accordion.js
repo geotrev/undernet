@@ -51,7 +51,7 @@ export default class Accordion extends Utils {
   start() {
     if (this.accordionButtons.length) {
       this.accordionButtons.forEach(button => {
-        this.setupButtons(button)
+        this.setupButton(button)
         button.addEventListener(events.CLICK, this.renderAccordionContent)
         button.addEventListener(events.KEYDOWN, this.handleSpaceKeyPress)
       })
@@ -76,7 +76,7 @@ export default class Accordion extends Utils {
     })
   }
 
-  setupButtons(button) {
+  setupButton(button) {
     const expandState = button.parentNode.parentNode.getAttribute(selectors.ACCORDION_EXPANDED)
     const buttonContent = button.parentNode.nextElementSibling
 

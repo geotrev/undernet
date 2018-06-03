@@ -78,7 +78,7 @@ var Accordion = function (_Utils) {
 
       if (this.accordionButtons.length) {
         this.accordionButtons.forEach(function (button) {
-          _this2.setupButtons(button);
+          _this2.setupButton(button);
           button.addEventListener(events.CLICK, _this2.renderAccordionContent);
           button.addEventListener(events.KEYDOWN, _this2.handleSpaceKeyPress);
         });
@@ -108,8 +108,8 @@ var Accordion = function (_Utils) {
       });
     }
   }, {
-    key: "setupButtons",
-    value: function setupButtons(button) {
+    key: "setupButton",
+    value: function setupButton(button) {
       var expandState = button.parentNode.parentNode.getAttribute(selectors.ACCORDION_EXPANDED);
       var buttonContent = button.parentNode.nextElementSibling;
 
