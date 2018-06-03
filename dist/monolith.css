@@ -1047,7 +1047,15 @@ tt,
 
 pre,
 .pre {
-  padding: 16px; }
+  padding: 16px;
+  overflow: auto; }
+  pre > code,
+  pre .code,
+  .pre > code,
+  .pre .code {
+    word-break: normal;
+    width: auto;
+    display: inline-flex; }
 
 strong,
 .strong {

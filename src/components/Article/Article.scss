@@ -21,8 +21,11 @@
   }
 
   pre {
-    overflow-y: auto;
     margin-bottom: $global-space * 2.5 !important;
+
+    > code {
+      display: initial;
+    }
   }
 
   pre,

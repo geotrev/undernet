@@ -29,6 +29,14 @@ tt,
 pre,
 .pre {
   padding: $type-pre-padding;
+  overflow: auto;
+
+  > code,
+  .code {
+    word-break: normal;
+    width: auto;
+    display: inline-flex;
+  }
 }
 
 strong,
