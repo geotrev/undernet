@@ -1,11 +1,10 @@
 import React, { Component } from "react"
 import { Route } from "react-router-dom"
 
-import { ScrollUpOnUpdate } from "helpers"
-
 import { Article, HeaderText } from "components"
 import { Link } from "react-router-dom"
 import ChevronRight from "react-feather/dist/icons/chevron-right"
+import { ScrollUpOnMount } from "helpers"
 
 import OverviewMd from "articles/Home.md"
 import DownloadMd from "articles/Download.md"
@@ -17,6 +16,7 @@ import FormsMd from "articles/Forms.md"
 import StyleUtilitiesMd from "articles/Style-Utilities.md"
 import JSUtilitiesMd from "articles/JS-Utilities.md"
 import ModalsMd from "articles/Modals.md"
+import AccordionsMd from "articles/Accordions.md"
 
 const Template = props => {
   return <div className="articles-wrapper row">{props.children}</div>
@@ -26,7 +26,6 @@ export default class DocsRoutes extends Component {
   render() {
     return (
       <div className="docs-routes-wrapper small-section grid">
-        <ScrollUpOnUpdate />
         <div className="row">
           <Route
             exact
@@ -66,6 +65,11 @@ export default class DocsRoutes extends Component {
           />
           <Route
             exact
+            path="/docs/accordions"
+            render={() => this.renderArticle(AccordionsMd, "Accordions", true)}
+          />
+          <Route
+            exact
             path="/docs/style-utilities"
             render={() => this.renderArticle(StyleUtilitiesMd, "Style Utilities")}
           />
@@ -82,6 +86,7 @@ export default class DocsRoutes extends Component {
   renderArticle(article, pageName = "", hasExample = false) {
     return (
       <div className="column">
+        <ScrollUpOnMount />
         <HeaderText>{pageName}</HeaderText>
         {hasExample && this.renderExampleLink(pageName.toLowerCase())}
         <Template>
@@ -91,9 +96,9 @@ export default class DocsRoutes extends Component {
     )
   }
 
-  renderExampleLink(component) {
+  renderExampleLink(page) {
     return (
-      <Link className="small secondary button has-feather" to={`/examples/${component}`}>
+      <Link className="small secondary button has-feather" to={`/examples/${page}`}>
         See Examples <ChevronRight size={16} />
       </Link>
     )

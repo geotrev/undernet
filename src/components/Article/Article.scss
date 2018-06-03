@@ -19,14 +19,22 @@
   }
 
   pre {
-    overflow-y: scroll;
-    margin-bottom: 16px;
+    overflow-y: auto;
+    margin-bottom: $global-space * 2.5;
   }
 
   pre,
   code {
     color: $gray800;
     background: #fafafa;
+  }
+
+  code {
+    word-break: normal;
+    overflow-x: auto;
+    display: inline-flex;
+    flex-direction: column;
+    width: auto;
   }
 
   ul {

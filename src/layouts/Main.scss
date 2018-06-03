@@ -5,18 +5,18 @@
 */
 
 @import "../global";
-@import "../../framework/scss/elements/global/base";
+@import "../../scss/elements/global/base";
 
 // .#{$scope} {
-@import "../../framework/scss/helpers/classes/base";
-@import "../../framework/scss/elements/grid/base";
-@import "../../framework/scss/elements/typography/base";
-@import "../../framework/scss/elements/link/base";
-@import "../../framework/scss/elements/button/base";
-@import "../../framework/scss/elements/form/base";
+@import "../../scss/helpers/classes/base";
+@import "../../scss/elements/grid/base";
+@import "../../scss/elements/typography/base";
+@import "../../scss/elements/link/base";
+@import "../../scss/elements/button/base";
+@import "../../scss/elements/form/base";
 
-@import "../../framework/scss/components/modal";
-@import "../../framework/scss/components/accordion";
+@import "../../scss/components/modal";
+@import "../../scss/components/accordion";
 // }
 
 main {

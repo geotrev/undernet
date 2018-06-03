@@ -1,4 +1,8 @@
-Monolith's modal component is relatively straightforward. To kick it off, you'll need a button with an id, and a container (the actual modal) with a `[data-modal-name]` attribute matching the button's id.
+Add a modal to add focus to your web experience.
+
+To kick it off, you'll need a button with an id, and a container (the actual modal) with a `[data-modal-name]` attribute matching the button's id.
+
+Next, enable the javascript plugin. See the [download page](download) for details.
 
 ### Button
 
@@ -40,4 +44,4 @@ Simply including `[data-modal-close]` on link elements that should dismiss the m
 </div>
 ```
 
-Next: [Classes ►](classes)
+Next: [Accordions ►](accordions)

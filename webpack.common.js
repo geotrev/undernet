@@ -25,7 +25,7 @@ module.exports = {
       pages: path.resolve(__dirname, "src/pages/exports"),
       assets: path.resolve(__dirname, "src/assets/"),
       articles: path.resolve(__dirname, "getmonolith.io.wiki/"),
-      getmonolith: path.resolve(__dirname, "framework/js/dist/monolith"),
+      getmonolith: path.resolve(__dirname, "js/dist/monolith"),
     },
   },
   module: {

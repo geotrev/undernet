@@ -91,8 +91,8 @@
 
 
     createClass(Utils, [{
-      key: "findElements",
-      value: function findElements(element) {
+      key: "getElements",
+      value: function getElements(element) {
         var nodeList = document.querySelectorAll(element);
         return Array.apply(null, nodeList);
       }
@@ -110,13 +110,12 @@
         selectors.FOCUSABLE_TAGS.map(function (element) {
           return focusables.push(container + " " + element + selectors.FOCUSABLE_SELECTOR);
         });
-        return this.findElements(focusables.join(", "));
+        return this.getElements(focusables.join(", "));
       }
 
       /**
        * Listens to the first and last elements matched from this.getFocusableElements()
        * @param {String} container - The container's class, attribute, etc.
-       * @return {null}
        */
 
     }, {
@@ -132,8 +131,7 @@
 
       /**
        * Handles focus on first or last child in a container.
-       * @param {Object} e - Event (keypress)
-       * @return {null}
+       * @param {Object} event - Event (keypress)
        */
 
     }, {
@@ -162,6 +160,11 @@
           this.focusableFirstChild.focus();
         }
       }
+
+      /**
+       * Stop trapping focus set in this.captureFocus()
+       */
+
     }, {
       key: "releaseFocus",
       value: function releaseFocus() {
@@ -210,9 +213,9 @@
 
       _this.closeButtonAttr = "[" + selectors$1.MODAL_CLOSE + "]";
       _this.modalContainerAttr = "[" + selectors$1.MODAL_CONTAINER + "]";
-      _this.modals = _this.findElements("[" + selectors$1.MODAL_CONTAINER + "]");
-      _this.modalButtons = _this.findElements("[" + selectors$1.MODAL_BUTTON + "]");
-      _this.closeButtons = _this.findElements(_this.closeButtonAttr);
+      _this.modals = _this.getElements("[" + selectors$1.MODAL_CONTAINER + "]");
+      _this.modalButtons = _this.getElements("[" + selectors$1.MODAL_BUTTON + "]");
+      _this.closeButtons = _this.getElements(_this.closeButtonAttr);
       _this.bodyTag = document.body;
       _this.htmlTag = document.querySelector("html");
 
@@ -227,7 +230,6 @@
     /**
      * Add accessible attributes to modal containers
      * Begin listening to elements with [data-modal-button]
-     * @return {null}
      */
 
 
@@ -252,7 +254,6 @@
 
       /**
        * Stop listening to modal buttons
-       * @return {null}
        */
 
     }, {
@@ -268,7 +269,6 @@
       /**
        * Locate a button's corresponding modal container.
        * @param {Object} event - The event object
-       * @return {null}
        */
 
     }, {
@@ -281,7 +281,6 @@
       /**
        * Find a button through event.target, then render the corresponding modal attribute via matching target id
        * @param {Object} event - The event object
-       * @return {null}
        */
 
     }, {
@@ -301,7 +300,7 @@
 
         this.activeModalSelector = this.modalOverlayAttr + " " + this.modalContainerAttr;
         this.activeModal = document.querySelector(this.activeModalSelector);
-        this.modalCloseButtons = this.findElements(this.modalOverlayAttr + " " + this.closeButtonAttr);
+        this.modalCloseButtons = this.getElements(this.modalOverlayAttr + " " + this.closeButtonAttr);
 
         this.handleScrollStop();
         this.captureFocus(this.activeModalSelector);
@@ -325,7 +324,6 @@
       /**
        * Turn off event listeners and reset focus to last selected DOM node (button)
        * @param {Object} event - Event (keydown or click)
-       * @return {null}
        */
 
     }, {
@@ -353,7 +351,6 @@
       /**
        * Handles click event on the modal background to close it.
        * @param {Object} event - Event (keydown)
-       * @return {null}
        */
 
     }, {
@@ -366,7 +363,6 @@
       /**
        * Handles escape key event to close the current modal
        * @param {Object} event - Event (keydown)
-       * @return {null}
        */
 
     }, {
@@ -381,7 +377,6 @@
       /**
        * Returns focus to the last focused element before the modal was called.
        * @param {Object} button - The current modal's corresponding button.
-       * @return {null}
        */
 
     }, {
@@ -394,7 +389,6 @@
 
       /**
        * Restores scroll behavior to <html> and <body>
-       * @return {null}
        */
 
     }, {
@@ -406,7 +400,6 @@
 
       /**
        * Prevents scroll behavior on <html> and <body>
-       * @return {null}
        */
 
     }, {
@@ -428,7 +421,10 @@
     ACCORDION_EXPANDED: "data-accordion-expanded",
     ACCORDION_BUTTON: "data-accordion-button",
     ACCORDION_CONTENT: "data-accordion-content",
-    ACCORDION_MULTIPLE: "data-accordion-toggle-multiple"
+    ACCORDION_MULTIPLE: "data-accordion-toggle-multiple",
+    ACCORDION_PARENT: "data-accordion-parent",
+    ARIA_EXPANDED: "aria-expanded",
+    ARIA_HIDDEN: "aria-hidden"
   };
 
   var events$2 = {
@@ -437,10 +433,14 @@
   };
 
   var messages$1 = {
-    MISSING_ACCORDION_CONTENT: "You have an accordion button that is missing its content block or its [data-accordion-content] attribute.",
-    MISSING_ACCORDION_BUTTONS: "You have an accordion component with no [data-accordion-button] children."
-  };
+    MISSING_ACCORDION_CONTENT: "You have an accordion button that is missing its content block or its [data-accordion-content] attribute."
 
+    /**
+     * Accordion component class.
+     * @module Accordion
+     * @requires Utils
+     */
+  };
   var Accordion = function (_Utils) {
     inherits(Accordion, _Utils);
 
@@ -449,15 +449,21 @@
 
       var _this = possibleConstructorReturn(this, (Accordion.__proto__ || Object.getPrototypeOf(Accordion)).call(this));
 
-      _this.accordionContainers = _this.findElements("[" + selectors$2.ACCORDION_CONTAINER + "]");
-      _this.accordionButtons = _this.findElements("[" + selectors$2.ACCORDION_BUTTON + "]");
-      _this.accordionContents = _this.findElements("[" + selectors$2.ACCORDION_CONTENT + "]");
+      _this.accordionButtons = _this.getElements("[" + selectors$2.ACCORDION_BUTTON + "]");
+      _this.accordionContents = _this.getElements("[" + selectors$2.ACCORDION_CONTENT + "]");
+      _this.activeContainer = null;
 
-      // bind events to calss
-      _this.getAccordion = _this.getAccordion.bind(_this);
+      // bind events to class
+      _this.renderAccordionContent = _this.renderAccordionContent.bind(_this);
       _this.handleSpaceKeyPress = _this.handleSpaceKeyPress.bind(_this);
       return _this;
     }
+
+    /**
+     * Add accessible attributes to accordions
+     * Begin listening to elements with [data-accordion-button]
+     */
+
 
     createClass(Accordion, [{
       key: "start",
@@ -466,96 +472,150 @@
 
         if (this.accordionButtons.length) {
           this.accordionButtons.forEach(function (button) {
-            button.setAttribute("role", "heading");
-
-            var buttonExpandState = button.parentNode.getAttribute("data-accordion-expanded") === "true" ? "true" : "false";
-            button.setAttribute("aria-expanded", buttonExpandState);
-
-            button.addEventListener(events$2.CLICK, _this2.getAccordion);
+            _this2.setupButton(button);
+            button.addEventListener(events$2.CLICK, _this2.renderAccordionContent);
             button.addEventListener(events$2.KEYDOWN, _this2.handleSpaceKeyPress);
           });
         }
 
         if (this.accordionContents.length) {
           this.accordionContents.forEach(function (content) {
-            content.setAttribute("role", "region");
-            var contentHiddenState = content.parentNode.getAttribute("data-accordion-expanded");
+            var contentHiddenState = content.parentNode.getAttribute(selectors$2.ACCORDION_EXPANDED);
             var toggleContentHiddenState = contentHiddenState === "true" ? "false" : "true";
-            content.setAttribute("aria-hidden", toggleContentHiddenState);
+            content.setAttribute(selectors$2.ARIA_HIDDEN, toggleContentHiddenState);
           });
         }
       }
+
+      /**
+       * Stop listening to accordion buttons.
+       */
+
     }, {
       key: "stop",
       value: function stop() {
         var _this3 = this;
 
         this.accordionButtons.forEach(function (button) {
-          button.removeEventListener(events$2.CLICK, _this3.getAccordion);
+          button.removeEventListener(events$2.CLICK, _this3.renderAccordionContent);
           button.removeEventListener(events$2.KEYDOWN, _this3.handleSpaceKeyPress);
         });
       }
     }, {
-      key: "getAccordion",
-      value: function getAccordion(event) {
-        event.preventDefault();
-        this.renderAccordionContent(event);
+      key: "setupButton",
+      value: function setupButton(button) {
+        var expandState = button.parentNode.parentNode.getAttribute(selectors$2.ACCORDION_EXPANDED);
+        var buttonContent = button.parentNode.nextElementSibling;
+
+        if (expandState === "true") {
+          buttonContent.style.maxHeight = buttonContent.scrollHeight + "px";
+          button.setAttribute(selectors$2.ARIA_EXPANDED, "true");
+        } else {
+          button.setAttribute(selectors$2.ARIA_EXPANDED, "false");
+        }
       }
+
+      /**
+       * Open accordion content associated with a [data-accordion-button] element.
+       * @param {Object} event - The event object.
+       */
+
     }, {
       key: "renderAccordionContent",
       value: function renderAccordionContent(event) {
-        var button = event.target;
-        var accordionRow = button.parentNode;
+        event.preventDefault();
 
-        this.container = accordionRow.parentNode;
-        var accordionContent = button.nextElementSibling;
-        var accordionContentHasAttr = accordionContent.hasAttribute(selectors$2.ACCORDION_CONTENT);
+        this.activeButton = event.target;
 
+        this.activeRow = this.activeButton.parentNode.parentNode;
+        this.activeContainerId = this.activeButton.getAttribute(selectors$2.ACCORDION_PARENT);
+        this.activeContainerAttr = "[" + selectors$2.ACCORDION_CONTAINER + "='" + this.activeContainerId + "']";
+        this.activeContainer = document.querySelector(this.activeContainerAttr);
+
+        var activeContentId = this.activeButton.getAttribute(selectors$2.ACCORDION_BUTTON);
+        this.activeContent = document.getElementById(activeContentId);
+
+        var accordionContentHasAttr = this.activeContent.hasAttribute(selectors$2.ACCORDION_CONTENT);
         if (!accordionContentHasAttr) {
           throw messages$1.MISSING_ACCORDION_CONTENT;
           return;
         }
 
-        var accordionButtonState = accordionRow.getAttribute(selectors$2.ACCORDION_EXPANDED);
-        var accordionContentState = accordionContent.getAttribute(selectors$2.ACCORDION_CONTENT);
-        var accordionContentAriaHiddenState = accordionContent.getAttribute("aria-hidden");
+        var accordionButtonState = this.activeRow.getAttribute(selectors$2.ACCORDION_EXPANDED);
+        var accordionContentState = this.activeContent.getAttribute(selectors$2.ACCORDION_CONTENT);
 
-        var toggleExpandState = accordionButtonState === "true" ? "false" : "true";
-        var toggleContentState = accordionContentState === "visible" ? "hidden" : "visible";
-        var toggleHiddenState = accordionContentAriaHiddenState === "false" ? "true" : "false";
+        this.toggleExpandState = accordionButtonState === "true" ? "false" : "true";
+        this.toggleContentState = accordionContentState === "visible" ? "hidden" : "visible";
+        this.toggleHiddenState = this.toggleExpandState === "false" ? "true" : "false";
 
-        this.toggleIfMultipleAllowed();
-
-        accordionRow.setAttribute(selectors$2.ACCORDION_EXPANDED, toggleExpandState);
-        accordionContent.setAttribute(selectors$2.ACCORDION_CONTENT, toggleContentState);
-        button.setAttribute("aria-expanded", toggleExpandState);
-        accordionContent.setAttribute("aria-hidden", toggleHiddenState);
+        this.closeAllIfToggleable();
+        this.toggleSelectedAccordion();
       }
+
+      /**
+       * If a keypress is the spacebar on a button, open its correlated content.
+       * @param {Object} event - The event object.
+       */
+
     }, {
       key: "handleSpaceKeyPress",
       value: function handleSpaceKeyPress(event) {
-        if (event.which === keyCodes$2.SPACE) this.getAccordion(event);
+        if (event.which === keyCodes$2.SPACE) this.renderAccordionContent(event);
       }
+
+      /**
+       * If toggling multiple rows at once isn't enabled, close all rows except the selected one.
+       * This ensures the selected one can be closed if it's already open.
+       */
+
     }, {
-      key: "toggleIfMultipleAllowed",
-      value: function toggleIfMultipleAllowed() {
-        if (this.container.hasAttribute(selectors$2.ACCORDION_MULTIPLE)) return;
+      key: "closeAllIfToggleable",
+      value: function closeAllIfToggleable() {
+        var _this4 = this;
 
-        var containerId = this.container.getAttribute(selectors$2.ACCORDION_CONTAINER);
-        var containerAttr = "[" + selectors$2.ACCORDION_CONTAINER + "='" + containerId + "']";
-        var accordionContentsAttr = containerAttr + " [" + selectors$2.ACCORDION_CONTENT + "]";
-        var allAccordionRows = this.findElements(containerAttr + " [" + selectors$2.ACCORDION_EXPANDED + "]");
-        var allAccordionContent = this.findElements(accordionContentsAttr);
+        if (this.activeContainer.hasAttribute(selectors$2.ACCORDION_MULTIPLE)) return;
 
-        this.toggleChildAttributes(allAccordionRows, selectors$2.ACCORDION_EXPANDED, "true", "false");
-        this.toggleChildAttributes(allAccordionContent, selectors$2.ACCORDION_CONTENT, "visible", "hidden");
+        var allRows = this.getElements(this.activeContainerAttr + " [" + selectors$2.ACCORDION_EXPANDED + "]");
+
+        var allContent = this.getElements(this.activeContainerAttr + " [" + selectors$2.ACCORDION_CONTENT + "]");
+
+        var allButtons = this.getElements(this.activeContainerAttr + " [" + selectors$2.ACCORDION_BUTTON + "]");
+
+        allContent.forEach(function (content) {
+          if (!(content === _this4.activeContent)) content.style.maxHeight = null;
+        });
+
+        this.toggleAttributeInCollection(allRows, selectors$2.ACCORDION_EXPANDED, "true", "false");
+        this.toggleAttributeInCollection(allButtons, selectors$2.ARIA_EXPANDED, "true", "false");
+        this.toggleAttributeInCollection(allContent, selectors$2.ARIA_HIDDEN, "false", "true");
+        this.toggleAttributeInCollection(allContent, selectors$2.ACCORDION_CONTENT, "visible", "hidden");
       }
+
+      /**
+       * Toggle a [data-accordion-button]'s related [data-accordion-content] element.
+       */
+
     }, {
-      key: "toggleChildAttributes",
-      value: function toggleChildAttributes(elements, selector, currentAttr, newAttr) {
+      key: "toggleSelectedAccordion",
+      value: function toggleSelectedAccordion() {
+        this.activeRow.setAttribute(selectors$2.ACCORDION_EXPANDED, this.toggleExpandState);
+        this.activeContent.setAttribute(selectors$2.ACCORDION_CONTENT, this.toggleContentState);
+        this.activeButton.setAttribute(selectors$2.ARIA_EXPANDED, this.toggleExpandState);
+        this.activeContent.setAttribute(selectors$2.ARIA_HIDDEN, this.toggleHiddenState);
+
+        this.activeContent.style.maxHeight ? this.activeContent.style.maxHeight = null : this.activeContent.style.maxHeight = this.activeContent.scrollHeight + "px";
+      }
+
+      /**
+       * Toggles a single attribute of a series of elements within a parent.
+       */
+
+    }, {
+      key: "toggleAttributeInCollection",
+      value: function toggleAttributeInCollection(elements, attributeName, currentValue, newValue) {
         elements.forEach(function (element) {
-          if (element.hasAttribute(selector, currentAttr)) {
-            element.setAttribute(selector, newAttr);
+          if (element.hasAttribute(attributeName, currentValue)) {
+            element.setAttribute(attributeName, newValue);
           }
         });
       }

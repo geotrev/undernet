@@ -5,13 +5,15 @@ Monolith is a set of configurable components, so the most effective way to use i
 
 ### Basic Installation
 
-[Download SCSS](https://github.com/geotrev/getmonolith.io/raw/master/dist/monolith-scss.zip)
-[Download CSS](https://github.com/geotrev/getmonolith.io/raw/master/dist/monolith-css.zip)
-[Download JS](https://github.com/geotrev/getmonolith.io/raw/master/dist/monolith-js.zip)
+[Download SCSS](https://github.com/geotrev/getmonolith.io/raw/master/dist/monolith.scss.zip)
+[Download CSS](https://github.com/geotrev/getmonolith.io/raw/master/dist/monolith.css.zip)
+[Download JS (compiled)](https://github.com/geotrev/getmonolith.io/raw/master/dist/monolith.js.zip)
+[Download JS (modules)](https://github.com/geotrev/getmonolith.io/raw/master/dist/monolith.modules.js.zip)
 
-[Download SCSS (prerelease)](https://github.com/geotrev/getmonolith.io/raw/develop/dist/monolith-scss.zip)
-[Download CSS (prerelease)](https://github.com/geotrev/getmonolith.io/raw/develop/dist/monolith-css.zip)
-[Download JS (prerelease)](https://github.com/geotrev/getmonolith.io/raw/develop/dist/monolith-js.zip)
+[Download SCSS (prerelease)](https://github.com/geotrev/getmonolith.io/raw/develop/dist/monolith.scss.zip)
+[Download CSS (prerelease)](https://github.com/geotrev/getmonolith.io/raw/develop/dist/monolith.css.zip)
+[Download JS (compiled, prerelease)](https://github.com/geotrev/getmonolith.io/raw/develop/dist/monolith.js.zip)
+[Download JS (modules, prerelease)](https://github.com/geotrev/getmonolith.io/raw/develop/dist/monolith.modules.js.zip)
 
 #### Contents
 
@@ -83,17 +85,19 @@ _Note: Monolith does not run simply from importing or requiring the file. You sp
 
 ### Advanced
 
-If you choose to use the `getmonolith` module, things are easier in some places but harder in others. Overall, it's a lot more flexible, though. Especially for React! 🎉
+If you choose to use the `getmonolith` node module, things are easier in some places but harder in others. Overall, it's a lot more flexible, though. Especially for React! 🎉
 
 #### SCSS
 
-This is the trickiest part. First, you need to mimic the structure of the core style import, but exclude all elements paths. From there, apply all overrides to the original config _before_ the import statement. You can then `@import` it in separate files to retrieve the variables, mixins, and functions.
+This is the trickiest part. First, you need to import function helpers, the original config, and mixin helpers into your new config file. From there, apply all overrides to the original config _before_ its import statement.
+
+What variables are in the original config? [Check that out here.](https://github.com/geotrev/getmonolith.io/blob/master/scss/_config.scss)
 
 ```sass
-@import "helpers/functions/base";
+@import "~getmonolith/scss/helpers/functions/base";
 // config overrides here!
-@import "config";
-@import "helpers/mixins/base";
+@import "~getmonolith/scss/config";
+@import "~getmonolith/scss/helpers/mixins/base";
 ```
 
 In separate stylesheets, if you need access to these variables and they aren't available, just `@import` this new config file.
@@ -104,15 +108,15 @@ Finally, you can include the rest of the elements styling, but make sure it's al
 // config
 @import "path/to/newConfig";
 // elements
-@import "elements/global/base";
-@import "helpers/classes/base";
-@import "elements/grid/base";
-@import "elements/typography/base";
-@import "elements/link/base";
-@import "elements/button/base";
-@import "elements/form/base";
+@import "~getmonolith/scss/elements/global/base";
+@import "~getmonolith/scss/helpers/classes/base";
+@import "~getmonolith/scss/elements/grid/base";
+@import "~getmonolith/scss/elements/typography/base";
+@import "~getmonolith/scss/elements/link/base";
+@import "~getmonolith/scss/elements/button/base";
+@import "~getmonolith/scss/elements/form/base";
 // components
-@import "components/modal";
+@import "~getmonolith/scss/components/modal";
 ```
 
 #### JavaScript

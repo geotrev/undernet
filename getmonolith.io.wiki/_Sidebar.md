@@ -11,8 +11,8 @@
 
 ### Modals
 * [Modals](modals)
+* [Accordions](accordions)
 
 ### Helpers / Utilities
-* [Classes](classes)
-* [Mixins](mixins)
-* [Functions](functions)
+* [Style Utilities](style-utilities)
+* [JavaScript Utilities](js-utilities)

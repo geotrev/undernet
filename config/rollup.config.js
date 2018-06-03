@@ -5,7 +5,7 @@ const pkg = require(path.resolve(__dirname, "../package.json"))
 const year = new Date().getFullYear()
 
 module.exports = {
-  input: path.resolve("framework/js/src/monolith.js"),
+  input: path.resolve("js/src/monolith.js"),
   output: {
     file: path.resolve("dist/monolith.bundle.js"),
     format: "umd",
