@@ -2018,12 +2018,23 @@ textarea {
   border: 2px solid lightgray;
   overflow: hidden;
   border-radius: 4px; }
-  [data-accordion] [data-accordion-content="hidden"] {
-    display: none; }
-  [data-accordion] [data-accordion-content="visible"] {
-    display: block; }
-  [data-accordion] [data-accordion-content] {
+  [data-accordion] [data-accordion-expanded] h1,
+  [data-accordion] [data-accordion-expanded] h2,
+  [data-accordion] [data-accordion-expanded] h3,
+  [data-accordion] [data-accordion-expanded] h4,
+  [data-accordion] [data-accordion-expanded] h5,
+  [data-accordion] [data-accordion-expanded] h6 {
+    padding: 0;
+    margin: 0;
+    font-size: 16px; }
+  [data-accordion] .accordion-content {
     padding: 16px; }
+  [data-accordion] [data-accordion-content] {
+    overflow: hidden;
+    padding: 0;
+    max-height: 0;
+    transition: max-height 0.2s ease-out;
+    border-bottom: 2px solid lightgray; }
   [data-accordion] [data-accordion-button] {
     display: flex;
     flex-flow: row nowrap;
@@ -2031,18 +2042,20 @@ textarea {
     text-decoration: none;
     align-items: center;
     padding: 16px;
-    border-bottom: 2px solid lightgray; }
+    width: 100%;
+    border: none;
+    color: goldenrod;
+    padding: 16px;
+    margin: 0;
+    border-radius: 0; }
+    [data-accordion] [data-accordion-button]:hover {
+      color: #d19e1f;
+      background: #f7f7f7; }
     [data-accordion] [data-accordion-button]::after {
       content: "\25B2";
-      font-size: 12px;
-      text-rendering: optimize; }
+      font-size: 12px; }
   [data-accordion] [data-accordion-expanded="false"] [data-accordion-button]::after {
     transform: rotate(180deg); }
-  [data-accordion] [data-accordion-expanded="true"] [data-accordion-button] {
-    border-bottom: none; }
-  [data-accordion] [data-accordion-expanded="true"] [data-accordion-content] {
-    border-bottom: 2px solid lightgray; }
-  [data-accordion] [data-accordion-expanded]:last-child [data-accordion-button],
   [data-accordion] [data-accordion-expanded]:last-child [data-accordion-content] {
     border-bottom: none; }
 

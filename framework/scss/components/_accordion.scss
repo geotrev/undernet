@@ -4,12 +4,12 @@
   border-radius: $global-border-radius;
 
   [data-accordion-expanded] {
-    > h1,
-    > h2,
-    > h3,
-    > h4,
-    > h5,
-    > h6 {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
       padding: 0;
       margin: 0;
       font-size: $global-font-size;
