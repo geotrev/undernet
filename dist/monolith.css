@@ -2048,7 +2048,7 @@ textarea {
     padding: 16px;
     margin: 0;
     border-radius: 0; }
-    [data-accordion] [data-accordion-button]:hover {
+    [data-accordion] [data-accordion-button]:hover, [data-accordion] [data-accordion-button]:focus {
       color: #d19e1f;
       background: #f7f7f7; }
     [data-accordion] [data-accordion-button]::after {
