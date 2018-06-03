@@ -1,12 +1,22 @@
-Monolith's modal component is easy to use if you're familiar with other frameworks.
+Add a modal to add focus to your web experience.
 
-To kick it off, you'll need a button with an id value matching your modal's `data-modal-name` attribute.
+To kick it off, you'll need a button with an id, and a container (the actual modal) with a `[data-modal-name]` attribute matching the button's id.
+
+Next, enable the javascript plugin. See the [download page](download) for details.
+
+### Button
 
 ```html
 <a href="#" id="new-modal">Open modal</a>
 ```
 
-You'll also need the correct markup structure: an overlay (background) and modal container. The overlay should have your `data-modal-name` attribute.
+You'll also need the correct wrapper structure: an overlay (background) and modal container. Having the below markup structure with a `header`, `section`, and `footer` is not required, but it is styled by default for your convenience. You can use whatever content style you choose.
+
+#### Close
+
+Simply including `[data-modal-close]` on link elements that should dismiss the modal (including your custom primary action, if that's desired).
+
+### Modal Example
 
 ```html
 <div data-modal-overlay data-modal-name="new-modal">
@@ -34,4 +44,4 @@ You'll also need the correct markup structure: an overlay (background) and modal
 </div>
 ```
 
-Next: [Classes ►](classes)
+Next: [Accordions ►](accordions)

@@ -26,7 +26,7 @@ Instead, you need to have a parent class somewhere with `.mono`:
 
 ```html
 <div class="mono">
-  <div class="narrow grid"></div>
+  <div class="narrow grid"> ... </div>
 </div>
 ```
 
@@ -45,45 +45,38 @@ Monolith comes with a handy flex grid for layouts. It’s nothing fancy – and 
 * `$grid-sections`: Vertical spacing modifiers for `.grid`.
 * `$breakpoints`: Used for media queries _and_ the grid classes for monolith. Note if you remove one, make sure it isn't mentioned in other configurations with `map-get`!
 * Spacing & Gutters: Configure gutters and other spacing for column containers.
-* `$column-offset-classes`: Switch to `true` to include conventional offset modifiers. `true` by default.
-* `$column-order-classes`: Switch to `true` to include flex order modifiers. `true` by default.
+* `$column-offset-classes`: Switch to `false` to exclude conventional offset modifiers. `true` by default.
+* `$column-order-classes`: Switch to `false` to exclude flex order modifiers. `true` by default.
 
 _Note: You'll need to define an order threshold to ensure there is a default order property placed on all column elements (the default is `20`). I.e., for `15`, you will end up with all columns having their order set to `15`, but using an order class will override this. This enables you to have some siblings with order classes but not others, preventing strange browser side effects._
 
 ### 3. Typography
 
-Typography can be tough to get right. Here, you’ll have the flexibility to customize the key properties (margin, font-size, etc) on a per-breakpoint scale, as well as give unique stylings to each heading, paragraph, and several inline tags.
+Typography gives you the flexibility to customize the key properties (margin, font-size, etc) on a per-breakpoint scale, as well as give unique stylings to each heading, paragraph, and several inline tags.
 
 **Options**
 
-* `$type-header-styles`: Styles for `h1`-`h6`.
-* `$type-header-sizes`: Defines breakpoint behavior for header font-size and margin.
+* `$type-header-styles` (map): Styles for `h1`-`h6`.
+* `$type-header-sizes` (map): Defines breakpoint behavior for header font-size and margin.
 * Inline Type: Includes modifiers for `mark`, `pre`, `code`, `em`, and other inline text tags.
 * Lists: Choose how to space your `ul` and `li` elements.
 
 ### 4. Buttons
 
-There is a lot of flexibility in how you want to configure your buttons. Monolith encourages you to take control of the styles that matter first, and simply add on extras later as a separate stylesheet if you need to. Options here will allow you to change any of the default, `:active`, `:hover`, or `:focus` states to your hearts content. Be sure to include those later if you need to add extra styles!
+There is a lot of flexibility in how you can configure your buttons. Monolith encourages you to take control of the styles that matter first, and simply add on extras later as a separate stylesheet if you need to. Options here will allow you to change any of the default, `:active`, `:hover`, or `:focus` states to your hearts content. If you override these configurations in a new stylesheet, be sure to account for the various states.
 
 **Options**
 
 * Defaults: Define the core default button style.
-* `$button-sizes`: A map containing custom button sizes.
-* `$button-types`: A map defining custom button stylings. Defaults are `primary`, `secondary`, `tertiary`, `inverted`, `inverted-outline`, and four status styles.
+* `$button-sizes` (map): Custom button sizes.
+* `$button-types` (map): Defines custom button stylings. Defaults are `primary`, `secondary`, `tertiary`, `inverted`, `inverted-outline`, and four status styles.
 * `<a>`: Styles for anchor links.
 
 ### 5. Forms
 
-Forms will be styled to look right in newer versions of modern browsers and IE11.
+Included elements are `<form>`, `<fieldset>`, `<legend>`, inputs types including `text`, `radio` and `checkbox`, and `<textarea>`.
 
-**Tags**
-
-* Form
-* Fieldset & Legend
-* Inputs: button, text, radio, checkbox
-* Textarea
-
-**Other options**
+**Options**
 
 * Rows & Columns: Define column/radio row and column spacing properties. Wrap inputs with these to create cross-browser compatible flex rows and columns.
 

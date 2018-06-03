@@ -10,6 +10,7 @@ import Type from "./Type/Type"
 import Buttons from "./Buttons/Buttons"
 import Forms from "./Forms/Forms"
 import Modals from "./Modals/Modals"
+import Accordions from "./Accordions/Accordions"
 
 const Examples = () => {
   const navItems = [
@@ -24,7 +25,10 @@ const Examples = () => {
     },
     {
       header: "Components",
-      links: [{ name: "Modals", url: "/examples/modals" }],
+      links: [
+        { name: "Modals", url: "/examples/modals" },
+        { name: "Accordions", url: "/examples/accordions" },
+      ],
     },
   ]
 
@@ -41,6 +45,7 @@ const Examples = () => {
           <Route exact path="/examples/buttons" component={Buttons} />
           <Route exact path="/examples/forms" component={Forms} />
           <Route exact path="/examples/modals" component={Modals} />
+          <Route exact path="/examples/accordions" component={Accordions} />
         </div>
       </div>
     </div>

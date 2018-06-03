@@ -11,7 +11,7 @@ const Docs = () => {
       header: "Getting Started",
       links: [
         { name: "Overview", url: "/docs/overview" },
-        { name: "Download", url: "/docs/download" },
+        { name: "Getting Started", url: "/docs/getting-started" },
         { name: "Configuration", url: "/docs/configuration" },
       ],
     },
@@ -26,7 +26,10 @@ const Docs = () => {
     },
     {
       header: "Components",
-      links: [{ name: "Modals", url: "/docs/modals" }],
+      links: [
+        { name: "Modals", url: "/docs/modals" },
+        { name: "Accordions", url: "/docs/accordions" },
+      ],
     },
     {
       header: "Helpers",
