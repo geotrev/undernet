@@ -18,7 +18,7 @@ To this:
 
 In Monolith, your `_config.scss` file will let you style different breakpoints (mapped to `$breakpoints` in your grid component) as a part of this map:
 
-```sass
+```css
 $type-header-sizes: (
   small: (
     // small breakpoint h1-h6
@@ -38,7 +38,7 @@ You can use any of the default (or custom, if you added any) breakpoints as extr
 
 In addition, you can style each individual header using the `$type-header-styles` map. 
 
-```sass
+```css
 $type-header-styles: (
   h1: (
     color: $gray200,

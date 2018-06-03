@@ -34,14 +34,14 @@ monolith-scss/
 
 ### Import all the things
 
-The easiest option for setup is to import directly. You can still edit the config if you want to reduce the amount of overrides in your own stylesheets.
+The easiest option for setup is to import directly. You can even edit the config if you want to reduce the amount of overrides in your own stylesheets, too (see `_config.scss`).
 
 #### SCSS
 
 SCSS import or add a `<link>` in your `<head>` tag:
 
-```sass
-// import scss if you are including config changes, otherwise css works too:
+```css
+// import the entire scss library; point to `monolith.scss`
 @import "path/to/monolith";
 ```
 
@@ -57,16 +57,14 @@ To include the javascript, there is also two similar options: import the module 
 
 ```js
 // es5 require()
-var Monolith = require("path/to/monolith")
+var Monolith = require("getmonolith")
 // ... or es6 import
-import Monolith from "path/to/monolith"
+import Monolith from "getmonolith"
 // ... then start all javascript components on page load
 Monolith.start()
 // or run a specific component
-Monolith.COMPONENT_NAME().start()
+Monolith.modals().start()
 ```
-
-_Note: if you use the npm package, replace `path/to/monolith` with `getmonolith`._
 
 Or...
 
@@ -77,7 +75,7 @@ Or...
   // Monolith is attached to the `window` object now.
   Monolith.start()
   // or run a specific component
-  Monolith.COMPONENT_NAME().start()
+  Monolith.modals().start()
 </script>
 ```
 
@@ -93,7 +91,7 @@ This is the trickiest part. First, you need to import function helpers, the orig
 
 What variables are in the original config? [Check that out here.](https://github.com/geotrev/getmonolith.io/blob/master/scss/_config.scss)
 
-```sass
+```css
 @import "~getmonolith/scss/helpers/functions/base";
 // config overrides here!
 @import "~getmonolith/scss/config";
@@ -104,8 +102,7 @@ In separate stylesheets, if you need access to these variables and they aren't a
 
 Finally, you can include the rest of the elements styling, but make sure it's all only included once!
 
-```sass
-// config
+```css
 @import "path/to/newConfig";
 // elements
 @import "~getmonolith/scss/elements/global/base";
@@ -117,6 +114,7 @@ Finally, you can include the rest of the elements styling, but make sure it's al
 @import "~getmonolith/scss/elements/form/base";
 // components
 @import "~getmonolith/scss/components/modal";
+@import "~getmonolith/scss/components/accordions";
 ```
 
 #### JavaScript

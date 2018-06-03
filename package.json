@@ -64,6 +64,7 @@
     "nyc": "^11.3.0",
     "postcss-loader": "^2.0.9",
     "prettier": "^1.12.1",
+    "prismjs": "^1.14.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-feather": "^1.0.8",

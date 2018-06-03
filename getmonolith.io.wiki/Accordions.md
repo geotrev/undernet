@@ -1,6 +1,6 @@
 Use an accordion to hide and show chunks of content.
 
-First, create an accordion based on the [markup structure below](#accordion-example). There are some key parts to note [below](#button).
+First, create an accordion based on the [html structure below](#accordion-example). There are some key parts to note [below](#button).
 
 Next, enable the javascript plugin. See the [download page](download) for details.
 
@@ -8,7 +8,7 @@ Next, enable the javascript plugin. See the [download page](download) for detail
 
 An accordion requires a few attributes to work, but are pretty self-explanatory:
 
-```markup
+```html
 <div data-accordion="accordion1">
   <div data-accordion-expanded="true">
     <h5 id="button-1">
@@ -39,7 +39,7 @@ An accordion requires a few attributes to work, but are pretty self-explanatory:
 
 All together, here is a two-row accordion:
 
-```markup
+```html
 <div data-accordion="accordion1">
   <div data-accordion-expanded="true">
     <h5 id="button-1">

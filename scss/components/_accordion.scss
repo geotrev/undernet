@@ -42,7 +42,8 @@
     margin: 0;
     border-radius: 0;
 
-    &:hover {
+    &:hover,
+    &:focus {
       color: darken($primary-color, 2%);
       background: lighten($gray900, 10%);
     }

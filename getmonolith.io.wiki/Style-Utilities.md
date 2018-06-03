@@ -53,7 +53,7 @@ The mixin sets all defaults of these arguments to the default values in `_config
 
 Defaults:
 
-```sass
+```css
 @mixin button-style(
   // default state
   $box-shadow: $button-box-shadow,
@@ -82,7 +82,7 @@ Defaults:
 
 `flex` is a flexbox mixin helper. It takes core flex properties, and can be useful for setting those properties on parent and children elements.
 
-```sass
+```css
 @mixin flex(
   $display: null,
   $direction: null,
@@ -98,7 +98,7 @@ Defaults:
 
 This is the core of Monolith's grid classes generator. It takes a single argument, `$size`, which is grabbed from one of the keywords in the `$breakpoints` map in `_config.scss`.
 
-```sass
+```css
 @mixin grid-classes($size) { ... }
 ```
 
@@ -110,7 +110,7 @@ Used in many parts of Monolith, these simply generate various breakpoint `@media
 * `breakpoint-down`: Affects styles narrower than a given size.
 * `breakpoint-between`: Affects styles between two sizes.
 
-```sass
+```css
 @mixin breakpoint-up($size) { ... }
 @mixin breakpoint-down($size) { ... }
 @mixin breakpoint-between($min, $max) { ... }
@@ -120,7 +120,7 @@ Used in many parts of Monolith, these simply generate various breakpoint `@media
 
 There's one mixin used here to generate responsive behavior for header tags. This mixin takes one argument, a `$size`, which is grabbed from the `$type-header-sizes` map in `_config.scss`. The mixin then leverages `map-deep-get` to retrieve the various styles defined in that configuration.
 
-```sass
+```css
 @mixin header-sizes($size) { ... }
 ```
 
@@ -135,7 +135,7 @@ The SCSS library has only a couple functions it needs to get the job done, and t
 
 Takes a keyword as an argument, like `warning`, to capture that color's hex value within `$status-palette` in `_config.scss`.
 
-```sass
+```css
 @function status($color) {
   @return map-get($status-palette, $color);
 }
