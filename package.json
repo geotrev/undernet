@@ -7,6 +7,10 @@
   "author": "George Treviranus",
   "license": "MIT",
   "private": false,
+  "engines": {
+    "node": "v10.3.0",
+    "npm": "6.1.0"
+  },
   "scripts": {
     "test": "nyc mocha -r babel-register -r config/testHelpers.js --recursive src/**/*.spec.js",
     "test:w": "mocha --watch -r babel-register -r config/testHelpers.js --recursive src/**/*.spec.js",
