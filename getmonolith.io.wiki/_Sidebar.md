@@ -1,5 +1,5 @@
 ### Getting Started
-* [Ethos](home)
+* [Overview](home)
 * [Download](download)
 * [Configuration](configuration)
 

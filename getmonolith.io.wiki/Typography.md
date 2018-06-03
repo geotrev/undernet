@@ -1,6 +1,6 @@
-Typography is a fairly light component in Monolith, but has many options for individual headers and text tags. Configuration can be found in `_config.scss`.
+Typography elements have many options for individual headers and text tags. Configuration can be found in `_config.scss`.
 
-You’ll be able to use the tags as classless wrappers, or add the class of another tag to customize it like another typography element.
+You’ll be able to use the tags as classless wrappers, or add the class of another tag to customize it like another typography element (useful for headers).
 
 In other words, this is visually identical:
 
@@ -16,7 +16,7 @@ To this:
 
 ### Header Responsiveness
 
-In Monolith, your `_config.scss` file will let you style different breakpoints (mapped to `$breakpoints` in your grid component) as a part of this map:
+Customize `font-size` and `margin-bottom` by breakpoint.
 
 ```css
 $type-header-sizes: (
@@ -32,11 +32,11 @@ $type-header-sizes: (
 );
 ```
 
-You can use any of the default (or custom, if you added any) breakpoints as extra keys for responsive behavior. 
+Add more breakpoints as defined in `$breakpoints` for more flexibility.
 
 ### Header Styling
 
-In addition, you can style each individual header using the `$type-header-styles` map. 
+In addition, you can style each individual header using the `$type-header-styles` map.
 
 ```css
 $type-header-styles: (
@@ -49,14 +49,14 @@ $type-header-styles: (
 );
 ```
 
-Note: if you want to edit the font family of your headers, you can do so with typography [helper classes](classes).
+Note: if you want to edit the font family of your headers, you can do so with typography [helper classes](style-utilities).
 
 ### Inline Text
 
-There are several options for inline text: `small`, `mark`, `pre`, `code`, `em`, and `strong`.
+There are several options for inline text: `small`, `mark`, `pre`, `code`, `em`, and `strong` elements.
 
 ### Lists
 
-Style basic list attributes like padding, margin, and list-style-type for both `ol` and `ul`.
+Style basic list attributes like padding, margin, and list-style-type for both `ol` and `ul` elements.
 
 Next: [Buttons ►](buttons)

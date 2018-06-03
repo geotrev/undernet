@@ -11,7 +11,7 @@ const Docs = () => {
       header: "Getting Started",
       links: [
         { name: "Overview", url: "/docs/overview" },
-        { name: "Download", url: "/docs/download" },
+        { name: "Getting Started", url: "/docs/getting-started" },
         { name: "Configuration", url: "/docs/configuration" },
       ],
     },

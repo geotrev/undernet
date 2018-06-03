@@ -7,7 +7,7 @@ import ChevronRight from "react-feather/dist/icons/chevron-right"
 import { ScrollUpOnMount } from "helpers"
 
 import OverviewMd from "articles/Home.md"
-import DownloadMd from "articles/Download.md"
+import GettingStartedMd from "articles/Getting-Started.md"
 import ConfigMd from "articles/Configuration.md"
 import GridMd from "articles/Grid.md"
 import TypeMd from "articles/Typography.md"
@@ -34,8 +34,8 @@ export default class DocsRoutes extends Component {
           />
           <Route
             exact
-            path="/docs/download"
-            render={() => this.renderArticle(DownloadMd, "Download")}
+            path="/docs/getting-started"
+            render={() => this.renderArticle(GettingStartedMd, "Getting Started")}
           />
           <Route
             exact

@@ -2,7 +2,7 @@ Monolith’s grid is very similar to other CSS grids you’ve probably seen/used
 
 ### The Basics
 
-As noted on the configuration article, your grid has some presets for breakpoints, as well as two things called “sections” and “widths”. 
+As noted on the configuration article, your grid has some presets for breakpoints, as well as two things called “sections” and “widths”.
 
 Widths are exactly what they sound like: declaring a grid with a `.narrow` class will give you a grid horizontally narrower than the default. There are three modifiers, plus the default (which is defined further down in grid settings).
 
@@ -40,7 +40,7 @@ Sections do the same, but add top and bottom padding. This can be helpful for cr
 
 ### Rows & Columns
 
-Like other CSS grids, your layouts are defined with rows and columns.
+Like other grid systems, layouts are defined with `row`s and `columns`:
 
 ```html
 <div class=“grid”>
@@ -52,11 +52,11 @@ Like other CSS grids, your layouts are defined with rows and columns.
 </div>
 ```
 
-Rows have no padding or margin, and automatically fill the width of their parent (usually a .grid, but not a requirement). Columns, by default, have left, right, and bottom padding, but you can add a top if desired. Add, edit, or remove pixels as you need them.
+Rows have no padding or margin, and automatically fill the width of their parent (usually a .grid, but not a requirement). Columns, by default, have left, right, and bottom padding.
 
 ### Multiple Columns
 
-If you add columns, they stack next to each other equally spaced apart:
+If you add a `column` element inside a `row`, they stack next to each other with equal width:
 
 ```html
 <div class=“grid”>
@@ -73,7 +73,7 @@ If you add columns, they stack next to each other equally spaced apart:
 
 ### Multiple Rows
 
-You can also add more rows within your columns. If you need a `.grid` as your page layout wrapper, then just add more `.row`s and `.columns`:
+You can also add more rows within your columns for adding flexibility:
 
 ```html
 <div class=“grid”>
@@ -187,7 +187,7 @@ But you can also use offset if you need to break out of the grid. Switch `$colum
 Create a grid that always takes up the full width and height of your device/browser window:
 
 ```html
-<div class=“grid”>
+<div class=“fullscreen grid”>
   <div class=“row”>
     <div class=“columns”>
       <p>I’m huge, woohoo!</p>
@@ -204,7 +204,7 @@ By default, your `.row` will be vertically centered. To change this, add a modif
 <div class=“fullscreen grid”>
   <div class=“row align-top”>
     <div class=“columns”>
-      <p>I’m on the top.</p>
+      <p>I’m at the top.</p>
     </div>
   </div>
 </div>
@@ -214,24 +214,24 @@ By default, your `.row` will be vertically centered. To change this, add a modif
 <div class=“fullscreen grid”>
   <div class=“row align-bottom”>
     <div class=“columns”>
-      <p>I’m on the bottom.</p>
+      <p>I’m at the bottom.</p>
     </div>
   </div>
 </div>
 ```
 
-But of course, layouts are never _that_ simple in execution sometimes, so you can still add more `.row`s if you need them. They’ll be evenly spaced vertically in the grid container:
+But of course, layouts aren't always _that_ simple in execution, so you can still add more `.row`s if you need them. They’ll be evenly spaced vertically in the grid container:
 
 ```html
 <div class=“fullscreen grid”>
   <div class=“row”>
     <div class=“columns”>
-      <p>I’m on the top.</p>
+      <p>I’m at the top.</p>
     </div>
   </div>
   <div class=“row”>
     <div class=“columns”>
-      <p>I’m on the bottom.</p>
+      <p>I’m at the bottom.</p>
     </div>
   </div>
 </div>

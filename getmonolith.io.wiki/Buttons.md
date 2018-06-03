@@ -1,8 +1,8 @@
-Monolith’s button are fairly customizable and easy to use. Configuration can be found in `_config.scss`.
+Use buttons for call to actions or other user interactions. Can be used with [modals](modals). Configuration can be found in `_config.scss`.
 
 ### Default Button
 
-You should have nearly full control over your button’s various states. You’ll also be able to see these styles across relevant tags: `a`, `button`, and `input`.
+You should have nearly full control over your button’s various states. You’ll be able to see these styles across relevant tags: `a`, `button`, and `input`.
 
 ```html
 <button>Submit</button>
