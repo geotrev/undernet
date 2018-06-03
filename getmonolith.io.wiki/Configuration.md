@@ -45,8 +45,8 @@ Monolith comes with a handy flex grid for layouts. It’s nothing fancy – and 
 * `$grid-sections`: Vertical spacing modifiers for `.grid`.
 * `$breakpoints`: Used for media queries _and_ the grid classes for monolith. Note if you remove one, make sure it isn't mentioned in other configurations with `map-get`!
 * Spacing & Gutters: Configure gutters and other spacing for column containers.
-* `$column-offset-classes`: Switch to `true` to include conventional offset modifiers. `true` by default.
-* `$column-order-classes`: Switch to `true` to include flex order modifiers. `true` by default.
+* `$column-offset-classes`: Switch to `false` to exclude conventional offset modifiers. `true` by default.
+* `$column-order-classes`: Switch to `false` to exclude flex order modifiers. `true` by default.
 
 _Note: You'll need to define an order threshold to ensure there is a default order property placed on all column elements (the default is `20`). I.e., for `15`, you will end up with all columns having their order set to `15`, but using an order class will override this. This enables you to have some siblings with order classes but not others, preventing strange browser side effects._
 
