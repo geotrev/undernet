@@ -47,7 +47,7 @@ There are a number of mixins used in Monolith to generate the many components. L
 
 #### Button
 
-The button mixing behaves as a template for new buttons. It has 16 arguments, handling all states of `box-shadow`, `color`, `border-color`, and `background`.
+The button mixin behaves as a template for new buttons. It has 16 arguments, handling all states of `box-shadow`, `color`, `border-color`, and `background`.
 
 The mixin sets all defaults of these arguments to the default values in `_config.scss`. This mixin is then reused to generate button types from `$button-types`, also in `_config.scss`.
 

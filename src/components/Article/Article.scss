@@ -13,6 +13,7 @@
 
   h4 {
     font-size: 20px;
+    padding-top: 16px;
   }
 
   h2,
@@ -26,6 +27,10 @@
     > code {
       display: initial;
     }
+  }
+  
+  code {
+    padding: 0;
   }
 
   pre,
