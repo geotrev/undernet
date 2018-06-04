@@ -10,9 +10,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 ### Attributes & Parts
 
+Modals depend on a few base attributes, and the rest (including aria) is derived from there.
+
 ```html
 <a href="#" id="new-modal">Open modal</a>
-
 <div data-modal-overlay data-modal-id="new-modal">
   <div aria-labelledby="header-id" data-modal>
     <header>
@@ -44,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
 * `[data-modal-close]`: Adding this to a link or button automatically allows your modal to be closed on click.
 
 #### Accessibility
-All main aria- attributes are added automatically for you based on the structure above, with the exception of `[aria-labelledby]`:
+All main aria- attributes are added automatically, as mentioned, with the exception of `[aria-labelledby]`:
 
 * `[aria-labelledby]`: The inner modal container should have this attribute pointing to the header element's `id` attribute. This helps assistive technologies identify the title/label of the content.
 
