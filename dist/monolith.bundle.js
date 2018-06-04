@@ -1,6 +1,6 @@
 /*!
   * @license MIT (https://github.com/geotrev/getmonolith.io/blob/master/LICENSE)
-  * Monolith v2.0.0 (https://getmonolith.io)
+  * Monolith v0.1.0 (https://getmonolith.io)
   * Copyright 2017-2018 George Treviranus
   */
 (function (global, factory) {
