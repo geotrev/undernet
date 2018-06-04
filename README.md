@@ -17,11 +17,12 @@ The framework features:
 
 ## Getting Started
 
-Install dependencies and get the site up and running.
+Clone the repo and re-clone the wiki contents.
 
 ```shell
 $ git clone git@github.com:geotrev/getmonolith.io.git
 $ cd getmonolith.io/
+$ rm -rf getmonolith.io.wiki/ && git clone https://github.com/geotrev/getmonolith.io.wiki.git
 $ npm install
 ```
 
