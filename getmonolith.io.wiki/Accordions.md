@@ -2,7 +2,13 @@ Use an accordion to hide and show chunks of content.
 
 First, create an accordion based on the [html structure below](#accordion-example). There are some key parts to note [below](#button).
 
-Next, enable the javascript plugin. See the [download page](download) for details.
+Then enable the javascript plugin near the end of the `<body>`:
+
+```js
+document.addEventListener("DOMContentLoaded", () => {
+  Monolith.accordions().start()
+})
+```
 
 ### Attributes & Parts
 
@@ -34,6 +40,13 @@ An accordion requires a few attributes to work, but are pretty self-explanatory:
 * `[data-accordion-button]`: Identifier pointing a button to its corresponding content block.
 * `[data-accordion-content]`: Identifier detecting if a content block is currently visible or not. Set to `"visible"` if it's expanded by default, and `"hidden"` otherwise.
 * `[data-accordion-toggle-multiple]` (optional): Add to your `[data-accordion]` element to enable multiple accordion content blocks to be expanded at once, otherwise only one can be visible at a time (you can still have multiple open by default, but unless this attribute is present, they will all close except the one you selected, once you've clicked one).
+
+
+#### Accessibility
+All main aria- attributes are added automatically for you based on the structure above, with the exception of `[aria-controls]` and `[aria-labelledby]`:
+
+* `[aria-controls]`: Each accordion button must have this attribute pointing to its corresponding `[data-accordion-content]` element's `id` attribute. This tells assistive technologies these two elements are related and should be treated as a show/hide widget.
+* `[aria-labelledby]`: Each heading element inside the accordion should have an `id` with a value matching the `[data-accordion-content]` element's `[aria-labelleby]` attribute. This helps assistive technologies identify the title/label of the content.
 
 ### Accordion Example
 

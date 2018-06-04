@@ -1,25 +1,19 @@
-Add a modal to add focus to your web experience.
+Add a modal to add focus to your web experience. They are simple to set up and can be easily customized with CSS.
 
-To kick it off, you'll need a button with an id, and a container (the actual modal) with a `[data-modal-name]` attribute matching the button's id.
+To use it, you must enable the javascript plugin near the end of the `<body>`:
 
-Next, enable the javascript plugin. See the [download page](download) for details.
+```js
+document.addEventListener("DOMContentLoaded", () => {
+  Monolith.modals().start()
+})
+```
 
-### Button
+### Attributes & Parts
 
 ```html
 <a href="#" id="new-modal">Open modal</a>
-```
 
-You'll also need the correct wrapper structure: an overlay (background) and modal container. Having the below markup structure with a `header`, `section`, and `footer` is not required, but it is styled by default for your convenience. You can use whatever content style you choose.
-
-#### Close
-
-Simply including `[data-modal-close]` on link elements that should dismiss the modal (including your custom primary action, if that's desired).
-
-### Modal Example
-
-```html
-<div data-modal-overlay data-modal-name="new-modal">
+<div data-modal-overlay data-modal-id="new-modal">
   <div aria-labelledby="header-id" data-modal>
     <header>
       <h2 class="h6" id="header-id">
@@ -43,5 +37,15 @@ Simply including `[data-modal-close]` on link elements that should dismiss the m
   </div>
 </div>
 ```
+
+#### What's needed?
+* `[data-modal-overlay]`: Adds styling and animations to the overlay.
+* `[data-modal-id]`: The unique id for the container; it should match your button's `id` attribute.
+* `[data-modal-close]`: Adding this to a link or button automatically allows your modal to be closed on click.
+
+#### Accessibility
+All main aria- attributes are added automatically for you based on the structure above, with the exception of `[aria-labelledby]`:
+
+* `[aria-labelledby]`: The inner modal container should have this attribute pointing to the header element's `id` attribute. This helps assistive technologies identify the title/label of the content.
 
 Next: [Accordions ►](accordions)

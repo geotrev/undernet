@@ -8,7 +8,7 @@ const keyCodes = {
 
 const selectors = {
   MODAL_CONTAINER: "data-modal",
-  MODAL_NAME: "data-modal-name",
+  MODAL_ID: "data-modal-id",
   MODAL_VISIBLE: "data-modal-visible",
   MODAL_CLOSE: "data-modal-close",
   MODAL_BUTTON: "data-modal-button",
@@ -19,12 +19,13 @@ const events = {
   KEYDOWN: "keydown",
   CLICK: "click",
   RESIZE: "resize",
+  // needed to prevent iOS <body> scrolling when the overlay is pressed
   TOUCHSTART: "touchstart",
 }
 
 const messages = {
   MISSING_MODAL:
-    "Your button is missing its corresponding modal. Check to make sure your modal is in the DOM, and that is has a [data-modal-name=*] attribute matching the button ID.",
+    "Your button is missing its corresponding modal. Check to make sure your modal is in the DOM, and that is has a [data-modal-id=*] attribute matching the button ID.",
 }
 
 /**
@@ -94,7 +95,7 @@ export default class Modal extends Utils {
   renderModal(event) {
     // setup core lightbox properties
     this.modalButton = event.target
-    this.modalOverlayAttr = `[${selectors.MODAL_NAME}='${this.modalButton.id}']`
+    this.modalOverlayAttr = `[${selectors.MODAL_ID}='${this.modalButton.id}']`
     this.modalOverlay = document.querySelector(this.modalOverlayAttr)
 
     if (!this.modalOverlay) {

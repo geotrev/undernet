@@ -31,7 +31,7 @@ export default class Modals extends Component {
               Modal with a lot of content
             </button>
 
-            <div className="modal-demo" aria-labelledby={this.props.labelledby} role="dialog">
+            <div className="modal-demo" role="dialog">
               <header>
                 <h2>Modal Heading</h2>
                 <a data-modal-close href="#0">

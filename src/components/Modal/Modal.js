@@ -3,7 +3,7 @@ import React, { Component } from "react"
 export default class Modal extends Component {
   render() {
     return (
-      <div className={this.props.modalClass} data-modal-overlay data-modal-name={this.props.id}>
+      <div className={this.props.modalClass} data-modal-overlay data-modal-id={this.props.id}>
         <div aria-labelledby={this.props.labelledby} data-modal>
           <header>
             <h2 id={this.props.labelledby}>{this.props.title}</h2>
