@@ -22,8 +22,7 @@ Clone the repo and re-clone the wiki contents.
 ```shell
 $ git clone git@github.com:geotrev/getmonolith.io.git
 $ cd getmonolith.io/
-$ rm -rf getmonolith.io.wiki/ && git clone https://github.com/geotrev/getmonolith.io.wiki.git
-$ npm install
+$ npm run setup
 ```
 
 The site is both a demo and marketing tool. It is built with my own webpack setup called [Pulsar](https://github.com/geotrev/pulsar).

@@ -12,6 +12,7 @@
     "npm": "6.1.0"
   },
   "scripts": {
+    "setup": "rm -rf getmonolith.io.wiki/ && git clone https://github.com/geotrev/getmonolith.io.wiki.git && npm install",
     "test": "nyc mocha -r babel-register -r config/testHelpers.js --recursive src/**/*.spec.js",
     "test:w": "mocha --watch -r babel-register -r config/testHelpers.js --recursive src/**/*.spec.js",
     "build": "BABEL_ENV=production webpack --config config/webpack.prod.js --progress",
