@@ -1,6 +1,6 @@
 {
   "name": "getmonolith.io",
-  "description": "",
+  "description": "Configuration-first Front-end framework for web projects.",
   "repository": "https://github.com/geotrev/getmonolith.io",
   "scripts": {
   },
