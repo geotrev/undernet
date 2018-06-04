@@ -13,7 +13,7 @@
     }
   },
   "addons": [
-    "heroku-papertrail"
+    "papertrail"
   ],
   "buildpacks": [
     {
