@@ -1,6 +1,7 @@
 {
   "name": "getmonolith.io",
   "description": "",
+  "repository": "https://github.com/geotrev/getmonolith.io",
   "scripts": {
   },
   "env": {
@@ -12,7 +13,7 @@
     }
   },
   "addons": [
-
+    "heroku-papertrail"
   ],
   "buildpacks": [
     {
