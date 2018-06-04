@@ -2,7 +2,7 @@ Monolith is a front-end framework offering a flexible starting point for new web
 
 In addition to styling, Monolith also includes interactive components. Currently there are two: a modal and accordion component. They are easy to use and rely only on a script call and the correct markup structure. More components are planned!
 
-Monolith's CSS and JavaScript will work in recent versions these browsers:
+Monolith's CSS and JavaScript will work in recent versions of these browsers:
 
 * Chrome ✓
 * Firefox ✓
