@@ -15,11 +15,6 @@ module.exports = merge(common, {
       allowExternal: true,
     }),
 
-    // make the js ugly
-    new UglifyJSPlugin({
-      sourceMap: true,
-    }),
-
     // create gzip assets
     new CompressionPlugin({
       test: /\.(js|css)$/,
@@ -35,5 +30,12 @@ module.exports = merge(common, {
       },
     ]),
   ],
+  optimization: {
+    minimizer: [
+      new UglifyJSPlugin({
+        sourceMap: true,
+      }),
+    ],
+  },
   mode: "production",
 })
