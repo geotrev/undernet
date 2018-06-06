@@ -1,6 +1,8 @@
-Monolith is a front-end framework offering a flexible starting point for new web projects. It includes base styling for most common `html` tags, including button, form, link, and typography elements. Also including is a flex-based grid and several helper classes.
+Monolith is a front-end framework offering a flexible starting point for new web projects. It includes base styling for common tags, including buttons, forms, and typography. Also included is a flex-based grid and a handful of helper classes.
 
-In addition to styling, Monolith also includes interactive components. Currently there are two: a modal and accordion component. They are easy to use and rely only on a script call and the correct markup structure. More components are planned!
+In addition to styling, Monolith also includes interactive components. Currently there are two: a modal and accordion component. They are easy to use and rely only on a script call, e.g., `Monolith.accordions().start()` for example, and the correct markup structure. More components are planned!
+
+What makes Monolith stand apart from other frameworks like Bootstrap, Bulma, or Foundation? Truthfully, Monolith started as an experiment to learn the ins and outs of CSS. Since last year, it has evolved into a functioning library that takes the best of many frameworks and puts it all into one easy-to-use package. It is highly configurable and even namespace-able. Monolith is still young, but I hope folks can use it, break it, and help make it even better!
 
 Monolith's CSS and JavaScript will work in recent versions of these browsers:
 
@@ -9,7 +11,7 @@ Monolith's CSS and JavaScript will work in recent versions of these browsers:
 * Safari ✓
 * Microsoft Edge ✓
 
-With support for Internet Explorer 11 as well.
+Monolith also fully supports Internet Explorer 11.
 
 The framework has four core tenets:
 
