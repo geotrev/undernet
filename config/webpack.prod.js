@@ -34,6 +34,11 @@ module.exports = merge(common, {
     minimizer: [
       new UglifyJSPlugin({
         sourceMap: true,
+        uglifyOptions: {
+          mangle: {
+            reserved: ["Monolith"],
+          },
+        },
       }),
     ],
   },

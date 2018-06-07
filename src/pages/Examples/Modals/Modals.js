@@ -6,11 +6,11 @@ import Monolith from "getmonolith"
 
 export default class Modals extends Component {
   componentDidMount() {
-    Monolith.modals().start()
+    Monolith.modals.start()
   }
 
   componentWillUnmount() {
-    Monolith.modals().stop()
+    Monolith.modals.stop()
   }
 
   render() {
