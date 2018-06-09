@@ -1,7 +1,7 @@
 [data-accordion] {
-  border: 2px solid lightgray;
+  border: $accordion-border;
   overflow: hidden;
-  border-radius: $global-border-radius;
+  border-radius: $accordion-border-radius;
 
   [data-accordion-expanded] {
     h1,
@@ -12,20 +12,20 @@
     h6 {
       padding: 0;
       margin: 0;
-      font-size: $global-font-size;
     }
   }
 
   .accordion-content {
-    margin: $global-space;
+    margin: $accordion-content-margin;
   }
 
   [data-accordion-content] {
     overflow: hidden;
     padding: 0;
     max-height: 0;
-    transition: max-height 0.5s cubic-bezier(0.12, 0.72, 0.58, 1.03);
-    border-bottom: 2px solid lightgray;
+    background: $accordion-content-background;
+    transition: max-height $accordion-transition-duration $accordion-transition-ease;
+    border-bottom: $accordion-row-divider;
   }
 
   [data-accordion-button] {
@@ -34,23 +34,25 @@
     justify-content: space-between;
     text-decoration: none;
     align-items: center;
-    padding: 16px;
     width: 100%;
     border: none;
-    color: $primary-color;
-    padding: $global-space;
+    color: $accordion-button-color;
+    background: $accordion-button-background;
+    padding: $accordion-button-padding;
     margin: 0;
     border-radius: 0;
+    font-size: $accordion-content-font-size;
 
     &:hover,
     &:focus {
-      color: darken($primary-color, 2%);
-      background: lighten($gray900, 10%);
+      color: $accordion-button-color-hover;
+      background: $accordion-button-background-hover;
     }
 
     &::after {
       content: "\25B2";
       font-size: 12px;
+      transition: $accordion-transition-duration $accordion-transition-ease;
     }
   }
 

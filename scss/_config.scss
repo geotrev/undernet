@@ -14,6 +14,7 @@
 // --> COMPONENTS <--
 // ------------------
 // 6. Modals
+// 7. Accordions
 // ------------------
 
 // *** --- *** --- ***
@@ -599,3 +600,23 @@ $modal-container-button-alignment: flex-end;
 
 $modal-horizontal-breakpoint: map-get($breakpoints, small);
 $modal-vertical-breakpoint: map-get($breakpoints, small);
+
+// 7. Accordions
+// -------------
+
+$accordion-border: $global-border-width solid $gray900;
+$accordion-border-radius: $global-border-radius;
+$accordion-transition-duration: 0.5s;
+$accordion-transition-ease: cubic-bezier(0.12, 0.72, 0.58, 1.03);
+
+$accordion-button-color: $primary-color;
+$accordion-button-background: $white;
+$accordion-button-color-hover: darken($primary-color, 2%);
+$accordion-button-background-hover: lighten($gray900, 10%);
+$accordion-button-padding: $global-space;
+
+$accordion-row-divider: $accordion-border;
+
+$accordion-content-margin: $global-space;
+$accordion-content-font-size: $global-font-size;
+$accordion-content-background: $white;
