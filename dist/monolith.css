@@ -1962,7 +1962,7 @@ textarea {
   bottom: 0;
   left: 0;
   right: 0;
-  transition: opacity 0.2s ease-out;
+  transition: opacity 0.5s cubic-bezier(0.12, 0.72, 0.58, 1.03);
   pointer-events: none; }
   [data-modal-overlay][data-modal-visible] {
     opacity: 1;
@@ -2041,7 +2041,7 @@ textarea {
     overflow: hidden;
     padding: 0;
     max-height: 0;
-    transition: max-height 0.2s ease-out;
+    transition: max-height 0.5s cubic-bezier(0.12, 0.72, 0.58, 1.03);
     border-bottom: 2px solid lightgray; }
   [data-accordion] [data-accordion-button] {
     display: flex;

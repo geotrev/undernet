@@ -38,9 +38,9 @@ export default class Modal extends Utils {
     super()
     this.closeButtonAttr = `[${selectors.MODAL_CLOSE}]`
     this.modalContainerAttr = `[${selectors.MODAL_CONTAINER}]`
-    this.modals = this.getElements(`[${selectors.MODAL_CONTAINER}]`)
-    this.modalButtons = this.getElements(`[${selectors.MODAL_BUTTON}]`)
-    this.closeButtons = this.getElements(this.closeButtonAttr)
+    this.modals = null
+    this.modalButtons = null
+    this.closeButtons = null
     this.bodyTag = document.body
     this.htmlTag = document.querySelector("html")
 
@@ -56,6 +56,10 @@ export default class Modal extends Utils {
    * Begin listening to elements with [data-modal-button]
    */
   start() {
+    this.modals = this.getElements(`[${selectors.MODAL_CONTAINER}]`)
+    this.modalButtons = this.getElements(`[${selectors.MODAL_BUTTON}]`)
+    this.closeButtons = this.getElements(this.closeButtonAttr)
+
     if (this.modals.length) {
       this.modals.forEach(modal => {
         modal.setAttribute("aria-modal", "true")

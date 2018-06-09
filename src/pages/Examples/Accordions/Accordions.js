@@ -6,11 +6,11 @@ import Monolith from "getmonolith"
 
 export default class Accordions extends Component {
   componentDidMount() {
-    Monolith.accordions().start()
+    Monolith.accordions.start()
   }
 
   componentWillUnmount() {
-    Monolith.accordions().stop()
+    Monolith.accordions.stop()
   }
 
   render() {
