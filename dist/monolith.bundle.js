@@ -214,9 +214,9 @@
 
       _this.closeButtonAttr = "[" + selectors$1.MODAL_CLOSE + "]";
       _this.modalContainerAttr = "[" + selectors$1.MODAL_CONTAINER + "]";
-      _this.modals = _this.getElements("[" + selectors$1.MODAL_CONTAINER + "]");
-      _this.modalButtons = _this.getElements("[" + selectors$1.MODAL_BUTTON + "]");
-      _this.closeButtons = _this.getElements(_this.closeButtonAttr);
+      _this.modals = null;
+      _this.modalButtons = null;
+      _this.closeButtons = null;
       _this.bodyTag = document.body;
       _this.htmlTag = document.querySelector("html");
 
@@ -238,6 +238,10 @@
       key: "start",
       value: function start() {
         var _this2 = this;
+
+        this.modals = this.getElements("[" + selectors$1.MODAL_CONTAINER + "]");
+        this.modalButtons = this.getElements("[" + selectors$1.MODAL_BUTTON + "]");
+        this.closeButtons = this.getElements(this.closeButtonAttr);
 
         if (this.modals.length) {
           this.modals.forEach(function (modal) {
@@ -450,8 +454,8 @@
 
       var _this = possibleConstructorReturn(this, (Accordion.__proto__ || Object.getPrototypeOf(Accordion)).call(this));
 
-      _this.accordionButtons = _this.getElements("[" + selectors$2.ACCORDION_BUTTON + "]");
-      _this.accordionContents = _this.getElements("[" + selectors$2.ACCORDION_CONTENT + "]");
+      _this.accordionButtons = null;
+      _this.accordionContents = null;
       _this.activeContainer = null;
 
       // bind events to class
@@ -461,8 +465,8 @@
     }
 
     /**
-     * Add accessible attributes to accordions
-     * Begin listening to elements with [data-accordion-button]
+     * Add accessible attributes [data-accordion-button] and [data-accordion-content] elements
+     * Begin listening to [data-accordion-button] elements
      */
 
 
@@ -470,6 +474,9 @@
       key: "start",
       value: function start() {
         var _this2 = this;
+
+        this.accordionButtons = this.getElements("[" + selectors$2.ACCORDION_BUTTON + "]");
+        this.accordionContents = this.getElements("[" + selectors$2.ACCORDION_CONTENT + "]");
 
         if (this.accordionButtons.length) {
           this.accordionButtons.forEach(function (button) {
@@ -624,26 +631,25 @@
     return Accordion;
   }(Utils);
 
+  var modals = new Modal();
+  var accordions = new Accordion();
+
   var Monolith = {
-    modals: function modals() {
-      return new Modal();
-    },
-    accordions: function accordions() {
-      return new Accordion();
-    }
+    modals: modals,
+    accordions: accordions
   };
 
-  window.Monolith = Monolith || {};
-
   Monolith.start = function () {
-    Monolith.modals().start();
-    Monolith.accordions().start();
+    Monolith.modals.start();
+    Monolith.accordions.start();
   };
 
   Monolith.stop = function () {
-    Monolith.modals().stop();
-    Monolith.accordions().stop();
+    Monolith.modals.stop();
+    Monolith.accordions.stop();
   };
+
+  window.Monolith = Monolith;
 
   return Monolith;
 

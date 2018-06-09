@@ -35,8 +35,8 @@ const messages = {
 export default class Accordion extends Utils {
   constructor() {
     super()
-    this.accordionButtons = this.getElements(`[${selectors.ACCORDION_BUTTON}]`)
-    this.accordionContents = this.getElements(`[${selectors.ACCORDION_CONTENT}]`)
+    this.accordionButtons = null
+    this.accordionContents = null
     this.activeContainer = null
 
     // bind events to class
@@ -45,10 +45,13 @@ export default class Accordion extends Utils {
   }
 
   /**
-   * Add accessible attributes to accordions
-   * Begin listening to elements with [data-accordion-button]
+   * Add accessible attributes [data-accordion-button] and [data-accordion-content] elements
+   * Begin listening to [data-accordion-button] elements
    */
   start() {
+    this.accordionButtons = this.getElements(`[${selectors.ACCORDION_BUTTON}]`)
+    this.accordionContents = this.getElements(`[${selectors.ACCORDION_CONTENT}]`)
+
     if (this.accordionButtons.length) {
       this.accordionButtons.forEach(button => {
         this.setupButton(button)

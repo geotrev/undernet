@@ -55,7 +55,7 @@ $status-palette: (
   warning: khaki,
   success: green,
   destroy: red,
-  notice: steelblue
+  notice: steelblue,
 ) !default;
 
 $global-border-radius: 4px;
@@ -68,19 +68,19 @@ $global-outline: 2px solid $primary-color;
 $grid-classes: (
   grid: "grid",
   row: "row",
-  column: "column"
+  column: "column",
 ) !default;
 
 $grid-widths: (
   fluid: 100%,
   narrow: 768px,
-  wide: 1200px
+  wide: 1200px,
 ) !default;
 
 $grid-sections: (
   small: 48px,
   medium: 96px,
-  large: 144px
+  large: 144px,
 ) !default;
 
 $breakpoints: (
@@ -88,7 +88,7 @@ $breakpoints: (
   small: 576px,
   medium: 768px,
   large: 992px,
-  xlarge: 1200px
+  xlarge: 1200px,
 ) !default;
 
 $grid-gutter: $global-space;
@@ -114,81 +114,81 @@ $type-header-sizes: (
   xsmall: (
     h1: (
       font-size: 32px,
-      margin-bottom: 20px
+      margin-bottom: 20px,
     ),
     h2: (
       font-size: 28px,
-      margin-bottom: 18px
+      margin-bottom: 18px,
     ),
     h3: (
       font-size: 24px,
-      margin-bottom: $global-space
+      margin-bottom: $global-space,
     ),
     h4: (
       font-size: 20px,
-      margin-bottom: 14px
+      margin-bottom: 14px,
     ),
     h5: (
       font-size: 18px,
-      margin-bottom: 12px
+      margin-bottom: 12px,
     ),
     h6: (
       font-size: $global-font-size,
-      margin-bottom: 10px
-    )
+      margin-bottom: 10px,
+    ),
   ),
   medium: (
     h1: (
       font-size: 48px,
-      margin-bottom: 24px
+      margin-bottom: 24px,
     ),
     h2: (
       font-size: 42px,
-      margin-bottom: 20px
+      margin-bottom: 20px,
     ),
     h3: (
       font-size: 36px,
-      margin-bottom: 18px
+      margin-bottom: 18px,
     ),
     h4: (
       font-size: 30px,
-      margin-bottom: $global-space
+      margin-bottom: $global-space,
     ),
     h5: (
       font-size: 27px,
-      margin-bottom: 14px
+      margin-bottom: 14px,
     ),
     h6: (
       font-size: 24px,
-      margin-bottom: 12px
-    )
+      margin-bottom: 12px,
+    ),
   ),
   large: (
     h1: (
       font-size: 64px,
-      margin-bottom: 32px
+      margin-bottom: 32px,
     ),
     h2: (
       font-size: 56px,
-      margin-bottom: 26px
+      margin-bottom: 26px,
     ),
     h3: (
       font-size: 48px,
-      margin-bottom: 22px
+      margin-bottom: 22px,
     ),
     h4: (
       font-size: 40px,
-      margin-bottom: $global-space
+      margin-bottom: $global-space,
     ),
     h5: (
       font-size: 36px,
-      margin-bottom: 12px
+      margin-bottom: 12px,
     ),
     h6: (
       font-size: 32px,
-      margin-bottom: 10px
-    )
-  )
+      margin-bottom: 10px,
+    ),
+  ),
 ) !default;
 
 // Note: You can't add extra CSS properties here.
@@ -198,33 +198,33 @@ $type-header-styles: (
   h1: (
     color: $gray200,
     font-style: normal,
-    font-weight: bold
+    font-weight: bold,
   ),
   h2: (
     color: $gray200,
     font-style: normal,
-    font-weight: bold
+    font-weight: bold,
   ),
   h3: (
     color: $gray200,
     font-style: normal,
-    font-weight: bold
+    font-weight: bold,
   ),
   h4: (
     color: $gray200,
     font-style: normal,
-    font-weight: bold
+    font-weight: bold,
   ),
   h5: (
     color: $gray200,
     font-style: normal,
-    font-weight: bold
+    font-weight: bold,
   ),
   h6: (
     color: $gray200,
     font-style: normal,
-    font-weight: bold
-  )
+    font-weight: bold,
+  ),
 ) !default;
 
 $type-header-line-height: $global-line-height;
@@ -276,20 +276,20 @@ $ol-list-style: decimal;
 $button-sizes: (
   small: (
     padding: 8px 14px,
-    font-size: 14px
+    font-size: 14px,
   ),
   medium: (
     padding: 12px 18px,
-    font-size: 16px
+    font-size: 16px,
   ),
   large: (
     padding: 16px 22px,
-    font-size: 20px
+    font-size: 20px,
   ),
   huge: (
     padding: 20px 30px,
-    font-size: 24px
-  )
+    font-size: 24px,
+  ),
 ) !default;
 
 // Default button
@@ -348,7 +348,7 @@ $button-types: (
     box-shadow: none,
     box-shadow-hover: none,
     box-shadow-active: none,
-    box-shadow-focus: none
+    box-shadow-focus: none,
   ),
   secondary: (
     background: transparent,
@@ -366,7 +366,7 @@ $button-types: (
     box-shadow: none,
     box-shadow-hover: none,
     box-shadow-active: none,
-    box-shadow-focus: none
+    box-shadow-focus: none,
   ),
   tertiary: (
     background: transparent,
@@ -384,7 +384,7 @@ $button-types: (
     box-shadow: none,
     box-shadow-hover: none,
     box-shadow-active: none,
-    box-shadow-focus: none
+    box-shadow-focus: none,
   ),
   inverted: (
     background: lighten($gray900, 5%),
@@ -402,7 +402,7 @@ $button-types: (
     box-shadow: none,
     box-shadow-hover: none,
     box-shadow-active: none,
-    box-shadow-focus: none
+    box-shadow-focus: none,
   ),
   inverted-outline: (
     background: transparent,
@@ -420,7 +420,7 @@ $button-types: (
     box-shadow: none,
     box-shadow-hover: none,
     box-shadow-active: none,
-    box-shadow-focus: none
+    box-shadow-focus: none,
   ),
   warning: (
     background: darken(status(warning), 5%),
@@ -438,7 +438,7 @@ $button-types: (
     box-shadow: none,
     box-shadow-hover: none,
     box-shadow-active: none,
-    box-shadow-focus: none
+    box-shadow-focus: none,
   ),
   success: (
     background: darken(status(success), 5%),
@@ -456,7 +456,7 @@ $button-types: (
     box-shadow: none,
     box-shadow-hover: none,
     box-shadow-active: none,
-    box-shadow-focus: none
+    box-shadow-focus: none,
   ),
   destroy: (
     background: darken(status(destroy), 5%),
@@ -474,7 +474,7 @@ $button-types: (
     box-shadow: none,
     box-shadow-hover: none,
     box-shadow-active: none,
-    box-shadow-focus: none
+    box-shadow-focus: none,
   ),
   notice: (
     background: darken(status(notice), 5%),
@@ -492,8 +492,8 @@ $button-types: (
     box-shadow: none,
     box-shadow-hover: none,
     box-shadow-active: none,
-    box-shadow-focus: none
-  )
+    box-shadow-focus: none,
+  ),
 ) !default;
 
 // Text links

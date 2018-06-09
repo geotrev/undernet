@@ -55,8 +55,8 @@ var Accordion = function (_Utils) {
 
     var _this = _possibleConstructorReturn(this, (Accordion.__proto__ || Object.getPrototypeOf(Accordion)).call(this));
 
-    _this.accordionButtons = _this.getElements("[" + selectors.ACCORDION_BUTTON + "]");
-    _this.accordionContents = _this.getElements("[" + selectors.ACCORDION_CONTENT + "]");
+    _this.accordionButtons = null;
+    _this.accordionContents = null;
     _this.activeContainer = null;
 
     // bind events to class
@@ -66,8 +66,8 @@ var Accordion = function (_Utils) {
   }
 
   /**
-   * Add accessible attributes to accordions
-   * Begin listening to elements with [data-accordion-button]
+   * Add accessible attributes [data-accordion-button] and [data-accordion-content] elements
+   * Begin listening to [data-accordion-button] elements
    */
 
 
@@ -75,6 +75,9 @@ var Accordion = function (_Utils) {
     key: "start",
     value: function start() {
       var _this2 = this;
+
+      this.accordionButtons = this.getElements("[" + selectors.ACCORDION_BUTTON + "]");
+      this.accordionContents = this.getElements("[" + selectors.ACCORDION_CONTENT + "]");
 
       if (this.accordionButtons.length) {
         this.accordionButtons.forEach(function (button) {
