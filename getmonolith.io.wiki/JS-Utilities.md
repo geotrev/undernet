@@ -46,7 +46,7 @@ If you prefer not to use all of Monolith's components at once like above, you ca
 
 ```js
 // vanilla JS
-var startAccordions = Monolith.accordions().start()
+var startAccordions = Monolith.accordions.start()
 document.addEventListener("DOMContentLoaded", startAccordions)
 ```
 
@@ -56,7 +56,7 @@ import React from 'react'
 import Monolith from 'getmonolith'
 export default someComponent extends React.Component {
   componentDidMount() {
-    Monolith.accordions().start()
+    Monolith.accordions.start()
   }
 }
 ```

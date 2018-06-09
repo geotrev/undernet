@@ -1951,7 +1951,7 @@ textarea {
 [data-modal-overlay] {
   display: block;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 9999;
+  z-index: 2000;
   overflow-y: auto;
   overflow-x: hidden;
   opacity: 0;

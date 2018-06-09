@@ -17,8 +17,6 @@
 // 7. Accordions
 // ------------------
 
-// *** --- *** --- ***
-
 // 1. Globals
 // ----------
 
@@ -39,6 +37,7 @@ $global-font-weight-bold: bold;
 $global-font-style-normal: normal;
 $global-font-style-italic: italic;
 $global-line-height: 1.5;
+$global-transition-ease: cubic-bezier(0.12, 0.72, 0.58, 1.03);
 
 $primary-color: goldenrod;
 $secondary-color: crimson;
@@ -585,10 +584,10 @@ $fieldset-legend-border-radius: $global-border-radius;
 // 6. Modals
 // ---------
 
-$modal-z-index: 9999;
+$modal-z-index: 2000;
 $modal-overlay-color: rgba(0, 0, 0, 0.5);
 $modal-transition-duration: 0.5s;
-$modal-transition-ease: cubic-bezier(0.12, 0.72, 0.58, 1.03);
+$modal-transition-ease: $global-transition-ease;
 
 $modal-container-background-color: $white;
 $modal-container-border-radius: $global-border-radius;
@@ -598,8 +597,8 @@ $modal-header-border: 1px solid $gray900;
 $modal-footer-border: 1px solid $gray900;
 $modal-container-button-alignment: flex-end;
 
-$modal-horizontal-breakpoint: map-get($breakpoints, small);
-$modal-vertical-breakpoint: map-get($breakpoints, small);
+$modal-horizontal-breakpoint: breakpoint(small);
+$modal-vertical-breakpoint: breakpoint(small);
 
 // 7. Accordions
 // -------------
@@ -607,7 +606,7 @@ $modal-vertical-breakpoint: map-get($breakpoints, small);
 $accordion-border: $global-border-width solid $gray900;
 $accordion-border-radius: $global-border-radius;
 $accordion-transition-duration: 0.5s;
-$accordion-transition-ease: cubic-bezier(0.12, 0.72, 0.58, 1.03);
+$accordion-transition-ease: $global-transition-ease;
 
 $accordion-button-color: $primary-color;
 $accordion-button-background: $white;
