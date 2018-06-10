@@ -2,20 +2,22 @@
 yarn-error.log*
 npm-error.log*
 
-/build/
-/node_modules/
-/.nyc_output/
+build/
+node_modules/
+.nyc_output/
 
 .ruby-version
 .sass-cache
 
-/src/
-/public/
-/monolith.wiki/
-/config/
-/.circleci/
+src/
+public/
+monolith.wiki/
+config/
+.circleci/
 
-/dist/monolith.css.zip
-/dist/monolith.js.zip
-/dist/monolith.modules.js.zip
-/dist/monolith.scss.zip
+js/src/
+
+dist/monolith.css.zip
+dist/monolith.js.zip
+dist/monolith.modules.js.zip
+dist/monolith.scss.zip
