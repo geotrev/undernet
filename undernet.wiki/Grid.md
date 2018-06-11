@@ -1,4 +1,4 @@
-Monolith’s grid is very similar to other CSS grids you’ve probably seen/used. It’s mobile first, so if you set a medium width column, you’ll have that width as long as your window is medium breakpoint or wider. Configure all grid settings, including spacing and class names, within `_config.scss`.
+Undernet’s grid is very similar to other CSS grids you’ve probably seen/used. It’s mobile first, so if you set a medium width column, you’ll have that width as long as your window is medium breakpoint or wider. Configure all grid settings, including spacing and class names, within `_config.scss`.
 
 ### The Basics
 
@@ -100,7 +100,7 @@ You can also add more rows within your columns for adding flexibility:
 
 ### Breakpoints
 
-Again, Monolith is mobile first; start small and build your way up. :)
+Again, Undernet is mobile first; start small and build your way up. :)
 
 ```html
 <div class=“grid”>

@@ -4,7 +4,7 @@
 
 ### Class Helpers
 
-Along with Monolith’s element library includes several helper classes for handling certain cases of accessibility, typography, and visibility.
+Along with Undernet’s element library includes several helper classes for handling certain cases of accessibility, typography, and visibility.
 
 #### Typography
 
@@ -37,7 +37,7 @@ To override a smaller breakpoint visibility modifier, use one at a larger breakp
 
 ### Mixins
 
-There are a number of mixins used in Monolith to generate the many components. Learn about those mixins here along with how you can use them for your own custom components.
+There are a number of mixins used in Undernet to generate the many components. Learn about those mixins here along with how you can use them for your own custom components.
 
 1.  [Button](#button)
 2.  [Flex](#flex)
@@ -96,7 +96,7 @@ Defaults:
 
 #### Grid
 
-This is the core of Monolith's grid classes generator. It takes a single argument, `$size`, which is grabbed from one of the keywords in the `$breakpoints` map in `_config.scss`.
+This is the core of Undernet's grid classes generator. It takes a single argument, `$size`, which is grabbed from one of the keywords in the `$breakpoints` map in `_config.scss`.
 
 ```css
 @mixin grid-classes($size) { ... }
@@ -104,7 +104,7 @@ This is the core of Monolith's grid classes generator. It takes a single argumen
 
 #### Media Queries
 
-Used in many parts of Monolith, these simply generate various breakpoint `@media` queries. There are three options for media queries:
+Used in many parts of Undernet, these simply generate various breakpoint `@media` queries. There are three options for media queries:
 
 * `breakpoint-up`: Affects styles wider than a given size.
 * `breakpoint-down`: Affects styles narrower than a given size.

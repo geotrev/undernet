@@ -36,7 +36,7 @@ module.exports = merge(common, {
         sourceMap: true,
         uglifyOptions: {
           mangle: {
-            reserved: ["Monolith"],
+            reserved: ["Undernet"],
           },
         },
       }),

@@ -10,11 +10,11 @@ const Footer = () => {
       <div className="row">
         <div className="collapsed column">
           <p className="has-center-text">
-            Monolith is front-end framework created and maintained by{" "}
+            Undernet is front-end framework created and maintained by{" "}
             <a href="http://www.geotrev.com">George Treviranus</a>.
           </p>
           <p className="has-center-text">
-            <a className="has-feather" href="https://www.github.com/geotrev/monolith">
+            <a className="has-feather" href="https://www.github.com/geotrev/undernet">
               <Github />
             </a>
           </p>

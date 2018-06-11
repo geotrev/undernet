@@ -11,11 +11,11 @@ npm-error.log*
 
 /src/
 /public/
-/monolith.wiki/
+/undernet.wiki/
 /config/
 /.circleci/
 
-/dist/monolith.css.zip
-/dist/monolith.js.zip
-/dist/monolith.modules.js.zip
-/dist/monolith.scss.zip
+/dist/undernet.css.zip
+/dist/undernet.js.zip
+/dist/undernet.modules.js.zip
+/dist/undernet.scss.zip

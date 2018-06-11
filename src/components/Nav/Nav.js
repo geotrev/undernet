@@ -12,13 +12,13 @@ const Nav = () => {
       <ul className="row collapsed">
         <li className="small-5 xsmall-12 columns">
           <Link to="/">
-            <img className="logo" src={Logo} alt="Monolith" />
+            <img className="logo" src={Logo} alt="Undernet" />
           </Link>
         </li>
         <li className="small-7 xsmall-12 columns">
           <ul className="row">
             <li>
-              <a className="has-feather" href="https://www.github.com/geotrev/getmonolith.io">
+              <a className="has-feather" href="https://www.github.com/geotrev/undernet">
                 <Github />
               </a>
             </li>

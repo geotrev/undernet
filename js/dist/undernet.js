@@ -17,20 +17,20 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var modals = new _modal2.default();
 var accordions = new _accordion2.default();
 
-var Monolith = {
+var Undernet = {
   modals: modals,
   accordions: accordions
 };
 
-Monolith.start = function () {
-  Monolith.modals.start();
-  Monolith.accordions.start();
+Undernet.start = function () {
+  Undernet.modals.start();
+  Undernet.accordions.start();
 };
 
-Monolith.stop = function () {
-  Monolith.modals.stop();
-  Monolith.accordions.stop();
+Undernet.stop = function () {
+  Undernet.modals.stop();
+  Undernet.accordions.stop();
 };
 
-window.Monolith = Monolith;
-exports.default = Monolith;
+window.Undernet = Undernet;
+exports.default = Undernet;

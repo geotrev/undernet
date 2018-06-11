@@ -1,8 +1,8 @@
-![Monolith](src/assets/images/github-logo.png?raw=true)
+![Undernet](src/assets/images/github-logo.png?raw=true)
 
-[![CircleCI](https://circleci.com/gh/geotrev/getmonolith.io/tree/master.svg?style=svg)](https://circleci.com/gh/geotrev/monolith-site/tree/master) [![devDependencies Status](https://david-dm.org/geotrev/getmonolith.io/dev-status.svg)](https://david-dm.org/geotrev/getmonolith.io?type=dev)
+[![CircleCI](https://circleci.com/gh/geotrev/undernet/tree/master.svg?style=svg)](https://circleci.com/gh/geotrev/undernet/tree/master) [![devDependencies Status](https://david-dm.org/geotrev/undernet/dev-status.svg)](https://david-dm.org/geotrev/undernet?type=dev)
 
-# Monolith
+# Undernet
 
 A powerful, configuration-first front-end framework.
 
@@ -10,18 +10,18 @@ A powerful, configuration-first front-end framework.
 
 The framework features:
 
-* A flex-grid for layouts
-* Styling for common tags: buttons, paragraphs, headers, etc.
-* Configuration file to apply core brand styling to all elements, including an option for name-spacing.
-* Functional JavaScript components: modals, accordions, etc.
+- A flex-grid for layouts
+- Styling for common tags: buttons, paragraphs, headers, etc.
+- Configuration file to apply core brand styling to all elements, including an option for name-spacing.
+- Functional JavaScript components: modals, accordions, etc.
 
 ## Getting Started
 
 Clone the repo and re-clone the wiki contents.
 
 ```shell
-$ git clone git@github.com:geotrev/getmonolith.io.git
-$ cd getmonolith.io/
+$ git clone git@github.com:geotrev/undernet.git
+$ cd undernet/
 $ npm run setup
 ```
 

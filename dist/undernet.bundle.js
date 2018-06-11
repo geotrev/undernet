@@ -1,12 +1,12 @@
 /*!
-  * @license MIT (https://github.com/geotrev/getmonolith.io/blob/master/LICENSE)
-  * Monolith v0.1.0 (https://getmonolith.io)
+  * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
+  * Undernet v0.1.0 (https://undernet.io)
   * Copyright 2017-2018 George Treviranus
   */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
-  (global.getmonolith = factory());
+  (global.undernet = factory());
 }(this, (function () { 'use strict';
 
   var classCallCheck = function (instance, Constructor) {
@@ -634,24 +634,24 @@
   var modals = new Modal();
   var accordions = new Accordion();
 
-  var Monolith = {
+  var Undernet = {
     modals: modals,
     accordions: accordions
   };
 
-  Monolith.start = function () {
-    Monolith.modals.start();
-    Monolith.accordions.start();
+  Undernet.start = function () {
+    Undernet.modals.start();
+    Undernet.accordions.start();
   };
 
-  Monolith.stop = function () {
-    Monolith.modals.stop();
-    Monolith.accordions.stop();
+  Undernet.stop = function () {
+    Undernet.modals.stop();
+    Undernet.accordions.stop();
   };
 
-  window.Monolith = Monolith;
+  window.Undernet = Undernet;
 
-  return Monolith;
+  return Undernet;
 
 })));
-//# sourceMappingURL=monolith.bundle.js.map
+//# sourceMappingURL=undernet.bundle.js.map

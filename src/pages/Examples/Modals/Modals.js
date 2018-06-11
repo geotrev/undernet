@@ -2,15 +2,15 @@ import React, { Component } from "react"
 import DemoSection from "../DemoSection/DemoSection"
 
 import { Button, HeaderText, Modal } from "components"
-import Monolith from "getmonolith"
+import Undernet from "undernet"
 
 export default class Modals extends Component {
   componentDidMount() {
-    Monolith.modals.start()
+    Undernet.modals.start()
   }
 
   componentWillUnmount() {
-    Monolith.modals.stop()
+    Undernet.modals.stop()
   }
 
   render() {
