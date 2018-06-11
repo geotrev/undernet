@@ -16,7 +16,7 @@ const Home = () => {
           <h2 className="h6">Powerful, configuration-first interface development</h2>
         </div>
         <div className="xsmall-12 columns has-center-text">
-          <Link to="docs/download" className="medium button has-feather">
+          <Link to="docs/getting-started" className="medium button has-feather">
             Download <ChevronRight size={20} />
           </Link>
           <Link to="docs/overview" className="primary medium button has-feather">
