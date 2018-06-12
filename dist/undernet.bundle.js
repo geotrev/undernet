@@ -631,22 +631,22 @@
     return Accordion;
   }(Utils);
 
-  var modals = new Modal();
-  var accordions = new Accordion();
+  var Modals = new Modal();
+  var Accordions = new Accordion();
 
   var Undernet = {
-    modals: modals,
-    accordions: accordions
+    Modals: Modals,
+    Accordions: Accordions
   };
 
   Undernet.start = function () {
-    Undernet.modals.start();
-    Undernet.accordions.start();
+    Undernet.Modals.start();
+    Undernet.Accordions.start();
   };
 
   Undernet.stop = function () {
-    Undernet.modals.stop();
-    Undernet.accordions.stop();
+    Undernet.Modals.stop();
+    Undernet.Accordions.stop();
   };
 
   window.Undernet = Undernet;

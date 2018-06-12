@@ -3,22 +3,22 @@
 import Modal from "./components/modal"
 import Accordion from "./components/accordion"
 
-const modals = new Modal()
-const accordions = new Accordion()
+const Modals = new Modal()
+const Accordions = new Accordion()
 
 const Undernet = {
-  modals,
-  accordions,
+  Modals,
+  Accordions,
 }
 
 Undernet.start = () => {
-  Undernet.modals.start()
-  Undernet.accordions.start()
+  Undernet.Modals.start()
+  Undernet.Accordions.start()
 }
 
 Undernet.stop = () => {
-  Undernet.modals.stop()
-  Undernet.accordions.stop()
+  Undernet.Modals.stop()
+  Undernet.Accordions.stop()
 }
 
 window.Undernet = Undernet

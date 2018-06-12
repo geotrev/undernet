@@ -14,22 +14,22 @@ var _accordion2 = _interopRequireDefault(_accordion);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var modals = new _modal2.default();
-var accordions = new _accordion2.default();
+var Modals = new _modal2.default();
+var Accordions = new _accordion2.default();
 
 var Undernet = {
-  modals: modals,
-  accordions: accordions
+  Modals: Modals,
+  Accordions: Accordions
 };
 
 Undernet.start = function () {
-  Undernet.modals.start();
-  Undernet.accordions.start();
+  Undernet.Modals.start();
+  Undernet.Accordions.start();
 };
 
 Undernet.stop = function () {
-  Undernet.modals.stop();
-  Undernet.accordions.stop();
+  Undernet.Modals.stop();
+  Undernet.Accordions.stop();
 };
 
 window.Undernet = Undernet;

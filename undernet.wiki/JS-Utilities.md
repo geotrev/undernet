@@ -46,7 +46,7 @@ If you prefer not to use all of Undernet's components at once like above, you ca
 
 ```js
 // vanilla JS
-var startAccordions = Undernet.accordions().start()
+var startAccordions = Undernet.Accordions.start()
 document.addEventListener("DOMContentLoaded", startAccordions)
 ```
 
@@ -56,7 +56,7 @@ import React from 'react'
 import Undernet from 'undernet'
 export default someComponent extends React.Component {
   componentDidMount() {
-    Undernet.accordions().start()
+    Undernet.Accordions.start()
   }
 }
 ```

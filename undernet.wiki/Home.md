@@ -1,6 +1,6 @@
 Undernet is a front-end framework offering a flexible starting point for new web projects. It includes base styling for common tags, including buttons, forms, and typography. Also included is a flex-based grid and a handful of helper classes.
 
-In addition to styling, Undernet also includes interactive components. Currently there are two: a modal and accordion component. They are easy to use and rely only on a script call, e.g., `Undernet.accordions().start()` for example, and the correct markup structure. More components are planned!
+In addition to styling, Undernet also includes interactive components. Currently there are two: a modal and accordion component. They are easy to use and rely only on a script call, e.g., `Undernet.Accordions.start()` for example, and the correct markup structure. More components are planned!
 
 What makes Undernet stand apart from other frameworks like Bootstrap, Bulma, or Foundation? Truthfully, Undernet started as an experiment to learn the ins and outs of CSS. Since last year, it has evolved into a functioning library that takes the best of many frameworks and puts it all into one easy-to-use package. It is highly configurable and even namespace-able. Undernet is still young, but I hope folks can use it, break it, and help make it even better!
 

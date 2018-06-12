@@ -6,11 +6,11 @@ import Undernet from "undernet"
 
 export default class Accordions extends Component {
   componentDidMount() {
-    Undernet.accordions.start()
+    Undernet.Accordions.start()
   }
 
   componentWillUnmount() {
-    Undernet.accordions.stop()
+    Undernet.Accordions.stop()
   }
 
   render() {

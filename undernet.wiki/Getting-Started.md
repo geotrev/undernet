@@ -7,17 +7,17 @@ Undernet is a set of configurable components, so the most effective way to use i
 
 #### Stable Build
 
-* [Download SCSS](https://github.com/geotrev/undernet/raw/master/dist/undernet.scss.zip)
-* [Download CSS](https://github.com/geotrev/undernet/raw/master/dist/undernet.css.zip)
-* [Download JS (compiled)](https://github.com/geotrev/undernet/raw/master/dist/undernet.js.zip)
-* [Download JS (modules)](https://github.com/geotrev/undernet/raw/master/dist/undernet.modules.js.zip)
+- [Download SCSS](https://github.com/geotrev/undernet/raw/master/dist/undernet.scss.zip)
+- [Download CSS](https://github.com/geotrev/undernet/raw/master/dist/undernet.css.zip)
+- [Download JS (compiled)](https://github.com/geotrev/undernet/raw/master/dist/undernet.js.zip)
+- [Download JS (modules)](https://github.com/geotrev/undernet/raw/master/dist/undernet.modules.js.zip)
 
 #### Prerelease Build
 
-* [Download SCSS](https://github.com/geotrev/undernet/raw/develop/dist/undernet.scss.zip)
-* [Download CSS](https://github.com/geotrev/undernet/raw/develop/dist/undernet.css.zip)
-* [Download JS (compiled)](https://github.com/geotrev/undernet/raw/develop/dist/undernet.js.zip)
-* [Download JS (modules)](https://github.com/geotrev/undernet/raw/develop/dist/undernet.modules.js.zip)
+- [Download SCSS](https://github.com/geotrev/undernet/raw/develop/dist/undernet.scss.zip)
+- [Download CSS](https://github.com/geotrev/undernet/raw/develop/dist/undernet.css.zip)
+- [Download JS (compiled)](https://github.com/geotrev/undernet/raw/develop/dist/undernet.js.zip)
+- [Download JS (modules)](https://github.com/geotrev/undernet/raw/develop/dist/undernet.modules.js.zip)
 
 ### Basic Setup
 
@@ -38,13 +38,13 @@ Link the compiled CSS and JS in your layout, and enable JS components.
       // Undernet is now on the `window` object.
       Undernet.start()
       // or only start a single component
-      Undernet.accordions().start()
+      Undernet.Accordions.start()
     </script>
   </body>
 </html>
 ```
 
-_Note: Undernet's JS does not run simply from importing or requiring the file. You specifically need to call its `start()` method or on one of its individual  components as shown above._
+_Note: Undernet's JS does not run simply from importing or requiring the file. You specifically need to call its `start()` method or on one of its individual components as shown above._
 
 ### Advanced
 
@@ -94,7 +94,7 @@ import Undernet from "undernet"
 // ... then start all javascript components on page load
 Undernet.start()
 // or run a specific component
-Undernet.modals().start()
+Undernet.Modals.start()
 ```
 
 Or...
@@ -112,7 +112,7 @@ Or...
       // Undernet is attached to the `window` object now.
       Undernet.start()
       // or run a specific component
-      Undernet.modals().start()
+      Undernet.Modals.start()
     </script>
   </body>
 </html>

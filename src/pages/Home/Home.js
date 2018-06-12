@@ -20,7 +20,7 @@ const Home = () => {
             Download <ChevronRight size={20} />
           </Link>
           <Link to="docs/overview" className="primary medium button has-feather">
-            Read Docs <ChevronRight size={20} />
+            Learn More <ChevronRight size={20} />
           </Link>
         </div>
       </div>

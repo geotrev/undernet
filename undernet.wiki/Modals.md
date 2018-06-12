@@ -4,7 +4,7 @@ To use it, you must enable the javascript plugin near the end of the `<body>`:
 
 ```js
 document.addEventListener("DOMContentLoaded", () => {
-  Undernet.modals().start()
+  Undernet.Modals.start()
 })
 ```
 

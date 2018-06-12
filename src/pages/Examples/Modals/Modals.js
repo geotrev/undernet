@@ -6,11 +6,11 @@ import Undernet from "undernet"
 
 export default class Modals extends Component {
   componentDidMount() {
-    Undernet.modals.start()
+    Undernet.Modals.start()
   }
 
   componentWillUnmount() {
-    Undernet.modals.stop()
+    Undernet.Modals.stop()
   }
 
   render() {
