@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { Component, Fragment } from "react"
 import { Route } from "react-router-dom"
 import "./Main.scss"
 
@@ -33,7 +33,7 @@ import "assets/icons/icon-512x512.png"
 export default class Main extends Component {
   render() {
     return (
-      <div id="site">
+      <Fragment>
         <header>
           <Nav />
         </header>
@@ -45,7 +45,7 @@ export default class Main extends Component {
         <footer>
           <Footer />
         </footer>
-      </div>
+      </Fragment>
     )
   }
 }
