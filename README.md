@@ -17,10 +17,97 @@ The framework features:
 
 ## Getting Started
 
+There's two ways to get started:
+
+### Easiest
+
+Simply download the compiled assets and add them to your layout. Great for prototyping.
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>I'm using Undernet!</title>
+    <link rel="stylesheet" href="path/to/undernet.min.css">
+    <!-- Add new styles after -->
+  </head>
+  <body>
+    ...
+    <script type="text/javascript" src="path/to/undernet.bundle.min.js" async></script>
+    <script type="text/javascript">
+      // Undernet is now on the `window` object.
+      Undernet.start()
+      // or only start a single component
+      Undernet.Accordions.start()
+    </script>
+  </body>
+</html>
+```
+
+### Use SCSS (recommended)
+
+For the most control over your CSS, it's highly recommended to integrate the SCSS modules with your asset pipeline. Simply link to the main `undernet.scss` file in your main stylesheet (only once!) before your other styles (or anywhere, if you've added an optional scope to the components):
+
+```css
+@import "path/to/undernet";
+```
+
+You can then easily customize `_config.scss` with your intended brand attributes. This is where you'd also define a scope to isolate Undernet styles.
+
+For more details on the config, check out the [Getting Started](https://undernet.io/docs/getting-started) page.
+
+### NPM / JS modules
+
+Another option is to use the npm package and borrow the modules you need. This is great for webpack where you can tree shake the modules you won't be needing.
+
+```shell
+$ npm install --save-dev undernet
+```
+
+Check out the [Examples](https://undernet.io/examples) page to see necessary dependencies/markup for a given component.
+
+Then require or import the dependency in your js, or add it to a script tag in your main layout (see the **Easiest** method above for the script example).
+
+```js
+import Undernet from "undernet"
+
+// start all components
+Undernet.start()
+
+// or only use a single component, e.g. the Modal:
+Undernet.Modals.start()
+```
+
+#### React
+
+Undernet fully supports use in React. You simply need to call the `.start()` method in `componentDidMount()`, and then `.stop()` in `componentDidUnmount()`:
+
+```js
+export default class SomeComponent extends React.Component {
+  componentDidMount() {
+    Undernet.Modals.start()
+  }
+
+  componentDidUnmount() {
+    Undernet.Modals.stop()
+  }
+
+  render() {
+    return <div>// ... modal markup here!</div>
+  }
+}
+```
+
+## Contribute
+
+See CONTRIBUTING.md for more details.
+
+### Fork and clone
+
 Clone the repo and re-clone the wiki contents.
 
 ```shell
-$ git clone git@github.com:geotrev/undernet.git
+$ git clone git@github.com:USER_NAME/undernet.git
 $ cd undernet/
 $ npm run setup
 ```
@@ -50,10 +137,6 @@ $ npm run test
 ```shell
 $ npm run test:w
 ```
-
-## Contributing
-
-See CONTRIBUTING.md for more details.
 
 ### Testing and development
 
