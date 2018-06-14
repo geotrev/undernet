@@ -12,6 +12,8 @@ module.exports = merge(common, {
     new CleanWebpackPlugin(["../build"], {
       root: path.resolve(__dirname),
       verbose: true,
+
+      // external is required because this config is not in the root directory.
       allowExternal: true,
     }),
 
@@ -34,11 +36,6 @@ module.exports = merge(common, {
     minimizer: [
       new UglifyJSPlugin({
         sourceMap: true,
-        uglifyOptions: {
-          mangle: {
-            reserved: ["Undernet"],
-          },
-        },
       }),
     ],
   },

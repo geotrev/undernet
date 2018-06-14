@@ -8,9 +8,12 @@
   "license": "MIT",
   "private": false,
   "engines": {
-    "node": "v10.3.0",
-    "npm": "6.1.0"
+    "node": ">=10.0.0",
+    "npm": ">=6.1.0"
   },
+  "keywords": [
+    "scss", "javascript", "js", "css", "front-end", "framework"
+  ],
   "scripts": {
     "setup": "rm -rf undernet.wiki/ && git clone https://github.com/geotrev/undernet.wiki.git && npm install",
     "test": "nyc mocha -r babel-register -r config/testHelpers.js --recursive src/**/*.spec.js",
