@@ -8,7 +8,6 @@ const Home = () => {
   return (
     <div id="home" className="medium-section fluid grid">
       <ScrollUpOnMount />
-
       <Perks />
     </div>
   )

@@ -2,9 +2,11 @@ import React, { Component } from "react"
 
 import { Link } from "react-router-dom"
 import ChevronRight from "react-feather/dist/icons/chevron-right"
+import Markdown from "react-markdown"
+import Badges from "./badges.md"
 
 const Perks = () => (
-  <div className="row">
+  <div className="perks row">
     <div className="xsmall-12 columns has-center-text">
       <h1 className="h3">Build websites. Simply.</h1>
     </div>
@@ -18,8 +20,8 @@ const Perks = () => (
       </Link>
     </div>
 
-    <div className="xsmall-12 columns">
-      <p>badges here eventually</p>
+    <div className="xsmall-12 columns badges">
+      <Markdown source={Badges} escapeHtml={false} />
     </div>
   </div>
 )

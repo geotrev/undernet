@@ -15,9 +15,9 @@ The framework features:
 - Configuration file to apply core brand styling to all elements, including an option for name-spacing.
 - Functional JavaScript components: modals, accordions, etc.
 
-## Getting Started
+## Easy setup
 
-There's two ways to get started:
+Setting up and using Undernet is fairly straightforward:
 
 ### Easiest
 
@@ -44,7 +44,11 @@ Simply download the compiled assets and add them to your layout. Great for proto
 </html>
 ```
 
-### Use SCSS (recommended)
+## Advanced setup
+
+If you prefer to have more control over the styles and components, you are free to use the uncompiled SCSS modules along with the JS modules (via npm or also as uncompiled es5).
+
+### SCSS
 
 For the most control over your CSS, it's highly recommended to integrate the SCSS modules with your asset pipeline. Simply link to the main `undernet.scss` file in your main stylesheet (only once!) before your other styles (or anywhere, if you've added an optional scope to the components):
 
@@ -64,9 +68,9 @@ Another option is to use the npm package and borrow the modules you need. This i
 $ npm install --save-dev undernet
 ```
 
-Check out the [Examples](https://undernet.io/examples) page to see necessary dependencies/markup for a given component.
+Check out the [docs](https://undernet.io/docs/overview) to see the necessary DOM structure for a given component.
 
-Then require or import the dependency in your js, or add it to a script tag in your main layout (see the **Easiest** method above for the script example).
+Then require or import the dependency in your js, or add it to a script tag in your main layout (see the **Easy setup** method above for script usage).
 
 ```js
 import Undernet from "undernet"
@@ -80,7 +84,7 @@ Undernet.Modals.start()
 
 #### React
 
-Undernet fully supports use in React. You simply need to call the `.start()` method in `componentDidMount()`, and then `.stop()` in `componentDidUnmount()`:
+Undernet fully supports use in React. You simply need to call the `.start()` method in `componentDidMount()`, and then `.stop()` in `componentDidUnmount()` (to prevent unnecessary event listeners when the components are no longer visible):
 
 ```js
 export default class SomeComponent extends React.Component {
@@ -93,16 +97,18 @@ export default class SomeComponent extends React.Component {
   }
 
   render() {
-    return <div>// ... modal markup here!</div>
+    return <div>
+      // ... modal markup here!
+    </div>
   }
 }
 ```
 
 ## Contribute
 
-See CONTRIBUTING.md for more details.
+See CONTRIBUTING.md for more details on git flow and recommendations for pull requests/issues.
 
-### Fork and clone
+### Fork and clone for development
 
 Clone the repo and re-clone the wiki contents.
 
@@ -138,15 +144,15 @@ $ npm run test
 $ npm run test:w
 ```
 
-### Testing and development
+### Building the framework
 
-The site itself is a demo of the framework, so you should be able to work on the framework source itself while the site runs in the background.
+The site itself is a demo of the framework, so you should be able to work on the framework source itself while the site dev server runs in the background.
 
-**NOTE**: The build environment works only for macOS at the moment.
+The build environment works only for macOS at the moment.
 
-To compile and test the framework in this project, you'll need to have a stable version of ruby to compile the framework. I recommend using [ruby-install](https://www.ruby-lang.org/en/documentation/installation/#ruby-install) and managing your version for this project with [chruby](https://www.ruby-lang.org/en/documentation/installation/#chruby) or [rvm](https://www.ruby-lang.org/en/documentation/installation/#rvm). Use whatever setup is easiest for your machine.
+To compile and test the framework in this project, you'll need to have a stable version of ruby for sass. I recommend using [ruby-install](https://www.ruby-lang.org/en/documentation/installation/#ruby-install) and managing your version for this project with [chruby](https://www.ruby-lang.org/en/documentation/installation/#chruby) or [rvm](https://www.ruby-lang.org/en/documentation/installation/#rvm). Use whatever setup is easiest for your machine.
 
-Then globally install `sass` and `rollup`. Don't use `npm`'s sass package as it doesn't have the same cli flags as the gem package.
+Then globally install `sass` and `rollup`:
 
 ```shell
 $ gem install sass
@@ -154,7 +160,7 @@ $ npm install -g rollup
 $ npm run build:development
 ```
 
-From there, everything should build correctly: the framework scss and js will be prettified by `prettier` and distributions of js and css will be output using `babel-cli`, `rollup`, `sass`, and a few macOS specific commands for zipping/prepping files for release.
+From there, everything should build correctly: the framework scss and js will be prettified by `prettier` and distributions of js and css will be output using `babel-cli`, `rollup`, `sass`, and a few macOS specific commands for zipping/prepping files for release. The output typically takes 5-10 seconds at most.
 
 ### New releases
 
