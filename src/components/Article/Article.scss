@@ -1,6 +1,8 @@
-@import '../../global';
+@import "../../global";
 
 .article-wrapper {
+  @import "./prism";
+
   h2 {
     font-size: 28px;
   }
@@ -9,18 +11,32 @@
     font-size: 24px;
   }
 
-  h2, h3 {
+  h4 {
+    font-size: 20px;
+    padding-top: 16px;
+  }
+
+  h2,
+  h3 {
     padding-top: 16px;
   }
 
   pre {
-    overflow-y: scroll;
-    margin-bottom: 16px;
+    margin-bottom: $global-space * 2.5 !important;
+
+    > code {
+      display: initial;
+    }
   }
 
-  pre, code {
-    color: $gray800; 
-    background: #fafafa;
+  code {
+    padding: 0;
+  }
+
+  pre,
+  code {
+    color: #5e6687;
+    background: #f5f7ff;
   }
 
   ul {

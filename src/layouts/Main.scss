@@ -1,0 +1,33 @@
+/*!
+* @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
+* Undernet v2.0.0 (https://undernet.io)
+* Copyright 2017-2018 George Treviranus
+*/
+
+@import "../global";
+@import "../../scss/elements/global/base";
+
+// .#{$scope} {
+@import "../../scss/helpers/classes/base";
+@import "../../scss/elements/grid/base";
+@import "../../scss/elements/typography/base";
+@import "../../scss/elements/link/base";
+@import "../../scss/elements/button/base";
+@import "../../scss/elements/form/base";
+
+@import "../../scss/components/modal";
+@import "../../scss/components/accordion";
+// }
+
+main {
+  display: block;
+}
+
+.has-feather {
+  display: inline-flex;
+  align-items: center;
+
+  svg {
+    margin-left: 5px;
+  }
+}

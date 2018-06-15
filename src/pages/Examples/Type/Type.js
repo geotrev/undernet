@@ -1,7 +1,7 @@
-import React from 'react';
-import DemoSection from '../DemoSection/DemoSection';
+import React from "react"
+import DemoSection from "../DemoSection/DemoSection"
 
-import { HeaderText } from 'components';
+import { HeaderText } from "components"
 
 const Type = () => {
   return (
@@ -37,7 +37,16 @@ const Type = () => {
         </div>
 
         <div className="xsmall-12 columns">
-          <p><em>Smooth, thick and viscous on the palate,</em> with a full and robust body. <strong>For a moment,</strong> it's sweet and tropical, <code>then hops rush in and tear it all to shreds!</code> The lip-smacking hop profile roams all over the place, as a sticky pine and a slightly burnt resinous coating forms on the palate. Intensely spicy, with a big grape-fruity zest and a sugary, warming alcohol that smacks you upside the head for noticing it. Malt-wise, caramel and bread flavors clamor to be heard, but the hops entangle them and draw them back into the depths of the brew, where they die. Malt flavors are there, but they add sweetness and body versus anything distinct enough to challenge the hops.
+          <p>
+            <em>Smooth, thick and viscous on the palate,</em> with a full and robust body.{" "}
+            <strong>For a moment,</strong> it's sweet and tropical,{" "}
+            <code>then hops rush in and tear it all to shreds!</code> The lip-smacking hop profile
+            roams all over the place, as a sticky pine and a slightly burnt resinous coating forms
+            on the palate. Intensely spicy, with a big grape-fruity zest and a sugary, warming
+            alcohol that smacks you upside the head for noticing it. Malt-wise, caramel and bread
+            flavors clamor to be heard, but the hops entangle them and draw them back into the
+            depths of the brew, where they die. Malt flavors are there, but they add sweetness and
+            body versus anything distinct enough to challenge the hops.
           </p>
         </div>
       </div>
@@ -63,7 +72,7 @@ const Type = () => {
         </div>
       </div>
     </DemoSection>
-  );
+  )
 }
 
-export default Type;
+export default Type

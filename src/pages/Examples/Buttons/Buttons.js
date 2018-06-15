@@ -1,11 +1,11 @@
-import React from 'react';
-import DemoSection from '../DemoSection/DemoSection';
+import React from "react"
+import DemoSection from "../DemoSection/DemoSection"
 
-import { Button, HeaderText } from 'components';
+import { Button, HeaderText } from "components"
 
 const Buttons = () => {
   return (
-    <DemoSection>
+    <DemoSection id="buttons-demo">
       <div className="row">
         <div className="xsmall-12 columns">
           <HeaderText>Button Sizes</HeaderText>
@@ -113,11 +113,9 @@ const Buttons = () => {
         <div className="xsmall-12 columns">
           <Button href="#0">This is a link!</Button>
         </div>
-
       </div>
-
     </DemoSection>
-  );
+  )
 }
 
-export default Buttons;
+export default Buttons

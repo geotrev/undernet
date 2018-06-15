@@ -1,6 +1,7 @@
 {
-  "name": "getmonolith.io",
-  "description": "",
+  "name": "undernet",
+  "description": "Configuration-first, front-end framework for web projects.",
+  "repository": "https://github.com/geotrev/undernet",
   "scripts": {
   },
   "env": {
@@ -12,7 +13,7 @@
     }
   },
   "addons": [
-
+    "papertrail"
   ],
   "buildpacks": [
     {

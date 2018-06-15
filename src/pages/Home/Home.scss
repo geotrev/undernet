@@ -1,16 +1,40 @@
-@import '../../global';
+@import "../../global";
 
 #home {
-  background-image: url('../../assets/images/home-bg.jpg');
+  background-image: url("../../assets/images/home-bg.jpg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+
+  h1 {
+    margin-bottom: 0;
+  }
 
   h2 {
     font-weight: normal;
   }
 
   a {
-    margin: 0 8px $global-space 8px;
+    margin: $global-space 8px $global-space 8px;
+  }
+
+  .perks {
+    .badges {
+      display: inline-flex;
+      margin: 0 auto;
+      flex: 0 1 auto;
+      padding: 5px 5px 0 5px;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+      background: $white;
+      border-radius: $global-border-radius;
+
+      p {
+        margin: 0;
+      }
+
+      a {
+        margin: 0;
+      }
+    }
   }
 }

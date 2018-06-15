@@ -1,10 +1,9 @@
-import React from 'react';
-import './Docs.scss';
+import React from "react"
+import "./Docs.scss"
 
-import { ScrollUpOnMount } from 'helpers';
-import { SideNav } from 'components';
-import DocsRoutes from './DocsRoutes/DocsRoutes';
-
+import { ScrollUpOnMount } from "helpers"
+import { SideNav } from "components"
+import DocsRoutes from "./DocsRoutes/DocsRoutes"
 
 const Docs = () => {
   const navItems = [
@@ -12,12 +11,12 @@ const Docs = () => {
       header: "Getting Started",
       links: [
         { name: "Overview", url: "/docs/overview" },
-        { name: "Download", url: "/docs/download" },
+        { name: "Getting Started", url: "/docs/getting-started" },
         { name: "Configuration", url: "/docs/configuration" },
       ],
     },
     {
-      header: "Components",
+      header: "Elements",
       links: [
         { name: "Grid", url: "/docs/grid" },
         { name: "Typography", url: "/docs/typography" },
@@ -26,11 +25,17 @@ const Docs = () => {
       ],
     },
     {
+      header: "Components",
+      links: [
+        { name: "Modals", url: "/docs/modals" },
+        { name: "Accordions", url: "/docs/accordions" },
+      ],
+    },
+    {
       header: "Helpers",
       links: [
-        { name: "Classes", url: "/docs/classes" },
-        { name: "Mixins", url: "/docs/mixins" },
-        { name: "Functions", url: "/docs/functions" },
+        { name: "Style Utilities", url: "/docs/style-utilities" },
+        { name: "JavaScript Utilities", url: "/docs/javascript-utilities" },
       ],
     },
   ]
@@ -39,19 +44,17 @@ const Docs = () => {
     <div id="docs" className="medium-section fluid grid">
       <ScrollUpOnMount />
       <div className="row">
-        <div className="xsmall-12 xlarge-2 columns collapsed docs-nav-menu">
-          <SideNav
-            navListClasses="xsmall-12 small-4 xlarge-12 columns"
-            navItems={navItems}
-          />
-        </div>
+        <SideNav
+          navListClasses="xsmall-12 small-4 medium-3 xlarge-12 columns"
+          navItems={navItems}
+        />
 
         <div className="xsmall-12 xlarge-10 collapsed columns">
           <DocsRoutes />
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Docs;
+export default Docs

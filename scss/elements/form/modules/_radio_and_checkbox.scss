@@ -1,0 +1,57 @@
+input[type="radio"],
+input[type="checkbox"] {
+  cursor: pointer;
+  font-family: $form-font;
+  margin: $input-option-margin;
+  padding: $input-option-padding;
+}
+
+.radio-row,
+.checkbox-row,
+.radio-column,
+.checkbox-column {
+  @include flex(flex);
+  margin-top: $input-option-margin-top;
+
+  label {
+    @include flex($direction: row);
+    align-items: center;
+    padding-right: $input-option-label-padding-right;
+  }
+}
+
+.radio-column,
+.checkbox-column {
+  @include flex($direction: column);
+  padding-bottom: $input-option-column-padding-bottom;
+}
+
+.radio-row,
+.checkbox-row {
+  @include flex($direction: column);
+  padding-bottom: $input-option-row-padding-bottom;
+
+  label {
+    padding-right: 0;
+    padding-bottom: $input-option-label-padding-bottom;
+  }
+
+  @include breakpoint-up($input-option-row-breakpoint) {
+    @include flex($direction: row);
+
+    label {
+      padding-right: $input-option-label-padding-right;
+      padding-bottom: 0;
+    }
+  }
+}
+
+.radio-row input[type="radio"],
+.checkbox-row input[type="checkbox"] {
+  margin-right: $input-option-input-margin-right;
+}
+
+.radio-column label,
+.checkbox-column label {
+  padding-bottom: $input-option-label-padding-bottom;
+}

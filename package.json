@@ -1,20 +1,50 @@
 {
-  "name": "Monolith-Website",
-  "version": "1.1.0",
-  "description": "Website for the Monolith CSS Framework.",
-  "main": "index.js",
+  "name": "undernet",
+  "version": "0.1.0",
+  "homepage": "https://undernet.io",
+  "description": "Undernet is a Front-End Framework for Modern Web Development",
+  "main": "js/dist/undernet.js",
   "author": "George Treviranus",
   "license": "MIT",
   "private": false,
-  "scripts": {
-    "test": "nyc mocha -r babel-register -r ./config/testHelpers.js --recursive ./src/**/*.spec.js",
-    "test:w": "mocha --watch -r babel-register -r ./config/testHelpers.js --recursive ./src/**/*.spec.js",
-    "build": "webpack --config ./config/webpack.prod.js --progress",
-    "start": "webpack-dev-server --config ./config/webpack.dev.js --progress --open"
+  "engines": {
+    "node": ">=10.0.0",
+    "npm": ">=6.1.0"
   },
-  "dependencies": {
+  "keywords": [
+    "scss", "javascript", "js", "css", "front-end", "framework"
+  ],
+  "scripts": {
+    "setup": "rm -rf undernet.wiki/ && git clone https://github.com/geotrev/undernet.wiki.git && npm install",
+    "test": "nyc mocha -r babel-register -r config/testHelpers.js --recursive src/**/*.spec.js",
+    "test:w": "mocha --watch -r babel-register -r config/testHelpers.js --recursive src/**/*.spec.js",
+    "build": "BABEL_ENV=production webpack --config config/webpack.prod.js --progress",
+    "watch": "npm run js:build && webpack-dev-server --config config/webpack.dev.js --progress --open",
+    "lint": "prettier --write 'src/**/*.js' && prettier --write 'src/**/*.scss'",
+    "build:development": "npm run build:lint && npm run js:build",
+    "build:lint": "npm run js:prettier && npm run scss:lint",
+    "build:release": "npm run clean && npm run build:lint && npm run scss:prepublish && npm run css:prepublish && npm run js:prepublish",
+    "clean": "rm -rf dist/ && mkdir dist/",
+    "js:build": "babel js/src/ --out-dir js/dist/",
+    "js:merge": "BABEL_ENV=rollup rollup -c config/rollup.config.js",
+    "js:minify": "BABEL_ENV=rollup rollup -c config/rollup.config.prod.js",
+    "js:watch": "babel js/src/ --watch --out-dir js/dist/",
+    "js:modules:zip": "cd js/dist/ && zip -r ../../dist/undernet.modules.js.zip .",
+    "js:zip": "cd dist/ && zip -r undernet.js.zip . -x *.css *.zip *.css.map",
+    "js:prepublish": "npm run js:build && npm run js:merge && npm run js:modules:zip && npm run js:minify && npm run js:zip",
+    "js:prettier": "prettier --write 'js/src/**/*.js'",
+    "css:minify": "sass scss/undernet.scss:dist/undernet.min.css --style compressed",
+    "css:build": "sass scss/undernet.scss:dist/undernet.css",
+    "css:build:all": "npm run css:build && npm run css:minify",
+    "scss:lint": "prettier --write 'scss/**/*.scss'",
+    "scss:prepublish": "cd scss/ && zip -r ../dist/undernet.scss.zip .",
+    "css:prepublish": "npm run css:build:all && cd dist/ && zip -r undernet.css.zip . -x *.js *.zip *.js.map",
+    "heroku:default": "heroku git:remote -a"
+  },
+  "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
+    "babel-plugin-external-helpers": "^6.22.0",
     "babel-plugin-webpack-aliases": "^1.1.3",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
@@ -38,17 +68,24 @@
     "jsdom": "^11.5.1",
     "markdown-loader": "^2.0.2",
     "mocha": "^5.0.5",
-    "monolith-css": "^1.1.7",
     "node-sass": "^4.7.2",
     "nyc": "^11.3.0",
     "postcss-loader": "^2.0.9",
+    "prettier": "^1.12.1",
+    "prismjs": "^1.14.0",
+    "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-feather": "^1.0.8",
     "react-markdown": "^3.1.4",
     "react-router-dom": "^4.2.2",
+    "resolve-url-loader": "^2.3.0",
+    "rollup-plugin-babel": "^3.0.4",
+    "rollup-plugin-node-resolve": "^3.3.0",
+    "rollup-plugin-uglify": "^4.0.0",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.20.3",
+    "uglify-js": "^3.3.27",
     "uglifyjs-webpack-plugin": "^1.2.4",
     "webpack": "^4.4.1",
     "webpack-cli": "^2.0.13",
@@ -57,20 +94,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/geotrev/monolith-site.git"
-  },
-  "babel": {
-    "presets": [
-      "env",
-      "react"
-    ],
-    "plugins": [
-      [
-        "babel-plugin-webpack-aliases",
-        {
-          "config": "./config/webpack.dev.js"
-        }
-      ]
-    ]
+    "url": "git+https://github.com/geotrev/undernet.git"
   }
 }

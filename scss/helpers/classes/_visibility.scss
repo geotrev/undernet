@@ -1,0 +1,56 @@
+// visibility class modifiers – by breakpoint.
+
+@each $breakpoint in $breakpoints {
+  $break-name: nth($breakpoint, 1);
+  $smallest-break-name: nth(nth($breakpoints, 1), 1);
+
+  @if $break-name == $smallest-break-name {
+    .is-flex {
+      display: flex !important;
+    }
+    .is-block {
+      display: block !important;
+    }
+    .is-hidden {
+      display: none !important;
+    }
+  } @else {
+    @include breakpoint-up($break-name) {
+      @include visibility($break-name);
+    } // end @include
+  } // end @if
+} // end @each
+
+// A11y
+// @link https://gomakethings.com/hidden-content-for-better-a11y/
+
+// Visually hide an element, but leave it available for screen readers
+// @link https://github.com/h5bp/html5-boilerplate/blob/master/dist/css/main.css
+// @link http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+
+.is-visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+// Extends the .is-visually-hidden class to allow the element to be focusable when navigated to via the keyboard
+// @link https://github.com/h5bp/html5-boilerplate/blob/master/dist/css/main.css
+// @link https://www.drupal.org/node/897638
+
+.is-visually-hidden-focusable:active,
+.is-visually-hidden-focusable:focus {
+  clip: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  position: static;
+  white-space: normal;
+  width: auto;
+}

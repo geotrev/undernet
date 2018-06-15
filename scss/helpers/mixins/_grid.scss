@@ -1,0 +1,18 @@
+@mixin grid-classes($size) {
+  @for $i from 1 through $columns {
+    .#{$size}-#{$i} {
+      @include flex($grow: 0, $shrink: 0, $basis: percentage($i / $columns));
+      max-width: percentage($i / $columns);
+    }
+    @if $column-offset-classes == true {
+      .#{$size}-offset-#{$i} {
+        margin-left: percentage($i / $columns);
+      }
+    }
+    @if $column-order-classes == true {
+      .#{$size}-order-#{$i} {
+        order: $i;
+      }
+    }
+  }
+}

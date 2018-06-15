@@ -1,11 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component } from "react"
 
 export default class CheckInput extends Component {
   getLabel() {
-    const warnMsg = "*** You have checkbox inputs without labels ***";
-    return this.props.label ? this.props.label : console.warn(warnMsg)
+    return this.props.label ? this.props.label : this.getWarning()
   }
-  
+
+  getWarning() {
+    const warnMsg = "*** You have checkbox inputs without labels ***"
+    if (this.props.no_label) return
+    return console.warn(warnMsg)
+  }
+
   render() {
     return (
       <label htmlFor={this.props.id}>
@@ -20,9 +25,10 @@ export default class CheckInput extends Component {
           id={this.props.id}
           className={this.props.className}
           value={this.props.value}
+          no_label={this.props.no_label}
         />
         {this.getLabel()}
       </label>
-    );
+    )
   }
 }
