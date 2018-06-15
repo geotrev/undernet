@@ -10,7 +10,7 @@ You should have nearly full control over your button’s various states. You’l
 <input type="button" value="Submit" />
 ```
 
-For `input`, valid `type`s are `button`, `submit`, `reset`, and `file`. If you're using a newer tag that isn't supported by Monolith, just add `.button` to the element and it should work as expected.
+For `input`, valid `type`s are `button`, `submit`, `reset`, and `file`. If you're using a newer tag that isn't supported by Undernet, just add `.button` to the element and it should work as expected.
 
 ### Block button
 

@@ -2,15 +2,15 @@ import React, { Component } from "react"
 import DemoSection from "../DemoSection/DemoSection"
 
 import { HeaderText } from "components"
-import Monolith from "getmonolith"
+import Undernet from "undernet"
 
 export default class Accordions extends Component {
   componentDidMount() {
-    Monolith.accordions.start()
+    Undernet.Accordions.start()
   }
 
   componentWillUnmount() {
-    Monolith.accordions.stop()
+    Undernet.Accordions.stop()
   }
 
   render() {

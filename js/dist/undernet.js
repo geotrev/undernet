@@ -14,23 +14,23 @@ var _accordion2 = _interopRequireDefault(_accordion);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var modals = new _modal2.default();
-var accordions = new _accordion2.default();
+var Modals = new _modal2.default();
+var Accordions = new _accordion2.default();
 
-var Monolith = {
-  modals: modals,
-  accordions: accordions
+var Undernet = {
+  Modals: Modals,
+  Accordions: Accordions
 };
 
-Monolith.start = function () {
-  Monolith.modals.start();
-  Monolith.accordions.start();
+Undernet.start = function () {
+  Undernet.Modals.start();
+  Undernet.Accordions.start();
 };
 
-Monolith.stop = function () {
-  Monolith.modals.stop();
-  Monolith.accordions.stop();
+Undernet.stop = function () {
+  Undernet.Modals.stop();
+  Undernet.Accordions.stop();
 };
 
-window.Monolith = Monolith;
-exports.default = Monolith;
+window.Undernet = Undernet;
+exports.default = Undernet;

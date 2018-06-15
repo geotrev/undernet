@@ -1,18 +1,21 @@
 {
-  "name": "getmonolith",
+  "name": "undernet",
   "version": "0.1.0",
-  "homepage": "https://getmonolith.io",
-  "description": "Monolith Front-End Framework and Website",
-  "main": "js/dist/monolith.js",
+  "homepage": "https://undernet.io",
+  "description": "Undernet is a Front-End Framework for Modern Web Development",
+  "main": "js/dist/undernet.js",
   "author": "George Treviranus",
   "license": "MIT",
   "private": false,
   "engines": {
-    "node": "v10.3.0",
-    "npm": "6.1.0"
+    "node": ">=10.0.0",
+    "npm": ">=6.1.0"
   },
+  "keywords": [
+    "scss", "javascript", "js", "css", "front-end", "framework"
+  ],
   "scripts": {
-    "setup": "rm -rf getmonolith.io.wiki/ && git clone https://github.com/geotrev/getmonolith.io.wiki.git && npm install",
+    "setup": "rm -rf undernet.wiki/ && git clone https://github.com/geotrev/undernet.wiki.git && npm install",
     "test": "nyc mocha -r babel-register -r config/testHelpers.js --recursive src/**/*.spec.js",
     "test:w": "mocha --watch -r babel-register -r config/testHelpers.js --recursive src/**/*.spec.js",
     "build": "BABEL_ENV=production webpack --config config/webpack.prod.js --progress",
@@ -26,16 +29,16 @@
     "js:merge": "BABEL_ENV=rollup rollup -c config/rollup.config.js",
     "js:minify": "BABEL_ENV=rollup rollup -c config/rollup.config.prod.js",
     "js:watch": "babel js/src/ --watch --out-dir js/dist/",
-    "js:modules:zip": "cd js/dist/ && zip -r ../../dist/monolith.modules.js.zip .",
-    "js:zip": "cd dist/ && zip -r monolith.js.zip . -x *.css *.zip *.css.map",
+    "js:modules:zip": "cd js/dist/ && zip -r ../../dist/undernet.modules.js.zip .",
+    "js:zip": "cd dist/ && zip -r undernet.js.zip . -x *.css *.zip *.css.map",
     "js:prepublish": "npm run js:build && npm run js:merge && npm run js:modules:zip && npm run js:minify && npm run js:zip",
     "js:prettier": "prettier --write 'js/src/**/*.js'",
-    "css:minify": "sass scss/monolith.scss:dist/monolith.min.css --style compressed",
-    "css:build": "sass scss/monolith.scss:dist/monolith.css",
+    "css:minify": "sass scss/undernet.scss:dist/undernet.min.css --style compressed",
+    "css:build": "sass scss/undernet.scss:dist/undernet.css",
     "css:build:all": "npm run css:build && npm run css:minify",
     "scss:lint": "prettier --write 'scss/**/*.scss'",
-    "scss:prepublish": "cd scss/ && zip -r ../dist/monolith.scss.zip .",
-    "css:prepublish": "npm run css:build:all && cd dist/ && zip -r monolith.css.zip . -x *.js *.zip *.js.map",
+    "scss:prepublish": "cd scss/ && zip -r ../dist/undernet.scss.zip .",
+    "css:prepublish": "npm run css:build:all && cd dist/ && zip -r undernet.css.zip . -x *.js *.zip *.js.map",
     "heroku:default": "heroku git:remote -a"
   },
   "devDependencies": {
@@ -91,6 +94,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/geotrev/getmonolith.io.git"
+    "url": "git+https://github.com/geotrev/undernet.git"
   }
 }

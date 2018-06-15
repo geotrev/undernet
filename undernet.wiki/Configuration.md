@@ -1,10 +1,10 @@
-`_config.scss` is where you'll spend the majority of your time styling Monolith. If you must, you can also delve into `elements/` and amend custom styles if you need to.
+`_config.scss` is where you'll spend the majority of your time styling Undernet. If you must, you can also delve into `elements/` and amend custom styles if you need to.
 
 Note that you shouldn't delete or change the names of the variables in these files as that will cause errors when compiling into CSS.
 
 ## Table of Contents
 
-Monolith adds styling to five core element groups:
+Undernet adds styling to five core element groups:
 
 1.  [Global](#1-global)
 2.  [Grid](#2-grid)
@@ -14,7 +14,7 @@ Monolith adds styling to five core element groups:
 
 ### 1. Global
 
-From here you can define a global scope class which, when defined and enabled, acts as a flag\* for you to start using Monolith elements or components inside it.
+From here you can define a global scope class which, when defined and enabled, acts as a flag\* for you to start using Undernet elements or components inside it.
 
 Say you define `$scope` as `mono`. This means this will not work on its own:
 
@@ -30,20 +30,20 @@ Instead, you need to have a parent class somewhere with `.mono`:
 </div>
 ```
 
-This is helpful for encapsulating Monolith when adding it to existing projects.
+This is helpful for encapsulating Undernet when adding it to existing projects.
 
 Also here, you can find other global definitions for typography, spacing, and colors. These are used everywhere in the framework so make sure not to delete them, or in the case of maps, delete the entire collection.
 
 ### 2. Grid
 
-Monolith comes with a handy flex grid for layouts. It’s nothing fancy – and you can exclude the correlating folder in `elements/` if you already use one. Otherwise, you have a very wide set of options for naming your grid classes, creating grid widths, grid sections (containers with vertical padding), as well as breakpoints and column spacing.
+Undernet comes with a handy flex grid for layouts. It’s nothing fancy – and you can exclude the correlating folder in `elements/` if you already use one. Otherwise, you have a very wide set of options for naming your grid classes, creating grid widths, grid sections (containers with vertical padding), as well as breakpoints and column spacing.
 
 **Options**
 
 * `$grid-classes`: Change the names of your grid classes. `grid`, `row`, and `column` are the defaults.
 * `$grid-widths`: Horizontal spacing modifiers for `.grid`.
 * `$grid-sections`: Vertical spacing modifiers for `.grid`.
-* `$breakpoints`: Used for media queries _and_ the grid classes for monolith. Note if you remove one, make sure it isn't mentioned in other configurations with `map-get`!
+* `$breakpoints`: Used for media queries _and_ the grid classes for undernet. Note if you remove one, make sure it isn't mentioned in other configurations with `map-get`!
 * Spacing & Gutters: Configure gutters and other spacing for column containers.
 * `$column-offset-classes`: Switch to `false` to exclude conventional offset modifiers. `true` by default.
 * `$column-order-classes`: Switch to `false` to exclude flex order modifiers. `true` by default.
@@ -63,7 +63,7 @@ Typography gives you the flexibility to customize the key properties (margin, fo
 
 ### 4. Buttons
 
-There is a lot of flexibility in how you can configure your buttons. Monolith encourages you to take control of the styles that matter first, and simply add on extras later as a separate stylesheet if you need to. Options here will allow you to change any of the default, `:active`, `:hover`, or `:focus` states to your hearts content. If you override these configurations in a new stylesheet, be sure to account for the various states.
+There is a lot of flexibility in how you can configure your buttons. Undernet encourages you to take control of the styles that matter first, and simply add on extras later as a separate stylesheet if you need to. Options here will allow you to change any of the default, `:active`, `:hover`, or `:focus` states to your hearts content. If you override these configurations in a new stylesheet, be sure to account for the various states.
 
 **Options**
 

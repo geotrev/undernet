@@ -5,7 +5,7 @@ import { uglify } from "rollup-plugin-uglify"
 
 module.exports = merge(common, {
   output: {
-    file: path.resolve("dist/monolith.bundle.min.js"),
+    file: path.resolve("dist/undernet.bundle.min.js"),
   },
   plugins: [
     uglify({
@@ -19,7 +19,7 @@ module.exports = merge(common, {
         },
       },
       mangle: {
-        reserved: ["Monolith", "start", "stop", "accordions", "modals"],
+        reserved: ["Undernet"],
       },
     }),
   ],

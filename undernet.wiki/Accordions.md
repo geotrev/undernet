@@ -6,7 +6,7 @@ Then enable the javascript plugin near the end of the `<body>`:
 
 ```js
 document.addEventListener("DOMContentLoaded", () => {
-  Monolith.accordions.start()
+  Undernet.Accordions.start()
 })
 ```
 

@@ -4,7 +4,7 @@ To use it, you must enable the javascript plugin near the end of the `<body>`:
 
 ```js
 document.addEventListener("DOMContentLoaded", () => {
-  Monolith.modals.start()
+  Undernet.Modals.start()
 })
 ```
 
@@ -40,15 +40,13 @@ Modals depend on a few base attributes, and the rest (including aria) is derived
 ```
 
 #### What's needed?
-
-- `[data-modal-overlay]`: Adds styling and animations to the overlay.
-- `[data-modal-id]`: The unique id for the container; it should match your button's `id` attribute.
-- `[data-modal-close]`: Adding this to a link or button automatically allows your modal to be closed on click.
+* `[data-modal-overlay]`: Adds styling and animations to the overlay.
+* `[data-modal-id]`: The unique id for the container; it should match your button's `id` attribute.
+* `[data-modal-close]`: Adding this to a link or button automatically allows your modal to be closed on click.
 
 #### Accessibility
-
 All main aria- attributes are added automatically, as mentioned, with the exception of `[aria-labelledby]`:
 
-- `[aria-labelledby]`: The inner modal container should have this attribute pointing to the header element's `id` attribute. This helps assistive technologies identify the title/label of the content.
+* `[aria-labelledby]`: The inner modal container should have this attribute pointing to the header element's `id` attribute. This helps assistive technologies identify the title/label of the content.
 
 Next: [Accordions ►](accordions)

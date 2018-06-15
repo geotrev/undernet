@@ -5,15 +5,15 @@ const pkg = require(path.resolve(__dirname, "../package.json"))
 const year = new Date().getFullYear()
 
 module.exports = {
-  input: path.resolve("js/src/monolith.js"),
+  input: path.resolve("js/src/undernet.js"),
   output: {
-    file: path.resolve("dist/monolith.bundle.js"),
+    file: path.resolve("dist/undernet.bundle.js"),
     format: "umd",
-    name: "getmonolith",
+    name: "undernet",
     sourcemap: true,
     banner: `/*!
-  * @license MIT (https://github.com/geotrev/getmonolith.io/blob/master/LICENSE)
-  * Monolith v${pkg.version} (${pkg.homepage})
+  * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
+  * Undernet v${pkg.version} (${pkg.homepage})
   * Copyright 2017-${year} ${pkg.author}
   */`,
   },

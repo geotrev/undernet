@@ -38,4 +38,4 @@ require.extensions[".png"] = noop
 require.extensions[".jpg"] = noop
 global.window.scrollTo = noop
 
-global.Monolith = noop
+global.Undernet = noop
