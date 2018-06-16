@@ -25,4 +25,4 @@ Want to contribute? [Check out the project on Github!](https://www.github.com/ge
 Cheers!
 – George T.
 
-Next: [Download ►](download)
+Next: [Getting Started ►](getting-started)
