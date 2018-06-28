@@ -13,8 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
 Modals depend on a few base attributes, and the rest (including aria) is derived from there.
 
 ```html
-<a href="#" data-modal-button id="new-modal">Open modal</a>
-<div data-modal-overlay data-modal-id="new-modal">
+<button href="#" data-modal-button="new-modal">Open modal</button>
+<div class="modal-overlay" data-modal-id="new-modal">
   <div aria-labelledby="header-id" data-modal>
     <header>
       <h2 class="h6" id="header-id">
@@ -40,14 +40,13 @@ Modals depend on a few base attributes, and the rest (including aria) is derived
 ```
 
 #### What's needed?
-* `[data-modal-button]`: Identifies the button as having a modal.
-* `[id]`: An id on the button to associate it with a specific modal.
-* `[data-modal-id]`: The unique id for the modal; it should match your button's `id` attribute.
+* `[data-modal-button]`: Identifies the button as having a modal. It's value should match `[data-modal-id]`
+* `[data-modal-id]`: The unique id for the modal container.
 * `[data-modal-overlay]`: Adds styling and animations to the overlay.
 * `[data-modal-close]`: Adding this to a link or button automatically allows your modal to be closed on click.
 
 #### Accessibility
-All main aria- attributes are added automatically, as mentioned, with the exception of `[aria-labelledby]`:
+All main `aria-` attributes are added automatically, as mentioned, with the exception of `[aria-labelledby]`:
 
 * `[aria-labelledby]`: The inner modal container should have this attribute pointing to the header element's `id` attribute. This helps assistive technologies identify the title/label of the content.
 

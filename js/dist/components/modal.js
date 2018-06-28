@@ -137,9 +137,9 @@ var Modal = function (_Utils) {
     value: function renderModal(event) {
       var _this4 = this;
 
-      // setup core lightbox properties
       this.modalButton = event.target;
-      this.modalOverlayAttr = "[" + selectors.MODAL_ID + "='" + this.modalButton.id + "']";
+      this.activeModalId = this.modalButton.getAttribute(selectors.MODAL_BUTTON);
+      this.modalOverlayAttr = "[" + selectors.MODAL_ID + "='" + this.activeModalId + "']";
       this.modalOverlay = document.querySelector(this.modalOverlayAttr);
 
       if (!this.modalOverlay) {

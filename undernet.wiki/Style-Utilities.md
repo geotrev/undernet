@@ -49,7 +49,7 @@ There are a number of mixins used in Undernet to generate the many components. L
 
 The button mixin behaves as a template for new buttons. It has 16 arguments, handling all states of `box-shadow`, `color`, `border-color`, and `background`.
 
-The mixin sets all defaults of these arguments to the default values in `_config.scss`. This mixin is then reused to generate button types from `$button-types`, also in `_config.scss`.
+The mixin sets all defaults of these arguments to the button default style values in `_config.scss`. This mixin is then reused to generate button types from `$button-types`, also in `_config.scss`.
 
 Defaults:
 
@@ -75,7 +75,7 @@ Defaults:
   $border-color-focus: $button-border-color-focus,
   $color-focus: $button-color-focus,
   $background-focus: $button-background-focus
-) { ... ]
+) { ... }
 ```
 
 #### Flex

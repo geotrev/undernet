@@ -97,9 +97,9 @@ export default class Modal extends Utils {
    * @param {Object} event - The event object
    */
   renderModal(event) {
-    // setup core lightbox properties
     this.modalButton = event.target
-    this.modalOverlayAttr = `[${selectors.MODAL_ID}='${this.modalButton.id}']`
+    this.activeModalId = this.modalButton.getAttribute(selectors.MODAL_BUTTON)
+    this.modalOverlayAttr = `[${selectors.MODAL_ID}='${this.activeModalId}']`
     this.modalOverlay = document.querySelector(this.modalOverlayAttr)
 
     if (!this.modalOverlay) {
