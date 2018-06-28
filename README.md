@@ -84,7 +84,7 @@ Undernet.Modals.start()
 
 #### React
 
-Undernet fully supports use in React. You simply need to call the `.start()` method in `componentDidMount()`, and then `.stop()` in `componentDidUnmount()` (to prevent unnecessary event listeners when the components are no longer visible):
+Undernet fully supports use in React. You simply need to call the `.start()` method in `componentDidMount()`, and then `.stop()` in `componentWillUnmount()` (to prevent unnecessary event listeners when the components are no longer visible):
 
 ```js
 export default class SomeComponent extends React.Component {
@@ -92,7 +92,7 @@ export default class SomeComponent extends React.Component {
     Undernet.Modals.start()
   }
 
-  componentDidUnmount() {
+  componentWillUnmount() {
     Undernet.Modals.stop()
   }
 
