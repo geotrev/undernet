@@ -40,7 +40,7 @@ var events = {
 };
 
 var messages = {
-  MISSING_MODAL: "Your button is missing its corresponding modal. Check to make sure your modal is in the DOM, and that is has a [data-modal-id=*] attribute matching the button ID."
+  MISSING_MODAL: "Your button is missing its corresponding modal. Check to make sure your modal is in the DOM, and that is has a [data-modal-id=*] attribute matchin its [data-modal-button=*] attribute. It's possible the modal script ran before the button appeared on the page!"
 
   /**
    * Modal component class.
