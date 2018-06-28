@@ -40,7 +40,7 @@ var events = {
 };
 
 var messages = {
-  MISSING_MODAL: "Your button is missing its corresponding modal. Check to make sure your modal is in the DOM, and that is has a [data-modal-id=*] attribute matching the button ID."
+  MISSING_MODAL: "Your button is missing its corresponding modal. Check to make sure your modal is in the DOM, and that is has a [data-modal-id=*] attribute matchin its [data-modal-button=*] attribute. It's possible the modal script ran before the button appeared on the page!"
 
   /**
    * Modal component class.
@@ -137,9 +137,9 @@ var Modal = function (_Utils) {
     value: function renderModal(event) {
       var _this4 = this;
 
-      // setup core lightbox properties
       this.modalButton = event.target;
-      this.modalOverlayAttr = "[" + selectors.MODAL_ID + "='" + this.modalButton.id + "']";
+      this.activeModalId = this.modalButton.getAttribute(selectors.MODAL_BUTTON);
+      this.modalOverlayAttr = "[" + selectors.MODAL_ID + "='" + this.activeModalId + "']";
       this.modalOverlay = document.querySelector(this.modalOverlayAttr);
 
       if (!this.modalOverlay) {

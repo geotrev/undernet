@@ -6,7 +6,7 @@
 
 // modal visibility & positioning
 
-[data-modal-overlay] {
+.modal-overlay {
   display: block;
   background: $modal-overlay-color;
   z-index: $modal-z-index;
