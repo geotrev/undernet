@@ -42,11 +42,11 @@ Modals depend on a few base attributes, and the rest (including aria) is derived
 #### What's needed?
 * `[data-modal-button]`: Identifies the button as having a modal. It's value should match `[data-modal-id]`
 * `[data-modal-id]`: The unique id for the modal container.
-* `[data-modal-overlay]`: Adds styling and animations to the overlay.
+* `modal-overlay` (class): Adds styling and animations to the overlay.
 * `[data-modal-close]`: Adding this to a link or button automatically allows your modal to be closed on click.
 
 #### Accessibility
-All main `aria-` attributes are added automatically, as mentioned, with the exception of `[aria-labelledby]`:
+All main aria attributes are added automatically, with one exception:
 
 * `[aria-labelledby]`: The inner modal container should have this attribute pointing to the header element's `id` attribute. This helps assistive technologies identify the title/label of the content.
 

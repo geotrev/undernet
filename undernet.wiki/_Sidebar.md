@@ -1,6 +1,6 @@
 ### Getting Started
 * [Overview](home)
-* [Download](download)
+* [Getting Started](getting-started)
 * [Configuration](configuration)
 
 ### Elements
