@@ -1,6 +1,6 @@
 /*!
 * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
-* Undernet v0.1.1 (https://undernet.io)
+* Undernet v0.1.2 (https://undernet.io)
 * Copyright 2017-2018 George Treviranus
 */
 html,
@@ -1948,7 +1948,7 @@ textarea {
 .no-scroll {
   overflow: hidden; }
 
-[data-modal-overlay] {
+.modal-overlay {
   display: block;
   background: rgba(0, 0, 0, 0.5);
   z-index: 2000;
@@ -1964,10 +1964,10 @@ textarea {
   right: 0;
   transition: opacity 0.5s cubic-bezier(0.12, 0.72, 0.58, 1.03);
   pointer-events: none; }
-  [data-modal-overlay][data-modal-visible] {
+  .modal-overlay[data-modal-visible] {
     opacity: 1;
     pointer-events: auto; }
-  [data-modal-overlay].modal-centered {
+  .modal-overlay.modal-centered {
     display: flex;
     align-items: center;
     justify-content: center;
