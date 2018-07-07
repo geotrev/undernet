@@ -16,7 +16,7 @@ An accordion requires a few attributes to work, but are pretty self-explanatory:
 
 ```html
 <div data-accordion="accordion1">
-  <div data-accordion-expanded="true">
+  <div data-accordion-expanded="true" data-accordion-row="content1">
     <h5 id="button-1">
       <button data-accordion-parent="accordion1" aria-controls="content1" data-accordion-button="content1">
         Accordion Button 1
@@ -36,9 +36,10 @@ An accordion requires a few attributes to work, but are pretty self-explanatory:
 #### What's needed?
 
 - `[data-accordion]`: The container attribute. Must be equal to its children's `[data-accordion-parent]` attribute on each button.
+- `[data-accordion-row]`: Contains a given button and content block for an accordion row. Must be equal to `[data-accordion-button]` and the content block's `id`.
 - `[data-accordion-expanded]`: This is used as both a wrapper for each button/content pair. Set to `"true"` if its content is expanded by default, and `"false"` otherwise.
 - `[data-accordion-parent]`: Identifier for the container element. Used on each button.
-- `[data-accordion-button]`: Identifier pointing a button to its corresponding content block.
+- `[data-accordion-button]`: Identifier pointing a button to its content block's `id`.
 - `[data-accordion-content]`: Identifier detecting if a content block is currently visible or not. Set to `"visible"` if it's expanded by default, and `"hidden"` otherwise.
 - `[data-accordion-toggle-multiple]` (optional): Add to your `[data-accordion]` element to enable multiple accordion content blocks to be expanded at once, otherwise only one can be visible at a time (you can still have multiple open by default, but unless this attribute is present, they will all close except the one you selected, once you've clicked one).
 

@@ -9,6 +9,7 @@ const keyCodes = {
 const selectors = {
   ACCORDION_CONTAINER: "data-accordion",
   ACCORDION_EXPANDED: "data-accordion-expanded",
+  ACCORDION_ROW: "data-accordion-row",
   ACCORDION_BUTTON: "data-accordion-button",
   ACCORDION_CONTENT: "data-accordion-content",
   ACCORDION_MULTIPLE: "data-accordion-toggle-multiple",
@@ -62,7 +63,9 @@ export default class Accordion extends Utils {
 
     if (this.accordionContents.length) {
       this.accordionContents.forEach(content => {
-        const contentHiddenState = content.parentNode.getAttribute(selectors.ACCORDION_EXPANDED)
+        const contentRowAttr = this.getAccordionRowAttr(content.id)
+        const contentRow = document.querySelector(contentRowAttr)
+        const contentHiddenState = contentRow.getAttribute(selectors.ACCORDION_EXPANDED)
         const toggleContentHiddenState = contentHiddenState === "true" ? "false" : "true"
         content.setAttribute(selectors.ARIA_HIDDEN, toggleContentHiddenState)
       })
@@ -80,15 +83,27 @@ export default class Accordion extends Utils {
   }
 
   setupButton(button) {
-    const expandState = button.parentNode.parentNode.getAttribute(selectors.ACCORDION_EXPANDED)
-    const buttonContent = button.parentNode.nextElementSibling
+    const buttonId = button.getAttribute(selectors.ACCORDION_BUTTON)
+    const accordionRowAttr = this.getAccordionRowAttr(buttonId)
+    const accordionRow = document.querySelector(accordionRowAttr)
+    const shouldContentExpand = accordionRow.getAttribute(selectors.ACCORDION_EXPANDED)
+    const buttonContent = document.getElementById(buttonId)
 
-    if (expandState === "true") {
+    if (shouldContentExpand === "true") {
       buttonContent.style.maxHeight = `${buttonContent.scrollHeight}px`
       button.setAttribute(selectors.ARIA_EXPANDED, "true")
     } else {
       button.setAttribute(selectors.ARIA_EXPANDED, "false")
     }
+  }
+
+  /**
+   * Return a selector that targets `selectors.ACCORDION_ROW` with value of the id.
+   * @param {String} id - An id value associated with a given selectors.ACCORDION_BUTTON
+   * @return {String}
+   */
+  getAccordionRowAttr(id) {
+    return `[${selectors.ACCORDION_ROW}='${id}']`
   }
 
   /**
@@ -99,14 +114,15 @@ export default class Accordion extends Utils {
     event.preventDefault()
 
     this.activeButton = event.target
+    const activeAccordionRow = this.activeButton.getAttribute(selectors.ACCORDION_BUTTON)
 
-    this.activeRow = this.activeButton.parentNode.parentNode
+    this.activeRowAttr = this.getAccordionRowAttr(activeAccordionRow)
+    this.activeRow = document.querySelector(this.activeRowAttr)
     this.activeContainerId = this.activeButton.getAttribute(selectors.ACCORDION_PARENT)
     this.activeContainerAttr = `[${selectors.ACCORDION_CONTAINER}='${this.activeContainerId}']`
     this.activeContainer = document.querySelector(this.activeContainerAttr)
 
-    const activeContentId = this.activeButton.getAttribute(selectors.ACCORDION_BUTTON)
-    this.activeContent = document.getElementById(activeContentId)
+    this.activeContent = document.getElementById(activeAccordionRow)
 
     const accordionContentHasAttr = this.activeContent.hasAttribute(selectors.ACCORDION_CONTENT)
     if (!accordionContentHasAttr) {

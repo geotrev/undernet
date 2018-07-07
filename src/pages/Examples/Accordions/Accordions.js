@@ -24,7 +24,7 @@ export default class Accordions extends Component {
 
           <div className="xsmall-12 columns">
             <div data-accordion="accordion1">
-              <div data-accordion-expanded="true">
+              <div data-accordion-expanded="true" data-accordion-row="content1">
                 <h5 id="button1">
                   <button
                     data-accordion-parent="accordion1"
@@ -41,7 +41,7 @@ export default class Accordions extends Component {
                   </p>
                 </div>
               </div>
-              <div data-accordion-expanded="false">
+              <div data-accordion-expanded="false" data-accordion-row="content2">
                 <h5 id="button2">
                   <button
                     data-accordion-parent="accordion1"
@@ -60,7 +60,7 @@ export default class Accordions extends Component {
                   </p>
                 </div>
               </div>
-              <div data-accordion-expanded="false">
+              <div data-accordion-expanded="false" data-accordion-row="content3">
                 <h5 id="button3">
                   <button
                     data-accordion-parent="accordion1"
@@ -86,11 +86,11 @@ export default class Accordions extends Component {
           </div>
 
           <div className="xsmall-12 columns">
-            <div data-accordion="accordion-2" data-accordion-toggle-multiple>
-              <div data-accordion-expanded="false">
+            <div data-accordion="accordion2" data-accordion-toggle-multiple>
+              <div data-accordion-expanded="false" data-accordion-row="content4">
                 <h5 id="button4">
                   <button
-                    data-accordion-parent="accordion-2"
+                    data-accordion-parent="accordion2"
                     aria-controls="content4"
                     data-accordion-button="content4"
                   >
@@ -106,10 +106,10 @@ export default class Accordions extends Component {
                   </p>
                 </div>
               </div>
-              <div data-accordion-expanded="false">
+              <div data-accordion-expanded="false" data-accordion-row="content5">
                 <h5 id="button5">
                   <button
-                    data-accordion-parent="accordion-2"
+                    data-accordion-parent="accordion2"
                     aria-controls="content5"
                     data-accordion-button="content5"
                   >
@@ -123,10 +123,10 @@ export default class Accordions extends Component {
                   </p>
                 </div>
               </div>
-              <div data-accordion-expanded="false">
+              <div data-accordion-expanded="false" data-accordion-row="content6">
                 <h5 id="button6">
                   <button
-                    data-accordion-parent="accordion-2"
+                    data-accordion-parent="accordion2"
                     aria-controls="content6"
                     data-accordion-button="content6"
                   >

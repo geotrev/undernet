@@ -1,6 +1,6 @@
 {
   "name": "undernet",
-  "version": "0.1.2",
+  "version": "1.0.0",
   "homepage": "https://undernet.io",
   "description": "Undernet is a Front-End Framework for Modern Web Development",
   "main": "js/dist/undernet.js",

@@ -25,6 +25,7 @@ var keyCodes = {
 var selectors = {
   ACCORDION_CONTAINER: "data-accordion",
   ACCORDION_EXPANDED: "data-accordion-expanded",
+  ACCORDION_ROW: "data-accordion-row",
   ACCORDION_BUTTON: "data-accordion-button",
   ACCORDION_CONTENT: "data-accordion-content",
   ACCORDION_MULTIPLE: "data-accordion-toggle-multiple",
@@ -89,7 +90,9 @@ var Accordion = function (_Utils) {
 
       if (this.accordionContents.length) {
         this.accordionContents.forEach(function (content) {
-          var contentHiddenState = content.parentNode.getAttribute(selectors.ACCORDION_EXPANDED);
+          var contentRowAttr = _this2.getAccordionRowAttr(content.id);
+          var contentRow = document.querySelector(contentRowAttr);
+          var contentHiddenState = contentRow.getAttribute(selectors.ACCORDION_EXPANDED);
           var toggleContentHiddenState = contentHiddenState === "true" ? "false" : "true";
           content.setAttribute(selectors.ARIA_HIDDEN, toggleContentHiddenState);
         });
@@ -113,15 +116,30 @@ var Accordion = function (_Utils) {
   }, {
     key: "setupButton",
     value: function setupButton(button) {
-      var expandState = button.parentNode.parentNode.getAttribute(selectors.ACCORDION_EXPANDED);
-      var buttonContent = button.parentNode.nextElementSibling;
+      var buttonId = button.getAttribute(selectors.ACCORDION_BUTTON);
+      var accordionRowAttr = this.getAccordionRowAttr(buttonId);
+      var accordionRow = document.querySelector(accordionRowAttr);
+      var shouldContentExpand = accordionRow.getAttribute(selectors.ACCORDION_EXPANDED);
+      var buttonContent = document.getElementById(buttonId);
 
-      if (expandState === "true") {
+      if (shouldContentExpand === "true") {
         buttonContent.style.maxHeight = buttonContent.scrollHeight + "px";
         button.setAttribute(selectors.ARIA_EXPANDED, "true");
       } else {
         button.setAttribute(selectors.ARIA_EXPANDED, "false");
       }
+    }
+
+    /**
+     * Return a selector that targets `selectors.ACCORDION_ROW` with value of the id.
+     * @param {String} id - An id value associated with a given selectors.ACCORDION_BUTTON
+     * @return {String}
+     */
+
+  }, {
+    key: "getAccordionRowAttr",
+    value: function getAccordionRowAttr(id) {
+      return "[" + selectors.ACCORDION_ROW + "='" + id + "']";
     }
 
     /**
@@ -135,14 +153,15 @@ var Accordion = function (_Utils) {
       event.preventDefault();
 
       this.activeButton = event.target;
+      var activeAccordionRow = this.activeButton.getAttribute(selectors.ACCORDION_BUTTON);
 
-      this.activeRow = this.activeButton.parentNode.parentNode;
+      this.activeRowAttr = this.getAccordionRowAttr(activeAccordionRow);
+      this.activeRow = document.querySelector(this.activeRowAttr);
       this.activeContainerId = this.activeButton.getAttribute(selectors.ACCORDION_PARENT);
       this.activeContainerAttr = "[" + selectors.ACCORDION_CONTAINER + "='" + this.activeContainerId + "']";
       this.activeContainer = document.querySelector(this.activeContainerAttr);
 
-      var activeContentId = this.activeButton.getAttribute(selectors.ACCORDION_BUTTON);
-      this.activeContent = document.getElementById(activeContentId);
+      this.activeContent = document.getElementById(activeAccordionRow);
 
       var accordionContentHasAttr = this.activeContent.hasAttribute(selectors.ACCORDION_CONTENT);
       if (!accordionContentHasAttr) {
