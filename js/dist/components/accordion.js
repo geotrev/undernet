@@ -202,11 +202,8 @@ var Accordion = function (_Utils) {
       var _this4 = this;
 
       if (this.activeContainer.hasAttribute(selectors.TOGGLE_MULTIPLE)) return;
-
       var allRows = this.getElements(this.activeContainerAttr + " [" + selectors.EXPANDED + "]");
-
       var allContent = this.getElements(this.activeContainerAttr + " [" + selectors.VISIBLE + "]");
-
       var allButtons = this.getElements(this.activeContainerAttr + " [" + selectors.TARGET + "]");
 
       allContent.forEach(function (content) {

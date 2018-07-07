@@ -155,11 +155,8 @@ export default class Accordion extends Utils {
    */
   closeAllIfToggleable() {
     if (this.activeContainer.hasAttribute(selectors.TOGGLE_MULTIPLE)) return
-
     const allRows = this.getElements(`${this.activeContainerAttr} [${selectors.EXPANDED}]`)
-
     const allContent = this.getElements(`${this.activeContainerAttr} [${selectors.VISIBLE}]`)
-
     const allButtons = this.getElements(`${this.activeContainerAttr} [${selectors.TARGET}]`)
 
     allContent.forEach(content => {

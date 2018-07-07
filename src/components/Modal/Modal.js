@@ -5,12 +5,12 @@ export default class Modal extends Component {
     return (
       <div
         className={`modal-overlay ${this.props.modalClass ? this.props.modalClass : ""}`}
-        data-modal-id={this.props.id}
+        data-id={this.props.id}
       >
         <div aria-labelledby={this.props.labelledby} data-modal>
           <header>
             <h2 id={this.props.labelledby}>{this.props.title}</h2>
-            <a data-modal-close href="#">
+            <a data-close href="#">
               <span aria-hidden="true">&times;</span>
             </a>
           </header>

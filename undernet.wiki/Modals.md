@@ -13,14 +13,14 @@ document.addEventListener("DOMContentLoaded", () => {
 Modals depend on a few base attributes, and the rest (including aria) is derived from there.
 
 ```html
-<button href="#" data-modal-button="new-modal">Open modal</button>
-<div class="modal-overlay" data-modal-id="new-modal">
+<button href="#" data-target="new-modal">Open modal</button>
+<div class="modal-overlay" data-id="new-modal">
   <div aria-labelledby="header-id" data-modal>
     <header>
       <h2 class="h6" id="header-id">
         Modal Header
       </h2>
-      <a data-modal-close href="#">
+      <a data-close href="#">
         <span aria-hidden="true">&times;</span>
       </a>
     </header>
@@ -28,7 +28,7 @@ Modals depend on a few base attributes, and the rest (including aria) is derived
       <p>Some modal content here</p>
     </section>
     <footer>
-      <a class="button" data-modal-close href="#">
+      <a class="button" data-close href="#">
         Cancel
       </a>
       <a class="primary button" href="#">
@@ -40,10 +40,10 @@ Modals depend on a few base attributes, and the rest (including aria) is derived
 ```
 
 #### What's needed?
-* `[data-modal-button]`: Identifies the button as having a modal. It's value should match `[data-modal-id]`
-* `[data-modal-id]`: The unique id for the modal container.
+* `[data-target]`: Identifies the button as having a modal. It's value should match `[data-id]`
+* `[data-id]`: The unique id for the modal container.
+* `[data-close]`: Adding this to a link or button automatically allows your modal to be closed on click.
 * `modal-overlay` (class): Adds styling and animations to the overlay.
-* `[data-modal-close]`: Adding this to a link or button automatically allows your modal to be closed on click.
 
 #### Accessibility
 All main aria attributes are added automatically, with one exception:
