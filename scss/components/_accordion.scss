@@ -15,11 +15,7 @@
     }
   }
 
-  .accordion-content {
-    margin: $accordion-content-margin;
-  }
-
-  [data-visible] {
+  [data-content] {
     overflow: hidden;
     padding: 0;
     max-height: 0;
@@ -60,7 +56,11 @@
     transform: rotate(180deg);
   }
 
-  [data-expanded]:last-child [data-visible] {
+  [data-expanded]:last-child [data-content] {
     border-bottom: none;
+  }
+
+  .accordion-content {
+    margin: $accordion-content-margin;
   }
 }

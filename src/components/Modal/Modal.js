@@ -5,7 +5,7 @@ export default class Modal extends Component {
     return (
       <div
         className={`modal-overlay ${this.props.modalClass ? this.props.modalClass : ""}`}
-        data-id={this.props.id}
+        data-modal-id={this.props.id}
       >
         <div aria-labelledby={this.props.labelledby} data-modal>
           <header>

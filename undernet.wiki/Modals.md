@@ -14,7 +14,7 @@ Modals depend on a few base attributes, and the rest (including aria) is derived
 
 ```html
 <button href="#" data-target="new-modal">Open modal</button>
-<div class="modal-overlay" data-id="new-modal">
+<div class="modal-overlay" data-modal-id="new-modal">
   <div aria-labelledby="header-id" data-modal>
     <header>
       <h2 class="h6" id="header-id">
@@ -40,8 +40,8 @@ Modals depend on a few base attributes, and the rest (including aria) is derived
 ```
 
 #### What's needed?
-* `[data-target]`: Identifies the button as having a modal. It's value should match `[data-id]`
-* `[data-id]`: The unique id for the modal container.
+* `[data-target]`: Identifies the button as having a modal. It's value should match `[data-modal-id]`
+* `[data-modal-id]`: The unique id for the modal container.
 * `[data-close]`: Adding this to a link or button automatically allows your modal to be closed on click.
 * `modal-overlay` (class): Adds styling and animations to the overlay.
 

@@ -23,12 +23,14 @@ var keyCodes = {
 };
 
 var selectors = {
+  // unique
   MODAL_CONTAINER: "data-modal",
-  ID: "data-id",
+  MODAL_ID: "data-modal-id",
+  NO_SCROLL: "no-scroll",
+  // common
   VISIBLE: "data-visible",
   CLOSE: "data-close",
-  TARGET: "data-target",
-  NO_SCROLL: "no-scroll"
+  TARGET: "data-target"
 };
 
 var events = {
@@ -137,7 +139,7 @@ var Modal = function (_Utils) {
 
       this.modalButton = event.target;
       this.activeModalId = this.modalButton.getAttribute(selectors.TARGET);
-      this.modalOverlayAttr = "[" + selectors.ID + "='" + this.activeModalId + "']";
+      this.modalOverlayAttr = "[" + selectors.MODAL_ID + "='" + this.activeModalId + "']";
       this.modalOverlay = document.querySelector(this.modalOverlayAttr);
 
       if (!this.modalOverlay) {
