@@ -16,6 +16,10 @@ const selectors = {
   VISIBLE: "data-visible",
   CLOSE: "data-close",
   TARGET: "data-target",
+  // aria
+  ARIA_HIDDEN: "aria-hidden",
+  ARIA_MODAL: "aria-modal",
+  ROLE: "role",
 }
 
 const events = {
@@ -63,8 +67,10 @@ export default class Modal extends Utils {
 
     if (this.modals.length) {
       this.modals.forEach(modal => {
-        modal.setAttribute("aria-modal", "true")
-        modal.setAttribute("role", "dialog")
+        modal.setAttribute(selectors.ARIA_MODAL, "true")
+        modal.parentNode.setAttribute(selectors.ARIA_HIDDEN, "true")
+        modal.parentNode.setAttribute(selectors.VISIBLE, "false")
+        modal.setAttribute(selectors.ROLE, "dialog")
       })
     }
 
@@ -114,7 +120,7 @@ export default class Modal extends Utils {
 
     this.handleScrollStop()
     this.captureFocus(this.activeModalSelector)
-    this.modalOverlay.setAttribute("aria-hidden", "false")
+    this.modalOverlay.setAttribute(selectors.ARIA_HIDDEN, "false")
     this.activeModal.setAttribute("tabindex", "-1")
     this.modalOverlay.setAttribute(selectors.VISIBLE, "true")
     this.activeModal.focus()
@@ -140,7 +146,7 @@ export default class Modal extends Utils {
     this.handleReturnFocus()
     this.handleScrollRestore()
     this.releaseFocus()
-    this.modalOverlay.setAttribute("aria-hidden", "true")
+    this.modalOverlay.setAttribute(selectors.ARIA_HIDDEN, "true")
     this.activeModal.removeAttribute("tabindex")
 
     // stop listening to events

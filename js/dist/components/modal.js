@@ -31,7 +31,11 @@ var selectors = {
   // common
   VISIBLE: "data-visible",
   CLOSE: "data-close",
-  TARGET: "data-target"
+  TARGET: "data-target",
+  // aria
+  ARIA_HIDDEN: "aria-hidden",
+  ARIA_MODAL: "aria-modal",
+  ROLE: "role"
 };
 
 var events = {
@@ -90,8 +94,10 @@ var Modal = function (_Utils) {
 
       if (this.modals.length) {
         this.modals.forEach(function (modal) {
-          modal.setAttribute("aria-modal", "true");
-          modal.setAttribute("role", "dialog");
+          modal.setAttribute(selectors.ARIA_MODAL, "true");
+          modal.parentNode.setAttribute(selectors.ARIA_HIDDEN, "true");
+          modal.parentNode.setAttribute(selectors.VISIBLE, "false");
+          modal.setAttribute(selectors.ROLE, "dialog");
         });
       }
 
@@ -154,7 +160,7 @@ var Modal = function (_Utils) {
 
       this.handleScrollStop();
       this.captureFocus(this.activeModalSelector);
-      this.modalOverlay.setAttribute("aria-hidden", "false");
+      this.modalOverlay.setAttribute(selectors.ARIA_HIDDEN, "false");
       this.activeModal.setAttribute("tabindex", "-1");
       this.modalOverlay.setAttribute(selectors.VISIBLE, "true");
       this.activeModal.focus();
@@ -185,7 +191,7 @@ var Modal = function (_Utils) {
       this.handleReturnFocus();
       this.handleScrollRestore();
       this.releaseFocus();
-      this.modalOverlay.setAttribute("aria-hidden", "true");
+      this.modalOverlay.setAttribute(selectors.ARIA_HIDDEN, "true");
       this.activeModal.removeAttribute("tabindex");
 
       // stop listening to events
