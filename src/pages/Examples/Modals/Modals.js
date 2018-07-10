@@ -23,9 +23,13 @@ export default class Modals extends Component {
           </div>
 
           <div className="xsmall-12 columns">
-            <button data-target="my-new-modal-1">Modal button - press me!</button>
+            <button data-modal-button data-target="my-new-modal-1">
+              Modal button - press me!
+            </button>
 
-            <button data-target="my-new-modal-2">Modal with a lot of content</button>
+            <button data-modal-button data-target="my-new-modal-2">
+              Modal with a lot of content
+            </button>
 
             <div className="modal-demo" role="dialog">
               <header>
@@ -142,7 +146,9 @@ export default class Modals extends Component {
             </div>
 
             <div className="xsmall-12 columns">
-              <button data-target="my-new-modal-3">Modal button - press me!</button>
+              <button data-modal-button data-target="my-new-modal-3">
+                Modal button - press me!
+              </button>
 
               <Modal
                 modalClass="modal-centered"

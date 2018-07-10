@@ -26,6 +26,7 @@ var selectors = {
   // unique
   MODAL_CONTAINER: "data-modal",
   MODAL_ID: "data-modal-id",
+  MODAL_BUTTON: "data-modal-button",
   NO_SCROLL: "no-scroll",
   // common
   VISIBLE: "data-visible",
@@ -40,7 +41,7 @@ var events = {
 };
 
 var messages = {
-  MISSING_MODAL: "Your button is missing its corresponding modal. Check to make sure your modal is in the DOM, and that is has a [data-modal-id=*] attribute matchin its [data-modal-button=*] attribute. It's possible the modal script ran before the button appeared on the page!"
+  MISSING_MODAL: "Your button is missing its corresponding modal. Check to make sure your modal is in the DOM, and that it has a [data-modal-id=*] attribute matchin its [data-modal-button] and [data-target] attributes. It's possible the modal script ran before the button appeared on the page!"
 
   /**
    * Modal component class.
@@ -56,7 +57,7 @@ var Modal = function (_Utils) {
 
     var _this = _possibleConstructorReturn(this, (Modal.__proto__ || Object.getPrototypeOf(Modal)).call(this));
 
-    _this.closeButtonAttr = "[" + selectors.CLOSE + "]";
+    _this.closeButtonAttr = "[" + selectors.MODAL_CONTAINER + "] [" + selectors.CLOSE + "]";
     _this.modalContainerAttr = "[" + selectors.MODAL_CONTAINER + "]";
     _this.modals = null;
     _this.modalButtons = null;
@@ -84,7 +85,7 @@ var Modal = function (_Utils) {
       var _this2 = this;
 
       this.modals = this.getElements("[" + selectors.MODAL_CONTAINER + "]");
-      this.modalButtons = this.getElements("[" + selectors.TARGET + "]");
+      this.modalButtons = this.getElements("[" + selectors.MODAL_BUTTON + "]");
       this.closeButtons = this.getElements(this.closeButtonAttr);
 
       if (this.modals.length) {

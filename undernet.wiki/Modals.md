@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
 Modals depend on a few base attributes, and the rest (including aria) is derived from there.
 
 ```html
-<button href="#" data-target="new-modal">Open modal</button>
+<button href="#" data-modal-button data-target="new-modal">Open modal</button>
 <div class="modal-overlay" data-modal-id="new-modal">
   <div aria-labelledby="header-id" data-modal>
     <header>
@@ -40,8 +40,9 @@ Modals depend on a few base attributes, and the rest (including aria) is derived
 ```
 
 #### What's needed?
-* `[data-target]`: Identifies the button as having a modal. It's value should match `[data-modal-id]`
 * `[data-modal-id]`: The unique id for the modal container.
+* `[data-modal-button]`: An attribute with no value - lets the plugin know this is a button that opens a modal. Must have a data-target attached.
+* `[data-target]`: Identifies the button as having a modal. It's value should match `[data-modal-id]`
 * `[data-close]`: Adding this to a link or button automatically allows your modal to be closed on click.
 * `modal-overlay` (class): Adds styling and animations to the overlay.
 

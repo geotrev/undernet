@@ -44,7 +44,7 @@ var events = {
 };
 
 var messages = {
-  MISSING_VISIBLE: "You have an accordion button that is missing its content block or its [data-accordion-content] attribute."
+  MISSING_CONTENT: "You have an accordion button that is missing its [data-content] attribute, and has a matching id to the button's [data-target] attribute's value."
 
   /**
    * Accordion component class.
@@ -171,7 +171,7 @@ var Accordion = function (_Utils) {
 
       var accordionContentHasAttr = this.activeContent.hasAttribute(selectors.CONTENT);
       if (!accordionContentHasAttr) {
-        throw messages.MISSING_VISIBLE;
+        throw messages.MISSING_CONTENT;
         return;
       }
 
