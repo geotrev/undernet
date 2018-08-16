@@ -23,7 +23,7 @@
   transition: opacity $modal-transition-duration $modal-transition-ease;
   pointer-events: none;
 
-  &[data-modal-visible] {
+  &[data-visible="true"] {
     opacity: 1;
     pointer-events: auto;
   }
@@ -70,8 +70,8 @@
     }
   }
 
-  header > button[data-modal-close],
-  header > a[data-modal-close] {
+  header > button[data-close],
+  header > a[data-close] {
     margin-left: auto;
     font-size: 32px;
     text-decoration: none;

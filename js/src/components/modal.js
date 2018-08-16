@@ -7,25 +7,30 @@ const keyCodes = {
 }
 
 const selectors = {
+  // unique
   MODAL_CONTAINER: "data-modal",
   MODAL_ID: "data-modal-id",
-  MODAL_VISIBLE: "data-modal-visible",
-  MODAL_CLOSE: "data-modal-close",
   MODAL_BUTTON: "data-modal-button",
   NO_SCROLL: "no-scroll",
+  // common
+  VISIBLE: "data-visible",
+  CLOSE: "data-close",
+  TARGET: "data-target",
+  // aria
+  ARIA_HIDDEN: "aria-hidden",
+  ARIA_MODAL: "aria-modal",
+  ROLE: "role",
 }
 
 const events = {
   KEYDOWN: "keydown",
   CLICK: "click",
   RESIZE: "resize",
-  // needed to prevent iOS <body> scrolling when the overlay is pressed
-  TOUCHSTART: "touchstart",
 }
 
 const messages = {
   MISSING_MODAL:
-    "Your button is missing its corresponding modal. Check to make sure your modal is in the DOM, and that is has a [data-modal-id=*] attribute matchin its [data-modal-button=*] attribute. It's possible the modal script ran before the button appeared on the page!",
+    "Your button is missing its corresponding modal. Check to make sure your modal is in the DOM, and that it has a [data-modal-id=*] attribute matchin its [data-modal-button] and [data-target] attributes. It's possible the modal script ran before the button appeared on the page!",
 }
 
 /**
@@ -36,8 +41,8 @@ const messages = {
 export default class Modal extends Utils {
   constructor() {
     super()
-    this.closeButtonAttr = `[${selectors.MODAL_CLOSE}]`
     this.modalContainerAttr = `[${selectors.MODAL_CONTAINER}]`
+    this.closeButtonAttr = `[${selectors.MODAL_CONTAINER}] [${selectors.CLOSE}]`
     this.modals = null
     this.modalButtons = null
     this.closeButtons = null
@@ -56,14 +61,16 @@ export default class Modal extends Utils {
    * Begin listening to elements with [data-modal-button]
    */
   start() {
-    this.modals = this.getElements(`[${selectors.MODAL_CONTAINER}]`)
+    this.modals = this.getElements(this.modalContainerAttr)
     this.modalButtons = this.getElements(`[${selectors.MODAL_BUTTON}]`)
     this.closeButtons = this.getElements(this.closeButtonAttr)
 
     if (this.modals.length) {
       this.modals.forEach(modal => {
-        modal.setAttribute("aria-modal", "true")
-        modal.setAttribute("role", "dialog")
+        modal.setAttribute(selectors.ARIA_MODAL, "true")
+        modal.parentNode.setAttribute(selectors.ARIA_HIDDEN, "true")
+        modal.parentNode.setAttribute(selectors.VISIBLE, "false")
+        modal.setAttribute(selectors.ROLE, "dialog")
       })
     }
 
@@ -98,7 +105,7 @@ export default class Modal extends Utils {
    */
   renderModal(event) {
     this.modalButton = event.target
-    this.activeModalId = this.modalButton.getAttribute(selectors.MODAL_BUTTON)
+    this.activeModalId = this.modalButton.getAttribute(selectors.TARGET)
     this.modalOverlayAttr = `[${selectors.MODAL_ID}='${this.activeModalId}']`
     this.modalOverlay = document.querySelector(this.modalOverlayAttr)
 
@@ -113,9 +120,9 @@ export default class Modal extends Utils {
 
     this.handleScrollStop()
     this.captureFocus(this.activeModalSelector)
-    this.modalOverlay.setAttribute("aria-hidden", "false")
+    this.modalOverlay.setAttribute(selectors.ARIA_HIDDEN, "false")
     this.activeModal.setAttribute("tabindex", "-1")
-    this.modalOverlay.setAttribute(selectors.MODAL_VISIBLE, "")
+    this.modalOverlay.setAttribute(selectors.VISIBLE, "true")
     this.activeModal.focus()
 
     // offset slight scroll caused by this.activeModal.focus()
@@ -124,7 +131,6 @@ export default class Modal extends Utils {
     // begin listening to events
     document.addEventListener(events.KEYDOWN, this.handleEscapeKeyPress)
     document.addEventListener(events.CLICK, this.handleOverlayClick)
-    document.addEventListener(events.TOUCHSTART, this.handleOverlayClick)
     this.modalCloseButtons.forEach(button => {
       button.addEventListener(events.CLICK, this.handleModalClose)
     })
@@ -136,17 +142,16 @@ export default class Modal extends Utils {
    */
   handleModalClose(event) {
     event.preventDefault()
-    this.modalOverlay.removeAttribute(selectors.MODAL_VISIBLE)
+    this.modalOverlay.setAttribute(selectors.VISIBLE, "false")
     this.handleReturnFocus()
     this.handleScrollRestore()
     this.releaseFocus()
-    this.modalOverlay.setAttribute("aria-hidden", "true")
+    this.modalOverlay.setAttribute(selectors.ARIA_HIDDEN, "true")
     this.activeModal.removeAttribute("tabindex")
 
     // stop listening to events
     document.removeEventListener(events.KEYDOWN, this.handleEscapeKeyPress)
     document.removeEventListener(events.CLICK, this.handleOverlayClick)
-    document.removeEventListener(events.TOUCHSTART, this.handleOverlayClick)
     this.modalCloseButtons.forEach(button => {
       button.removeEventListener(events.CLICK, this.handleModalClose)
     })

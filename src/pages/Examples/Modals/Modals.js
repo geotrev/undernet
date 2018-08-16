@@ -9,6 +9,11 @@ export default class Modals extends Component {
     Undernet.Modals.start()
   }
 
+  componentDidUpdate() {
+    Undernet.Modals.stop()
+    Undernet.Modals.start()
+  }
+
   componentWillUnmount() {
     Undernet.Modals.stop()
   }
@@ -23,14 +28,18 @@ export default class Modals extends Component {
           </div>
 
           <div className="xsmall-12 columns">
-            <button data-modal-button="my-new-modal-1">Modal button - press me!</button>
+            <button data-modal-button data-target="my-new-modal-1">
+              Modal button - press me!
+            </button>
 
-            <button data-modal-button="my-new-modal-2">Modal with a lot of content</button>
+            <button data-modal-button data-target="my-new-modal-2">
+              Modal with a lot of content
+            </button>
 
             <div className="modal-demo" role="dialog">
               <header>
                 <h2>Modal Heading</h2>
-                <a data-modal-close href="#0">
+                <a data-close href="#0">
                   <span aria-hidden="true">&times;</span>
                 </a>
               </header>
@@ -41,7 +50,7 @@ export default class Modals extends Component {
                 </p>
               </section>
               <footer>
-                <a className="button modal-button" data-modal-close href="#0">
+                <a className="button modal-button" href="#0">
                   Cancel
                 </a>
                 <Button className="primary button modal-button" href="#0">
@@ -55,7 +64,7 @@ export default class Modals extends Component {
                 <p>This is a fully accessible modal!</p>
               </section>
               <footer>
-                <a className="button" data-modal-close href="#">
+                <a className="button" data-close href="#">
                   Cancel
                 </a>
                 <Button className="primary button" href="#0">
@@ -124,7 +133,7 @@ export default class Modals extends Component {
                 </p>
               </section>
               <footer>
-                <a className="button" data-modal-close href="#">
+                <a className="button" data-close href="#">
                   Cancel
                 </a>
                 <Button className="primary button" href="#0">
@@ -142,7 +151,9 @@ export default class Modals extends Component {
             </div>
 
             <div className="xsmall-12 columns">
-              <button data-modal-button="my-new-modal-3">Modal button - press me!</button>
+              <button data-modal-button data-target="my-new-modal-3">
+                Modal button - press me!
+              </button>
 
               <Modal
                 modalClass="modal-centered"
@@ -154,7 +165,7 @@ export default class Modals extends Component {
                   <p>This is a fully accessible modal!</p>
                 </section>
                 <footer>
-                  <a className="button" data-modal-close href="#">
+                  <a className="button" data-close href="#">
                     Cancel
                   </a>
                   <Button className="primary button" href="#0">
