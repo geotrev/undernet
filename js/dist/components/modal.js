@@ -61,8 +61,8 @@ var Modal = function (_Utils) {
 
     var _this = _possibleConstructorReturn(this, (Modal.__proto__ || Object.getPrototypeOf(Modal)).call(this));
 
-    _this.closeButtonAttr = "[" + selectors.MODAL_CONTAINER + "] [" + selectors.CLOSE + "]";
     _this.modalContainerAttr = "[" + selectors.MODAL_CONTAINER + "]";
+    _this.closeButtonAttr = "[" + selectors.MODAL_CONTAINER + "] [" + selectors.CLOSE + "]";
     _this.modals = null;
     _this.modalButtons = null;
     _this.closeButtons = null;
@@ -88,7 +88,7 @@ var Modal = function (_Utils) {
     value: function start() {
       var _this2 = this;
 
-      this.modals = this.getElements("[" + selectors.MODAL_CONTAINER + "]");
+      this.modals = this.getElements(this.modalContainerAttr);
       this.modalButtons = this.getElements("[" + selectors.MODAL_BUTTON + "]");
       this.closeButtons = this.getElements(this.closeButtonAttr);
 

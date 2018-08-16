@@ -41,8 +41,8 @@ const messages = {
 export default class Modal extends Utils {
   constructor() {
     super()
-    this.closeButtonAttr = `[${selectors.MODAL_CONTAINER}] [${selectors.CLOSE}]`
     this.modalContainerAttr = `[${selectors.MODAL_CONTAINER}]`
+    this.closeButtonAttr = `[${selectors.MODAL_CONTAINER}] [${selectors.CLOSE}]`
     this.modals = null
     this.modalButtons = null
     this.closeButtons = null
@@ -61,7 +61,7 @@ export default class Modal extends Utils {
    * Begin listening to elements with [data-modal-button]
    */
   start() {
-    this.modals = this.getElements(`[${selectors.MODAL_CONTAINER}]`)
+    this.modals = this.getElements(this.modalContainerAttr)
     this.modalButtons = this.getElements(`[${selectors.MODAL_BUTTON}]`)
     this.closeButtons = this.getElements(this.closeButtonAttr)
 

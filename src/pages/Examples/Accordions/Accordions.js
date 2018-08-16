@@ -9,6 +9,11 @@ export default class Accordions extends Component {
     Undernet.Accordions.start()
   }
 
+  componentDidUpdate() {
+    Undernet.Accordions.stop()
+    Undernet.Accordions.start()
+  }
+
   componentWillUnmount() {
     Undernet.Accordions.stop()
   }

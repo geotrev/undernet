@@ -9,6 +9,11 @@ export default class Modals extends Component {
     Undernet.Modals.start()
   }
 
+  componentDidUpdate() {
+    Undernet.Modals.stop()
+    Undernet.Modals.start()
+  }
+
   componentWillUnmount() {
     Undernet.Modals.stop()
   }

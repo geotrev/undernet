@@ -188,9 +188,11 @@ export default class Accordion extends Utils {
     this.activeButton.setAttribute(selectors.ARIA_EXPANDED, this.toggleExpandState)
     this.activeContent.setAttribute(selectors.ARIA_HIDDEN, this.toggleHiddenState)
 
-    this.activeContent.style.maxHeight
-      ? (this.activeContent.style.maxHeight = null)
-      : (this.activeContent.style.maxHeight = `${this.activeContent.scrollHeight}px`)
+    if (this.activeContent.style.maxHeight) {
+      this.activeContent.style.maxHeight = null
+    } else {
+      this.activeContent.style.maxHeight = `${this.activeContent.scrollHeight}px`
+    }
   }
 
   /**
