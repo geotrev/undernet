@@ -1,6 +1,6 @@
 /*!
 * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
-* Undernet v0.1.2 (https://undernet.io)
+* Undernet v1.1.0 (https://undernet.io)
 * Copyright 2017-2018 George Treviranus
 */
 html,
@@ -1964,7 +1964,7 @@ textarea {
   right: 0;
   transition: opacity 0.5s cubic-bezier(0.12, 0.72, 0.58, 1.03);
   pointer-events: none; }
-  .modal-overlay[data-modal-visible] {
+  .modal-overlay[data-visible="true"] {
     opacity: 1;
     pointer-events: auto; }
   .modal-overlay.modal-centered {
@@ -1997,8 +1997,8 @@ textarea {
       font-size: 24px;
       display: inline-flex;
       margin-bottom: 0; }
-  [role="dialog"] header > button[data-modal-close],
-  [role="dialog"] header > a[data-modal-close] {
+  [role="dialog"] header > button[data-close],
+  [role="dialog"] header > a[data-close] {
     margin-left: auto;
     font-size: 32px;
     text-decoration: none;
@@ -2026,24 +2026,22 @@ textarea {
   border: 2px solid #ddd;
   overflow: hidden;
   border-radius: 4px; }
-  [data-accordion] [data-accordion-expanded] h1,
-  [data-accordion] [data-accordion-expanded] h2,
-  [data-accordion] [data-accordion-expanded] h3,
-  [data-accordion] [data-accordion-expanded] h4,
-  [data-accordion] [data-accordion-expanded] h5,
-  [data-accordion] [data-accordion-expanded] h6 {
+  [data-accordion] [data-expanded] h1,
+  [data-accordion] [data-expanded] h2,
+  [data-accordion] [data-expanded] h3,
+  [data-accordion] [data-expanded] h4,
+  [data-accordion] [data-expanded] h5,
+  [data-accordion] [data-expanded] h6 {
     padding: 0;
     margin: 0; }
-  [data-accordion] .accordion-content {
-    margin: 16px; }
-  [data-accordion] [data-accordion-content] {
+  [data-accordion] [data-content] {
     overflow: hidden;
     padding: 0;
     max-height: 0;
     background: #ffffff;
     transition: max-height 0.5s cubic-bezier(0.12, 0.72, 0.58, 1.03);
     border-bottom: 2px solid #ddd; }
-  [data-accordion] [data-accordion-button] {
+  [data-accordion] [data-target] {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
@@ -2057,16 +2055,18 @@ textarea {
     margin: 0;
     border-radius: 0;
     font-size: 16px; }
-    [data-accordion] [data-accordion-button]:hover, [data-accordion] [data-accordion-button]:focus {
+    [data-accordion] [data-target]:hover, [data-accordion] [data-target]:focus {
       color: #d19e1f;
       background: #f7f7f7; }
-    [data-accordion] [data-accordion-button]::after {
+    [data-accordion] [data-target]::after {
       content: "\25B2";
       font-size: 12px;
       transition: 0.5s cubic-bezier(0.12, 0.72, 0.58, 1.03); }
-  [data-accordion] [data-accordion-expanded="false"] [data-accordion-button]::after {
+  [data-accordion] [data-expanded="false"] [data-target]::after {
     transform: rotate(180deg); }
-  [data-accordion] [data-accordion-expanded]:last-child [data-accordion-content] {
+  [data-accordion] [data-expanded]:last-child [data-content] {
     border-bottom: none; }
+  [data-accordion] .accordion-content {
+    margin: 16px; }
 
 /*# sourceMappingURL=undernet.css.map */
