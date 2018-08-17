@@ -87,14 +87,13 @@ Finally, you can include the rest of the elements styling, but make sure it's al
 The default export from `undernet` or the compiled `undernet.js` file is the `Undernet` object. Simply refer to it when using the library. Simply swap `undernet` for the direct file path if you aren't using webpack.
 
 ```js
-// es5 require()
-var Undernet = require("undernet")
-// ... or es2015 import
+// get Undernet from /node_modules/
 import Undernet from "undernet"
-// ... then start all javascript components on page load
-Undernet.start()
-// or run a specific component
-Undernet.Modals.start()
+// then start all javascript components on page load
+var start = Undernet.start()
+// ... or run a specific component
+var start = Undernet.Modals.start()
+document.addEventListener('DOMContentLoaded', start)
 ```
 
 Or...
@@ -110,9 +109,10 @@ Or...
     <script type="text/javascript" src="path/to/undernet.js" async></script>
     <script type="text/javascript" async>
       // Undernet is attached to the `window` object now.
-      Undernet.start()
+      var start = Undernet.start()
       // or run a specific component
-      Undernet.Modals.start()
+      var start = Undernet.Modals.start()
+      document.addEventListener('DOMContentLoaded', start)
     </script>
   </body>
 </html>
