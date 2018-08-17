@@ -1,7 +1,9 @@
 // stop scrolling on html/body elements
 
-.no-scroll {
-  overflow: hidden;
+@if $scope == null {
+  .no-scroll {
+    overflow: hidden;
+  }
 }
 
 // modal visibility & positioning

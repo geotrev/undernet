@@ -1,6 +1,8 @@
 @import "../global";
 @import "../../scss/elements/global/base";
 
+// $scope: "undernet";
+
 // .#{$scope} {
 @import "../../scss/helpers/classes/base";
 @import "../../scss/elements/grid/base";
@@ -12,6 +14,12 @@
 @import "../../scss/components/modal";
 @import "../../scss/components/accordion";
 // }
+
+@if $scope != null {
+  .no-scroll {
+    overflow: hidden;
+  }
+}
 
 main {
   display: block;
