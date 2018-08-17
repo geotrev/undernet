@@ -23,24 +23,29 @@ var keyCodes = {
 };
 
 var selectors = {
+  // unique
   MODAL_CONTAINER: "data-modal",
   MODAL_ID: "data-modal-id",
-  MODAL_VISIBLE: "data-modal-visible",
-  MODAL_CLOSE: "data-modal-close",
   MODAL_BUTTON: "data-modal-button",
-  NO_SCROLL: "no-scroll"
+  NO_SCROLL: "no-scroll",
+  // common
+  VISIBLE: "data-visible",
+  CLOSE: "data-close",
+  TARGET: "data-target",
+  // aria
+  ARIA_HIDDEN: "aria-hidden",
+  ARIA_MODAL: "aria-modal",
+  ROLE: "role"
 };
 
 var events = {
   KEYDOWN: "keydown",
   CLICK: "click",
-  RESIZE: "resize",
-  // needed to prevent iOS <body> scrolling when the overlay is pressed
-  TOUCHSTART: "touchstart"
+  RESIZE: "resize"
 };
 
 var messages = {
-  MISSING_MODAL: "Your button is missing its corresponding modal. Check to make sure your modal is in the DOM, and that is has a [data-modal-id=*] attribute matchin its [data-modal-button=*] attribute. It's possible the modal script ran before the button appeared on the page!"
+  MISSING_MODAL: "Your button is missing its corresponding modal. Check to make sure your modal is in the DOM, and that it has a [data-modal-id=*] attribute matchin its [data-modal-button] and [data-target] attributes. It's possible the modal script ran before the button appeared on the page!"
 
   /**
    * Modal component class.
@@ -56,8 +61,8 @@ var Modal = function (_Utils) {
 
     var _this = _possibleConstructorReturn(this, (Modal.__proto__ || Object.getPrototypeOf(Modal)).call(this));
 
-    _this.closeButtonAttr = "[" + selectors.MODAL_CLOSE + "]";
     _this.modalContainerAttr = "[" + selectors.MODAL_CONTAINER + "]";
+    _this.closeButtonAttr = "[" + selectors.MODAL_CONTAINER + "] [" + selectors.CLOSE + "]";
     _this.modals = null;
     _this.modalButtons = null;
     _this.closeButtons = null;
@@ -83,14 +88,16 @@ var Modal = function (_Utils) {
     value: function start() {
       var _this2 = this;
 
-      this.modals = this.getElements("[" + selectors.MODAL_CONTAINER + "]");
+      this.modals = this.getElements(this.modalContainerAttr);
       this.modalButtons = this.getElements("[" + selectors.MODAL_BUTTON + "]");
       this.closeButtons = this.getElements(this.closeButtonAttr);
 
       if (this.modals.length) {
         this.modals.forEach(function (modal) {
-          modal.setAttribute("aria-modal", "true");
-          modal.setAttribute("role", "dialog");
+          modal.setAttribute(selectors.ARIA_MODAL, "true");
+          modal.parentNode.setAttribute(selectors.ARIA_HIDDEN, "true");
+          modal.parentNode.setAttribute(selectors.VISIBLE, "false");
+          modal.setAttribute(selectors.ROLE, "dialog");
         });
       }
 
@@ -138,7 +145,7 @@ var Modal = function (_Utils) {
       var _this4 = this;
 
       this.modalButton = event.target;
-      this.activeModalId = this.modalButton.getAttribute(selectors.MODAL_BUTTON);
+      this.activeModalId = this.modalButton.getAttribute(selectors.TARGET);
       this.modalOverlayAttr = "[" + selectors.MODAL_ID + "='" + this.activeModalId + "']";
       this.modalOverlay = document.querySelector(this.modalOverlayAttr);
 
@@ -153,9 +160,9 @@ var Modal = function (_Utils) {
 
       this.handleScrollStop();
       this.captureFocus(this.activeModalSelector);
-      this.modalOverlay.setAttribute("aria-hidden", "false");
+      this.modalOverlay.setAttribute(selectors.ARIA_HIDDEN, "false");
       this.activeModal.setAttribute("tabindex", "-1");
-      this.modalOverlay.setAttribute(selectors.MODAL_VISIBLE, "");
+      this.modalOverlay.setAttribute(selectors.VISIBLE, "true");
       this.activeModal.focus();
 
       // offset slight scroll caused by this.activeModal.focus()
@@ -164,7 +171,6 @@ var Modal = function (_Utils) {
       // begin listening to events
       document.addEventListener(events.KEYDOWN, this.handleEscapeKeyPress);
       document.addEventListener(events.CLICK, this.handleOverlayClick);
-      document.addEventListener(events.TOUCHSTART, this.handleOverlayClick);
       this.modalCloseButtons.forEach(function (button) {
         button.addEventListener(events.CLICK, _this4.handleModalClose);
       });
@@ -181,17 +187,16 @@ var Modal = function (_Utils) {
       var _this5 = this;
 
       event.preventDefault();
-      this.modalOverlay.removeAttribute(selectors.MODAL_VISIBLE);
+      this.modalOverlay.setAttribute(selectors.VISIBLE, "false");
       this.handleReturnFocus();
       this.handleScrollRestore();
       this.releaseFocus();
-      this.modalOverlay.setAttribute("aria-hidden", "true");
+      this.modalOverlay.setAttribute(selectors.ARIA_HIDDEN, "true");
       this.activeModal.removeAttribute("tabindex");
 
       // stop listening to events
       document.removeEventListener(events.KEYDOWN, this.handleEscapeKeyPress);
       document.removeEventListener(events.CLICK, this.handleOverlayClick);
-      document.removeEventListener(events.TOUCHSTART, this.handleOverlayClick);
       this.modalCloseButtons.forEach(function (button) {
         button.removeEventListener(events.CLICK, _this5.handleModalClose);
       });

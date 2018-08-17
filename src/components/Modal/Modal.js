@@ -10,7 +10,7 @@ export default class Modal extends Component {
         <div aria-labelledby={this.props.labelledby} data-modal>
           <header>
             <h2 id={this.props.labelledby}>{this.props.title}</h2>
-            <a data-modal-close href="#">
+            <a data-close href="#">
               <span aria-hidden="true">&times;</span>
             </a>
           </header>

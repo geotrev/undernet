@@ -35,10 +35,7 @@ Simply download the compiled assets and add them to your layout. Great for proto
     ...
     <script type="text/javascript" src="path/to/undernet.bundle.min.js" async></script>
     <script type="text/javascript">
-      // Undernet is now on the `window` object.
       Undernet.start()
-      // or only start a single component
-      Undernet.Accordions.start()
     </script>
   </body>
 </html>
@@ -46,11 +43,11 @@ Simply download the compiled assets and add them to your layout. Great for proto
 
 ## Advanced setup
 
-If you prefer to have more control over the styles and components, you are free to use the uncompiled SCSS modules along with the JS modules (via npm or also as uncompiled es5).
+If you prefer to have more control over the styles and components, you are free to use the uncompiled SCSS modules along with the JS modules (via npm or as static assets).
 
 ### SCSS
 
-For the most control over your CSS, it's highly recommended to integrate the SCSS modules with your asset pipeline. Simply link to the main `undernet.scss` file in your main stylesheet (only once!) before your other styles (or anywhere, if you've added an optional scope to the components):
+For the most control over your CSS, it's highly recommended to integrate the SCSS modules with your asset pipeline. Simply link to the main `undernet.scss` file in your main stylesheet (only once!) before your other styles (or anywhere, if you've added an optional scope to the styles):
 
 ```css
 @import "path/to/undernet";
@@ -79,6 +76,7 @@ import Undernet from "undernet"
 Undernet.start()
 
 // or only use a single component, e.g. the Modal:
+// NOTE: if you use Undernet.start(), you're effectively doing nothing with this method call
 Undernet.Modals.start()
 ```
 
@@ -104,6 +102,19 @@ export default class SomeComponent extends React.Component {
 }
 ```
 
+Since Undernet doesn't have visibility into React's state, and that's something you're worried about (i.e., adding new components dynamically), then add this bit to cover your bases:
+
+```js
+export default class SomeComponent extends React.Component {
+  ...
+  componentDidUpdate() {
+    Undernet.Modals.stop()
+    Undernet.Modals.start()
+  }
+  ...
+}
+```
+
 ## Contribute
 
 See CONTRIBUTING.md for more details on git flow and recommendations for pull requests/issues.
@@ -118,7 +129,7 @@ $ cd undernet/
 $ npm run setup
 ```
 
-The site is both a demo and marketing tool. It is built with my own webpack setup called [Pulsar](https://github.com/geotrev/pulsar).
+The site is both a demo and marketing tool. It is built with my own webpack setup called [Pulsar](https://github.com/geotrev/pulsar). It's basically just Webpack + React, so don't panic.
 
 ### Run the dev server
 
@@ -126,19 +137,19 @@ The site is both a demo and marketing tool. It is built with my own webpack setu
 $ npm run watch
 ```
 
-### Make production builds
+### Make a production build
 
 ```shell
 $ npm run build
 ```
 
-### Run tests with istanbuljs/nyc coverage stats
+### Run tests with istanbuljs/nyc coverage stats (for the site only)
 
 ```shell
 $ npm run test
 ```
 
-### Load tests on file save
+### Load tests on file save (also for the site)
 
 ```shell
 $ npm run test:w
@@ -146,7 +157,7 @@ $ npm run test:w
 
 ### Building the framework
 
-The site itself is a demo of the framework, so you should be able to work on the framework source itself while the site dev server runs in the background.
+The site itself is a demo of the framework, so you should be able to work on the framework source itself while the site runs in the background.
 
 The build environment works only for macOS at the moment.
 
@@ -161,6 +172,14 @@ $ npm run build:development
 ```
 
 From there, everything should build correctly: the framework scss and js will be prettified by `prettier` and distributions of js and css will be output using `babel-cli`, `rollup`, `sass`, and a few macOS specific commands for zipping/prepping files for release. The output typically takes 5-10 seconds at most.
+
+### Rebuild assets on the fly
+
+To rebuild fresh js assets while running the site's dev server, run this in a separate session to auto-reload assets while you work:
+
+```shell
+$ npm run js:watch
+```
 
 ### New releases
 

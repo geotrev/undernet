@@ -3,7 +3,7 @@
   overflow: hidden;
   border-radius: $accordion-border-radius;
 
-  [data-accordion-expanded] {
+  [data-expanded] {
     h1,
     h2,
     h3,
@@ -15,11 +15,7 @@
     }
   }
 
-  .accordion-content {
-    margin: $accordion-content-margin;
-  }
-
-  [data-accordion-content] {
+  [data-content] {
     overflow: hidden;
     padding: 0;
     max-height: 0;
@@ -28,7 +24,7 @@
     border-bottom: $accordion-row-divider;
   }
 
-  [data-accordion-button] {
+  [data-target] {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
@@ -56,11 +52,15 @@
     }
   }
 
-  [data-accordion-expanded="false"] [data-accordion-button]::after {
+  [data-expanded="false"] [data-target]::after {
     transform: rotate(180deg);
   }
 
-  [data-accordion-expanded]:last-child [data-accordion-content] {
+  [data-expanded]:last-child [data-content] {
     border-bottom: none;
+  }
+
+  .accordion-content {
+    margin: $accordion-content-margin;
   }
 }
