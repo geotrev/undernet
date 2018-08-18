@@ -11,7 +11,7 @@
 .modal-overlay {
   display: block;
   background: $modal-overlay-color;
-  z-index: $modal-z-index;
+  z-index: $modal-index;
   overflow-y: auto;
   overflow-x: hidden;
   opacity: 0;

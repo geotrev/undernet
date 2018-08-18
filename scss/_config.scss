@@ -66,6 +66,8 @@ $global-border-radius: 4px !default;
 $global-border-width: 2px !default;
 $global-outline: 2px solid $primary-color !default;
 
+$modal-index: 2000 !default;
+
 // 2. Grid
 // -------
 
@@ -582,7 +584,6 @@ $fieldset-legend-border-radius: $global-border-radius !default;
 // 6. Modals
 // ---------
 
-$modal-z-index: 2000 !default;
 $modal-overlay-color: rgba(0, 0, 0, 0.5) !default;
 $modal-transition-duration: 0.5s !default;
 $modal-transition-ease: $global-transition-ease !default;

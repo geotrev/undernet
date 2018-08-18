@@ -9,7 +9,7 @@ Undernet's CSS and JavaScript will work in recent versions of these browsers:
 - Chrome ✓
 - Firefox ✓
 - Safari ✓
-- Microsoft Edge ✓
+- Edge ✓
 
 Undernet also fully supports Internet Explorer 11.
 
