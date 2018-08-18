@@ -5,7 +5,7 @@ You’ll be able to use the tags as classless wrappers, or add the class of anot
 In other words, this is visually identical:
 
 ```html
-<h3 class=“paragraph”>I’m a header styled as an paragraph!</h3>
+<h3 class=“paragraph”>I’m a header styled as a paragraph!</h3>
 ```
 
 To this:
@@ -16,12 +16,12 @@ To this:
 
 ### Header Responsiveness
 
-Customize `font-size` and `margin-bottom` by breakpoint.
+Customize your headers by breakpoint. Included are 'font-size' and 'margin', but you can add other properties  in sass' `key: value` format.
 
 ```css
 $type-header-sizes: (
-  small: (
-    // small breakpoint h1-h6
+  xsmall: (
+    // h1-h6 at xsmall
   ),
   medium: (
     // medium
@@ -36,7 +36,7 @@ Add more breakpoints as defined in `$breakpoints` for more flexibility.
 
 ### Header Styling
 
-In addition, you can style each individual header using the `$type-header-styles` map.
+In addition, you can style each individual header using the `$type-header-styles` map. Like with `$type-header-sizes`, you can add custom css properties here.
 
 ```css
 $type-header-styles: (

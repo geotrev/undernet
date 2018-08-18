@@ -1,3 +1,7 @@
 @function status($color) {
   @return map-get($status-palette, $color);
 }
+
+@function breakpoint($name) {
+  @return map-get($breakpoints, $name);
+}

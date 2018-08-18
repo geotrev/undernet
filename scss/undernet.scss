@@ -1,24 +1,32 @@
 /*!
 * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
-* Undernet v1.1.0 (https://undernet.io)
+* Undernet v2.0.0 (https://undernet.io)
 * Copyright 2017-2018 George Treviranus
 */
 
-@import "helpers/functions/base";
+@import "helpers/functions";
 @import "config";
-@import "helpers/mixins/base";
+@import "helpers/mixins";
 
 // remove globals if you are scoping!
-@import "elements/global/base";
+@import "elements/reset";
 
 // .#{$scope} {
-@import "helpers/classes/base";
-@import "elements/grid/base";
-@import "elements/typography/base";
-@import "elements/link/base";
-@import "elements/button/base";
-@import "elements/form/base";
+@import "helpers/classes";
+@import "elements/grid";
+@import "elements/typography";
+@import "elements/link";
+@import "elements/button";
+@import "elements/form";
 
 @import "components/modal";
 @import "components/accordion";
 // }
+
+// Modals need .no-scroll to be out of $scope in order to function properly.
+
+@if $scope != null {
+  .no-scroll {
+    overflow: hidden;
+  }
+}

@@ -25,7 +25,7 @@
 // ----------
 
 // Uncomment the scope wrapper in undernet.scss if you use this!
-$scope: "";
+$scope: "" !default;
 
 $global-space: 16px !default;
 $global-ease: ease-out 0.2s !default;
@@ -34,37 +34,39 @@ $global-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen
   Cantarell, "Helvetica Neue", sans-serif !default;
 $global-font-serif: Constantia, "Lucida Bright", Lucidabright, "Lucida Serif", Lucida,
   "DejaVu Serif", "Bitstream Vera Serif", "Liberation Serif", Georgia, serif !default;
-$global-monospace: monospace, monospace;
-$global-font-size: 16px;
-$global-font-weight-normal: normal;
-$global-font-weight-bold: bold;
-$global-font-style-normal: normal;
-$global-font-style-italic: italic;
-$global-line-height: 1.5;
-$global-transition-ease: cubic-bezier(0.12, 0.72, 0.58, 1.03);
+$global-monospace: monospace, monospace !default;
+$global-font-size: 16px !default;
+$global-font-weight-normal: normal !default;
+$global-font-weight-bold: bold !default;
+$global-font-style-normal: normal !default;
+$global-font-style-italic: italic !default;
+$global-line-height: 1.5 !default;
+$global-transition-ease: cubic-bezier(0.12, 0.72, 0.58, 1.03) !default;
 
-$primary-color: goldenrod;
-$secondary-color: crimson;
-$tertiary-color: teal;
-$black: #000111;
-$gray100: #111;
-$gray200: #222;
-$gray400: #444;
-$gray600: #666;
-$gray800: #888;
-$gray900: #ddd;
-$white: #ffffff;
+$primary-color: goldenrod !default;
+$secondary-color: crimson !default;
+$tertiary-color: teal !default;
+$black: #000111 !default;
+$gray100: #111 !default;
+$gray200: #222 !default;
+$gray400: #444 !default;
+$gray600: #666 !default;
+$gray800: #888 !default;
+$gray900: #ddd !default;
+$white: #ffffff !default;
 
 $status-palette: (
   warning: khaki,
   success: green,
   destroy: red,
-  notice: steelblue,
+  notice: steelblue
 ) !default;
 
-$global-border-radius: 4px;
-$global-border-width: 2px;
-$global-outline: 2px solid $primary-color;
+$global-border-radius: 4px !default;
+$global-border-width: 2px !default;
+$global-outline: 2px solid $primary-color !default;
+
+$modal-index: 2000 !default;
 
 // 2. Grid
 // -------
@@ -72,19 +74,19 @@ $global-outline: 2px solid $primary-color;
 $grid-classes: (
   grid: "grid",
   row: "row",
-  column: "column",
+  column: "column"
 ) !default;
 
 $grid-widths: (
   fluid: 100%,
   narrow: 768px,
-  wide: 1200px,
+  wide: 1200px
 ) !default;
 
 $grid-sections: (
   small: 48px,
   medium: 96px,
-  large: 144px,
+  large: 144px
 ) !default;
 
 $breakpoints: (
@@ -92,534 +94,611 @@ $breakpoints: (
   small: 576px,
   medium: 768px,
   large: 992px,
-  xlarge: 1200px,
+  xlarge: 1200px
 ) !default;
 
-$grid-gutter: $global-space;
-$grid-width: 992px;
+$grid-gutter: $global-space !default;
+$grid-width: 992px !default;
 
-$order-threshold: 20;
+$order-threshold: 20 !default;
 
-$columns: 12;
-$column-padding-top: 0;
-$column-padding-bottom: $global-space;
-$column-gutter: $global-space / 2;
+$columns: 12 !default;
+$column-padding-top: 0 !default;
+$column-padding-bottom: $global-space !default;
+$column-gutter: $global-space / 2 !default;
 
-$column-offset-classes: true;
-$column-order-classes: true;
+$column-offset-classes: true !default;
+$column-order-classes: true !default;
 
 // 3. Typography
 // -------------
 
-// Note: You can't add extra CSS properties here.
-//       Do that in a separate stylesheet as
-//       a class modifier instead.
+// NOTE: You can treat these map as css proper, but in `key: value` format.
+// Add more breakpoints from `$breakpoints` to increase font scaling fidelity.
 $type-header-sizes: (
   xsmall: (
     h1: (
       font-size: 32px,
-      margin-bottom: 20px,
+      margin: 0 0 $global-space 0
     ),
     h2: (
       font-size: 28px,
-      margin-bottom: 18px,
+      margin: 0 0 $global-space 0
     ),
     h3: (
       font-size: 24px,
-      margin-bottom: $global-space,
+      margin: 0 0 $global-space 0
     ),
     h4: (
       font-size: 20px,
-      margin-bottom: 14px,
+      margin: 0 0 $global-space 0
     ),
     h5: (
       font-size: 18px,
-      margin-bottom: 12px,
+      margin: 0 0 $global-space 0
     ),
     h6: (
       font-size: $global-font-size,
-      margin-bottom: 10px,
-    ),
+      margin: 0 0 $global-space 0
+    )
   ),
   medium: (
     h1: (
-      font-size: 48px,
-      margin-bottom: 24px,
+      font-size: 40px,
+      margin: 0 0 $global-space 0
     ),
     h2: (
-      font-size: 42px,
-      margin-bottom: 20px,
+      font-size: 36px,
+      margin: 0 0 $global-space 0
     ),
     h3: (
-      font-size: 36px,
-      margin-bottom: 18px,
+      font-size: 32px,
+      margin: 0 0 $global-space 0
     ),
     h4: (
-      font-size: 30px,
-      margin-bottom: $global-space,
+      font-size: 28px,
+      margin: 0 0 $global-space 0
     ),
     h5: (
-      font-size: 27px,
-      margin-bottom: 14px,
+      font-size: 24px,
+      margin: 0 0 $global-space 0
     ),
     h6: (
-      font-size: 24px,
-      margin-bottom: 12px,
-    ),
+      font-size: 20px,
+      margin: 0 0 $global-space 0
+    )
   ),
   large: (
     h1: (
-      font-size: 64px,
-      margin-bottom: 32px,
+      font-size: 48px,
+      margin: 0 0 $global-space 0
     ),
     h2: (
-      font-size: 56px,
-      margin-bottom: 26px,
+      font-size: 44px,
+      margin: 0 0 $global-space 0
     ),
     h3: (
-      font-size: 48px,
-      margin-bottom: 22px,
+      font-size: 40px,
+      margin: 0 0 $global-space 0
     ),
     h4: (
-      font-size: 40px,
-      margin-bottom: $global-space,
+      font-size: 36px,
+      margin: 0 0 $global-space 0
     ),
     h5: (
-      font-size: 36px,
-      margin-bottom: 12px,
+      font-size: 32px,
+      margin: 0 0 $global-space 0
     ),
     h6: (
-      font-size: 32px,
-      margin-bottom: 10px,
-    ),
-  ),
+      font-size: 28px,
+      margin: 0 0 $global-space 0
+    )
+  )
 ) !default;
 
-// Note: You can't add extra CSS properties here.
-//       Do that in a separate stylesheet as
-//       a class modifier instead.
+// NOTE: You can treat these map as css proper, but in `key: value` format.
 $type-header-styles: (
   h1: (
     color: $gray200,
     font-style: normal,
-    font-weight: bold,
+    font-weight: bold
   ),
   h2: (
     color: $gray200,
     font-style: normal,
-    font-weight: bold,
+    font-weight: bold
   ),
   h3: (
     color: $gray200,
     font-style: normal,
-    font-weight: bold,
+    font-weight: bold
   ),
   h4: (
     color: $gray200,
     font-style: normal,
-    font-weight: bold,
+    font-weight: bold
   ),
   h5: (
     color: $gray200,
     font-style: normal,
-    font-weight: bold,
+    font-weight: bold
   ),
   h6: (
     color: $gray200,
     font-style: normal,
-    font-weight: bold,
-  ),
+    font-weight: bold
+  )
 ) !default;
 
-$type-header-line-height: $global-line-height;
+$type-header-line-height: $global-line-height !default;
 
-$type-p-color: $gray200;
-$type-p-font-size: 16px;
-$type-p-font-style: normal;
-$type-p-font-weight: normal;
-$type-p-line-height: $global-line-height;
-$type-p-margin-bottom: 16px;
+$type-p-color: $gray200 !default;
+$type-p-font-size: 16px !default;
+$type-p-font-style: normal !default;
+$type-p-font-weight: normal !default;
+$type-p-line-height: $global-line-height !default;
+$type-p-margin-bottom: 16px !default;
 
-$type-code-font: $global-monospace;
-$type-code-font-size: 1em;
-$type-code-color: $black;
-$type-code-background: lighten($gray900, 5%);
-$type-code-border: none;
-$type-code-radius: $global-border-radius;
-$type-code-padding: 0 4px;
+$type-code-font: $global-monospace !default;
+$type-code-font-size: 1em !default;
+$type-code-color: $black !default;
+$type-code-background: lighten($gray900, 5%) !default;
+$type-code-border: none !default;
+$type-code-radius: $global-border-radius !default;
+$type-code-padding: 0 4px !default;
 
-$type-pre-padding: $global-space;
+$type-pre-padding: $global-space !default;
 
-$type-strong-font-style: normal;
-$type-strong-font-weight: bold;
+$type-strong-font-style: normal !default;
+$type-strong-font-weight: bold !default;
 
-$type-em-font-style: italic;
-$type-em-font-weight: normal;
+$type-em-font-style: italic !default;
+$type-em-font-weight: normal !default;
 
-$type-small-font-size: 75%;
-$type-small-font-weight: inherit;
+$type-small-font-size: 75% !default;
+$type-small-font-weight: inherit !default;
 
-$type-mark-padding: 10px;
-$type-mark-color: $gray200;
-$type-mark-background: status(warning);
+$type-mark-padding: 10px !default;
+$type-mark-color: $gray200 !default;
+$type-mark-background: status(warning) !default;
 
-$list-padding: 0 0 0 18px;
-$list-margin: 0;
-$list-font: $global-font-sans;
-$list-item-margin: 0;
-$list-item-padding: 8px 0;
-$ul-list-style: disc;
-$ol-list-style: decimal;
+$list-padding: 0 0 $global-space 22px !default;
+$list-margin: 0 !default;
+$list-font: $global-font-sans !default;
+$list-item-margin: 0 !default;
+$list-item-padding: 8px 0 !default;
+$ul-list-style: disc !default;
+$ol-list-style: decimal !default;
 
 // 4. Buttons
 // ----------
 
-// Note: You can't add extra CSS properties here.
-//       Do that in a separate stylesheet as
-//       a class modifier instead.
+// NOTE: You can treat these map as css proper, but in `key: value` format.
 $button-sizes: (
   small: (
     padding: 8px 14px,
-    font-size: 14px,
+    font-size: 14px
   ),
   medium: (
     padding: 12px 18px,
-    font-size: 16px,
+    font-size: 16px
   ),
   large: (
     padding: 16px 22px,
-    font-size: 20px,
+    font-size: 20px
   ),
   huge: (
     padding: 20px 30px,
-    font-size: 24px,
-  ),
+    font-size: 24px
+  )
 ) !default;
 
-// Default button
+// Base button styling
 
-$button-padding: 10px $global-space;
-$button-margin: 0 0 $global-space 0;
-$button-border-radius: $global-border-radius;
-$button-border-style: solid;
-$button-border-width: $global-border-width;
-$button-font-size: $global-font-size;
-$button-font-style: normal;
-$button-font-weight: normal;
-$button-font: $global-font-sans;
-$button-decoration: none;
-$button-decoration-hover: none;
+$button-padding: 10px $global-space !default;
+$button-margin: 0 0 $global-space 0 !default;
+$button-border-radius: $global-border-radius !default;
+$button-border-style: solid !default;
+$button-border-width: $global-border-width !default;
+$button-font-size: $global-font-size !default;
+$button-font-style: normal !default;
+$button-font-weight: normal !default;
+$button-font: $global-font-sans !default;
+$button-decoration: none !default;
 
-$button-background: $white;
-$button-background-hover: $button-background;
-$button-background-active: lighten($gray900, 10%);
-$button-background-focus: $button-background;
+// Default button styling.
 
-$button-color: $gray200;
-$button-color-hover: $button-color;
-$button-color-active: $button-color;
-$button-color-focus: $button-color;
+// NOTE: You can treat these map as css proper, but in `key: value` format.
+$button-default: (
+  default: (
+    background: $white,
+    color: $gray200,
+    border-color: $gray800,
+    box-shadow: none,
+    text-decoration: none
+  ),
+  hover: (
+    background: $white,
+    color: $gray200,
+    border-color: $gray600,
+    box-shadow: none,
+    text-decoration: none
+  ),
+  active: (
+    background: lighten($gray900, 10%),
+    color: $gray200,
+    border-color: $gray400,
+    box-shadow: none,
+    text-decoration: none
+  ),
+  focus: (
+    background: $white,
+    color: $gray200,
+    border-color: $gray600,
+    box-shadow: none,
+    text-decoration: none
+  )
+) !default;
 
-$button-border-color: $gray800;
-$button-border-color-hover: $gray600;
-$button-border-color-active: $gray400;
-$button-border-color-focus: $gray600;
+// Branded & specialized button styling
 
-$button-box-shadow: none;
-$button-box-shadow-hover: $button-box-shadow;
-$button-box-shadow-active: $button-box-shadow;
-$button-box-shadow-focus: $button-box-shadow;
-
-// Branded & specialized buttons
-
-// Note: You can't add extra CSS properties here.
-//       Do that in a separate stylesheet as
-//       a class modifier instead.
+// NOTE: You can treat this map as css proper, but in `key: value` format.
 $button-types: (
   primary: (
-    background: lighten($primary-color, 5%),
-    background-hover: $primary-color,
-    background-active: darken($primary-color, 2%),
-    background-focus: $primary-color,
-    color: $white,
-    color-hover: $white,
-    color-active: $white,
-    color-focus: $white,
-    border-color: transparent,
-    border-color-hover: transparent,
-    border-color-active: transparent,
-    border-color-focus: transparent,
-    box-shadow: none,
-    box-shadow-hover: none,
-    box-shadow-active: none,
-    box-shadow-focus: none,
+    default: (
+      background: lighten($primary-color, 5%),
+      color: $white,
+      border-color: transparent,
+      box-shadow: none
+    ),
+    hover: (
+      background: $primary-color,
+      color: $white,
+      border-color: transparent,
+      box-shadow: none
+    ),
+    active: (
+      background: darken($primary-color, 2%),
+      color: $white,
+      border-color: transparent,
+      box-shadow: none
+    ),
+    focus: (
+      background: $primary-color,
+      color: $white,
+      border-color: transparent,
+      box-shadow: none
+    )
   ),
   secondary: (
-    background: transparent,
-    background-hover: transparent,
-    background-active: transparent,
-    background-focus: transparent,
-    color: lighten($primary-color, 5%),
-    color-hover: $primary-color,
-    color-active: darken($primary-color, 2%),
-    color-focus: $primary-color,
-    border-color: lighten($primary-color, 5%),
-    border-color-hover: $primary-color,
-    border-color-active: darken($primary-color, 2%),
-    border-color-focus: $primary-color,
-    box-shadow: none,
-    box-shadow-hover: none,
-    box-shadow-active: none,
-    box-shadow-focus: none,
+    default: (
+      background: transparent,
+      color: lighten($primary-color, 5%),
+      border-color: lighten($primary-color, 5%),
+      box-shadow: none
+    ),
+    hover: (
+      background: transparent,
+      color: $primary-color,
+      border-color: $primary-color,
+      box-shadow: none
+    ),
+    active: (
+      background: transparent,
+      color: darken($primary-color, 2%),
+      border-color: darken($primary-color, 2%),
+      box-shadow: none
+    ),
+    focus: (
+      background: transparent,
+      color: $primary-color,
+      border-color: $primary-color,
+      box-shadow: none
+    )
   ),
   tertiary: (
-    background: transparent,
-    background-hover: rgba($gray900, 0.2),
-    background-active: rgba($gray900, 0.3),
-    background-focus: rgba($gray900, 0.2),
-    color: $primary-color,
-    color-hover: $primary-color,
-    color-active: $primary-color,
-    color-focus: $primary-color,
-    border-color: transparent,
-    border-color-hover: transparent,
-    border-color-active: transparent,
-    border-color-focus: transparent,
-    box-shadow: none,
-    box-shadow-hover: none,
-    box-shadow-active: none,
-    box-shadow-focus: none,
+    default: (
+      background: transparent,
+      color: $primary-color,
+      border-color: transparent,
+      box-shadow: none
+    ),
+    hover: (
+      background: rgba($gray900, 0.2),
+      color: $primary-color,
+      border-color: transparent,
+      box-shadow: none
+    ),
+    active: (
+      background: rgba($gray900, 0.3),
+      color: $primary-color,
+      border-color: transparent,
+      box-shadow: none
+    ),
+    focus: (
+      background: rgba($gray900, 0.2),
+      color: $primary-color,
+      border-color: transparent,
+      box-shadow: none
+    )
   ),
   inverted: (
-    background: lighten($gray900, 5%),
-    background-hover: $white,
-    background-active: $gray900,
-    background-focus: $white,
-    color: $gray200,
-    color-hover: $gray200,
-    color-active: $gray200,
-    color-focus: $gray200,
-    border-color: transparent,
-    border-color-hover: transparent,
-    border-color-active: transparent,
-    border-color-focus: transparent,
-    box-shadow: none,
-    box-shadow-hover: none,
-    box-shadow-active: none,
-    box-shadow-focus: none,
+    default: (
+      background: lighten($gray900, 5%),
+      color: $gray200,
+      border-color: transparent,
+      box-shadow: none
+    ),
+    hover: (
+      background: $white,
+      color: $gray200,
+      border-color: transparent,
+      box-shadow: none
+    ),
+    active: (
+      background: $gray900,
+      color: $gray200,
+      border-color: transparent,
+      box-shadow: none
+    ),
+    focus: (
+      background: $white,
+      color: $gray200,
+      border-color: transparent,
+      box-shadow: none
+    )
   ),
   inverted-outline: (
-    background: transparent,
-    background-hover: transparent,
-    background-active: transparent,
-    background-focus: transparent,
-    color: $white,
-    color-hover: $white,
-    color-active: $white,
-    color-focus: $white,
-    border-color: $gray900,
-    border-color-hover: $white,
-    border-color-active: darken($gray900, 2%),
-    border-color-focus: $white,
-    box-shadow: none,
-    box-shadow-hover: none,
-    box-shadow-active: none,
-    box-shadow-focus: none,
+    default: (
+      background: transparent,
+      color: $white,
+      border-color: $gray900,
+      box-shadow: none
+    ),
+    hover: (
+      background: transparent,
+      color: $white,
+      border-color: $white,
+      box-shadow: none
+    ),
+    active: (
+      background: transparent,
+      color: $white,
+      border-color: darken($gray900, 2%),
+      box-shadow: none
+    ),
+    focus: (
+      background: transparent,
+      color: $white,
+      border-color: $white,
+      box-shadow: none
+    )
   ),
   warning: (
-    background: darken(status(warning), 5%),
-    background-hover: status(warning),
-    background-active: darken(status(warning), 2%),
-    background-focus: status(warning),
-    color: $black,
-    color-hover: $black,
-    color-active: $black,
-    color-focus: $black,
-    border-color: transparent,
-    border-color-hover: transparent,
-    border-color-active: transparent,
-    border-color-focus: transparent,
-    box-shadow: none,
-    box-shadow-hover: none,
-    box-shadow-active: none,
-    box-shadow-focus: none,
+    default: (
+      background: darken(status(warning), 5%),
+      color: $black,
+      border-color: transparent,
+      box-shadow: none
+    ),
+    hover: (
+      background: status(warning),
+      color: $black,
+      border-color: transparent,
+      box-shadow: none
+    ),
+    active: (
+      background: darken(status(warning), 2%),
+      color: $black,
+      border-color: transparent,
+      box-shadow: none
+    ),
+    focus: (
+      background: status(warning),
+      color: $black,
+      border-color: transparent,
+      box-shadow: none
+    )
   ),
   success: (
-    background: darken(status(success), 5%),
-    background-hover: status(success),
-    background-active: darken(status(success), 2%),
-    background-focus: status(success),
-    color: $white,
-    color-hover: $white,
-    color-active: $white,
-    color-focus: $white,
-    border-color: transparent,
-    border-color-hover: transparent,
-    border-color-active: transparent,
-    border-color-focus: transparent,
-    box-shadow: none,
-    box-shadow-hover: none,
-    box-shadow-active: none,
-    box-shadow-focus: none,
+    default: (
+      background: darken(status(success), 5%),
+      color: $white,
+      border-color: transparent,
+      box-shadow: none
+    ),
+    hover: (
+      background: status(success),
+      color: $white,
+      border-color: transparent,
+      box-shadow: none
+    ),
+    active: (
+      background: darken(status(success), 2%),
+      color: $white,
+      border-color: transparent,
+      box-shadow: none
+    ),
+    focus: (
+      background: status(success),
+      color: $white,
+      border-color: transparent,
+      box-shadow: none
+    )
   ),
   destroy: (
-    background: darken(status(destroy), 5%),
-    background-hover: status(destroy),
-    background-active: darken(status(destroy), 2%),
-    background-focus: status(destroy),
-    color: $white,
-    color-hover: $white,
-    color-active: $white,
-    color-focus: $white,
-    border-color: transparent,
-    border-color-hover: transparent,
-    border-color-active: transparent,
-    border-color-focus: transparent,
-    box-shadow: none,
-    box-shadow-hover: none,
-    box-shadow-active: none,
-    box-shadow-focus: none,
+    default: (
+      background: darken(status(destroy), 5%),
+      color: $white,
+      border-color: transparent,
+      box-shadow: none
+    ),
+    hover: (
+      background: status(destroy),
+      color: $white,
+      border-color: transparent,
+      box-shadow: none
+    ),
+    active: (
+      background: darken(status(destroy), 2%),
+      color: $white,
+      border-color: transparent,
+      box-shadow: none
+    ),
+    focus: (
+      background: status(destroy),
+      color: $white,
+      border-color: transparent,
+      box-shadow: none
+    )
   ),
   notice: (
-    background: darken(status(notice), 5%),
-    background-hover: status(notice),
-    background-active: darken(status(notice), 2%),
-    background-focus: status(notice),
-    color: $white,
-    color-hover: $white,
-    color-active: $white,
-    color-focus: $white,
-    border-color: transparent,
-    border-color-hover: transparent,
-    border-color-active: transparent,
-    border-color-focus: transparent,
-    box-shadow: none,
-    box-shadow-hover: none,
-    box-shadow-active: none,
-    box-shadow-focus: none,
-  ),
+    default: (
+      background: darken(status(notice), 5%),
+      color: $white,
+      border-color: transparent,
+      box-shadow: none
+    ),
+    hover: (
+      background: status(notice),
+      color: $white,
+      border-color: transparent,
+      box-shadow: none
+    ),
+    active: (
+      background: darken(status(notice), 2%),
+      color: $white,
+      border-color: transparent,
+      box-shadow: none
+    ),
+    focus: (
+      background: status(notice),
+      color: $white,
+      border-color: transparent,
+      box-shadow: none
+    )
+  )
 ) !default;
 
 // Text links
 
-$link-color: lighten($primary-color, 10%);
-$link-decoration: none;
-$link-decoration-hover: underline;
-$link-font: $global-font-sans;
-$link-style: normal;
-$link-weight: normal;
-$link-font-size: $global-font-size;
-$link-hover: $primary-color;
-$link-active: $link-hover;
+$link-color: lighten($primary-color, 10%) !default;
+$link-decoration: none !default;
+$link-decoration-hover: underline !default;
+$link-font: $global-font-sans !default;
+$link-style: normal !default;
+$link-weight: normal !default;
+$link-font-size: $global-font-size !default;
+$link-hover: $primary-color !default;
+$link-active: $link-hover !default;
 
 // 5. Forms
 // --------
 
 // Form tag
 
-$form-margin: 0;
-$form-padding: 0;
-$form-background: transparent;
-$form-box-shadow: none;
-$form-border: none;
-$form-font: $global-font-sans;
-$form-radius: $global-border-radius;
+$form-margin: 0 !default;
+$form-padding: 0 !default;
+$form-background: transparent !default;
+$form-box-shadow: none !default;
+$form-border: none !default;
+$form-font: $global-font-sans !default;
+$form-radius: $global-border-radius !default;
 
 // Input + Textarea
 
-$input-font-size: $global-font-size;
-$input-font: $form-font;
-$input-box-shadow: none;
-$input-border: $global-border-width solid $gray800;
-$input-padding: 12px;
-$input-margin: 8px 0 $global-space 0;
-$input-border-radius: $form-radius;
-$input-background: $white;
-$input-resize: vertical;
+$input-font-size: $global-font-size !default;
+$input-font: $form-font !default;
+$input-box-shadow: none !default;
+$input-border: $global-border-width solid $gray800 !default;
+$input-padding: 12px !default;
+$input-margin: 8px 0 $global-space 0 !default;
+$input-border-radius: $form-radius !default;
+$input-background: $white !default;
+$input-resize: vertical !default;
 
 // Input + Textarea states
 
-$input-hover-background: $input-background;
-$input-hover-border: $global-border-width solid $gray600;
-$input-hover-box-shadow: $input-box-shadow;
+$input-hover-background: $input-background !default;
+$input-hover-border: $global-border-width solid $gray600 !default;
+$input-hover-box-shadow: $input-box-shadow !default;
 
-$input-focus-background: $input-background;
-$input-focus-border: $global-border-width solid $primary-color;
-$input-focus-box-shadow: $input-box-shadow;
+$input-focus-background: $input-background !default;
+$input-focus-border: $global-border-width solid $primary-color !default;
+$input-focus-box-shadow: $input-box-shadow !default;
 
-$input-disabled-background: $gray900;
-$input-disabled-color: $gray400;
-$input-disabled-border: $global-border-width solid $input-disabled-background;
-$input-disabled-resize: none;
+$input-disabled-background: $gray900 !default;
+$input-disabled-color: $gray400 !default;
+$input-disabled-border: $global-border-width solid $input-disabled-background !default;
+$input-disabled-resize: none !default;
 
 // Radio and Checkbox
 
-$input-option-row-breakpoint: small;
+$input-option-row-breakpoint: small !default;
 
-$input-option-row-padding-bottom: $global-space;
-$input-option-column-padding-bottom: $global-space;
-$input-option-padding: 0;
-$input-option-margin: 0 12px 0 0;
-$input-option-label-padding-right: $global-space;
-$input-option-label-padding-bottom: $global-space;
-$input-option-input-margin-right: $global-space / 2;
-$input-option-margin-top: 8px;
+$input-option-row-padding-bottom: $global-space !default;
+$input-option-column-padding-bottom: $global-space !default;
+$input-option-padding: 0 !default;
+$input-option-margin: 0 12px 0 0 !default;
+$input-option-label-padding-right: $global-space !default;
+$input-option-label-padding-bottom: $global-space !default;
+$input-option-input-margin-right: $global-space / 2 !default;
+$input-option-margin-top: 8px !default;
 
 // Fieldset
 
-$fieldset-border: $global-border-width solid $gray900;
-$fieldset-border-radius: $form-radius;
-$fieldset-box-shadow: none;
-$fieldset-background: transparent;
-$fieldset-margin: 0;
-$fieldset-padding: $global-space;
+$fieldset-border: $global-border-width solid $gray900 !default;
+$fieldset-border-radius: $form-radius !default;
+$fieldset-box-shadow: none !default;
+$fieldset-background: transparent !default;
+$fieldset-margin: 0 !default;
+$fieldset-padding: $global-space !default;
 
 // Fieldset legend
 
-$fieldset-legend-font: $form-font;
-$fieldset-legend-font-size: $global-font-size;
-$fieldset-legend-padding: 12px 20px;
-$fieldset-legend-color: $gray200;
-$fieldset-legend-background: $white;
-$fieldset-legend-box-shadow: 0 8px 30px $gray800;
-$fieldset-legend-border: none;
-$fieldset-legend-border-radius: $global-border-radius;
+$fieldset-legend-font: $form-font !default;
+$fieldset-legend-font-size: $global-font-size !default;
+$fieldset-legend-padding: 12px 20px !default;
+$fieldset-legend-color: $gray200 !default;
+$fieldset-legend-background: $white !default;
+$fieldset-legend-box-shadow: 0 8px 30px $gray800 !default;
+$fieldset-legend-border: none !default;
+$fieldset-legend-border-radius: $global-border-radius !default;
 
 // 6. Modals
 // ---------
 
-$modal-z-index: 2000;
-$modal-overlay-color: rgba(0, 0, 0, 0.5);
-$modal-transition-duration: 0.5s;
-$modal-transition-ease: $global-transition-ease;
+$modal-overlay-color: rgba(0, 0, 0, 0.5) !default;
+$modal-transition-duration: 0.5s !default;
+$modal-transition-ease: $global-transition-ease !default;
 
-$modal-container-background-color: $white;
-$modal-container-border-radius: $global-border-radius;
-$modal-container-padding: $global-space;
-$modal-header-font-size: 24px;
-$modal-header-border: 1px solid $gray900;
-$modal-footer-border: 1px solid $gray900;
-$modal-container-button-alignment: flex-end;
+$modal-container-background-color: $white !default;
+$modal-container-border-radius: $global-border-radius !default;
+$modal-container-padding: $global-space !default;
+$modal-header-font-size: 24px !default;
+$modal-header-border: 1px solid $gray900 !default;
+$modal-footer-border: 1px solid $gray900 !default;
+$modal-container-button-alignment: flex-end !default;
 
-$modal-horizontal-breakpoint: breakpoint(small);
-$modal-vertical-breakpoint: breakpoint(small);
+$modal-horizontal-breakpoint: breakpoint(small) !default;
+$modal-vertical-breakpoint: breakpoint(small) !default;
 
 // 7. Accordions
 // -------------
 
-$accordion-border: $global-border-width solid $gray900;
-$accordion-border-radius: $global-border-radius;
-$accordion-transition-duration: 0.5s;
-$accordion-transition-ease: $global-transition-ease;
+$accordion-border: $global-border-width solid $gray900 !default;
+$accordion-border-radius: $global-border-radius !default;
+$accordion-transition-duration: 0.5s !default;
+$accordion-transition-ease: $global-transition-ease !default;
 
-$accordion-button-color: $primary-color;
-$accordion-button-background: $white;
-$accordion-button-color-hover: darken($primary-color, 2%);
-$accordion-button-background-hover: lighten($gray900, 10%);
-$accordion-button-padding: $global-space;
+$accordion-button-color: $primary-color !default;
+$accordion-button-background: $white !default;
+$accordion-button-color-hover: darken($primary-color, 2%) !default;
+$accordion-button-background-hover: lighten($gray900, 10%) !default;
+$accordion-button-padding: $global-space !default;
 
-$accordion-row-divider: $accordion-border;
+$accordion-row-divider: $accordion-border !default;
 
-$accordion-content-margin: $global-space;
-$accordion-content-font-size: $global-font-size;
-$accordion-content-background: $white;
+$accordion-content-margin: $global-space !default;
+$accordion-content-font-size: $global-font-size !default;
+$accordion-content-background: $white !default;
