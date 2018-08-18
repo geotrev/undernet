@@ -113,7 +113,8 @@ $column-order-classes: true !default;
 // 3. Typography
 // -------------
 
-// Note: You can treat these maps as css proper, but in `key: value` format.
+// NOTE: You can treat these maps as css proper, but in `key: value` format.
+// Add more breakpoints from `$breakpoints` to increase font scaling fidelity.
 $type-header-sizes: (
   xsmall: (
     h1: (
