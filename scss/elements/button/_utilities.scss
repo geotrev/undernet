@@ -4,14 +4,11 @@ input[type="file"],
 input[type="reset"],
 button,
 .button {
-  @each $size in $button-sizes {
-    $button-size: nth($size, 1);
-    $button-padding: map-deep-get($button-sizes, $button-size, padding);
-    $button-font-size: map-deep-get($button-sizes, $button-size, font-size);
-
-    &.#{$button-size} {
-      font-size: $button-font-size;
-      padding: $button-padding;
+  @each $size, $properties in $button-sizes {
+    @each $property, $value in $properties {
+      &.#{$size} {
+        #{$property}: $value;
+      }
     }
   }
 
@@ -21,28 +18,26 @@ button,
     width: 100%;
   }
 
-  @each $type in $button-types {
-    $name: nth($type, 1);
+  @each $name, $properties in $button-types {
+    $background: map-get($properties, background);
+    $background-hover: map-get($properties, background-hover);
+    $background-active: map-get($properties, background-active);
+    $background-focus: map-get($properties, background-focus);
 
-    $background: map-deep-get($button-types, $name, background);
-    $background-hover: map-deep-get($button-types, $name, background-hover);
-    $background-active: map-deep-get($button-types, $name, background-active);
-    $background-focus: map-deep-get($button-types, $name, background-focus);
+    $color: map-get($properties, color);
+    $color-hover: map-get($properties, color-hover);
+    $color-active: map-get($properties, color-active);
+    $color-focus: map-get($properties, color-focus);
 
-    $color: map-deep-get($button-types, $name, color);
-    $color-hover: map-deep-get($button-types, $name, color-hover);
-    $color-active: map-deep-get($button-types, $name, color-active);
-    $color-focus: map-deep-get($button-types, $name, color-focus);
+    $border-color: map-get($properties, border-color);
+    $border-color-hover: map-get($properties, border-color-hover);
+    $border-color-active: map-get($properties, border-color-active);
+    $border-color-focus: map-get($properties, border-color-focus);
 
-    $border-color: map-deep-get($button-types, $name, border-color);
-    $border-color-hover: map-deep-get($button-types, $name, border-color-hover);
-    $border-color-active: map-deep-get($button-types, $name, border-color-active);
-    $border-color-focus: map-deep-get($button-types, $name, border-color-focus);
-
-    $box-shadow: map-deep-get($button-types, $name, box-shadow);
-    $box-shadow-hover: map-deep-get($button-types, $name, box-shadow-hover);
-    $box-shadow-active: map-deep-get($button-types, $name, box-shadow-active);
-    $box-shadow-focus: map-deep-get($button-types, $name, box-shadow-focus);
+    $box-shadow: map-get($properties, box-shadow);
+    $box-shadow-hover: map-get($properties, box-shadow-hover);
+    $box-shadow-active: map-get($properties, box-shadow-active);
+    $box-shadow-focus: map-get($properties, box-shadow-focus);
 
     &.#{$name} {
       @include button-style(

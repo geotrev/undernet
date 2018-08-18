@@ -111,93 +111,89 @@ $column-order-classes: true !default;
 // 3. Typography
 // -------------
 
-// Note: You can't add extra CSS properties here.
-//       Do that in a separate stylesheet as
-//       a class modifier instead.
+// Note: You can treat these maps as css proper, but in `key: value` format.
 $type-header-sizes: (
   xsmall: (
     h1: (
       font-size: 32px,
-      margin-bottom: $global-space
+      margin: 0 0 $global-space 0
     ),
     h2: (
       font-size: 28px,
-      margin-bottom: $global-space
+      margin: 0 0 $global-space 0
     ),
     h3: (
       font-size: 24px,
-      margin-bottom: $global-space
+      margin: 0 0 $global-space 0
     ),
     h4: (
       font-size: 20px,
-      margin-bottom: $global-space
+      margin: 0 0 $global-space 0
     ),
     h5: (
       font-size: 18px,
-      margin-bottom: $global-space
+      margin: 0 0 $global-space 0
     ),
     h6: (
       font-size: $global-font-size,
-      margin-bottom: $global-space
+      margin: 0 0 $global-space 0
     )
   ),
   medium: (
     h1: (
       font-size: 48px,
-      margin-bottom: $global-space
+      margin: 0 0 $global-space 0
     ),
     h2: (
       font-size: 42px,
-      margin-bottom: $global-space
+      margin: 0 0 $global-space 0
     ),
     h3: (
       font-size: 36px,
-      margin-bottom: $global-space
+      margin: 0 0 $global-space 0
     ),
     h4: (
       font-size: 30px,
-      margin-bottom: $global-space
+      margin: 0 0 $global-space 0
     ),
     h5: (
       font-size: 27px,
-      margin-bottom: $global-space
+      margin: 0 0 $global-space 0
     ),
     h6: (
       font-size: 24px,
-      margin-bottom: $global-space
+      margin: 0 0 $global-space 0
     )
   ),
   large: (
     h1: (
       font-size: 64px,
-      margin-bottom: $global-space
+      margin: 0 0 $global-space 0
     ),
     h2: (
       font-size: 56px,
-      margin-bottom: $global-space
+      margin: 0 0 $global-space 0
     ),
     h3: (
       font-size: 48px,
-      margin-bottom: $global-space
+      margin: 0 0 $global-space 0
     ),
     h4: (
       font-size: 40px,
-      margin-bottom: $global-space
+      margin: 0 0 $global-space 0
     ),
     h5: (
       font-size: 36px,
-      margin-bottom: $global-space
+      margin: 0 0 $global-space 0
     ),
     h6: (
       font-size: 32px,
-      margin-bottom: $global-space
+      margin: 0 0 $global-space 0
     )
   )
 ) !default;
 
-// Note: You can't add extra CSS properties here.
-//       Do that in a separate stylesheet as
-//       a class modifier instead.
+// Note: You can treat these maps as css proper, but in `key: value` format.
 $type-header-styles: (
   h1: (
     color: $gray200,
@@ -274,9 +270,7 @@ $ol-list-style: decimal !default;
 // 4. Buttons
 // ----------
 
-// Note: You can't add extra CSS properties here.
-//       Do that in a separate stylesheet as
-//       a class modifier instead.
+// Note: You can treat these maps as css proper, but in `key: value` format.
 $button-sizes: (
   small: (
     padding: 8px 14px,

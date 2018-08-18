@@ -35,10 +35,10 @@
     "js:prettier": "prettier --write 'js/src/**/*.js'",
     "css:minify": "sass scss/undernet.scss:dist/undernet.min.css --style compressed",
     "css:build": "sass scss/undernet.scss:dist/undernet.css",
-    "css:build:all": "npm run css:build && npm run css:minify",
+    "css:package": "npm run css:build && npm run css:minify",
     "scss:lint": "prettier --write 'scss/**/*.scss'",
     "scss:prepublish": "cd scss/ && zip -r ../dist/undernet.scss.zip .",
-    "css:prepublish": "npm run css:build:all && cd dist/ && zip -r undernet.css.zip . -x *.js *.zip *.js.map",
+    "css:prepublish": "npm run css:package && cd dist/ && zip -r undernet.css.zip . -x *.js *.zip *.js.map",
     "heroku:default": "heroku git:remote -a"
   },
   "devDependencies": {
