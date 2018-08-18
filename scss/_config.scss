@@ -262,7 +262,7 @@ $type-mark-padding: 10px !default;
 $type-mark-color: $gray200 !default;
 $type-mark-background: status(warning) !default;
 
-$list-padding: 0 0 0 18px !default;
+$list-padding: 0 0 $global-space 22px !default;
 $list-margin: 0 !default;
 $list-font: $global-font-sans !default;
 $list-item-margin: 0 !default;

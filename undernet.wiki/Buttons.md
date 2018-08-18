@@ -24,7 +24,7 @@ Using `.wide` as a modifier class, your buttons stretch full-width in their cont
 
 ### Button Sizes
 
-Defined in `$button-sizes` is a list of classes mapped to padding and font-sizes to modify your buttons.
+Defined in `$button-sizes` is a list of classes mapped to padding and font-sizes to modify your buttons. You can add other custom CSS properties here, as well, in sass' `key: value` format.
 
 ```html
 <button class=“small”>Submit</button>
@@ -33,11 +33,9 @@ Defined in `$button-sizes` is a list of classes mapped to padding and font-sizes
 <button class=“huge”>Submit</button>
 ```
 
-You can remove, edit, or add extra sizes to fit your needs.
-
 ### Custom Button Types
 
-In the `$button-types` map, you can find some pre-made button types, like primary, secondary, and tertiary buttons. Like with `$button-sizes`, you can remove, edit, or add new ones if you want.
+In the `$button-types` map, you can find some pre-made button types, like primary, secondary, and tertiary buttons. Like with `$button-sizes`, you can remove, edit, or add new ones if you want. Unfortunately, unlike in the typography and button size maps, you can't add custom CSS here.
 
 This should make it easier to quickly make new buttons with explicit `:focus`, `:active`, and `:hover` styling.
 
