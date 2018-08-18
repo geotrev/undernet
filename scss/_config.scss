@@ -113,7 +113,7 @@ $column-order-classes: true !default;
 // 3. Typography
 // -------------
 
-// NOTE: You can treat these maps as css proper, but in `key: value` format.
+// NOTE: You can treat these map as css proper, but in `key: value` format.
 // Add more breakpoints from `$breakpoints` to increase font scaling fidelity.
 $type-header-sizes: (
   xsmall: (
@@ -196,7 +196,7 @@ $type-header-sizes: (
   )
 ) !default;
 
-// Note: You can treat these maps as css proper, but in `key: value` format.
+// NOTE: You can treat these map as css proper, but in `key: value` format.
 $type-header-styles: (
   h1: (
     color: $gray200,
@@ -273,7 +273,7 @@ $ol-list-style: decimal !default;
 // 4. Buttons
 // ----------
 
-// Note: You can treat these maps as css proper, but in `key: value` format.
+// NOTE: You can treat these map as css proper, but in `key: value` format.
 $button-sizes: (
   small: (
     padding: 8px 14px,
@@ -293,7 +293,7 @@ $button-sizes: (
   )
 ) !default;
 
-// Default button
+// Base button styling
 
 $button-padding: 10px $global-space !default;
 $button-margin: 0 0 $global-space 0 !default;
@@ -305,195 +305,278 @@ $button-font-style: normal !default;
 $button-font-weight: normal !default;
 $button-font: $global-font-sans !default;
 $button-decoration: none !default;
-$button-decoration-hover: none !default;
 
-$button-background: $white !default;
-$button-background-hover: $button-background !default;
-$button-background-active: lighten($gray900, 10%) !default;
-$button-background-focus: $button-background !default;
+// Default button styling.
 
-$button-color: $gray200 !default;
-$button-color-hover: $button-color !default;
-$button-color-active: $button-color !default;
-$button-color-focus: $button-color !default;
+// NOTE: You can treat these map as css proper, but in `key: value` format.
+$button-default: (
+  default: (
+    background: $white,
+    color: $gray200,
+    border-color: $gray800,
+    box-shadow: none,
+    text-decoration: none
+  ),
+  hover: (
+    background: $white,
+    color: $gray200,
+    border-color: $gray600,
+    box-shadow: none,
+    text-decoration: none
+  ),
+  active: (
+    background: lighten($gray900, 10%),
+    color: $gray200,
+    border-color: $gray400,
+    box-shadow: none,
+    text-decoration: none
+  ),
+  focus: (
+    background: $white,
+    color: $gray200,
+    border-color: $gray600,
+    box-shadow: none,
+    text-decoration: none
+  )
+) !default;
 
-$button-border-color: $gray800 !default;
-$button-border-color-hover: $gray600 !default;
-$button-border-color-active: $gray400 !default;
-$button-border-color-focus: $gray600 !default;
+// Branded & specialized button styling
 
-$button-box-shadow: none !default;
-$button-box-shadow-hover: $button-box-shadow !default;
-$button-box-shadow-active: $button-box-shadow !default;
-$button-box-shadow-focus: $button-box-shadow !default;
-
-// Branded & specialized buttons
-
-// Note: You can't add extra CSS properties here.
-//       Do that in a separate stylesheet as
-//       a class modifier instead.
+// NOTE: You can treat this map as css proper, but in `key: value` format.
 $button-types: (
   primary: (
-    background: lighten($primary-color, 5%),
-    background-hover: $primary-color,
-    background-active: darken($primary-color, 2%),
-    background-focus: $primary-color,
-    color: $white,
-    color-hover: $white,
-    color-active: $white,
-    color-focus: $white,
-    border-color: transparent,
-    border-color-hover: transparent,
-    border-color-active: transparent,
-    border-color-focus: transparent,
-    box-shadow: none,
-    box-shadow-hover: none,
-    box-shadow-active: none,
-    box-shadow-focus: none
+    default: (
+      background: lighten($primary-color, 5%),
+      color: $white,
+      border-color: transparent,
+      box-shadow: none
+    ),
+    hover: (
+      background: $primary-color,
+      color: $white,
+      border-color: transparent,
+      box-shadow: none
+    ),
+    active: (
+      background: darken($primary-color, 2%),
+      color: $white,
+      border-color: transparent,
+      box-shadow: none
+    ),
+    focus: (
+      background: $primary-color,
+      color: $white,
+      border-color: transparent,
+      box-shadow: none
+    )
   ),
   secondary: (
-    background: transparent,
-    background-hover: transparent,
-    background-active: transparent,
-    background-focus: transparent,
-    color: lighten($primary-color, 5%),
-    color-hover: $primary-color,
-    color-active: darken($primary-color, 2%),
-    color-focus: $primary-color,
-    border-color: lighten($primary-color, 5%),
-    border-color-hover: $primary-color,
-    border-color-active: darken($primary-color, 2%),
-    border-color-focus: $primary-color,
-    box-shadow: none,
-    box-shadow-hover: none,
-    box-shadow-active: none,
-    box-shadow-focus: none
+    default: (
+      background: transparent,
+      color: lighten($primary-color, 5%),
+      border-color: lighten($primary-color, 5%),
+      box-shadow: none
+    ),
+    hover: (
+      background: transparent,
+      color: $primary-color,
+      border-color: $primary-color,
+      box-shadow: none
+    ),
+    active: (
+      background: transparent,
+      color: darken($primary-color, 2%),
+      border-color: darken($primary-color, 2%),
+      box-shadow: none
+    ),
+    focus: (
+      background: transparent,
+      color: $primary-color,
+      border-color: $primary-color,
+      box-shadow: none
+    )
   ),
   tertiary: (
-    background: transparent,
-    background-hover: rgba($gray900, 0.2),
-    background-active: rgba($gray900, 0.3),
-    background-focus: rgba($gray900, 0.2),
-    color: $primary-color,
-    color-hover: $primary-color,
-    color-active: $primary-color,
-    color-focus: $primary-color,
-    border-color: transparent,
-    border-color-hover: transparent,
-    border-color-active: transparent,
-    border-color-focus: transparent,
-    box-shadow: none,
-    box-shadow-hover: none,
-    box-shadow-active: none,
-    box-shadow-focus: none
+    default: (
+      background: transparent,
+      color: $primary-color,
+      border-color: transparent,
+      box-shadow: none
+    ),
+    hover: (
+      background: rgba($gray900, 0.2),
+      color: $primary-color,
+      border-color: transparent,
+      box-shadow: none
+    ),
+    active: (
+      background: rgba($gray900, 0.3),
+      color: $primary-color,
+      border-color: transparent,
+      box-shadow: none
+    ),
+    focus: (
+      background: rgba($gray900, 0.2),
+      color: $primary-color,
+      border-color: transparent,
+      box-shadow: none
+    )
   ),
   inverted: (
-    background: lighten($gray900, 5%),
-    background-hover: $white,
-    background-active: $gray900,
-    background-focus: $white,
-    color: $gray200,
-    color-hover: $gray200,
-    color-active: $gray200,
-    color-focus: $gray200,
-    border-color: transparent,
-    border-color-hover: transparent,
-    border-color-active: transparent,
-    border-color-focus: transparent,
-    box-shadow: none,
-    box-shadow-hover: none,
-    box-shadow-active: none,
-    box-shadow-focus: none
+    default: (
+      background: lighten($gray900, 5%),
+      color: $gray200,
+      border-color: transparent,
+      box-shadow: none
+    ),
+    hover: (
+      background: $white,
+      color: $gray200,
+      border-color: transparent,
+      box-shadow: none
+    ),
+    active: (
+      background: $gray900,
+      color: $gray200,
+      border-color: transparent,
+      box-shadow: none
+    ),
+    focus: (
+      background: $white,
+      color: $gray200,
+      border-color: transparent,
+      box-shadow: none
+    )
   ),
   inverted-outline: (
-    background: transparent,
-    background-hover: transparent,
-    background-active: transparent,
-    background-focus: transparent,
-    color: $white,
-    color-hover: $white,
-    color-active: $white,
-    color-focus: $white,
-    border-color: $gray900,
-    border-color-hover: $white,
-    border-color-active: darken($gray900, 2%),
-    border-color-focus: $white,
-    box-shadow: none,
-    box-shadow-hover: none,
-    box-shadow-active: none,
-    box-shadow-focus: none
+    default: (
+      background: transparent,
+      color: $white,
+      border-color: $gray900,
+      box-shadow: none
+    ),
+    hover: (
+      background: transparent,
+      color: $white,
+      border-color: $white,
+      box-shadow: none
+    ),
+    active: (
+      background: transparent,
+      color: $white,
+      border-color: darken($gray900, 2%),
+      box-shadow: none
+    ),
+    focus: (
+      background: transparent,
+      color: $white,
+      border-color: $white,
+      box-shadow: none
+    )
   ),
   warning: (
-    background: darken(status(warning), 5%),
-    background-hover: status(warning),
-    background-active: darken(status(warning), 2%),
-    background-focus: status(warning),
-    color: $black,
-    color-hover: $black,
-    color-active: $black,
-    color-focus: $black,
-    border-color: transparent,
-    border-color-hover: transparent,
-    border-color-active: transparent,
-    border-color-focus: transparent,
-    box-shadow: none,
-    box-shadow-hover: none,
-    box-shadow-active: none,
-    box-shadow-focus: none
+    default: (
+      background: darken(status(warning), 5%),
+      color: $black,
+      border-color: transparent,
+      box-shadow: none
+    ),
+    hover: (
+      background: status(warning),
+      color: $black,
+      border-color: transparent,
+      box-shadow: none
+    ),
+    active: (
+      background: darken(status(warning), 2%),
+      color: $black,
+      border-color: transparent,
+      box-shadow: none
+    ),
+    focus: (
+      background: status(warning),
+      color: $black,
+      border-color: transparent,
+      box-shadow: none
+    )
   ),
   success: (
-    background: darken(status(success), 5%),
-    background-hover: status(success),
-    background-active: darken(status(success), 2%),
-    background-focus: status(success),
-    color: $white,
-    color-hover: $white,
-    color-active: $white,
-    color-focus: $white,
-    border-color: transparent,
-    border-color-hover: transparent,
-    border-color-active: transparent,
-    border-color-focus: transparent,
-    box-shadow: none,
-    box-shadow-hover: none,
-    box-shadow-active: none,
-    box-shadow-focus: none
+    default: (
+      background: darken(status(success), 5%),
+      color: $white,
+      border-color: transparent,
+      box-shadow: none
+    ),
+    hover: (
+      background: status(success),
+      color: $white,
+      border-color: transparent,
+      box-shadow: none
+    ),
+    active: (
+      background: darken(status(success), 2%),
+      color: $white,
+      border-color: transparent,
+      box-shadow: none
+    ),
+    focus: (
+      background: status(success),
+      color: $white,
+      border-color: transparent,
+      box-shadow: none
+    )
   ),
   destroy: (
-    background: darken(status(destroy), 5%),
-    background-hover: status(destroy),
-    background-active: darken(status(destroy), 2%),
-    background-focus: status(destroy),
-    color: $white,
-    color-hover: $white,
-    color-active: $white,
-    color-focus: $white,
-    border-color: transparent,
-    border-color-hover: transparent,
-    border-color-active: transparent,
-    border-color-focus: transparent,
-    box-shadow: none,
-    box-shadow-hover: none,
-    box-shadow-active: none,
-    box-shadow-focus: none
+    default: (
+      background: darken(status(destroy), 5%),
+      color: $white,
+      border-color: transparent,
+      box-shadow: none
+    ),
+    hover: (
+      background: status(destroy),
+      color: $white,
+      border-color: transparent,
+      box-shadow: none
+    ),
+    active: (
+      background: darken(status(destroy), 2%),
+      color: $white,
+      border-color: transparent,
+      box-shadow: none
+    ),
+    focus: (
+      background: status(destroy),
+      color: $white,
+      border-color: transparent,
+      box-shadow: none
+    )
   ),
   notice: (
-    background: darken(status(notice), 5%),
-    background-hover: status(notice),
-    background-active: darken(status(notice), 2%),
-    background-focus: status(notice),
-    color: $white,
-    color-hover: $white,
-    color-active: $white,
-    color-focus: $white,
-    border-color: transparent,
-    border-color-hover: transparent,
-    border-color-active: transparent,
-    border-color-focus: transparent,
-    box-shadow: none,
-    box-shadow-hover: none,
-    box-shadow-active: none,
-    box-shadow-focus: none
+    default: (
+      background: darken(status(notice), 5%),
+      color: $white,
+      border-color: transparent,
+      box-shadow: none
+    ),
+    hover: (
+      background: status(notice),
+      color: $white,
+      border-color: transparent,
+      box-shadow: none
+    ),
+    active: (
+      background: darken(status(notice), 2%),
+      color: $white,
+      border-color: transparent,
+      box-shadow: none
+    ),
+    focus: (
+      background: status(notice),
+      color: $white,
+      border-color: transparent,
+      box-shadow: none
+    )
   )
 ) !default;
 

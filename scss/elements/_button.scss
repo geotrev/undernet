@@ -23,11 +23,28 @@ button,
   text-decoration: $button-decoration;
   transition: $global-ease;
 
-  @include button-style();
+  @each $state, $properties in $button-default {
+    @if $state != "default" {
+      &:#{$state} {
+        @each $property, $value in $properties {
+          #{$property}: $value;
+        }
+      }
+    } @else {
+      @each $property, $value in $properties {
+        #{$property}: $value;
+      }
+      &:visited {
+        @each $property, $value in $properties {
+          #{$property}: $value;
+        }
+      }
+    }
+  }
 
   @each $size, $properties in $button-sizes {
-    @each $property, $value in $properties {
-      &.#{$size} {
+    &.#{$size} {
+      @each $property, $value in $properties {
         #{$property}: $value;
       }
     }
@@ -39,46 +56,28 @@ button,
     width: 100%;
   }
 
-  @each $name, $properties in $button-types {
-    $background: map-get($properties, background);
-    $background-hover: map-get($properties, background-hover);
-    $background-active: map-get($properties, background-active);
-    $background-focus: map-get($properties, background-focus);
-
-    $color: map-get($properties, color);
-    $color-hover: map-get($properties, color-hover);
-    $color-active: map-get($properties, color-active);
-    $color-focus: map-get($properties, color-focus);
-
-    $border-color: map-get($properties, border-color);
-    $border-color-hover: map-get($properties, border-color-hover);
-    $border-color-active: map-get($properties, border-color-active);
-    $border-color-focus: map-get($properties, border-color-focus);
-
-    $box-shadow: map-get($properties, box-shadow);
-    $box-shadow-hover: map-get($properties, box-shadow-hover);
-    $box-shadow-active: map-get($properties, box-shadow-active);
-    $box-shadow-focus: map-get($properties, box-shadow-focus);
-
-    &.#{$name} {
-      @include button-style(
-        $box-shadow,
-        $border-color,
-        $color,
-        $background,
-        $box-shadow-hover,
-        $border-color-hover,
-        $color-hover,
-        $background-hover,
-        $box-shadow-active,
-        $border-color-active,
-        $color-active,
-        $background-active,
-        $box-shadow-focus,
-        $border-color-focus,
-        $color-focus,
-        $background-focus
-      );
+  @each $type, $states in $button-types {
+    @each $state, $properties in $states {
+      @if $state != "default" {
+        &.#{$type} {
+          &:#{$state} {
+            @each $property, $value in $properties {
+              #{$property}: $value;
+            }
+          }
+        }
+      } @else {
+        &.#{$type} {
+          @each $property, $value in $properties {
+            #{$property}: $value;
+          }
+          &:visited {
+            @each $property, $value in $properties {
+              #{$property}: $value;
+            }
+          }
+        }
+      }
     }
   }
 }

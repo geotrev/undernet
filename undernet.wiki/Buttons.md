@@ -35,9 +35,7 @@ Defined in `$button-sizes` is a list of classes mapped to padding and font-sizes
 
 ### Custom Button Types
 
-In the `$button-types` map, you can find some pre-made button types, like primary, secondary, and tertiary buttons. Like with `$button-sizes`, you can remove, edit, or add new ones if you want. Unfortunately, unlike in the typography and button size maps, you can't add custom CSS here.
-
-This should make it easier to quickly make new buttons with explicit `:focus`, `:active`, and `:hover` styling.
+In the `$button-types` map, you can find some pre-made button types, like primary, secondary, and tertiary buttons. Like with `$button-sizes`, you can add custom CSS in the various states (.e.g, `hover`).
 
 ```html
 <button class=“primary”>Primary Button</button>
@@ -49,7 +47,7 @@ This should make it easier to quickly make new buttons with explicit `:focus`, `
 
 #### Status Buttons
 
-Also in the same map, you can find status buttons. By default, there are four: `success`, `notice`, `destroy`, and `warning`. If anything, they’ll give you an idea of how to create more buttons in this pattern.
+Also in `$button-types`, you can find status buttons. By default, there are four: `success`, `notice`, `destroy`, and `warning`.
 
 ```html
 <button class=“success”>Button</button>
