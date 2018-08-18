@@ -66,4 +66,59 @@ $column: map-get($grid-classes, column);
   } // end @if
 } // end @each
 
-@import "utilities";
+.#{$grid} {
+  @each $name, $width in $grid-widths {
+    &.#{$name} {
+      max-width: $width;
+    }
+  }
+
+  @each $name, $padding in $grid-sections {
+    &.#{$name}-section {
+      padding-top: $padding;
+      padding-bottom: $padding;
+    }
+  }
+
+  &.fullscreen {
+    box-sizing: border-box;
+    height: 100vh;
+    max-width: unset;
+    width: 100vw;
+
+    .#{$row} {
+      @include flex($grow: 1, $shrink: 1, $basis: auto);
+      align-items: center;
+      align-content: center;
+    }
+
+    .#{$row} {
+      &.align-bottom {
+        align-items: flex-end;
+        align-content: flex-end;
+      }
+      &.align-top {
+        align-items: flex-start;
+        align-content: flex-start;
+      }
+    }
+  }
+}
+
+.#{$row}.collapsed {
+  .#{$column}s,
+  .#{$column} {
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+  }
+}
+
+.#{$column}s.collapsed,
+.#{$column}.collapsed {
+  padding-bottom: 0;
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 0;
+}

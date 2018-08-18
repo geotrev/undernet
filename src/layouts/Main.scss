@@ -1,15 +1,15 @@
 @import "../global";
-@import "../../scss/elements/global/base";
+@import "../../scss/elements/reset";
 
 // $scope: "undernet";
 
 // .#{$scope} {
-@import "../../scss/helpers/classes/base";
-@import "../../scss/elements/grid/base";
-@import "../../scss/elements/typography/base";
-@import "../../scss/elements/link/base";
-@import "../../scss/elements/button/base";
-@import "../../scss/elements/form/base";
+@import "../../scss/helpers/classes";
+@import "../../scss/elements/grid";
+@import "../../scss/elements/typography";
+@import "../../scss/elements/link";
+@import "../../scss/elements/button";
+@import "../../scss/elements/form";
 
 @import "../../scss/components/modal";
 @import "../../scss/components/accordion";

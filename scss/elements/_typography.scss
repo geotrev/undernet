@@ -1,3 +1,64 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+em,
+small,
+mark {
+  font-family: $global-font-sans;
+  margin: 0;
+  padding: 0;
+}
+
+ul,
+ol {
+  padding: $list-padding;
+  margin: $list-margin;
+  font-family: $list-font;
+
+  li {
+    margin: $list-item-margin;
+    padding: $list-item-padding;
+  }
+}
+
+ul {
+  list-style-type: $ul-list-style;
+}
+
+ol {
+  list-style-type: $ol-list-style;
+}
+
+@each $header, $properties in $type-header-styles {
+  @each $property, $value in $properties {
+    #{$header},
+    .#{$header} {
+      #{$property}: $value;
+    }
+  }
+
+  #{$header},
+  .#{$header} {
+    line-height: $type-header-line-height;
+  }
+}
+
+@each $size, $headers in $type-header-sizes {
+  $smallest-breakpoint: nth(nth($breakpoints, 1), 1);
+
+  @if $size == $smallest-breakpoint {
+    @include header-sizes($headers);
+  } @else {
+    @include breakpoint-up($size) {
+      @include header-sizes($headers);
+    }
+  }
+}
+
 p,
 .paragraph {
   font-size: $type-p-font-size;

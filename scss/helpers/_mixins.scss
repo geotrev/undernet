@@ -1,0 +1,149 @@
+@mixin button-style(
+  $box-shadow: $button-box-shadow,
+  $border-color: $button-border-color,
+  $color: $button-color,
+  $background: $button-background,
+  $box-shadow-hover: $button-box-shadow-hover,
+  $border-color-hover: $button-border-color-hover,
+  $color-hover: $button-color-hover,
+  $background-hover: $button-background-hover,
+  $box-shadow-active: $button-box-shadow-active,
+  $border-color-active: $button-border-color-active,
+  $color-active: $button-color-active,
+  $background-active: $button-background-active,
+  $box-shadow-focus: $button-box-shadow-focus,
+  $border-color-focus: $button-border-color-focus,
+  $color-focus: $button-color-focus,
+  $background-focus: $button-background-focus
+) {
+  box-shadow: $box-shadow;
+  border-color: $border-color;
+  color: $color;
+  background: $background;
+
+  &:visited {
+    box-shadow: $box-shadow;
+    border-color: $border-color;
+    color: $color;
+    background: $background;
+  }
+  &:hover {
+    box-shadow: $box-shadow-hover;
+    border-color: $border-color-hover;
+    color: $color-hover;
+    background: $background-hover;
+    text-decoration: $button-decoration;
+  }
+  &:focus {
+    box-shadow: $box-shadow-focus;
+    border-color: $border-color-focus;
+    color: $color-focus;
+    background: $background-focus;
+    text-decoration: $button-decoration;
+  }
+  &:active {
+    box-shadow: $box-shadow-active;
+    border-color: $border-color-active;
+    color: $color-active;
+    background: $background-active;
+    text-decoration: $button-decoration;
+  }
+}
+
+@mixin flex(
+  $display: null,
+  $direction: null,
+  $wrap: null,
+  $grow: null,
+  $shrink: null,
+  $basis: null,
+  $align: null
+) {
+  display: $display;
+  flex-flow: $direction $wrap;
+  flex: $grow $shrink $basis;
+  align-items: $align;
+}
+
+@mixin grid-classes($size) {
+  @for $i from 1 through $columns {
+    .#{$size}-#{$i} {
+      @include flex($grow: 0, $shrink: 0, $basis: percentage($i / $columns));
+      max-width: percentage($i / $columns);
+    }
+    @if $column-offset-classes == true {
+      .#{$size}-offset-#{$i} {
+        margin-left: percentage($i / $columns);
+      }
+    }
+    @if $column-order-classes == true {
+      .#{$size}-order-#{$i} {
+        order: $i;
+      }
+    }
+  }
+}
+
+@mixin grid-classes($size) {
+  @for $i from 1 through $columns {
+    .#{$size}-#{$i} {
+      @include flex($grow: 0, $shrink: 0, $basis: percentage($i / $columns));
+      max-width: percentage($i / $columns);
+    }
+    @if $column-offset-classes == true {
+      .#{$size}-offset-#{$i} {
+        margin-left: percentage($i / $columns);
+      }
+    }
+    @if $column-order-classes == true {
+      .#{$size}-order-#{$i} {
+        order: $i;
+      }
+    }
+  }
+}
+
+@mixin breakpoint-up($size) {
+  @media screen and (min-width: #{map-get($breakpoints, $size)}) {
+    @content;
+  }
+}
+
+@mixin breakpoint-down($size) {
+  @media screen and (max-width: #{map-get($breakpoints, $size) - 1}) {
+    @content;
+  }
+}
+
+@mixin breakpoint-between($min, $max) {
+  @media screen
+    and (min-width: #{map-get($breakpoints, $min)})
+    and (max-width: #{map-get($breakpoints, $max) - 1}) {
+    @content;
+  }
+}
+
+@mixin header-sizes($headers) {
+  @each $header, $properties in $headers {
+    @each $property, $value in $properties {
+      #{$header},
+      .#{$header} {
+        #{$property}: $value;
+      }
+    }
+  }
+}
+
+@mixin visibility($size) {
+  .is-flex-on-#{$size} {
+    display: flex !important;
+  }
+
+  .is-block-on-#{$size} {
+    display: block !important;
+  }
+
+  .is-hidden-on-#{$size} {
+    display: none !important;
+  }
+}
