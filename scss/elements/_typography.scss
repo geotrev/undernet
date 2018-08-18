@@ -34,16 +34,13 @@ ol {
 }
 
 @each $header, $properties in $type-header-styles {
-  @each $property, $value in $properties {
-    #{$header},
-    .#{$header} {
-      #{$property}: $value;
-    }
-  }
-
   #{$header},
   .#{$header} {
     line-height: $type-header-line-height;
+
+    @each $property, $value in $properties {
+      #{$property}: $value;
+    }
   }
 }
 

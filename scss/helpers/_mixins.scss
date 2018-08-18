@@ -73,9 +73,9 @@
 
 @mixin header-sizes($headers) {
   @each $header, $properties in $headers {
-    @each $property, $value in $properties {
-      #{$header},
-      .#{$header} {
+    #{$header},
+    .#{$header} {
+      @each $property, $value in $properties {
         #{$property}: $value;
       }
     }

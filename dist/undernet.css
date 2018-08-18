@@ -888,243 +888,135 @@ ol {
 
 h1,
 .h1 {
-  color: #222; }
+  line-height: 1.5;
+  color: #222;
+  font-style: normal;
+  font-weight: bold; }
 
-h1,
-.h1 {
-  font-style: normal; }
+h2,
+.h2 {
+  line-height: 1.5;
+  color: #222;
+  font-style: normal;
+  font-weight: bold; }
 
-h1,
-.h1 {
+h3,
+.h3 {
+  line-height: 1.5;
+  color: #222;
+  font-style: normal;
+  font-weight: bold; }
+
+h4,
+.h4 {
+  line-height: 1.5;
+  color: #222;
+  font-style: normal;
+  font-weight: bold; }
+
+h5,
+.h5 {
+  line-height: 1.5;
+  color: #222;
+  font-style: normal;
+  font-weight: bold; }
+
+h6,
+.h6 {
+  line-height: 1.5;
+  color: #222;
+  font-style: normal;
   font-weight: bold; }
 
 h1,
 .h1 {
-  line-height: 1.5; }
-
-h2,
-.h2 {
-  color: #222; }
-
-h2,
-.h2 {
-  font-style: normal; }
-
-h2,
-.h2 {
-  font-weight: bold; }
-
-h2,
-.h2 {
-  line-height: 1.5; }
-
-h3,
-.h3 {
-  color: #222; }
-
-h3,
-.h3 {
-  font-style: normal; }
-
-h3,
-.h3 {
-  font-weight: bold; }
-
-h3,
-.h3 {
-  line-height: 1.5; }
-
-h4,
-.h4 {
-  color: #222; }
-
-h4,
-.h4 {
-  font-style: normal; }
-
-h4,
-.h4 {
-  font-weight: bold; }
-
-h4,
-.h4 {
-  line-height: 1.5; }
-
-h5,
-.h5 {
-  color: #222; }
-
-h5,
-.h5 {
-  font-style: normal; }
-
-h5,
-.h5 {
-  font-weight: bold; }
-
-h5,
-.h5 {
-  line-height: 1.5; }
-
-h6,
-.h6 {
-  color: #222; }
-
-h6,
-.h6 {
-  font-style: normal; }
-
-h6,
-.h6 {
-  font-weight: bold; }
-
-h6,
-.h6 {
-  line-height: 1.5; }
-
-h1,
-.h1 {
-  font-size: 32px; }
-
-h1,
-.h1 {
+  font-size: 32px;
   margin: 0 0 16px 0; }
 
 h2,
 .h2 {
-  font-size: 28px; }
-
-h2,
-.h2 {
+  font-size: 28px;
   margin: 0 0 16px 0; }
 
 h3,
 .h3 {
-  font-size: 24px; }
-
-h3,
-.h3 {
+  font-size: 24px;
   margin: 0 0 16px 0; }
 
 h4,
 .h4 {
-  font-size: 20px; }
-
-h4,
-.h4 {
+  font-size: 20px;
   margin: 0 0 16px 0; }
 
 h5,
 .h5 {
-  font-size: 18px; }
-
-h5,
-.h5 {
+  font-size: 18px;
   margin: 0 0 16px 0; }
 
 h6,
 .h6 {
-  font-size: 16px; }
-
-h6,
-.h6 {
+  font-size: 16px;
   margin: 0 0 16px 0; }
 
 @media screen and (min-width: 768px) {
   h1,
   .h1 {
-    font-size: 40px; }
-
-  h1,
-  .h1 {
+    font-size: 40px;
     margin: 0 0 16px 0; }
 
   h2,
   .h2 {
-    font-size: 36px; }
-
-  h2,
-  .h2 {
+    font-size: 36px;
     margin: 0 0 16px 0; }
 
   h3,
   .h3 {
-    font-size: 32px; }
-
-  h3,
-  .h3 {
+    font-size: 32px;
     margin: 0 0 16px 0; }
 
   h4,
   .h4 {
-    font-size: 28px; }
-
-  h4,
-  .h4 {
+    font-size: 28px;
     margin: 0 0 16px 0; }
 
   h5,
   .h5 {
-    font-size: 24px; }
-
-  h5,
-  .h5 {
+    font-size: 24px;
     margin: 0 0 16px 0; }
 
   h6,
   .h6 {
-    font-size: 20px; }
-
-  h6,
-  .h6 {
+    font-size: 20px;
     margin: 0 0 16px 0; } }
 @media screen and (min-width: 992px) {
   h1,
   .h1 {
-    font-size: 48px; }
-
-  h1,
-  .h1 {
+    font-size: 48px;
     margin: 0 0 16px 0; }
 
   h2,
   .h2 {
-    font-size: 44px; }
-
-  h2,
-  .h2 {
+    font-size: 44px;
     margin: 0 0 16px 0; }
 
   h3,
   .h3 {
-    font-size: 40px; }
-
-  h3,
-  .h3 {
+    font-size: 40px;
     margin: 0 0 16px 0; }
 
   h4,
   .h4 {
-    font-size: 36px; }
-
-  h4,
-  .h4 {
+    font-size: 36px;
     margin: 0 0 16px 0; }
 
   h5,
   .h5 {
-    font-size: 32px; }
-
-  h5,
-  .h5 {
+    font-size: 32px;
     margin: 0 0 16px 0; }
 
   h6,
   .h6 {
-    font-size: 28px; }
-
-  h6,
-  .h6 {
+    font-size: 28px;
     margin: 0 0 16px 0; } }
 p,
 .paragraph {
@@ -1231,7 +1123,8 @@ button,
   background: #ffffff;
   color: #222;
   border-color: #888;
-  box-shadow: none; }
+  box-shadow: none;
+  text-decoration: none; }
   input[type="button"]:visited,
   input[type="submit"]:visited,
   input[type="file"]:visited,
@@ -1241,7 +1134,8 @@ button,
     background: #ffffff;
     color: #222;
     border-color: #888;
-    box-shadow: none; }
+    box-shadow: none;
+    text-decoration: none; }
   input[type="button"]:hover,
   input[type="submit"]:hover,
   input[type="file"]:hover,
@@ -1251,7 +1145,8 @@ button,
     background: #ffffff;
     color: #222;
     border-color: #666;
-    box-shadow: none; }
+    box-shadow: none;
+    text-decoration: none; }
   input[type="button"]:active,
   input[type="submit"]:active,
   input[type="file"]:active,
@@ -1261,7 +1156,8 @@ button,
     background: #f7f7f7;
     color: #222;
     border-color: #444;
-    box-shadow: none; }
+    box-shadow: none;
+    text-decoration: none; }
   input[type="button"]:focus,
   input[type="submit"]:focus,
   input[type="file"]:focus,
@@ -1271,7 +1167,8 @@ button,
     background: #ffffff;
     color: #222;
     border-color: #666;
-    box-shadow: none; }
+    box-shadow: none;
+    text-decoration: none; }
   input[type="button"].small,
   input[type="submit"].small,
   input[type="file"].small,
