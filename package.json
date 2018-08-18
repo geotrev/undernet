@@ -1,6 +1,6 @@
 {
   "name": "undernet",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "homepage": "https://undernet.io",
   "description": "Undernet is a Front-End Framework for Modern Web Development",
   "main": "js/dist/undernet.js",
@@ -22,7 +22,7 @@
     "watch": "npm run js:build && webpack-dev-server --config config/webpack.dev.js --progress --open",
     "lint": "prettier --write 'src/**/*.js' && prettier --write 'src/**/*.scss'",
     "build:development": "npm run build:lint && npm run js:build",
-    "build:lint": "npm run js:prettier && npm run scss:lint",
+    "build:lint": "npm run js:lint && npm run scss:lint",
     "build:release": "npm run clean && npm run build:lint && npm run scss:prepublish && npm run css:prepublish && npm run js:prepublish",
     "clean": "rm -rf dist/ && mkdir dist/",
     "js:build": "babel js/src/ --out-dir js/dist/",
@@ -32,13 +32,13 @@
     "js:modules:zip": "cd js/dist/ && zip -r ../../dist/undernet.modules.js.zip .",
     "js:zip": "cd dist/ && zip -r undernet.js.zip . -x *.css *.zip *.css.map",
     "js:prepublish": "npm run js:build && npm run js:merge && npm run js:modules:zip && npm run js:minify && npm run js:zip",
-    "js:prettier": "prettier --write 'js/src/**/*.js'",
+    "js:lint": "prettier --write 'js/src/**/*.js'",
     "css:minify": "sass scss/undernet.scss:dist/undernet.min.css --style compressed",
     "css:build": "sass scss/undernet.scss:dist/undernet.css",
-    "css:build:all": "npm run css:build && npm run css:minify",
+    "css:package": "npm run css:build && npm run css:minify",
     "scss:lint": "prettier --write 'scss/**/*.scss'",
     "scss:prepublish": "cd scss/ && zip -r ../dist/undernet.scss.zip .",
-    "css:prepublish": "npm run css:build:all && cd dist/ && zip -r undernet.css.zip . -x *.js *.zip *.js.map",
+    "css:prepublish": "npm run css:package && cd dist/ && zip -r undernet.css.zip . -x *.js *.zip *.js.map",
     "heroku:default": "heroku git:remote -a"
   },
   "devDependencies": {

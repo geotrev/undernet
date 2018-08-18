@@ -1,0 +1,97 @@
+@mixin flex(
+  $display: null,
+  $direction: null,
+  $wrap: null,
+  $grow: null,
+  $shrink: null,
+  $basis: null,
+  $align: null
+) {
+  display: $display;
+  flex-flow: $direction $wrap;
+  flex: $grow $shrink $basis;
+  align-items: $align;
+}
+
+@mixin grid-classes($size) {
+  @for $i from 1 through $columns {
+    .#{$size}-#{$i} {
+      @include flex($grow: 0, $shrink: 0, $basis: percentage($i / $columns));
+      max-width: percentage($i / $columns);
+    }
+    @if $column-offset-classes == true {
+      .#{$size}-offset-#{$i} {
+        margin-left: percentage($i / $columns);
+      }
+    }
+    @if $column-order-classes == true {
+      .#{$size}-order-#{$i} {
+        order: $i;
+      }
+    }
+  }
+}
+
+@mixin grid-classes($size) {
+  @for $i from 1 through $columns {
+    .#{$size}-#{$i} {
+      @include flex($grow: 0, $shrink: 0, $basis: percentage($i / $columns));
+      max-width: percentage($i / $columns);
+    }
+    @if $column-offset-classes == true {
+      .#{$size}-offset-#{$i} {
+        margin-left: percentage($i / $columns);
+      }
+    }
+    @if $column-order-classes == true {
+      .#{$size}-order-#{$i} {
+        order: $i;
+      }
+    }
+  }
+}
+
+@mixin breakpoint-up($size) {
+  @media screen and (min-width: #{map-get($breakpoints, $size)}) {
+    @content;
+  }
+}
+
+@mixin breakpoint-down($size) {
+  @media screen and (max-width: #{map-get($breakpoints, $size) - 1}) {
+    @content;
+  }
+}
+
+@mixin breakpoint-between($min, $max) {
+  @media screen
+    and (min-width: #{map-get($breakpoints, $min)})
+    and (max-width: #{map-get($breakpoints, $max) - 1}) {
+    @content;
+  }
+}
+
+@mixin header-sizes($headers) {
+  @each $header, $properties in $headers {
+    #{$header},
+    .#{$header} {
+      @each $property, $value in $properties {
+        #{$property}: $value;
+      }
+    }
+  }
+}
+
+@mixin visibility($size) {
+  .is-flex-on-#{$size} {
+    display: flex !important;
+  }
+
+  .is-block-on-#{$size} {
+    display: block !important;
+  }
+
+  .is-hidden-on-#{$size} {
+    display: none !important;
+  }
+}

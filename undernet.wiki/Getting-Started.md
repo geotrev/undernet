@@ -52,15 +52,15 @@ If you choose to use the `undernet` node module, things are easier in some place
 
 #### SCSS
 
-This is the trickiest part. First, you need to import function helpers, the original config, and mixin helpers into your new config file. From there, apply all overrides to the original config _before_ its import statement.
+This is the trickiest part. First, you need to import function helpers, the original config, and mixin helpers into your new config file.
 
 What variables are in the original config? [Check that out here.](https://github.com/geotrev/undernet/blob/master/scss/_config.scss)
 
 ```css
-@import "~undernet/scss/helpers/functions/base";
+@import "~undernet/scss/helpers/functions";
 // config overrides here!
 @import "~undernet/scss/config";
-@import "~undernet/scss/helpers/mixins/base";
+@import "~undernet/scss/helpers/mixins";
 ```
 
 In separate stylesheets, if you need access to these variables and they aren't available, just `@import` this new config file.
@@ -70,16 +70,16 @@ Finally, you can include the rest of the elements styling, but make sure it's al
 ```css
 @import "path/to/newConfig";
 // elements
-@import "~undernet/scss/elements/global/base";
-@import "~undernet/scss/helpers/classes/base";
-@import "~undernet/scss/elements/grid/base";
-@import "~undernet/scss/elements/typography/base";
-@import "~undernet/scss/elements/link/base";
-@import "~undernet/scss/elements/button/base";
-@import "~undernet/scss/elements/form/base";
+@import "~undernet/scss/elements/reset";
+@import "~undernet/scss/helpers/classes";
+@import "~undernet/scss/elements/grid";
+@import "~undernet/scss/elements/typography";
+@import "~undernet/scss/elements/link";
+@import "~undernet/scss/elements/button";
+@import "~undernet/scss/elements/form";
 // components
 @import "~undernet/scss/components/modal";
-@import "~undernet/scss/components/accordions";
+@import "~undernet/scss/components/accordion";
 ```
 
 #### JavaScript
@@ -87,14 +87,13 @@ Finally, you can include the rest of the elements styling, but make sure it's al
 The default export from `undernet` or the compiled `undernet.js` file is the `Undernet` object. Simply refer to it when using the library. Simply swap `undernet` for the direct file path if you aren't using webpack.
 
 ```js
-// es5 require()
-var Undernet = require("undernet")
-// ... or es2015 import
+// get Undernet from /node_modules/
 import Undernet from "undernet"
-// ... then start all javascript components on page load
-Undernet.start()
-// or run a specific component
-Undernet.Modals.start()
+// then start all javascript components on page load
+var start = Undernet.start()
+// ... or run a specific component
+var start = Undernet.Modals.start()
+document.addEventListener('DOMContentLoaded', start)
 ```
 
 Or...
@@ -110,9 +109,10 @@ Or...
     <script type="text/javascript" src="path/to/undernet.js" async></script>
     <script type="text/javascript" async>
       // Undernet is attached to the `window` object now.
-      Undernet.start()
+      var start = Undernet.start()
       // or run a specific component
-      Undernet.Modals.start()
+      var start = Undernet.Modals.start()
+      document.addEventListener('DOMContentLoaded', start)
     </script>
   </body>
 </html>
