@@ -230,7 +230,7 @@ $type-header-styles: (
   )
 ) !default;
 
-$type-header-line-height: $global-line-height !default;
+$type-header-line-height: 1 !default;
 
 $type-p-color: $gray200 !default;
 $type-p-font-size: 16px !default;
