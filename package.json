@@ -28,7 +28,7 @@
     "lint": "prettier --write 'src/**/*.js' && prettier --write 'src/**/*.scss'",
     "build:development": "npm run build:lint && npm run js:build && npm run css:build",
     "build:lint": "npm run js:lint && npm run css:lint",
-    "build:release": "npm run clean && npm run build:lint && npm run css:prepublish && npm run css:prepublish && npm run js:prepublish",
+    "build:release": "npm run clean && npm run build:lint && npm run scss:prepublish && npm run css:prepublish && npm run js:prepublish",
     "clean": "rm -rf dist/ && mkdir dist/",
     "js:build": "babel js/src/ --out-dir js/dist/",
     "js:merge": "BABEL_ENV=rollup rollup -c config/rollup.config.js",
@@ -42,7 +42,7 @@
     "css:build": "sass scss/undernet.scss:dist/undernet.css",
     "css:package": "npm run css:build && npm run css:minify",
     "css:lint": "prettier --write 'scss/**/*.scss'",
-    "css:prepublish": "cd scss/ && zip -r ../dist/undernet.scss.zip .",
+    "scss:prepublish": "cd scss/ && zip -r ../dist/undernet.scss.zip .",
     "css:prepublish": "npm run css:package && cd dist/ && zip -r undernet.css.zip . -x *.js *.zip *.js.map",
     "heroku:default": "heroku git:remote -a"
   },
