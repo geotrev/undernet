@@ -98,6 +98,12 @@ body {
 .has-right-text {
   text-align: right !important; }
 
+.is-bold {
+  font-weight: bold; }
+
+.is-italic {
+  font-weight: italic; }
+
 .is-flex {
   display: flex !important; }
 
@@ -108,41 +114,89 @@ body {
   display: none !important; }
 
 @media screen and (min-width: 576px) {
-  .is-flex-on-small {
+  .is-flex-small {
     display: flex !important; }
 
-  .is-block-on-small {
+  .is-block-small {
     display: block !important; }
 
-  .is-hidden-on-small {
+  .is-hidden-small {
     display: none !important; } }
 @media screen and (min-width: 768px) {
-  .is-flex-on-medium {
+  .is-flex-medium {
     display: flex !important; }
 
-  .is-block-on-medium {
+  .is-block-medium {
     display: block !important; }
 
-  .is-hidden-on-medium {
+  .is-hidden-medium {
     display: none !important; } }
 @media screen and (min-width: 992px) {
-  .is-flex-on-large {
+  .is-flex-large {
     display: flex !important; }
 
-  .is-block-on-large {
+  .is-block-large {
     display: block !important; }
 
-  .is-hidden-on-large {
+  .is-hidden-large {
     display: none !important; } }
 @media screen and (min-width: 1200px) {
-  .is-flex-on-xlarge {
+  .is-flex-xlarge {
     display: flex !important; }
 
-  .is-block-on-xlarge {
+  .is-block-xlarge {
     display: block !important; }
 
-  .is-hidden-on-xlarge {
+  .is-hidden-xlarge {
     display: none !important; } }
+.is-justified-center {
+  justify-content: center !important; }
+
+.is-justified-end {
+  justify-content: flex-end !important; }
+
+.is-justified-start {
+  justify-content: flex-start !important; }
+
+.is-justified-around {
+  justify-content: space-around !important; }
+
+.is-justified-between {
+  justify-content: space-between !important; }
+
+.is-aligned-center {
+  align-items: center !important; }
+
+.is-aligned-end {
+  align-items: flex-end !important; }
+
+.is-aligned-start {
+  align-items: flex-start !important; }
+
+.is-aligned-stretch {
+  align-items: stretch !important; }
+
+.is-aligned-baseline {
+  align-items: baseline !important; }
+
+.has-content-center {
+  align-content: center !important; }
+
+.has-content-end {
+  align-content: flex-end !important; }
+
+.has-content-start {
+  align-content: flex-start !important; }
+
+.has-content-around {
+  align-content: space-around !important; }
+
+.has-content-between {
+  align-content: space-between !important; }
+
+.has-content-stretch {
+  align-content: stretch !important; }
+
 .is-visually-hidden {
   border: 0;
   clip: rect(0 0 0 0);
@@ -835,12 +889,6 @@ body {
     flex: 1 1 auto;
     align-items: center;
     align-content: center; }
-  .grid.fullscreen .row.align-bottom {
-    align-items: flex-end;
-    align-content: flex-end; }
-  .grid.fullscreen .row.align-top {
-    align-items: flex-start;
-    align-content: flex-start; }
 
 .row.collapsed .columns,
 .row.collapsed .column {
