@@ -1967,6 +1967,9 @@ textarea {
     box-shadow: none;
     transition: ease-out 0.2s; }
 
+.no-scroll {
+  overflow: hidden; }
+
 .modal-overlay {
   display: block;
   background: rgba(0, 0, 0, 0.5);
@@ -2087,8 +2090,5 @@ textarea {
     border-bottom: none; }
   [data-accordion] .accordion-content {
     margin: 16px; }
-
-.no-scroll {
-  overflow: hidden; }
 
 /*# sourceMappingURL=undernet.css.map */
