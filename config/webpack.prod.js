@@ -7,6 +7,11 @@ const CopyWebpackPlugin = require("copy-webpack-plugin")
 const CleanWebpackPlugin = require("clean-webpack-plugin")
 
 module.exports = merge(common, {
+  optimization: {
+    splitChunks: { chunks: "all" },
+    runtimeChunk: { name: "manifest" },
+  },
+  stats: { children: false },
   plugins: [
     // remove previous build assets
     new CleanWebpackPlugin(["../build"], {
@@ -30,14 +35,12 @@ module.exports = merge(common, {
         to: "manifest.json",
         cache: true,
       },
+      {
+        from: "public/browserconfig.xml",
+        to: "browserconfig.xml",
+        cache: true,
+      },
     ]),
   ],
-  optimization: {
-    minimizer: [
-      new UglifyJSPlugin({
-        sourceMap: true,
-      }),
-    ],
-  },
   mode: "production",
 })
