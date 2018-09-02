@@ -23,6 +23,8 @@
 
 main {
   display: block;
+
+  @import "./prism";
 }
 
 .has-feather {

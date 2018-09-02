@@ -14,7 +14,7 @@ const Footer = () => {
             <a href="http://www.geotrev.com">George Treviranus</a>.
           </p>
           <p className="has-center-text">
-            <a className="has-feather" href="https://www.twitter.com/undernetio">
+            <a className="has-feather" href="https://www.twitter.com/gwtrev">
               <Twitter />
             </a>
             <a className="has-feather" href="https://www.github.com/geotrev/undernet">

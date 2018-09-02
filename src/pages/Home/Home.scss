@@ -24,20 +24,6 @@
 
     a {
       margin: $global-space 8px $global-space 8px;
-
-      &.has-gradient {
-        @include bg-gradient;
-        border: none;
-        padding: 14px 18px;
-        opacity: 0.75;
-        font-weight: bold;
-
-        &:hover,
-        &:focus,
-        &:active {
-          opacity: 1;
-        }
-      }
     }
 
     .un-version {
@@ -80,6 +66,20 @@
       @include breakpoint-down(large) {
         margin-bottom: 24px;
       }
+    }
+  }
+
+  a.has-gradient {
+    @include bg-gradient;
+    border: none;
+    padding: 14px 18px;
+    opacity: 0.75;
+    font-weight: bold;
+
+    &:hover,
+    &:focus,
+    &:active {
+      opacity: 1;
     }
   }
 }

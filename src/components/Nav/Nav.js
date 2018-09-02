@@ -18,7 +18,7 @@ const Nav = () => {
         <li className="small-7 xsmall-12 columns">
           <ul className="row">
             <li>
-              <a className="has-feather" href="https://www.twitter.com/undernetio">
+              <a className="has-feather" href="https://www.twitter.com/gwtrev">
                 <Twitter />
               </a>
             </li>
