@@ -3,20 +3,16 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = void 0;
 
-var _modal = require("./components/modal");
+var _modal = _interopRequireDefault(require("./components/modal"));
 
-var _modal2 = _interopRequireDefault(_modal);
-
-var _accordion = require("./components/accordion");
-
-var _accordion2 = _interopRequireDefault(_accordion);
+var _accordion = _interopRequireDefault(require("./components/accordion"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Modals = new _modal2.default();
-var Accordions = new _accordion2.default();
-
+var Modals = new _modal.default();
+var Accordions = new _accordion.default();
 var Undernet = {
   Modals: Modals,
   Accordions: Accordions
@@ -33,4 +29,5 @@ Undernet.stop = function () {
 };
 
 window.Undernet = Undernet;
-exports.default = Undernet;
+var _default = Undernet;
+exports.default = _default;
