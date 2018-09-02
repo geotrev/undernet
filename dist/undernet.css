@@ -1,6 +1,6 @@
 /*!
 * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
-* Undernet v2.0.1 (https://undernet.io)
+* Undernet v2.1.0 (https://undernet.io)
 * Copyright 2017-2018 George Treviranus
 */
 html,
@@ -99,10 +99,76 @@ body {
   text-align: right !important; }
 
 .is-bold {
-  font-weight: bold; }
+  font-weight: bold !important; }
 
 .is-italic {
-  font-weight: italic; }
+  font-weight: italic !important; }
+
+.has-primary-color-text {
+  color: #d15ded !important; }
+
+.has-primary-color-bg {
+  background-color: #d15ded !important; }
+
+.has-secondary-color-text {
+  color: #3e46af !important; }
+
+.has-secondary-color-bg {
+  background-color: #3e46af !important; }
+
+.has-tertiary-color-text {
+  color: teal !important; }
+
+.has-tertiary-color-bg {
+  background-color: teal !important; }
+
+.has-black-text {
+  color: #000111 !important; }
+
+.has-black-bg {
+  background-color: #000111 !important; }
+
+.has-gray100-text {
+  color: #111 !important; }
+
+.has-gray100-bg {
+  background-color: #111 !important; }
+
+.has-gray200-text {
+  color: #222 !important; }
+
+.has-gray200-bg {
+  background-color: #222 !important; }
+
+.has-gray400-text {
+  color: #444 !important; }
+
+.has-gray400-bg {
+  background-color: #444 !important; }
+
+.has-gray600-text {
+  color: #666 !important; }
+
+.has-gray600-bg {
+  background-color: #666 !important; }
+
+.has-gray800-text {
+  color: #888 !important; }
+
+.has-gray800-bg {
+  background-color: #888 !important; }
+
+.has-gray900-text {
+  color: #ddd !important; }
+
+.has-gray900-bg {
+  background-color: #ddd !important; }
+
+.has-white-text {
+  color: #ffffff !important; }
+
+.has-white-bg {
+  background-color: #ffffff !important; }
 
 .is-flex {
   display: flex !important; }
@@ -198,10 +264,13 @@ body {
   align-content: stretch !important; }
 
 .has-no-margin {
-  margin: 0; }
+  margin: 0 !important; }
 
 .has-no-padding {
-  padding: 0; }
+  padding: 0 !important; }
+
+.is-unstyled-list {
+  list-style-type: none !important; }
 
 .is-visually-hidden {
   border: 0;

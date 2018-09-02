@@ -1,6 +1,6 @@
 /*!
   * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
-  * Undernet v2.0.0 (https://undernet.io)
+  * Undernet v2.1.0 (https://undernet.io)
   * Copyright 2017-2018 George Treviranus
   */
 (function (global, factory) {
@@ -655,9 +655,11 @@
 
   var Modals = new Modal();
   var Accordions = new Accordion();
+  var Utilities = new Utils();
   var Undernet = {
     Modals: Modals,
-    Accordions: Accordions
+    Accordions: Accordions,
+    Utilities: Utilities
   };
 
   Undernet.start = function () {
