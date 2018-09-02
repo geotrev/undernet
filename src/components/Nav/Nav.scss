@@ -9,8 +9,7 @@
 }
 
 .nav-wrapper {
-  background: $white;
-  border-bottom: 1px solid $gray900;
+  background: $brand-dark-blue;
   padding: 0;
   z-index: 5;
 
@@ -20,8 +19,12 @@
     padding: 0;
 
     .logo {
-      height: 30px;
-      width: auto;
+      opacity: 1;
+
+      img {
+        height: 30px;
+        width: auto;
+      }
     }
 
     > li:first-child {
@@ -52,8 +55,16 @@
   }
 
   li a {
+    color: white;
+    opacity: 0.8;
     display: flex;
     text-decoration: none;
-    padding: 1.5rem;
+    padding: 1rem;
+
+    &:hover,
+    &:focus,
+    &:active {
+      opacity: 1;
+    }
   }
 }

@@ -9,12 +9,21 @@ const Footer = () => {
     <div className="footer-wrapper small-section fluid grid">
       <div className="row">
         <div className="collapsed column">
-          <p className="has-center-text">
+          <p className="has-center-text has-gray900-text">
             Undernet is front-end framework created and maintained by{" "}
-            <a href="http://www.geotrev.com">George Treviranus</a>.
+            <a className="has-white-text" href="http://www.geotrev.com">
+              George Treviranus
+            </a>
+            .
           </p>
-          <p className="has-center-text">
-            <a className="has-feather" href="https://www.github.com/geotrev/undernet">
+          <p className="has-center-text has-gray900-text">
+            <a className="has-white-text has-feather" href="https://www.twitter.com/gwtrev">
+              <Twitter />
+            </a>
+            <a
+              className="has-white-text has-feather"
+              href="https://www.github.com/geotrev/undernet"
+            >
               <Github />
             </a>
           </p>

@@ -8,27 +8,33 @@ import { Home, Docs, Examples } from "pages"
 // favicons
 import "assets/icons/favicon.ico"
 import "assets/icons/favicon-32x32.png"
-// apple touch icons
-import "assets/icons/apple-touch-icon-57x57.png"
-import "assets/icons/apple-touch-icon-60x60.png"
-import "assets/icons/apple-touch-icon-72x72.png"
-import "assets/icons/apple-touch-icon-76x76.png"
-import "assets/icons/apple-touch-icon-114x114.png"
-import "assets/icons/apple-touch-icon-120x120.png"
-import "assets/icons/apple-touch-icon-144x144.png"
-import "assets/icons/apple-touch-icon-152x152.png"
-// microsoft icons
-import "assets/icons/mstile-70x70.png"
-import "assets/icons/mstile-144x144.png"
-import "assets/icons/mstile-150x150.png"
-import "assets/icons/mstile-310x150.png"
-import "assets/icons/mstile-310x310.png"
-// pwa icons
-import "assets/icons/icon-96x96.png"
-import "assets/icons/icon-128x128.png"
-import "assets/icons/icon-192x192.png"
-import "assets/icons/icon-384x384.png"
-import "assets/icons/icon-512x512.png"
+import "assets/icons/favicon-96x96.png"
+// apple
+import "assets/icons/apple-icon-57x57.png"
+import "assets/icons/apple-icon-60x60.png"
+import "assets/icons/apple-icon-72x72.png"
+import "assets/icons/apple-icon-76x76.png"
+import "assets/icons/apple-icon-114x114.png"
+import "assets/icons/apple-icon-120x120.png"
+import "assets/icons/apple-icon-144x144.png"
+import "assets/icons/apple-icon-152x152.png"
+import "assets/icons/apple-icon-180x180.png"
+import "assets/icons/apple-icon-precomposed.png"
+import "assets/icons/apple-icon.png"
+
+// ms
+import "assets/icons/ms-icon-70x70.png"
+import "assets/icons/ms-icon-144x144.png"
+import "assets/icons/ms-icon-150x150.png"
+import "assets/icons/ms-icon-310x310.png"
+
+// android
+import "assets/icons/android-icon-36x36.png"
+import "assets/icons/android-icon-48x48.png"
+import "assets/icons/android-icon-72x72.png"
+import "assets/icons/android-icon-96x96.png"
+import "assets/icons/android-icon-144x144.png"
+import "assets/icons/android-icon-192x192.png"
 
 export default class Main extends Component {
   render() {

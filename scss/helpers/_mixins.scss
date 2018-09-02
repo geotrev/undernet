@@ -83,15 +83,15 @@
 }
 
 @mixin visibility($size) {
-  .is-flex-on-#{$size} {
+  .is-flex-#{$size} {
     display: flex !important;
   }
 
-  .is-block-on-#{$size} {
+  .is-block-#{$size} {
     display: block !important;
   }
 
-  .is-hidden-on-#{$size} {
+  .is-hidden-#{$size} {
     display: none !important;
   }
 }
