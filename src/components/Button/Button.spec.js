@@ -27,7 +27,7 @@ describe("<Button />", () => {
     expect(console.warn).to.have.been.called()
   })
 
-  it('renders a "submit" button if [type="button"]', () => {
+  it('renders a "submit" button if [type="submit"]', () => {
     const wrapper = shallow(<Button type="submit">Test</Button>)
     expect(wrapper).to.have.descendants('[type="submit"]')
   })
