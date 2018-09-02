@@ -64,10 +64,20 @@
   .perks {
     background-color: $brand-dark-blue;
 
+    .home-icon {
+      height: 50px;
+      width: 50px;
+      margin-bottom: 16px;
+
+      @include breakpoint-down(large) {
+        margin-top: 24px;
+      }
+    }
+
     p {
       margin: 0 8px;
 
-      @include breakpoint-down(small) {
+      @include breakpoint-down(large) {
         margin-bottom: 24px;
       }
     }

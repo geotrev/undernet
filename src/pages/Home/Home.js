@@ -5,7 +5,12 @@ import { ScrollUpOnMount } from "helpers"
 import { Link } from "react-router-dom"
 import ChevronRight from "react-feather/dist/icons/chevron-right"
 import Markdown from "react-markdown"
+
 import Badges from "./badges.md"
+import tinySvg from "assets/images/tiny.svg"
+import modSvg from "assets/images/modular.svg"
+import configSvg from "assets/images/configurable.svg"
+import a11ySvg from "assets/images/accessible.svg"
 
 const Home = () => {
   return (
@@ -41,7 +46,7 @@ const Home = () => {
           <div className="wide grid">
             <ul className="row is-unstyled-list">
               <li className="large-3 small-6 xsmall-12 columns has-center-text">
-                <img />
+                <img className="home-icon" src={tinySvg} role="presentation" alt="tiny" />
                 <h2 className="h6 has-white-text">Tiny</h2>
                 <p className="has-white-text">
                   CSS and JS are only 8.5kb minified + gzipped; you can be assured performance isn’t
@@ -49,7 +54,7 @@ const Home = () => {
                 </p>
               </li>
               <li className="large-3 small-6 xsmall-12 columns has-center-text">
-                <img />
+                <img className="home-icon" src={modSvg} role="presentation" alt="modular" />
                 <h2 className="h6 has-white-text">Modular</h2>
                 <p className="has-white-text">
                   Include only the pieces you need, or even namespace the components for existing
@@ -57,7 +62,7 @@ const Home = () => {
                 </p>
               </li>
               <li className="large-3 small-6 xsmall-12 columns has-center-text">
-                <img />
+                <img className="home-icon" src={configSvg} role="presentation" alt="configurable" />
                 <h2 className="h6 has-white-text">Configurable</h2>
                 <p className="has-white-text">
                   Built for a great developer experience, you can customize and extend the library
@@ -65,11 +70,11 @@ const Home = () => {
                 </p>
               </li>
               <li className="large-3 small-6 xsmall-12 columns has-center-text">
-                <img />
+                <img className="home-icon" src={a11ySvg} role="presentation" alt="a11y" />
                 <h2 className="h6 has-white-text">Accessible</h2>
                 <p className="has-white-text">
-                  Rest assured your interface will be accessible for individuals with assistive
-                  technologies.
+                  Undernet is designed WAI-ARIA guidelines in mind to ensure your project is
+                  accessible.
                 </p>
               </li>
             </ul>
