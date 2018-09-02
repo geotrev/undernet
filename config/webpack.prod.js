@@ -28,7 +28,7 @@ module.exports = merge(common, {
       algorithm: "gzip",
     }),
 
-    // copy app manifest one-to-one from public/ to build/
+    // copy app manifest + browserconfig from public/ to build/
     new CopyWebpackPlugin([
       {
         from: "public/manifest.json",

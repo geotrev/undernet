@@ -1,5 +1,12 @@
 @import "../../global";
 
+@mixin bg-gradient {
+  background: #3f48af;
+  background: -webkit-linear-gradient(right, #3f48af, #d15ded);
+  background: -moz-linear-gradient(right, #3f48af, #d15ded);
+  background: linear-gradient(to left, #3f48af, #d15ded);
+}
+
 #home {
   background-image: url("../../assets/images/home-bg.jpg");
   background-repeat: no-repeat;
@@ -16,26 +23,31 @@
 
   a {
     margin: $global-space 8px $global-space 8px;
+
+    &.has-gradient {
+      @include bg-gradient;
+      border: none;
+      padding: 14px 18px;
+    }
   }
 
-  .perks {
-    .badges {
-      display: inline-flex;
-      margin: 0 auto;
-      flex: 0 1 auto;
-      padding: 5px 5px 0 5px;
-      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-      background: $white;
-      border-radius: $global-border-radius;
+  .un-version {
+    color: $gray800;
+  }
 
-      p {
-        margin: 0;
-        text-align: center;
-      }
+  .hero .badges {
+    display: inline-flex;
+    margin: 0 auto;
+    flex: 0 1 auto;
+    padding: 5px 5px 0 5px;
 
-      a {
-        margin: 0;
-      }
+    p {
+      margin: 0;
+      text-align: center;
+    }
+
+    a {
+      margin: 0;
     }
   }
 }
