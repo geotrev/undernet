@@ -14,13 +14,23 @@ import modSvg from "assets/images/modular.svg"
 import configSvg from "assets/images/configurable.svg"
 import a11ySvg from "assets/images/accessible.svg"
 
+import Prism from "prismjs"
+
 export default class Home extends Component {
+  constructor() {
+    super()
+  }
+
+  componentDidMount() {
+    Prism.highlightAll()
+  }
+
   render() {
     return (
       <div id="home">
         <ScrollUpOnMount />
 
-        <div className="small-section fluid grid hero">
+        <div className="medium-section fluid grid hero">
           <div className="row">
             <div className="xsmall-12 columns has-center-text">
               <h1 className="h3">Modular front-end development. No strings.</h1>
@@ -45,7 +55,7 @@ export default class Home extends Component {
           </div>
         </div>
 
-        <div className="small-section fluid grid perks">
+        <div className="medium-section fluid grid perks">
           <div className="row collapsed">
             <div className="wide grid">
               <ul className="row is-unstyled-list">
@@ -91,7 +101,7 @@ export default class Home extends Component {
           </div>
         </div>
 
-        <div className="small-section narrow grid">
+        <div className="medium-section narrow grid">
           <div cassName="row">
             <div className="xsmall-12 columns has-center-text">
               <h2 className="h6">Painless Setup</h2>

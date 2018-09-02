@@ -1,7 +1,7 @@
 @import "../../global";
 
 .footer-wrapper {
-  border-top: 1px solid $gray900;
+  background: $brand-dark-blue;
 
   p {
     margin-bottom: 0;
@@ -10,5 +10,12 @@
   .has-feather {
     display: inline-block;
     padding: 1rem;
+    opacity: 0.8;
+
+    &:hover,
+    &:active,
+    &:focus {
+      opacity: 1;
+    }
   }
 }
