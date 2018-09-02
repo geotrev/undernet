@@ -3,13 +3,16 @@
     "rollup": {
       "presets": [
         [
-          "env",
+          "@babel/preset-env",
           { "modules": false }
         ]
       ]
     },
     "development": {
-      "presets": [ "env", "react" ],
+      "presets": [
+        "@babel/preset-env",
+        "@babel/preset-react"
+      ],
       "plugins": [
         [
           "babel-plugin-webpack-aliases",
@@ -18,7 +21,10 @@
       ]
     },
     "production": {
-      "presets": [ "env", "react" ]
+      "presets": [
+        "@babel/preset-env",
+        "@babel/preset-react"
+      ]
     }
   }
 }
