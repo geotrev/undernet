@@ -12,7 +12,12 @@
     "npm": ">=6.1.0"
   },
   "keywords": [
-    "scss", "javascript", "js", "css", "front-end", "framework"
+    "scss",
+    "javascript",
+    "js",
+    "css",
+    "front-end",
+    "framework"
   ],
   "scripts": {
     "setup": "rm -rf undernet.wiki/ && git clone https://github.com/geotrev/undernet.wiki.git && npm install",
@@ -68,7 +73,7 @@
     "jsdom": "^11.5.1",
     "markdown-loader": "^2.0.2",
     "mocha": "^5.0.5",
-    "node-sass": "^4.7.2",
+    "node-sass": "^4.9.3",
     "nyc": "^11.3.0",
     "postcss-loader": "^2.0.9",
     "prettier": "^1.12.1",
