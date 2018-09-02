@@ -1,6 +1,6 @@
 /*!
 * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
-* Undernet v2.0.0 (https://undernet.io)
+* Undernet v2.0.1 (https://undernet.io)
 * Copyright 2017-2018 George Treviranus
 */
 html,
@@ -196,6 +196,12 @@ body {
 
 .has-content-stretch {
   align-content: stretch !important; }
+
+.has-no-margin {
+  margin: 0; }
+
+.has-no-padding {
+  padding: 0; }
 
 .is-visually-hidden {
   border: 0;
@@ -1134,15 +1140,15 @@ a {
   font-size: 16px;
   font-style: normal;
   font-weight: normal;
-  color: #e4b849;
+  color: #de8bf2;
   text-decoration: none; }
   a:visited {
-    color: #e4b849; }
+    color: #de8bf2; }
   a:hover, a:focus {
-    color: goldenrod;
+    color: #d15ded;
     text-decoration: underline; }
   a:active {
-    color: goldenrod; }
+    color: #d15ded; }
 
 input[type="button"],
 input[type="submit"],
@@ -1264,7 +1270,7 @@ button,
   input[type="reset"].primary,
   button.primary,
   .button.primary {
-    background: #e1af33;
+    background: #d874f0;
     color: #ffffff;
     border-color: transparent;
     box-shadow: none; }
@@ -1274,7 +1280,7 @@ button,
     input[type="reset"].primary:visited,
     button.primary:visited,
     .button.primary:visited {
-      background: #e1af33;
+      background: #d874f0;
       color: #ffffff;
       border-color: transparent;
       box-shadow: none; }
@@ -1284,7 +1290,7 @@ button,
   input[type="reset"].primary:hover,
   button.primary:hover,
   .button.primary:hover {
-    background: goldenrod;
+    background: #d15ded;
     color: #ffffff;
     border-color: transparent;
     box-shadow: none; }
@@ -1294,7 +1300,7 @@ button,
   input[type="reset"].primary:active,
   button.primary:active,
   .button.primary:active {
-    background: #d19e1f;
+    background: #ce54ec;
     color: #ffffff;
     border-color: transparent;
     box-shadow: none; }
@@ -1304,7 +1310,7 @@ button,
   input[type="reset"].primary:focus,
   button.primary:focus,
   .button.primary:focus {
-    background: goldenrod;
+    background: #d15ded;
     color: #ffffff;
     border-color: transparent;
     box-shadow: none; }
@@ -1315,8 +1321,8 @@ button,
   button.secondary,
   .button.secondary {
     background: transparent;
-    color: #e1af33;
-    border-color: #e1af33;
+    color: #d874f0;
+    border-color: #d874f0;
     box-shadow: none; }
     input[type="button"].secondary:visited,
     input[type="submit"].secondary:visited,
@@ -1325,8 +1331,8 @@ button,
     button.secondary:visited,
     .button.secondary:visited {
       background: transparent;
-      color: #e1af33;
-      border-color: #e1af33;
+      color: #d874f0;
+      border-color: #d874f0;
       box-shadow: none; }
   input[type="button"].secondary:hover,
   input[type="submit"].secondary:hover,
@@ -1335,8 +1341,8 @@ button,
   button.secondary:hover,
   .button.secondary:hover {
     background: transparent;
-    color: goldenrod;
-    border-color: goldenrod;
+    color: #d15ded;
+    border-color: #d15ded;
     box-shadow: none; }
   input[type="button"].secondary:active,
   input[type="submit"].secondary:active,
@@ -1345,8 +1351,8 @@ button,
   button.secondary:active,
   .button.secondary:active {
     background: transparent;
-    color: #d19e1f;
-    border-color: #d19e1f;
+    color: #ce54ec;
+    border-color: #ce54ec;
     box-shadow: none; }
   input[type="button"].secondary:focus,
   input[type="submit"].secondary:focus,
@@ -1355,8 +1361,8 @@ button,
   button.secondary:focus,
   .button.secondary:focus {
     background: transparent;
-    color: goldenrod;
-    border-color: goldenrod;
+    color: #d15ded;
+    border-color: #d15ded;
     box-shadow: none; }
   input[type="button"].tertiary,
   input[type="submit"].tertiary,
@@ -1365,7 +1371,7 @@ button,
   button.tertiary,
   .button.tertiary {
     background: transparent;
-    color: goldenrod;
+    color: #d15ded;
     border-color: transparent;
     box-shadow: none; }
     input[type="button"].tertiary:visited,
@@ -1375,7 +1381,7 @@ button,
     button.tertiary:visited,
     .button.tertiary:visited {
       background: transparent;
-      color: goldenrod;
+      color: #d15ded;
       border-color: transparent;
       box-shadow: none; }
   input[type="button"].tertiary:hover,
@@ -1385,7 +1391,7 @@ button,
   button.tertiary:hover,
   .button.tertiary:hover {
     background: rgba(221, 221, 221, 0.2);
-    color: goldenrod;
+    color: #d15ded;
     border-color: transparent;
     box-shadow: none; }
   input[type="button"].tertiary:active,
@@ -1395,7 +1401,7 @@ button,
   button.tertiary:active,
   .button.tertiary:active {
     background: rgba(221, 221, 221, 0.3);
-    color: goldenrod;
+    color: #d15ded;
     border-color: transparent;
     box-shadow: none; }
   input[type="button"].tertiary:focus,
@@ -1405,7 +1411,7 @@ button,
   button.tertiary:focus,
   .button.tertiary:focus {
     background: rgba(221, 221, 221, 0.2);
-    color: goldenrod;
+    color: #d15ded;
     border-color: transparent;
     box-shadow: none; }
   input[type="button"].inverted,
@@ -1947,7 +1953,7 @@ textarea {
   textarea:focus,
   textarea:active {
     background: #ffffff !important;
-    border: 2px solid goldenrod !important;
+    border: 2px solid #d15ded !important;
     box-shadow: none !important; }
   input[type="text"]:hover,
   input[type="password"]:hover,
@@ -2071,14 +2077,14 @@ textarea {
     align-items: center;
     width: 100%;
     border: none;
-    color: goldenrod;
+    color: #d15ded;
     background: #ffffff;
     padding: 16px;
     margin: 0;
     border-radius: 0;
     font-size: 16px; }
     [data-accordion] [data-target]:hover, [data-accordion] [data-target]:focus {
-      color: #d19e1f;
+      color: #ce54ec;
       background: #f7f7f7; }
     [data-accordion] [data-target]::after {
       content: "\25B2";
