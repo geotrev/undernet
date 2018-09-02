@@ -55,6 +55,20 @@ $gray800: #888 !default;
 $gray900: #ddd !default;
 $white: #ffffff !default;
 
+$primary-palette: (
+  primary-color: $primary-color,
+  secondary-color: $secondary-color,
+  tertiary-color: $tertiary-color,
+  black: $black,
+  gray100: $gray100,
+  gray200: $gray200,
+  gray400: $gray400,
+  gray600: $gray600,
+  gray800: $gray800,
+  gray900: $gray900,
+  white: $white
+) !default;
+
 $status-palette: (
   warning: khaki,
   success: green,
