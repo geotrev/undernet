@@ -37,7 +37,7 @@
 
     .version-text {
       font-size: 14px;
-      padding: 32px 0 0 32px;
+      padding: 32px 0 8px 32px;
 
       @include breakpoint-between(medium, xlarge) {
         padding: 32px 0 0 0;
@@ -57,13 +57,9 @@
 
       ul {
         list-style-type: none;
-        padding: $global-space 24px $global-space ($global-space * 2);
+        padding: 0;
         margin: 0;
         flex: 1 1 auto;
-
-        @include breakpoint-between(small, xlarge) {
-          padding: $global-space 0 ($global-space * 1.75) 0;
-        }
 
         li {
           padding: 0;
@@ -71,9 +67,11 @@
 
         li a {
           display: block;
-          padding-bottom: 8px;
-          padding-left: 16px;
-          font-size: 14px;
+          font-size: 16px;
+          padding: 0 38px;
+          line-height: 36px;
+          text-decoration: none;
+          opacity: 0.8;
 
           svg {
             margin-left: 4px;
@@ -84,6 +82,8 @@
           &:hover,
           &:active,
           &:focus {
+            opacity: 1;
+
             svg {
               margin-left: 8px;
               color: $primary-color;
@@ -93,10 +93,30 @@
           &.active {
             color: $primary-color !important;
           }
+        }
+      }
 
-          @include breakpoint-between(small, xlarge) {
-            padding-left: 0;
+      &[data-accordion] {
+        border: none;
+        border-radius: none;
+
+        [data-target] {
+          background: transparent;
+          padding: 8px 32px;
+          font-weight: bold;
+          color: $black;
+          opacity: 0.8;
+
+          &:hover,
+          &:active,
+          &:focus {
+            opacity: 1;
           }
+        }
+
+        [data-content] {
+          background: transparent;
+          border: none;
         }
       }
     }
