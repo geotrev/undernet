@@ -9,7 +9,8 @@ import { NavLink } from "react-router-dom"
 import Menu from "react-feather/dist/icons/menu"
 import ChevronRight from "react-feather/dist/icons/chevron-right"
 
-import Button from "../Button/Button"
+import { Button } from "components"
+import Undernet from "undernet"
 
 export default class SideNav extends Component {
   constructor(props) {
@@ -31,8 +32,13 @@ export default class SideNav extends Component {
     }
   }
 
+  componentDidMount() {
+    Undernet.Accordions.start()
+  }
+
   componentWillUnmount() {
     window.removeEventListener("resize", this.getWidth)
+    Undernet.Accordions.stop()
   }
 
   handleCollapseClick() {
@@ -72,7 +78,7 @@ export default class SideNav extends Component {
             </Button>
           </div>
 
-          <nav className={menuClasses}>
+          <nav data-accordion="nav-accordion" className={menuClasses}>
             <p className="version-text has-no-margin has-gray800-text xsmall-12 columns">
               Version {pkg.version}
             </p>
@@ -81,6 +87,18 @@ export default class SideNav extends Component {
         </div>
       </div>
     )
+  }
+
+  accordionIsActive(items) {
+    let isActive = false
+
+    items.forEach(item => {
+      if (window.location.href.includes(item.url)) {
+        isActive = true
+      }
+    })
+
+    return isActive
   }
 
   renderLists() {
@@ -101,12 +119,27 @@ export default class SideNav extends Component {
       })
 
       return (
-        <div className={this.props.navListClasses} key={i}>
+        <div
+          data-expanded={this.accordionIsActive(section.links) ? "true" : "false"}
+          data-accordion-row={"nav-acc-content" + i}
+          className={this.props.navListClasses}
+          key={i}
+        >
           <ul>
             <li>
-              <h4 className="paragraph">{section.header}</h4>
+              <h4 id={"nav-acc-button" + i} className="paragraph">
+                <button data-parent="nav-accordion" data-target={"nav-acc-content" + i}>
+                  {section.header}
+                </button>
+              </h4>
             </li>
-            {listItems}
+            <li
+              id={"nav-acc-content" + i}
+              aria-labelledby={"nav-acc-button" + i}
+              data-content={this.accordionIsActive(section.links) ? "visible" : "hidden"}
+            >
+              <ul>{listItems}</ul>
+            </li>
           </ul>
         </div>
       )
