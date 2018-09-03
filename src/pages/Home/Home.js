@@ -37,10 +37,13 @@ export default class Home extends Component {
             </div>
 
             <div className="xsmall-12 columns has-center-text">
-              <Link to="docs/getting-started" className="medium button has-feather">
+              <Link to="docs/overview/download" className="medium button has-feather">
                 Download <ChevronRight size={20} />
               </Link>
-              <Link to="docs/overview" className="primary medium button has-gradient has-feather">
+              <Link
+                to="docs/overview/introduction"
+                className="primary medium button has-gradient has-feather"
+              >
                 Learn More <ChevronRight size={20} />
               </Link>
             </div>
@@ -112,7 +115,10 @@ export default class Home extends Component {
               <Markdown source={installAssets} escapeHtml={false} />
               <br />
               <p>See how Undernet can improve your developer experience!</p>
-              <Link to="docs/overview" className="primary medium button has-gradient has-feather">
+              <Link
+                to="docs/overview/introduction"
+                className="primary medium button has-gradient has-feather"
+              >
                 Learn More <ChevronRight size={20} />
               </Link>
             </div>
