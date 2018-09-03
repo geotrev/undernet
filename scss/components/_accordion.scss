@@ -1,30 +1,15 @@
-[data-accordion] {
+// Accordion styling
+
+.accordion {
   border: $accordion-border;
   overflow: hidden;
   border-radius: $accordion-border-radius;
 
-  [data-expanded] {
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      padding: 0;
-      margin: 0;
-    }
+  [data-expanded="false"] .accordion-button::after {
+    transform: rotate(180deg);
   }
 
-  [data-content] {
-    overflow: hidden;
-    padding: 0;
-    max-height: 0;
-    background: $accordion-content-background;
-    transition: max-height $accordion-transition-duration $accordion-transition-ease;
-    border-bottom: $accordion-row-divider;
-  }
-
-  [data-target] {
+  .accordion-button {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
@@ -46,21 +31,38 @@
     }
 
     &::after {
-      content: "\25B2";
+      content: $accordion-expand-arrow;
       font-size: 12px;
       transition: $accordion-transition-duration $accordion-transition-ease;
     }
   }
 
-  [data-expanded="false"] [data-target]::after {
-    transform: rotate(180deg);
-  }
+  .accordion-row {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      padding: 0;
+      margin: 0;
+    }
 
-  [data-expanded]:last-child [data-content] {
-    border-bottom: none;
-  }
+    &:last-child .accordion-content {
+      border-bottom: none;
+    }
 
-  .accordion-content {
-    margin: $accordion-content-margin;
+    .accordion-content {
+      overflow: hidden;
+      padding: 0;
+      max-height: 0;
+      background: $accordion-content-background;
+      transition: max-height $accordion-transition-duration $accordion-transition-ease;
+      border-bottom: $accordion-row-divider;
+
+      .accordion-inner-content {
+        margin: $accordion-content-margin;
+      }
+    }
   }
 }

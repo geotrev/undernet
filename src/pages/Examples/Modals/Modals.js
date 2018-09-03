@@ -36,7 +36,7 @@ export default class Modals extends Component {
               Modal with a lot of content
             </button>
 
-            <div className="modal-demo" role="dialog">
+            <div className="modal-demo modal-dialog">
               <header>
                 <h2>Modal Heading</h2>
                 <a data-close href="#0">

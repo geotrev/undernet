@@ -711,6 +711,8 @@ $accordion-button-color-hover: darken($primary-color, 2%) !default;
 $accordion-button-background-hover: lighten($gray900, 10%) !default;
 $accordion-button-padding: $global-space !default;
 
+$accordion-expand-arrow: "\25B2" !default;
+
 $accordion-row-divider: $accordion-border !default;
 
 $accordion-content-margin: $global-space !default;

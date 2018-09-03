@@ -70,7 +70,7 @@ export default class SideNav extends Component {
       },
     )
 
-    const menuClasses = classNames("row collapsed side-nav-menu", {
+    const menuClasses = classNames("row collapsed side-nav-menu accordion", {
       "is-hidden": !this.state.menuIsOpen,
     })
 
@@ -127,18 +127,23 @@ export default class SideNav extends Component {
         <div
           data-expanded={this.accordionIsActive(section.links) ? "true" : "false"}
           data-accordion-row={"nav-acc-content" + i}
-          className={this.props.navListClasses}
+          className={classNames("accordion-row", this.props.navListClasses)}
           key={i}
         >
           <ul>
             <li>
               <h4 id={"nav-acc-button" + i} className="paragraph">
-                <button data-parent="nav-accordion" data-target={"nav-acc-content" + i}>
+                <button
+                  data-parent="nav-accordion"
+                  className="accordion-button"
+                  data-target={"nav-acc-content" + i}
+                >
                   {section.header}
                 </button>
               </h4>
             </li>
             <li
+              className="accordion-content"
               id={"nav-acc-content" + i}
               aria-labelledby={"nav-acc-button" + i}
               data-content={this.accordionIsActive(section.links) ? "visible" : "hidden"}

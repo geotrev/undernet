@@ -23,7 +23,7 @@ An accordion requires a few attributes to work, but are pretty self-explanatory:
       </button>
     </h5>
     <div id="content1" aria-labelledby="button1" data-content="visible">
-      <p class="accordion-content">
+      <p class="accordion-inner-content">
         Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
         ipsum ut voluptate.
       </p>
@@ -62,7 +62,7 @@ All together, here is a two-row accordion:
       </button>
     </h5>
     <div id="content1" aria-labelledby="button1" data-content="visible">
-      <p className="accordion-content">
+      <p className="accordion-inner-content">
         Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
         ipsum ut voluptate.
       </p>
@@ -75,7 +75,7 @@ All together, here is a two-row accordion:
       </button>
     </h5>
     <div id="content2" aria-labelledby="button2" data-content="hidden">
-      <p className="accordion-content">
+      <p className="accordion-inner-content">
         Nostrud enim qui ex sint incididunt aliquip ex laborum. Dolore velit Lorem
         consectetur magna non eu incididunt ex irure cillum consequat nisi. Fugiat nisi
         sunt amet adipisicing non sit ipsum ad pariatur do elit est officia magna. Enim
