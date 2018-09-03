@@ -28,10 +28,7 @@ const Nav = () => {
               </a>
             </li>
             <li>
-              <Link to="/docs/overview">Docs</Link>
-            </li>
-            <li>
-              <Link to="/examples/grid">Examples</Link>
+              <Link to="/docs/overview/introduction">Documentation</Link>
             </li>
           </ul>
         </li>

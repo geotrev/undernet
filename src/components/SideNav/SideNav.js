@@ -1,9 +1,13 @@
 import React, { Component } from "react"
 import "./SideNav.scss"
 
+const path = require("path")
+const pkg = require("../../../package.json")
+
 import classNames from "classnames"
-import { Link } from "react-router-dom"
-import ChevronDown from "react-feather/dist/icons/chevron-down"
+import { NavLink } from "react-router-dom"
+import Menu from "react-feather/dist/icons/menu"
+import ChevronRight from "react-feather/dist/icons/chevron-right"
 
 import Button from "../Button/Button"
 
@@ -48,9 +52,12 @@ export default class SideNav extends Component {
   }
 
   render() {
-    const buttonClasses = classNames("is-flex is-hidden-xlarge", {
-      "rotate-180": !this.state.menuIsOpen,
-    })
+    const buttonClasses = classNames(
+      "is-justified-center is-aligned-center is-flex is-hidden-xlarge",
+      {
+        "rotate-180": !this.state.menuIsOpen,
+      },
+    )
 
     const menuClasses = classNames("row collapsed side-nav-menu", {
       "is-hidden": !this.state.menuIsOpen,
@@ -61,11 +68,16 @@ export default class SideNav extends Component {
         <div className="fluid grid side-nav-wrapper">
           <div className="row is-flex is-hidden-xlarge side-nav-expand">
             <Button onClick={this.handleClick} href="#" className={buttonClasses}>
-              Explore <ChevronDown size={20} />
+              <Menu size={20} /> <span className="has-black-text">Explore</span>
             </Button>
           </div>
 
-          <nav className={menuClasses}>{this.renderLists()}</nav>
+          <nav className={menuClasses}>
+            <p className="version-text has-no-margin has-gray800-text xsmall-12 columns">
+              Version {pkg.version}
+            </p>
+            {this.renderLists()}
+          </nav>
         </div>
       </div>
     )
@@ -76,9 +88,14 @@ export default class SideNav extends Component {
       let listItems = section.links.map((item, j) => {
         return (
           <li key={j}>
-            <Link onClick={this.handleCollapseClick} to={item.url}>
-              {item.name}
-            </Link>
+            <NavLink
+              className="has-black-text is-flex is-aligned-center"
+              activeClassName="active"
+              onClick={this.handleCollapseClick}
+              to={item.url}
+            >
+              {item.name} <ChevronRight size={16} />
+            </NavLink>
           </li>
         )
       })

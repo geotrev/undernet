@@ -8,34 +8,41 @@ import DocsRoutes from "./DocsRoutes/DocsRoutes"
 const Docs = () => {
   const navItems = [
     {
-      header: "Getting Started",
+      header: "Overview",
       links: [
-        { name: "Overview", url: "/docs/overview" },
-        { name: "Getting Started", url: "/docs/getting-started" },
-        { name: "Configuration", url: "/docs/configuration" },
+        { name: "Introduction", url: "/docs/overview/introduction" },
+        { name: "Download", url: "/docs/overview/download" },
+        { name: "Build Tooling", url: "/docs/overview/build-tooling" },
+        { name: "Compatibility", url: "/docs/overview/compatibility" },
+        { name: "Accessibility", url: "/docs/overview/accessibility" },
       ],
     },
     {
       header: "Elements",
       links: [
-        { name: "Grid", url: "/docs/grid" },
-        { name: "Typography", url: "/docs/typography" },
-        { name: "Buttons", url: "/docs/buttons" },
-        { name: "Forms", url: "/docs/forms" },
+        { name: "Grid", url: "/docs/elements/grid" },
+        { name: "Typography", url: "/docs/elements/typography" },
+        { name: "Buttons", url: "/docs/elements/buttons" },
+        { name: "Forms", url: "/docs/elements/forms" },
       ],
     },
     {
       header: "Components",
       links: [
-        { name: "Modals", url: "/docs/modals" },
-        { name: "Accordions", url: "/docs/accordions" },
+        { name: "Modals", url: "/docs/components/modals" },
+        { name: "Accordions", url: "/docs/components/accordions" },
       ],
     },
     {
-      header: "Helpers",
+      header: "Utilities",
       links: [
-        { name: "Style Utilities", url: "/docs/style-utilities" },
-        { name: "JavaScript Utilities", url: "/docs/javascript-utilities" },
+        { name: "Alignment", url: "/docs/utilities/alignment" },
+        { name: "Offset / Order", url: "/docs/utilities/offset-order" },
+        { name: "Visibility", url: "/docs/utilities/visibility" },
+        { name: "Text", url: "/docs/utilities/text" },
+        { name: "Display", url: "/docs/utilities/display" },
+        { name: "Color", url: "/docs/utilities/color" },
+        { name: "Spacing", url: "/docs/utilities/spacing" },
       ],
     },
   ]

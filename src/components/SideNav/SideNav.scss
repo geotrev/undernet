@@ -19,10 +19,9 @@
       }
 
       a {
-        align-content: center;
         width: 100%;
         padding: 20px;
-        justify-content: center;
+        text-decoration: none;
 
         &.rotate-180 {
           svg {
@@ -31,33 +30,39 @@
         }
 
         svg {
-          margin-left: 5px;
+          margin-right: 8px;
         }
       }
     }
 
-    .side-nav-menu {
-      padding-top: 32px;
+    .version-text {
+      font-size: 14px;
+      padding: 32px 0 0 32px;
 
+      @include breakpoint-between(medium, xlarge) {
+        padding: 32px 0 0 0;
+      }
+    }
+
+    .side-nav-menu {
       @include breakpoint-between(small, xlarge) {
         text-align: center;
       }
 
       h4 {
-        color: $gray800;
-        text-transform: uppercase;
-        font-size: 14px;
+        color: $black;
+        font-size: 18px;
         font-weight: $global-font-weight-bold;
       }
 
       ul {
         list-style-type: none;
-        padding: 0 24px $global-space ($global-space * 2);
+        padding: $global-space 24px $global-space ($global-space * 2);
         margin: 0;
         flex: 1 1 auto;
 
         @include breakpoint-between(small, xlarge) {
-          padding: 0 0 ($global-space * 1.75) 0;
+          padding: $global-space 0 ($global-space * 1.75) 0;
         }
 
         li {
@@ -69,6 +74,25 @@
           padding-bottom: 8px;
           padding-left: 16px;
           font-size: 14px;
+
+          svg {
+            margin-left: 4px;
+            transition: 0.1s ease-out;
+            color: $gray800;
+          }
+
+          &:hover,
+          &:active,
+          &:focus {
+            svg {
+              margin-left: 8px;
+              color: $primary-color;
+            }
+          }
+
+          &.active {
+            color: $primary-color !important;
+          }
 
           @include breakpoint-between(small, xlarge) {
             padding-left: 0;
