@@ -6,6 +6,7 @@
   .side-nav-wrapper {
     padding-right: 0;
     padding-left: 0;
+    padding-bottom: 12px;
 
     .side-nav-expand {
       background: $white;
@@ -98,7 +99,7 @@
 
       &[data-accordion] {
         border: none;
-        border-radius: none;
+        border-radius: 0;
 
         [data-target] {
           background: transparent;

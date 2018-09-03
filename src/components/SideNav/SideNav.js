@@ -36,6 +36,11 @@ export default class SideNav extends Component {
     Undernet.Accordions.start()
   }
 
+  componentDidUpdate() {
+    Undernet.Accordions.stop()
+    Undernet.Accordions.start()
+  }
+
   componentWillUnmount() {
     window.removeEventListener("resize", this.getWidth)
     Undernet.Accordions.stop()
