@@ -9,13 +9,17 @@ var _modal = _interopRequireDefault(require("./components/modal"));
 
 var _accordion = _interopRequireDefault(require("./components/accordion"));
 
+var _utils = _interopRequireDefault(require("./utils"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Modals = new _modal.default();
 var Accordions = new _accordion.default();
+var Utilities = new _utils.default();
 var Undernet = {
   Modals: Modals,
-  Accordions: Accordions
+  Accordions: Accordions,
+  Utilities: Utilities
 };
 
 Undernet.start = function () {

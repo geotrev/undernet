@@ -48,7 +48,7 @@ export default class SideNav extends Component {
   }
 
   render() {
-    const buttonClasses = classNames("is-flex is-hidden-on-xlarge", {
+    const buttonClasses = classNames("is-flex is-hidden-xlarge", {
       "rotate-180": !this.state.menuIsOpen,
     })
 
@@ -59,7 +59,7 @@ export default class SideNav extends Component {
     return (
       <div className="xsmall-12 xlarge-2 columns collapsed" id="side-nav">
         <div className="fluid grid side-nav-wrapper">
-          <div className="row is-flex is-hidden-on-xlarge side-nav-expand">
+          <div className="row is-flex is-hidden-xlarge side-nav-expand">
             <Button onClick={this.handleClick} href="#" className={buttonClasses}>
               Explore <ChevronDown size={20} />
             </Button>

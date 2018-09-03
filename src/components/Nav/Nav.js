@@ -9,32 +9,33 @@ import { Link } from "react-router-dom"
 const Nav = () => {
   return (
     <nav className="nav-wrapper fluid grid">
-      <div className="row collapsed">
-        <div className="grid">
-          <ul className="nav-list row collapsed">
-            <li className="small-5 xsmall-12 columns">
-              <Link to="/">
-                <img className="logo" src={Logo} alt="Undernet" />
-              </Link>
+      <ul className="nav-list row collapsed">
+        <li className="small-5 xsmall-12 columns">
+          <Link to="/" className="logo">
+            <img src={Logo} alt="Undernet" />
+          </Link>
+        </li>
+        <li className="small-7 xsmall-12 columns">
+          <ul className="row">
+            <li>
+              <a className="has-feather" href="https://www.twitter.com/gwtrev">
+                <Twitter />
+              </a>
             </li>
-            <li className="small-7 xsmall-12 columns">
-              <ul className="row">
-                <li>
-                  <a className="has-feather" href="https://www.github.com/geotrev/undernet">
-                    <Github />
-                  </a>
-                </li>
-                <li>
-                  <Link to="/docs/overview">Docs</Link>
-                </li>
-                <li>
-                  <Link to="/examples/grid">Examples</Link>
-                </li>
-              </ul>
+            <li>
+              <a className="has-feather" href="https://www.github.com/geotrev/undernet">
+                <Github />
+              </a>
+            </li>
+            <li>
+              <Link to="/docs/overview">Docs</Link>
+            </li>
+            <li>
+              <Link to="/examples/grid">Examples</Link>
             </li>
           </ul>
-        </div>
-      </div>
+        </li>
+      </ul>
     </nav>
   )
 }

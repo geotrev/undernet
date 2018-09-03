@@ -1,6 +1,6 @@
 /*!
 * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
-* Undernet v2.0.0 (https://undernet.io)
+* Undernet v2.1.0 (https://undernet.io)
 * Copyright 2017-2018 George Treviranus
 */
 html,
@@ -98,6 +98,78 @@ body {
 .has-right-text {
   text-align: right !important; }
 
+.is-bold {
+  font-weight: bold !important; }
+
+.is-italic {
+  font-weight: italic !important; }
+
+.has-primary-color-text {
+  color: #d15ded !important; }
+
+.has-primary-color-bg {
+  background-color: #d15ded !important; }
+
+.has-secondary-color-text {
+  color: #3e46af !important; }
+
+.has-secondary-color-bg {
+  background-color: #3e46af !important; }
+
+.has-tertiary-color-text {
+  color: teal !important; }
+
+.has-tertiary-color-bg {
+  background-color: teal !important; }
+
+.has-black-text {
+  color: #000111 !important; }
+
+.has-black-bg {
+  background-color: #000111 !important; }
+
+.has-gray100-text {
+  color: #111 !important; }
+
+.has-gray100-bg {
+  background-color: #111 !important; }
+
+.has-gray200-text {
+  color: #222 !important; }
+
+.has-gray200-bg {
+  background-color: #222 !important; }
+
+.has-gray400-text {
+  color: #444 !important; }
+
+.has-gray400-bg {
+  background-color: #444 !important; }
+
+.has-gray600-text {
+  color: #666 !important; }
+
+.has-gray600-bg {
+  background-color: #666 !important; }
+
+.has-gray800-text {
+  color: #888 !important; }
+
+.has-gray800-bg {
+  background-color: #888 !important; }
+
+.has-gray900-text {
+  color: #ddd !important; }
+
+.has-gray900-bg {
+  background-color: #ddd !important; }
+
+.has-white-text {
+  color: #ffffff !important; }
+
+.has-white-bg {
+  background-color: #ffffff !important; }
+
 .is-flex {
   display: flex !important; }
 
@@ -108,41 +180,98 @@ body {
   display: none !important; }
 
 @media screen and (min-width: 576px) {
-  .is-flex-on-small {
+  .is-flex-small {
     display: flex !important; }
 
-  .is-block-on-small {
+  .is-block-small {
     display: block !important; }
 
-  .is-hidden-on-small {
+  .is-hidden-small {
     display: none !important; } }
 @media screen and (min-width: 768px) {
-  .is-flex-on-medium {
+  .is-flex-medium {
     display: flex !important; }
 
-  .is-block-on-medium {
+  .is-block-medium {
     display: block !important; }
 
-  .is-hidden-on-medium {
+  .is-hidden-medium {
     display: none !important; } }
 @media screen and (min-width: 992px) {
-  .is-flex-on-large {
+  .is-flex-large {
     display: flex !important; }
 
-  .is-block-on-large {
+  .is-block-large {
     display: block !important; }
 
-  .is-hidden-on-large {
+  .is-hidden-large {
     display: none !important; } }
 @media screen and (min-width: 1200px) {
-  .is-flex-on-xlarge {
+  .is-flex-xlarge {
     display: flex !important; }
 
-  .is-block-on-xlarge {
+  .is-block-xlarge {
     display: block !important; }
 
-  .is-hidden-on-xlarge {
+  .is-hidden-xlarge {
     display: none !important; } }
+.is-justified-center {
+  justify-content: center !important; }
+
+.is-justified-end {
+  justify-content: flex-end !important; }
+
+.is-justified-start {
+  justify-content: flex-start !important; }
+
+.is-justified-around {
+  justify-content: space-around !important; }
+
+.is-justified-between {
+  justify-content: space-between !important; }
+
+.is-aligned-center {
+  align-items: center !important; }
+
+.is-aligned-end {
+  align-items: flex-end !important; }
+
+.is-aligned-start {
+  align-items: flex-start !important; }
+
+.is-aligned-stretch {
+  align-items: stretch !important; }
+
+.is-aligned-baseline {
+  align-items: baseline !important; }
+
+.has-content-center {
+  align-content: center !important; }
+
+.has-content-end {
+  align-content: flex-end !important; }
+
+.has-content-start {
+  align-content: flex-start !important; }
+
+.has-content-around {
+  align-content: space-around !important; }
+
+.has-content-between {
+  align-content: space-between !important; }
+
+.has-content-stretch {
+  align-content: stretch !important; }
+
+.has-no-margin {
+  margin: 0 !important; }
+
+.has-no-padding {
+  padding: 0 !important; }
+
+.is-unstyled-list {
+  list-style-type: none !important; }
+
 .is-visually-hidden {
   border: 0;
   clip: rect(0 0 0 0);
@@ -835,12 +964,6 @@ body {
     flex: 1 1 auto;
     align-items: center;
     align-content: center; }
-  .grid.fullscreen .row.align-bottom {
-    align-items: flex-end;
-    align-content: flex-end; }
-  .grid.fullscreen .row.align-top {
-    align-items: flex-start;
-    align-content: flex-start; }
 
 .row.collapsed .columns,
 .row.collapsed .column {
@@ -888,42 +1011,42 @@ ol {
 
 h1,
 .h1 {
-  line-height: 1.5;
+  line-height: 1;
   color: #222;
   font-style: normal;
   font-weight: bold; }
 
 h2,
 .h2 {
-  line-height: 1.5;
+  line-height: 1;
   color: #222;
   font-style: normal;
   font-weight: bold; }
 
 h3,
 .h3 {
-  line-height: 1.5;
+  line-height: 1;
   color: #222;
   font-style: normal;
   font-weight: bold; }
 
 h4,
 .h4 {
-  line-height: 1.5;
+  line-height: 1;
   color: #222;
   font-style: normal;
   font-weight: bold; }
 
 h5,
 .h5 {
-  line-height: 1.5;
+  line-height: 1;
   color: #222;
   font-style: normal;
   font-weight: bold; }
 
 h6,
 .h6 {
-  line-height: 1.5;
+  line-height: 1;
   color: #222;
   font-style: normal;
   font-weight: bold; }
@@ -1086,15 +1209,15 @@ a {
   font-size: 16px;
   font-style: normal;
   font-weight: normal;
-  color: #e4b849;
+  color: #de8bf2;
   text-decoration: none; }
   a:visited {
-    color: #e4b849; }
+    color: #de8bf2; }
   a:hover, a:focus {
-    color: goldenrod;
+    color: #d15ded;
     text-decoration: underline; }
   a:active {
-    color: goldenrod; }
+    color: #d15ded; }
 
 input[type="button"],
 input[type="submit"],
@@ -1216,7 +1339,7 @@ button,
   input[type="reset"].primary,
   button.primary,
   .button.primary {
-    background: #e1af33;
+    background: #d874f0;
     color: #ffffff;
     border-color: transparent;
     box-shadow: none; }
@@ -1226,7 +1349,7 @@ button,
     input[type="reset"].primary:visited,
     button.primary:visited,
     .button.primary:visited {
-      background: #e1af33;
+      background: #d874f0;
       color: #ffffff;
       border-color: transparent;
       box-shadow: none; }
@@ -1236,7 +1359,7 @@ button,
   input[type="reset"].primary:hover,
   button.primary:hover,
   .button.primary:hover {
-    background: goldenrod;
+    background: #d15ded;
     color: #ffffff;
     border-color: transparent;
     box-shadow: none; }
@@ -1246,7 +1369,7 @@ button,
   input[type="reset"].primary:active,
   button.primary:active,
   .button.primary:active {
-    background: #d19e1f;
+    background: #ce54ec;
     color: #ffffff;
     border-color: transparent;
     box-shadow: none; }
@@ -1256,7 +1379,7 @@ button,
   input[type="reset"].primary:focus,
   button.primary:focus,
   .button.primary:focus {
-    background: goldenrod;
+    background: #d15ded;
     color: #ffffff;
     border-color: transparent;
     box-shadow: none; }
@@ -1267,8 +1390,8 @@ button,
   button.secondary,
   .button.secondary {
     background: transparent;
-    color: #e1af33;
-    border-color: #e1af33;
+    color: #d874f0;
+    border-color: #d874f0;
     box-shadow: none; }
     input[type="button"].secondary:visited,
     input[type="submit"].secondary:visited,
@@ -1277,8 +1400,8 @@ button,
     button.secondary:visited,
     .button.secondary:visited {
       background: transparent;
-      color: #e1af33;
-      border-color: #e1af33;
+      color: #d874f0;
+      border-color: #d874f0;
       box-shadow: none; }
   input[type="button"].secondary:hover,
   input[type="submit"].secondary:hover,
@@ -1287,8 +1410,8 @@ button,
   button.secondary:hover,
   .button.secondary:hover {
     background: transparent;
-    color: goldenrod;
-    border-color: goldenrod;
+    color: #d15ded;
+    border-color: #d15ded;
     box-shadow: none; }
   input[type="button"].secondary:active,
   input[type="submit"].secondary:active,
@@ -1297,8 +1420,8 @@ button,
   button.secondary:active,
   .button.secondary:active {
     background: transparent;
-    color: #d19e1f;
-    border-color: #d19e1f;
+    color: #ce54ec;
+    border-color: #ce54ec;
     box-shadow: none; }
   input[type="button"].secondary:focus,
   input[type="submit"].secondary:focus,
@@ -1307,8 +1430,8 @@ button,
   button.secondary:focus,
   .button.secondary:focus {
     background: transparent;
-    color: goldenrod;
-    border-color: goldenrod;
+    color: #d15ded;
+    border-color: #d15ded;
     box-shadow: none; }
   input[type="button"].tertiary,
   input[type="submit"].tertiary,
@@ -1317,7 +1440,7 @@ button,
   button.tertiary,
   .button.tertiary {
     background: transparent;
-    color: goldenrod;
+    color: #d15ded;
     border-color: transparent;
     box-shadow: none; }
     input[type="button"].tertiary:visited,
@@ -1327,7 +1450,7 @@ button,
     button.tertiary:visited,
     .button.tertiary:visited {
       background: transparent;
-      color: goldenrod;
+      color: #d15ded;
       border-color: transparent;
       box-shadow: none; }
   input[type="button"].tertiary:hover,
@@ -1337,7 +1460,7 @@ button,
   button.tertiary:hover,
   .button.tertiary:hover {
     background: rgba(221, 221, 221, 0.2);
-    color: goldenrod;
+    color: #d15ded;
     border-color: transparent;
     box-shadow: none; }
   input[type="button"].tertiary:active,
@@ -1347,7 +1470,7 @@ button,
   button.tertiary:active,
   .button.tertiary:active {
     background: rgba(221, 221, 221, 0.3);
-    color: goldenrod;
+    color: #d15ded;
     border-color: transparent;
     box-shadow: none; }
   input[type="button"].tertiary:focus,
@@ -1357,7 +1480,7 @@ button,
   button.tertiary:focus,
   .button.tertiary:focus {
     background: rgba(221, 221, 221, 0.2);
-    color: goldenrod;
+    color: #d15ded;
     border-color: transparent;
     box-shadow: none; }
   input[type="button"].inverted,
@@ -1899,7 +2022,7 @@ textarea {
   textarea:focus,
   textarea:active {
     background: #ffffff !important;
-    border: 2px solid goldenrod !important;
+    border: 2px solid #d15ded !important;
     box-shadow: none !important; }
   input[type="text"]:hover,
   input[type="password"]:hover,
@@ -1918,6 +2041,9 @@ textarea {
     border: 2px solid #666;
     box-shadow: none;
     transition: ease-out 0.2s; }
+
+.no-scroll {
+  overflow: hidden; }
 
 .modal-overlay {
   display: block;
@@ -2020,14 +2146,14 @@ textarea {
     align-items: center;
     width: 100%;
     border: none;
-    color: goldenrod;
+    color: #d15ded;
     background: #ffffff;
     padding: 16px;
     margin: 0;
     border-radius: 0;
     font-size: 16px; }
     [data-accordion] [data-target]:hover, [data-accordion] [data-target]:focus {
-      color: #d19e1f;
+      color: #ce54ec;
       background: #f7f7f7; }
     [data-accordion] [data-target]::after {
       content: "\25B2";
@@ -2039,8 +2165,5 @@ textarea {
     border-bottom: none; }
   [data-accordion] .accordion-content {
     margin: 16px; }
-
-.no-scroll {
-  overflow: hidden; }
 
 /*# sourceMappingURL=undernet.css.map */

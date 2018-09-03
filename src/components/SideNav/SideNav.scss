@@ -2,77 +2,77 @@
 
 #side-nav {
   background: #fbfbfb;
-}
 
-.side-nav-wrapper {
-  padding-right: 0;
-  padding-left: 0;
+  .side-nav-wrapper {
+    padding-right: 0;
+    padding-left: 0;
 
-  .side-nav-expand {
-    background: $white;
+    .side-nav-expand {
+      background: $white;
 
-    @include breakpoint-up(xsmall) {
-      border-bottom: 1px solid $gray900;
-    }
+      @include breakpoint-up(xsmall) {
+        border-bottom: 1px solid $gray900;
+      }
 
-    @include breakpoint-up(xlarge) {
-      border-bottom: none;
-    }
+      @include breakpoint-up(xlarge) {
+        border-bottom: none;
+      }
 
-    a {
-      align-content: center;
-      width: 100%;
-      padding: 20px;
-      justify-content: center;
+      a {
+        align-content: center;
+        width: 100%;
+        padding: 20px;
+        justify-content: center;
 
-      &.rotate-180 {
+        &.rotate-180 {
+          svg {
+            transform: rotate(180deg);
+          }
+        }
+
         svg {
-          transform: rotate(180deg);
+          margin-left: 5px;
         }
       }
-
-      svg {
-        margin-left: 5px;
-      }
-    }
-  }
-
-  .side-nav-menu {
-    padding-top: 32px;
-
-    @include breakpoint-between(small, xlarge) {
-      text-align: center;
     }
 
-    h4 {
-      color: $gray800;
-      text-transform: uppercase;
-      font-size: 14px;
-      font-weight: $global-font-weight-bold;
-    }
-
-    ul {
-      list-style-type: none;
-      padding: 0 24px $global-space ($global-space * 2);
-      margin: 0;
-      flex: 1 1 auto;
+    .side-nav-menu {
+      padding-top: 32px;
 
       @include breakpoint-between(small, xlarge) {
-        padding: 0 0 ($global-space * 1.75) 0;
+        text-align: center;
       }
 
-      li {
-        padding: 0;
-      }
-
-      li a {
-        display: block;
-        padding-bottom: 8px;
-        padding-left: 16px;
+      h4 {
+        color: $gray800;
+        text-transform: uppercase;
         font-size: 14px;
+        font-weight: $global-font-weight-bold;
+      }
+
+      ul {
+        list-style-type: none;
+        padding: 0 24px $global-space ($global-space * 2);
+        margin: 0;
+        flex: 1 1 auto;
 
         @include breakpoint-between(small, xlarge) {
-          padding-left: 0;
+          padding: 0 0 ($global-space * 1.75) 0;
+        }
+
+        li {
+          padding: 0;
+        }
+
+        li a {
+          display: block;
+          padding-bottom: 8px;
+          padding-left: 16px;
+          font-size: 14px;
+
+          @include breakpoint-between(small, xlarge) {
+            padding-left: 0;
+          }
         }
       }
     }

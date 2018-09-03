@@ -1,32 +1,40 @@
 @import "../../global";
 
+@mixin bg-gradient {
+  background: #3f48af;
+  background: -webkit-linear-gradient(right, #3e46af, #d15ded);
+  background: -moz-linear-gradient(right, #3e46af, #d15ded);
+  background: linear-gradient(to left, #3e46af, #d15ded);
+}
+
 #home {
-  background-image: url("../../assets/images/home-bg.jpg");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
+  .hero {
+    background-image: url("../../assets/images/home-bg.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 
-  h1 {
-    margin-bottom: 0;
-  }
+    h1 {
+      margin-bottom: 0;
+    }
 
-  h2 {
-    font-weight: normal;
-  }
+    h2 {
+      font-weight: normal;
+    }
 
-  a {
-    margin: $global-space 8px $global-space 8px;
-  }
+    a {
+      margin: $global-space 8px $global-space 8px;
+    }
 
-  .perks {
+    .un-version {
+      color: $gray800;
+    }
+
     .badges {
       display: inline-flex;
       margin: 0 auto;
       flex: 0 1 auto;
       padding: 5px 5px 0 5px;
-      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-      background: $white;
-      border-radius: $global-border-radius;
 
       p {
         margin: 0;
@@ -36,6 +44,42 @@
       a {
         margin: 0;
       }
+    }
+  }
+
+  .perks {
+    background-color: $brand-dark-blue;
+
+    .home-icon {
+      height: 50px;
+      width: 50px;
+      margin-bottom: 16px;
+
+      @include breakpoint-down(large) {
+        margin-top: 24px;
+      }
+    }
+
+    p {
+      margin: 0 8px;
+
+      @include breakpoint-down(large) {
+        margin-bottom: 24px;
+      }
+    }
+  }
+
+  a.has-gradient {
+    @include bg-gradient;
+    border: none;
+    padding: 14px 18px;
+    opacity: 0.75;
+    font-weight: bold;
+
+    &:hover,
+    &:focus,
+    &:active {
+      opacity: 1;
     }
   }
 }

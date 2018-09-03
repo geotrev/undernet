@@ -1,6 +1,6 @@
 // stop scrolling on html/body elements
 
-@if $scope == null {
+@if $scope == "" {
   .no-scroll {
     overflow: hidden;
   }

@@ -1,3 +1,5 @@
+// typography modifiers
+
 .has-sans-font {
   font-family: $global-font-sans !important;
 }
@@ -13,6 +15,23 @@
 }
 .has-right-text {
   text-align: right !important;
+}
+
+.is-bold {
+  font-weight: $global-font-weight-bold !important;
+}
+.is-italic {
+  font-weight: $global-font-style-italic !important;
+}
+
+@each $name, $color in $primary-palette {
+  .has-#{$name}-text {
+    color: $color !important;
+  }
+
+  .has-#{$name}-bg {
+    background-color: $color !important;
+  }
 }
 
 // visibility class modifiers – by breakpoint.
@@ -37,6 +56,73 @@
     } // end @include
   } // end @if
 } // end @each
+
+// flex property modifiers
+
+.is-justified-center {
+  justify-content: center !important;
+}
+.is-justified-end {
+  justify-content: flex-end !important;
+}
+.is-justified-start {
+  justify-content: flex-start !important;
+}
+.is-justified-around {
+  justify-content: space-around !important;
+}
+.is-justified-between {
+  justify-content: space-between !important;
+}
+.is-aligned-center {
+  align-items: center !important;
+}
+.is-aligned-end {
+  align-items: flex-end !important;
+}
+.is-aligned-start {
+  align-items: flex-start !important;
+}
+.is-aligned-stretch {
+  align-items: stretch !important;
+}
+.is-aligned-baseline {
+  align-items: baseline !important;
+}
+.has-content-center {
+  align-content: center !important;
+}
+.has-content-end {
+  align-content: flex-end !important;
+}
+.has-content-start {
+  align-content: flex-start !important;
+}
+.has-content-around {
+  align-content: space-around !important;
+}
+.has-content-between {
+  align-content: space-between !important;
+}
+.has-content-stretch {
+  align-content: stretch !important;
+}
+
+// spacing
+
+.has-no-margin {
+  margin: 0 !important;
+}
+
+.has-no-padding {
+  padding: 0 !important;
+}
+
+// lists
+
+.is-unstyled-list {
+  list-style-type: none !important;
+}
 
 // A11y
 // @link https://gomakethings.com/hidden-content-for-better-a11y/
