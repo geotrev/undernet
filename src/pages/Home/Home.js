@@ -58,7 +58,7 @@ export default class Home extends Component {
         <div className="medium-section fluid grid perks">
           <div className="row collapsed">
             <div className="wide grid">
-              <ul className="row is-unstyled-list">
+              <ul className="row is-unstyled-list has-no-padding">
                 <li className="large-3 small-6 xsmall-12 columns has-center-text">
                   <img className="home-icon" src={tinySvg} role="presentation" alt="tiny" />
                   <h2 className="h6 has-white-text">Tiny</h2>
