@@ -6,17 +6,17 @@ import { Link } from "react-router-dom"
 import ChevronRight from "react-feather/dist/icons/chevron-right"
 import { ScrollUpOnMount } from "helpers"
 
-import OverviewMd from "articles/Home.md"
-import GettingStartedMd from "articles/Getting-Started.md"
-import ConfigMd from "articles/Configuration.md"
-import GridMd from "articles/Grid.md"
-import TypeMd from "articles/Typography.md"
-import ButtonsMd from "articles/Buttons.md"
-import FormsMd from "articles/Forms.md"
-import StyleUtilitiesMd from "articles/Style-Utilities.md"
-import JSUtilitiesMd from "articles/JS-Utilities.md"
-import ModalsMd from "articles/Modals.md"
-import AccordionsMd from "articles/Accordions.md"
+// import OverviewMd from "articles/Home.md"
+// import GettingStartedMd from "articles/Getting-Started.md"
+// import ConfigMd from "articles/Configuration.md"
+// import GridMd from "articles/Grid.md"
+// import TypeMd from "articles/Typography.md"
+// import ButtonsMd from "articles/Buttons.md"
+// import FormsMd from "articles/Forms.md"
+// import StyleUtilitiesMd from "articles/Style-Utilities.md"
+// import JSUtilitiesMd from "articles/JS-Utilities.md"
+// import ModalsMd from "articles/Modals.md"
+// import AccordionsMd from "articles/Accordions.md"
 
 const Template = props => {
   return <div className="articles-wrapper row">{props.children}</div>
@@ -27,7 +27,7 @@ export default class DocsRoutes extends Component {
     return (
       <div className="docs-routes-wrapper small-section grid">
         <div className="row">
-          <Route
+          {/* <Route
             exact
             path="/docs/overview"
             render={() => this.renderArticle(OverviewMd, "Overview")}
@@ -77,7 +77,7 @@ export default class DocsRoutes extends Component {
             exact
             path="/docs/javascript-utilities"
             render={() => this.renderArticle(JSUtilitiesMd, "JavaScript Utilities")}
-          />
+          /> */}
         </div>
       </div>
     )

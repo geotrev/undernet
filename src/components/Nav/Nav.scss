@@ -55,16 +55,9 @@
   }
 
   li a {
-    color: white;
-    opacity: 0.8;
+    @include colored-link($white);
     display: flex;
     text-decoration: none;
     padding: 1rem;
-
-    &:hover,
-    &:focus,
-    &:active {
-      opacity: 1;
-    }
   }
 }
