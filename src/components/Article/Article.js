@@ -5,8 +5,8 @@ import Markdown from "react-markdown"
 import Prism from "prismjs"
 
 export default class Article extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
   }
 
   componentDidMount() {

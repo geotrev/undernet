@@ -12,6 +12,8 @@ const Docs = () => {
       links: [
         { name: "Introduction", url: "/docs/overview/introduction" },
         { name: "Download", url: "/docs/overview/download" },
+        { name: "Branding", url: "/docs/overview/branding" },
+        { name: "JavaScript", url: "/docs/overview/javascript" },
         { name: "Build Tooling", url: "/docs/overview/build-tooling" },
         { name: "Compatibility", url: "/docs/overview/compatibility" },
         { name: "Accessibility", url: "/docs/overview/accessibility" },

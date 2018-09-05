@@ -1,106 +1,121 @@
 import React, { Component } from "react"
 import { Route } from "react-router-dom"
 
-import { Article, HeaderText } from "components"
+import { Article } from "components"
 import { Link } from "react-router-dom"
 import ChevronRight from "react-feather/dist/icons/chevron-right"
 import { ScrollUpOnMount } from "helpers"
 
-// import OverviewMd from "articles/Home.md"
-// import GettingStartedMd from "articles/Getting-Started.md"
-// import ConfigMd from "articles/Configuration.md"
-// import GridMd from "articles/Grid.md"
-// import TypeMd from "articles/Typography.md"
-// import ButtonsMd from "articles/Buttons.md"
-// import FormsMd from "articles/Forms.md"
-// import StyleUtilitiesMd from "articles/Style-Utilities.md"
-// import JSUtilitiesMd from "articles/JS-Utilities.md"
-// import ModalsMd from "articles/Modals.md"
-// import AccordionsMd from "articles/Accordions.md"
+import IntroductionMd from "articles/introduction.md"
+import DownloadMd from "articles/download.md"
+import BrandingMd from "articles/branding.md"
+import JavaScriptMd from "articles/javascript.md"
+import BuildToolingMd from "articles/build_tooling.md"
+import CompatibilityMd from "articles/compatibility.md"
+import AccessibilityMd from "articles/accessibility.md"
 
-const Template = props => {
-  return <div className="articles-wrapper row">{props.children}</div>
-}
+import GridMd from "articles/grid.md"
+import TypographyMd from "articles/typography.md"
+import ButtonsMd from "articles/buttons.md"
+import FormsMd from "articles/forms.md"
+
+import AccordionsMd from "articles/accordions.md"
+import ModalsMd from "articles/modals.md"
+
+import AlignmentMd from "articles/alignment.md"
+import OffsetOrderMd from "articles/offset_order.md"
+import VisibilityMd from "articles/visibility.md"
+import TextMd from "articles/text.md"
+import DisplayMd from "articles/display.md"
+import ColorMd from "articles/color.md"
+import SpacingMd from "articles/spacing.md"
 
 export default class DocsRoutes extends Component {
   render() {
     return (
       <div className="docs-routes-wrapper small-section grid">
         <div className="row">
-          {/* <Route
+          <Route
             exact
-            path="/docs/overview"
-            render={() => this.renderArticle(OverviewMd, "Overview")}
+            path="/docs/overview/introduction"
+            render={() => this.renderArticle(IntroductionMd)}
           />
           <Route
             exact
-            path="/docs/getting-started"
-            render={() => this.renderArticle(GettingStartedMd, "Getting Started")}
+            path="/docs/overview/download"
+            render={() => this.renderArticle(DownloadMd)}
           />
           <Route
             exact
-            path="/docs/configuration"
-            render={() => this.renderArticle(ConfigMd, "Configuration")}
-          />
-          <Route exact path="/docs/grid" render={() => this.renderArticle(GridMd, "Grid", true)} />
-          <Route
-            exact
-            path="/docs/typography"
-            render={() => this.renderArticle(TypeMd, "Typography", true)}
+            path="/docs/overview/branding"
+            render={() => this.renderArticle(BrandingMd)}
           />
           <Route
             exact
-            path="/docs/buttons"
-            render={() => this.renderArticle(ButtonsMd, "Buttons", true)}
+            path="/docs/overview/javascript"
+            render={() => this.renderArticle(JavaScriptMd)}
           />
           <Route
             exact
-            path="/docs/forms"
-            render={() => this.renderArticle(FormsMd, "Forms", true)}
+            path="/docs/overview/building-tooling"
+            render={() => this.renderArticle(BuildTooling)}
           />
           <Route
             exact
-            path="/docs/modals"
-            render={() => this.renderArticle(ModalsMd, "Modals", true)}
+            path="/docs/overview/compatibility"
+            render={() => this.renderArticle(CompatibilityMd)}
           />
           <Route
             exact
-            path="/docs/accordions"
-            render={() => this.renderArticle(AccordionsMd, "Accordions", true)}
+            path="/docs/overview/accessibility"
+            render={() => this.renderArticle(AccessibilityMd)}
+          />
+          <Route exact path="/docs/elements/grid" render={() => this.renderArticle(GridMd)} />
+          <Route
+            exact
+            path="/docs/elements/typography"
+            render={() => this.renderArticle(TypographyMd)}
+          />
+          <Route exact path="/docs/elements/buttons" render={() => this.renderArticle(ButtonsMd)} />
+          <Route exact path="/docs/elements/forms" render={() => this.renderArticle(FormsMd)} />
+          <Route
+            exact
+            path="/docs/components/accordions"
+            render={() => this.renderArticle(AccordionsMd)}
+          />
+          <Route exact path="/docs/components/modals" render={() => this.renderArticle(ModalsMd)} />
+          <Route
+            exact
+            path="/docs/about/alignment"
+            render={() => this.renderArticle(AlignmentMd)}
           />
           <Route
             exact
-            path="/docs/style-utilities"
-            render={() => this.renderArticle(StyleUtilitiesMd, "Style Utilities")}
+            path="/docs/about/offset-order"
+            render={() => this.renderArticle(OffsetOrderMd)}
           />
           <Route
             exact
-            path="/docs/javascript-utilities"
-            render={() => this.renderArticle(JSUtilitiesMd, "JavaScript Utilities")}
-          /> */}
+            path="/docs/about/visibility"
+            render={() => this.renderArticle(VisibilityMd)}
+          />
+          <Route exact path="/docs/about/text" render={() => this.renderArticle(TextMd)} />
+          <Route exact path="/docs/about/display" render={() => this.renderArticle(DisplayMd)} />
+          <Route exact path="/docs/about/color" render={() => this.renderArticle(ColorMd)} />
+          <Route exact path="/docs/about/spacing" render={() => this.renderArticle(SpacingMd)} />
         </div>
       </div>
     )
   }
 
-  renderArticle(article, pageName = "", hasExample = false) {
+  renderArticle(article, pageName = "") {
     return (
       <div className="column">
         <ScrollUpOnMount />
-        <HeaderText>{pageName}</HeaderText>
-        {hasExample && this.renderExampleLink(pageName.toLowerCase())}
-        <Template>
+        <div className="articles-wrapper row">
           <Article>{article}</Article>
-        </Template>
+        </div>
       </div>
-    )
-  }
-
-  renderExampleLink(page) {
-    return (
-      <Link className="small secondary button has-feather" to={`/examples/${page}`}>
-        See Examples <ChevronRight size={16} />
-      </Link>
     )
   }
 }

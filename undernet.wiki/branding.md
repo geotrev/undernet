@@ -1,11 +1,10 @@
+# Branding
 
 If you want to leverage the power of Undernet's `scss` variables, customizing your component includes, or simply already use `scss` to build your styles, then this option is for you.
 
-### SCSS
-
 If you're using npm and webpack, make a global scss file like below.
 
-```css
+```scss
 @import "~undernet/scss/helpers/functions";
 /* Add config overrides here! */
 @import "~undernet/scss/config";
@@ -18,12 +17,10 @@ If you're not using webpack, remove the `~` in the import and make it an absolut
 
 Next, in a separate stylesheet, import any or all of Undernet's components:
 
-```css
+```csss
 @import "path/to/new/config";
-
 /* remove globals if you are scoping! */
 @import "elements/reset";
-
 /* .#{$scope} { */
 @import "helpers/classes";
 @import "elements/grid";
@@ -31,13 +28,10 @@ Next, in a separate stylesheet, import any or all of Undernet's components:
 @import "elements/link";
 @import "elements/button";
 @import "elements/form";
-
 @import "components/modal";
 @import "components/accordion";
 /* } */
-
 /* Modals need .no-scroll to be out of $scope in order to function properly. */
-
 @if $scope != "" {
   .no-scroll {
     overflow: hidden;

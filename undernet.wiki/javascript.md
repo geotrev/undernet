@@ -1,8 +1,10 @@
+# JavaScript
+
 The default export from Undernet, or the compiled undernet.js file, is the `Undernet` object. Simply refer to it when using the library. See the [JavaScript API](/docs/overview/javascript) for more documentation
 
-#### Script Tags
+## Script Tags
 
-```js
+```html5
 <!DOCTYPE html>
 <html>
   <head>
@@ -22,14 +24,12 @@ The default export from Undernet, or the compiled undernet.js file, is the `Unde
 </html>
 ```
 
-#### React
+## React
 
 Undernet works great with React. All you need to do after importing from the npm module is add the following lifecycle method calls:
 
 ```js
-...
 export default class MyComponent extends React.Component {
-  ...
   // Add event listeners
   componentDidMount() {
     Undernet.Modals.start()
@@ -43,8 +43,5 @@ export default class MyComponent extends React.Component {
     Undernet.Modals.stop()
     Undernet.Modals.start()
   }
-  ...
 }
 ```
-
-*NOTE: In this case, we're calling stop/start methods on a component method. Again, see the [JavaScript API](/docs/overview/javascript) for more documentation.*
