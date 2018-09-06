@@ -2,13 +2,11 @@
 
 Thanks for using Undernet! Hit the ground running in your next project with this fully modular, highly configurable front-end framework.
 
-Undernet is also extremely light, carrying no external dependencies apart from needing a `scss` compiler (if you aren't using the vanilla `css`).
+Undernet is also extremely light, carrying no external dependencies apart from needing a SCSS compiler (if you aren't using the vanilla CSS).
 
-## Get going fast!
+## Get Started
 
-Head over to the [download page](/docs/overview/download) to get Undernet's assets.
-
-To use Undernet's CSS and JavaScript the quickest, link the bundled js and minified css directly in your template like so:
+The quickest way to use Undernet is to link the bundled js and minified css directly in your template like so:
 
 ```html
 <!DOCTYPE html>
@@ -29,4 +27,16 @@ To use Undernet's CSS and JavaScript the quickest, link the bundled js and minif
 </html>
 ```
 
-Contribute on [Github](https://www.github.com/geotrev/undernet/issues) if you have requests or a bug to report. Be sure to [read the notes](https://www.github.com/geotrev/undernet/master/CONTRIBUTING.md) on contributing a bug or pull request.
+Head over to the [download page](/docs/overview/download) to get Undernet's assets, or see other options for [including it in your pipeline](/docs/overview/build-tooling).
+
+## About Undernet
+
+Undernet was created with the goal of simplifying the developer experience, by writing less CSS and giving an easy API for using common interactive UI patterns.
+
+Undernet can both be a prototyping tool or the basis for your web app.
+
+## Contribute
+
+Undernet is completely open source!
+
+Contribute on [Github](https://www.github.com/geotrev/undernet/issues) if you have requests or a bug to report. Be sure to [read the suggestions](https://www.github.com/geotrev/undernet/master/CONTRIBUTING.md) on filing a bug or pull request.

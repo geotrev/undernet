@@ -17,10 +17,7 @@ Add the compiled assets right to your layout, then in a separate script, initiat
     <script type="text/javascript" src="path/to/undernet.js" async></script>
     <script type="text/javascript" async>
       // Undernet is attached to the `window` object now.
-      var start = Undernet.start()
-      // or run a specific component
-      var start = Undernet.Modals.start()
-      document.addEventListener('DOMContentLoaded', start)
+      document.addEventListener('DOMContentLoaded', Undernet.start())
     </script>
   </body>
 </html>
@@ -28,22 +25,22 @@ Add the compiled assets right to your layout, then in a separate script, initiat
 
 ## React
 
-Undernet works great with React. All you need to do after importing from the npm module is add the following lifecycle method calls:
+Undernet works great with React. All you need to do after importing from the npm module is call start/stop to update as the DOM changes:
 
 ```js
 export default class MyComponent extends React.Component {
   // Add event listeners
   componentDidMount() {
-    Undernet.Modals.start()
+    Undernet.start()
   }
   // Remove any lingering event listeners.
   componentWillUnmount() {
-    Undernet.Modals.stop()
+    Undernet.stop()
   }
   // Undernet doesn't track state; restart the components
   componentDidUpdate() {
-    Undernet.Modals.stop()
-    Undernet.Modals.start()
+    Undernet.stop()
+    Undernet.start()
   }
 }
 ```
