@@ -31,7 +31,7 @@ Head over to the [download page](/docs/overview/download) to get Undernet's asse
 
 ## About Undernet
 
-Undernet was created with the goal of simplifying the developer experience, by writing less CSS and giving an easy API for using common interactive UI patterns.
+Undernet was created with the goal of simplifying the developer experience, by writing less CSS and giving an easy JavaScript API for using common interactive UI patterns.
 
 Undernet can both be a prototyping tool or the basis for your web app.
 

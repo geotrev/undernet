@@ -1,23 +1,25 @@
 # Branding
 
-If you want to leverage the power of Undernet's `scss` variables, customizing your component includes, or simply already use `scss` to build your styles, then this option is for you.
+Customizing Undernet's SCSS requires you to use the partial views that define all of its element and component styles.
 
-If you're using npm and webpack, make a global scss file like below.
+To get a sense of what you have the easiest control over, reference the `_config.scss` file which includes core variables for just about everything, including the grid, typography/color/spacing, as well as buttons, forms, and the interactive components.
 
-```scss
+## NPM and Webpack
+
+If you use these tools, extending Undernet is fairly straight forward. First, import in a new global SCSS file the functions, config vars, and mixins. You can import this file in other stylesheets to get access to the non-selector utilities.
+
+```css
 @import "~undernet/scss/helpers/functions";
 /* Add config overrides here! */
 @import "~undernet/scss/config";
 @import "~undernet/scss/helpers/mixins";
 ```
 
-*NOTE: There should be no selector definitions (classes, ids, etc) in this file because it's used to keep all of your custom brand vars, mixins, and utilities. Import this file into your other stylesheets to get access to the overrides.*
+Next, in a separate stylesheet, import any or all of Undernet's components.
 
-If you're not using webpack, remove the `~` in the import and make it an absolute path.
+Only import the below **one time** in your application!
 
-Next, in a separate stylesheet, import any or all of Undernet's components:
-
-```csss
+```css
 @import "path/to/new/config";
 /* remove globals if you are scoping! */
 @import "elements/reset";
@@ -39,4 +41,10 @@ Next, in a separate stylesheet, import any or all of Undernet's components:
 }
 ```
 
-Only import the above one time in your application (unlike the first bit off `scss`).
+Finally, import `undernet.scss` in your global stylesheet:
+
+```css
+@import 'path/to/undernet';
+```
+
+With that, you should be good to go!

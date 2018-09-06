@@ -10,7 +10,6 @@ import IntroductionMd from "articles/introduction.md"
 import DownloadMd from "articles/download.md"
 import BrandingMd from "articles/branding.md"
 import JavaScriptMd from "articles/javascript.md"
-import BuildToolingMd from "articles/build_tooling.md"
 import CompatibilityMd from "articles/compatibility.md"
 import AccessibilityMd from "articles/accessibility.md"
 
@@ -54,11 +53,6 @@ export default class DocsRoutes extends Component {
             exact
             path="/docs/overview/javascript"
             render={() => this.renderArticle(JavaScriptMd)}
-          />
-          <Route
-            exact
-            path="/docs/overview/building-tooling"
-            render={() => this.renderArticle(BuildTooling)}
           />
           <Route
             exact
