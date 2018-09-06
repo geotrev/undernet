@@ -10,7 +10,7 @@ Head over to the [download page](/docs/overview/download) to get Undernet's asse
 
 To use Undernet's CSS and JavaScript the quickest, link the bundled js and minified css directly in your template like so:
 
-```html5
+```html
 <!DOCTYPE html>
 <html>
   <head>

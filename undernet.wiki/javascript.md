@@ -1,10 +1,12 @@
 # JavaScript
 
-The default export from Undernet, or the compiled undernet.js file, is the `Undernet` object. Simply refer to it when using the library. See the [JavaScript API](/docs/overview/javascript) for more documentation
+The default export from Undernet, or the compiled undernet.js file, is the `Undernet` object. Refer to it when using the library for your components.
 
 ## Script Tags
 
-```html5
+Add the compiled assets right to your layout, then in a separate script, initiate your component(s):
+
+```html
 <!DOCTYPE html>
 <html>
   <head>

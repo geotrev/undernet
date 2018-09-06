@@ -1,4 +1,4 @@
-```html5
+```html
 <html>
   <head>
     …
