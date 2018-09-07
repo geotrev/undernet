@@ -4,8 +4,6 @@
 // Avoid selectors as they will be repeated with every include of this file.
 
 $brand-dark-blue: #191b34;
-$type-code-color: #5e6687;
-$type-code-background: #f5f7ff;
 
 @mixin colored-link($color: null) {
   color: $color;

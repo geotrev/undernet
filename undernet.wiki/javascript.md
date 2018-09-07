@@ -2,10 +2,10 @@
 
 Using Undernet's JS requires learning its API. Luckily it's very simple:
 
-1. You can `start` and `stop` every component in a simple call, such as `Undernet.start()`.
+1. You can `start` and `stop` all of Undernet's components in a single call, such as `Undernet.start()`.
 2. You can be even more precise by only calling `start` and `stop` on a single component, such as `Undernet.Modals.start()`.
 
-## Using Script Tags
+## HTML
 
 Just like in the [Introduction](/docs/overview/introduction) article, the fastest option is to add the compiled assets right to your layout. Then in a separate script tag, initiate your component(s):
 
@@ -26,17 +26,21 @@ Just like in the [Introduction](/docs/overview/introduction) article, the fastes
 </html>
 ```
 
-## Using React
+## Using Webpack & React
 
-Undernet works great with React. All you need to do after importing from the npm module is call start/stop to update as the DOM changes:
+You can easily install the npm module and use Undernet in React. All you need to do after importing from the npm module is call start/stop to update as the DOM changes. There will likely be a package in the future that React-ifies these components for better state management. For now, this should do:
 
 ```js
+import Undernet from 'undernet'
+// Or...
+var Undernet = require('path/to/undernet')
+// Then, set up your component:
 export default class MyComponent extends React.Component {
   // Add event listeners
   componentDidMount() {
     Undernet.start()
   }
-  // Remove any lingering event listeners.
+  // Remove any lingering event listeners if the DOM changes.
   componentWillUnmount() {
     Undernet.stop()
   }
@@ -48,38 +52,15 @@ export default class MyComponent extends React.Component {
 }
 ```
 
-## Using Webpack
-
-
-
 ## Customizing Component Imports
-
-Note: This is really only an option if you are using the unminified, unpackaged JavaScript modules (see the [Downloads](/docs/overview/download) page to get those assets).
 
 You may not want to include *every single* component in your project--that's totally fair! For example, let's say you don't need the Accordion component. How do you edit the JavaScript modules to exclude that import?
 
-Here's the main Undernet.js file which imports every component. Simply comment out the related lines from the file, and they wont compile with the rest of your app:
+Simply import the component you need directly from its file. This works with or without NPM.
 
 ```js
-import Modal from "./components/modal"
-// import Accordion from "./components/accordion"
-import Utils from "./utils"
-const Modals = new Modal()
-// const Accordions = new Accordion()
-const Utilities = new Utils()
-const Undernet = {
-  Modals,
-  // Accordions,
-  Utilities,
-}
-Undernet.start = () => {
-  Undernet.Modals.start()
-  // Undernet.Accordions.start()
-}
-Undernet.stop = () => {
-  Undernet.Modals.stop()
-  // Undernet.Accordions.stop()
-}
+import Modal from 'undernet/js/dist/components/modal'
+Modal.start()
 ```
 
-And voíla! No more Accordions.
+*NOTE: Some components, such as Modals in the above example, rely on a helper Utils class. If you end up deleting unnecessary components to keep your project clean, remember to keep `utils.js`.*
