@@ -16,3 +16,5 @@ $ npm install undernet
 ```
 
 Learn how to link your scripts and styles in the [Branding](/docs/overview/branding) and [JavaScript](/docs/overview/javascript) articles, respectively, for both of the above setup options.
+
+See a mistake? [Edit this page on Github!](https://www.github.com/geotrev/undernet/wiki/download)

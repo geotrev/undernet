@@ -64,3 +64,5 @@ Modal.start()
 ```
 
 *NOTE: Some components, such as Modals in the above example, rely on a helper Utils class. If you end up deleting unnecessary components to keep your project clean, remember to keep `utils.js`.*
+
+See a mistake? [Edit this page on Github!](https://www.github.com/geotrev/undernet/wiki/javascript)

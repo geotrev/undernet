@@ -95,7 +95,7 @@ export default class Home extends Component {
                   <img className="home-icon" src={a11ySvg} role="presentation" alt="a11y" />
                   <h2 className="h6 has-white-text">Accessible</h2>
                   <p className="has-white-text">
-                    Undernet is designed WAI-ARIA guidelines in mind to ensure your project is
+                    Undernet is designed with WAI-ARIA guidelines in mind to ensure your project is
                     accessible.
                   </p>
                 </li>

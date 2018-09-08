@@ -48,3 +48,5 @@ Finally, import `undernet.scss` in your global stylesheet:
 ```
 
 With that, you should be good to go!
+
+See a mistake? [Edit this page on Github!](https://www.github.com/geotrev/undernet/wiki/branding)

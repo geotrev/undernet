@@ -10,7 +10,6 @@ import IntroductionMd from "articles/introduction.md"
 import DownloadMd from "articles/download.md"
 import BrandingMd from "articles/branding.md"
 import JavaScriptMd from "articles/javascript.md"
-import CompatibilityMd from "articles/compatibility.md"
 import AccessibilityMd from "articles/accessibility.md"
 
 import GridMd from "articles/grid.md"

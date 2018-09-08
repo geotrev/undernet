@@ -35,8 +35,26 @@ Undernet was created with the goal of simplifying the developer experience, by w
 
 Undernet can both be a prototyping tool or the basis for your web app.
 
+The framework has four core tenets:
+
+- **Configuration:** The framework comes with a configuration file that you can update with your intended brand attributes, including colors, typography, grid, forms, and more.
+- **Semantics:** HTML that is logical and written with accessibility in mind.
+- **Modularity:** The struggle with frameworks is they are usually dependent on being your core stylesheet. Undernet is specifically designed to be scoped and controlled as an alternative, to existing projects.
+- **Agility:** Because all that's needed is an understanding of semantic HTML and customizing SCSS in the beginning, you will quickly get to building without worrying about tons of custom styling/javascript.
+
+Undernet's CSS and JavaScript will work in recent versions of these browsers:
+
+- Chrome ✓
+- Firefox ✓
+- Safari ✓
+- Opera ✓
+- MS Edge ✓
+- IE 11 ✓
+
 ## Contribute
 
 Undernet is completely open source!
 
 Contribute on [Github](https://www.github.com/geotrev/undernet/issues) if you have requests or a bug to report. Be sure to [read the suggestions](https://www.github.com/geotrev/undernet/master/CONTRIBUTING.md) on filing a bug or pull request.
+
+See a mistake? [Edit this page on Github!](https://www.github.com/geotrev/undernet/wiki/introduction)
