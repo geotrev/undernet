@@ -31,4 +31,4 @@ Undernet.Utils.releaseFocus()
 
 The `releaseFocus` method doesn't need any arguments, as it assumes you want to release focus from the most recent instance of `captureFocus`.
 
-See a mistake? [Edit this page on Github!](https://www.github.com/geotrev/undernet/wiki/accessibility)
+<p class="has-right-text">Is this article inaccurate? <a href="https://www.github.com/geotrev/undernet/wiki/accessibility">Edit this page on Github!</a></p>

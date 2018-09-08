@@ -238,4 +238,4 @@ By default, a row will be vertically centered. To make the row top-aligned, add 
 
 [Learn more about alignment utilities.](/docs/utilities/alignment)
 
-See a mistake? [Edit this page on Github!](https://www.github.com/geotrev/undernet/wiki/grid)
+<p class="has-right-text">Is this article inaccurate? <a href="https://www.github.com/geotrev/undernet/wiki/grid">Edit this page on Github!</a></p>

@@ -49,4 +49,4 @@ Finally, import `undernet.scss` in your global stylesheet:
 
 With that, you should be good to go!
 
-See a mistake? [Edit this page on Github!](https://www.github.com/geotrev/undernet/wiki/branding)
+<p class="has-right-text">Is this article inaccurate? <a href="https://www.github.com/geotrev/undernet/wiki/branding">Edit this page on Github!</a></p>
