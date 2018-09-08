@@ -20,7 +20,6 @@
     "framework"
   ],
   "scripts": {
-    "setup": "rm -rf undernet.wiki/ && git clone https://github.com/geotrev/undernet.wiki.git && npm install",
     "test": "nyc mocha -r @babel/register -r config/testHelpers.js --recursive src/**/*.spec.js",
     "test:w": "mocha --watch -r @babel/register -r config/testHelpers.js --recursive src/**/*.spec.js",
     "build": "BABEL_ENV=production webpack --config config/webpack.prod.js --progress",

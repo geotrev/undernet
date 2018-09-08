@@ -55,7 +55,7 @@ For the most control over your CSS, it's highly recommended to integrate the SCS
 
 You can then easily customize `_config.scss` with your intended brand attributes. This is where you'd also define a scope to isolate Undernet styles.
 
-For more details on the config, check out the [Getting Started](https://undernet.io/docs/getting-started) page.
+For more details on customizing branding, check out the [Branding](https://undernet.io/docs/overview/branding) page.
 
 ### NPM / JS modules
 
@@ -65,7 +65,7 @@ Another option is to use the npm package and borrow the modules you need. This i
 $ npm install --save-dev undernet
 ```
 
-Check out the [docs](https://undernet.io/docs/overview) to see the necessary DOM structure for a given component.
+Check out the [documentation](https://undernet.io/docs/overview/javascript) to see the necessary DOM structure for a given component.
 
 Then require or import the dependency in your js, or add it to a script tag in your main layout (see the **Easy setup** method above for script usage).
 
@@ -167,11 +167,10 @@ Then globally install `sass` and `rollup`:
 
 ```shell
 $ gem install sass
-$ npm install -g rollup
 $ npm run build:development
 ```
 
-From there, everything should build correctly: the framework scss and js will be prettified by `prettier` and distributions of js and css will be output using `babel-cli`, `rollup`, `sass`, and a few macOS specific commands for zipping/prepping files for release. The output typically takes 5-10 seconds at most.
+From there, everything should build correctly: the framework scss and js will be prettified by `prettier` and distributions of js and css will be output using `@babel`, `rollup`, `sass`, and a few macOS specific commands for zipping/prepping files for release. The output typically takes 5-10 seconds at most.
 
 ### Rebuild assets on the fly
 
