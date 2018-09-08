@@ -1,8 +1,10 @@
 # Grid
 
-It’s mobile first, so if you set a medium width column, you’ll have your defined column width as long as your window is medium breakpoint or wider. Configure all grid settings within `_config.scss`, as mentioned in the [Branding](/docs/overview/branding) article.
+Undernet uses a flex grid that behaves largely like other CSS grids: using rows with nested columns, and spacing/positioning modifiers to enable custom layouts.
 
-One of the unique aspects of the grid is it allows you to customize the class names to your liking. This change won't have any effect on the rest of the framework. The default values are:
+The grid is mobile first, so if you set a medium width column, you’ll have your defined column width as long as your window is medium breakpoint or wider. Configure all grid settings within `_config.scss` (including presets for breakpoints, row/column spacing, and two things called "sections" and "widths").
+
+One of the unique aspects of the grid is it allows you to customize the class names to your liking. This change won't have any effect on the rest of the framework, and is useful in preventing namespace collisions. The default values are as follows:
 
 ```scss
 $grid-classes: (
@@ -12,13 +14,9 @@ $grid-classes: (
 ) !default;
 ```
 
-The names should indicate a familiar pattern in other flex grids, such as Bootstrap or Foundation's deprecated flex grid. If you need something more custom, such as with 2-dimensional layouts, look into [Grid CSS](https://css-tricks.com/snippets/css/complete-guide-grid/).
+If you need a more custom, 2-dimensional layout, look into [Grid CSS](https://css-tricks.com/snippets/css/complete-guide-grid/).
 
-## The Basics
-
-The grid includes presets for breakpoints, row/column spacing, and two two things called "sections" and "widths".
-
-### Grid Widths
+## Grid Widths
 
 Widths are exactly what they sound like: declaring a grid with a `.narrow` class will give you a grid horizontally narrower than the default. There are three modifiers, plus the default (which is defined further down in grid settings).
 
@@ -38,7 +36,7 @@ Widths are exactly what they sound like: declaring a grid with a `.narrow` class
 ```
 
 
-### Grid Sections
+## Grid Sections
 
 Sections do the same, but add top and bottom padding. This can be helpful for creating page chunks with colored backgrounds (i.e., for marketing pages).
 
@@ -72,26 +70,9 @@ Rows have no padding or margin, and automatically fill the width of their parent
 
 *NOTE: columns must be inside a row, as they are affected by having a flex parent container.*
 
-### Multiple Columns
-
-If you add a column element inside a row, they stack next to each other with equal width.
-
-```html
-<div class="grid">
-  <div class="row">
-    <div class="column">
-      <p>First column</p>
-    </div>
-    <div class="column">
-      <p>Second column</p>
-    </div>
-  </div>
-</div>
-```
-
 ### Multiple Rows
 
-You can also add more rows within your columns for adding flexibility. Just make sure the direct descendants of those inner-rows continue to be columns.
+Add more rows within your columns for more advanced layouts. Just make sure the direct descendants of those inner-rows continue to be columns.
 
 ```html
 <div class="grid">
@@ -116,9 +97,26 @@ You can also add more rows within your columns for adding flexibility. Just make
 </div>
 ```
 
-## Breakpoint Classes
+### Multiple Columns
 
-Undernet comes with helpful breakpoint classes to define how columns should behave at and above a certain size. For example, if you set `medium-6` on a column, content will be at half-width in its row as long as the device width is `768px` or wider.
+If you add a column element inside a row, they stack next to each other with equal width.
+
+```html
+<div class="grid">
+  <div class="row">
+    <div class="column">
+      <p>First column</p>
+    </div>
+    <div class="column">
+      <p>Second column</p>
+    </div>
+  </div>
+</div>
+```
+
+### Breakpoint Classes
+
+Undernet comes with helpful breakpoint classes to define how columns should behave at and above a certain size. For example, if you set `medium-6` on a column, content will be at half-width in its row as long as the device width is `768px` (the default medium value) or wider.
 
 ```html
 <div class="grid">
@@ -136,7 +134,19 @@ Undernet comes with helpful breakpoint classes to define how columns should beha
 </div>
 ```
 
-## Collapse Gutters
+Here are the default breakpoint values defined in `_config.scss`.
+
+```scss
+$breakpoints: (
+  xsmall: 0,
+  small: 576px,
+  medium: 768px,
+  large: 992px,
+  xlarge: 1200px
+) !default;
+```
+
+### Collapse Gutters
 
 Don’t want padding on your grid, rows, and/or columns? You can remove it all with a `.has-no-padding` modifier on a given element. The class won't have an effect on child elements, so you'll need to add a modifier to each `div`.
 
@@ -152,7 +162,7 @@ Don’t want padding on your grid, rows, and/or columns? You can remove it all w
 
 [Learn more about spacing utilities.](/docs/utilities/spacing)
 
-## Column Order / Offset
+### Column Order / Offset
 
 It was common in the past to offset grids with left and right margin. With flex, you no longer need that when flex ordering is an option. Switch `$column-order-classes` to `true` in `_config.scss` to use these modifiers.
 
@@ -186,7 +196,7 @@ But you can also use offset if you need to break out of the grid. Switch `$colum
 
 [Learn more about order and offset utilities.](/docs/utilities/order-offset)
 
-## Fullscreen Grid
+### Fullscreen Grid
 
 Create a grid that always takes up the full width and height of your device/browser window.
 

@@ -22,7 +22,6 @@ import ModalsMd from "articles/modals.md"
 
 import AlignmentMd from "articles/alignment.md"
 import OffsetOrderMd from "articles/offset_order.md"
-import VisibilityMd from "articles/visibility.md"
 import TextMd from "articles/text.md"
 import DisplayMd from "articles/display.md"
 import ColorMd from "articles/color.md"
@@ -55,11 +54,6 @@ export default class DocsRoutes extends Component {
           />
           <Route
             exact
-            path="/docs/overview/compatibility"
-            render={() => this.renderArticle(CompatibilityMd)}
-          />
-          <Route
-            exact
             path="/docs/overview/accessibility"
             render={() => this.renderArticle(AccessibilityMd)}
           />
@@ -86,11 +80,6 @@ export default class DocsRoutes extends Component {
             exact
             path="/docs/about/offset-order"
             render={() => this.renderArticle(OffsetOrderMd)}
-          />
-          <Route
-            exact
-            path="/docs/about/visibility"
-            render={() => this.renderArticle(VisibilityMd)}
           />
           <Route exact path="/docs/about/text" render={() => this.renderArticle(TextMd)} />
           <Route exact path="/docs/about/display" render={() => this.renderArticle(DisplayMd)} />

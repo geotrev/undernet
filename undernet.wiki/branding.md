@@ -1,12 +1,12 @@
 # Branding
 
-Customizing Undernet's SCSS requires you to use the partial views that define all of its element and component styles.
+Customizing Undernet's SCSS requires you to use partial scss files that define all the element and component styles.
 
 To get a sense of what you have the easiest control over, reference the `_config.scss` file which includes core variables for just about everything, including the grid, typography/color/spacing, as well as buttons, forms, and the interactive components.
 
 ## NPM and Webpack
 
-If you use these tools, extending Undernet is fairly straight forward. First, import in a new global SCSS file the functions, config vars, and mixins. You can import this file in other stylesheets to get access to the non-selector utilities.
+If you use these tools, extending Undernet is fairly straight forward. First, import in a new global SCSS file the functions, config vars, and mixins. You can import this file in other stylesheets to get access to the non-selector utilities while not risking duplication of utility classes, elements, and components.
 
 ```css
 @import "~undernet/scss/helpers/functions";

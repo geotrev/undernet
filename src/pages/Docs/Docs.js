@@ -38,7 +38,6 @@ const Docs = () => {
       links: [
         { name: "Alignment", url: "/docs/utilities/alignment" },
         { name: "Offset / Order", url: "/docs/utilities/offset-order" },
-        { name: "Visibility", url: "/docs/utilities/visibility" },
         { name: "Text", url: "/docs/utilities/text" },
         { name: "Display", url: "/docs/utilities/display" },
         { name: "Color", url: "/docs/utilities/color" },
@@ -51,9 +50,9 @@ const Docs = () => {
     <div id="docs" className="medium-section fluid grid">
       <ScrollUpOnMount />
       <div className="row">
-        <SideNav navListClasses="xsmall-12 columns" navItems={navItems} />
+        <SideNav navListClasses="xsmall-12 columns has-no-padding" navItems={navItems} />
 
-        <div className="xsmall-12 xlarge-10 collapsed columns">
+        <div className="xsmall-12 xlarge-10 has-no-padding columns">
           <DocsRoutes />
         </div>
       </div>

@@ -15,7 +15,7 @@ export default class Article extends Component {
 
   render() {
     return (
-      <article className="article-wrapper collapsed column">
+      <article className="article-wrapper has-no-padding column">
         <Markdown source={this.props.children} escapeHtml={false} />
       </article>
     )

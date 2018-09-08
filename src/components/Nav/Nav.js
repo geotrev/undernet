@@ -9,7 +9,7 @@ import { Link } from "react-router-dom"
 const Nav = () => {
   return (
     <nav className="nav-wrapper fluid grid">
-      <ul className="nav-list row collapsed">
+      <ul className="nav-list row has-no-padding">
         <li className="small-5 xsmall-12 columns">
           <Link to="/" className="logo">
             <img src={Logo} alt="Undernet" />

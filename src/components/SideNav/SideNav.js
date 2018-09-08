@@ -70,12 +70,12 @@ export default class SideNav extends Component {
       },
     )
 
-    const menuClasses = classNames("row collapsed side-nav-menu accordion", {
+    const menuClasses = classNames("row side-nav-menu accordion", {
       "is-hidden": !this.state.menuIsOpen,
     })
 
     return (
-      <div className="xsmall-12 xlarge-2 columns collapsed" id="side-nav">
+      <div className="xsmall-12 xlarge-2 columns has-no-padding" id="side-nav">
         <div className="fluid grid side-nav-wrapper">
           <div className="row is-flex is-hidden-xlarge side-nav-expand">
             <Button onClick={this.handleClick} href="#" className={buttonClasses}>
@@ -84,7 +84,7 @@ export default class SideNav extends Component {
           </div>
 
           <nav data-accordion="nav-accordion" className={menuClasses}>
-            <p className="version-text has-no-margin has-gray800-text xsmall-12 columns">
+            <p className="version-text has-no-padding has-gray800-text xsmall-12 columns">
               Version {pkg.version}
             </p>
             {this.renderLists()}
