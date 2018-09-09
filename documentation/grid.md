@@ -16,6 +16,8 @@ $grid-classes: (
 
 If you need a more custom, 2-dimensional layout, look into [Grid CSS](https://css-tricks.com/snippets/css/complete-guide-grid/).
 
+Also worth note, but not included in detail in this article, are offset and order utility classes which can be used with grid columns to move content across the grid. [Read more about those here.](/docs/utilities/offset-order)
+
 ## Grid Container
 
 The basic wrapper of a layout uses the `grid` class. Grid's are automatically centered (`margin: 0 auto`) and have a left and right gutter.
@@ -32,10 +34,13 @@ The basic wrapper of a layout uses the `grid` class. Grid's are automatically ce
 
 ### Grid Widths
 
-Widths are exactly what they sound like: declaring a grid with a `.narrow` class will give you a grid horizontally narrower than the default. There are three modifiers, plus the default (which is defined further down in grid settings).
+Widths are exactly what they sound like. For example, declaring a grid with a `.narrow` class will give you a grid horizontally narrower than the default.
 
 <div class="narrow grid has-center-text has-padding filler">
   .narrow.grid
+</div>
+<div class="grid has-center-text has-padding filler">
+  .grid
 </div>
 <div class="wide grid has-center-text has-padding filler">
   .wide.grid
@@ -47,6 +52,9 @@ Widths are exactly what they sound like: declaring a grid with a `.narrow` class
 ```html
 <div class="narrow grid">
   .narrow.grid
+</div>
+<div class="grid">
+  .grid
 </div>
 <div class="wide grid">
   .wide.grid
@@ -142,7 +150,51 @@ Add more rows within your columns for more advanced layouts. Just make sure the 
 
 <div class="grid filler-bg">
   <div class="row">
-    <div class="xsmall-12 large-8 columns has-no-padding-bottom">
+    <div class="column">
+      <div class="row">
+        <div class="column filler has-padding">
+          <p class="has-white-text">.column</p>
+          <div class="row filler-bg">
+            <div class="xsmall-12 columns has-black-text">
+              .row
+            </div>
+            <div class="column">
+              <p class="has-no-margin filler has-padding">.column</p>
+            </div>
+            <div class="column">
+              <p class="has-no-margin filler has-padding">.column</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+```html
+<div class="grid">
+  <div class="row">
+    <div class="columns">
+      <div class="row">
+        <div class="columns">
+          .column
+        </div>
+        <div class="columns">
+          .column
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+### Breakpoint Classes
+
+Undernet comes with helpful breakpoint classes to define how columns should behave at and above a certain size. For example, if you set `medium-6` on a column, content will be at half-width in its row as long as the device width is `768px` (the default medium value) or wider.
+
+<div class="grid filler-bg">
+  <div class="row">
+    <div class="xsmall-12 large-8 columns">
       <div class="row">
         <div class="column filler has-padding">
           <p class="has-white-text">.xsmall-12.large-8.columns</p>
@@ -150,19 +202,19 @@ Add more rows within your columns for more advanced layouts. Just make sure the 
             <div class="xsmall-12 columns has-black-text">
               .row
             </div>
-            <div class="xsmall-12 large-6 column has-no-padding-bottom">
+            <div class="xsmall-12 large-6 column">
               <p class="has-no-margin filler has-padding">.xsmall-12.large-6.columns</p>
             </div>
-            <div class="xsmall-12 large-6 column has-no-padding-bottom">
+            <div class="xsmall-12 large-6 column">
               <p class="has-no-margin filler has-padding">.xsmall-12.large-6.columns</p>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="xsmall-12 large-4 columns has-no-padding-bottom">
+    <div class="xsmall-12 large-4 columns">
       <div class="row">
-        <div class="column filler has-padding">
+        <div class="column has-no-padding">
           <p class="has-no-margin has-padding filler">.xsmall-12.large-4.columns</p>
         </div>
       </div>
@@ -190,26 +242,6 @@ Add more rows within your columns for more advanced layouts. Just make sure the 
 </div>
 ```
 
-### Breakpoint Classes
-
-Undernet comes with helpful breakpoint classes to define how columns should behave at and above a certain size. For example, if you set `medium-6` on a column, content will be at half-width in its row as long as the device width is `768px` (the default medium value) or wider.
-
-```html
-<div class="grid">
-  <div class="row">
-    <div class="xsmall-12 large-3 columns">
-      <p>12 columns xsmal, 3 columns large</p>
-    </div>
-    <div class="xsmall-12 large-7 columns">
-      <p>12 columns xsmall, 7 columns large</p>
-    </div>
-    <div class="xsmall-12 large-2 columns">
-      <p>12 columns xsmall, 2 columns large</p>
-    </div>
-  </div>
-</div>
-```
-
 Here are the default breakpoint values defined in `_config.scss`.
 
 ```scss
@@ -224,53 +256,27 @@ $breakpoints: (
 
 ### Collapse Gutters
 
-Don’t want padding on your grid, rows, and/or columns? You can remove it all with a `.has-no-padding` modifier on a given element. The class won't have an effect on child elements, so you'll need to add a modifier to each `div`.
+Don’t want padding on your grid, rows, and/or columns? You can remove it all with a `.has-no-padding` modifier on a given element. The class won't have an effect on child elements, so you'll need to add a modifier to each `div`. Useful for nested layouts.
+
+<div class="grid filler-bg has-no-padding">
+  <div class="row has-no-padding">
+    <div class="column filler has-no-padding">
+      .column
+    </div>
+  </div>
+</div>
 
 ```html
 <div class="grid has-no-padding">
   <div class="row has-no-padding">
     <div class="column has-no-padding">
-      <p>Goodbye forever, padding</p>
+      .column
     </div>
   </div>
 </div>
 ```
 
 [Learn more about spacing utilities.](/docs/utilities/spacing)
-
-### Column Order / Offset
-
-It was common in the past to offset grids with left and right margin. With flex, you no longer need that when flex ordering is an option. Switch `$column-order-classes` to `true` in `_config.scss` to use these modifiers.
-
-```html
-<div class="grid">
-  <div class="row">
-    <div class="xsmall-order-2 large-order-1 columns">
-      <p>I’m last when small, first when large!</p>
-    </div>
-    <div class="xsmall-order-1 large-order-2 columns">
-      <p>Ordered first at small breakpoints, last at large and above.</p>
-    </div>
-  </div>
-</div>
-```
-
-But you can also use offset if you need to break out of the grid. Switch `$column-offset-classes` to `true`.
-
-```html
-<div class="grid">
-  <div class="row">
-    <div class="xsmall-offset-0 large-offset-3 xsmall-3 columns">
-      <p>Quarter-width column has no offset at small widths, 3 columns offset at large.</p>
-    </div>
-    <div class="xsmall-offset-0 large-offset-6 xsmall-6 columns">
-      <p>Half-width column has no offset at small widths, 6 columns offset at large.</p>
-    </div>
-  </div>
-</div>
-```
-
-[Learn more about order and offset utilities.](/docs/utilities/order-offset)
 
 ### Fullscreen Grid
 

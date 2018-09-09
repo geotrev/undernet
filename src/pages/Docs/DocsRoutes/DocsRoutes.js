@@ -73,18 +73,26 @@ export default class DocsRoutes extends Component {
           <Route exact path="/docs/components/modals" render={() => this.renderArticle(ModalsMd)} />
           <Route
             exact
-            path="/docs/about/alignment"
+            path="/docs/utilities/alignment"
             render={() => this.renderArticle(AlignmentMd)}
           />
           <Route
             exact
-            path="/docs/about/offset-order"
+            path="/docs/utilities/offset-order"
             render={() => this.renderArticle(OffsetOrderMd)}
           />
-          <Route exact path="/docs/about/text" render={() => this.renderArticle(TextMd)} />
-          <Route exact path="/docs/about/display" render={() => this.renderArticle(DisplayMd)} />
-          <Route exact path="/docs/about/color" render={() => this.renderArticle(ColorMd)} />
-          <Route exact path="/docs/about/spacing" render={() => this.renderArticle(SpacingMd)} />
+          <Route exact path="/docs/utilities/text" render={() => this.renderArticle(TextMd)} />
+          <Route
+            exact
+            path="/docs/utilities/display"
+            render={() => this.renderArticle(DisplayMd)}
+          />
+          <Route exact path="/docs/utilities/color" render={() => this.renderArticle(ColorMd)} />
+          <Route
+            exact
+            path="/docs/utilities/spacing"
+            render={() => this.renderArticle(SpacingMd)}
+          />
         </div>
       </div>
     )
