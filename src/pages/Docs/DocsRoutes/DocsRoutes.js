@@ -30,7 +30,7 @@ import SpacingMd from "articles/spacing.md"
 export default class DocsRoutes extends Component {
   render() {
     return (
-      <div className="docs-routes-wrapper small-section grid">
+      <div className="docs-routes-wrapper small-section fluid grid">
         <div className="row">
           <Route
             exact

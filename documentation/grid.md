@@ -1,10 +1,10 @@
 # Grid
 
-Undernet uses a flex grid that behaves largely like other CSS grids: using rows with nested columns, and spacing/positioning modifiers to enable custom layouts.
+Undernet uses a flex grid that behaves largely like other CSS grids: using rows with nested columns, and spacing/positioning modifiers to enable more complex layouts.
 
-The grid is mobile first, so if you set a medium width column, you’ll have your defined column width as long as your window is medium breakpoint or wider. Configure all grid settings within `_config.scss` (including presets for breakpoints, row/column spacing, and two things called "sections" and "widths").
+The grid is mobile first, so any [breakpoint classes](#breakpoint-classes) and modifiers take effect from the breakpoint value and wider (ie, `medium` is `768px` and wider).
 
-One of the unique aspects of the grid is it allows you to customize the class names to your liking. This change won't have any effect on the rest of the framework, and is useful in preventing namespace collisions. The default values are as follows:
+An important part of Undernet's grid is it allows you to customize the class names to your liking. This change won't have any effect on the rest of the framework, and is useful in preventing namespace collisions. The default values are as you might expect:
 
 ```scss
 $grid-classes: (
@@ -16,39 +16,69 @@ $grid-classes: (
 
 If you need a more custom, 2-dimensional layout, look into [Grid CSS](https://css-tricks.com/snippets/css/complete-guide-grid/).
 
-## Grid Widths
+## Grid Container
 
-Widths are exactly what they sound like: declaring a grid with a `.narrow` class will give you a grid horizontally narrower than the default. There are three modifiers, plus the default (which is defined further down in grid settings).
+The basic wrapper of a layout uses the `grid` class. Grid's are automatically centered (`margin: 0 auto`) and have a left and right gutter.
+
+<div class="grid has-center-text has-padding filler">
+  .grid
+</div>
 
 ```html
 <div class="grid">
   I’m 992px wide! (default width of a grid)
 </div>
+```
+
+### Grid Widths
+
+Widths are exactly what they sound like: declaring a grid with a `.narrow` class will give you a grid horizontally narrower than the default. There are three modifiers, plus the default (which is defined further down in grid settings).
+
+<div class="narrow grid has-center-text has-padding filler">
+  .narrow.grid
+</div>
+<div class="wide grid has-center-text has-padding filler">
+  .wide.grid
+</div>
+<div class="fluid grid has-center-text has-padding filler">
+  .fluid.grid
+</div>
+
+```html
 <div class="narrow grid">
-  I’m 768px wide!
+  .narrow.grid
 </div>
 <div class="wide grid">
-  I’m 1200px wide!
+  .wide.grid
 </div>
 <div class="fluid grid">
-  I match the width of my container!
+  .fluid.grid
 </div>
 ```
 
+### Grid Sections
 
-## Grid Sections
+Sections do the same, but add top and bottom padding. This can be helpful for creating content folds with colored backgrounds (i.e., for marketing pages).
 
-Sections do the same, but add top and bottom padding. This can be helpful for creating page chunks with colored backgrounds (i.e., for marketing pages).
+<div class="small-section grid has-center-text filler">
+  .small-section.grid
+</div>
+<div class="medium-section grid has-center-text filler">
+  .medium-section.grid
+</div>
+<div class="large-section grid has-center-text filler">
+  .large-section.grid
+</div>
 
 ```html
-<div class="small grid">
-  I have 48px of top and bottom padding!
+<div class="small-section grid">
+  .small-section.grid
 </div>
-<div class="medium grid">
-  I have 96px of top and bottom padding!
+<div class="medium-section grid">
+  .medium-section.grid
 </div>
-<div class="large grid">
-  I have 144px of top and bottom padding!
+<div class="large-section grid">
+  .large-section.grid
 </div>
 ```
 
@@ -56,11 +86,19 @@ Sections do the same, but add top and bottom padding. This can be helpful for cr
 
 Like other grid systems, layouts are defined with rows and columns.
 
+<div class="grid">
+  <div class="row filler-bg">
+    <div class="column filler has-padding">
+      .column
+    </div>
+  </div>
+</div>
+
 ```html
 <div class="grid">
   <div class="row">
     <div class="column">
-      <p>One row + one column</p>
+      .column
     </div>
   </div>
 </div>
@@ -68,47 +106,85 @@ Like other grid systems, layouts are defined with rows and columns.
 
 Rows have no padding or margin, and automatically fill the width of their parent (usually a grid, but not a requirement). Columns, by default, have left, right, and bottom padding.
 
-*NOTE: columns must be inside a row, as they are affected by having a flex parent container.*
-
-### Multiple Rows
-
-Add more rows within your columns for more advanced layouts. Just make sure the direct descendants of those inner-rows continue to be columns.
-
-```html
-<div class="grid">
-  <div class="row">
-    <div class="xsmall-12 large-3 columns">
-      <p>First column</p>
-    </div>
-    <div class="xsmall-12 large-7 columns">
-      <div class="row">
-        <div class="xsmall-12 columns">
-          <h1>Gridception, buddy</h1>
-        </div>
-        <div class="xsmall-12 columns">
-          <p>If your layout has partials, keep track of your parents!
-        </div>
-      </div>
-    </div>
-    <div class="xsmall-12 large-2 columns">
-      <p>Third column</p>
-    </div>
-  </div>
-</div>
-```
+*NOTE: columns must be inside a row, or a parent that has `display: flex`.*
 
 ### Multiple Columns
 
 If you add a column element inside a row, they stack next to each other with equal width.
 
+<div class="grid filler-bg">
+  <div class="row">
+    <div class="columns has-no-padding-bottom has-no-padding-left">
+      <p class="filler has-padding">.column</p>
+    </div>
+    <div class="columns has-no-padding-bottom has-no-padding-right">
+      <p class="filler has-padding">.column</p>
+    </div>
+  </div>
+</div>
+
 ```html
 <div class="grid">
   <div class="row">
     <div class="column">
-      <p>First column</p>
+      .column
     </div>
     <div class="column">
-      <p>Second column</p>
+      .column
+    </div>
+  </div>
+</div>
+```
+
+### Multiple Rows
+
+Add more rows within your columns for more advanced layouts. Just make sure the direct descendants of those inner-rows continue to be columns.
+
+<div class="grid filler-bg">
+  <div class="row">
+    <div class="xsmall-12 large-8 columns has-no-padding-bottom">
+      <div class="row">
+        <div class="column filler has-padding">
+          <p class="has-white-text">.xsmall-12.large-8.columns</p>
+          <div class="row filler-bg">
+            <div class="xsmall-12 columns has-black-text">
+              .row
+            </div>
+            <div class="xsmall-12 large-6 column has-no-padding-bottom">
+              <p class="has-no-margin filler has-padding">.xsmall-12.large-6.columns</p>
+            </div>
+            <div class="xsmall-12 large-6 column has-no-padding-bottom">
+              <p class="has-no-margin filler has-padding">.xsmall-12.large-6.columns</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="xsmall-12 large-4 columns has-no-padding-bottom">
+      <div class="row">
+        <div class="column filler has-padding">
+          <p class="has-no-margin has-padding filler">.xsmall-12.large-4.columns</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+```html
+<div class="grid">
+  <div class="row">
+    <div class="xsmall-12 large-8 columns">
+      <div class="row">
+        <div class="xsmall-12 large-6 columns">
+          .xsmall-12.large-6.columns
+        </div>
+        <div class="xsmall-12 large-6 columns">
+          .xsmall-12.large-6.columns
+        </div>
+      </div>
+    </div>
+    <div class="xsmall-12 large-4 columns">
+      .xsmall-12.large-4.column
     </div>
   </div>
 </div>

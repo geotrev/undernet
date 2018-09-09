@@ -52,7 +52,7 @@ $gray200: #222 !default;
 $gray400: #444 !default;
 $gray600: #666 !default;
 $gray800: #888 !default;
-$gray900: #ddd !default;
+$gray900: #dedede !default;
 $white: #ffffff !default;
 
 $primary-palette: (
@@ -272,7 +272,7 @@ $type-em-font-weight: normal !default;
 $type-small-font-size: 75% !default;
 $type-small-font-weight: inherit !default;
 
-$type-mark-padding: 10px !default;
+$type-mark-padding: 0 !default;
 $type-mark-color: $gray200 !default;
 $type-mark-background: status(warning) !default;
 
