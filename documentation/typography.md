@@ -1,12 +1,14 @@
 # Typography
 
-Typography in Undernet makes up for a large majority of the customization options. Headers and many of the individual paragraph and inline text tags are modifiable.
+Typography in Undernet makes up for a large chunk of the customization options. Headers and many of the individual paragraph and inline text tags are modifiable.
 
 Undernet also comes with each text style in class form, so if you need a header styled as with paragraph formatting, you can simply use the `paragraph` class.
 
 ## Headers
 
-Headers can vary a lot across projects. For that reason, headers use a scss map consisting of sizing by breakpoint (small, medium, large by default, but you can add more), as well as a separate map for color, weight, and margin.
+Headers can vary a lot within a project. For that reason, headers use a scss map consisting of sizing by breakpoint (small, medium, large by default, but you can add more), as well as a separate map for color, weight, and margin.
+
+These maps output their keys and values as css properties. This means you can add any `property: value` normally found in CSS into these maps.
 
 <div class="row">
   <div class="xsmall-12 medium-6 columns">

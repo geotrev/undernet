@@ -71,8 +71,8 @@ $primary-palette: (
 
 $status-palette: (
   warning: khaki,
-  success: green,
-  destroy: red,
+  success: #66cc00,
+  destroy: #fc6868,
   notice: steelblue
 ) !default;
 
@@ -323,7 +323,7 @@ $button-decoration: none !default;
 // Default button styling.
 
 // NOTE: You can treat these map as css proper, but in `key: value` format.
-$button-default: (
+$button-base: (
   default: (
     background: $white,
     color: $gray200,

@@ -23,7 +23,7 @@ button,
   text-decoration: $button-decoration;
   transition: $global-ease;
 
-  @each $state, $properties in $button-default {
+  @each $state, $properties in $button-base {
     @if $state != "default" {
       &:#{$state} {
         @each $property, $value in $properties {
