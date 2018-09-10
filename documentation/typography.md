@@ -96,7 +96,7 @@ Ordered and unordered lists can be styled as well. You can change the bullet sty
 </div>
 
 ```html
-<ul>
+<ulo>
   <li>Unordered item</li>
   <li>Unordered item</li>
   <li>Unordered item</li>

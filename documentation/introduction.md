@@ -6,7 +6,7 @@ Undernet is also extremely light, carrying no external dependencies apart from n
 
 ## Get Started
 
-The quickest way to use Undernet is to link the bundled js and minified css directly in your template like so:
+The quickest way to use Undernet is to link the bundled js and minified css directly in your template.
 
 ```html
 <!DOCTYPE html>
@@ -35,7 +35,7 @@ Undernet was created with the goal of simplifying the developer experience, by w
 
 Undernet can both be a prototyping tool or the basis for your web app.
 
-The framework has four core tenets:
+The framework has four core tenets.
 
 - **Configuration:** The framework comes with a configuration file that you can update with your intended brand attributes, including colors, typography, grid, forms, and more.
 - **Semantics:** HTML that is logical and written with accessibility in mind.

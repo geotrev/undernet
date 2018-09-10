@@ -59,6 +59,15 @@
 
 // flex property modifiers
 
+.is-flex-row {
+  display: flex !important;
+  flex-direction: row !important;
+}
+.is-flex-column {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
 .is-justified-center {
   justify-content: center !important;
 }
@@ -154,6 +163,7 @@
 
 .is-unstyled-list {
   list-style-type: none !important;
+  padding-left: 0 !important;
 }
 
 // A11y

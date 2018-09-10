@@ -616,13 +616,13 @@ $form-padding: 0 !default;
 $form-background: transparent !default;
 $form-box-shadow: none !default;
 $form-border: none !default;
-$form-font: $global-font-sans !default;
+$form-font-family: $global-font-sans !default;
 $form-radius: $global-border-radius !default;
 
 // Input + Textarea
 
 $input-font-size: $global-font-size !default;
-$input-font: $form-font !default;
+$input-font-family: $form-font-family !default;
 $input-box-shadow: none !default;
 $input-border: $global-border-width solid $gray800 !default;
 $input-padding: 12px !default;
@@ -648,16 +648,9 @@ $input-disabled-resize: none !default;
 
 // Radio and Checkbox
 
-$input-option-row-breakpoint: small !default;
-
-$input-option-row-padding-bottom: $global-space !default;
-$input-option-column-padding-bottom: $global-space !default;
-$input-option-padding: 0 !default;
-$input-option-margin: 0 12px 0 0 !default;
-$input-option-label-padding-right: $global-space !default;
-$input-option-label-padding-bottom: $global-space !default;
-$input-option-input-margin-right: $global-space / 2 !default;
-$input-option-margin-top: 8px !default;
+$input-check-label-padding: 0 0 16px 0 !default;
+$input-check-padding: 0 !default;
+$input-check-margin: 0 12px 0 0 !default;
 
 // Fieldset
 
@@ -665,18 +658,18 @@ $fieldset-border: $global-border-width solid $gray900 !default;
 $fieldset-border-radius: $form-radius !default;
 $fieldset-box-shadow: none !default;
 $fieldset-background: transparent !default;
-$fieldset-margin: 0 !default;
+$fieldset-margin: 0 0 $global-space 0 !default;
 $fieldset-padding: $global-space !default;
 
 // Fieldset legend
 
-$fieldset-legend-font: $form-font !default;
+$fieldset-legend-font-family: $form-font-family !default;
 $fieldset-legend-font-size: $global-font-size !default;
-$fieldset-legend-padding: 12px 20px !default;
+$fieldset-legend-padding: 6px 12px !default;
 $fieldset-legend-color: $gray200 !default;
 $fieldset-legend-background: $white !default;
-$fieldset-legend-box-shadow: 0 8px 30px $gray800 !default;
-$fieldset-legend-border: none !default;
+$fieldset-legend-box-shadow: none !default;
+$fieldset-legend-border: 2px solid $gray900 !default;
 $fieldset-legend-border-radius: $global-border-radius !default;
 
 // 6. Modals

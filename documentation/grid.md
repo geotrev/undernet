@@ -306,7 +306,7 @@ By default, a row will be vertically centered. To make the row top-aligned, add 
 </div>
 ```
 
-... or align bottom:
+... or align bottom.
 
 ```html
 <div class="fullscreen grid">
