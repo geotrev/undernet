@@ -40,7 +40,7 @@ var selectors = {
   VISIBLE: "data-visible",
   CLOSE: "data-close",
   TARGET: "data-target",
-  // aria
+  // accessibility
   ARIA_HIDDEN: "aria-hidden",
   ARIA_MODAL: "aria-modal",
   ROLE: "role"

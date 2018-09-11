@@ -10,30 +10,13 @@ export default class Article extends Component {
     super()
   }
 
-  componentPage() {
-    const components = ["/modals", "/accordions"]
-
-    components.map(urlStr => {
-      if (window.location.href.includes(urlStr)) {
-        return true
-      }
-    })
-
-    return false
-  }
-
   componentDidMount() {
-    if (this.componentPage()) {
-      Undernet.start()
-    }
-
+    Undernet.start()
     Prism.highlightAll()
   }
 
   componentWillUnmount() {
-    if (this.componentPage()) {
-      Undernet.stop()
-    }
+    Undernet.stop()
   }
 
   render() {

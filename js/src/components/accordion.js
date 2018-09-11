@@ -16,10 +16,11 @@ const selectors = {
   CONTENT: "data-content",
   TOGGLE_MULTIPLE: "data-toggle-multiple",
   PARENT: "data-parent",
-  // aria
+  // accessibility
   ARIA_EXPANDED: "aria-expanded",
   ARIA_CONTROLS: "aria-controls",
   ARIA_HIDDEN: "aria-hidden",
+  TAB_INDEX: "tabindex",
 }
 
 const events = {
@@ -57,8 +58,14 @@ export default class Accordion extends Utils {
     this.accordionButtons = this.getElements(
       `[${selectors.ACCORDION_CONTAINER}] [${selectors.TARGET}]`,
     )
-    this.accordionContents = this.getElements(
-      `[${selectors.ACCORDION_CONTAINER}] [${selectors.CONTENT}]`,
+
+    this.accordionContentsAttr = `[${selectors.ACCORDION_CONTAINER}] [${selectors.CONTENT}]`
+    this.accordionContents = this.getElements(this.accordionContentsAttr)
+
+    this.getFocusableElements(`[${selectors.ACCORDION_CONTAINER}] [${selectors.CONTENT}]`).forEach(
+      element => {
+        element.setAttribute(selectors.TAB_INDEX, "-1")
+      },
     )
 
     if (this.accordionButtons.length) {
@@ -76,6 +83,12 @@ export default class Accordion extends Utils {
         const contentHiddenState = contentRow.getAttribute(selectors.EXPANDED)
         const toggleContentHiddenState = contentHiddenState === "true" ? "false" : "true"
         content.setAttribute(selectors.ARIA_HIDDEN, toggleContentHiddenState)
+
+        if (toggleContentHiddenState === "false") {
+          this.getFocusableElements(`#${content.id}`).forEach(element => {
+            element.setAttribute(selectors.TAB_INDEX, null)
+          })
+        }
       })
     }
   }
@@ -124,15 +137,15 @@ export default class Accordion extends Utils {
     event.preventDefault()
 
     this.activeButton = event.target
-    const activeAccordionRow = this.activeButton.getAttribute(selectors.TARGET)
+    this.activeAccordionRowId = this.activeButton.getAttribute(selectors.TARGET)
 
-    this.activeRowAttr = this.getAccordionRowAttr(activeAccordionRow)
+    this.activeRowAttr = this.getAccordionRowAttr(this.activeAccordionRowId)
     this.activeRow = document.querySelector(this.activeRowAttr)
     this.activeContainerId = this.activeButton.getAttribute(selectors.PARENT)
     this.activeContainerAttr = `[${selectors.ACCORDION_CONTAINER}='${this.activeContainerId}']`
     this.activeContainer = document.querySelector(this.activeContainerAttr)
 
-    this.activeContent = document.getElementById(activeAccordionRow)
+    this.activeContent = document.getElementById(this.activeAccordionRowId)
 
     const accordionContentHasAttr = this.activeContent.hasAttribute(selectors.CONTENT)
     if (!accordionContentHasAttr) {
@@ -165,12 +178,17 @@ export default class Accordion extends Utils {
    */
   closeAllIfToggleable() {
     if (this.activeContainer.hasAttribute(selectors.TOGGLE_MULTIPLE)) return
+    this.allContentAttr = `${this.activeContainerAttr} [${selectors.CONTENT}]`
     const allRows = this.getElements(`${this.activeContainerAttr} [${selectors.EXPANDED}]`)
-    const allContent = this.getElements(`${this.activeContainerAttr} [${selectors.CONTENT}]`)
+    const allContent = this.getElements(this.allContentAttr)
     const allButtons = this.getElements(`${this.activeContainerAttr} [${selectors.TARGET}]`)
 
     allContent.forEach(content => {
       if (!(content === this.activeContent)) content.style.maxHeight = null
+    })
+
+    this.getFocusableElements(this.allContentAttr).forEach(element => {
+      element.setAttribute(selectors.TAB_INDEX, "-1")
     })
 
     this.toggleAttributeInCollection(allRows, selectors.EXPANDED, "true", "false")
@@ -180,13 +198,19 @@ export default class Accordion extends Utils {
   }
 
   /**
-   * Toggle a [data-accordion-button]'s related [data-accordion-content] element.
+   * Toggle a [data-accordion-button]'s corresponding [data-accordion-content] element.
    */
   toggleSelectedAccordion() {
     this.activeRow.setAttribute(selectors.EXPANDED, this.toggleExpandState)
     this.activeContent.setAttribute(selectors.CONTENT, this.toggleContentState)
     this.activeButton.setAttribute(selectors.ARIA_EXPANDED, this.toggleExpandState)
     this.activeContent.setAttribute(selectors.ARIA_HIDDEN, this.toggleHiddenState)
+
+    const activeContentBlock = `#${this.activeAccordionRowId}`
+    this.getFocusableElements(activeContentBlock).forEach(element => {
+      const value = this.toggleExpandState === "true" ? null : "-1"
+      element.setAttribute(selectors.TAB_INDEX, value)
+    })
 
     if (this.activeContent.style.maxHeight) {
       this.activeContent.style.maxHeight = null

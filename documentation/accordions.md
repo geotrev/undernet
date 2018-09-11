@@ -154,7 +154,7 @@ Two main pieces are required: an API call and correct HTML markup.
 
 ### HTML
 
-When making an accordion, there are two major considerations in its structure: the "wrapper" to encapsulate each accordion "row" (can be multiple), and each "row" which hold a button + corresponding content.
+When making an accordion, there are two major considerations in its structure: the "wrapper" to encapsulate each accordion "row" (can be multiple), and each "row" which hold a button + corresponding content block.
 
 ```html
 <div data-accordion="new-accordion" class="accordion">
@@ -171,22 +171,22 @@ When making an accordion, there are two major considerations in its structure: t
 </div>
 ```
 
-**Attributes**:
+#### Attributes
 - `data-accordion`: an attribute for the accordion wrapper. It should have a unique value.
 - `data-accordion-row`: an attribute for a row within a `data-accordion` wrapper. It should have a unique value matching to button's `data-target` attribute.
 - `data-parent`: an attribute on an accordion row's button. It should have a value equal to its row's `data-accordion-row` attribute.
 - `data-target`: an attribute on an accordion row's button. It should have a value equal to its content block's `id` attribute.
 
-**Stateful Attributes**:
+#### Stateful Attributes
 - `data-expanded` and `data-content`: Set to `true` and  `visible` respectively, to have a row expanded by default.
 
-**Accessibility**:
+#### Accessibility
 - `id`: an id to be placed on a header tag element per WAI-ARIA guidelines. The id on the header should match the `aria-labelledby` property on the row's content container, and wrap around the accordion row's button.
 - `aria-labelledby`: an attribute on an accordion row's content block. It should have the same value as the `id` attribute on the accordion header tag.
 
 [See WAI-ARIA documentation](https://www.w3.org/TR/wai-aria-practices-1.1/examples/accordion/accordion.html) on best-practices for the accordion UI pattern.
 
-**Styling:**
+#### Styling
 - `accordion`: gives wrapper styling to the accordion.
 - `accordion-row`: wrapper class for an accordion row's button and content block.
 - `accordion-button`: gives a row's button specific styling for the component.
