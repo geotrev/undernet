@@ -19,7 +19,7 @@ module.exports = {
       helpers: path.resolve(__dirname, "src/helpers/exports"),
       pages: path.resolve(__dirname, "src/pages/exports"),
       assets: path.resolve(__dirname, "src/assets/"),
-      articles: path.resolve(__dirname, "documentation/"),
+      docs: path.resolve(__dirname, "docs/"),
       undernet: path.resolve(__dirname, "js/dist/undernet"),
     },
   },

@@ -6,23 +6,23 @@ Forms are a critical part of a user's experience on the web. Undernet helps form
 
 Use consistently styled text and textarea elements. They should be wrapped in a label tag with appropriate matching `for`/`id` values.
 
-<label for="fieldset-name">
+<label for="example-name-1">
   Name
-  <input id="fieldset-name" type="text" value="" placeholder="Dr. Thomas Light" />
+  <input id="example-name-1" type="text" value="" placeholder="Dr. Thomas Light" />
 </label>
-<label for="fieldset-textarea">
+<label for="fieldset-textarea-1">
   Tell us about yourself:
-  <textarea id="fieldset-textarea" placeholder="I'm a big fan of..."></textarea>
+  <textarea id="fieldset-textarea-1" placeholder="I'm a big fan of..."></textarea>
 </label>
 
 ```html
-<label for="name">
+<label for="example-name-1">
   Name
-  <input id="name" type="text" value="" placeholder="Dr. Thomas Light" />
+  <input id="example-name-1" type="text" value="" placeholder="Dr. Thomas Light" />
 </label>
-<label for="textarea">
+<label for="example-textarea-1">
   Tell us about yourself:
-  <textarea id="textarea" placeholder="I'm a big fan of..."></textarea>
+  <textarea id="example-textarea-1" placeholder="I'm a big fan of..."></textarea>
 </label>
 ```
 
@@ -32,15 +32,15 @@ Undernet has an opinionated format for using labels, which is to keep your label
 
 The third, and possibly most important reason, is for accessibility. Although it isn't technically required to keep this information in the label tag, it gives an extra boost in click area.
 
-<label for="name">
+<label for="example-name-2">
   Name
-  <input id="name" type="text" value="" placeholder="Dr. Thomas Light" />
+  <input id="example-name-2" type="text" value="" placeholder="Dr. Thomas Light" />
 </label>
 
 ```html
-<label for="name">
+<label for="example-name-2">
   Name
-  <input id="name" type="text" value="" placeholder="Dr. Thomas Light" />
+  <input id="example-name-2" type="text" value="" placeholder="Dr. Thomas Light" />
 </label>
 ```
 
@@ -85,9 +85,9 @@ Use the fieldset tag to group form elements together. It should sit inside a for
         </label>
       </div>
       <div class="xsmall-12 columns has-no-padding-bottom">
-        <label for="fieldset-textarea">
+        <label for="fieldset-textarea-2">
           Tell us about yourself:
-          <textarea id="fieldset-textarea" placeholder="I'm a big fan of..."></textarea>
+          <textarea id="fieldset-textarea-2" placeholder="I'm a big fan of..."></textarea>
         </label>
       </div>
       <div class="column has-no-padding-bottom">
@@ -118,9 +118,9 @@ Use the fieldset tag to group form elements together. It should sit inside a for
         </label>
       </div>
       <div class="xsmall-12 columns has-no-padding-bottom">
-        <label for="fieldset-textarea">
+        <label for="fieldset-textarea-3">
           Tell us about yourself:
-          <textarea id="fieldset-textarea" placeholder="I'm a big fan of..."></textarea>
+          <textarea id="fieldset-textarea-3" placeholder="I'm a big fan of..."></textarea>
         </label>
       </div>
       <div class="column has-no-padding-bottom">
