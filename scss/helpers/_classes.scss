@@ -60,11 +60,9 @@
 // flex property modifiers
 
 .is-flex-row {
-  display: flex !important;
   flex-direction: row !important;
 }
 .is-flex-column {
-  display: flex !important;
   flex-direction: column !important;
 }
 
