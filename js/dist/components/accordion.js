@@ -117,7 +117,7 @@ function (_Utils) {
 
           if (toggleContentHiddenState === "false") {
             _this2.getFocusableElements("#".concat(content.id)).forEach(function (element) {
-              element.setAttribute(selectors.TAB_INDEX, null);
+              element.setAttribute(selectors.TAB_INDEX, "0");
             });
           }
         });
@@ -248,7 +248,7 @@ function (_Utils) {
       this.activeContent.setAttribute(selectors.ARIA_HIDDEN, this.toggleHiddenState);
       var activeContentBlock = "#".concat(this.activeAccordionRowId);
       this.getFocusableElements(activeContentBlock).forEach(function (element) {
-        var value = _this5.toggleExpandState === "true" ? null : "-1";
+        var value = _this5.toggleExpandState === "true" ? "0" : "-1";
         element.setAttribute(selectors.TAB_INDEX, value);
       });
 

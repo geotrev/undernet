@@ -20,6 +20,7 @@ const selectors = {
   ARIA_HIDDEN: "aria-hidden",
   ARIA_MODAL: "aria-modal",
   ROLE: "role",
+  TAB_INDEX: "tabindex",
 }
 
 const events = {
@@ -65,6 +66,10 @@ export default class Modal extends Utils {
     this.modalButtons = this.getElements(`[${selectors.MODAL_BUTTON}]`)
     this.closeButtons = this.getElements(this.closeButtonAttr)
 
+    this.getFocusableElements(this.modalContainerAttr).forEach(element => {
+      element.setAttribute(selectors.TAB_INDEX, "-1")
+    })
+
     if (this.modals.length) {
       this.modals.forEach(modal => {
         modal.setAttribute(selectors.ARIA_MODAL, "true")
@@ -106,27 +111,34 @@ export default class Modal extends Utils {
   renderModal(event) {
     this.modalButton = event.target
     this.activeModalId = this.modalButton.getAttribute(selectors.TARGET)
-    this.modalOverlayAttr = `[${selectors.MODAL_ID}='${this.activeModalId}']`
-    this.modalOverlay = document.querySelector(this.modalOverlayAttr)
+    this.activeModalOverlayAttr = `[${selectors.MODAL_ID}='${this.activeModalId}']`
+    this.activeModalOverlay = document.querySelector(this.activeModalOverlayAttr)
 
-    if (!this.modalOverlay) {
+    if (!this.activeModalOverlay) {
       throw messages.MISSING_MODAL
       return
     }
 
-    this.activeModalSelector = `${this.modalOverlayAttr} ${this.modalContainerAttr}`
+    this.activeModalSelector = `${this.activeModalOverlayAttr} ${this.modalContainerAttr}`
     this.activeModal = document.querySelector(this.activeModalSelector)
-    this.modalCloseButtons = this.getElements(`${this.modalOverlayAttr} ${this.closeButtonAttr}`)
+    this.modalCloseButtons = this.getElements(
+      `${this.activeModalOverlayAttr} ${this.closeButtonAttr}`,
+    )
+
+    this.getFocusableElements(this.activeModalSelector).forEach(element => {
+      console.log(element)
+      element.setAttribute(selectors.TAB_INDEX, "0")
+    })
 
     this.handleScrollStop()
     this.captureFocus(this.activeModalSelector)
-    this.modalOverlay.setAttribute(selectors.ARIA_HIDDEN, "false")
+    this.activeModalOverlay.setAttribute(selectors.ARIA_HIDDEN, "false")
     this.activeModal.setAttribute("tabindex", "-1")
-    this.modalOverlay.setAttribute(selectors.VISIBLE, "true")
+    this.activeModalOverlay.setAttribute(selectors.VISIBLE, "true")
     this.activeModal.focus()
 
     // offset slight scroll caused by this.activeModal.focus()
-    this.modalOverlay.scrollTop = 0
+    this.activeModalOverlay.scrollTop = 0
 
     // begin listening to events
     document.addEventListener(events.KEYDOWN, this.handleEscapeKeyPress)
@@ -142,12 +154,17 @@ export default class Modal extends Utils {
    */
   handleModalClose(event) {
     event.preventDefault()
-    this.modalOverlay.setAttribute(selectors.VISIBLE, "false")
+    this.activeModalOverlay.setAttribute(selectors.VISIBLE, "false")
     this.handleReturnFocus()
     this.handleScrollRestore()
     this.releaseFocus()
-    this.modalOverlay.setAttribute(selectors.ARIA_HIDDEN, "true")
+    this.activeModalOverlay.setAttribute(selectors.ARIA_HIDDEN, "true")
     this.activeModal.removeAttribute("tabindex")
+
+    this.getFocusableElements(this.activeModalSelector).forEach(element => {
+      console.log(element)
+      element.setAttribute(selectors.TAB_INDEX, "-1")
+    })
 
     // stop listening to events
     document.removeEventListener(events.KEYDOWN, this.handleEscapeKeyPress)
@@ -162,7 +179,7 @@ export default class Modal extends Utils {
    * @param {Object} event - Event (keydown)
    */
   handleOverlayClick(event) {
-    if (event.target !== this.modalOverlay) return
+    if (event.target !== this.activeModalOverlay) return
     this.handleModalClose(event)
   }
 

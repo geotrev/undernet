@@ -86,7 +86,7 @@ export default class Accordion extends Utils {
 
         if (toggleContentHiddenState === "false") {
           this.getFocusableElements(`#${content.id}`).forEach(element => {
-            element.setAttribute(selectors.TAB_INDEX, null)
+            element.setAttribute(selectors.TAB_INDEX, "0")
           })
         }
       })
@@ -208,7 +208,7 @@ export default class Accordion extends Utils {
 
     const activeContentBlock = `#${this.activeAccordionRowId}`
     this.getFocusableElements(activeContentBlock).forEach(element => {
-      const value = this.toggleExpandState === "true" ? null : "-1"
+      const value = this.toggleExpandState === "true" ? "0" : "-1"
       element.setAttribute(selectors.TAB_INDEX, value)
     })
 

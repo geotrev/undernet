@@ -43,7 +43,8 @@ var selectors = {
   // accessibility
   ARIA_HIDDEN: "aria-hidden",
   ARIA_MODAL: "aria-modal",
-  ROLE: "role"
+  ROLE: "role",
+  TAB_INDEX: "tabindex"
 };
 var events = {
   KEYDOWN: "keydown",
@@ -99,6 +100,9 @@ function (_Utils) {
       this.modals = this.getElements(this.modalContainerAttr);
       this.modalButtons = this.getElements("[".concat(selectors.MODAL_BUTTON, "]"));
       this.closeButtons = this.getElements(this.closeButtonAttr);
+      this.getFocusableElements(this.modalContainerAttr).forEach(function (element) {
+        element.setAttribute(selectors.TAB_INDEX, "-1");
+      });
 
       if (this.modals.length) {
         this.modals.forEach(function (modal) {
@@ -151,25 +155,29 @@ function (_Utils) {
 
       this.modalButton = event.target;
       this.activeModalId = this.modalButton.getAttribute(selectors.TARGET);
-      this.modalOverlayAttr = "[".concat(selectors.MODAL_ID, "='").concat(this.activeModalId, "']");
-      this.modalOverlay = document.querySelector(this.modalOverlayAttr);
+      this.activeModalOverlayAttr = "[".concat(selectors.MODAL_ID, "='").concat(this.activeModalId, "']");
+      this.activeModalOverlay = document.querySelector(this.activeModalOverlayAttr);
 
-      if (!this.modalOverlay) {
+      if (!this.activeModalOverlay) {
         throw messages.MISSING_MODAL;
         return;
       }
 
-      this.activeModalSelector = "".concat(this.modalOverlayAttr, " ").concat(this.modalContainerAttr);
+      this.activeModalSelector = "".concat(this.activeModalOverlayAttr, " ").concat(this.modalContainerAttr);
       this.activeModal = document.querySelector(this.activeModalSelector);
-      this.modalCloseButtons = this.getElements("".concat(this.modalOverlayAttr, " ").concat(this.closeButtonAttr));
+      this.modalCloseButtons = this.getElements("".concat(this.activeModalOverlayAttr, " ").concat(this.closeButtonAttr));
+      this.getFocusableElements(this.activeModalSelector).forEach(function (element) {
+        console.log(element);
+        element.setAttribute(selectors.TAB_INDEX, "0");
+      });
       this.handleScrollStop();
       this.captureFocus(this.activeModalSelector);
-      this.modalOverlay.setAttribute(selectors.ARIA_HIDDEN, "false");
+      this.activeModalOverlay.setAttribute(selectors.ARIA_HIDDEN, "false");
       this.activeModal.setAttribute("tabindex", "-1");
-      this.modalOverlay.setAttribute(selectors.VISIBLE, "true");
+      this.activeModalOverlay.setAttribute(selectors.VISIBLE, "true");
       this.activeModal.focus(); // offset slight scroll caused by this.activeModal.focus()
 
-      this.modalOverlay.scrollTop = 0; // begin listening to events
+      this.activeModalOverlay.scrollTop = 0; // begin listening to events
 
       document.addEventListener(events.KEYDOWN, this.handleEscapeKeyPress);
       document.addEventListener(events.CLICK, this.handleOverlayClick);
@@ -188,12 +196,16 @@ function (_Utils) {
       var _this5 = this;
 
       event.preventDefault();
-      this.modalOverlay.setAttribute(selectors.VISIBLE, "false");
+      this.activeModalOverlay.setAttribute(selectors.VISIBLE, "false");
       this.handleReturnFocus();
       this.handleScrollRestore();
       this.releaseFocus();
-      this.modalOverlay.setAttribute(selectors.ARIA_HIDDEN, "true");
-      this.activeModal.removeAttribute("tabindex"); // stop listening to events
+      this.activeModalOverlay.setAttribute(selectors.ARIA_HIDDEN, "true");
+      this.activeModal.removeAttribute("tabindex");
+      this.getFocusableElements(this.activeModalSelector).forEach(function (element) {
+        console.log(element);
+        element.setAttribute(selectors.TAB_INDEX, "-1");
+      }); // stop listening to events
 
       document.removeEventListener(events.KEYDOWN, this.handleEscapeKeyPress);
       document.removeEventListener(events.CLICK, this.handleOverlayClick);
@@ -209,7 +221,7 @@ function (_Utils) {
   }, {
     key: "handleOverlayClick",
     value: function handleOverlayClick(event) {
-      if (event.target !== this.modalOverlay) return;
+      if (event.target !== this.activeModalOverlay) return;
       this.handleModalClose(event);
     }
     /**
