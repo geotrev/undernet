@@ -1,4 +1,4 @@
-# Accessibility
+# Accessibility</h1>
 
 Undernet's interactive components are built with the specific intention of being accessible to assistive technologies. To that end, Undernet tries to handle much of those complexities "under the hood" so developers don't need to worry about adding them manually.
 
@@ -31,4 +31,4 @@ Undernet.Utils.releaseFocus()
 
 The `releaseFocus` method doesn't need any arguments, as it assumes you want to release focus from the most recent instance of `captureFocus`.
 
-<p class="has-right-text">Is this article inaccurate? <a href="https://www.github.com/geotrev/undernet/wiki/accessibility">Edit this page on Github!</a></p>
+<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/accessibility">Edit this page on Github!</a></p>

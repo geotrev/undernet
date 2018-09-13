@@ -21,4 +21,4 @@ $ yarn add undernet
 
 Learn how to link your scripts and styles in the [Branding](/docs/overview/branding) and [JavaScript](/docs/overview/javascript) articles, respectively, for both of the above setup options.
 
-<p class="has-right-text">Is this article inaccurate? <a href="https://www.github.com/geotrev/undernet/wiki/downloads">Edit this page on Github!</a></p>
+<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/downloads">Edit this page on Github!</a></p>

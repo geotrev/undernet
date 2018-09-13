@@ -81,6 +81,7 @@
 .is-justified-between {
   justify-content: space-between !important;
 }
+
 .is-aligned-center {
   align-items: center !important;
 }
@@ -93,9 +94,7 @@
 .is-aligned-stretch {
   align-items: stretch !important;
 }
-.is-aligned-baseline {
-  align-items: baseline !important;
-}
+
 .has-content-center {
   align-content: center !important;
 }
@@ -113,6 +112,20 @@
 }
 .has-content-stretch {
   align-content: stretch !important;
+}
+
+.can-grow {
+  flex-grow: 1 !important;
+}
+.can-shrink {
+  flex-shrink: 1 !important;
+}
+
+.wont-grow {
+  flex-grow: 0 !important;
+}
+.wont-shrink {
+  flex-shrink: 0 !important;
 }
 
 // spacing

@@ -203,7 +203,7 @@ For the modal itself, you need a few more things.
 
 [See WAI-ARIA documentation](https://www.w3.org/TR/wai-aria-practices-1.1/examples/dialog-modal/dialog.html) on best-practices for the dialog modal UI pattern.
 
-#### Styling
+#### Styling Classes
 
 - `modal-overlay`: gives overlay styling for the modal background.
 - `modal-dialog`: container for the dialog's contents.
@@ -230,4 +230,4 @@ Undernet.start()
 Undernet.Modals.start()
 ```
 
-<p class="has-right-text">Is this article inaccurate? <a href="https://www.github.com/geotrev/undernet/wiki/modals">Edit this page on Github!</a></p>
+<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/modals">Edit this page on Github!</a></p>

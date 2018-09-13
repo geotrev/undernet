@@ -186,7 +186,7 @@ When making an accordion, there are two major considerations in its structure: t
 
 [See WAI-ARIA documentation](https://www.w3.org/TR/wai-aria-practices-1.1/examples/accordion/accordion.html) on best-practices for the accordion UI pattern.
 
-#### Styling
+#### Styling Classes
 - `accordion`: gives wrapper styling to the accordion.
 - `accordion-row`: wrapper class for an accordion row's button and content block.
 - `accordion-button`: gives a row's button specific styling for the component.
@@ -211,4 +211,4 @@ Undernet.start()
 Undernet.Accordions.start()
 ```
 
-<p class="has-right-text">Is this article inaccurate? <a href="https://www.github.com/geotrev/undernet/wiki/accordions">Edit this page on Github!</a></p>
+<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/accordions">Edit this page on Github!</a></p>

@@ -108,4 +108,4 @@ Ordered and unordered lists can be styled as well. You can change the bullet sty
 </ol>
 ```
 
-<p class="has-right-text">Is this article inaccurate? <a href="https://www.github.com/geotrev/undernet/wiki/typography">Edit this page on Github!</a></p>
+<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/typography">Edit this page on Github!</a></p>

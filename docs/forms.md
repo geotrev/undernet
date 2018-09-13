@@ -167,4 +167,4 @@ The `disabled` class will visually dim the control, but not disable it. The inpu
 </label>
 ```
 
-<p class="has-right-text">Is this article inaccurate? <a href="https://www.github.com/geotrev/undernet/wiki/forms">Edit this page on Github!</a></p>
+<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/forms">Edit this page on Github!</a></p>

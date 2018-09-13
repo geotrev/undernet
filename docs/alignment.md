@@ -1,13 +1,179 @@
 # Alignment
 
-Included in the CSS are a few dozen utility classes for arranging content. They can be used with or without the [flex grid](/docs/elements/grid).
+Included in the CSS are a few dozen utility classes for arranging content. They can be used with or without the [flex grid](/docs/elements/grid). As such, these classes are `flex` modifiers and depend on the element also having an attribute of `display: flex;`.
 
 ## Rows & Columns
 
+To manually arrange children in a container as in a row or in a column, you can use these helper classes.
+
+<div class="row">
+  <div class="small-6 xsmall-12 columns">
+    <p><code>.is-flex-row</code></p>
+    <div class="is-flex filler-bg is-flex-row">
+      <div class="can-grow filler has-padding has-margin"></div>
+      <div class="can-grow filler has-padding has-margin"></div>
+    </div>
+  </div>
+  <div class="small-6 xsmall-12 columns">
+    <p><code>.is-flex-column</code></p>
+    <div class="is-flex filler-bg is-flex-column">
+      <div class="filler has-margin has-padding"></div>
+      <div class="filler has-margin has-padding"></div>
+    </div>
+  </div>
+</div>
+
 ## Justify content
 
-## Align Items
+To manually apply a `justify-content` property to an element's horizontal position (or vertical if the container is a flex column), use the helper class `is-justified-X`, where `X` is the position you want.
 
-## Align Content
+<div class="row">
+  <div class="large-3 small-6 xsmall-12 columns">
+    <p><code>.is-justified-start</code></p>
+    <div class="static-box is-flex filler-bg is-justified-start">
+      <div class="filler has-padding has-margin"></div>
+    </div>
+  </div>
+  <div class="large-3 small-6 xsmall-12 columns">
+    <p><code>.is-justified-center</code></p>
+    <div class="static-box is-flex filler-bg is-justified-center">
+      <div class="filler has-padding has-margin"></div>
+    </div>
+  </div>
+  <div class="large-3 small-6 xsmall-12 columns">
+    <p><code>.is-justified-end</code></p>
+    <div class="static-box is-flex filler-bg is-justified-end">
+      <div class="filler has-padding has-margin"></div>
+    </div>
+  </div>
+  <div class="large-3 small-6 xsmall-12 columns">
+    <p><code>.is-justified-around</code></p>
+    <div class="static-box is-flex filler-bg is-justified-around">
+      <div class="filler has-padding has-margin"></div>
+      <div class="filler has-padding has-margin"></div>
+    </div>
+  </div>
+  <div class="large-3 small-6 xsmall-12 columns">
+    <p><code>.is-justified-between</code></p>
+    <div class="static-box is-flex filler-bg is-justified-between">
+      <div class="filler has-padding has-margin"></div>
+      <div class="filler has-padding has-margin"></div>
+    </div>
+  </div>
+</div>
 
-<p class="has-right-text">Is this article inaccurate? <a href="https://www.github.com/geotrev/undernet/wiki/alignment">Edit this page on Github!</a></p>
+## Align Items & Align Content
+
+To manually apply `align-items` or `align-content` properties to an element for vertical positioning (or horizontal if the container is a flex column), use the helper class `is-aligned-X` or `has-content-X`, respectively, where `X` is the position you want.
+
+### `align-items`
+
+<div class="row">
+  <div class="large-3 small-6 xsmall-12 columns">
+    <p><code>.is-aligned-start</code></p>
+    <div class="static-box is-flex filler-bg is-aligned-start">
+      <div class="filler has-padding has-margin"></div>
+    </div>
+  </div>
+  <div class="large-3 small-6 xsmall-12 columns">
+    <p><code>.is-aligned-center</code></p>
+    <div class="static-box is-flex filler-bg is-aligned-center">
+      <div class="filler has-padding has-margin"></div>
+    </div>
+  </div>
+  <div class="large-3 small-6 xsmall-12 columns">
+    <p><code>.is-aligned-end</code></p>
+    <div class="static-box is-flex filler-bg is-aligned-end">
+      <div class="filler has-padding has-margin"></div>
+    </div>
+  </div>
+  <div class="large-3 small-6 xsmall-12 columns">
+    <p><code>.is-aligned-stretch</code></p>
+    <div class="static-box is-flex filler-bg is-aligned-stretch">
+      <div class="filler has-padding has-margin"></div>
+    </div>
+  </div>
+</div>
+
+### `align-content`
+
+<div class="row">
+  <div class="large-3 small-6 xsmall-12 columns">
+    <p><code>.has-content-start</code></p>
+    <div class="static-box row filler-bg has-content-start">
+      <div class="filler xsmall-12 columns has-padding has-margin has-no-margin-left has-no-margin-right"></div>
+      <div class="filler xsmall-12 columns has-padding has-margin has-no-margin-left has-no-margin-right"></div>
+    </div>
+  </div>
+  <div class="large-3 small-6 xsmall-12 columns">
+    <p><code>.has-content-center</code></p>
+    <div class="static-box row filler-bg has-content-center">
+      <div class="filler xsmall-12 columns has-padding has-margin has-no-margin-left has-no-margin-right"></div>
+      <div class="filler xsmall-12 columns has-padding has-margin has-no-margin-left has-no-margin-right"></div>
+    </div>
+  </div>
+  <div class="large-3 small-6 xsmall-12 columns">
+    <p><code>.has-content-end</code></p>
+    <div class="static-box row filler-bg has-content-end">
+      <div class="filler xsmall-12 columns has-padding has-margin has-no-margin-left has-no-margin-right"></div>
+      <div class="filler xsmall-12 columns has-padding has-margin has-no-margin-left has-no-margin-right"></div>
+    </div>
+  </div>
+  <div class="large-3 small-6 xsmall-12 columns">
+    <p><code>.has-content-around</code></p>
+    <div class="static-box row filler-bg has-content-around">
+      <div class="filler xsmall-12 columns has-padding has-margin has-no-margin-left has-no-margin-right"></div>
+      <div class="filler xsmall-12 columns has-padding has-margin has-no-margin-left has-no-margin-right"></div>
+    </div>
+  </div>
+  <div class="large-3 small-6 xsmall-12 columns">
+    <p><code>.has-content-between</code></p>
+    <div class="static-box row filler-bg has-content-between">
+      <div class="filler xsmall-12 columns has-padding has-margin has-no-margin-left has-no-margin-right"></div>
+      <div class="filler xsmall-12 columns has-padding has-margin has-no-margin-left has-no-margin-right"></div>
+    </div>
+  </div>
+  <div class="large-3 small-6 xsmall-12 columns">
+    <p><code>.has-content-stretch</code></p>
+    <div class="static-box row filler-bg has-content-stretch">
+      <div class="filler xsmall-12 columns has-padding has-margin has-no-margin-left has-no-margin-right"></div>
+      <div class="filler xsmall-12 columns has-padding has-margin has-no-margin-left has-no-margin-right"></div>
+    </div>
+  </div>
+</div>
+
+## Grow & Shrink
+
+To manually set elements in a container to grow or shrink, add the class `can-X`, where `X` is `grow` or `shrink`. Similarly you can force the elements to not grow or shrink with `wont-X`.
+
+<div class="row">
+  <div class="large-6 xsmall-12 columns">
+    <div class="is-flex filler-bg is-flex-row">
+      <div class="can-grow filler has-padding has-margin">.can-grow</div>
+      <div class="can-grow filler has-padding has-margin">.can-grow</div>
+    </div>
+  </div>
+  <div class="large-6 xsmall-12 columns">
+    <div class="is-flex filler-bg is-flex-row">
+      <div class="wont-grow filler has-padding has-margin">.wont-grow</div>
+      <div class="wont-grow filler has-padding has-margin">.wont-grow</div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="large-6 xsmall-12 columns">
+    <div class="is-flex filler-bg is-flex-row">
+      <div class="can-shrink wont-grow filler has-padding has-margin">.can-shrink.wont-grow</div>
+      <div class="can-shrink wont-grow filler has-padding has-margin">.can-shrink.wont-grow</div>
+    </div>
+  </div>
+  <div class="large-6 xsmall-12 columns">
+    <div class="is-flex filler-bg is-flex-row">
+      <div class="wont-shrink can-grow filler has-padding has-margin">.wont-shrink.can-grow</div>
+      <div class="wont-shrink can-grow filler has-padding has-margin">.wont-shrink.can-grow</div>
+    </div>
+  </div>
+</div>
+
+<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/alignment">Edit this page on Github!</a></p>
