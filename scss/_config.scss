@@ -28,7 +28,13 @@
 $scope: "" !default;
 
 $global-space: 16px !default;
-$global-ease: ease-out 0.2s !default;
+
+$spacing-increments: (
+  xsmall: $global-space * 0.5,
+  small: $global-space * 0.75,
+  large: $global-space * 1.5,
+  xlarge: $global-space * 2
+) !default;
 
 $global-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu,
   Cantarell, "Helvetica Neue", sans-serif !default;
@@ -41,7 +47,9 @@ $global-font-weight-bold: bold !default;
 $global-font-style-normal: normal !default;
 $global-font-style-italic: italic !default;
 $global-line-height: 1.5 !default;
-$global-transition-ease: cubic-bezier(0.12, 0.72, 0.58, 1.03) !default;
+
+$global-ease: cubic-bezier(0.12, 0.72, 0.58, 1.03) !default;
+$global-transition: ease-out 0.2s !default;
 
 $primary-color: #d15ded !default;
 $secondary-color: #3e46af !default;
@@ -55,25 +63,29 @@ $gray800: #888 !default;
 $gray900: #dedede !default;
 $white: #ffffff !default;
 
-$primary-palette: (
-  primary-color: $primary-color,
-  secondary-color: $secondary-color,
-  tertiary-color: $tertiary-color,
-  black: $black,
-  gray100: $gray100,
-  gray200: $gray200,
-  gray400: $gray400,
-  gray600: $gray600,
-  gray800: $gray800,
-  gray900: $gray900,
-  white: $white
-) !default;
-
 $status-palette: (
   warning: khaki,
   success: #66cc00,
   destroy: #fc6868,
   notice: steelblue
+) !default;
+
+// used for text and bg color utilities in helpers/_classes.scss
+$full-palette: map-merge(
+  (
+    primary-color: $primary-color,
+    secondary-color: $secondary-color,
+    tertiary-color: $tertiary-color,
+    black: $black,
+    gray100: $gray100,
+    gray200: $gray200,
+    gray400: $gray400,
+    gray600: $gray600,
+    gray800: $gray800,
+    gray900: $gray900,
+    white: $white
+  ),
+  $status-palette
 ) !default;
 
 $global-border-radius: 4px !default;
@@ -677,7 +689,7 @@ $fieldset-legend-border-radius: $global-border-radius !default;
 
 $modal-overlay-color: rgba(0, 0, 0, 0.5) !default;
 $modal-transition-duration: 0.5s !default;
-$modal-transition-ease: $global-transition-ease !default;
+$modal-transition-ease: $global-ease !default;
 
 $modal-container-background-color: $white !default;
 $modal-container-border-radius: $global-border-radius !default;
@@ -696,7 +708,7 @@ $modal-vertical-breakpoint: breakpoint(small) !default;
 $accordion-border: $global-border-width solid $gray900 !default;
 $accordion-border-radius: $global-border-radius !default;
 $accordion-transition-duration: 0.5s !default;
-$accordion-transition-ease: $global-transition-ease !default;
+$accordion-transition-ease: $global-ease !default;
 
 $accordion-button-color: $primary-color !default;
 $accordion-button-background: $white !default;

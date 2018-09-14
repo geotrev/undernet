@@ -21,7 +21,7 @@ button,
   padding: $button-padding;
   text-align: center;
   text-decoration: $button-decoration;
-  transition: $global-ease;
+  transition: $global-transition;
 
   @each $state, $properties in $button-base {
     @if $state != "default" {

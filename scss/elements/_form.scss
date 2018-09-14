@@ -127,7 +127,7 @@ input[type="time"],
 input[type="url"],
 input[type="week"],
 textarea {
-  transition: $global-ease;
+  transition: $global-transition;
 
   &:focus,
   &:active {
@@ -140,6 +140,6 @@ textarea {
     background: $input-hover-background;
     border: $input-hover-border;
     box-shadow: $input-hover-box-shadow;
-    transition: $global-ease;
+    transition: $global-transition;
   }
 }

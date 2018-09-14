@@ -21,10 +21,10 @@
   font-weight: $global-font-weight-bold !important;
 }
 .is-italic {
-  font-weight: $global-font-style-italic !important;
+  font-style: $global-font-style-italic !important;
 }
 
-@each $name, $color in $primary-palette {
+@each $name, $color in $full-palette {
   .has-#{$name}-text {
     color: $color !important;
   }
@@ -168,6 +168,41 @@
 
 .has-no-padding-left {
   padding-left: 0 !important;
+}
+
+.has-padding {
+  padding: $global-space !important;
+}
+.has-margin {
+  margin: $global-space !important;
+}
+
+@each $side in left, right, top, bottom {
+  .has-padding-#{$side} {
+    padding: $global-space !important;
+  }
+  .has-margin-#{$side} {
+    margin: $global-space !important;
+  }
+}
+
+@each $size, $value in $spacing-increments {
+  .has-padding-#{$size} {
+    padding: $value !important;
+  }
+  .has-margin-#{$size} {
+    margin: $value !important;
+  }
+
+  @each $side in left, right, top, bottom {
+    .has-margin-#{$side}-#{$size} {
+      margin-#{$side}: $value !important;
+    }
+
+    .has-padding-#{$side}-#{$size} {
+      padding-#{$side}: $value !important;
+    }
+  }
 }
 
 // lists
