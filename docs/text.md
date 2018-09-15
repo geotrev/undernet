@@ -6,8 +6,8 @@ When you need to add custom font styles in specific places, rely on these utilit
 
 Change an element and/or it's children to use sans or sans-serif font family as defined in your `_config.scss`.
 
-<p class="has-sans-font">I'm in sans-serif style!</p>
-<p class="has-serif-font">I'm in serif style!</p>
+<p class="filler has-padding has-sans-font">I'm in sans-serif style!</p>
+<p class="filler has-padding has-serif-font">I'm in serif style!</p>
 
 ```html
 <p class="has-sans-font">I'm in sans-serif style!</p>
@@ -18,9 +18,9 @@ Change an element and/or it's children to use sans or sans-serif font family as 
 
 Align text left, right, or center.
 
-<p class="has-left-text">I'm aligned left!</p>
-<p class="has-center-text">I'm aligned center!</p>
-<p class="has-right-text">I'm aligned right!</p>
+<p class="filler has-padding has-left-text">I'm aligned left!</p>
+<p class="filler has-padding has-center-text">I'm aligned center!</p>
+<p class="filler has-padding has-right-text">I'm aligned right!</p>
 
 ```html
 <p class="has-sans-font">I'm in sans-serif style!</p>
@@ -31,8 +31,8 @@ Align text left, right, or center.
 
 Make your font bold or italic.
 
-<p class="is-bold">I'm bold!</p>
-<p class="is-italic">I'm italic!</p>
+<p class="filler has-padding is-bold">I'm bold!</p>
+<p class="filler has-padding is-italic">I'm italic!</p>
 
 ```html
 <p class="is-bold">I'm bold!</p>

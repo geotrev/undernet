@@ -37,7 +37,9 @@ These maps output their keys and values as css properties. This means you can ad
 Paragraphs use the default font size, with a margin bottom. All text (like what you're reading now) uses paragraph style as the default.
 
 ```html
-<p>Paragraphs use the default font size, with a margin bottom. All text (like what you're reading now) uses paragraph style as the default. Just a regular old paragraph. I debated using a lorem ipsum generator here, but I think typing out coherent thoughts is on the upswing.</p>
+<p>
+  Paragraphs use the default font size, with a margin bottom. All text (like what you're reading now) uses paragraph style as the default. Just a regular old paragraph. I debated using a lorem ipsum generator here, but I think typing out coherent thoughts is on the upswing.
+</p>
 ```
 
 Write long-form, pre-formatted text with ease:

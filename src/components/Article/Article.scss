@@ -9,19 +9,10 @@
     background: $gray900;
     border-radius: $global-border-radius;
     margin-bottom: 1rem;
-
-    &.has-padding {
-      padding: 1rem;
-    }
-
-    &.has-margin {
-      margin: 4px;
-    }
   }
 
-  .static-box {
-    height: 150px;
-    width: 150px;
+  .static-height {
+    height: 200px;
   }
 
   h2,

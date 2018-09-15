@@ -10,12 +10,12 @@ Switch `$column-order-classes` to `true` in `_config.scss` to use order modifier
   <div class="row">
     <div class="xsmall-order-2 large-order-1 columns has-no-padding-bottom">
       <p class="filler has-padding has-primary-color-bg">
-        Ordered last when small, first when large
+        .xsmall-order-2.large-order-1
       </p>
     </div>
     <div class="xsmall-order-1 large-order-2 columns has-no-padding-bottom">
       <p class="filler has-padding has-secondary-color-bg">
-        Ordered first when small, last when large
+        .xsmall-order-1.large-order-2
       </p>
     </div>
   </div>
@@ -24,12 +24,8 @@ Switch `$column-order-classes` to `true` in `_config.scss` to use order modifier
 ```html
 <div class="grid">
   <div class="row">
-    <div class="xsmall-order-2 large-order-1 columns">
-      Ordered last when small, first when large
-    </div>
-    <div class="xsmall-order-1 large-order-2 columns">
-      Ordered first when small, last when large
-    </div>
+    <div class="xsmall-order-2 large-order-1 columns">...</div>
+    <div class="xsmall-order-1 large-order-2 columns">...</div>
   </div>
 </div>
 ```
@@ -40,11 +36,15 @@ You can also use traditional offset if you need to break out of the grid. Switch
 
 <div class="grid filler-bg">
   <div class="row">
-    <div class="xsmall-offset-0 large-offset-3 xsmall-3 columns has-no-padding-bottom">
-      <p class="filler has-padding has-primary-color-bg">Quarter-width column has no offset at small widths, 3 columns offset at large.</p>
+    <div class="xsmall-offset-0 large-offset-2 xsmall-4 columns has-no-padding-bottom">
+      <p class="filler has-padding has-primary-color-bg">
+        .xsmall-offset-0.large-offset-2
+      </p>
     </div>
     <div class="xsmall-offset-0 large-offset-6 xsmall-6 columns has-no-padding-bottom">
-      <p class="filler has-padding has-secondary-color-bg">Half-width column has no offset at small widths, 6 columns offset at large.</p>
+      <p class="filler has-padding has-secondary-color-bg">
+        .xsmall-offset-0.large-offset-6
+      </p>
     </div>
   </div>
 </div>
@@ -52,12 +52,8 @@ You can also use traditional offset if you need to break out of the grid. Switch
 ```html
 <div class="grid">
   <div class="row">
-    <div class="xsmall-offset-0 large-offset-3 xsmall-3 columns">
-      <p>Quarter-width column has no offset at small widths, 3 columns offset at large.</p>
-    </div>
-    <div class="xsmall-offset-0 large-offset-6 xsmall-6 columns">
-      <p>Half-width column has no offset at small widths, 6 columns offset at large.</p>
-    </div>
+    <div class="xsmall-offset-0 large-offset-2 xsmall-4 columns">...</div>
+    <div class="xsmall-offset-0 large-offset-6 xsmall-6 columns">...</div>
   </div>
 </div>
 ```

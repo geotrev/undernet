@@ -10,15 +10,15 @@ To manually arrange children in a container as in a row or in a column, you can 
   <div class="small-6 xsmall-12 columns">
     <p><code>.is-flex-row</code></p>
     <div class="is-flex filler-bg is-flex-row">
-      <div class="can-grow filler has-padding has-margin"></div>
-      <div class="can-grow filler has-padding has-margin"></div>
+      <div class="can-grow filler has-padding has-margin-1 can-shrink"></div>
+      <div class="can-grow filler has-padding has-margin-1 can-shrink"></div>
     </div>
   </div>
   <div class="small-6 xsmall-12 columns">
     <p><code>.is-flex-column</code></p>
     <div class="is-flex filler-bg is-flex-column">
-      <div class="filler has-margin has-padding"></div>
-      <div class="filler has-margin has-padding"></div>
+      <div class="filler has-margin-1 can-shrink has-padding"></div>
+      <div class="filler has-margin-1 can-shrink has-padding"></div>
     </div>
   </div>
 </div>
@@ -31,33 +31,33 @@ To manually apply a `justify-content` property to an element's horizontal positi
   <div class="large-3 small-6 xsmall-12 columns">
     <p><code>.is-justified-start</code></p>
     <div class="static-box is-flex filler-bg is-justified-start">
-      <div class="filler has-padding has-margin"></div>
+      <div class="filler has-padding has-margin-1 can-shrink"></div>
     </div>
   </div>
   <div class="large-3 small-6 xsmall-12 columns">
     <p><code>.is-justified-center</code></p>
     <div class="static-box is-flex filler-bg is-justified-center">
-      <div class="filler has-padding has-margin"></div>
+      <div class="filler has-padding has-margin-1 can-shrink"></div>
     </div>
   </div>
   <div class="large-3 small-6 xsmall-12 columns">
     <p><code>.is-justified-end</code></p>
     <div class="static-box is-flex filler-bg is-justified-end">
-      <div class="filler has-padding has-margin"></div>
+      <div class="filler has-padding has-margin-1 can-shrink"></div>
     </div>
   </div>
   <div class="large-3 small-6 xsmall-12 columns">
     <p><code>.is-justified-around</code></p>
     <div class="static-box is-flex filler-bg is-justified-around">
-      <div class="filler has-padding has-margin"></div>
-      <div class="filler has-padding has-margin"></div>
+      <div class="filler has-padding has-margin-1 can-shrink"></div>
+      <div class="filler has-padding has-margin-1 can-shrink"></div>
     </div>
   </div>
   <div class="large-3 small-6 xsmall-12 columns">
     <p><code>.is-justified-between</code></p>
     <div class="static-box is-flex filler-bg is-justified-between">
-      <div class="filler has-padding has-margin"></div>
-      <div class="filler has-padding has-margin"></div>
+      <div class="filler has-padding has-margin-1 can-shrink"></div>
+      <div class="filler has-padding has-margin-1 can-shrink"></div>
     </div>
   </div>
 </div>
@@ -66,78 +66,78 @@ To manually apply a `justify-content` property to an element's horizontal positi
 
 To manually apply `align-items` or `align-content` properties to an element for vertical positioning (or horizontal if the container is a flex column), use the helper class `is-aligned-X` or `has-content-X`, respectively, where `X` is the position you want.
 
-### `align-items`
+### align-items
 
 <div class="row">
   <div class="large-3 small-6 xsmall-12 columns">
     <p><code>.is-aligned-start</code></p>
-    <div class="static-box is-flex filler-bg is-aligned-start">
-      <div class="filler has-padding has-margin"></div>
+    <div class="static-height is-flex filler-bg is-aligned-start">
+      <div class="filler has-padding has-margin-1 can-shrink"></div>
     </div>
   </div>
   <div class="large-3 small-6 xsmall-12 columns">
     <p><code>.is-aligned-center</code></p>
-    <div class="static-box is-flex filler-bg is-aligned-center">
-      <div class="filler has-padding has-margin"></div>
+    <div class="static-height is-flex filler-bg is-aligned-center">
+      <div class="filler has-padding has-margin-1 can-shrink"></div>
     </div>
   </div>
   <div class="large-3 small-6 xsmall-12 columns">
     <p><code>.is-aligned-end</code></p>
-    <div class="static-box is-flex filler-bg is-aligned-end">
-      <div class="filler has-padding has-margin"></div>
+    <div class="static-height is-flex filler-bg is-aligned-end">
+      <div class="filler has-padding has-margin-1 can-shrink"></div>
     </div>
   </div>
   <div class="large-3 small-6 xsmall-12 columns">
     <p><code>.is-aligned-stretch</code></p>
-    <div class="static-box is-flex filler-bg is-aligned-stretch">
-      <div class="filler has-padding has-margin"></div>
+    <div class="static-height is-flex filler-bg is-aligned-stretch">
+      <div class="filler has-padding has-margin-1 can-shrink"></div>
     </div>
   </div>
 </div>
 
-### `align-content`
+### align-content
 
 <div class="row">
   <div class="large-3 small-6 xsmall-12 columns">
     <p><code>.has-content-start</code></p>
-    <div class="static-box row filler-bg has-content-start">
-      <div class="filler xsmall-12 columns has-padding has-margin has-no-margin-left has-no-margin-right"></div>
-      <div class="filler xsmall-12 columns has-padding has-margin has-no-margin-left has-no-margin-right"></div>
+    <div class="static-height row filler-bg has-content-start">
+      <div class="filler xsmall-12 columns has-padding has-margin-1 can-shrink has-no-margin-left has-no-margin-right"></div>
+      <div class="filler xsmall-12 columns has-padding has-margin-1 can-shrink has-no-margin-left has-no-margin-right"></div>
     </div>
   </div>
   <div class="large-3 small-6 xsmall-12 columns">
     <p><code>.has-content-center</code></p>
-    <div class="static-box row filler-bg has-content-center">
-      <div class="filler xsmall-12 columns has-padding has-margin has-no-margin-left has-no-margin-right"></div>
-      <div class="filler xsmall-12 columns has-padding has-margin has-no-margin-left has-no-margin-right"></div>
+    <div class="static-height row filler-bg has-content-center">
+      <div class="filler xsmall-12 columns has-padding has-margin-1 can-shrink has-no-margin-left has-no-margin-right"></div>
+      <div class="filler xsmall-12 columns has-padding has-margin-1 can-shrink has-no-margin-left has-no-margin-right"></div>
     </div>
   </div>
   <div class="large-3 small-6 xsmall-12 columns">
     <p><code>.has-content-end</code></p>
-    <div class="static-box row filler-bg has-content-end">
-      <div class="filler xsmall-12 columns has-padding has-margin has-no-margin-left has-no-margin-right"></div>
-      <div class="filler xsmall-12 columns has-padding has-margin has-no-margin-left has-no-margin-right"></div>
+    <div class="static-height row filler-bg has-content-end">
+      <div class="filler xsmall-12 columns has-padding has-margin-1 can-shrink has-no-margin-left has-no-margin-right"></div>
+      <div class="filler xsmall-12 columns has-padding has-margin-1 can-shrink has-no-margin-left has-no-margin-right"></div>
     </div>
   </div>
   <div class="large-3 small-6 xsmall-12 columns">
     <p><code>.has-content-around</code></p>
-    <div class="static-box row filler-bg has-content-around">
-      <div class="filler xsmall-12 columns has-padding has-margin has-no-margin-left has-no-margin-right"></div>
-      <div class="filler xsmall-12 columns has-padding has-margin has-no-margin-left has-no-margin-right"></div>
+    <div class="static-height row filler-bg has-content-around">
+      <div class="filler xsmall-12 columns has-padding has-margin-1 can-shrink has-no-margin-left has-no-margin-right"></div>
+      <div class="filler xsmall-12 columns has-padding has-margin-1 can-shrink has-no-margin-left has-no-margin-right"></div>
     </div>
   </div>
   <div class="large-3 small-6 xsmall-12 columns">
     <p><code>.has-content-between</code></p>
-    <div class="static-box row filler-bg has-content-between">
-      <div class="filler xsmall-12 columns has-padding has-margin has-no-margin-left has-no-margin-right"></div>
-      <div class="filler xsmall-12 columns has-padding has-margin has-no-margin-left has-no-margin-right"></div>
+    <div class="static-height row filler-bg has-content-between">
+      <div class="filler xsmall-12 columns has-padding has-margin-1 can-shrink has-no-margin-left has-no-margin-right"></div>
+      <div class="filler xsmall-12 columns has-padding has-margin-1 can-shrink has-no-margin-left has-no-margin-right"></div>
     </div>
   </div>
   <div class="large-3 small-6 xsmall-12 columns">
     <p><code>.has-content-stretch</code></p>
-    <div class="static-box row filler-bg has-content-stretch">
-      <div class="filler xsmall-12 columns has-padding has-margin has-no-margin-left has-no-margin-right"></div>
-      <div class="filler xsmall-12 columns has-padding has-margin has-no-margin-left has-no-margin-right"></div>
+    <div class="static-height row filler-bg has-content-stretch">
+      <div class="filler xsmall-12 columns has-padding has-margin-1 can-shrink has-no-margin-left has-no-margin-right"></div>
+      <div class="filler xsmall-12 columns has-padding has-margin-1 can-shrink has-no-margin-left has-no-margin-right"></div>
     </div>
   </div>
 </div>
@@ -149,14 +149,14 @@ To manually set elements in a container to grow or shrink, add the class `can-X`
 <div class="row">
   <div class="large-6 xsmall-12 columns">
     <div class="is-flex filler-bg is-flex-row">
-      <div class="can-grow filler has-padding has-margin">.can-grow</div>
-      <div class="can-grow filler has-padding has-margin">.can-grow</div>
+      <div class="can-grow filler has-padding has-margin-1 can-shrink">.can-grow</div>
+      <div class="can-grow filler has-padding has-margin-1 can-shrink">.can-grow</div>
     </div>
   </div>
   <div class="large-6 xsmall-12 columns">
     <div class="is-flex filler-bg is-flex-row">
-      <div class="wont-grow filler has-padding has-margin">.wont-grow</div>
-      <div class="wont-grow filler has-padding has-margin">.wont-grow</div>
+      <div class="wont-grow filler has-padding has-margin-1 can-shrink">.wont-grow</div>
+      <div class="wont-grow filler has-padding has-margin-1 can-shrink">.wont-grow</div>
     </div>
   </div>
 </div>
@@ -164,14 +164,14 @@ To manually set elements in a container to grow or shrink, add the class `can-X`
 <div class="row">
   <div class="large-6 xsmall-12 columns">
     <div class="is-flex filler-bg is-flex-row">
-      <div class="can-shrink wont-grow filler has-padding has-margin">.can-shrink.wont-grow</div>
-      <div class="can-shrink wont-grow filler has-padding has-margin">.can-shrink.wont-grow</div>
+      <div class="can-shrink wont-grow filler has-padding has-margin-1 can-shrink">.can-shrink.wont-grow</div>
+      <div class="can-shrink wont-grow filler has-padding has-margin-1 can-shrink">.can-shrink.wont-grow</div>
     </div>
   </div>
   <div class="large-6 xsmall-12 columns">
     <div class="is-flex filler-bg is-flex-row">
-      <div class="wont-shrink can-grow filler has-padding has-margin">.wont-shrink.can-grow</div>
-      <div class="wont-shrink can-grow filler has-padding has-margin">.wont-shrink.can-grow</div>
+      <div class="wont-shrink can-grow filler has-padding has-margin-1 can-shrink">.wont-shrink.can-grow</div>
+      <div class="wont-shrink can-grow filler has-padding has-margin-1 can-shrink">.wont-shrink.can-grow</div>
     </div>
   </div>
 </div>

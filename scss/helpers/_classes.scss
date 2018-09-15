@@ -179,10 +179,10 @@
 
 @each $side in left, right, top, bottom {
   .has-padding-#{$side} {
-    padding: $global-space !important;
+    padding-#{$side}: $global-space !important;
   }
   .has-margin-#{$side} {
-    margin: $global-space !important;
+    margin-#{$side}: $global-space !important;
   }
 }
 

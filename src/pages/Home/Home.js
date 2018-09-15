@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import pkg from "../../../package.json"
 import "./Home.scss"
 import { ScrollUpOnMount } from "helpers"
 
@@ -49,7 +50,7 @@ export default class Home extends Component {
             </div>
 
             <div className="xsmall-12 columns has-center-text">
-              <p className="un-version has-no-margin">Version 2.1.0</p>
+              <p className="un-version has-no-margin">Version {pkg.version}</p>
             </div>
 
             <div className="xsmall-12 columns badges">
