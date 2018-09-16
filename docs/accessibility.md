@@ -4,7 +4,7 @@ Undernet's interactive components are built with the specific intention of being
 
 ## Screen Readers
 
-To have content available in the DOM that isn't visible to sighted users, add the `.is-visually-hidden` class to the element. This is especially useful for adding context to controls that otherwise depend on visual landmarks, such as descriptions and images.
+To have content available in the DOM that isn't visible to sighted users, add the `.is-visually-hidden` class to the element. This is especially useful for adding context to controls that otherwise depend on visual landmarks, such as truncated descriptions and images.
 
 ```html
 <button>
@@ -13,6 +13,8 @@ To have content available in the DOM that isn't visible to sighted users, add th
 </button>
 ```
 
+To sighted users, the this "Download" label has context to the surrounding page. With this hidden text, there is added context describing what the download is for, specifically.
+
 [Learn more about visibility utilities.](/docs/utilities/visibility)
 
 ## Trap Focus
@@ -20,15 +22,15 @@ To have content available in the DOM that isn't visible to sighted users, add th
 If you have a custom control that requires focus to be kept within it using tab / shift+tab, Undernet's JS utilities have you covered. This is currently used in the [Modal](/docs/components/modals) component.
 
 ```js
-Undernet.Utils.captureFocus(element)
+Undernet.Utils.captureFocus(selector)
 ```
 
-Simply pass a class, id, or attribute to the `captureFocus` method. To release focus from that element:
+Simply pass a selector to `captureFocus` property. To release focus from that element, call `releaseFocus`.
 
 ```js
 Undernet.Utils.releaseFocus()
 ```
 
-The `releaseFocus` method doesn't need any arguments, as it assumes you want to release focus from the most recent instance of `captureFocus`.
+`releaseFocus` doesn't need any arguments, as it assumes you are releasing focus from the most recently captured item.
 
 <p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/accessibility">Edit this page on Github!</a></p>

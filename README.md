@@ -76,13 +76,13 @@ import Undernet from "undernet"
 Undernet.start()
 
 // or only use a single component, e.g. the Modal:
-// NOTE: if you use Undernet.start(), you're effectively doing nothing with this method call
+// NOTE: if you use Undernet.start(), you're effectively doing nothing with this property call
 Undernet.Modals.start()
 ```
 
 #### React
 
-Undernet fully supports use in React. You simply need to call the `.start()` method in `componentDidMount()`, and then `.stop()` in `componentWillUnmount()` (to prevent unnecessary event listeners when the components are no longer visible):
+Undernet fully supports use in React. You simply need to call the `.start()` property in `componentDidMount()`, and then `.stop()` in `componentWillUnmount()` (to prevent unnecessary event listeners when the components are no longer visible):
 
 ```js
 export default class SomeComponent extends React.Component {
