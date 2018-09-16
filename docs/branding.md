@@ -1,14 +1,33 @@
 # Branding
 
-Customizing Undernet's SCSS requires you to use partial scss files that define all the element and component styles.
+Customizing Undernet your CSS requires you to use the partial scss files that define all elements and components.
 
 To get a sense of what you have the easiest control over, reference the `_config.scss` file which includes core variables for just about everything, including the grid, typography/color/spacing, as well as buttons, forms, and the interactive components.
 
+## Compiled Assets
+
+Just like in the [Introduction](/docs/overview/introduction) article, the fastest option is to add the compiled assets right to your layout wit a `<link />` tag.
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="styleseet" ref="pat/to/undernet.min.css" />
+  </head>
+  <body>
+    ...
+  </body>
+</html>
+```
+
 ## NPM and Webpack
 
-If you use these tools, extending Undernet is fairly straight forward. First, import in a new global SCSS file the functions, config vars, and mixins. You can import this file in other stylesheets to get access to the non-selector utilities while not risking duplication of utility classes, elements, and components.
+If you use these tools, extending Undernet requires a bit of setup.
+
+First, import in a new global SCSS file the functions, config vars, and mixins. You can import this file in other stylesheets to get access to the non-selector utilities while not risking duplication of utility classes, element, and component selector definitions.
 
 ```css
+/* _my_config.scss */
 @import "~undernet/scss/helpers/functions";
 /* Add config overrides here! */
 @import "~undernet/scss/config";
@@ -20,8 +39,9 @@ Next, in a separate stylesheet, import any or all of Undernet's components.
 Only import the below **one time** in your application!
 
 ```css
-@import "path/to/new/config";
-/* remove globals if you are scoping! */
+/* my_undernet.scss */
+@import "path/to/_new_config";
+/* remove reset below if you are scoping */
 @import "elements/reset";
 /* .#{$scope} { */
 @import "helpers/classes";
@@ -33,7 +53,10 @@ Only import the below **one time** in your application!
 @import "components/modal";
 @import "components/accordion";
 /* } */
-/* Modals need .no-scroll to be out of $scope in order to function properly. */
+/*
+ * required $scope ceck for no-scroll; if scopes are enabled,
+ * you need .no-scroll outside of it.
+**/
 @if $scope != "" {
   .no-scroll {
     overflow: hidden;
@@ -41,10 +64,16 @@ Only import the below **one time** in your application!
 }
 ```
 
-Finally, import `undernet.scss` in your global stylesheet:
+Finally, import `undernet.scss` in your global stylesheet.
 
 ```css
 @import 'path/to/undernet';
+```
+
+... or link to it in your layout.
+
+```html
+<link rel="stylesheet" ref="pat/to/your/styles.css" />
 ```
 
 With that, you should be good to go!

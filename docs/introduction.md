@@ -2,7 +2,7 @@
 
 Thanks for using Undernet! Hit the ground running in your next project with this fully modular, highly configurable front-end framework.
 
-Undernet is also extremely light, carrying no external dependencies apart from needing a SCSS compiler (if you aren't using the vanilla CSS).
+Undernet is extremely light, carrying no external dependencies apart from needing a SCSS compiler (if you aren't using the compiled CSS).
 
 ## Get Started
 
@@ -27,7 +27,7 @@ The quickest way to use Undernet is to link the bundled js and minified css dire
 </html>
 ```
 
-Head over to the [download page](/docs/overview/download) to get Undernet's assets, or see other options for [including it in your pipeline](/docs/overview/build-tooling).
+Head over to the [download page](/docs/overview/download) to get Undernet's assets, or see other options for [including it in your pipeline](/docs/overview/javascript).
 
 ## About Undernet
 
@@ -35,12 +35,14 @@ Undernet was created with the goal of simplifying the developer experience, by w
 
 Undernet can both be a prototyping tool or the basis for your web app.
 
-The framework has four core tenets.
+### Core Principles
 
 - **Configuration:** The framework comes with a configuration file that you can update with your intended brand attributes, including colors, typography, grid, forms, and more.
-- **Semantics:** HTML that is logical and written with accessibility in mind.
-- **Modularity:** The struggle with frameworks is they are usually dependent on being your core stylesheet. Undernet is specifically designed to be scoped and controlled as an alternative, to existing projects.
-- **Agility:** Because all that's needed is an understanding of semantic HTML and customizing SCSS in the beginning, you will quickly get to building without worrying about tons of custom styling/javascript.
+- **Semantics:** If markup is required, it's logical and written with accessibility in mind.
+- **Modularity:** Can act independent from your core stylesheet; the framework is specifically designed to be scoped and controlled as an alternative, to existing projects.
+- **Agility:** Because all that's needed is an understanding of semantic HTML (and possibly SCSS), you will quickly get to developing without worrying about tons of custom styling/javascript.
+
+### Support
 
 Undernet's CSS and JavaScript will work in recent versions of these browsers:
 
@@ -55,6 +57,6 @@ Undernet's CSS and JavaScript will work in recent versions of these browsers:
 
 Undernet is completely open source!
 
-Contribute on [Github](https://www.github.com/geotrev/undernet/issues) if you have requests or a bug to report. Be sure to [read the suggestions](https://www.github.com/geotrev/undernet/master/CONTRIBUTING.md) on filing a bug or pull request.
+Contribute on [Github](https://www.github.com/geotrev/undernet/issues) if you have questions or a want to file a bug report. Be sure to [read about contributing](https://www.github.com/geotrev/undernet/master/CONTRIBUTING.md) before filing a bug or pull request.
 
 <p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/introduction">Edit this page on Github!</a></p>
