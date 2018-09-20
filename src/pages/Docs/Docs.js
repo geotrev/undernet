@@ -8,34 +8,40 @@ import DocsRoutes from "./DocsRoutes/DocsRoutes"
 const Docs = () => {
   const navItems = [
     {
-      header: "Getting Started",
+      header: "Overview",
       links: [
-        { name: "Overview", url: "/docs/overview" },
-        { name: "Getting Started", url: "/docs/getting-started" },
-        { name: "Configuration", url: "/docs/configuration" },
+        { name: "Introduction", url: "/docs/overview/introduction" },
+        { name: "Download", url: "/docs/overview/download" },
+        { name: "Branding", url: "/docs/overview/branding" },
+        { name: "JavaScript", url: "/docs/overview/javascript" },
+        { name: "Accessibility", url: "/docs/overview/accessibility" },
       ],
     },
     {
       header: "Elements",
       links: [
-        { name: "Grid", url: "/docs/grid" },
-        { name: "Typography", url: "/docs/typography" },
-        { name: "Buttons", url: "/docs/buttons" },
-        { name: "Forms", url: "/docs/forms" },
+        { name: "Grid", url: "/docs/elements/grid" },
+        { name: "Typography", url: "/docs/elements/typography" },
+        { name: "Buttons", url: "/docs/elements/buttons" },
+        { name: "Forms", url: "/docs/elements/forms" },
       ],
     },
     {
       header: "Components",
       links: [
-        { name: "Modals", url: "/docs/modals" },
-        { name: "Accordions", url: "/docs/accordions" },
+        { name: "Modals", url: "/docs/components/modals" },
+        { name: "Accordions", url: "/docs/components/accordions" },
       ],
     },
     {
-      header: "Helpers",
+      header: "Utilities",
       links: [
-        { name: "Style Utilities", url: "/docs/style-utilities" },
-        { name: "JavaScript Utilities", url: "/docs/javascript-utilities" },
+        { name: "Alignment", url: "/docs/utilities/alignment" },
+        { name: "Offset / Order", url: "/docs/utilities/offset-order" },
+        { name: "Text", url: "/docs/utilities/text" },
+        { name: "Display", url: "/docs/utilities/display" },
+        { name: "Color", url: "/docs/utilities/color" },
+        { name: "Spacing", url: "/docs/utilities/spacing" },
       ],
     },
   ]
@@ -44,12 +50,9 @@ const Docs = () => {
     <div id="docs" className="medium-section fluid grid">
       <ScrollUpOnMount />
       <div className="row">
-        <SideNav
-          navListClasses="xsmall-12 small-4 medium-3 xlarge-12 columns"
-          navItems={navItems}
-        />
+        <SideNav navListClasses="xsmall-12 columns has-no-padding" navItems={navItems} />
 
-        <div className="xsmall-12 xlarge-10 collapsed columns">
+        <div className="xsmall-12 xlarge-10 has-no-padding columns">
           <DocsRoutes />
         </div>
       </div>

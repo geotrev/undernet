@@ -1,43 +1,46 @@
 @import "../../global";
 
 .article-wrapper {
-  h2 {
-    font-size: 28px;
+  pre {
+    margin-bottom: 32px !important;
   }
 
-  h3 {
-    font-size: 24px;
+  .filler {
+    background: $gray900;
+    border-radius: $global-border-radius;
+    margin-bottom: 1rem;
   }
 
-  h4 {
-    font-size: 20px;
-    padding-top: 16px;
+  .static-height {
+    height: 200px;
   }
 
   h2,
   h3 {
-    padding-top: 16px;
+    margin-top: 54px;
   }
 
-  pre {
-    margin-bottom: $global-space * 2.5 !important;
+  h4,
+  h5,
+  h6 {
+    margin-top: 32px;
+  }
 
-    > code {
-      display: initial;
+  .inverted-bg {
+    background: $gray200;
+    padding: 1rem 1rem 0 1rem;
+  }
+
+  .filler-bg {
+    background: $gray900;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: $global-border-radius;
+
+    .filler {
+      background: $gray800;
+      color: white;
+      margin-bottom: 0;
     }
-  }
-
-  code {
-    padding: 0;
-  }
-
-  pre,
-  code {
-    color: #5e6687;
-    background: #f5f7ff;
-  }
-
-  ul {
-    margin-bottom: 16px;
   }
 }

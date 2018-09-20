@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import pkg from "../../../package.json"
 import "./Home.scss"
 import { ScrollUpOnMount } from "helpers"
 
@@ -37,16 +38,19 @@ export default class Home extends Component {
             </div>
 
             <div className="xsmall-12 columns has-center-text">
-              <Link to="docs/getting-started" className="medium button has-feather">
+              <Link to="docs/overview/download" className="medium button has-feather">
                 Download <ChevronRight size={20} />
               </Link>
-              <Link to="docs/overview" className="primary medium button has-gradient has-feather">
+              <Link
+                to="docs/overview/introduction"
+                className="primary medium button has-gradient has-feather"
+              >
                 Learn More <ChevronRight size={20} />
               </Link>
             </div>
 
             <div className="xsmall-12 columns has-center-text">
-              <p className="un-version has-no-margin">Version 2.1.0</p>
+              <p className="un-version has-no-margin">Version {pkg.version}</p>
             </div>
 
             <div className="xsmall-12 columns badges">
@@ -56,9 +60,9 @@ export default class Home extends Component {
         </div>
 
         <div className="medium-section fluid grid perks">
-          <div className="row collapsed">
+          <div className="row has-no-padding">
             <div className="wide grid">
-              <ul className="row is-unstyled-list">
+              <ul className="row is-unstyled-list has-no-padding">
                 <li className="large-3 small-6 xsmall-12 columns has-center-text">
                   <img className="home-icon" src={tinySvg} role="presentation" alt="tiny" />
                   <h2 className="h6 has-white-text">Tiny</h2>
@@ -92,7 +96,7 @@ export default class Home extends Component {
                   <img className="home-icon" src={a11ySvg} role="presentation" alt="a11y" />
                   <h2 className="h6 has-white-text">Accessible</h2>
                   <p className="has-white-text">
-                    Undernet is designed WAI-ARIA guidelines in mind to ensure your project is
+                    Undernet is designed with WAI-ARIA guidelines in mind to ensure your project is
                     accessible.
                   </p>
                 </li>
@@ -112,7 +116,10 @@ export default class Home extends Component {
               <Markdown source={installAssets} escapeHtml={false} />
               <br />
               <p>See how Undernet can improve your developer experience!</p>
-              <Link to="docs/overview" className="primary medium button has-gradient has-feather">
+              <Link
+                to="docs/overview/introduction"
+                className="primary medium button has-gradient has-feather"
+              >
                 Learn More <ChevronRight size={20} />
               </Link>
             </div>

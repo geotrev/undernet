@@ -8,14 +8,8 @@
   }
 
   .has-feather {
+    @include colored-link;
     display: inline-block;
     padding: 1rem;
-    opacity: 0.8;
-
-    &:hover,
-    &:active,
-    &:focus {
-      opacity: 1;
-    }
   }
 }
