@@ -21,10 +21,10 @@
   font-weight: $global-font-weight-bold !important;
 }
 .is-italic {
-  font-weight: $global-font-style-italic !important;
+  font-style: $global-font-style-italic !important;
 }
 
-@each $name, $color in $primary-palette {
+@each $name, $color in $full-palette {
   .has-#{$name}-text {
     color: $color !important;
   }
@@ -59,6 +59,13 @@
 
 // flex property modifiers
 
+.is-flex-row {
+  flex-direction: row !important;
+}
+.is-flex-column {
+  flex-direction: column !important;
+}
+
 .is-justified-center {
   justify-content: center !important;
 }
@@ -74,6 +81,7 @@
 .is-justified-between {
   justify-content: space-between !important;
 }
+
 .is-aligned-center {
   align-items: center !important;
 }
@@ -86,9 +94,7 @@
 .is-aligned-stretch {
   align-items: stretch !important;
 }
-.is-aligned-baseline {
-  align-items: baseline !important;
-}
+
 .has-content-center {
   align-content: center !important;
 }
@@ -108,20 +114,102 @@
   align-content: stretch !important;
 }
 
+.can-grow {
+  flex-grow: 1 !important;
+}
+.can-shrink {
+  flex-shrink: 1 !important;
+}
+
+.wont-grow {
+  flex-grow: 0 !important;
+}
+.wont-shrink {
+  flex-shrink: 0 !important;
+}
+
 // spacing
 
 .has-no-margin {
   margin: 0 !important;
 }
 
+.has-no-margin-right {
+  margin-right: 0 !important;
+}
+
+.has-no-margin-top {
+  margin-top: 0 !important;
+}
+
+.has-no-margin-bottom {
+  margin-bottom: 0 !important;
+}
+
+.has-no-margin-left {
+  margin-left: 0 !important;
+}
+
 .has-no-padding {
   padding: 0 !important;
+}
+
+.has-no-padding-right {
+  padding-right: 0 !important;
+}
+
+.has-no-padding-top {
+  padding-top: 0 !important;
+}
+
+.has-no-padding-bottom {
+  padding-bottom: 0 !important;
+}
+
+.has-no-padding-left {
+  padding-left: 0 !important;
+}
+
+.has-padding {
+  padding: $global-space !important;
+}
+.has-margin {
+  margin: $global-space !important;
+}
+
+@each $side in left, right, top, bottom {
+  .has-padding-#{$side} {
+    padding-#{$side}: $global-space !important;
+  }
+  .has-margin-#{$side} {
+    margin-#{$side}: $global-space !important;
+  }
+}
+
+@each $size, $value in $spacing-increments {
+  .has-padding-#{$size} {
+    padding: $value !important;
+  }
+  .has-margin-#{$size} {
+    margin: $value !important;
+  }
+
+  @each $side in left, right, top, bottom {
+    .has-margin-#{$side}-#{$size} {
+      margin-#{$side}: $value !important;
+    }
+
+    .has-padding-#{$side}-#{$size} {
+      padding-#{$side}: $value !important;
+    }
+  }
 }
 
 // lists
 
 .is-unstyled-list {
   list-style-type: none !important;
+  padding-left: 0 !important;
 }
 
 // A11y

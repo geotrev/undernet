@@ -28,7 +28,13 @@
 $scope: "" !default;
 
 $global-space: 16px !default;
-$global-ease: ease-out 0.2s !default;
+
+$spacing-increments: (
+  "1": $global-space * 0.5,
+  "2": $global-space * 0.75,
+  "3": $global-space * 1.5,
+  "4": $global-space * 2
+) !default;
 
 $global-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu,
   Cantarell, "Helvetica Neue", sans-serif !default;
@@ -41,7 +47,9 @@ $global-font-weight-bold: bold !default;
 $global-font-style-normal: normal !default;
 $global-font-style-italic: italic !default;
 $global-line-height: 1.5 !default;
-$global-transition-ease: cubic-bezier(0.12, 0.72, 0.58, 1.03) !default;
+
+$global-ease: cubic-bezier(0.12, 0.72, 0.58, 1.03) !default;
+$global-transition: ease-out 0.2s !default;
 
 $primary-color: #d15ded !default;
 $secondary-color: #3e46af !default;
@@ -52,28 +60,32 @@ $gray200: #222 !default;
 $gray400: #444 !default;
 $gray600: #666 !default;
 $gray800: #888 !default;
-$gray900: #ddd !default;
+$gray900: #dedede !default;
 $white: #ffffff !default;
-
-$primary-palette: (
-  primary-color: $primary-color,
-  secondary-color: $secondary-color,
-  tertiary-color: $tertiary-color,
-  black: $black,
-  gray100: $gray100,
-  gray200: $gray200,
-  gray400: $gray400,
-  gray600: $gray600,
-  gray800: $gray800,
-  gray900: $gray900,
-  white: $white
-) !default;
 
 $status-palette: (
   warning: khaki,
-  success: green,
-  destroy: red,
+  success: #66cc00,
+  destroy: #fc6868,
   notice: steelblue
+) !default;
+
+// used for text and bg color utilities in helpers/_classes.scss
+$full-palette: map-merge(
+  (
+    primary-color: $primary-color,
+    secondary-color: $secondary-color,
+    tertiary-color: $tertiary-color,
+    black: $black,
+    gray100: $gray100,
+    gray200: $gray200,
+    gray400: $gray400,
+    gray600: $gray600,
+    gray800: $gray800,
+    gray900: $gray900,
+    white: $white
+  ),
+  $status-palette
 ) !default;
 
 $global-border-radius: 4px !default;
@@ -132,6 +144,32 @@ $column-order-classes: true !default;
 $type-header-sizes: (
   xsmall: (
     h1: (
+      font-size: 28px,
+      margin: 0 0 $global-space 0
+    ),
+    h2: (
+      font-size: 24px,
+      margin: 0 0 $global-space 0
+    ),
+    h3: (
+      font-size: 22px,
+      margin: 0 0 $global-space 0
+    ),
+    h4: (
+      font-size: 20px,
+      margin: 0 0 $global-space 0
+    ),
+    h5: (
+      font-size: 18px,
+      margin: 0 0 $global-space 0
+    ),
+    h6: (
+      font-size: $global-font-size,
+      margin: 0 0 $global-space 0
+    )
+  ),
+  medium: (
+    h1: (
       font-size: 32px,
       margin: 0 0 $global-space 0
     ),
@@ -156,55 +194,29 @@ $type-header-sizes: (
       margin: 0 0 $global-space 0
     )
   ),
-  medium: (
+  large: (
     h1: (
-      font-size: 40px,
-      margin: 0 0 $global-space 0
-    ),
-    h2: (
       font-size: 36px,
       margin: 0 0 $global-space 0
     ),
-    h3: (
+    h2: (
       font-size: 32px,
       margin: 0 0 $global-space 0
     ),
-    h4: (
+    h3: (
       font-size: 28px,
       margin: 0 0 $global-space 0
     ),
-    h5: (
+    h4: (
       font-size: 24px,
       margin: 0 0 $global-space 0
     ),
-    h6: (
+    h5: (
       font-size: 20px,
       margin: 0 0 $global-space 0
-    )
-  ),
-  large: (
-    h1: (
-      font-size: 48px,
-      margin: 0 0 $global-space 0
-    ),
-    h2: (
-      font-size: 44px,
-      margin: 0 0 $global-space 0
-    ),
-    h3: (
-      font-size: 40px,
-      margin: 0 0 $global-space 0
-    ),
-    h4: (
-      font-size: 36px,
-      margin: 0 0 $global-space 0
-    ),
-    h5: (
-      font-size: 32px,
-      margin: 0 0 $global-space 0
     ),
     h6: (
-      font-size: 28px,
+      font-size: $global-font-size,
       margin: 0 0 $global-space 0
     )
   )
@@ -255,11 +267,11 @@ $type-p-margin-bottom: 16px !default;
 
 $type-code-font: $global-monospace !default;
 $type-code-font-size: 1em !default;
-$type-code-color: $black !default;
-$type-code-background: lighten($gray900, 5%) !default;
+$type-code-color: $gray600 !default;
+$type-code-background: lighten($gray900, 10%) !default;
 $type-code-border: none !default;
 $type-code-radius: $global-border-radius !default;
-$type-code-padding: 0 4px !default;
+$type-code-padding: 0 !default;
 
 $type-pre-padding: $global-space !default;
 
@@ -272,7 +284,7 @@ $type-em-font-weight: normal !default;
 $type-small-font-size: 75% !default;
 $type-small-font-weight: inherit !default;
 
-$type-mark-padding: 10px !default;
+$type-mark-padding: 0 !default;
 $type-mark-color: $gray200 !default;
 $type-mark-background: status(warning) !default;
 
@@ -323,7 +335,7 @@ $button-decoration: none !default;
 // Default button styling.
 
 // NOTE: You can treat these map as css proper, but in `key: value` format.
-$button-default: (
+$button-base: (
   default: (
     background: $white,
     color: $gray200,
@@ -616,13 +628,13 @@ $form-padding: 0 !default;
 $form-background: transparent !default;
 $form-box-shadow: none !default;
 $form-border: none !default;
-$form-font: $global-font-sans !default;
+$form-font-family: $global-font-sans !default;
 $form-radius: $global-border-radius !default;
 
 // Input + Textarea
 
 $input-font-size: $global-font-size !default;
-$input-font: $form-font !default;
+$input-font-family: $form-font-family !default;
 $input-box-shadow: none !default;
 $input-border: $global-border-width solid $gray800 !default;
 $input-padding: 12px !default;
@@ -648,16 +660,9 @@ $input-disabled-resize: none !default;
 
 // Radio and Checkbox
 
-$input-option-row-breakpoint: small !default;
-
-$input-option-row-padding-bottom: $global-space !default;
-$input-option-column-padding-bottom: $global-space !default;
-$input-option-padding: 0 !default;
-$input-option-margin: 0 12px 0 0 !default;
-$input-option-label-padding-right: $global-space !default;
-$input-option-label-padding-bottom: $global-space !default;
-$input-option-input-margin-right: $global-space / 2 !default;
-$input-option-margin-top: 8px !default;
+$input-check-label-padding: 0 0 16px 0 !default;
+$input-check-padding: 0 !default;
+$input-check-margin: 0 12px 0 0 !default;
 
 // Fieldset
 
@@ -665,18 +670,18 @@ $fieldset-border: $global-border-width solid $gray900 !default;
 $fieldset-border-radius: $form-radius !default;
 $fieldset-box-shadow: none !default;
 $fieldset-background: transparent !default;
-$fieldset-margin: 0 !default;
+$fieldset-margin: 0 0 $global-space 0 !default;
 $fieldset-padding: $global-space !default;
 
 // Fieldset legend
 
-$fieldset-legend-font: $form-font !default;
+$fieldset-legend-font-family: $form-font-family !default;
 $fieldset-legend-font-size: $global-font-size !default;
-$fieldset-legend-padding: 12px 20px !default;
+$fieldset-legend-padding: 6px 12px !default;
 $fieldset-legend-color: $gray200 !default;
 $fieldset-legend-background: $white !default;
-$fieldset-legend-box-shadow: 0 8px 30px $gray800 !default;
-$fieldset-legend-border: none !default;
+$fieldset-legend-box-shadow: none !default;
+$fieldset-legend-border: 2px solid $gray900 !default;
 $fieldset-legend-border-radius: $global-border-radius !default;
 
 // 6. Modals
@@ -684,7 +689,7 @@ $fieldset-legend-border-radius: $global-border-radius !default;
 
 $modal-overlay-color: rgba(0, 0, 0, 0.5) !default;
 $modal-transition-duration: 0.5s !default;
-$modal-transition-ease: $global-transition-ease !default;
+$modal-transition-ease: $global-ease !default;
 
 $modal-container-background-color: $white !default;
 $modal-container-border-radius: $global-border-radius !default;
@@ -703,13 +708,15 @@ $modal-vertical-breakpoint: breakpoint(small) !default;
 $accordion-border: $global-border-width solid $gray900 !default;
 $accordion-border-radius: $global-border-radius !default;
 $accordion-transition-duration: 0.5s !default;
-$accordion-transition-ease: $global-transition-ease !default;
+$accordion-transition-ease: $global-ease !default;
 
 $accordion-button-color: $primary-color !default;
 $accordion-button-background: $white !default;
 $accordion-button-color-hover: darken($primary-color, 2%) !default;
 $accordion-button-background-hover: lighten($gray900, 10%) !default;
 $accordion-button-padding: $global-space !default;
+
+$accordion-expand-arrow: "\25B2" !default;
 
 $accordion-row-divider: $accordion-border !default;
 

@@ -46,7 +46,6 @@ export default class Main extends Component {
         <main>
           <Route exact path="/" component={Home} />
           <Route path="/docs" component={Docs} />
-          <Route path="/examples/" component={Examples} />
         </main>
         <footer>
           <Footer />

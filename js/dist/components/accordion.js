@@ -40,10 +40,11 @@ var selectors = {
   CONTENT: "data-content",
   TOGGLE_MULTIPLE: "data-toggle-multiple",
   PARENT: "data-parent",
-  // aria
+  // accessibility
   ARIA_EXPANDED: "aria-expanded",
   ARIA_CONTROLS: "aria-controls",
-  ARIA_HIDDEN: "aria-hidden"
+  ARIA_HIDDEN: "aria-hidden",
+  TAB_INDEX: "tabindex"
 };
 var events = {
   CLICK: "click",
@@ -90,7 +91,11 @@ function (_Utils) {
       var _this2 = this;
 
       this.accordionButtons = this.getElements("[".concat(selectors.ACCORDION_CONTAINER, "] [").concat(selectors.TARGET, "]"));
-      this.accordionContents = this.getElements("[".concat(selectors.ACCORDION_CONTAINER, "] [").concat(selectors.CONTENT, "]"));
+      this.accordionContentsAttr = "[".concat(selectors.ACCORDION_CONTAINER, "] [").concat(selectors.CONTENT, "]");
+      this.accordionContents = this.getElements(this.accordionContentsAttr);
+      this.getFocusableElements(this.accordionContentsAttr).forEach(function (element) {
+        element.setAttribute(selectors.TAB_INDEX, "-1");
+      });
 
       if (this.accordionButtons.length) {
         this.accordionButtons.forEach(function (button) {
@@ -109,6 +114,12 @@ function (_Utils) {
           var contentHiddenState = contentRow.getAttribute(selectors.EXPANDED);
           var toggleContentHiddenState = contentHiddenState === "true" ? "false" : "true";
           content.setAttribute(selectors.ARIA_HIDDEN, toggleContentHiddenState);
+
+          if (toggleContentHiddenState === "false") {
+            _this2.getFocusableElements("#".concat(content.id)).forEach(function (element) {
+              element.setAttribute(selectors.TAB_INDEX, "0");
+            });
+          }
         });
       }
     }
@@ -164,13 +175,13 @@ function (_Utils) {
     value: function renderAccordionContent(event) {
       event.preventDefault();
       this.activeButton = event.target;
-      var activeAccordionRow = this.activeButton.getAttribute(selectors.TARGET);
-      this.activeRowAttr = this.getAccordionRowAttr(activeAccordionRow);
+      this.activeAccordionRowId = this.activeButton.getAttribute(selectors.TARGET);
+      this.activeRowAttr = this.getAccordionRowAttr(this.activeAccordionRowId);
       this.activeRow = document.querySelector(this.activeRowAttr);
       this.activeContainerId = this.activeButton.getAttribute(selectors.PARENT);
       this.activeContainerAttr = "[".concat(selectors.ACCORDION_CONTAINER, "='").concat(this.activeContainerId, "']");
       this.activeContainer = document.querySelector(this.activeContainerAttr);
-      this.activeContent = document.getElementById(activeAccordionRow);
+      this.activeContent = document.getElementById(this.activeAccordionRowId);
       var accordionContentHasAttr = this.activeContent.hasAttribute(selectors.CONTENT);
 
       if (!accordionContentHasAttr) {
@@ -207,11 +218,15 @@ function (_Utils) {
       var _this4 = this;
 
       if (this.activeContainer.hasAttribute(selectors.TOGGLE_MULTIPLE)) return;
+      this.allContentAttr = "".concat(this.activeContainerAttr, " [").concat(selectors.CONTENT, "]");
       var allRows = this.getElements("".concat(this.activeContainerAttr, " [").concat(selectors.EXPANDED, "]"));
-      var allContent = this.getElements("".concat(this.activeContainerAttr, " [").concat(selectors.CONTENT, "]"));
+      var allContent = this.getElements(this.allContentAttr);
       var allButtons = this.getElements("".concat(this.activeContainerAttr, " [").concat(selectors.TARGET, "]"));
       allContent.forEach(function (content) {
         if (!(content === _this4.activeContent)) content.style.maxHeight = null;
+      });
+      this.getFocusableElements(this.allContentAttr).forEach(function (element) {
+        element.setAttribute(selectors.TAB_INDEX, "-1");
       });
       this.toggleAttributeInCollection(allRows, selectors.EXPANDED, "true", "false");
       this.toggleAttributeInCollection(allButtons, selectors.ARIA_EXPANDED, "true", "false");
@@ -219,16 +234,23 @@ function (_Utils) {
       this.toggleAttributeInCollection(allContent, selectors.CONTENT, "visible", "hidden");
     }
     /**
-     * Toggle a [data-accordion-button]'s related [data-accordion-content] element.
+     * Toggle a [data-accordion-button]'s corresponding [data-accordion-content] element.
      */
 
   }, {
     key: "toggleSelectedAccordion",
     value: function toggleSelectedAccordion() {
+      var _this5 = this;
+
       this.activeRow.setAttribute(selectors.EXPANDED, this.toggleExpandState);
       this.activeContent.setAttribute(selectors.CONTENT, this.toggleContentState);
       this.activeButton.setAttribute(selectors.ARIA_EXPANDED, this.toggleExpandState);
       this.activeContent.setAttribute(selectors.ARIA_HIDDEN, this.toggleHiddenState);
+      var activeContentBlock = "#".concat(this.activeAccordionRowId);
+      this.getFocusableElements(activeContentBlock).forEach(function (element) {
+        var value = _this5.toggleExpandState === "true" ? "0" : "-1";
+        element.setAttribute(selectors.TAB_INDEX, value);
+      });
 
       if (this.activeContent.style.maxHeight) {
         this.activeContent.style.maxHeight = null;

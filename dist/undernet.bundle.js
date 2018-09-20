@@ -1,6 +1,6 @@
 /*!
   * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
-  * Undernet v2.1.0 (https://undernet.io)
+  * Undernet v2.2.0 (https://undernet.io)
   * Copyright 2017-2018 George Treviranus
   */
 (function (global, factory) {
@@ -203,10 +203,11 @@
     VISIBLE: "data-visible",
     CLOSE: "data-close",
     TARGET: "data-target",
-    // aria
+    // accessibility
     ARIA_HIDDEN: "aria-hidden",
     ARIA_MODAL: "aria-modal",
-    ROLE: "role"
+    ROLE: "role",
+    TAB_INDEX: "tabindex"
   };
   var events$1 = {
     KEYDOWN: "keydown",
@@ -262,6 +263,9 @@
         this.modals = this.getElements(this.modalContainerAttr);
         this.modalButtons = this.getElements("[".concat(selectors$1.MODAL_BUTTON, "]"));
         this.closeButtons = this.getElements(this.closeButtonAttr);
+        this.getFocusableElements(this.modalContainerAttr).forEach(function (element) {
+          element.setAttribute(selectors$1.TAB_INDEX, "-1");
+        });
 
         if (this.modals.length) {
           this.modals.forEach(function (modal) {
@@ -314,25 +318,29 @@
 
         this.modalButton = event.target;
         this.activeModalId = this.modalButton.getAttribute(selectors$1.TARGET);
-        this.modalOverlayAttr = "[".concat(selectors$1.MODAL_ID, "='").concat(this.activeModalId, "']");
-        this.modalOverlay = document.querySelector(this.modalOverlayAttr);
+        this.activeModalOverlayAttr = "[".concat(selectors$1.MODAL_ID, "='").concat(this.activeModalId, "']");
+        this.activeModalOverlay = document.querySelector(this.activeModalOverlayAttr);
 
-        if (!this.modalOverlay) {
+        if (!this.activeModalOverlay) {
           throw messages.MISSING_MODAL;
           return;
         }
 
-        this.activeModalSelector = "".concat(this.modalOverlayAttr, " ").concat(this.modalContainerAttr);
+        this.activeModalSelector = "".concat(this.activeModalOverlayAttr, " ").concat(this.modalContainerAttr);
         this.activeModal = document.querySelector(this.activeModalSelector);
-        this.modalCloseButtons = this.getElements("".concat(this.modalOverlayAttr, " ").concat(this.closeButtonAttr));
+        this.modalCloseButtons = this.getElements("".concat(this.activeModalOverlayAttr, " ").concat(this.closeButtonAttr));
+        this.getFocusableElements(this.activeModalSelector).forEach(function (element) {
+          console.log(element);
+          element.setAttribute(selectors$1.TAB_INDEX, "0");
+        });
         this.handleScrollStop();
         this.captureFocus(this.activeModalSelector);
-        this.modalOverlay.setAttribute(selectors$1.ARIA_HIDDEN, "false");
+        this.activeModalOverlay.setAttribute(selectors$1.ARIA_HIDDEN, "false");
         this.activeModal.setAttribute("tabindex", "-1");
-        this.modalOverlay.setAttribute(selectors$1.VISIBLE, "true");
+        this.activeModalOverlay.setAttribute(selectors$1.VISIBLE, "true");
         this.activeModal.focus(); // offset slight scroll caused by this.activeModal.focus()
 
-        this.modalOverlay.scrollTop = 0; // begin listening to events
+        this.activeModalOverlay.scrollTop = 0; // begin listening to events
 
         document.addEventListener(events$1.KEYDOWN, this.handleEscapeKeyPress);
         document.addEventListener(events$1.CLICK, this.handleOverlayClick);
@@ -351,12 +359,16 @@
         var _this5 = this;
 
         event.preventDefault();
-        this.modalOverlay.setAttribute(selectors$1.VISIBLE, "false");
+        this.activeModalOverlay.setAttribute(selectors$1.VISIBLE, "false");
         this.handleReturnFocus();
         this.handleScrollRestore();
         this.releaseFocus();
-        this.modalOverlay.setAttribute(selectors$1.ARIA_HIDDEN, "true");
-        this.activeModal.removeAttribute("tabindex"); // stop listening to events
+        this.activeModalOverlay.setAttribute(selectors$1.ARIA_HIDDEN, "true");
+        this.activeModal.removeAttribute("tabindex");
+        this.getFocusableElements(this.activeModalSelector).forEach(function (element) {
+          console.log(element);
+          element.setAttribute(selectors$1.TAB_INDEX, "-1");
+        }); // stop listening to events
 
         document.removeEventListener(events$1.KEYDOWN, this.handleEscapeKeyPress);
         document.removeEventListener(events$1.CLICK, this.handleOverlayClick);
@@ -372,7 +384,7 @@
     }, {
       key: "handleOverlayClick",
       value: function handleOverlayClick(event) {
-        if (event.target !== this.modalOverlay) return;
+        if (event.target !== this.activeModalOverlay) return;
         this.handleModalClose(event);
       }
       /**
@@ -439,10 +451,11 @@
     CONTENT: "data-content",
     TOGGLE_MULTIPLE: "data-toggle-multiple",
     PARENT: "data-parent",
-    // aria
+    // accessibility
     ARIA_EXPANDED: "aria-expanded",
     ARIA_CONTROLS: "aria-controls",
-    ARIA_HIDDEN: "aria-hidden"
+    ARIA_HIDDEN: "aria-hidden",
+    TAB_INDEX: "tabindex"
   };
   var events$2 = {
     CLICK: "click",
@@ -489,7 +502,11 @@
         var _this2 = this;
 
         this.accordionButtons = this.getElements("[".concat(selectors$2.ACCORDION_CONTAINER, "] [").concat(selectors$2.TARGET, "]"));
-        this.accordionContents = this.getElements("[".concat(selectors$2.ACCORDION_CONTAINER, "] [").concat(selectors$2.CONTENT, "]"));
+        this.accordionContentsAttr = "[".concat(selectors$2.ACCORDION_CONTAINER, "] [").concat(selectors$2.CONTENT, "]");
+        this.accordionContents = this.getElements(this.accordionContentsAttr);
+        this.getFocusableElements(this.accordionContentsAttr).forEach(function (element) {
+          element.setAttribute(selectors$2.TAB_INDEX, "-1");
+        });
 
         if (this.accordionButtons.length) {
           this.accordionButtons.forEach(function (button) {
@@ -508,6 +525,12 @@
             var contentHiddenState = contentRow.getAttribute(selectors$2.EXPANDED);
             var toggleContentHiddenState = contentHiddenState === "true" ? "false" : "true";
             content.setAttribute(selectors$2.ARIA_HIDDEN, toggleContentHiddenState);
+
+            if (toggleContentHiddenState === "false") {
+              _this2.getFocusableElements("#".concat(content.id)).forEach(function (element) {
+                element.setAttribute(selectors$2.TAB_INDEX, "0");
+              });
+            }
           });
         }
       }
@@ -563,13 +586,13 @@
       value: function renderAccordionContent(event) {
         event.preventDefault();
         this.activeButton = event.target;
-        var activeAccordionRow = this.activeButton.getAttribute(selectors$2.TARGET);
-        this.activeRowAttr = this.getAccordionRowAttr(activeAccordionRow);
+        this.activeAccordionRowId = this.activeButton.getAttribute(selectors$2.TARGET);
+        this.activeRowAttr = this.getAccordionRowAttr(this.activeAccordionRowId);
         this.activeRow = document.querySelector(this.activeRowAttr);
         this.activeContainerId = this.activeButton.getAttribute(selectors$2.PARENT);
         this.activeContainerAttr = "[".concat(selectors$2.ACCORDION_CONTAINER, "='").concat(this.activeContainerId, "']");
         this.activeContainer = document.querySelector(this.activeContainerAttr);
-        this.activeContent = document.getElementById(activeAccordionRow);
+        this.activeContent = document.getElementById(this.activeAccordionRowId);
         var accordionContentHasAttr = this.activeContent.hasAttribute(selectors$2.CONTENT);
 
         if (!accordionContentHasAttr) {
@@ -606,11 +629,15 @@
         var _this4 = this;
 
         if (this.activeContainer.hasAttribute(selectors$2.TOGGLE_MULTIPLE)) return;
+        this.allContentAttr = "".concat(this.activeContainerAttr, " [").concat(selectors$2.CONTENT, "]");
         var allRows = this.getElements("".concat(this.activeContainerAttr, " [").concat(selectors$2.EXPANDED, "]"));
-        var allContent = this.getElements("".concat(this.activeContainerAttr, " [").concat(selectors$2.CONTENT, "]"));
+        var allContent = this.getElements(this.allContentAttr);
         var allButtons = this.getElements("".concat(this.activeContainerAttr, " [").concat(selectors$2.TARGET, "]"));
         allContent.forEach(function (content) {
           if (!(content === _this4.activeContent)) content.style.maxHeight = null;
+        });
+        this.getFocusableElements(this.allContentAttr).forEach(function (element) {
+          element.setAttribute(selectors$2.TAB_INDEX, "-1");
         });
         this.toggleAttributeInCollection(allRows, selectors$2.EXPANDED, "true", "false");
         this.toggleAttributeInCollection(allButtons, selectors$2.ARIA_EXPANDED, "true", "false");
@@ -618,16 +645,23 @@
         this.toggleAttributeInCollection(allContent, selectors$2.CONTENT, "visible", "hidden");
       }
       /**
-       * Toggle a [data-accordion-button]'s related [data-accordion-content] element.
+       * Toggle a [data-accordion-button]'s corresponding [data-accordion-content] element.
        */
 
     }, {
       key: "toggleSelectedAccordion",
       value: function toggleSelectedAccordion() {
+        var _this5 = this;
+
         this.activeRow.setAttribute(selectors$2.EXPANDED, this.toggleExpandState);
         this.activeContent.setAttribute(selectors$2.CONTENT, this.toggleContentState);
         this.activeButton.setAttribute(selectors$2.ARIA_EXPANDED, this.toggleExpandState);
         this.activeContent.setAttribute(selectors$2.ARIA_HIDDEN, this.toggleHiddenState);
+        var activeContentBlock = "#".concat(this.activeAccordionRowId);
+        this.getFocusableElements(activeContentBlock).forEach(function (element) {
+          var value = _this5.toggleExpandState === "true" ? "0" : "-1";
+          element.setAttribute(selectors$2.TAB_INDEX, value);
+        });
 
         if (this.activeContent.style.maxHeight) {
           this.activeContent.style.maxHeight = null;

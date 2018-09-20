@@ -7,7 +7,7 @@ export default class Modal extends Component {
         className={`modal-overlay ${this.props.modalClass ? this.props.modalClass : ""}`}
         data-modal-id={this.props.id}
       >
-        <div aria-labelledby={this.props.labelledby} data-modal>
+        <div aria-labelledby={this.props.labelledby} data-modal className="modal-dialog">
           <header>
             <h2 id={this.props.labelledby}>{this.props.title}</h2>
             <a data-close href="#">
