@@ -504,7 +504,7 @@
         this.accordionButtons = this.getElements("[".concat(selectors$2.ACCORDION_CONTAINER, "] [").concat(selectors$2.TARGET, "]"));
         this.accordionContentsAttr = "[".concat(selectors$2.ACCORDION_CONTAINER, "] [").concat(selectors$2.CONTENT, "]");
         this.accordionContents = this.getElements(this.accordionContentsAttr);
-        this.getFocusableElements("[".concat(selectors$2.ACCORDION_CONTAINER, "] [").concat(selectors$2.CONTENT, "]")).forEach(function (element) {
+        this.getFocusableElements(this.accordionContentsAttr).forEach(function (element) {
           element.setAttribute(selectors$2.TAB_INDEX, "-1");
         });
 

@@ -62,11 +62,9 @@ export default class Accordion extends Utils {
     this.accordionContentsAttr = `[${selectors.ACCORDION_CONTAINER}] [${selectors.CONTENT}]`
     this.accordionContents = this.getElements(this.accordionContentsAttr)
 
-    this.getFocusableElements(`[${selectors.ACCORDION_CONTAINER}] [${selectors.CONTENT}]`).forEach(
-      element => {
-        element.setAttribute(selectors.TAB_INDEX, "-1")
-      },
-    )
+    this.getFocusableElements(this.accordionContentsAttr).forEach(element => {
+      element.setAttribute(selectors.TAB_INDEX, "-1")
+    })
 
     if (this.accordionButtons.length) {
       this.accordionButtons.forEach(button => {

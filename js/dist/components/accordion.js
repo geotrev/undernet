@@ -93,7 +93,7 @@ function (_Utils) {
       this.accordionButtons = this.getElements("[".concat(selectors.ACCORDION_CONTAINER, "] [").concat(selectors.TARGET, "]"));
       this.accordionContentsAttr = "[".concat(selectors.ACCORDION_CONTAINER, "] [").concat(selectors.CONTENT, "]");
       this.accordionContents = this.getElements(this.accordionContentsAttr);
-      this.getFocusableElements("[".concat(selectors.ACCORDION_CONTAINER, "] [").concat(selectors.CONTENT, "]")).forEach(function (element) {
+      this.getFocusableElements(this.accordionContentsAttr).forEach(function (element) {
         element.setAttribute(selectors.TAB_INDEX, "-1");
       });
 
