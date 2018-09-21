@@ -14,7 +14,7 @@ Going this route allows for far more customization, but do so at your own risk. 
 - SCSS: [Download](https://github.com/geotrev/undernet/raw/master/dist/undernet.scss.zip)
 - JS: [Download](https://github.com/geotrev/undernet/raw/master/dist/undernet.modules.js.zip)
 
-You can also install with npm or yarn. See the [JavaScript](/docs/overview/javascript) articles for more details.
+You can also install with npm or yarn. See the [JavaScript](/docs/overview/javascript) article for more details.
 
 ```shell
 $ npm install undernet

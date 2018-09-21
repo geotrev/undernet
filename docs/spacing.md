@@ -35,7 +35,7 @@ If the default value of `$global-space` isn't the right size, don't worry, there
 
 ### Custom Sizes With Sides
 
-Define a spacing size with a side, e.g. `has-padding-X-Y`, where `X` is the side and `Y` is the side.
+Define a spacing size with a side, e.g. `has-padding-X-Y`, where `X` is the side and `Y` is the size.
 
 <div class="filler-bg has-padding-left-1 has-no-padding-top has-no-padding-right has-no-padding-bottom">
   .has-padding-left-1
