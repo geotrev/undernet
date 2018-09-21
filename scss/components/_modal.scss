@@ -27,6 +27,7 @@
 
   &[data-visible="true"] {
     opacity: 1;
+    cursor: pointer;
     pointer-events: auto;
   }
 
@@ -46,6 +47,7 @@
   position: relative;
   flex-flow: column nowrap;
   display: flex;
+  cursor: default;
 
   // windows high contrast mode
   border: 1px solid transparent;

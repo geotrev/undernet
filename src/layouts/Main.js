@@ -7,6 +7,7 @@ import { Home, Docs, Examples } from "pages"
 
 // favicons
 import "assets/icons/favicon.ico"
+import "assets/icons/favicon-16x16.png"
 import "assets/icons/favicon-32x32.png"
 import "assets/icons/favicon-96x96.png"
 // apple
