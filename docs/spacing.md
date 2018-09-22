@@ -64,4 +64,4 @@ Further, remove padding or margin from specifically one side using `has-no-paddi
   </div>
 </div>
 
-<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/spacing">Edit this page on Github!</a></p>
+<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/spacing.md">Edit this page on Github!</a></p>

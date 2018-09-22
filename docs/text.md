@@ -45,4 +45,4 @@ Make your font bold or italic.
 .is-italic {
   font-weight: $global-font-style-italic !important;
 
-<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/text">Edit this page on Github!</a></p>
+<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/text.md">Edit this page on Github!</a></p>

@@ -136,9 +136,9 @@ Use the fieldset tag to group form elements together. It should sit inside a for
 
 ## Disabled State
 
-Using the `[disabled]` attribute will visually and functionally disable the control with this property.
+Using the `[disabled]` attribute will visually and functionally disable the control.
 
-The `disabled` class will visually dim the control, but not disable it. The input must return `false` in JavaScript but still receive focus to truly disable clicks and other forms of input if you use the class. Useful for disabling anchor tag buttons.
+The `disabled` class will visually dim the control, but not disable it functionally. The input must return `false` in JavaScript but still receive focus to truly disable clicks and other forms of input if you use the class. Useful for disabling anchor tag buttons.
 
 <button disabled class="has-no-margin-bottom">Disabled Button</button>
 
@@ -167,4 +167,4 @@ The `disabled` class will visually dim the control, but not disable it. The inpu
 </label>
 ```
 
-<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/forms">Edit this page on Github!</a></p>
+<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/forms.md">Edit this page on Github!</a></p>

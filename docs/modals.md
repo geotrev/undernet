@@ -230,4 +230,4 @@ Undernet.start()
 Undernet.Modals.start()
 ```
 
-<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/modals">Edit this page on Github!</a></p>
+<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/modals.md">Edit this page on Github!</a></p>
