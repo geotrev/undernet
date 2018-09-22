@@ -59,4 +59,4 @@ Undernet is completely open source!
 
 Contribute on [Github](https://www.github.com/geotrev/undernet/issues) if you have questions or a want to file a bug report. Be sure to [read about contributing](https://www.github.com/geotrev/undernet/master/CONTRIBUTING.md) before filing a bug or pull request.
 
-<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/introduction">Edit this page on Github!</a></p>
+<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/introduction.md">Edit this page on Github!</a></p>

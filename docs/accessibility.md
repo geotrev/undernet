@@ -33,4 +33,4 @@ Undernet.Utils.releaseFocus()
 
 `releaseFocus` doesn't need any arguments, as it assumes you are releasing focus from the most recently captured item.
 
-<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/accessibility">Edit this page on Github!</a></p>
+<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/accessibility.md">Edit this page on Github!</a></p>

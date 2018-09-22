@@ -71,4 +71,4 @@ Modal.start()
 
 If you're using webpack, [tree shaking](https://webpack.js.org/guides/tree-shaking/) is available by default and will allow you to import from the global `Undernet` object and webpack will discard any unused components.
 
-<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/javascript">Edit this page on Github!</a></p>
+<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/javascript.md">Edit this page on Github!</a></p>

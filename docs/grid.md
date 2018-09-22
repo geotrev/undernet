@@ -270,7 +270,7 @@ Don’t want padding on your grid, rows, and/or columns? You can remove it all w
 <div class="grid has-no-padding">
   <div class="row has-no-padding">
     <div class="column has-no-padding">
-      .column
+      .column.has-no-padding
     </div>
   </div>
 </div>
@@ -320,4 +320,4 @@ By default, a row will be vertically centered. To make the row top-aligned, add 
 
 [Learn more about alignment utilities.](/docs/utilities/alignment)
 
-<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/grid">Edit this page on Github!</a></p>
+<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/grid.md">Edit this page on Github!</a></p>

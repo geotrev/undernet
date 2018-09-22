@@ -18,4 +18,4 @@ Similar to text, use `has-X-bg` to modify an element's `background-color`, where
 <p class="has-gray800-bg">I'm using $gray800!</p>
 <p class="has-success-bg">I'm using using success color!</p>
 
-<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/color">Edit this page on Github!</a></p>
+<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/color.md">Edit this page on Github!</a></p>

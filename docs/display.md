@@ -18,4 +18,4 @@ A useful utility to have in responsive design is one that modifies with your gri
 </p>
 ```
 
-<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/display">Edit this page on Github!</a></p>
+<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/display.md">Edit this page on Github!</a></p>
