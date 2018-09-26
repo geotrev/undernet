@@ -25,11 +25,9 @@ export default class SideNav extends Component {
     this.getWidth()
     window.addEventListener("resize", this.getWidth)
 
-    if (window.outerWidth < 1200) {
-      this.setState({ menuIsOpen: false })
-    } else {
-      this.setState({ menuIsOpen: true })
-    }
+    const menuIsOpen = window.outerWidth < 1200 ? false : true
+
+    this.setState({ menuIsOpen })
   }
 
   componentDidMount() {
@@ -62,28 +60,29 @@ export default class SideNav extends Component {
     this.setState({ menuIsOpen: !this.state.menuIsOpen })
   }
 
-  render() {
-    const buttonClasses = classNames(
-      "is-justified-center is-aligned-center is-flex is-hidden-xlarge",
-      {
-        "rotate-180": !this.state.menuIsOpen,
-      },
-    )
+  getButtonClasses() {
+    return classNames("is-justified-center is-aligned-center is-flex is-hidden-xlarge", {
+      "rotate-180": !this.state.menuIsOpen,
+    })
+  }
 
-    const menuClasses = classNames("row side-nav-menu accordion", {
+  getMenuClasses() {
+    return classNames("row side-nav-menu accordion", {
       "is-hidden": !this.state.menuIsOpen,
     })
+  }
 
+  render() {
     return (
       <div className="xsmall-12 xlarge-2 columns has-no-padding" id="side-nav">
         <div className="fluid grid side-nav-wrapper">
           <div className="row is-flex is-hidden-xlarge side-nav-expand">
-            <Button onClick={this.handleClick} href="#" className={buttonClasses}>
+            <Button onClick={this.handleClick} href="#" className={this.getButtonClasses()}>
               <Menu size={20} /> <span className="has-black-text">Explore</span>
             </Button>
           </div>
 
-          <nav data-accordion="nav-accordion" className={menuClasses}>
+          <nav data-accordion="nav-accordion" className={this.getMenuClasses()}>
             <p className="version-text has-no-padding has-gray800-text xsmall-12 columns">
               Version {pkg.version}
             </p>
@@ -133,13 +132,13 @@ export default class SideNav extends Component {
           <ul>
             <li>
               <h4 id={"nav-acc-button" + i} className="paragraph">
-                <button
-                  data-parent="nav-accordion"
+                <Button
+                  dataParent="nav-accordion"
                   className="accordion-button"
-                  data-target={"nav-acc-content" + i}
+                  dataTarget={"nav-acc-content" + i}
                 >
                   {section.header}
-                </button>
+                </Button>
               </h4>
             </li>
             <li

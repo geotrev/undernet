@@ -2,7 +2,7 @@ import Docs from "./Docs"
 import { BrowserRouter as Router } from "react-router-dom"
 
 describe("<Docs />", () => {
-  it("can render", () => {
+  it("renders", () => {
     const wrapper = shallow(<Docs />)
     expect(wrapper).to.exist
     expect(wrapper).to.have.length(1)

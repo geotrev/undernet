@@ -1,6 +1,8 @@
 import React, { Component } from "react"
 import { Route } from "react-router-dom"
 
+import Routes from "routes"
+
 import { Article } from "components"
 import { Link } from "react-router-dom"
 import ChevronRight from "react-feather/dist/icons/chevron-right"
@@ -34,63 +36,83 @@ export default class DocsRoutes extends Component {
         <div className="row">
           <Route
             exact
-            path="/docs/overview/introduction"
+            path={Routes.docs.overview.introduction}
             render={() => this.renderArticle(IntroductionMd)}
           />
           <Route
             exact
-            path="/docs/overview/download"
+            path={Routes.docs.overview.download}
             render={() => this.renderArticle(DownloadMd)}
           />
           <Route
             exact
-            path="/docs/overview/branding"
+            path={Routes.docs.overview.branding}
             render={() => this.renderArticle(BrandingMd)}
           />
           <Route
             exact
-            path="/docs/overview/javascript"
+            path={Routes.docs.overview.javascript}
             render={() => this.renderArticle(JavaScriptMd)}
           />
           <Route
             exact
-            path="/docs/overview/accessibility"
+            path={Routes.docs.overview.accessibility}
             render={() => this.renderArticle(AccessibilityMd)}
           />
-          <Route exact path="/docs/elements/grid" render={() => this.renderArticle(GridMd)} />
+          <Route exact path={Routes.docs.elements.grid} render={() => this.renderArticle(GridMd)} />
           <Route
             exact
-            path="/docs/elements/typography"
+            path={Routes.docs.elements.typography}
             render={() => this.renderArticle(TypographyMd)}
           />
-          <Route exact path="/docs/elements/buttons" render={() => this.renderArticle(ButtonsMd)} />
-          <Route exact path="/docs/elements/forms" render={() => this.renderArticle(FormsMd)} />
           <Route
             exact
-            path="/docs/components/accordions"
+            path={Routes.docs.elements.buttons}
+            render={() => this.renderArticle(ButtonsMd)}
+          />
+          <Route
+            exact
+            path={Routes.docs.elements.forms}
+            render={() => this.renderArticle(FormsMd)}
+          />
+          <Route
+            exact
+            path={Routes.docs.components.accordions}
             render={() => this.renderArticle(AccordionsMd)}
           />
-          <Route exact path="/docs/components/modals" render={() => this.renderArticle(ModalsMd)} />
           <Route
             exact
-            path="/docs/utilities/alignment"
+            path={Routes.docs.components.modals}
+            render={() => this.renderArticle(ModalsMd)}
+          />
+          <Route
+            exact
+            path={Routes.docs.utilities.alignment}
             render={() => this.renderArticle(AlignmentMd)}
           />
           <Route
             exact
-            path="/docs/utilities/offset-order"
+            path={Routes.docs.utilities.offset_order}
             render={() => this.renderArticle(OffsetOrderMd)}
           />
-          <Route exact path="/docs/utilities/text" render={() => this.renderArticle(TextMd)} />
           <Route
             exact
-            path="/docs/utilities/display"
+            path={Routes.docs.utilities.text}
+            render={() => this.renderArticle(TextMd)}
+          />
+          <Route
+            exact
+            path={Routes.docs.utilities.display}
             render={() => this.renderArticle(DisplayMd)}
           />
-          <Route exact path="/docs/utilities/color" render={() => this.renderArticle(ColorMd)} />
           <Route
             exact
-            path="/docs/utilities/spacing"
+            path={Routes.docs.utilities.color}
+            render={() => this.renderArticle(ColorMd)}
+          />
+          <Route
+            exact
+            path={Routes.docs.utilities.spacing}
             render={() => this.renderArticle(SpacingMd)}
           />
         </div>

@@ -1,37 +1,50 @@
-import React, { Component } from "react"
+import React from "react"
 
-export default class Button extends Component {
-  getTag() {
-    return this.props.href ? "a" : "button"
-  }
+function getTag(href) {
+  return href ? "a" : "button"
+}
 
-  getType() {
-    return this.props.href || !this.props.type ? null : this.props.type
-  }
+function getType(href, type) {
+  return href || !type ? null : type
+}
 
-  getDisabledStatus() {
-    const warnMsg = "*** You can't use a `disabled` state on anchor tags ***"
-    if (this.props.disabled) {
-      return this.props.href ? console.warn(warnMsg) : this.props.disabled
-    }
+function getDisabledStatus(disabled, href) {
+  const warnMsg = "*** You can't use a `disabled` state on anchor tags ***"
+  if (disabled) {
+    return href ? console.warn(warnMsg) : disabled
   }
+}
 
-  render() {
-    const Tag = this.getTag()
-    return (
-      <Tag
-        disabled={this.getDisabledStatus()}
-        className={this.props.className}
-        onFocus={this.props.onFocus}
-        onBlur={this.props.onBlur}
-        onClick={this.props.onClick}
-        href={this.props.href}
-        type={this.getType()}
-        tabIndex={this.props.tabIndex}
-        id={this.props.id}
-      >
-        {this.props.children}
-      </Tag>
-    )
-  }
+export default function Button({
+  href,
+  disabled,
+  type,
+  id,
+  tabIndex,
+  onClick,
+  onBlur,
+  onFocus,
+  className,
+  dataParent,
+  dataTarget,
+  children,
+}) {
+  const Tag = getTag(href)
+  return (
+    <Tag
+      data-parent={dataParent}
+      data-target={dataTarget}
+      disabled={getDisabledStatus(disabled, href)}
+      className={className}
+      onFocus={onFocus}
+      onBlur={onBlur}
+      onClick={onClick}
+      href={href}
+      type={getType(href, type)}
+      tabIndex={tabIndex}
+      id={id}
+    >
+      {children}
+    </Tag>
+  )
 }

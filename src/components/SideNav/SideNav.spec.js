@@ -21,10 +21,10 @@ function SideNavComponent() {
 }
 
 describe("<SideNav />", () => {
-  it("can render", () => {
+  it("renders", () => {
     const wrapper = SideNavComponent()
-    expect(wrapper).to.have.length(1)
     expect(wrapper).to.exist
+    expect(wrapper).to.have.length(1)
   })
 
   it("is collapsable/expandable with .docs-nav-expand", () => {
