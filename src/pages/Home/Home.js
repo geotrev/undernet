@@ -107,7 +107,7 @@ export default class Home extends Component {
         </div>
 
         <div className="medium-section narrow grid">
-          <div cassName="row">
+          <div className="row">
             <div className="xsmall-12 columns has-center-text">
               <h2 className="h6">Painless Setup</h2>
               <p>Install with npm:</p>

@@ -27,6 +27,7 @@ export default function Button({
   className,
   dataParent,
   dataTarget,
+  role,
   children,
 }) {
   const Tag = getTag(href)
@@ -43,6 +44,7 @@ export default function Button({
       type={getType(href, type)}
       tabIndex={tabIndex}
       id={id}
+      role={role}
     >
       {children}
     </Tag>
