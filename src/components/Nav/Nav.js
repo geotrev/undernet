@@ -1,6 +1,7 @@
 import React from "react"
 import "./Nav.scss"
 
+import Routes from "routes"
 import Logo from "assets/images/un-logo.png"
 import Github from "react-feather/dist/icons/github"
 import Twitter from "react-feather/dist/icons/twitter"
@@ -28,7 +29,7 @@ const Nav = () => {
               </a>
             </li>
             <li>
-              <Link to="/docs/overview/introduction">Documentation</Link>
+              <Link to={Routes.docs.overview.introduction}>Documentation</Link>
             </li>
           </ul>
         </li>

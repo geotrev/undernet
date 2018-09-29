@@ -23,7 +23,6 @@ describe("<Button />", () => {
         Test
       </Button>,
     )
-    wrapper.instance().getDisabledStatus()
     expect(console.warn).to.have.been.called()
   })
 

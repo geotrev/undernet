@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react"
 import { Route } from "react-router-dom"
 import "./Main.scss"
 
+import Routes from "routes"
 import { Nav, Footer } from "components"
 import { Home, Docs, Examples } from "pages"
 
@@ -45,8 +46,8 @@ export default class Main extends Component {
           <Nav />
         </header>
         <main>
-          <Route exact path="/" component={Home} />
-          <Route path="/docs" component={Docs} />
+          <Route exact path={Routes.root} component={Home} />
+          <Route path={Routes.docs.root} component={Docs} />
         </main>
         <footer>
           <Footer />
