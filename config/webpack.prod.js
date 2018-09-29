@@ -4,11 +4,20 @@ const CompressionPlugin = require("compression-webpack-plugin")
 const common = require("../webpack.common.js")
 const CopyWebpackPlugin = require("copy-webpack-plugin")
 const CleanWebpackPlugin = require("clean-webpack-plugin")
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin")
 
 module.exports = merge(common, {
   optimization: {
     splitChunks: { chunks: "all" },
     runtimeChunk: { name: "manifest" },
+    minimizer: [
+      new UglifyJsPlugin({
+        exclude: /\/node_modules/,
+        cache: true,
+        parallel: true,
+        sourceMap: false,
+      }),
+    ],
   },
   stats: { children: false },
   plugins: [
