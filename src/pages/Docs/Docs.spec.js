@@ -1,5 +1,7 @@
 import Docs from "./Docs"
 import { BrowserRouter as Router } from "react-router-dom"
+import { SideNav } from "components"
+import DocsRoutes from "./DocsRoutes/DocsRoutes"
 
 describe("<Docs />", () => {
   it("renders", () => {
@@ -8,7 +10,7 @@ describe("<Docs />", () => {
     expect(wrapper).to.have.length(1)
   })
 
-  it("has one <DocsNav />", () => {
+  it("has one <SideNav />", () => {
     const wrapper = mount(
       <Router>
         <Docs />
@@ -16,7 +18,7 @@ describe("<Docs />", () => {
     )
     expect(wrapper)
       .to.have.exactly(1)
-      .descendants(".side-nav-wrapper")
+      .descendants(SideNav)
   })
 
   it("has one <DocsRoutes />", () => {
@@ -27,6 +29,6 @@ describe("<Docs />", () => {
     )
     expect(wrapper)
       .to.have.exactly(1)
-      .descendants(".docs-routes-wrapper")
+      .descendants(DocsRoutes)
   })
 })
