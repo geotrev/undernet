@@ -40,11 +40,4 @@ describe("<SideNav />", () => {
     button.simulate("click")
     expect(wrapper).to.have.descendants(".is-hidden")
   })
-
-  it("closes menu when a <NavLink /> is clicked", () => {
-    const wrapper = SideNavComponent()
-    const link = wrapper.find(".side-nav-link-item").first()
-    // link.simulate("click")
-    expect(wrapper).to.have.descendants(".is-hidden")
-  })
 })
