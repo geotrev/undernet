@@ -42,7 +42,7 @@ The more detail, the less confusion!
 
 Reference `.prettierrc` for code styling. Run `npm run lint` to apply styling to both css and javascript, or manually apply updates to files using `prettier`:
 
-```shell
+```sh
 $ prettier --write path/to/folder/**/*
 ```
 

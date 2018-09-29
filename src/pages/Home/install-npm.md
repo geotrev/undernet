@@ -1,3 +1,3 @@
-```shell
+```sh
 $ npm install undernet
 ```
