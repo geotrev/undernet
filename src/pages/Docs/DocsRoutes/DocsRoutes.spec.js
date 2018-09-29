@@ -10,9 +10,9 @@ function routes() {
 }
 
 describe("<DocsRoutes />", () => {
-  it("can render", () => {
+  it("renders", () => {
     const wrapper = routes()
-    expect(wrapper).to.have.length(1)
     expect(wrapper).to.exist
+    expect(wrapper).to.have.length(1)
   })
 })

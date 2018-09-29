@@ -61,7 +61,7 @@ For more details on customizing branding, check out the [Branding](https://under
 
 Another option is to use the npm package and borrow the modules you need. This is great for webpack where you can tree shake the modules you won't be needing.
 
-```shell
+```sh
 $ npm install --save-dev undernet
 ```
 
@@ -123,7 +123,7 @@ See CONTRIBUTING.md for more details on git flow and recommendations for pull re
 
 Clone the repo and re-clone the wiki contents.
 
-```shell
+```sh
 $ git clone git@github.com:USER_NAME/undernet.git
 $ cd undernet/
 $ npm run setup
@@ -133,25 +133,25 @@ The site is both a demo and marketing tool. It is built with my own webpack setu
 
 ### Run the dev server
 
-```shell
+```sh
 $ npm run watch
 ```
 
 ### Make a production build
 
-```shell
+```sh
 $ npm run build
 ```
 
 ### Run tests with istanbuljs/nyc coverage stats (for the site only)
 
-```shell
+```sh
 $ npm run test
 ```
 
 ### Load tests on file save (also for the site)
 
-```shell
+```sh
 $ npm run test:w
 ```
 
@@ -165,7 +165,7 @@ To compile and test the framework in this project, you'll need to have a stable 
 
 Then globally install `sass` and `rollup`:
 
-```shell
+```sh
 $ gem install sass
 $ npm run build:development
 ```
@@ -176,7 +176,7 @@ From there, everything should build correctly: the framework scss and js will be
 
 To rebuild fresh js assets while running the site's dev server, run this in a separate session to auto-reload assets while you work:
 
-```shell
+```sh
 $ npm run js:watch
 ```
 
@@ -184,7 +184,7 @@ $ npm run js:watch
 
 New releases are simply zipped and compiled files. You can create a new release using:
 
-```shell
+```sh
 $ npm run build:release
 ```
 

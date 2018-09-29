@@ -40,15 +40,11 @@ The more detail, the less confusion!
 
 ## Use a Consistent Coding Style
 
-Reference `.prettierrc` for code styling. Run `yarn lint` to apply styling, or manually write updates with this command:
+Reference `.prettierrc` for code styling. Run `npm run lint` to apply styling to both css and javascript, or manually apply updates to files using `prettier`:
 
-```shell
+```sh
 $ prettier --write path/to/folder/**/*
 ```
-
-## License
-
-By contributing, you agree that your contributions will be licensed under its MIT License.
 
 ## References
 

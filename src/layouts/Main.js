@@ -1,7 +1,8 @@
-import React, { Component, Fragment } from "react"
+import React, { Fragment } from "react"
 import { Route } from "react-router-dom"
 import "./Main.scss"
 
+import Routes from "routes"
 import { Nav, Footer } from "components"
 import { Home, Docs, Examples } from "pages"
 
@@ -37,21 +38,19 @@ import "assets/icons/android-icon-96x96.png"
 import "assets/icons/android-icon-144x144.png"
 import "assets/icons/android-icon-192x192.png"
 
-export default class Main extends Component {
-  render() {
-    return (
-      <Fragment>
-        <header>
-          <Nav />
-        </header>
-        <main>
-          <Route exact path="/" component={Home} />
-          <Route path="/docs" component={Docs} />
-        </main>
-        <footer>
-          <Footer />
-        </footer>
-      </Fragment>
-    )
-  }
-}
+const Main = () => (
+  <Fragment>
+    <header>
+      <Nav />
+    </header>
+    <main>
+      <Route exact path={Routes.root} component={Home} />
+      <Route path={Routes.docs.root} component={Docs} />
+    </main>
+    <footer>
+      <Footer />
+    </footer>
+  </Fragment>
+)
+
+export default Main

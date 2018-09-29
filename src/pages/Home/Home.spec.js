@@ -11,7 +11,7 @@ describe("<Home />", () => {
     )
   })
 
-  it("can render", () => {
+  it("renders", () => {
     expect(wrapper).to.exist
     expect(wrapper).to.have.length(1)
   })

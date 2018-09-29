@@ -7,7 +7,7 @@ Using Undernet's JS requires knowing its API. Luckily it's very simple!
 
 ## Compiled Assets
 
-Just like in the [Introduction](/docs/overview/introduction) article, the fastest option is to add the compiled assets right to your layout. Then in a separate script tag, initiate your component(s).
+Just like in the [Introduction](/docs/overview/introduction) article, the fastest option is to add the compiled assets right to your layout. Then in a separate script tag, call the API.
 
 ```html
 <!DOCTYPE html>
@@ -51,6 +51,8 @@ export default class MyComponent extends React.Component {
   }
 }
 ```
+
+Fun fact: this is how the components are showcased in the component docs.
 
 ## Customizing Component Imports
 

@@ -1,5 +1,5 @@
 import SideNav from "./SideNav"
-import { BrowserRouter as Router } from "react-router-dom"
+import { BrowserRouter as Router, NavLink, Link } from "react-router-dom"
 
 const navItems = [
   {
@@ -21,10 +21,15 @@ function SideNavComponent() {
 }
 
 describe("<SideNav />", () => {
-  it("can render", () => {
+  it("renders", () => {
     const wrapper = SideNavComponent()
-    expect(wrapper).to.have.length(1)
     expect(wrapper).to.exist
+    expect(wrapper).to.have.length(1)
+  })
+
+  it("contains NavLinks", () => {
+    const wrapper = SideNavComponent()
+    expect(wrapper).to.have.descendants(NavLink)
   })
 
   it("is collapsable/expandable with .docs-nav-expand", () => {
@@ -33,13 +38,6 @@ describe("<SideNav />", () => {
     button.simulate("click")
     expect(wrapper).to.not.have.descendants(".is-hidden")
     button.simulate("click")
-    expect(wrapper).to.have.descendants(".is-hidden")
-  })
-
-  it("closes menu when a <Link /> is clicked", () => {
-    const wrapper = SideNavComponent()
-    const link = wrapper.find(".side-nav-menu ul a").first()
-    link.simulate("click")
     expect(wrapper).to.have.descendants(".is-hidden")
   })
 })

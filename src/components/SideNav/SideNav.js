@@ -12,27 +12,33 @@ import ChevronRight from "react-feather/dist/icons/chevron-right"
 import { Button } from "components"
 import Undernet from "undernet"
 
+const MENU_COLLAPSE_BREAKPOINT = 1199
+
 export default class SideNav extends Component {
   constructor(props) {
     super(props)
-    this.state = { menuIsOpen: null }
-    this.getWidth = this.getWidth.bind(this)
+
+    this.state = {
+      menuIsOpen: null,
+      currentWindowWidth: null,
+    }
+
+    this.updateMenuVisibility = this.updateMenuVisibility.bind(this)
+    this.getCurrentWidth = this.getCurrentWidth.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.handleCollapseClick = this.handleCollapseClick.bind(this)
   }
 
   componentWillMount() {
-    this.getWidth()
-    window.addEventListener("resize", this.getWidth)
-
-    if (window.outerWidth < 1200) {
-      this.setState({ menuIsOpen: false })
-    } else {
-      this.setState({ menuIsOpen: true })
-    }
+    this.getCurrentWidth()
+    this.updateMenuVisibility()
   }
 
   componentDidMount() {
+    window.addEventListener("resize", this.getCurrentWidth)
+    window.addEventListener("resize", this.updateMenuVisibility)
+    const menuIsOpen = this.state.currentWindowWidth > MENU_COLLAPSE_BREAKPOINT
+    this.setState({ menuIsOpen })
     Undernet.Accordions.start()
   }
 
@@ -42,17 +48,25 @@ export default class SideNav extends Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener("resize", this.getWidth)
+    window.removeEventListener("resize", this.getCurrentWidth)
+    window.removeEventListener("resize", this.updateMenuVisibility)
     Undernet.Accordions.stop()
   }
 
   handleCollapseClick() {
-    if (window.outerWidth > 1199) return
-    this.setState({ menuIsOpen: false })
+    if (this.state.currentWindowWidth <= MENU_COLLAPSE_BREAKPOINT) {
+      this.setState({ menuIsOpen: false })
+    }
   }
 
-  getWidth() {
-    if (window.outerWidth > 1199) {
+  getCurrentWidth() {
+    this.setState({
+      currentWindowWidth: window.outerWidth,
+    })
+  }
+
+  updateMenuVisibility() {
+    if (this.state.currentWindowWidth > MENU_COLLAPSE_BREAKPOINT) {
       this.setState({ menuIsOpen: true })
     }
   }
@@ -62,36 +76,16 @@ export default class SideNav extends Component {
     this.setState({ menuIsOpen: !this.state.menuIsOpen })
   }
 
-  render() {
-    const buttonClasses = classNames(
-      "is-justified-center is-aligned-center is-flex is-hidden-xlarge",
-      {
-        "rotate-180": !this.state.menuIsOpen,
-      },
-    )
+  getButtonClasses() {
+    return classNames("is-justified-center is-aligned-center is-flex is-hidden-xlarge", {
+      "rotate-180": !this.state.menuIsOpen,
+    })
+  }
 
-    const menuClasses = classNames("row side-nav-menu accordion", {
+  getMenuClasses() {
+    return classNames("row side-nav-menu accordion", {
       "is-hidden": !this.state.menuIsOpen,
     })
-
-    return (
-      <div className="xsmall-12 xlarge-2 columns has-no-padding" id="side-nav">
-        <div className="fluid grid side-nav-wrapper">
-          <div className="row is-flex is-hidden-xlarge side-nav-expand">
-            <Button onClick={this.handleClick} href="#" className={buttonClasses}>
-              <Menu size={20} /> <span className="has-black-text">Explore</span>
-            </Button>
-          </div>
-
-          <nav data-accordion="nav-accordion" className={menuClasses}>
-            <p className="version-text has-no-padding has-gray800-text xsmall-12 columns">
-              Version {pkg.version}
-            </p>
-            {this.renderLists()}
-          </nav>
-        </div>
-      </div>
-    )
   }
 
   accordionIsActive(items) {
@@ -106,21 +100,53 @@ export default class SideNav extends Component {
     return isActive
   }
 
-  renderLists() {
+  renderAccordionChildLink(item, index) {
+    return (
+      <li key={index} role="none">
+        <NavLink
+          role="listitem"
+          className="side-nav-link-item has-black-text is-flex is-aligned-center"
+          activeClassName="active"
+          onClick={this.handleCollapseClick}
+          to={item.url}
+        >
+          {item.name} <ChevronRight size={16} />
+        </NavLink>
+      </li>
+    )
+  }
+
+  renderAccordionRow(section, index, listItems) {
+    return (
+      <ul>
+        <li role="none">
+          <h4 id={"nav-acc-button" + index} className="paragraph">
+            <Button
+              dataParent="side-nav-accordion"
+              className="accordion-button"
+              dataTarget={"nav-acc-content" + index}
+              role="listitem"
+            >
+              {section.header}
+            </Button>
+          </h4>
+        </li>
+        <li
+          className="accordion-content"
+          id={"nav-acc-content" + index}
+          aria-labelledby={"nav-acc-button" + index}
+          data-content={this.accordionIsActive(section.links) ? "visible" : "hidden"}
+        >
+          <ul>{listItems}</ul>
+        </li>
+      </ul>
+    )
+  }
+
+  renderAccordion() {
     return this.props.navItems.map((section, i) => {
       let listItems = section.links.map((item, j) => {
-        return (
-          <li key={j}>
-            <NavLink
-              className="has-black-text is-flex is-aligned-center"
-              activeClassName="active"
-              onClick={this.handleCollapseClick}
-              to={item.url}
-            >
-              {item.name} <ChevronRight size={16} />
-            </NavLink>
-          </li>
-        )
+        return this.renderAccordionChildLink(item, j)
       })
 
       return (
@@ -130,29 +156,30 @@ export default class SideNav extends Component {
           className={classNames("accordion-row", this.props.navListClasses)}
           key={i}
         >
-          <ul>
-            <li>
-              <h4 id={"nav-acc-button" + i} className="paragraph">
-                <button
-                  data-parent="nav-accordion"
-                  className="accordion-button"
-                  data-target={"nav-acc-content" + i}
-                >
-                  {section.header}
-                </button>
-              </h4>
-            </li>
-            <li
-              className="accordion-content"
-              id={"nav-acc-content" + i}
-              aria-labelledby={"nav-acc-button" + i}
-              data-content={this.accordionIsActive(section.links) ? "visible" : "hidden"}
-            >
-              <ul>{listItems}</ul>
-            </li>
-          </ul>
+          {this.renderAccordionRow(section, i, listItems)}
         </div>
       )
     })
+  }
+
+  render() {
+    return (
+      <div className="xsmall-12 xlarge-2 columns has-no-padding" id="side-nav">
+        <div className="fluid grid side-nav-wrapper">
+          <div className="row is-flex is-hidden-xlarge side-nav-expand">
+            <Button onClick={this.handleClick} href="#" className={this.getButtonClasses()}>
+              <Menu size={20} /> <span className="has-black-text">Explore</span>
+            </Button>
+          </div>
+
+          <nav data-accordion="side-nav-accordion" className={this.getMenuClasses()}>
+            <p className="version-text has-no-padding has-gray800-text xsmall-12 columns">
+              Version {pkg.version}
+            </p>
+            {this.renderAccordion()}
+          </nav>
+        </div>
+      </div>
+    )
   }
 }

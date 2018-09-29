@@ -4,15 +4,31 @@ Customizing Undernet your CSS requires you to use the partial scss files that de
 
 To get a sense of what you have the easiest control over, reference the `_config.scss` file which includes core variables for just about everything, including the grid, typography/color/spacing, as well as buttons, forms, and the interactive components.
 
-## Compiled Assets
+## SCSS
 
-Just like in the [Introduction](/docs/overview/introduction) article, the fastest option is to add the compiled assets right to your layout wit a `<link />` tag.
+You can build your CSS from SCSS using the [sass gem cli](https://github.com/sass/ruby-sass), or whichever build tool your project already uses. For the purposes of this example, we'll use the sass gem.
+
+```sh
+$ cd yourProjectFolder/
+$ gem install sass
+```
+
+Now you can start compiling your css using the command line. Learn more about CLI options [here](https://sass-lang.com/documentation/file.SASS_REFERENCE.html#using_sass).
+
+```sh
+$ sass css/undernet.scss:css/undernet.css --style compressed
+```
+
+Assumes your scss files are inside a folder named `css/`.
+
+Then link to the css in your stylesheet.
 
 ```html
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="styleseet" ref="pat/to/undernet.min.css" />
+    ...
+    <link rel="styleseet" ref="css/undernet.css" />
   </head>
   <body>
     ...
@@ -22,12 +38,13 @@ Just like in the [Introduction](/docs/overview/introduction) article, the fastes
 
 ## NPM and Webpack
 
-If you use these tools, extending Undernet requires a bit of setup.
+If you use these tools, extending Undernet requires a bit of setup. It also assumes you're using a [webpack config](https://github.com/webpack-contrib/sass-loader) that can parse scss.
 
-First, import in a new global SCSS file the functions, config vars, and mixins. You can import this file in other stylesheets to get access to the non-selector utilities while not risking duplication of utility classes, element, and component selector definitions.
+First, import in a new global SCSS file the functions, config vars, and mixins.
+
+You can import this file in other stylesheets to get access to the mixin and var definitions while not risking duplication of classe selectors.
 
 ```css
-/* _my_config.scss */
 @import "~undernet/scss/helpers/functions";
 /* Add config overrides here! */
 @import "~undernet/scss/config";
@@ -39,8 +56,7 @@ Next, in a separate stylesheet, import any or all of Undernet's components.
 Only import the below **one time** in your application!
 
 ```css
-/* my_undernet.scss */
-@import "path/to/_new_config";
+@import "path/to/new_config";
 /* remove reset below if you are scoping */
 @import "elements/reset";
 /* .#{$scope} { */
@@ -54,8 +70,8 @@ Only import the below **one time** in your application!
 @import "components/accordion";
 /* } */
 /*
- * required $scope ceck for no-scroll; if scopes are enabled,
- * you need .no-scroll outside of it.
+ * required $scope check for no-scroll;
+ * if scopes are enabled, you need .no-scroll outside of it.
 **/
 @if $scope != "" {
   .no-scroll {
@@ -70,10 +86,10 @@ Finally, import `undernet.scss` in your global stylesheet.
 @import 'path/to/undernet';
 ```
 
-... or link to it in your layout.
+... or link to it in your layout. Although, webpack should handle this for it if you're using [HtmlWebpackPlugin](https://github.com/jantimon/html-webpack-plugin) or similar.
 
 ```html
-<link rel="stylesheet" ref="pat/to/your/styles.css" />
+<link rel="stylesheet" ref="path/to/your/styles.css" />
 ```
 
 With that, you should be good to go!

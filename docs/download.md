@@ -16,11 +16,11 @@ Going this route allows for far more customization, but do so at your own risk. 
 
 You can also install with npm or yarn. See the [JavaScript](/docs/overview/javascript) article for more details.
 
-```shell
+```sh
 $ npm install undernet
 ```
 
-```shell
+```sh
 $ yarn add undernet
 ```
 
