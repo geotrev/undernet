@@ -3,7 +3,7 @@ import { Route } from "react-router-dom"
 import "./Main.scss"
 
 import Routes from "routes"
-import { Nav, Footer } from "components"
+import { GlobalNav, Footer } from "components"
 import { Home, Docs, Examples } from "pages"
 
 // favicons
@@ -38,19 +38,19 @@ import "assets/icons/android-icon-96x96.png"
 import "assets/icons/android-icon-144x144.png"
 import "assets/icons/android-icon-192x192.png"
 
-const Main = () => (
-  <Fragment>
-    <header>
-      <Nav />
-    </header>
-    <main>
-      <Route exact path={Routes.root} component={Home} />
-      <Route path={Routes.docs.root} component={Docs} />
-    </main>
-    <footer>
-      <Footer />
-    </footer>
-  </Fragment>
-)
-
-export default Main
+export default function Main() {
+  return (
+    <Fragment>
+      <header>
+        <GlobalNav />
+      </header>
+      <main>
+        <Route exact path={Routes.root} component={Home} />
+        <Route path={Routes.docs.root} component={Docs} />
+      </main>
+      <footer>
+        <Footer />
+      </footer>
+    </Fragment>
+  )
+}

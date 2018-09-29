@@ -33,66 +33,82 @@ function renderArticle(article) {
   return <Article>{article}</Article>
 }
 
-const DocsRoutes = () => (
-  <div className="docs-routes-wrapper small-section fluid grid">
-    <div className="articles-wrapper row">
-      <div className="column">
-        <Route
-          exact
-          path={Routes.docs.overview.introduction}
-          render={() => renderArticle(IntroductionMd)}
-        />
-        <Route
-          exact
-          path={Routes.docs.overview.download}
-          render={() => renderArticle(DownloadMd)}
-        />
-        <Route
-          exact
-          path={Routes.docs.overview.branding}
-          render={() => renderArticle(BrandingMd)}
-        />
-        <Route
-          exact
-          path={Routes.docs.overview.javascript}
-          render={() => renderArticle(JavaScriptMd)}
-        />
-        <Route
-          exact
-          path={Routes.docs.overview.accessibility}
-          render={() => renderArticle(AccessibilityMd)}
-        />
-        <Route exact path={Routes.docs.elements.grid} render={() => renderArticle(GridMd)} />
-        <Route
-          exact
-          path={Routes.docs.elements.typography}
-          render={() => renderArticle(TypographyMd)}
-        />
-        <Route exact path={Routes.docs.elements.buttons} render={() => renderArticle(ButtonsMd)} />
-        <Route exact path={Routes.docs.elements.forms} render={() => renderArticle(FormsMd)} />
-        <Route
-          exact
-          path={Routes.docs.components.accordions}
-          render={() => renderArticle(AccordionsMd)}
-        />
-        <Route exact path={Routes.docs.components.modals} render={() => renderArticle(ModalsMd)} />
-        <Route
-          exact
-          path={Routes.docs.utilities.alignment}
-          render={() => renderArticle(AlignmentMd)}
-        />
-        <Route
-          exact
-          path={Routes.docs.utilities.offset_order}
-          render={() => renderArticle(OffsetOrderMd)}
-        />
-        <Route exact path={Routes.docs.utilities.text} render={() => renderArticle(TextMd)} />
-        <Route exact path={Routes.docs.utilities.display} render={() => renderArticle(DisplayMd)} />
-        <Route exact path={Routes.docs.utilities.color} render={() => renderArticle(ColorMd)} />
-        <Route exact path={Routes.docs.utilities.spacing} render={() => renderArticle(SpacingMd)} />
+export default function DocsRoutes() {
+  return (
+    <div id="docs-routes" className="small-section fluid grid">
+      <div className="articles-wrapper row">
+        <div className="column">
+          <Route
+            exact
+            path={Routes.docs.overview.introduction}
+            render={() => renderArticle(IntroductionMd)}
+          />
+          <Route
+            exact
+            path={Routes.docs.overview.download}
+            render={() => renderArticle(DownloadMd)}
+          />
+          <Route
+            exact
+            path={Routes.docs.overview.branding}
+            render={() => renderArticle(BrandingMd)}
+          />
+          <Route
+            exact
+            path={Routes.docs.overview.javascript}
+            render={() => renderArticle(JavaScriptMd)}
+          />
+          <Route
+            exact
+            path={Routes.docs.overview.accessibility}
+            render={() => renderArticle(AccessibilityMd)}
+          />
+          <Route exact path={Routes.docs.elements.grid} render={() => renderArticle(GridMd)} />
+          <Route
+            exact
+            path={Routes.docs.elements.typography}
+            render={() => renderArticle(TypographyMd)}
+          />
+          <Route
+            exact
+            path={Routes.docs.elements.buttons}
+            render={() => renderArticle(ButtonsMd)}
+          />
+          <Route exact path={Routes.docs.elements.forms} render={() => renderArticle(FormsMd)} />
+          <Route
+            exact
+            path={Routes.docs.components.accordions}
+            render={() => renderArticle(AccordionsMd)}
+          />
+          <Route
+            exact
+            path={Routes.docs.components.modals}
+            render={() => renderArticle(ModalsMd)}
+          />
+          <Route
+            exact
+            path={Routes.docs.utilities.alignment}
+            render={() => renderArticle(AlignmentMd)}
+          />
+          <Route
+            exact
+            path={Routes.docs.utilities.offset_order}
+            render={() => renderArticle(OffsetOrderMd)}
+          />
+          <Route exact path={Routes.docs.utilities.text} render={() => renderArticle(TextMd)} />
+          <Route
+            exact
+            path={Routes.docs.utilities.display}
+            render={() => renderArticle(DisplayMd)}
+          />
+          <Route exact path={Routes.docs.utilities.color} render={() => renderArticle(ColorMd)} />
+          <Route
+            exact
+            path={Routes.docs.utilities.spacing}
+            render={() => renderArticle(SpacingMd)}
+          />
+        </div>
       </div>
     </div>
-  </div>
-)
-
-export default DocsRoutes
+  )
+}

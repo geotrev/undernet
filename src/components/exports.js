@@ -1,6 +1,6 @@
 export { default as Article } from "./Article/Article"
 export { default as Button } from "./Button/Button"
 export { default as Footer } from "./Footer/Footer"
-export { default as Nav } from "./Nav/Nav"
+export { default as GlobalNav } from "./GlobalNav/GlobalNav"
 export { default as SideNav } from "./SideNav/SideNav"
 export { default as Modal } from "./Modal/Modal"

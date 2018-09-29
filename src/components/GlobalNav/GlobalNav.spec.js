@@ -1,10 +1,10 @@
-import Nav from "./Nav"
+import GlobalNav from "./GlobalNav"
 import { BrowserRouter as Router } from "react-router-dom"
 
 function NavComponent() {
   return mount(
     <Router>
-      <Nav />
+      <GlobalNav />
     </Router>,
   )
 }
