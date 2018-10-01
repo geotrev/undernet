@@ -9,7 +9,6 @@ const UglifyJsPlugin = require("uglifyjs-webpack-plugin")
 module.exports = merge(common, {
   optimization: {
     splitChunks: { chunks: "all" },
-    runtimeChunk: { name: "manifest" },
     minimizer: [
       new UglifyJsPlugin({
         exclude: /\/node_modules/,

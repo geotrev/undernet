@@ -20,8 +20,8 @@
     "framework"
   ],
   "scripts": {
-    "test": "nyc mocha -r @babel/register -r config/testHelpers.js --recursive src/**/*.spec.js",
-    "test:w": "mocha --watch -r @babel/register -r config/testHelpers.js --recursive src/**/*.spec.js",
+    "test": "nyc mocha -r @babel/register -r config/mocha.config.js --recursive src/**/*.spec.js",
+    "test:w": "mocha --watch -r @babel/register -r config/mocha.config.js --recursive src/**/*.spec.js",
     "build": "BABEL_ENV=production webpack --config config/webpack.prod.js --progress",
     "watch": "npm run js:build && webpack-dev-server --config config/webpack.dev.js --progress --open",
     "lint": "prettier --write 'src/**/*.js' && prettier --write 'src/**/*.scss'",
@@ -99,7 +99,9 @@
     "webpack": "^4.17.1",
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.1",
-    "webpack-merge": "^4.1.1"
+    "webpack-merge": "^4.1.1",
+    "react-loadable": "^5.5.0",
+    "react-spinkit": "^3.0.0"
   },
   "repository": {
     "type": "git",

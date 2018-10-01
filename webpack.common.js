@@ -2,6 +2,29 @@ const HtmlWebpackPlugin = require("html-webpack-plugin")
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
 const path = require("path")
 
+const ExtractStyles = ExtractTextPlugin.extract({
+  fallback: "style-loader",
+  use: [
+    {
+      loader: "css-loader",
+      options: {
+        minimize: true,
+        sourceMap: true,
+      },
+    },
+    {
+      loader: "postcss-loader",
+      options: {
+        config: {
+          path: "config/postcss.config.js",
+        },
+      },
+    },
+    { loader: "resolve-url-loader" },
+    { loader: "sass-loader?sourceMap" },
+  ],
+})
+
 module.exports = {
   entry: {
     main: path.resolve(__dirname, "src/index.js"),
@@ -32,29 +55,8 @@ module.exports = {
         use: "babel-loader",
       },
       {
-        test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: [
-            {
-              loader: "css-loader",
-              options: {
-                minimize: true,
-                sourceMap: true,
-              },
-            },
-            {
-              loader: "postcss-loader",
-              options: {
-                config: {
-                  path: "config/postcss.config.js",
-                },
-              },
-            },
-            { loader: "resolve-url-loader" },
-            { loader: "sass-loader?sourceMap" },
-          ],
-        }),
+        test: /\.s?css$/,
+        use: ExtractStyles,
       },
       {
         test: /\.(ico|png|jpe?g|gif|eot|svg|ttf|woff2?|otf)$/,
