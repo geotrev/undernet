@@ -18,7 +18,11 @@ module.exports = merge(common, {
         parallel: true,
         sourceMap: false,
       }),
+      new OptimizeCSSAssetsPlugin(),
     ],
+    runtimeChunk: {
+      name: "manifest",
+    },
   },
   module: {
     rules: [
@@ -46,8 +50,6 @@ module.exports = merge(common, {
   },
   stats: { children: false },
   plugins: [
-    new OptimizeCSSAssetsPlugin(),
-
     // remove previous build assets
     new CleanWebpackPlugin(["../build"], {
       root: path.resolve(__dirname),
