@@ -21,6 +21,20 @@
         ]
       ]
     },
+    "test": {
+      "presets": [
+        "@babel/preset-env",
+        "@babel/preset-react"
+      ],
+      "plugins": [
+        "@babel/plugin-syntax-dynamic-import",
+        "dynamic-import-node",
+        [
+          "babel-plugin-webpack-aliases",
+          { "config": "config/webpack.dev.js" }
+        ]
+      ]
+    },
     "production": {
       "presets": [
         "@babel/preset-env",
