@@ -6,11 +6,8 @@ const CopyWebpackPlugin = require("copy-webpack-plugin")
 const CleanWebpackPlugin = require("clean-webpack-plugin")
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin")
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
-const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 
-module.exports = merge.strategy({
-  module: "replace",
-})(common, {
+module.exports = merge(common(true), {
   optimization: {
     splitChunks: { chunks: "all" },
     minimizer: [
@@ -25,47 +22,6 @@ module.exports = merge.strategy({
     runtimeChunk: {
       name: "manifest",
     },
-  },
-  module: {
-    rules: [
-      {
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-        use: "babel-loader",
-      },
-      {
-        test: /\.s?css$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          {
-            loader: "css-loader",
-            options: {
-              minimize: true,
-              sourceMap: true,
-            },
-          },
-          {
-            loader: "postcss-loader",
-            options: { config: { path: "config/postcss.config.js" } },
-          },
-          { loader: "resolve-url-loader" },
-          "sass-loader?sourceMap",
-        ],
-      },
-      {
-        test: /\.(ico|png|jpe?g|gif|eot|svg|ttf|woff2?|otf)$/,
-        use: [
-          {
-            loader: "file-loader",
-            options: { name: "[name].[ext]", outputPath: "assets/" },
-          },
-        ],
-      },
-      {
-        test: /\.md$/,
-        use: ["html-loader", "markdown-loader"],
-      },
-    ],
   },
   stats: { children: false },
   plugins: [
