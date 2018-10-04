@@ -44,9 +44,7 @@ module.exports = {
           },
           {
             loader: "postcss-loader",
-            options: {
-              config: { path: "config/postcss.config.js" },
-            },
+            options: { config: { path: "config/postcss.config.js" } },
           },
           { loader: "resolve-url-loader" },
           "sass-loader?sourceMap",
@@ -57,16 +55,13 @@ module.exports = {
         use: [
           {
             loader: "file-loader",
-            options: {
-              name: "[name].[ext]",
-              outputPath: "assets/",
-            },
+            options: { name: "[name].[ext]", outputPath: "assets/" },
           },
         ],
       },
       {
         test: /\.md$/,
-        use: [{ loader: "html-loader" }, { loader: "markdown-loader" }],
+        use: ["html-loader", "markdown-loader"],
       },
     ],
   },

@@ -8,7 +8,9 @@ const UglifyJsPlugin = require("uglifyjs-webpack-plugin")
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 
-module.exports = merge(common, {
+module.exports = merge.strategy({
+  module: "replace",
+})(common, {
   optimization: {
     splitChunks: { chunks: "all" },
     minimizer: [
@@ -27,6 +29,11 @@ module.exports = merge(common, {
   module: {
     rules: [
       {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        use: "babel-loader",
+      },
+      {
         test: /\.s?css$/,
         use: [
           MiniCssExtractPlugin.loader,
@@ -39,12 +46,24 @@ module.exports = merge(common, {
           },
           {
             loader: "postcss-loader",
-            options: {
-              config: { path: "config/postcss.config.js" },
-            },
+            options: { config: { path: "config/postcss.config.js" } },
           },
-          "sass-loader",
+          { loader: "resolve-url-loader" },
+          "sass-loader?sourceMap",
         ],
+      },
+      {
+        test: /\.(ico|png|jpe?g|gif|eot|svg|ttf|woff2?|otf)$/,
+        use: [
+          {
+            loader: "file-loader",
+            options: { name: "[name].[ext]", outputPath: "assets/" },
+          },
+        ],
+      },
+      {
+        test: /\.md$/,
+        use: ["html-loader", "markdown-loader"],
       },
     ],
   },
