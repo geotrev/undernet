@@ -4,8 +4,8 @@ const path = require("path")
 
 // @param {Boolean} production - if `true`, sets MiniCssExtractPlugin.loader for
 //                               production build, else uses "style-loader"
-const mainConfig = function(production) {
-  const cssExtractionMethod = production ? MiniCssExtractPlugin.loader : "style-loader"
+module.exports = productionMode => {
+  const cssExtractionMethod = productionMode ? MiniCssExtractPlugin.loader : "style-loader"
 
   return {
     entry: {
@@ -80,5 +80,3 @@ const mainConfig = function(production) {
     ],
   }
 }
-
-module.exports = mainConfig
