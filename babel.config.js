@@ -6,7 +6,7 @@ function presets(rollup) {
   }
 }
 
-function plugins(dev = false, test = false) {
+function plugins(dev, test) {
   var result = ["@babel/plugin-syntax-dynamic-import"]
 
   if (test) {
@@ -27,11 +27,11 @@ module.exports = {
     },
     development: {
       presets: presets(),
-      plugins: plugins((dev = true)),
+      plugins: plugins(true, false),
     },
     test: {
       presets: presets(),
-      plugins: plugins((test = true)),
+      plugins: plugins(false, true),
     },
     production: {
       presets: presets(),
