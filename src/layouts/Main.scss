@@ -21,8 +21,22 @@
   }
 }
 
+html,
+body,
+#__main__ {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+header,
+footer {
+  flex: none;
+}
+
 main {
-  display: block;
+  display: flex;
+  flex: 1 0 auto;
 
   @import "./prism";
 }
