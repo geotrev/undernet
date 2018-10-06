@@ -15,7 +15,7 @@ To have content available in the DOM that isn't visible to sighted users, add th
 
 To sighted users, the this "Download" label has context to the surrounding page. With this hidden text, there is added context describing what the download is for, specifically.
 
-[Learn more about visibility utilities.](/docs/utilities/visibility)
+[Learn more about visibility utilities.](/docs/utilities/display)
 
 ## Trap Focus
 
