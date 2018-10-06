@@ -1,19 +1,27 @@
 import React, { Component } from "react"
 import "./Article.scss"
-
-import { ScrollUpOnMount } from "helpers"
 import Markdown from "react-markdown"
 import Prism from "prismjs"
 import Undernet from "undernet"
 
+import classNames from "classnames"
+import { ScrollUpOnMount } from "helpers"
+
 export default class Article extends Component {
   constructor() {
     super()
+    this.state = {
+      mounted: false,
+    }
   }
 
   componentDidMount() {
     Undernet.start()
     Prism.highlightAll()
+
+    this.setState({
+      mounted: true,
+    })
   }
 
   componentWillUnmount() {
@@ -22,7 +30,11 @@ export default class Article extends Component {
 
   render() {
     return (
-      <article className="article-wrapper has-no-padding column">
+      <article
+        className={classNames("article-wrapper has-no-padding column", {
+          fadeIn: this.state.mounted,
+        })}
+      >
         <ScrollUpOnMount />
         <Markdown source={this.props.children} escapeHtml={false} />
       </article>

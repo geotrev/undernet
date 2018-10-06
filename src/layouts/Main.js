@@ -6,16 +6,7 @@ import "./assets"
 import Routes from "routes"
 import { GlobalNav, Footer, LoadingSpinner } from "components"
 import Loadable from "react-loadable"
-
-const Home = Loadable({
-  loader: () => import("../pages/Home/Home.js"),
-  loading: () => <LoadingSpinner />,
-})
-
-const Docs = Loadable({
-  loader: () => import("../pages/Docs/Docs.js"),
-  loading: () => <LoadingSpinner />,
-})
+import { Home, Docs } from "pages"
 
 export default function Main() {
   return (
