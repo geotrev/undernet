@@ -126,7 +126,6 @@ export default class Modal extends Utils {
     )
 
     this.getFocusableElements(this.activeModalSelector).forEach(element => {
-      console.log(element)
       element.setAttribute(selectors.TAB_INDEX, "0")
     })
 
@@ -162,7 +161,6 @@ export default class Modal extends Utils {
     this.activeModal.removeAttribute("tabindex")
 
     this.getFocusableElements(this.activeModalSelector).forEach(element => {
-      console.log(element)
       element.setAttribute(selectors.TAB_INDEX, "-1")
     })
 

@@ -1,6 +1,6 @@
 /*!
   * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
-  * Undernet v2.2.1 (https://undernet.io)
+  * Undernet v2.2.2 (https://undernet.io)
   * Copyright 2017-2018 George Treviranus
   */
 (function (global, factory) {
@@ -330,7 +330,6 @@
         this.activeModal = document.querySelector(this.activeModalSelector);
         this.modalCloseButtons = this.getElements("".concat(this.activeModalOverlayAttr, " ").concat(this.closeButtonAttr));
         this.getFocusableElements(this.activeModalSelector).forEach(function (element) {
-          console.log(element);
           element.setAttribute(selectors$1.TAB_INDEX, "0");
         });
         this.handleScrollStop();
@@ -366,7 +365,6 @@
         this.activeModalOverlay.setAttribute(selectors$1.ARIA_HIDDEN, "true");
         this.activeModal.removeAttribute("tabindex");
         this.getFocusableElements(this.activeModalSelector).forEach(function (element) {
-          console.log(element);
           element.setAttribute(selectors$1.TAB_INDEX, "-1");
         }); // stop listening to events
 
