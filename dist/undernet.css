@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /*!
 * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
-* Undernet v2.2.1 (https://undernet.io)
+* Undernet v2.2.2 (https://undernet.io)
 * Copyright 2017-2018 George Treviranus
 */
 html,
@@ -1442,7 +1442,7 @@ button,
   padding: 10px 16px;
   text-align: center;
   text-decoration: none;
-  transition: ease-out 0.2s;
+  transition: cubic-bezier(0.12, 0.72, 0.58, 1.03) 0.2s;
   background: #ffffff;
   color: #222;
   border-color: #888;
@@ -2165,7 +2165,7 @@ input[type="time"],
 input[type="url"],
 input[type="week"],
 textarea {
-  transition: ease-out 0.2s; }
+  transition: cubic-bezier(0.12, 0.72, 0.58, 1.03) 0.2s; }
   input[type="text"]:focus, input[type="text"]:active,
   input[type="password"]:focus,
   input[type="password"]:active,
@@ -2210,7 +2210,7 @@ textarea {
     background: #ffffff;
     border: 2px solid #666;
     box-shadow: none;
-    transition: ease-out 0.2s; }
+    transition: cubic-bezier(0.12, 0.72, 0.58, 1.03) 0.2s; }
 
 .no-scroll {
   overflow: hidden; }
