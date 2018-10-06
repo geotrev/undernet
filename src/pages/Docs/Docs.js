@@ -45,15 +45,15 @@ const DOCS_NAV_ITEMS = [
   },
 ]
 
-const Docs = () => (
-  <div id="docs" className="medium-section fluid grid">
-    <div className="row">
-      <SideNav navListClasses="xsmall-12 columns has-no-padding" navItems={DOCS_NAV_ITEMS} />
-      <div className="xsmall-12 xlarge-10 has-no-padding columns">
-        <DocsRoutes />
+export default function Docs() {
+  return (
+    <div id="docs" className="medium-section fluid grid">
+      <div className="row">
+        <SideNav navListClasses="xsmall-12 columns has-no-padding" navItems={DOCS_NAV_ITEMS} />
+        <div className="xsmall-12 xlarge-10 has-no-padding columns">
+          <DocsRoutes />
+        </div>
       </div>
     </div>
-  </div>
-)
-
-export default Docs
+  )
+}

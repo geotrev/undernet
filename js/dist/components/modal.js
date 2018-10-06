@@ -167,7 +167,6 @@ function (_Utils) {
       this.activeModal = document.querySelector(this.activeModalSelector);
       this.modalCloseButtons = this.getElements("".concat(this.activeModalOverlayAttr, " ").concat(this.closeButtonAttr));
       this.getFocusableElements(this.activeModalSelector).forEach(function (element) {
-        console.log(element);
         element.setAttribute(selectors.TAB_INDEX, "0");
       });
       this.handleScrollStop();
@@ -203,7 +202,6 @@ function (_Utils) {
       this.activeModalOverlay.setAttribute(selectors.ARIA_HIDDEN, "true");
       this.activeModal.removeAttribute("tabindex");
       this.getFocusableElements(this.activeModalSelector).forEach(function (element) {
-        console.log(element);
         element.setAttribute(selectors.TAB_INDEX, "-1");
       }); // stop listening to events
 

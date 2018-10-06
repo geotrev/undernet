@@ -1,56 +1,26 @@
 import React, { Fragment } from "react"
 import { Route } from "react-router-dom"
 import "./Main.scss"
+import "./assets"
 
 import Routes from "routes"
-import { Nav, Footer } from "components"
-import { Home, Docs, Examples } from "pages"
+import { GlobalNav, Footer, LoadingSpinner } from "components"
+import Loadable from "react-loadable"
+import { Home, Docs } from "pages"
 
-// favicons
-import "assets/icons/favicon.ico"
-import "assets/icons/favicon-16x16.png"
-import "assets/icons/favicon-32x32.png"
-import "assets/icons/favicon-96x96.png"
-// apple
-import "assets/icons/apple-icon-57x57.png"
-import "assets/icons/apple-icon-60x60.png"
-import "assets/icons/apple-icon-72x72.png"
-import "assets/icons/apple-icon-76x76.png"
-import "assets/icons/apple-icon-114x114.png"
-import "assets/icons/apple-icon-120x120.png"
-import "assets/icons/apple-icon-144x144.png"
-import "assets/icons/apple-icon-152x152.png"
-import "assets/icons/apple-icon-180x180.png"
-import "assets/icons/apple-icon-precomposed.png"
-import "assets/icons/apple-icon.png"
-
-// ms
-import "assets/icons/ms-icon-70x70.png"
-import "assets/icons/ms-icon-144x144.png"
-import "assets/icons/ms-icon-150x150.png"
-import "assets/icons/ms-icon-310x310.png"
-
-// android
-import "assets/icons/android-icon-36x36.png"
-import "assets/icons/android-icon-48x48.png"
-import "assets/icons/android-icon-72x72.png"
-import "assets/icons/android-icon-96x96.png"
-import "assets/icons/android-icon-144x144.png"
-import "assets/icons/android-icon-192x192.png"
-
-const Main = () => (
-  <Fragment>
-    <header>
-      <Nav />
-    </header>
-    <main>
-      <Route exact path={Routes.root} component={Home} />
-      <Route path={Routes.docs.root} component={Docs} />
-    </main>
-    <footer>
-      <Footer />
-    </footer>
-  </Fragment>
-)
-
-export default Main
+export default function Main() {
+  return (
+    <Fragment>
+      <header>
+        <GlobalNav />
+      </header>
+      <main>
+        <Route exact path={Routes.root} component={Home} />
+        <Route path={Routes.docs.root} component={Docs} />
+      </main>
+      <footer>
+        <Footer />
+      </footer>
+    </Fragment>
+  )
+}

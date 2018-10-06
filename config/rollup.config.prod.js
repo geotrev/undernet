@@ -10,12 +10,11 @@ module.exports = merge(common, {
   plugins: [
     uglify({
       output: {
-        comments: (node, comment) => {
-          var text = comment.value
-          var type = comment.type
-          if (type == "comment2") {
-            return /@preserve|@license|@cc_on/i.test(text)
+        comments: function(node, comment) {
+          if (comment.type === "comment2") {
+            return /@preserve|@license|@cc_on/i.test(comment.value)
           }
+          return false
         },
       },
       mangle: {

@@ -1,6 +1,13 @@
 @import "../../global";
 
 .article-wrapper {
+  opacity: 0;
+  transition: $global-ease 0.35s opacity;
+
+  &.fadeIn {
+    opacity: 1;
+  }
+
   pre {
     margin-bottom: 32px !important;
   }
