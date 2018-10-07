@@ -23,7 +23,7 @@ export default function DocsRoutes() {
           <Route exact path={Routes.docs.overview.introduction} component={getRoute("introduction")} />
           <Route exact path={Routes.docs.overview.download} component={getRoute("download")} />
           <Route exact path={Routes.docs.overview.branding} component={getRoute("branding")} />
-          <Route exact path={Routes.docs.overview.javascript} component={getRoute("javaScript")} />
+          <Route exact path={Routes.docs.overview.javascript} component={getRoute("javascript")} />
           <Route exact path={Routes.docs.overview.accessibility} component={getRoute("accessibility")} />
           <Route exact path={Routes.docs.elements.grid} component={getRoute("grid")} />
           <Route exact path={Routes.docs.elements.typography} component={getRoute("typography")} />
