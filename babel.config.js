@@ -6,14 +6,14 @@ function presets(rollup) {
   }
 }
 
-function plugins(dev, test, prod) {
+function plugins(options) {
   var result = ["@babel/plugin-syntax-dynamic-import"]
 
-  if (test) result.push("dynamic-import-node")
+  if (options.test) result.push("dynamic-import-node")
 
-  if (dev || prod) result.push("emotion")
+  if (options.dev || options.prod) result.push("emotion")
 
-  if (dev || test) {
+  if (options.dev || options.test) {
     result.push(["babel-plugin-webpack-aliases", { config: "config/webpack.dev.js" }])
   }
 
@@ -27,15 +27,15 @@ module.exports = {
     },
     development: {
       presets: presets(),
-      plugins: plugins(true, false, false),
+      plugins: plugins({ dev: true }),
     },
     test: {
       presets: presets(),
-      plugins: plugins(false, true, false),
+      plugins: plugins({ test: true }),
     },
     production: {
       presets: presets(),
-      plugins: plugins(false, false, true),
+      plugins: plugins({ prod: true }),
     },
   },
 }

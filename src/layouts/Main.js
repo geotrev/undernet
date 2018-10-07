@@ -8,12 +8,12 @@ import { GlobalNav, Footer, LoadingSpinner } from "components"
 import Loadable from "react-loadable"
 
 const Home = Loadable({
-  loader: () => import("../pages/Home/Home"),
+  loader: () => import(/* webpackPrefetch: true */ "../pages/Home/Home"),
   loading: () => <LoadingSpinner />,
 })
 
 const Docs = Loadable({
-  loader: () => import("../pages/Docs/Docs"),
+  loader: () => import(/* webpackPrefetch: true */ "../pages/Docs/Docs"),
   loading: () => <LoadingSpinner />,
 })
 
