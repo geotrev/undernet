@@ -37,7 +37,7 @@ Check out this example modal:
 ```
 ```html
 <div class="modal-overlay" data-modal-id="new-modal">
-  <div aria-labelledby="header-id" data-modal>
+  <div class="modal-dialog" aria-labelledby="header-id" data-modal>
     <header>
       <h2 class="h6" id="header-id">
         Modal Header
@@ -128,28 +128,9 @@ Adding the `is-centered` class onto the modal overlay will vertically center the
 <button href="#" data-modal-button data-target="new-modal-2">Open centered modal</button>
 ```
 ```html
-<div class="modal-overlay" data-modal-id="new-modal-2">
-  <div class="modal-dialog is-centered" aria-labelledby="header-id-2" data-modal>
-    <header>
-      <h2 class="h6" id="header-id-2">
-        Modal Header
-      </h2>
-      <a data-close href="#">
-        <span aria-hidden="true">&times;</span>
-        <span class"is-visually-hidden">close modal</span>
-      </a>
-    </header>
-    <section>
-      <p>Some modal content here</p>
-    </section>
-    <footer>
-      <a class="button" data-close href="#">
-        Cancel
-      </a>
-      <a class="primary button" href="#">
-        OK
-      </a>
-    </footer>
+<div class="modal-overlay is-centered" data-modal-id="new-modal-2">
+  <div class="modal-dialog" aria-labelledby="header-id-2" data-modal>
+    ...
   </div>
 </div>
 ```
@@ -174,7 +155,7 @@ For the modal itself, you need a few more things.
 
 ```html
 <div class="modal-overlay" data-modal-id="new-modal-2">
-  <div class="modal-dialog is-centered" aria-labelledby="header-id-2" data-modal>
+  <div class="modal-dialog" aria-labelledby="header-id-2" data-modal>
     <header>
       <h2 class="h6" id="header-id-2">...</h2>
       <a data-close href="#">
@@ -207,7 +188,7 @@ For the modal itself, you need a few more things.
 
 - `modal-overlay`: gives overlay styling for the modal background.
 - `modal-dialog`: container for the dialog's contents.
-- `is-centered`: a helper class that centers the modal vertically within the modal overlay.
+- `is-centered`: a helper class that vertically centers the modal dialog within the modal overlay.
 
 Edit much of the styling within `_config.scss`.
 

@@ -43,19 +43,20 @@
 
 .modal-dialog {
   background: $modal-container-background-color;
-  width: 100vw;
+  width: $modal-container-width-small;
   position: relative;
   flex-flow: column nowrap;
   display: flex;
   cursor: default;
+  margin: $modal-container-margin-small;
+  border-radius: $modal-container-border-radius;
 
   // windows high contrast mode
   border: 1px solid transparent;
 
   @media screen and (min-width: $modal-horizontal-breakpoint) and (min-height: $modal-vertical-breakpoint) {
-    width: 500px;
-    margin: 40px auto 40px auto;
-    border-radius: $modal-container-border-radius;
+    width: $modal-container-width;
+    margin: $modal-container-margin;
   }
 
   header {
@@ -88,12 +89,9 @@
     padding: $modal-container-padding;
   }
 
-  header {
-    border-bottom: $modal-header-border;
-  }
-
+  header,
   section {
-    border-bottom: $modal-footer-border;
+    border-bottom: $modal-header-border;
   }
 
   footer {

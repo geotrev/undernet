@@ -1,6 +1,6 @@
 /*!
   * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
-  * Undernet v2.2.2 (https://undernet.io)
+  * Undernet v2.2.3 (https://undernet.io)
   * Copyright 2017-2018 George Treviranus
   */
 (function (global, factory) {
