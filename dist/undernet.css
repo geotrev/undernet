@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /*!
 * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
-* Undernet v2.2.2 (https://undernet.io)
+* Undernet v2.2.3 (https://undernet.io)
 * Copyright 2017-2018 George Treviranus
 */
 html,
@@ -2243,17 +2243,18 @@ textarea {
 
 .modal-dialog {
   background: #ffffff;
-  width: 100vw;
+  width: 95%;
   position: relative;
   flex-flow: column nowrap;
   display: flex;
   cursor: default;
+  margin: 16px auto;
+  border-radius: 4px;
   border: 1px solid transparent; }
   @media screen and (min-width: 576px) and (min-height: 576px) {
     .modal-dialog {
-      width: 500px;
-      margin: 40px auto 40px auto;
-      border-radius: 4px; } }
+      width: 450px;
+      margin: 40px auto; } }
   .modal-dialog header {
     display: flex;
     align-items: center; }
@@ -2263,7 +2264,7 @@ textarea {
     .modal-dialog header h4,
     .modal-dialog header h5,
     .modal-dialog header h6 {
-      font-size: 24px;
+      font-size: 20px;
       display: inline-flex;
       margin-bottom: 0; }
   .modal-dialog header > button[data-close],
@@ -2276,8 +2277,7 @@ textarea {
   .modal-dialog section,
   .modal-dialog footer {
     padding: 16px; }
-  .modal-dialog header {
-    border-bottom: 1px solid #dedede; }
+  .modal-dialog header,
   .modal-dialog section {
     border-bottom: 1px solid #dedede; }
   .modal-dialog footer {
