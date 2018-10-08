@@ -23,6 +23,7 @@ const { window } = dom
 
 global.window = window
 global.document = window.document
+global.window.scrollTo = chai.spy()
 global.navigator = {
   userAgent: "node.js",
 }
@@ -36,6 +37,4 @@ require.extensions[".css"] = noop
 require.extensions[".svg"] = noop
 require.extensions[".png"] = noop
 require.extensions[".jpg"] = noop
-global.window.scrollTo = noop
-
 global.Undernet = noop

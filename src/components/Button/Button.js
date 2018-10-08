@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from "prop-types"
 
 function getTag(href) {
   return href ? "a" : "button"
@@ -49,4 +50,20 @@ export default function Button({
       {children}
     </Tag>
   )
+}
+
+Button.propTypes = {
+  href: PropTypes.string,
+  disabled: PropTypes.bool,
+  type: PropTypes.string,
+  id: PropTypes.string,
+  tabIndex: PropTypes.number,
+  onClick: PropTypes.func,
+  onBlur: PropTypes.func,
+  onFocus: PropTypes.func,
+  className: PropTypes.string,
+  dataParent: PropTypes.string,
+  dataTarget: PropTypes.string,
+  role: PropTypes.string,
+  children: PropTypes.node.isRequired,
 }

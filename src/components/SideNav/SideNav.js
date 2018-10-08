@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import PropTypes from "prop-types"
 import "./SideNav.scss"
 
 const path = require("path")
@@ -29,6 +30,21 @@ export default class SideNav extends Component {
     this.handleCollapseClick = this.handleCollapseClick.bind(this)
   }
 
+  static propTypes = {
+    navItems: PropTypes.arrayOf(
+      PropTypes.shape({
+        header: PropTypes.string,
+        links: PropTypes.arrayOf(
+          PropTypes.shape({
+            name: PropTypes.string,
+            url: PropTypes.string,
+          }),
+        ),
+      }),
+    ).isRequired,
+    navListClasses: PropTypes.string,
+  }
+
   componentWillMount() {
     this.getCurrentWidth()
     this.updateMenuVisibility()
@@ -37,8 +53,10 @@ export default class SideNav extends Component {
   componentDidMount() {
     window.addEventListener("resize", this.getCurrentWidth)
     window.addEventListener("resize", this.updateMenuVisibility)
+
     const menuIsOpen = this.state.currentWindowWidth > MENU_COLLAPSE_BREAKPOINT
     this.setState({ menuIsOpen })
+
     Undernet.Accordions.start()
   }
 
