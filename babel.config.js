@@ -7,7 +7,7 @@ function presets(rollup) {
 }
 
 function plugins(options) {
-  var result = ["@babel/plugin-syntax-dynamic-import"]
+  let result = ["@babel/plugin-syntax-dynamic-import", "@babel/plugin-proposal-class-properties"]
 
   if (options.test) result.push("dynamic-import-node")
 
