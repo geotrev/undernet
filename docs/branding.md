@@ -42,7 +42,7 @@ If you use these tools, extending Undernet requires a bit of setup. It also assu
 
 First, import in a new global SCSS file the functions, config vars, and mixins.
 
-You can import this file in other stylesheets to get access to the mixin and var definitions while not risking duplication of classe selectors.
+You can import this file in other stylesheets to get access to the mixin and var definitions while not risking duplication of class selectors.
 
 ```css
 @import "~undernet/scss/helpers/functions";
