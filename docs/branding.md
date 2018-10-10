@@ -58,16 +58,16 @@ Only import the below **one time** in your application!
 ```css
 @import "path/to/new_config";
 /* remove reset below if you are scoping */
-@import "elements/reset";
+@import "~undernet/scss/elements/reset";
 /* .#{$scope} { */
-@import "helpers/classes";
-@import "elements/grid";
-@import "elements/typography";
-@import "elements/link";
-@import "elements/button";
-@import "elements/form";
-@import "components/modal";
-@import "components/accordion";
+@import "~undernet/scss/helpers/classes";
+@import "~undernet/scss/elements/grid";
+@import "~undernet/scss/elements/typography";
+@import "~undernet/scss/elements/link";
+@import "~undernet/scss/elements/button";
+@import "~undernet/scss/elements/form";
+@import "~undernet/scss/components/modal";
+@import "~undernet/scss/components/accordion";
 /* } */
 /*
  * required $scope check for no-scroll;
