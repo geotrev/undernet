@@ -1,7 +1,6 @@
 import React, { Fragment } from "react"
 import { Route } from "react-router-dom"
 import "./Main.scss"
-import "./assets"
 
 import Routes from "routes"
 import { GlobalNav, Footer, LoadingSpinner } from "components"
