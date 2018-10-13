@@ -1,41 +1,56 @@
-import Routes from "routes"
+import {
+  introductionPath,
+  downloadPath,
+  brandingPath,
+  javascriptPath,
+  accessibilityPath,
+  gridPath,
+  typographyPath,
+  buttonsPath,
+  formsPath,
+  modalsPath,
+  accordionsPath,
+  alignmentPath,
+  offsetOrderPath,
+  textPath,
+  displayPath,
+  colorPath,
+  spacingPath,
+} from "routes"
 
 export const ITEMS = [
   {
     header: "Overview",
     links: [
-      { name: "Introduction", url: Routes.docs.overview.introduction },
-      { name: "Download", url: Routes.docs.overview.download },
-      { name: "Branding", url: Routes.docs.overview.branding },
-      { name: "JavaScript", url: Routes.docs.overview.javascript },
-      { name: "Accessibility", url: Routes.docs.overview.accessibility },
+      { name: "Introduction", url: introductionPath },
+      { name: "Download", url: downloadPath },
+      { name: "Branding", url: brandingPath },
+      { name: "JavaScript", url: javascriptPath },
+      { name: "Accessibility", url: accessibilityPath },
     ],
   },
   {
     header: "Elements",
     links: [
-      { name: "Grid", url: Routes.docs.elements.grid },
-      { name: "Typography", url: Routes.docs.elements.typography },
-      { name: "Buttons", url: Routes.docs.elements.buttons },
-      { name: "Forms", url: Routes.docs.elements.forms },
+      { name: "Grid", url: gridPath },
+      { name: "Typography", url: typographyPath },
+      { name: "Buttons", url: buttonsPath },
+      { name: "Forms", url: formsPath },
     ],
   },
   {
     header: "Components",
-    links: [
-      { name: "Modals", url: Routes.docs.components.modals },
-      { name: "Accordions", url: Routes.docs.components.accordions },
-    ],
+    links: [{ name: "Modals", url: modalsPath }, { name: "Accordions", url: accordionsPath }],
   },
   {
     header: "Utilities",
     links: [
-      { name: "Alignment", url: Routes.docs.utilities.alignment },
-      { name: "Offset / Order", url: Routes.docs.utilities.offset_order },
-      { name: "Text", url: Routes.docs.utilities.text },
-      { name: "Display", url: Routes.docs.utilities.display },
-      { name: "Color", url: Routes.docs.utilities.color },
-      { name: "Spacing", url: Routes.docs.utilities.spacing },
+      { name: "Alignment", url: alignmentPath },
+      { name: "Offset / Order", url: offsetOrderPath },
+      { name: "Text", url: textPath },
+      { name: "Display", url: displayPath },
+      { name: "Color", url: colorPath },
+      { name: "Spacing", url: spacingPath },
     ],
   },
 ]

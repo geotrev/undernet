@@ -2,7 +2,7 @@ import React, { Fragment } from "react"
 import { Route } from "react-router-dom"
 import "./Main.scss"
 
-import Routes from "routes"
+import { rootPath, docsPath } from "routes"
 import { GlobalNav, Footer, LoadingSpinner } from "components"
 import Loadable from "react-loadable"
 
@@ -23,8 +23,8 @@ export default function Main() {
         <GlobalNav />
       </header>
       <main>
-        <Route exact path={Routes.root} component={Home} />
-        <Route path={Routes.docs.root} component={Docs} />
+        <Route exact path={rootPath} component={Home} />
+        <Route path={docsPath} component={Docs} />
       </main>
       <footer>
         <Footer />

@@ -1,7 +1,7 @@
 import React from "react"
 import "./GlobalNav.scss"
 
-import Routes from "routes"
+import { introductionPath } from "routes"
 import Logo from "assets/images/un-logo.png"
 import Github from "react-feather/dist/icons/github"
 import Twitter from "react-feather/dist/icons/twitter"
@@ -29,7 +29,7 @@ export default function GlobalNav() {
               </a>
             </li>
             <li>
-              <Link to={Routes.docs.overview.introduction}>Documentation</Link>
+              <Link to={introductionPath}>Documentation</Link>
             </li>
           </ul>
         </li>

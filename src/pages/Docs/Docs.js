@@ -7,7 +7,7 @@ import { ITEMS } from "./docs-nav-items"
 
 export default function Docs() {
   return (
-    <div id="docs" className="medium-section fluid grid">
+    <div id="docs" className="fluid grid has-no-padding">
       <div className="row">
         <SideNav navListClasses="xsmall-12 columns has-no-padding" navItems={ITEMS} />
         <div className="xsmall-12 xlarge-10 has-no-padding columns">
