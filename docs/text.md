@@ -23,8 +23,9 @@ Align text left, right, or center.
 <p class="filler has-padding has-right-text">I'm aligned right!</p>
 
 ```html
-<p class="has-sans-font">I'm in sans-serif style!</p>
-<p class="has-serif-font">I'm in serif style!</p>
+<p class="has-left-text">I'm aligned left!</p>
+<p class="has-center-text">I'm aligned center!</p>
+<p class="has-right-text">I'm aligned right!</p>
 ```
 
 ## Font Weight
@@ -38,11 +39,5 @@ Make your font bold or italic.
 <p class="is-bold">I'm bold!</p>
 <p class="is-italic">I'm italic!</p>
 ```
-
-.is-bold {
-  font-weight: $global-font-weight-bold !important;
-}
-.is-italic {
-  font-weight: $global-font-style-italic !important;
 
 <p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/text.md">Edit this page on Github!</a></p>
