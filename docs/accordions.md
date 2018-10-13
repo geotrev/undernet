@@ -143,7 +143,7 @@ Add `data-toggle-multiple` on the accordion container to let each accordion row 
 <br/>
 
 ```html
-<div data-accordion="new-accordion" class="accordion" data-accordion-multiple>
+<div data-accordion="new-accordion" class="accordion" data-toggle-multiple>
   ...
 </div>
 ```
