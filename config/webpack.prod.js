@@ -52,6 +52,11 @@ module.exports = merge(common(true), {
         to: "browserconfig.xml",
         cache: true,
       },
+      {
+        from: "public/static/**/*",
+        to: "assets/[name].[ext]",
+        cache: true,
+      },
     ]),
   ],
   mode: "production",
