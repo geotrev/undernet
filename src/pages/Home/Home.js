@@ -3,7 +3,7 @@ import pkg from "../../../package.json"
 import "./Home.scss"
 import { ScrollUpOnMount } from "helpers"
 
-import Routes from "routes"
+import { downloadPath, introductionPath } from "routes"
 import { Link } from "react-router-dom"
 import ChevronRight from "react-feather/dist/icons/chevron-right"
 import Markdown from "react-markdown"
@@ -39,11 +39,11 @@ export default class Home extends Component {
             </div>
 
             <div className="xsmall-12 columns has-center-text">
-              <Link to={Routes.docs.overview.download} className="medium button has-feather">
+              <Link to={downloadPath} className="medium button has-feather">
                 Download <ChevronRight size={20} />
               </Link>
               <Link
-                to={Routes.docs.overview.introduction}
+                to={introductionPath}
                 className="primary medium button has-gradient has-feather"
               >
                 Learn More <ChevronRight size={20} />
@@ -118,7 +118,7 @@ export default class Home extends Component {
               <br />
               <p>See how Undernet can improve your developer experience!</p>
               <Link
-                to={Routes.docs.overview.introduction}
+                to={introductionPath}
                 className="primary medium button has-gradient has-feather"
               >
                 Learn More <ChevronRight size={20} />
