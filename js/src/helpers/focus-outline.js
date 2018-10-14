@@ -33,10 +33,8 @@ export default class FocusOutline {
     const shiftKey = event.which === keyCodes.SHIFT || event.shiftKey
 
     if (tabKey || shiftKey) {
-      event.preventDefault()
       document.body.classList.add(selectors.KEYBOARD)
     } else {
-      event.preventDefault()
       document.body.classList.remove(selectors.KEYBOARD)
     }
   }

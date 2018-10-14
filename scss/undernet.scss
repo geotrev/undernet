@@ -23,16 +23,4 @@
 @import "components/accordion";
 // }
 
-// Modals need .no-scroll to be out of $scope in order to function properly.
-
-@if $scope != "" {
-  .no-scroll {
-    overflow: hidden;
-  }
-
-  .using-keyboard {
-    *:focus {
-      outline: $global-outline-using-keyboard !important;
-    }
-  }
-}
+@import "helpers/scope-overrides";

@@ -1,0 +1,9 @@
+@if $scope != "" {
+  .no-scroll {
+    overflow: hidden !important;
+  }
+
+  .using-keyboard *:focus {
+    outline: $global-outline-using-keyboard !important;
+  }
+}

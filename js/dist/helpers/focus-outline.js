@@ -50,10 +50,10 @@ function () {
       var shiftKey = event.which === keyCodes.SHIFT || event.shiftKey;
 
       if (tabKey || shiftKey) {
-        event.preventDefault();
+        // event.preventDefault()
         document.body.classList.add(selectors.KEYBOARD);
       } else {
-        event.preventDefault();
+        // event.preventDefault()
         document.body.classList.remove(selectors.KEYBOARD);
       }
     }

@@ -27,15 +27,6 @@
 // Uncomment the scope wrapper in undernet.scss if you use this!
 $scope: "" !default;
 
-$global-space: 16px !default;
-
-$spacing-increments: (
-  "1": $global-space * 0.5,
-  "2": $global-space * 0.75,
-  "3": $global-space * 1.5,
-  "4": $global-space * 2
-) !default;
-
 $global-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu,
   Cantarell, "Helvetica Neue", sans-serif !default;
 $global-font-serif: Constantia, "Lucida Bright", Lucidabright, "Lucida Serif", Lucida,
@@ -91,9 +82,18 @@ $full-palette: map-merge(
 $global-border-radius: 4px !default;
 $global-border-width: 2px !default;
 $global-outline: none;
-$global-outline-using-keyboard: 2px solid rgba($primary-color, 0.4) !default;
+$global-outline-using-keyboard: 2px solid rgba($primary-color, 0.75) !default;
 
 $modal-index: 2000 !default;
+
+$global-space: 16px !default;
+
+$spacing-increments: (
+  "1": $global-space * 0.5,
+  "2": $global-space * 0.75,
+  "3": $global-space * 1.5,
+  "4": $global-space * 2
+) !default;
 
 // 2. Grid
 // -------

@@ -2,7 +2,7 @@
 
 @if $scope == "" {
   .no-scroll {
-    overflow: hidden;
+    overflow: hidden !important;
   }
 }
 
