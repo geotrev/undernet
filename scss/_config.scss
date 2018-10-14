@@ -83,7 +83,7 @@ $global-border-radius: 4px !default;
 $global-border-width: 2px !default;
 
 $global-outline: none;
-$global-outline-using-keyboard: 2px solid rgba($primary-color, 0.75) !default;
+$global-outline-using-keyboard: 2px solid $secondary-color !default;
 
 $global-space: 16px !default;
 $spacing-increments: (

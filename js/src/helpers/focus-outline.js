@@ -15,7 +15,8 @@ const events = {
 }
 
 /**
- * Helper component class.
+ * FocusOutline helper class.
+ * Slightly modified from David Gilbertson's article here: https://hackernoon.com/removing-that-ugly-focus-ring-and-keeping-it-too-6c8727fefcd2
  * @module FocusOutline
  */
 export default class FocusOutline {
