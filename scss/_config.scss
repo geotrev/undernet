@@ -90,7 +90,8 @@ $full-palette: map-merge(
 
 $global-border-radius: 4px !default;
 $global-border-width: 2px !default;
-$global-outline: 2px solid $primary-color !default;
+$global-outline: none;
+$global-outline-using-keyboard: 2px solid rgba($primary-color, 0.4) !default;
 
 $modal-index: 2000 !default;
 

@@ -29,4 +29,10 @@
   .no-scroll {
     overflow: hidden;
   }
+
+  .using-keyboard {
+    *:focus {
+      outline: $global-outline-using-keyboard !important;
+    }
+  }
 }

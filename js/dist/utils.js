@@ -38,7 +38,8 @@ function () {
     this.handleFocusTrap = this.handleFocusTrap.bind(this);
   }
   /**
-   * Because IE does not recognize NodeList.forEach(), we use a cross-browser solution for returning an array of DOM nodes.
+   * Because IE does not recognize NodeList.forEach(),
+   * we use a cross-browser solution for returning an array of DOM nodes every time.
    * @param {String} element - A DOM node's class, attribute, etc., to search the document.
    * @return {Array}
    */
