@@ -3,7 +3,7 @@
     overflow: hidden !important;
   }
 
-  .using-keyboard *:focus {
+  .using-keyboard *:not([type="text"]):not(textarea):not(select):focus {
     outline: $global-outline-using-keyboard !important;
   }
 }

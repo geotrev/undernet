@@ -6,7 +6,7 @@ const keyCodes = {
 }
 
 const selectors = {
-  KEYBOARD: "using-keyboard",
+  USING_KEYBOARD: "using-keyboard",
 }
 
 const events = {
@@ -21,11 +21,11 @@ const events = {
 export default class FocusOutline {
   constructor() {
     this.listenForKeyboard = this.listenForKeyboard.bind(this)
+    this.listenForClick = this.listenForClick.bind(this)
   }
 
   start() {
     document.addEventListener(events.KEYDOWN, this.listenForKeyboard)
-    document.addEventListener(events.CLICK, this.listenForKeyboard)
   }
 
   listenForKeyboard(event) {
@@ -33,10 +33,16 @@ export default class FocusOutline {
     const shiftKey = event.which === keyCodes.SHIFT || event.shiftKey
 
     if (tabKey || shiftKey) {
-      document.body.classList.add(selectors.KEYBOARD)
-    } else {
-      document.body.classList.remove(selectors.KEYBOARD)
+      document.body.classList.add(selectors.USING_KEYBOARD)
+      document.removeEventListener(events.KEYDOWN, this.listenForKeyboard)
+      document.addEventListener(events.CLICK, this.listenForClick)
     }
+  }
+
+  listenForClick(event) {
+    document.body.classList.remove(selectors.USING_KEYBOARD)
+    document.removeEventListener(events.CLICK, this.listenForClick)
+    document.addEventListener(events.KEYDOWN, this.listenForKeyboard)
   }
 
   stop() {

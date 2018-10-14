@@ -249,7 +249,7 @@
 // .using-keyboard is added to <body> if the A11yOutline JS helper is enabled
 
 @if $scope == "" {
-  .using-keyboard *:focus {
+  .using-keyboard *:not([type="text"]):not(textarea):not(select):focus {
     outline: $global-outline-using-keyboard !important;
   }
 }

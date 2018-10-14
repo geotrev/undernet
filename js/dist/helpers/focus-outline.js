@@ -16,7 +16,7 @@ var keyCodes = {
   TAB: 9
 };
 var selectors = {
-  KEYBOARD: "using-keyboard"
+  USING_KEYBOARD: "using-keyboard"
 };
 var events = {
   KEYDOWN: "keydown",
@@ -35,13 +35,13 @@ function () {
     _classCallCheck(this, FocusOutline);
 
     this.listenForKeyboard = this.listenForKeyboard.bind(this);
+    this.listenForClick = this.listenForClick.bind(this);
   }
 
   _createClass(FocusOutline, [{
     key: "start",
     value: function start() {
       document.addEventListener(events.KEYDOWN, this.listenForKeyboard);
-      document.addEventListener(events.CLICK, this.listenForKeyboard);
     }
   }, {
     key: "listenForKeyboard",
@@ -50,12 +50,17 @@ function () {
       var shiftKey = event.which === keyCodes.SHIFT || event.shiftKey;
 
       if (tabKey || shiftKey) {
-        // event.preventDefault()
-        document.body.classList.add(selectors.KEYBOARD);
-      } else {
-        // event.preventDefault()
-        document.body.classList.remove(selectors.KEYBOARD);
+        document.body.classList.add(selectors.USING_KEYBOARD);
+        document.removeEventListener(events.KEYDOWN, this.listenForKeyboard);
+        document.addEventListener(events.CLICK, this.listenForClick);
       }
+    }
+  }, {
+    key: "listenForClick",
+    value: function listenForClick(event) {
+      document.body.classList.remove(selectors.USING_KEYBOARD);
+      document.removeEventListener(events.CLICK, this.listenForClick);
+      document.addEventListener(events.KEYDOWN, this.listenForKeyboard);
     }
   }, {
     key: "stop",
