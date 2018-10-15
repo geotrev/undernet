@@ -4,6 +4,8 @@ Grab whichever source code best suits your project. Learn how to link your scrip
 
 ## Minified & Compiled
 
+In addition to the CDN links from the [introduction](/docs/overview/introduction) article, you can grab all the compiled assets here.
+
 - CSS: [Download](https://github.com/geotrev/undernet/raw/master/dist/undernet.css.zip)
 - JS: [Download](https://github.com/geotrev/undernet/raw/master/dist/undernet.js.zip)
 

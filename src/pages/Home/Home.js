@@ -17,6 +17,7 @@ import configSvg from "assets/images/configurable.svg"
 import a11ySvg from "assets/images/accessible.svg"
 
 import Prism from "prismjs"
+import Undernet from "undernet"
 
 export default class Home extends Component {
   constructor() {
@@ -25,6 +26,7 @@ export default class Home extends Component {
 
   componentDidMount() {
     Prism.highlightAll()
+    Undernet.FocusOutline.start()
   }
 
   render() {

@@ -6,25 +6,17 @@ Undernet is extremely light, carrying no external dependencies apart from needin
 
 ## Get Started
 
-The quickest way to use Undernet is to link the bundled js and minified css directly in your template.
+The quickest way to use Undernet is to link the bundled js and minified css using a CDN, such as [unpkg](https://www.unpkg.com).
 
 ```html
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>I'm using Undernet!</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="path/to/undernet.min.css">
-    <!-- Add new styles after -->
-  </head>
-  <body>
-    ...
-    <script type="text/javascript" src="path/to/undernet.bundle.min.js" async></script>
-    <script type="text/javascript">
-      document.addEventListener('DOMContentLoaded', Undernet.start())
-    </script>
-  </body>
-</html>
+<link rel="stylesheet" href="https://unpkg.com/undernet@2.3.0/dist/undernet.min.css" integrity="AfLVOTAceR/+r+IdnAxwUc5UjvAJJBzg1bnHyaqmzfz+xWCerFaMOpMBmeE7fjZA" crossorigin="anonymous">
+```
+
+```html
+<script type="text/javascript" src="https://unpkg.com/undernet@2.3.0/dist/undernet.bundle.min.js" integrity="e4JQgpZqXXSKzzQ9IrGiznWb2wHXGeXLqDFTjJLQ5H0bflo9C+SsU/Lr8og2g7H4" crossorigin="anonymous"></script>
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', Undernet.start())
+</script>
 ```
 
 Head over to the [download page](/docs/overview/download) to get Undernet's assets, or see other options for [including it in your pipeline](/docs/overview/javascript).
