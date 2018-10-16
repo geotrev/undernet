@@ -20,7 +20,7 @@
     "framework"
   ],
   "bin": {
-    "update": "./scripts/update.js"
+    "update-version": "./scripts/update-version.js"
   },
   "scripts": {
     "test": "BABEL_ENV=test nyc mocha -r @babel/register -r config/mocha.config.js --recursive src/**/*.spec.js",

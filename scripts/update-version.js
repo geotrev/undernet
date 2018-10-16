@@ -1,6 +1,10 @@
+#!/usr/bin/env node
+
 const fs = require("fs")
 const path = require("path")
 const args = require("yargs").argv
+
+// set up for operations
 
 const newUndernetVersion = args["tag"]
 const packageFilePath = path.resolve(__dirname, "../package.json")
