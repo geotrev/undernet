@@ -9,11 +9,11 @@ Undernet is extremely light, carrying no external dependencies apart from needin
 The quickest way to use Undernet is to link the bundled js and minified css using a CDN, such as [unpkg](https://www.unpkg.com).
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/undernet@2.3.0/dist/undernet.min.css" integrity="AfLVOTAceR/+r+IdnAxwUc5UjvAJJBzg1bnHyaqmzfz+xWCerFaMOpMBmeE7fjZA" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/undernet@2.3.0/dist/undernet.min.css" integrity="sha256-A/vIR0IinRgHj5h+UCNE7KHMtKlCGl3Nf0gPdpZFz2A" crossorigin="anonymous">
 ```
 
 ```html
-<script type="text/javascript" src="https://unpkg.com/undernet@2.3.0/dist/undernet.bundle.min.js" integrity="e4JQgpZqXXSKzzQ9IrGiznWb2wHXGeXLqDFTjJLQ5H0bflo9C+SsU/Lr8og2g7H4" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://unpkg.com/undernet@2.3.0/dist/undernet.bundle.min.js" integrity="sha256-BRMcJimNgrAvje7cWFw//oHmCTmll6cH3g8Frb6rx2k" crossorigin="anonymous"></script>
 <script type="text/javascript">
   document.addEventListener('DOMContentLoaded', Undernet.start())
 </script>
