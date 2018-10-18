@@ -20,7 +20,7 @@
     "framework"
   ],
   "bin": {
-    "new-version": "./scripts/new-version.js"
+    "update-version": "./scripts/update-version.js"
   },
   "scripts": {
     "test": "BABEL_ENV=test nyc mocha -r @babel/register -r config/mocha.config.js --recursive src/**/*.spec.js",
@@ -78,6 +78,7 @@
     "html-loader": "^0.5.4",
     "html-webpack-plugin": "^3.1.0",
     "jsdom": "^12.0.0",
+    "jshashes": "^1.0.7",
     "markdown-loader": "^4.0.0",
     "mini-css-extract-plugin": "^0.4.3",
     "mocha": "^5.0.5",
