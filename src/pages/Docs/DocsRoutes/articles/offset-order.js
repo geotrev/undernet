@@ -1,6 +1,6 @@
 import React from "react"
 import { Article } from "components"
-import OffsetOrderMd from "docs/offset_order.md"
+import OffsetOrderMd from "docs/offset-order.md"
 
 const OffsetOrder = () => <Article>{OffsetOrderMd}</Article>
 

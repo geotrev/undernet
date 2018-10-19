@@ -50,7 +50,7 @@ export default function DocsRoutes() {
           <Route exact path={modalsPath} component={getRoute("modals")} />
           <Route exact path={accordionsPath} component={getRoute("accordions")} />
           <Route exact path={alignmentPath} component={getRoute("alignment")} />
-          <Route exact path={offsetOrderPath} component={getRoute("offset_order")} o />
+          <Route exact path={offsetOrderPath} component={getRoute("offset-order")} o />
           <Route exact path={textPath} component={getRoute("text")} />
           <Route exact path={displayPath} component={getRoute("display")} />
           <Route exact path={colorPath} component={getRoute("color")} />

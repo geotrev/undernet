@@ -33,4 +33,30 @@ Undernet.Utils.releaseFocus()
 
 `releaseFocus` doesn't need any arguments, as it assumes you are releasing focus from the most recently captured item.
 
+## Focus Outline
+
+For users who have poor eye sight or difficult motor reflexes, it's very hard to use a mouse since the pointer is too small or it requires too much precision. Instead, it's common for these types of users to instead surf the web with their keyboard.
+
+To enable the outline, you can access it from `Utilities`:
+
+```js
+Undernet.Utilities.enableFocusOutline()
+```
+
+To disable it, use the following:
+
+```js
+Undernet.Utilities.disableFocusOutline()
+```
+
+*NOTE: If you use `Undernet.start()` on any page, this utility is enabled by default.*
+
+The way the outline helper works is simple. If you start to navigate (using tab or tab+shift keys), a class (`using-keyboard`) is added to the `<body>`. As a result, when focus is on certain elements (anchors, buttons, anything with a valid `tabindex` value, to name a few), they will get a bright outline around them. When you start to use your mouse again (by clicking anywhere on the page), the outline goes away.
+
+All browsers have their own default outline style, but in general contrast of those styles aren't sufficient.
+
+To see it in action, try hitting tab while on this website. Your focus indicator should be a blue outline on elements!
+
+Call one of the following scripts from Undernet's JavaScript (not both!). This should happen _only once_ on page load/component mount/etc.
+
 <p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/accessibility.md">Edit this page on Github!</a></p>
