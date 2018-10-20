@@ -65,7 +65,11 @@ const newJsHash = `"sha256-${createNewHash(distJsFile).replace("=", "")}"`
 
 // get new hashes and inject them into docs/introduction.md
 function getNewIntroductionArticle() {
-  return introArticleFile.replace(currentJsHash, newJsHash).replace(currentCssHash, newCssHash)
+  const versionRegEx = new RegExp(pkg.version, "g")
+  return introArticleFile
+    .replace(currentJsHash, newJsHash)
+    .replace(currentCssHash, newCssHash)
+    .replace(versionRegEx, newUndernetVersion)
 }
 
 // write to files
