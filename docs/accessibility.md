@@ -21,16 +21,16 @@ To sighted users, the this "Download" label has context to the surrounding page.
 
 If you have a custom control that requires focus to be kept within it using tab / shift+tab, Undernet's JS utilities have you covered. This is currently used in the [Modal](/docs/components/modals) component.
 
-Simply pass a selector to `captureFocus` property. You can enable trapping from `Utilities`:
+Simply pass a selector to `captureFocus` property. You can enable trapping from `Utils`:
 
 ```js
-Undernet.Utilities.captureFocus(selector)
+Undernet.Utils.captureFocus(selector)
 ```
 
 To release focus from that element, call the following:
 
 ```js
-Undernet.Utilities.releaseFocus()
+Undernet.Utils.releaseFocus()
 ```
 
 `releaseFocus` doesn't need any arguments, as it assumes you are releasing focus from the most recently captured item.
@@ -39,16 +39,16 @@ Undernet.Utilities.releaseFocus()
 
 For users who have poor eye sight or difficult motor reflexes, it's very hard to use a mouse since the pointer is too small or it requires too much precision. Instead, it's common for these types of users to instead surf the web with their keyboard.
 
-To make identifying the active element on the page easier, an outline is applied to it when focused. To enable the outline, you can access it from `Utilities`:
+To make identifying the active element on the page easier, an outline is applied to it when focused. To enable the outline, you can access it from `Utils`:
 
 ```js
-Undernet.Utilities.enableFocusOutline()
+Undernet.Utils.enableFocusOutline()
 ```
 
 To disable it, use the following:
 
 ```js
-Undernet.Utilities.disableFocusOutline()
+Undernet.Utils.disableFocusOutline()
 ```
 
 *NOTE: If you use `Undernet.start()` on any page, this utility is enabled by default.*

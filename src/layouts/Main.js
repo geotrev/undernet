@@ -14,7 +14,7 @@ export default class Main extends Component {
   }
 
   componentDidMount() {
-    Undernet.Utilities.enableFocusOutline()
+    Undernet.Utils.enableFocusOutline()
   }
 
   render() {

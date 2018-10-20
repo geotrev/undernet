@@ -85,7 +85,7 @@
   var selectors = {
     FOCUSABLE_SELECTOR: ":not(.is-visually-hidden)",
     FOCUSABLE_TAGS: ["a", "button", "input", "object", "select", "textarea", "[tabindex]"],
-    USING_KEYBOARD: "using-keyboard"
+    KEYBOARD_CLASS: "using-keyboard"
   };
   var events = {
     KEYDOWN: "keydown",
@@ -103,132 +103,27 @@
     function Utils() {
       _classCallCheck(this, Utils);
 
-      this.handleFocusTrap = this.handleFocusTrap.bind(this);
-      this.listenForKeyboard = this.listenForKeyboard.bind(this);
-      this.listenForClick = this.listenForClick.bind(this);
-    }
+      this._handleFocusTrap = this._handleFocusTrap.bind(this);
+      this._listenForKeyboard = this._listenForKeyboard.bind(this);
+      this._listenForClick = this._listenForClick.bind(this);
+    } // public
+
     /**
-     * Because IE does not recognize NodeList.forEach(),
-     * we use a cross-browser solution for returning an array of DOM nodes every time.
-     * @param {String} element - A DOM node's class, attribute, etc., to search the document.
-     * @return {Array}
+     * Listens to the first and last elements matched from this._getFocusableElements()
+     * @param {String} container - The container's class, attribute, etc.
      */
 
 
     _createClass(Utils, [{
-      key: "getElements",
-      value: function getElements(element) {
-        var nodeList = document.querySelectorAll(element);
-        return Array.apply(null, nodeList);
-      }
-      /**
-       * Begin listening to listenForKeyboard()
-       */
-
-    }, {
-      key: "enableFocusOutline",
-      value: function enableFocusOutline() {
-        document.addEventListener(events.KEYDOWN, this.listenForKeyboard);
-      }
-      /**
-       * When a key is pressed, detect if it's tab or shift keys and enable
-       * focus outlines on currently focused element(s). Then, remove keydown listener
-       * and add click listener on listenForClick().
-       * @param {Object} event - Event (keypress).
-       */
-
-    }, {
-      key: "listenForKeyboard",
-      value: function listenForKeyboard(event) {
-        var tabKey = event.which === keyCodes.TAB;
-        var shiftKey = event.which === keyCodes.SHIFT || event.shiftKey;
-
-        if (tabKey || shiftKey) {
-          document.body.classList.add(selectors.USING_KEYBOARD);
-          document.removeEventListener(events.KEYDOWN, this.listenForKeyboard);
-          document.addEventListener(events.CLICK, this.listenForClick);
-        }
-      }
-      /**
-       * On click, remove selectors.USING_KEYBOARD and re-add keydown listener.
-       * @param {Object} event - Event (keypress).
-       */
-
-    }, {
-      key: "listenForClick",
-      value: function listenForClick(event) {
-        document.body.classList.remove(selectors.USING_KEYBOARD);
-        document.removeEventListener(events.CLICK, this.listenForClick);
-        document.addEventListener(events.KEYDOWN, this.listenForKeyboard);
-      }
-      /**
-       * Completely disable focus outline utility.
-       */
-
-    }, {
-      key: "disableFocusOutline",
-      value: function disableFocusOutline() {
-        document.removeEventListener(events.KEYDOWN, this.listenForKeyboard);
-        document.removeEventListener(events.CLICK, this.listenForKeyboard);
-      }
-      /**
-       * Creates a string of element selector patterns using common elements.
-       * @param {String} container - The enclosing container's class, attribute, etc.
-       * @return {String}
-       */
-
-    }, {
-      key: "getFocusableElements",
-      value: function getFocusableElements(container) {
-        var focusables = [];
-        selectors.FOCUSABLE_TAGS.map(function (element) {
-          return focusables.push("".concat(container, " ").concat(element).concat(selectors.FOCUSABLE_SELECTOR));
-        });
-        return this.getElements(focusables.join(", "));
-      }
-      /**
-       * Listens to the first and last elements matched from this.getFocusableElements()
-       * @param {String} container - The container's class, attribute, etc.
-       */
-
-    }, {
       key: "captureFocus",
       value: function captureFocus(container) {
-        this.focusContainer = container;
-        var children = this.getFocusableElements(this.focusContainer);
+        this.focusContainerSelector = container;
+
+        var children = this._getFocusableElements(this.focusContainerSelector);
+
         this.focusableFirstChild = children[0];
         this.focusableLastChild = children[children.length - 1];
-        document.addEventListener(events.KEYDOWN, this.handleFocusTrap);
-      }
-      /**
-       * Handles focus on first or last child in a container.
-       * @param {Object} event - Event (keypress)
-       */
-
-    }, {
-      key: "handleFocusTrap",
-      value: function handleFocusTrap(event) {
-        var active = document.activeElement;
-        var containerElement = document.querySelector(this.focusContainer);
-        var containerActive = active === containerElement;
-        var firstActive = active === this.focusableFirstChild;
-        var lastActive = active === this.focusableLastChild;
-        var tabKey = event.which === keyCodes.TAB;
-        var shiftKey = event.which === keyCodes.SHIFT || event.shiftKey;
-        var hasShift = shiftKey && tabKey;
-        var noShift = !shiftKey && tabKey; // Just in case the first or last child have changed -
-        // recapture focus and continue trapping.
-
-        this.releaseFocus();
-        this.captureFocus(this.focusContainer);
-
-        if (hasShift && (firstActive || containerActive)) {
-          event.preventDefault();
-          this.focusableLastChild.focus();
-        } else if (noShift && lastActive) {
-          event.preventDefault();
-          this.focusableFirstChild.focus();
-        }
+        document.addEventListener(events.KEYDOWN, this._handleFocusTrap);
       }
       /**
        * Stop trapping focus set in this.captureFocus()
@@ -237,7 +132,116 @@
     }, {
       key: "releaseFocus",
       value: function releaseFocus() {
-        document.removeEventListener(events.KEYDOWN, this.handleFocusTrap);
+        document.removeEventListener(events.KEYDOWN, this._handleFocusTrap);
+      }
+      /**
+       * Begin listening to _listenForKeyboard()
+       */
+
+    }, {
+      key: "enableFocusOutline",
+      value: function enableFocusOutline() {
+        document.addEventListener(events.KEYDOWN, this._listenForKeyboard);
+      }
+      /**
+       * Completely disable focus outline utility.
+       */
+
+    }, {
+      key: "disableFocusOutline",
+      value: function disableFocusOutline() {
+        document.removeEventListener(events.KEYDOWN, this._listenForKeyboard);
+        document.removeEventListener(events.CLICK, this.__listenForClick);
+      } // private
+
+      /**
+       * When a key is pressed, detect if it's tab or shift keys and enable
+       * focus outlines on currently focused element(s). Then, remove keydown listener
+       * and add click listener on _listenForClick().
+       * @param {Object} event - Event (keypress).
+       */
+
+    }, {
+      key: "_listenForKeyboard",
+      value: function _listenForKeyboard(event) {
+        var tabKey = event.which === keyCodes.TAB;
+        var shiftKey = event.which === keyCodes.SHIFT || event.shiftKey;
+
+        if (tabKey || shiftKey) {
+          document.body.classList.add(selectors.KEYBOARD_CLASS);
+          document.removeEventListener(events.KEYDOWN, this._listenForKeyboard);
+          document.addEventListener(events.CLICK, this._listenForClick);
+        }
+      }
+      /**
+       * On click, remove selectors.KEYBOARD_CLASS and re-add keydown listener.
+       * @param {Object} event - Event (keypress).
+       */
+
+    }, {
+      key: "_listenForClick",
+      value: function _listenForClick(event) {
+        document.body.classList.remove(selectors.KEYBOARD_CLASS);
+        document.removeEventListener(events.CLICK, this._listenForClick);
+        document.addEventListener(events.KEYDOWN, this._listenForKeyboard);
+      }
+      /**
+       * Because IE does not recognize NodeList.forEach(),
+       * we use a cross-browser solution for returning an array of DOM nodes every time.
+       * @param {String} element - A DOM node's class, attribute, etc., to search the document.
+       * @return {Array}
+       */
+
+    }, {
+      key: "_getElements",
+      value: function _getElements(element) {
+        var nodeList = document.querySelectorAll(element);
+        return Array.apply(null, nodeList);
+      }
+      /**
+       * Creates a string of element selector patterns using common elements.
+       * @param {String} container - The enclosing container's class, attribute, etc.
+       * @return {String}
+       */
+
+    }, {
+      key: "_getFocusableElements",
+      value: function _getFocusableElements(container) {
+        var focusables = [];
+        selectors.FOCUSABLE_TAGS.map(function (element) {
+          return focusables.push("".concat(container, " ").concat(element).concat(selectors.FOCUSABLE_SELECTOR));
+        });
+        return this._getElements(focusables.join(", "));
+      }
+      /**
+       * Handles focus on first or last child in a container.
+       * @param {Object} event - Event (keypress)
+       */
+
+    }, {
+      key: "_handleFocusTrap",
+      value: function _handleFocusTrap(event) {
+        var activeElement = document.activeElement;
+        var containerElement = document.querySelector(this.focusContainerSelector);
+        var containerActive = activeElement === containerElement;
+        var firstActive = activeElement === this.focusableFirstChild;
+        var lastActive = activeElement === this.focusableLastChild;
+        var tabKey = event.which === keyCodes.TAB;
+        var shiftKey = event.which === keyCodes.SHIFT || event.shiftKey;
+        var hasShift = shiftKey && tabKey;
+        var noShift = !shiftKey && tabKey; // Just in case the first or last child have changed -
+        // recapture focus and continue trapping.
+
+        this.releaseFocus();
+        this.captureFocus(this.focusContainerSelector);
+
+        if (hasShift && (firstActive || containerActive)) {
+          event.preventDefault();
+          this.focusableLastChild.focus();
+        } else if (noShift && lastActive) {
+          event.preventDefault();
+          this.focusableFirstChild.focus();
+        }
       }
     }]);
 
@@ -288,21 +292,29 @@
 
       _classCallCheck(this, Modal);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(Modal).call(this));
+      _this = _possibleConstructorReturn(this, _getPrototypeOf(Modal).call(this)); // modal event methods
+
+      _this._getModal = _this._getModal.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+      _this._handleModalClose = _this._handleModalClose.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+      _this._handleEscapeKeyPress = _this._handleEscapeKeyPress.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+      _this._handleOverlayClick = _this._handleOverlayClick.bind(_assertThisInitialized(_assertThisInitialized(_this))); // all modals
+
       _this.modalContainerAttr = "[".concat(selectors$1.MODAL_CONTAINER, "]");
       _this.closeButtonAttr = "[".concat(selectors$1.MODAL_CONTAINER, "] [").concat(selectors$1.CLOSE, "]");
       _this.modals = null;
       _this.modalButtons = null;
-      _this.closeButtons = null;
-      _this.bodyTag = document.body;
-      _this.htmlTag = document.querySelector("html"); // bind events to class
+      _this.closeButtons = null; // active modal
 
-      _this.getModal = _this.getModal.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-      _this.handleModalClose = _this.handleModalClose.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-      _this.handleEscapeKeyPress = _this.handleEscapeKeyPress.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-      _this.handleOverlayClick = _this.handleOverlayClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+      _this.activeModalButton = {};
+      _this.activeModalId = "";
+      _this.activeModalOverlayAttr = "";
+      _this.activeModalOverlay = {};
+      _this.activeModalSelector = "";
+      _this.activeModal = null;
+      _this.activeModalCloseButtons = [];
       return _this;
-    }
+    } // public
+
     /**
      * Add accessible attributes to modal containers
      * Begin listening to elements with [data-modal-button]
@@ -314,10 +326,11 @@
       value: function start() {
         var _this2 = this;
 
-        this.modals = this.getElements(this.modalContainerAttr);
-        this.modalButtons = this.getElements("[".concat(selectors$1.MODAL_BUTTON, "]"));
-        this.closeButtons = this.getElements(this.closeButtonAttr);
-        this.getFocusableElements(this.modalContainerAttr).forEach(function (element) {
+        this.modals = this._getElements(this.modalContainerAttr);
+        this.modalButtons = this._getElements("[".concat(selectors$1.MODAL_BUTTON, "]"));
+        this.closeButtons = this._getElements(this.closeButtonAttr);
+
+        this._getFocusableElements(this.modalContainerAttr).forEach(function (element) {
           element.setAttribute(selectors$1.TAB_INDEX, "-1");
         });
 
@@ -332,7 +345,7 @@
 
         if (this.modalButtons.length) {
           this.modalButtons.forEach(function (button) {
-            button.addEventListener(events$1.CLICK, _this2.getModal);
+            button.addEventListener(events$1.CLICK, _this2._getModal);
           });
         }
       }
@@ -346,19 +359,21 @@
         var _this3 = this;
 
         this.modalButtons.forEach(function (button) {
-          button.removeEventListener(events$1.CLICK, _this3.getModal);
+          button.removeEventListener(events$1.CLICK, _this3._getModal);
         });
-      }
+      } // private
+
       /**
        * Locate a button's corresponding modal container.
        * @param {Object} event - The event object
        */
 
     }, {
-      key: "getModal",
-      value: function getModal(event) {
+      key: "_getModal",
+      value: function _getModal(event) {
         event.preventDefault();
-        this.renderModal(event);
+
+        this._renderModal(event);
       }
       /**
        * Find a button through event.target, then render the corresponding modal attribute via matching target id
@@ -366,12 +381,12 @@
        */
 
     }, {
-      key: "renderModal",
-      value: function renderModal(event) {
+      key: "_renderModal",
+      value: function _renderModal(event) {
         var _this4 = this;
 
-        this.modalButton = event.target;
-        this.activeModalId = this.modalButton.getAttribute(selectors$1.TARGET);
+        this.activeModalButton = event.target;
+        this.activeModalId = this.activeModalButton.getAttribute(selectors$1.TARGET);
         this.activeModalOverlayAttr = "[".concat(selectors$1.MODAL_ID, "='").concat(this.activeModalId, "']");
         this.activeModalOverlay = document.querySelector(this.activeModalOverlayAttr);
 
@@ -382,11 +397,14 @@
 
         this.activeModalSelector = "".concat(this.activeModalOverlayAttr, " ").concat(this.modalContainerAttr);
         this.activeModal = document.querySelector(this.activeModalSelector);
-        this.modalCloseButtons = this.getElements("".concat(this.activeModalOverlayAttr, " ").concat(this.closeButtonAttr));
-        this.getFocusableElements(this.activeModalSelector).forEach(function (element) {
+        this.activeModalCloseButtons = this._getElements("".concat(this.activeModalOverlayAttr, " ").concat(this.closeButtonAttr));
+
+        this._getFocusableElements(this.activeModalSelector).forEach(function (element) {
           element.setAttribute(selectors$1.TAB_INDEX, "0");
         });
-        this.handleScrollStop();
+
+        this._handleScrollStop();
+
         this.captureFocus(this.activeModalSelector);
         this.activeModalOverlay.setAttribute(selectors$1.ARIA_HIDDEN, "false");
         this.activeModal.setAttribute("tabindex", "-1");
@@ -395,10 +413,10 @@
 
         this.activeModalOverlay.scrollTop = 0; // begin listening to events
 
-        document.addEventListener(events$1.KEYDOWN, this.handleEscapeKeyPress);
-        document.addEventListener(events$1.CLICK, this.handleOverlayClick);
-        this.modalCloseButtons.forEach(function (button) {
-          button.addEventListener(events$1.CLICK, _this4.handleModalClose);
+        document.addEventListener(events$1.KEYDOWN, this._handleEscapeKeyPress);
+        document.addEventListener(events$1.CLICK, this._handleOverlayClick);
+        this.activeModalCloseButtons.forEach(function (button) {
+          button.addEventListener(events$1.CLICK, _this4._handleModalClose);
         });
       }
       /**
@@ -407,25 +425,30 @@
        */
 
     }, {
-      key: "handleModalClose",
-      value: function handleModalClose(event) {
+      key: "_handleModalClose",
+      value: function _handleModalClose(event) {
         var _this5 = this;
 
         event.preventDefault();
         this.activeModalOverlay.setAttribute(selectors$1.VISIBLE, "false");
-        this.handleReturnFocus();
-        this.handleScrollRestore();
+
+        this._handleReturnFocus();
+
+        this._handleScrollRestore();
+
         this.releaseFocus();
         this.activeModalOverlay.setAttribute(selectors$1.ARIA_HIDDEN, "true");
         this.activeModal.removeAttribute("tabindex");
-        this.getFocusableElements(this.activeModalSelector).forEach(function (element) {
+
+        this._getFocusableElements(this.activeModalSelector).forEach(function (element) {
           element.setAttribute(selectors$1.TAB_INDEX, "-1");
         }); // stop listening to events
 
-        document.removeEventListener(events$1.KEYDOWN, this.handleEscapeKeyPress);
-        document.removeEventListener(events$1.CLICK, this.handleOverlayClick);
-        this.modalCloseButtons.forEach(function (button) {
-          button.removeEventListener(events$1.CLICK, _this5.handleModalClose);
+
+        document.removeEventListener(events$1.KEYDOWN, this._handleEscapeKeyPress);
+        document.removeEventListener(events$1.CLICK, this._handleOverlayClick);
+        this.activeModalCloseButtons.forEach(function (button) {
+          button.removeEventListener(events$1.CLICK, _this5._handleModalClose);
         });
       }
       /**
@@ -434,10 +457,11 @@
        */
 
     }, {
-      key: "handleOverlayClick",
-      value: function handleOverlayClick(event) {
-        if (event.target !== this.activeModalOverlay) return;
-        this.handleModalClose(event);
+      key: "_handleOverlayClick",
+      value: function _handleOverlayClick(event) {
+        if (event.target === this.activeModalOverlay) {
+          this._handleModalClose(event);
+        }
       }
       /**
        * Handles escape key event to close the current modal
@@ -445,12 +469,10 @@
        */
 
     }, {
-      key: "handleEscapeKeyPress",
-      value: function handleEscapeKeyPress(event) {
-        var escapeKey = event.which === keyCodes$1.ESCAPE;
-
-        if (escapeKey) {
-          this.handleModalClose(event);
+      key: "_handleEscapeKeyPress",
+      value: function _handleEscapeKeyPress(event) {
+        if (event.which === keyCodes$1.ESCAPE) {
+          this._handleModalClose(event);
         }
       }
       /**
@@ -459,31 +481,31 @@
        */
 
     }, {
-      key: "handleReturnFocus",
-      value: function handleReturnFocus() {
-        this.modalButton.setAttribute("tabindex", "-1");
-        this.modalButton.focus();
-        this.modalButton.removeAttribute("tabindex");
+      key: "_handleReturnFocus",
+      value: function _handleReturnFocus() {
+        this.activeModalButton.setAttribute("tabindex", "-1");
+        this.activeModalButton.focus();
+        this.activeModalButton.removeAttribute("tabindex");
       }
       /**
        * Restores scroll behavior to <html> and <body>
        */
 
     }, {
-      key: "handleScrollRestore",
-      value: function handleScrollRestore() {
-        this.bodyTag.classList.remove(selectors$1.NO_SCROLL);
-        this.htmlTag.classList.remove(selectors$1.NO_SCROLL);
+      key: "_handleScrollRestore",
+      value: function _handleScrollRestore() {
+        document.body.classList.remove(selectors$1.NO_SCROLL);
+        document.querySelector("html").classList.remove(selectors$1.NO_SCROLL);
       }
       /**
        * Prevents scroll behavior on <html> and <body>
        */
 
     }, {
-      key: "handleScrollStop",
-      value: function handleScrollStop() {
-        this.bodyTag.classList.add(selectors$1.NO_SCROLL);
-        this.htmlTag.classList.add(selectors$1.NO_SCROLL);
+      key: "_handleScrollStop",
+      value: function _handleScrollStop() {
+        document.body.classList.add(selectors$1.NO_SCROLL);
+        document.querySelector("html").classList.add(selectors$1.NO_SCROLL);
       }
     }]);
 
@@ -533,15 +555,31 @@
 
       _classCallCheck(this, Accordion);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(Accordion).call(this));
-      _this.accordionButtons = null;
-      _this.accordionContents = null;
-      _this.activeContainer = null; // bind events to class
+      _this = _possibleConstructorReturn(this, _getPrototypeOf(Accordion).call(this)); // accordion event methods
 
-      _this.renderAccordionContent = _this.renderAccordionContent.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-      _this.handleSpaceKeyPress = _this.handleSpaceKeyPress.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+      _this._renderAccordionContent = _this._renderAccordionContent.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+      _this._handleSpaceKeyPress = _this._handleSpaceKeyPress.bind(_assertThisInitialized(_assertThisInitialized(_this))); // all accordions
+
+      _this.accordionButtons = null;
+      _this.accordionContentsAttr = "";
+      _this.accordionContents = []; // active accordion
+
+      _this.activeContainer = {};
+      _this.activeButton = {};
+      _this.activeAccordionRowId = "";
+      _this.activeRowAttr = "";
+      _this.activeRow = "";
+      _this.activeContainerId = "";
+      _this.activeContainerAttr = "";
+      _this.activeContainer = {};
+      _this.activeContent = {};
+      _this.toggleExpandState = null;
+      _this.toggleContentState = null;
+      _this.toggleHiddenState = null;
+      _this.allContentAttr = "";
       return _this;
-    }
+    } // public
+
     /**
      * Add accessible attributes [data-accordion-button] and [data-accordion-content] elements
      * Begin listening to [data-accordion-button] elements
@@ -553,25 +591,26 @@
       value: function start() {
         var _this2 = this;
 
-        this.accordionButtons = this.getElements("[".concat(selectors$2.ACCORDION_CONTAINER, "] [").concat(selectors$2.TARGET, "]"));
+        this.accordionButtons = this._getElements("[".concat(selectors$2.ACCORDION_CONTAINER, "] [").concat(selectors$2.TARGET, "]"));
         this.accordionContentsAttr = "[".concat(selectors$2.ACCORDION_CONTAINER, "] [").concat(selectors$2.CONTENT, "]");
-        this.accordionContents = this.getElements(this.accordionContentsAttr);
-        this.getFocusableElements(this.accordionContentsAttr).forEach(function (element) {
+        this.accordionContents = this._getElements(this.accordionContentsAttr);
+
+        this._getFocusableElements(this.accordionContentsAttr).forEach(function (element) {
           element.setAttribute(selectors$2.TAB_INDEX, "-1");
         });
 
         if (this.accordionButtons.length) {
           this.accordionButtons.forEach(function (button) {
-            _this2.setupButton(button);
+            _this2._setupButton(button);
 
-            button.addEventListener(events$2.CLICK, _this2.renderAccordionContent);
-            button.addEventListener(events$2.KEYDOWN, _this2.handleSpaceKeyPress);
+            button.addEventListener(events$2.CLICK, _this2._renderAccordionContent);
+            button.addEventListener(events$2.KEYDOWN, _this2._handleSpaceKeyPress);
           });
         }
 
         if (this.accordionContents.length) {
           this.accordionContents.forEach(function (content) {
-            var contentRowAttr = _this2.getAccordionRowAttr(content.id);
+            var contentRowAttr = _this2._getAccordionRowAttr(content.id);
 
             var contentRow = document.querySelector(contentRowAttr);
             var contentHiddenState = contentRow.getAttribute(selectors$2.EXPANDED);
@@ -579,7 +618,7 @@
             content.setAttribute(selectors$2.ARIA_HIDDEN, toggleContentHiddenState);
 
             if (toggleContentHiddenState === "false") {
-              _this2.getFocusableElements("#".concat(content.id)).forEach(function (element) {
+              _this2._getFocusableElements("#".concat(content.id)).forEach(function (element) {
                 element.setAttribute(selectors$2.TAB_INDEX, "0");
               });
             }
@@ -596,15 +635,18 @@
         var _this3 = this;
 
         this.accordionButtons.forEach(function (button) {
-          button.removeEventListener(events$2.CLICK, _this3.renderAccordionContent);
-          button.removeEventListener(events$2.KEYDOWN, _this3.handleSpaceKeyPress);
+          button.removeEventListener(events$2.CLICK, _this3._renderAccordionContent);
+          button.removeEventListener(events$2.KEYDOWN, _this3._handleSpaceKeyPress);
         });
-      }
+      } // private
+
     }, {
-      key: "setupButton",
-      value: function setupButton(button) {
+      key: "_setupButton",
+      value: function _setupButton(button) {
         var buttonId = button.getAttribute(selectors$2.TARGET);
-        var accordionRowAttr = this.getAccordionRowAttr(buttonId);
+
+        var accordionRowAttr = this._getAccordionRowAttr(buttonId);
+
         var accordionRow = document.querySelector(accordionRowAttr);
         var shouldContentExpand = accordionRow.getAttribute(selectors$2.EXPANDED);
         var buttonContent = document.getElementById(buttonId);
@@ -624,8 +666,8 @@
        */
 
     }, {
-      key: "getAccordionRowAttr",
-      value: function getAccordionRowAttr(id) {
+      key: "_getAccordionRowAttr",
+      value: function _getAccordionRowAttr(id) {
         return "[".concat(selectors$2.ACCORDION_ROW, "='").concat(id, "']");
       }
       /**
@@ -634,12 +676,12 @@
        */
 
     }, {
-      key: "renderAccordionContent",
-      value: function renderAccordionContent(event) {
+      key: "_renderAccordionContent",
+      value: function _renderAccordionContent(event) {
         event.preventDefault();
         this.activeButton = event.target;
         this.activeAccordionRowId = this.activeButton.getAttribute(selectors$2.TARGET);
-        this.activeRowAttr = this.getAccordionRowAttr(this.activeAccordionRowId);
+        this.activeRowAttr = this._getAccordionRowAttr(this.activeAccordionRowId);
         this.activeRow = document.querySelector(this.activeRowAttr);
         this.activeContainerId = this.activeButton.getAttribute(selectors$2.PARENT);
         this.activeContainerAttr = "[".concat(selectors$2.ACCORDION_CONTAINER, "='").concat(this.activeContainerId, "']");
@@ -657,8 +699,10 @@
         this.toggleExpandState = accordionButtonState === "true" ? "false" : "true";
         this.toggleContentState = accordionContentState === "visible" ? "hidden" : "visible";
         this.toggleHiddenState = this.toggleExpandState === "false" ? "true" : "false";
-        this.closeAllIfToggleable();
-        this.toggleSelectedAccordion();
+
+        this._closeAllIfToggleable();
+
+        this._toggleSelectedAccordion();
       }
       /**
        * If a keypress is the spacebar on a button, open its correlated content.
@@ -666,9 +710,9 @@
        */
 
     }, {
-      key: "handleSpaceKeyPress",
-      value: function handleSpaceKeyPress(event) {
-        if (event.which === keyCodes$2.SPACE) this.renderAccordionContent(event);
+      key: "_handleSpaceKeyPress",
+      value: function _handleSpaceKeyPress(event) {
+        if (event.which === keyCodes$2.SPACE) this._renderAccordionContent(event);
       }
       /**
        * If toggling multiple rows at once isn't enabled, close all rows except the selected one.
@@ -676,33 +720,42 @@
        */
 
     }, {
-      key: "closeAllIfToggleable",
-      value: function closeAllIfToggleable() {
+      key: "_closeAllIfToggleable",
+      value: function _closeAllIfToggleable() {
         var _this4 = this;
 
         if (this.activeContainer.hasAttribute(selectors$2.TOGGLE_MULTIPLE)) return;
         this.allContentAttr = "".concat(this.activeContainerAttr, " [").concat(selectors$2.CONTENT, "]");
-        var allRows = this.getElements("".concat(this.activeContainerAttr, " [").concat(selectors$2.EXPANDED, "]"));
-        var allContent = this.getElements(this.allContentAttr);
-        var allButtons = this.getElements("".concat(this.activeContainerAttr, " [").concat(selectors$2.TARGET, "]"));
+
+        var allRows = this._getElements("".concat(this.activeContainerAttr, " [").concat(selectors$2.EXPANDED, "]"));
+
+        var allContent = this._getElements(this.allContentAttr);
+
+        var allButtons = this._getElements("".concat(this.activeContainerAttr, " [").concat(selectors$2.TARGET, "]"));
+
         allContent.forEach(function (content) {
           if (!(content === _this4.activeContent)) content.style.maxHeight = null;
         });
-        this.getFocusableElements(this.allContentAttr).forEach(function (element) {
+
+        this._getFocusableElements(this.allContentAttr).forEach(function (element) {
           element.setAttribute(selectors$2.TAB_INDEX, "-1");
         });
-        this.toggleAttributeInCollection(allRows, selectors$2.EXPANDED, "true", "false");
-        this.toggleAttributeInCollection(allButtons, selectors$2.ARIA_EXPANDED, "true", "false");
-        this.toggleAttributeInCollection(allContent, selectors$2.ARIA_HIDDEN, "false", "true");
-        this.toggleAttributeInCollection(allContent, selectors$2.CONTENT, "visible", "hidden");
+
+        this._toggleAttributeInCollection(allRows, selectors$2.EXPANDED, "true", "false");
+
+        this._toggleAttributeInCollection(allButtons, selectors$2.ARIA_EXPANDED, "true", "false");
+
+        this._toggleAttributeInCollection(allContent, selectors$2.ARIA_HIDDEN, "false", "true");
+
+        this._toggleAttributeInCollection(allContent, selectors$2.CONTENT, "visible", "hidden");
       }
       /**
        * Toggle a [data-accordion-button]'s corresponding [data-accordion-content] element.
        */
 
     }, {
-      key: "toggleSelectedAccordion",
-      value: function toggleSelectedAccordion() {
+      key: "_toggleSelectedAccordion",
+      value: function _toggleSelectedAccordion() {
         var _this5 = this;
 
         this.activeRow.setAttribute(selectors$2.EXPANDED, this.toggleExpandState);
@@ -710,7 +763,8 @@
         this.activeButton.setAttribute(selectors$2.ARIA_EXPANDED, this.toggleExpandState);
         this.activeContent.setAttribute(selectors$2.ARIA_HIDDEN, this.toggleHiddenState);
         var activeContentBlock = "#".concat(this.activeAccordionRowId);
-        this.getFocusableElements(activeContentBlock).forEach(function (element) {
+
+        this._getFocusableElements(activeContentBlock).forEach(function (element) {
           var value = _this5.toggleExpandState === "true" ? "0" : "-1";
           element.setAttribute(selectors$2.TAB_INDEX, value);
         });
@@ -726,8 +780,8 @@
        */
 
     }, {
-      key: "toggleAttributeInCollection",
-      value: function toggleAttributeInCollection(elements, attributeName, currentValue, newValue) {
+      key: "_toggleAttributeInCollection",
+      value: function _toggleAttributeInCollection(elements, attributeName, currentValue, newValue) {
         elements.forEach(function (element) {
           if (element.hasAttribute(attributeName, currentValue)) {
             element.setAttribute(attributeName, newValue);
@@ -741,13 +795,13 @@
 
   var Modals = new Modal();
   var Accordions = new Accordion();
-  var Utilities = new Utils();
+  var Utils$1 = new Utils();
   var Undernet = {
     // Components
     Modals: Modals,
     Accordions: Accordions,
     // Utils
-    Utilities: Utilities
+    Utils: Utils$1
   };
 
   Undernet.start = function () {
@@ -755,7 +809,7 @@
     Undernet.Modals.start();
     Undernet.Accordions.start(); // Utils
 
-    Undernet.Utilities.enableFocusOutline();
+    Undernet.Utils.enableFocusOutline();
   };
 
   Undernet.stop = function () {
@@ -763,7 +817,7 @@
     Undernet.Modals.stop();
     Undernet.Accordions.stop(); // Utils
 
-    Undernet.Utilities.disableFocusOutline();
+    Undernet.Utils.disableFocusOutline();
   };
 
   window.Undernet = Undernet;
