@@ -168,6 +168,7 @@ Then globally install `sass` and `rollup`:
 ```sh
 $ gem install sass
 $ npm run build:development
+$ npm link
 ```
 
 From there, everything should build correctly: the framework scss and js will be prettified by `prettier` and distributions of js and css will be output using `@babel`, `rollup`, `sass`, and a few macOS specific commands for zipping/prepping files for release. The output typically takes 5-10 seconds at most.
@@ -182,10 +183,18 @@ $ npm run js:watch
 
 ### New releases
 
-New releases are simply zipped and compiled files. You can create a new release using:
+New releases are simply zipped and compiled files.
+
+To increment the version of the release, run the following command, where `VERSION` is the semver value. E.g., `--tag=2.3.0`. The script will find specific files: `package.json`, `scss/undernet.scss`, and `docs/introduction.md`. It then increments the version, creates new sub-resource integrity hashes, and updates unpkg.com links for CDN access.
+
+```sh
+$ update-version --tag=VERSION
+```
+
+Then to build assets:
 
 ```sh
 $ npm run build:release
 ```
 
-This will compile and zip framework assets for a new version.
+All that's left is a `npm publish` and the new version is out in the wild!
