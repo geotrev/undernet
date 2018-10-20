@@ -5,17 +5,8 @@ import "./Main.scss"
 
 import { rootPath, docsPath } from "routes"
 import { GlobalNav, Footer, LoadingSpinner } from "components"
+import { Home, Docs } from "pages"
 import Undernet from "undernet"
-
-const Home = Loadable({
-  loader: () => import(/* webpackPrefetch: true */ "../pages/Home/Home"),
-  loading: () => <LoadingSpinner />,
-})
-
-const Docs = Loadable({
-  loader: () => import(/* webpackPrefetch: true */ "../pages/Docs/Docs"),
-  loading: () => <LoadingSpinner />,
-})
 
 export default class Main extends Component {
   constructor() {
