@@ -17,10 +17,12 @@ var keyCodes = {
 };
 var selectors = {
   FOCUSABLE_SELECTOR: ":not(.is-visually-hidden)",
-  FOCUSABLE_TAGS: ["a", "button", "input", "object", "select", "textarea", "[tabindex]"]
+  FOCUSABLE_TAGS: ["a", "button", "input", "object", "select", "textarea", "[tabindex]"],
+  USING_KEYBOARD: "using-keyboard"
 };
 var events = {
-  KEYDOWN: "keydown"
+  KEYDOWN: "keydown",
+  CLICK: "click"
   /**
    * Utility methods for DOM traversal and focus trapping.
    * @module Utils
@@ -34,11 +36,13 @@ function () {
   function Utils() {
     _classCallCheck(this, Utils);
 
-    // bind events to Utils
     this.handleFocusTrap = this.handleFocusTrap.bind(this);
+    this.listenForKeyboard = this.listenForKeyboard.bind(this);
+    this.listenForClick = this.listenForClick.bind(this);
   }
   /**
-   * Because IE does not recognize NodeList.forEach(), we use a cross-browser solution for returning an array of DOM nodes.
+   * Because IE does not recognize NodeList.forEach(),
+   * we use a cross-browser solution for returning an array of DOM nodes every time.
    * @param {String} element - A DOM node's class, attribute, etc., to search the document.
    * @return {Array}
    */
@@ -49,6 +53,56 @@ function () {
     value: function getElements(element) {
       var nodeList = document.querySelectorAll(element);
       return Array.apply(null, nodeList);
+    }
+    /**
+     * Begin listening to listenForKeyboard()
+     */
+
+  }, {
+    key: "enableFocusOutline",
+    value: function enableFocusOutline() {
+      document.addEventListener(events.KEYDOWN, this.listenForKeyboard);
+    }
+    /**
+     * When a key is pressed, detect if it's tab or shift keys and enable
+     * focus outlines on currently focused element(s). Then, remove keydown listener
+     * and add click listener on listenForClick().
+     * @param {Object} event - Event (keypress).
+     */
+
+  }, {
+    key: "listenForKeyboard",
+    value: function listenForKeyboard(event) {
+      var tabKey = event.which === keyCodes.TAB;
+      var shiftKey = event.which === keyCodes.SHIFT || event.shiftKey;
+
+      if (tabKey || shiftKey) {
+        document.body.classList.add(selectors.USING_KEYBOARD);
+        document.removeEventListener(events.KEYDOWN, this.listenForKeyboard);
+        document.addEventListener(events.CLICK, this.listenForClick);
+      }
+    }
+    /**
+     * On click, remove selectors.USING_KEYBOARD and re-add keydown listener.
+     * @param {Object} event - Event (keypress).
+     */
+
+  }, {
+    key: "listenForClick",
+    value: function listenForClick(event) {
+      document.body.classList.remove(selectors.USING_KEYBOARD);
+      document.removeEventListener(events.CLICK, this.listenForClick);
+      document.addEventListener(events.KEYDOWN, this.listenForKeyboard);
+    }
+    /**
+     * Completely disable focus outline utility.
+     */
+
+  }, {
+    key: "disableFocusOutline",
+    value: function disableFocusOutline() {
+      document.removeEventListener(events.KEYDOWN, this.listenForKeyboard);
+      document.removeEventListener(events.CLICK, this.listenForKeyboard);
     }
     /**
      * Creates a string of element selector patterns using common elements.

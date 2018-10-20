@@ -27,15 +27,6 @@
 // Uncomment the scope wrapper in undernet.scss if you use this!
 $scope: "" !default;
 
-$global-space: 16px !default;
-
-$spacing-increments: (
-  "1": $global-space * 0.5,
-  "2": $global-space * 0.75,
-  "3": $global-space * 1.5,
-  "4": $global-space * 2
-) !default;
-
 $global-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu,
   Cantarell, "Helvetica Neue", sans-serif !default;
 $global-font-serif: Constantia, "Lucida Bright", Lucidabright, "Lucida Serif", Lucida,
@@ -64,33 +55,42 @@ $gray900: #dedede !default;
 $white: #ffffff !default;
 
 $status-palette: (
-  warning: khaki,
-  success: #66cc00,
-  destroy: #fc6868,
-  notice: steelblue
+  "warning": khaki,
+  "success": #66cc00,
+  "destroy": #fc6868,
+  "notice": steelblue
 ) !default;
 
 // used for text and bg color utilities in helpers/_classes.scss
 $full-palette: map-merge(
   (
-    primary-color: $primary-color,
-    secondary-color: $secondary-color,
-    tertiary-color: $tertiary-color,
-    black: $black,
-    gray100: $gray100,
-    gray200: $gray200,
-    gray400: $gray400,
-    gray600: $gray600,
-    gray800: $gray800,
-    gray900: $gray900,
-    white: $white
+    "primary-color": $primary-color,
+    "secondary-color": $secondary-color,
+    "tertiary-color": $tertiary-color,
+    "black": $black,
+    "gray100": $gray100,
+    "gray200": $gray200,
+    "gray400": $gray400,
+    "gray600": $gray600,
+    "gray800": $gray800,
+    "gray900": $gray900,
+    "white": $white
   ),
   $status-palette
 ) !default;
 
 $global-border-radius: 4px !default;
 $global-border-width: 2px !default;
-$global-outline: 2px solid $primary-color !default;
+
+$global-outline-using-keyboard: 2px solid $secondary-color !default;
+
+$global-space: 16px !default;
+$spacing-increments: (
+  "1": $global-space * 0.5,
+  "2": $global-space * 0.75,
+  "3": $global-space * 1.5,
+  "4": $global-space * 2
+) !default;
 
 $modal-index: 2000 !default;
 
@@ -98,29 +98,29 @@ $modal-index: 2000 !default;
 // -------
 
 $grid-classes: (
-  grid: "grid",
-  row: "row",
-  column: "column"
+  "grid": "grid",
+  "row": "row",
+  "column": "column"
 ) !default;
 
 $grid-widths: (
-  fluid: 100%,
-  narrow: 768px,
-  wide: 1200px
+  "fluid": 100%,
+  "narrow": 768px,
+  "wide": 1200px
 ) !default;
 
 $grid-sections: (
-  small: 48px,
-  medium: 96px,
-  large: 144px
+  "small": 48px,
+  "medium": 96px,
+  "large": 144px
 ) !default;
 
 $breakpoints: (
-  xsmall: 0,
-  small: 576px,
-  medium: 768px,
-  large: 992px,
-  xlarge: 1200px
+  "xsmall": 0,
+  "small": 576px,
+  "medium": 768px,
+  "large": 992px,
+  "xlarge": 1200px
 ) !default;
 
 $grid-gutter: $global-space !default;
@@ -142,117 +142,117 @@ $column-order-classes: true !default;
 // NOTE: You can treat these map as css proper, but in `key: value` format.
 // Add more breakpoints from `$breakpoints` to increase font scaling fidelity.
 $type-header-sizes: (
-  xsmall: (
-    h1: (
-      font-size: 28px,
-      margin: 0 0 $global-space 0
+  "xsmall": (
+    "h1": (
+      "font-size": 28px,
+      "margin": 0 0 $global-space 0
     ),
-    h2: (
-      font-size: 24px,
-      margin: 0 0 $global-space 0
+    "h2": (
+      "font-size": 24px,
+      "margin": 0 0 $global-space 0
     ),
-    h3: (
-      font-size: 22px,
-      margin: 0 0 $global-space 0
+    "h3": (
+      "font-size": 22px,
+      "margin": 0 0 $global-space 0
     ),
-    h4: (
-      font-size: 20px,
-      margin: 0 0 $global-space 0
+    "h4": (
+      "font-size": 20px,
+      "margin": 0 0 $global-space 0
     ),
-    h5: (
-      font-size: 18px,
-      margin: 0 0 $global-space 0
+    "h5": (
+      "font-size": 18px,
+      "margin": 0 0 $global-space 0
     ),
-    h6: (
-      font-size: $global-font-size,
-      margin: 0 0 $global-space 0
+    "h6": (
+      "font-size": $global-font-size,
+      "margin": 0 0 $global-space 0
     )
   ),
-  medium: (
-    h1: (
-      font-size: 32px,
-      margin: 0 0 $global-space 0
+  "medium": (
+    "h1": (
+      "font-size": 32px,
+      "margin": 0 0 $global-space 0
     ),
-    h2: (
-      font-size: 28px,
-      margin: 0 0 $global-space 0
+    "h2": (
+      "font-size": 28px,
+      "margin": 0 0 $global-space 0
     ),
-    h3: (
-      font-size: 24px,
-      margin: 0 0 $global-space 0
+    "h3": (
+      "font-size": 24px,
+      "margin": 0 0 $global-space 0
     ),
-    h4: (
-      font-size: 20px,
-      margin: 0 0 $global-space 0
+    "h4": (
+      "font-size": 20px,
+      "margin": 0 0 $global-space 0
     ),
-    h5: (
-      font-size: 18px,
-      margin: 0 0 $global-space 0
+    "h5": (
+      "font-size": 18px,
+      "margin": 0 0 $global-space 0
     ),
-    h6: (
-      font-size: $global-font-size,
-      margin: 0 0 $global-space 0
+    "h6": (
+      "font-size": $global-font-size,
+      "margin": 0 0 $global-space 0
     )
   ),
-  large: (
-    h1: (
-      font-size: 36px,
-      margin: 0 0 $global-space 0
+  "large": (
+    "h1": (
+      "font-size": 36px,
+      "margin": 0 0 $global-space 0
     ),
-    h2: (
-      font-size: 32px,
-      margin: 0 0 $global-space 0
+    "h2": (
+      "font-size": 32px,
+      "margin": 0 0 $global-space 0
     ),
-    h3: (
-      font-size: 28px,
-      margin: 0 0 $global-space 0
+    "h3": (
+      "font-size": 28px,
+      "margin": 0 0 $global-space 0
     ),
-    h4: (
-      font-size: 24px,
-      margin: 0 0 $global-space 0
+    "h4": (
+      "font-size": 24px,
+      "margin": 0 0 $global-space 0
     ),
-    h5: (
-      font-size: 20px,
-      margin: 0 0 $global-space 0
+    "h5": (
+      "font-size": 20px,
+      "margin": 0 0 $global-space 0
     ),
-    h6: (
-      font-size: $global-font-size,
-      margin: 0 0 $global-space 0
+    "h6": (
+      "font-size": $global-font-size,
+      "margin": 0 0 $global-space 0
     )
   )
 ) !default;
 
 // NOTE: You can treat these map as css proper, but in `key: value` format.
 $type-header-styles: (
-  h1: (
-    color: $gray200,
-    font-style: normal,
-    font-weight: bold
+  "h1": (
+    "color": $gray200,
+    "font-style": normal,
+    "font-weight": bold
   ),
-  h2: (
-    color: $gray200,
-    font-style: normal,
-    font-weight: bold
+  "h2": (
+    "color": $gray200,
+    "font-style": normal,
+    "font-weight": bold
   ),
-  h3: (
-    color: $gray200,
-    font-style: normal,
-    font-weight: bold
+  "h3": (
+    "color": $gray200,
+    "font-style": normal,
+    "font-weight": bold
   ),
-  h4: (
-    color: $gray200,
-    font-style: normal,
-    font-weight: bold
+  "h4": (
+    "color": $gray200,
+    "font-style": normal,
+    "font-weight": bold
   ),
-  h5: (
-    color: $gray200,
-    font-style: normal,
-    font-weight: bold
+  "h5": (
+    "color": $gray200,
+    "font-style": normal,
+    "font-weight": bold
   ),
-  h6: (
-    color: $gray200,
-    font-style: normal,
-    font-weight: bold
+  "h6": (
+    "color": $gray200,
+    "font-style": normal,
+    "font-weight": bold
   )
 ) !default;
 
@@ -301,21 +301,21 @@ $ol-list-style: decimal !default;
 
 // NOTE: You can treat these map as css proper, but in `key: value` format.
 $button-sizes: (
-  small: (
-    padding: 8px 14px,
-    font-size: 14px
+  "small": (
+    "padding": 8px 14px,
+    "font-size": 14px
   ),
-  medium: (
-    padding: 12px 18px,
-    font-size: 16px
+  "medium": (
+    "padding": 12px 18px,
+    "font-size": 16px
   ),
-  large: (
-    padding: 16px 22px,
-    font-size: 20px
+  "large": (
+    "padding": 16px 22px,
+    "font-size": 20px
   ),
-  huge: (
-    padding: 20px 30px,
-    font-size: 24px
+  "huge": (
+    "padding": 20px 30px,
+    "font-size": 24px
   )
 ) !default;
 
@@ -336,33 +336,33 @@ $button-decoration: none !default;
 
 // NOTE: You can treat these map as css proper, but in `key: value` format.
 $button-base: (
-  default: (
-    background: $white,
-    color: $gray200,
-    border-color: $gray800,
-    box-shadow: none,
-    text-decoration: none
+  "default": (
+    "background": $white,
+    "color": $gray200,
+    "border-color": $gray800,
+    "box-shadow": none,
+    "text-decoration": none
   ),
-  hover: (
-    background: $white,
-    color: $gray200,
-    border-color: $gray600,
-    box-shadow: none,
-    text-decoration: none
+  "hover": (
+    "background": $white,
+    "color": $gray200,
+    "border-color": $gray600,
+    "box-shadow": none,
+    "text-decoration": none
   ),
-  active: (
-    background: lighten($gray900, 10%),
-    color: $gray200,
-    border-color: $gray400,
-    box-shadow: none,
-    text-decoration: none
+  "active": (
+    "background": lighten($gray900, 10%),
+    "color": $gray200,
+    "border-color": $gray400,
+    "box-shadow": none,
+    "text-decoration": none
   ),
-  focus: (
-    background: $white,
-    color: $gray200,
-    border-color: $gray600,
-    box-shadow: none,
-    text-decoration: none
+  "focus": (
+    "background": $white,
+    "color": $gray200,
+    "border-color": $gray600,
+    "box-shadow": none,
+    "text-decoration": none
   )
 ) !default;
 
@@ -370,238 +370,238 @@ $button-base: (
 
 // NOTE: You can treat this map as css proper, but in `key: value` format.
 $button-types: (
-  primary: (
-    default: (
-      background: lighten($primary-color, 5%),
-      color: $white,
-      border-color: transparent,
-      box-shadow: none
+  "primary": (
+    "default": (
+      "background": lighten($primary-color, 5%),
+      "color": $white,
+      "border-color": transparent,
+      "box-shadow": none
     ),
-    hover: (
-      background: $primary-color,
-      color: $white,
-      border-color: transparent,
-      box-shadow: none
+    "hover": (
+      "background": $primary-color,
+      "color": $white,
+      "border-color": transparent,
+      "box-shadow": none
     ),
-    active: (
-      background: darken($primary-color, 2%),
-      color: $white,
-      border-color: transparent,
-      box-shadow: none
+    "active": (
+      "background": darken($primary-color, 2%),
+      "color": $white,
+      "border-color": transparent,
+      "box-shadow": none
     ),
-    focus: (
-      background: $primary-color,
-      color: $white,
-      border-color: transparent,
-      box-shadow: none
+    "focus": (
+      "background": $primary-color,
+      "color": $white,
+      "border-color": transparent,
+      "box-shadow": none
     )
   ),
-  secondary: (
-    default: (
-      background: transparent,
-      color: lighten($primary-color, 5%),
-      border-color: lighten($primary-color, 5%),
-      box-shadow: none
+  "secondary": (
+    "default": (
+      "background": transparent,
+      "color": lighten($primary-color, 5%),
+      "border-color": lighten($primary-color, 5%),
+      "box-shadow": none
     ),
-    hover: (
-      background: transparent,
-      color: $primary-color,
-      border-color: $primary-color,
-      box-shadow: none
+    "hover": (
+      "background": transparent,
+      "color": $primary-color,
+      "border-color": $primary-color,
+      "box-shadow": none
     ),
-    active: (
-      background: transparent,
-      color: darken($primary-color, 2%),
-      border-color: darken($primary-color, 2%),
-      box-shadow: none
+    "active": (
+      "background": transparent,
+      "color": darken($primary-color, 2%),
+      "border-color": darken($primary-color, 2%),
+      "box-shadow": none
     ),
-    focus: (
-      background: transparent,
-      color: $primary-color,
-      border-color: $primary-color,
-      box-shadow: none
+    "focus": (
+      "background": transparent,
+      "color": $primary-color,
+      "border-color": $primary-color,
+      "box-shadow": none
     )
   ),
-  tertiary: (
-    default: (
-      background: transparent,
-      color: $primary-color,
-      border-color: transparent,
-      box-shadow: none
+  "tertiary": (
+    "default": (
+      "background": transparent,
+      "color": $primary-color,
+      "border-color": transparent,
+      "box-shadow": none
     ),
-    hover: (
-      background: rgba($gray900, 0.2),
-      color: $primary-color,
-      border-color: transparent,
-      box-shadow: none
+    "hover": (
+      "background": rgba($gray900, 0.2),
+      "color": $primary-color,
+      "border-color": transparent,
+      "box-shadow": none
     ),
-    active: (
-      background: rgba($gray900, 0.3),
-      color: $primary-color,
-      border-color: transparent,
-      box-shadow: none
+    "active": (
+      "background": rgba($gray900, 0.3),
+      "color": $primary-color,
+      "border-color": transparent,
+      "box-shadow": none
     ),
-    focus: (
-      background: rgba($gray900, 0.2),
-      color: $primary-color,
-      border-color: transparent,
-      box-shadow: none
+    "focus": (
+      "background": rgba($gray900, 0.2),
+      "color": $primary-color,
+      "border-color": transparent,
+      "box-shadow": none
     )
   ),
-  inverted: (
-    default: (
-      background: lighten($gray900, 5%),
-      color: $gray200,
-      border-color: transparent,
-      box-shadow: none
+  "inverted": (
+    "default": (
+      "background": lighten($gray900, 5%),
+      "color": $gray200,
+      "border-color": transparent,
+      "box-shadow": none
     ),
-    hover: (
-      background: $white,
-      color: $gray200,
-      border-color: transparent,
-      box-shadow: none
+    "hover": (
+      "background": $white,
+      "color": $gray200,
+      "border-color": transparent,
+      "box-shadow": none
     ),
-    active: (
-      background: $gray900,
-      color: $gray200,
-      border-color: transparent,
-      box-shadow: none
+    "active": (
+      "background": $gray900,
+      "color": $gray200,
+      "border-color": transparent,
+      "box-shadow": none
     ),
-    focus: (
-      background: $white,
-      color: $gray200,
-      border-color: transparent,
-      box-shadow: none
+    "focus": (
+      "background": $white,
+      "color": $gray200,
+      "border-color": transparent,
+      "box-shadow": none
     )
   ),
-  inverted-outline: (
-    default: (
-      background: transparent,
-      color: $white,
-      border-color: $gray900,
-      box-shadow: none
+  "inverted-outline": (
+    "default": (
+      "background": transparent,
+      "color": $white,
+      "border-color": $gray900,
+      "box-shadow": none
     ),
-    hover: (
-      background: transparent,
-      color: $white,
-      border-color: $white,
-      box-shadow: none
+    "hover": (
+      "background": transparent,
+      "color": $white,
+      "border-color": $white,
+      "box-shadow": none
     ),
-    active: (
-      background: transparent,
-      color: $white,
-      border-color: darken($gray900, 2%),
-      box-shadow: none
+    "active": (
+      "background": transparent,
+      "color": $white,
+      "border-color": darken($gray900, 2%),
+      "box-shadow": none
     ),
-    focus: (
-      background: transparent,
-      color: $white,
-      border-color: $white,
-      box-shadow: none
+    "focus": (
+      "background": transparent,
+      "color": $white,
+      "border-color": $white,
+      "box-shadow": none
     )
   ),
-  warning: (
-    default: (
-      background: darken(status(warning), 5%),
-      color: $black,
-      border-color: transparent,
-      box-shadow: none
+  "warning": (
+    "default": (
+      "background": darken(status(warning), 5%),
+      "color": $black,
+      "border-color": transparent,
+      "box-shadow": none
     ),
-    hover: (
-      background: status(warning),
-      color: $black,
-      border-color: transparent,
-      box-shadow: none
+    "hover": (
+      "background": status(warning),
+      "color": $black,
+      "border-color": transparent,
+      "box-shadow": none
     ),
-    active: (
-      background: darken(status(warning), 2%),
-      color: $black,
-      border-color: transparent,
-      box-shadow: none
+    "active": (
+      "background": darken(status(warning), 2%),
+      "color": $black,
+      "border-color": transparent,
+      "box-shadow": none
     ),
-    focus: (
-      background: status(warning),
-      color: $black,
-      border-color: transparent,
-      box-shadow: none
+    "focus": (
+      "background": status(warning),
+      "color": $black,
+      "border-color": transparent,
+      "box-shadow": none
     )
   ),
-  success: (
-    default: (
-      background: darken(status(success), 5%),
-      color: $white,
-      border-color: transparent,
-      box-shadow: none
+  "success": (
+    "default": (
+      "background": darken(status(success), 5%),
+      "color": $white,
+      "border-color": transparent,
+      "box-shadow": none
     ),
-    hover: (
-      background: status(success),
-      color: $white,
-      border-color: transparent,
-      box-shadow: none
+    "hover": (
+      "background": status(success),
+      "color": $white,
+      "border-color": transparent,
+      "box-shadow": none
     ),
-    active: (
-      background: darken(status(success), 2%),
-      color: $white,
-      border-color: transparent,
-      box-shadow: none
+    "active": (
+      "background": darken(status(success), 2%),
+      "color": $white,
+      "border-color": transparent,
+      "box-shadow": none
     ),
-    focus: (
-      background: status(success),
-      color: $white,
-      border-color: transparent,
-      box-shadow: none
+    "focus": (
+      "background": status(success),
+      "color": $white,
+      "border-color": transparent,
+      "box-shadow": none
     )
   ),
-  destroy: (
-    default: (
-      background: darken(status(destroy), 5%),
-      color: $white,
-      border-color: transparent,
-      box-shadow: none
+  "destroy": (
+    "default": (
+      "background": darken(status(destroy), 5%),
+      "color": $white,
+      "border-color": transparent,
+      "box-shadow": none
     ),
-    hover: (
-      background: status(destroy),
-      color: $white,
-      border-color: transparent,
-      box-shadow: none
+    "hover": (
+      "background": status(destroy),
+      "color": $white,
+      "border-color": transparent,
+      "box-shadow": none
     ),
-    active: (
-      background: darken(status(destroy), 2%),
-      color: $white,
-      border-color: transparent,
-      box-shadow: none
+    "active": (
+      "background": darken(status(destroy), 2%),
+      "color": $white,
+      "border-color": transparent,
+      "box-shadow": none
     ),
-    focus: (
-      background: status(destroy),
-      color: $white,
-      border-color: transparent,
-      box-shadow: none
+    "focus": (
+      "background": status(destroy),
+      "color": $white,
+      "border-color": transparent,
+      "box-shadow": none
     )
   ),
-  notice: (
-    default: (
-      background: darken(status(notice), 5%),
-      color: $white,
-      border-color: transparent,
-      box-shadow: none
+  "notice": (
+    "default": (
+      "background": darken(status(notice), 5%),
+      "color": $white,
+      "border-color": transparent,
+      "box-shadow": none
     ),
-    hover: (
-      background: status(notice),
-      color: $white,
-      border-color: transparent,
-      box-shadow: none
+    "hover": (
+      "background": status(notice),
+      "color": $white,
+      "border-color": transparent,
+      "box-shadow": none
     ),
-    active: (
-      background: darken(status(notice), 2%),
-      color: $white,
-      border-color: transparent,
-      box-shadow: none
+    "active": (
+      "background": darken(status(notice), 2%),
+      "color": $white,
+      "border-color": transparent,
+      "box-shadow": none
     ),
-    focus: (
-      background: status(notice),
-      color: $white,
-      border-color: transparent,
-      box-shadow: none
+    "focus": (
+      "background": status(notice),
+      "color": $white,
+      "border-color": transparent,
+      "box-shadow": none
     )
   )
 ) !default;
@@ -698,10 +698,12 @@ $modal-container-width: 450px !default;
 $modal-container-width-small: 95% !default;
 $modal-container-margin: 40px auto !default;
 $modal-container-margin-small: 16px auto !default;
+
 $modal-header-font-size: 20px !default;
 $modal-header-border: 1px solid $gray900 !default;
+
 $modal-footer-border: 1px solid $gray900 !default;
-$modal-container-button-alignment: flex-end !default;
+$modal-footer-button-alignment: flex-end !default;
 
 $modal-horizontal-breakpoint: breakpoint(small) !default;
 $modal-vertical-breakpoint: breakpoint(small) !default;

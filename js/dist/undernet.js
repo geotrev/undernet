@@ -17,19 +17,27 @@ var Modals = new _modal.default();
 var Accordions = new _accordion.default();
 var Utilities = new _utils.default();
 var Undernet = {
+  // Components
   Modals: Modals,
   Accordions: Accordions,
+  // Utils
   Utilities: Utilities
 };
 
 Undernet.start = function () {
+  // Components
   Undernet.Modals.start();
-  Undernet.Accordions.start();
+  Undernet.Accordions.start(); // Utils
+
+  Undernet.Utilities.enableFocusOutline();
 };
 
 Undernet.stop = function () {
+  // Components
   Undernet.Modals.stop();
-  Undernet.Accordions.stop();
+  Undernet.Accordions.stop(); // Utils
+
+  Undernet.Utilities.disableFocusOutline();
 };
 
 window.Undernet = Undernet;
