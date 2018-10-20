@@ -70,15 +70,31 @@ function (_Utils) {
 
     _classCallCheck(this, Accordion);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Accordion).call(this));
-    _this.accordionButtons = null;
-    _this.accordionContents = null;
-    _this.activeContainer = null; // bind events to class
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Accordion).call(this)); // accordion event methods
 
-    _this.renderAccordionContent = _this.renderAccordionContent.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.handleSpaceKeyPress = _this.handleSpaceKeyPress.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this._renderAccordionContent = _this._renderAccordionContent.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this._handleSpaceKeyPress = _this._handleSpaceKeyPress.bind(_assertThisInitialized(_assertThisInitialized(_this))); // all accordions
+
+    _this.accordionButtons = null;
+    _this.accordionContentsAttr = "";
+    _this.accordionContents = []; // active accordion
+
+    _this.activeContainer = {};
+    _this.activeButton = {};
+    _this.activeAccordionRowId = "";
+    _this.activeRowAttr = "";
+    _this.activeRow = "";
+    _this.activeContainerId = "";
+    _this.activeContainerAttr = "";
+    _this.activeContainer = {};
+    _this.activeContent = {};
+    _this.toggleExpandState = null;
+    _this.toggleContentState = null;
+    _this.toggleHiddenState = null;
+    _this.allContentAttr = "";
     return _this;
-  }
+  } // public
+
   /**
    * Add accessible attributes [data-accordion-button] and [data-accordion-content] elements
    * Begin listening to [data-accordion-button] elements
@@ -90,25 +106,26 @@ function (_Utils) {
     value: function start() {
       var _this2 = this;
 
-      this.accordionButtons = this.getElements("[".concat(selectors.ACCORDION_CONTAINER, "] [").concat(selectors.TARGET, "]"));
+      this.accordionButtons = this._getElements("[".concat(selectors.ACCORDION_CONTAINER, "] [").concat(selectors.TARGET, "]"));
       this.accordionContentsAttr = "[".concat(selectors.ACCORDION_CONTAINER, "] [").concat(selectors.CONTENT, "]");
-      this.accordionContents = this.getElements(this.accordionContentsAttr);
-      this.getFocusableElements(this.accordionContentsAttr).forEach(function (element) {
+      this.accordionContents = this._getElements(this.accordionContentsAttr);
+
+      this._getFocusableElements(this.accordionContentsAttr).forEach(function (element) {
         element.setAttribute(selectors.TAB_INDEX, "-1");
       });
 
       if (this.accordionButtons.length) {
         this.accordionButtons.forEach(function (button) {
-          _this2.setupButton(button);
+          _this2._setupButton(button);
 
-          button.addEventListener(events.CLICK, _this2.renderAccordionContent);
-          button.addEventListener(events.KEYDOWN, _this2.handleSpaceKeyPress);
+          button.addEventListener(events.CLICK, _this2._renderAccordionContent);
+          button.addEventListener(events.KEYDOWN, _this2._handleSpaceKeyPress);
         });
       }
 
       if (this.accordionContents.length) {
         this.accordionContents.forEach(function (content) {
-          var contentRowAttr = _this2.getAccordionRowAttr(content.id);
+          var contentRowAttr = _this2._getAccordionRowAttr(content.id);
 
           var contentRow = document.querySelector(contentRowAttr);
           var contentHiddenState = contentRow.getAttribute(selectors.EXPANDED);
@@ -116,7 +133,7 @@ function (_Utils) {
           content.setAttribute(selectors.ARIA_HIDDEN, toggleContentHiddenState);
 
           if (toggleContentHiddenState === "false") {
-            _this2.getFocusableElements("#".concat(content.id)).forEach(function (element) {
+            _this2._getFocusableElements("#".concat(content.id)).forEach(function (element) {
               element.setAttribute(selectors.TAB_INDEX, "0");
             });
           }
@@ -133,15 +150,18 @@ function (_Utils) {
       var _this3 = this;
 
       this.accordionButtons.forEach(function (button) {
-        button.removeEventListener(events.CLICK, _this3.renderAccordionContent);
-        button.removeEventListener(events.KEYDOWN, _this3.handleSpaceKeyPress);
+        button.removeEventListener(events.CLICK, _this3._renderAccordionContent);
+        button.removeEventListener(events.KEYDOWN, _this3._handleSpaceKeyPress);
       });
-    }
+    } // private
+
   }, {
-    key: "setupButton",
-    value: function setupButton(button) {
+    key: "_setupButton",
+    value: function _setupButton(button) {
       var buttonId = button.getAttribute(selectors.TARGET);
-      var accordionRowAttr = this.getAccordionRowAttr(buttonId);
+
+      var accordionRowAttr = this._getAccordionRowAttr(buttonId);
+
       var accordionRow = document.querySelector(accordionRowAttr);
       var shouldContentExpand = accordionRow.getAttribute(selectors.EXPANDED);
       var buttonContent = document.getElementById(buttonId);
@@ -161,8 +181,8 @@ function (_Utils) {
      */
 
   }, {
-    key: "getAccordionRowAttr",
-    value: function getAccordionRowAttr(id) {
+    key: "_getAccordionRowAttr",
+    value: function _getAccordionRowAttr(id) {
       return "[".concat(selectors.ACCORDION_ROW, "='").concat(id, "']");
     }
     /**
@@ -171,12 +191,12 @@ function (_Utils) {
      */
 
   }, {
-    key: "renderAccordionContent",
-    value: function renderAccordionContent(event) {
+    key: "_renderAccordionContent",
+    value: function _renderAccordionContent(event) {
       event.preventDefault();
       this.activeButton = event.target;
       this.activeAccordionRowId = this.activeButton.getAttribute(selectors.TARGET);
-      this.activeRowAttr = this.getAccordionRowAttr(this.activeAccordionRowId);
+      this.activeRowAttr = this._getAccordionRowAttr(this.activeAccordionRowId);
       this.activeRow = document.querySelector(this.activeRowAttr);
       this.activeContainerId = this.activeButton.getAttribute(selectors.PARENT);
       this.activeContainerAttr = "[".concat(selectors.ACCORDION_CONTAINER, "='").concat(this.activeContainerId, "']");
@@ -194,8 +214,10 @@ function (_Utils) {
       this.toggleExpandState = accordionButtonState === "true" ? "false" : "true";
       this.toggleContentState = accordionContentState === "visible" ? "hidden" : "visible";
       this.toggleHiddenState = this.toggleExpandState === "false" ? "true" : "false";
-      this.closeAllIfToggleable();
-      this.toggleSelectedAccordion();
+
+      this._closeAllIfToggleable();
+
+      this._toggleSelectedAccordion();
     }
     /**
      * If a keypress is the spacebar on a button, open its correlated content.
@@ -203,9 +225,9 @@ function (_Utils) {
      */
 
   }, {
-    key: "handleSpaceKeyPress",
-    value: function handleSpaceKeyPress(event) {
-      if (event.which === keyCodes.SPACE) this.renderAccordionContent(event);
+    key: "_handleSpaceKeyPress",
+    value: function _handleSpaceKeyPress(event) {
+      if (event.which === keyCodes.SPACE) this._renderAccordionContent(event);
     }
     /**
      * If toggling multiple rows at once isn't enabled, close all rows except the selected one.
@@ -213,33 +235,42 @@ function (_Utils) {
      */
 
   }, {
-    key: "closeAllIfToggleable",
-    value: function closeAllIfToggleable() {
+    key: "_closeAllIfToggleable",
+    value: function _closeAllIfToggleable() {
       var _this4 = this;
 
       if (this.activeContainer.hasAttribute(selectors.TOGGLE_MULTIPLE)) return;
       this.allContentAttr = "".concat(this.activeContainerAttr, " [").concat(selectors.CONTENT, "]");
-      var allRows = this.getElements("".concat(this.activeContainerAttr, " [").concat(selectors.EXPANDED, "]"));
-      var allContent = this.getElements(this.allContentAttr);
-      var allButtons = this.getElements("".concat(this.activeContainerAttr, " [").concat(selectors.TARGET, "]"));
+
+      var allRows = this._getElements("".concat(this.activeContainerAttr, " [").concat(selectors.EXPANDED, "]"));
+
+      var allContent = this._getElements(this.allContentAttr);
+
+      var allButtons = this._getElements("".concat(this.activeContainerAttr, " [").concat(selectors.TARGET, "]"));
+
       allContent.forEach(function (content) {
         if (!(content === _this4.activeContent)) content.style.maxHeight = null;
       });
-      this.getFocusableElements(this.allContentAttr).forEach(function (element) {
+
+      this._getFocusableElements(this.allContentAttr).forEach(function (element) {
         element.setAttribute(selectors.TAB_INDEX, "-1");
       });
-      this.toggleAttributeInCollection(allRows, selectors.EXPANDED, "true", "false");
-      this.toggleAttributeInCollection(allButtons, selectors.ARIA_EXPANDED, "true", "false");
-      this.toggleAttributeInCollection(allContent, selectors.ARIA_HIDDEN, "false", "true");
-      this.toggleAttributeInCollection(allContent, selectors.CONTENT, "visible", "hidden");
+
+      this._toggleAttributeInCollection(allRows, selectors.EXPANDED, "true", "false");
+
+      this._toggleAttributeInCollection(allButtons, selectors.ARIA_EXPANDED, "true", "false");
+
+      this._toggleAttributeInCollection(allContent, selectors.ARIA_HIDDEN, "false", "true");
+
+      this._toggleAttributeInCollection(allContent, selectors.CONTENT, "visible", "hidden");
     }
     /**
      * Toggle a [data-accordion-button]'s corresponding [data-accordion-content] element.
      */
 
   }, {
-    key: "toggleSelectedAccordion",
-    value: function toggleSelectedAccordion() {
+    key: "_toggleSelectedAccordion",
+    value: function _toggleSelectedAccordion() {
       var _this5 = this;
 
       this.activeRow.setAttribute(selectors.EXPANDED, this.toggleExpandState);
@@ -247,7 +278,8 @@ function (_Utils) {
       this.activeButton.setAttribute(selectors.ARIA_EXPANDED, this.toggleExpandState);
       this.activeContent.setAttribute(selectors.ARIA_HIDDEN, this.toggleHiddenState);
       var activeContentBlock = "#".concat(this.activeAccordionRowId);
-      this.getFocusableElements(activeContentBlock).forEach(function (element) {
+
+      this._getFocusableElements(activeContentBlock).forEach(function (element) {
         var value = _this5.toggleExpandState === "true" ? "0" : "-1";
         element.setAttribute(selectors.TAB_INDEX, value);
       });
@@ -263,8 +295,8 @@ function (_Utils) {
      */
 
   }, {
-    key: "toggleAttributeInCollection",
-    value: function toggleAttributeInCollection(elements, attributeName, currentValue, newValue) {
+    key: "_toggleAttributeInCollection",
+    value: function _toggleAttributeInCollection(elements, attributeName, currentValue, newValue) {
       elements.forEach(function (element) {
         if (element.hasAttribute(attributeName, currentValue)) {
           element.setAttribute(attributeName, newValue);

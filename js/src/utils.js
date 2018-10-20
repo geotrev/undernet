@@ -8,7 +8,7 @@ const keyCodes = {
 const selectors = {
   FOCUSABLE_SELECTOR: ":not(.is-visually-hidden)",
   FOCUSABLE_TAGS: ["a", "button", "input", "object", "select", "textarea", "[tabindex]"],
-  USING_KEYBOARD: "using-keyboard",
+  KEYBOARD_CLASS: "using-keyboard",
 }
 
 const events = {
@@ -22,9 +22,75 @@ const events = {
  */
 export default class Utils {
   constructor() {
-    this.handleFocusTrap = this.handleFocusTrap.bind(this)
-    this.listenForKeyboard = this.listenForKeyboard.bind(this)
-    this.listenForClick = this.listenForClick.bind(this)
+    this._handleFocusTrap = this._handleFocusTrap.bind(this)
+    this._listenForKeyboard = this._listenForKeyboard.bind(this)
+    this._listenForClick = this._listenForClick.bind(this)
+  }
+
+  // public
+
+  /**
+   * Listens to the first and last elements matched from this._getFocusableElements()
+   * @param {String} container - The container's class, attribute, etc.
+   */
+  captureFocus(container) {
+    this.focusContainerSelector = container
+    const children = this._getFocusableElements(this.focusContainerSelector)
+    this.focusableFirstChild = children[0]
+    this.focusableLastChild = children[children.length - 1]
+
+    document.addEventListener(events.KEYDOWN, this._handleFocusTrap)
+  }
+
+  /**
+   * Stop trapping focus set in this.captureFocus()
+   */
+  releaseFocus() {
+    document.removeEventListener(events.KEYDOWN, this._handleFocusTrap)
+  }
+
+  /**
+   * Begin listening to _listenForKeyboard()
+   */
+  enableFocusOutline() {
+    document.addEventListener(events.KEYDOWN, this._listenForKeyboard)
+  }
+
+  /**
+   * Completely disable focus outline utility.
+   */
+  disableFocusOutline() {
+    document.removeEventListener(events.KEYDOWN, this._listenForKeyboard)
+    document.removeEventListener(events.CLICK, this.__listenForClick)
+  }
+
+  // private
+
+  /**
+   * When a key is pressed, detect if it's tab or shift keys and enable
+   * focus outlines on currently focused element(s). Then, remove keydown listener
+   * and add click listener on _listenForClick().
+   * @param {Object} event - Event (keypress).
+   */
+  _listenForKeyboard(event) {
+    const tabKey = event.which === keyCodes.TAB
+    const shiftKey = event.which === keyCodes.SHIFT || event.shiftKey
+
+    if (tabKey || shiftKey) {
+      document.body.classList.add(selectors.KEYBOARD_CLASS)
+      document.removeEventListener(events.KEYDOWN, this._listenForKeyboard)
+      document.addEventListener(events.CLICK, this._listenForClick)
+    }
+  }
+
+  /**
+   * On click, remove selectors.KEYBOARD_CLASS and re-add keydown listener.
+   * @param {Object} event - Event (keypress).
+   */
+  _listenForClick(event) {
+    document.body.classList.remove(selectors.KEYBOARD_CLASS)
+    document.removeEventListener(events.CLICK, this._listenForClick)
+    document.addEventListener(events.KEYDOWN, this._listenForKeyboard)
   }
 
   /**
@@ -33,51 +99,9 @@ export default class Utils {
    * @param {String} element - A DOM node's class, attribute, etc., to search the document.
    * @return {Array}
    */
-  getElements(element) {
+  _getElements(element) {
     const nodeList = document.querySelectorAll(element)
     return Array.apply(null, nodeList)
-  }
-
-  /**
-   * Begin listening to listenForKeyboard()
-   */
-  enableFocusOutline() {
-    document.addEventListener(events.KEYDOWN, this.listenForKeyboard)
-  }
-
-  /**
-   * When a key is pressed, detect if it's tab or shift keys and enable
-   * focus outlines on currently focused element(s). Then, remove keydown listener
-   * and add click listener on listenForClick().
-   * @param {Object} event - Event (keypress).
-   */
-  listenForKeyboard(event) {
-    const tabKey = event.which === keyCodes.TAB
-    const shiftKey = event.which === keyCodes.SHIFT || event.shiftKey
-
-    if (tabKey || shiftKey) {
-      document.body.classList.add(selectors.USING_KEYBOARD)
-      document.removeEventListener(events.KEYDOWN, this.listenForKeyboard)
-      document.addEventListener(events.CLICK, this.listenForClick)
-    }
-  }
-
-  /**
-   * On click, remove selectors.USING_KEYBOARD and re-add keydown listener.
-   * @param {Object} event - Event (keypress).
-   */
-  listenForClick(event) {
-    document.body.classList.remove(selectors.USING_KEYBOARD)
-    document.removeEventListener(events.CLICK, this.listenForClick)
-    document.addEventListener(events.KEYDOWN, this.listenForKeyboard)
-  }
-
-  /**
-   * Completely disable focus outline utility.
-   */
-  disableFocusOutline() {
-    document.removeEventListener(events.KEYDOWN, this.listenForKeyboard)
-    document.removeEventListener(events.CLICK, this.listenForKeyboard)
   }
 
   /**
@@ -85,37 +109,24 @@ export default class Utils {
    * @param {String} container - The enclosing container's class, attribute, etc.
    * @return {String}
    */
-  getFocusableElements(container) {
+  _getFocusableElements(container) {
     let focusables = []
     selectors.FOCUSABLE_TAGS.map(element =>
       focusables.push(`${container} ${element}${selectors.FOCUSABLE_SELECTOR}`),
     )
-    return this.getElements(focusables.join(", "))
-  }
-
-  /**
-   * Listens to the first and last elements matched from this.getFocusableElements()
-   * @param {String} container - The container's class, attribute, etc.
-   */
-  captureFocus(container) {
-    this.focusContainer = container
-    const children = this.getFocusableElements(this.focusContainer)
-    this.focusableFirstChild = children[0]
-    this.focusableLastChild = children[children.length - 1]
-
-    document.addEventListener(events.KEYDOWN, this.handleFocusTrap)
+    return this._getElements(focusables.join(", "))
   }
 
   /**
    * Handles focus on first or last child in a container.
    * @param {Object} event - Event (keypress)
    */
-  handleFocusTrap(event) {
-    const active = document.activeElement
-    const containerElement = document.querySelector(this.focusContainer)
-    const containerActive = active === containerElement
-    const firstActive = active === this.focusableFirstChild
-    const lastActive = active === this.focusableLastChild
+  _handleFocusTrap(event) {
+    const activeElement = document.activeElement
+    const containerElement = document.querySelector(this.focusContainerSelector)
+    const containerActive = activeElement === containerElement
+    const firstActive = activeElement === this.focusableFirstChild
+    const lastActive = activeElement === this.focusableLastChild
     const tabKey = event.which === keyCodes.TAB
     const shiftKey = event.which === keyCodes.SHIFT || event.shiftKey
     const hasShift = shiftKey && tabKey
@@ -124,7 +135,7 @@ export default class Utils {
     // Just in case the first or last child have changed -
     // recapture focus and continue trapping.
     this.releaseFocus()
-    this.captureFocus(this.focusContainer)
+    this.captureFocus(this.focusContainerSelector)
 
     if (hasShift && (firstActive || containerActive)) {
       event.preventDefault()
@@ -133,12 +144,5 @@ export default class Utils {
       event.preventDefault()
       this.focusableFirstChild.focus()
     }
-  }
-
-  /**
-   * Stop trapping focus set in this.captureFocus()
-   */
-  releaseFocus() {
-    document.removeEventListener(events.KEYDOWN, this.handleFocusTrap)
   }
 }

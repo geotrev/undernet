@@ -15,13 +15,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var Modals = new _modal.default();
 var Accordions = new _accordion.default();
-var Utilities = new _utils.default();
+var Utils = new _utils.default();
 var Undernet = {
   // Components
   Modals: Modals,
   Accordions: Accordions,
   // Utils
-  Utilities: Utilities
+  Utils: Utils
 };
 
 Undernet.start = function () {
@@ -29,7 +29,7 @@ Undernet.start = function () {
   Undernet.Modals.start();
   Undernet.Accordions.start(); // Utils
 
-  Undernet.Utilities.enableFocusOutline();
+  Undernet.Utils.enableFocusOutline();
 };
 
 Undernet.stop = function () {
@@ -37,7 +37,7 @@ Undernet.stop = function () {
   Undernet.Modals.stop();
   Undernet.Accordions.stop(); // Utils
 
-  Undernet.Utilities.disableFocusOutline();
+  Undernet.Utils.disableFocusOutline();
 };
 
 window.Undernet = Undernet;

@@ -71,21 +71,29 @@ function (_Utils) {
 
     _classCallCheck(this, Modal);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Modal).call(this));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Modal).call(this)); // modal event methods
+
+    _this._getModal = _this._getModal.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this._handleModalClose = _this._handleModalClose.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this._handleEscapeKeyPress = _this._handleEscapeKeyPress.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this._handleOverlayClick = _this._handleOverlayClick.bind(_assertThisInitialized(_assertThisInitialized(_this))); // all modals
+
     _this.modalContainerAttr = "[".concat(selectors.MODAL_CONTAINER, "]");
     _this.closeButtonAttr = "[".concat(selectors.MODAL_CONTAINER, "] [").concat(selectors.CLOSE, "]");
     _this.modals = null;
     _this.modalButtons = null;
-    _this.closeButtons = null;
-    _this.bodyTag = document.body;
-    _this.htmlTag = document.querySelector("html"); // bind events to class
+    _this.closeButtons = null; // active modal
 
-    _this.getModal = _this.getModal.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.handleModalClose = _this.handleModalClose.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.handleEscapeKeyPress = _this.handleEscapeKeyPress.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.handleOverlayClick = _this.handleOverlayClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.activeModalButton = {};
+    _this.activeModalId = "";
+    _this.activeModalOverlayAttr = "";
+    _this.activeModalOverlay = {};
+    _this.activeModalSelector = "";
+    _this.activeModal = null;
+    _this.activeModalCloseButtons = [];
     return _this;
-  }
+  } // public
+
   /**
    * Add accessible attributes to modal containers
    * Begin listening to elements with [data-modal-button]
@@ -97,10 +105,11 @@ function (_Utils) {
     value: function start() {
       var _this2 = this;
 
-      this.modals = this.getElements(this.modalContainerAttr);
-      this.modalButtons = this.getElements("[".concat(selectors.MODAL_BUTTON, "]"));
-      this.closeButtons = this.getElements(this.closeButtonAttr);
-      this.getFocusableElements(this.modalContainerAttr).forEach(function (element) {
+      this.modals = this._getElements(this.modalContainerAttr);
+      this.modalButtons = this._getElements("[".concat(selectors.MODAL_BUTTON, "]"));
+      this.closeButtons = this._getElements(this.closeButtonAttr);
+
+      this._getFocusableElements(this.modalContainerAttr).forEach(function (element) {
         element.setAttribute(selectors.TAB_INDEX, "-1");
       });
 
@@ -115,7 +124,7 @@ function (_Utils) {
 
       if (this.modalButtons.length) {
         this.modalButtons.forEach(function (button) {
-          button.addEventListener(events.CLICK, _this2.getModal);
+          button.addEventListener(events.CLICK, _this2._getModal);
         });
       }
     }
@@ -129,19 +138,21 @@ function (_Utils) {
       var _this3 = this;
 
       this.modalButtons.forEach(function (button) {
-        button.removeEventListener(events.CLICK, _this3.getModal);
+        button.removeEventListener(events.CLICK, _this3._getModal);
       });
-    }
+    } // private
+
     /**
      * Locate a button's corresponding modal container.
      * @param {Object} event - The event object
      */
 
   }, {
-    key: "getModal",
-    value: function getModal(event) {
+    key: "_getModal",
+    value: function _getModal(event) {
       event.preventDefault();
-      this.renderModal(event);
+
+      this._renderModal(event);
     }
     /**
      * Find a button through event.target, then render the corresponding modal attribute via matching target id
@@ -149,12 +160,12 @@ function (_Utils) {
      */
 
   }, {
-    key: "renderModal",
-    value: function renderModal(event) {
+    key: "_renderModal",
+    value: function _renderModal(event) {
       var _this4 = this;
 
-      this.modalButton = event.target;
-      this.activeModalId = this.modalButton.getAttribute(selectors.TARGET);
+      this.activeModalButton = event.target;
+      this.activeModalId = this.activeModalButton.getAttribute(selectors.TARGET);
       this.activeModalOverlayAttr = "[".concat(selectors.MODAL_ID, "='").concat(this.activeModalId, "']");
       this.activeModalOverlay = document.querySelector(this.activeModalOverlayAttr);
 
@@ -165,11 +176,14 @@ function (_Utils) {
 
       this.activeModalSelector = "".concat(this.activeModalOverlayAttr, " ").concat(this.modalContainerAttr);
       this.activeModal = document.querySelector(this.activeModalSelector);
-      this.modalCloseButtons = this.getElements("".concat(this.activeModalOverlayAttr, " ").concat(this.closeButtonAttr));
-      this.getFocusableElements(this.activeModalSelector).forEach(function (element) {
+      this.activeModalCloseButtons = this._getElements("".concat(this.activeModalOverlayAttr, " ").concat(this.closeButtonAttr));
+
+      this._getFocusableElements(this.activeModalSelector).forEach(function (element) {
         element.setAttribute(selectors.TAB_INDEX, "0");
       });
-      this.handleScrollStop();
+
+      this._handleScrollStop();
+
       this.captureFocus(this.activeModalSelector);
       this.activeModalOverlay.setAttribute(selectors.ARIA_HIDDEN, "false");
       this.activeModal.setAttribute("tabindex", "-1");
@@ -178,10 +192,10 @@ function (_Utils) {
 
       this.activeModalOverlay.scrollTop = 0; // begin listening to events
 
-      document.addEventListener(events.KEYDOWN, this.handleEscapeKeyPress);
-      document.addEventListener(events.CLICK, this.handleOverlayClick);
-      this.modalCloseButtons.forEach(function (button) {
-        button.addEventListener(events.CLICK, _this4.handleModalClose);
+      document.addEventListener(events.KEYDOWN, this._handleEscapeKeyPress);
+      document.addEventListener(events.CLICK, this._handleOverlayClick);
+      this.activeModalCloseButtons.forEach(function (button) {
+        button.addEventListener(events.CLICK, _this4._handleModalClose);
       });
     }
     /**
@@ -190,25 +204,30 @@ function (_Utils) {
      */
 
   }, {
-    key: "handleModalClose",
-    value: function handleModalClose(event) {
+    key: "_handleModalClose",
+    value: function _handleModalClose(event) {
       var _this5 = this;
 
       event.preventDefault();
       this.activeModalOverlay.setAttribute(selectors.VISIBLE, "false");
-      this.handleReturnFocus();
-      this.handleScrollRestore();
+
+      this._handleReturnFocus();
+
+      this._handleScrollRestore();
+
       this.releaseFocus();
       this.activeModalOverlay.setAttribute(selectors.ARIA_HIDDEN, "true");
       this.activeModal.removeAttribute("tabindex");
-      this.getFocusableElements(this.activeModalSelector).forEach(function (element) {
+
+      this._getFocusableElements(this.activeModalSelector).forEach(function (element) {
         element.setAttribute(selectors.TAB_INDEX, "-1");
       }); // stop listening to events
 
-      document.removeEventListener(events.KEYDOWN, this.handleEscapeKeyPress);
-      document.removeEventListener(events.CLICK, this.handleOverlayClick);
-      this.modalCloseButtons.forEach(function (button) {
-        button.removeEventListener(events.CLICK, _this5.handleModalClose);
+
+      document.removeEventListener(events.KEYDOWN, this._handleEscapeKeyPress);
+      document.removeEventListener(events.CLICK, this._handleOverlayClick);
+      this.activeModalCloseButtons.forEach(function (button) {
+        button.removeEventListener(events.CLICK, _this5._handleModalClose);
       });
     }
     /**
@@ -217,10 +236,11 @@ function (_Utils) {
      */
 
   }, {
-    key: "handleOverlayClick",
-    value: function handleOverlayClick(event) {
-      if (event.target !== this.activeModalOverlay) return;
-      this.handleModalClose(event);
+    key: "_handleOverlayClick",
+    value: function _handleOverlayClick(event) {
+      if (event.target === this.activeModalOverlay) {
+        this._handleModalClose(event);
+      }
     }
     /**
      * Handles escape key event to close the current modal
@@ -228,12 +248,10 @@ function (_Utils) {
      */
 
   }, {
-    key: "handleEscapeKeyPress",
-    value: function handleEscapeKeyPress(event) {
-      var escapeKey = event.which === keyCodes.ESCAPE;
-
-      if (escapeKey) {
-        this.handleModalClose(event);
+    key: "_handleEscapeKeyPress",
+    value: function _handleEscapeKeyPress(event) {
+      if (event.which === keyCodes.ESCAPE) {
+        this._handleModalClose(event);
       }
     }
     /**
@@ -242,31 +260,31 @@ function (_Utils) {
      */
 
   }, {
-    key: "handleReturnFocus",
-    value: function handleReturnFocus() {
-      this.modalButton.setAttribute("tabindex", "-1");
-      this.modalButton.focus();
-      this.modalButton.removeAttribute("tabindex");
+    key: "_handleReturnFocus",
+    value: function _handleReturnFocus() {
+      this.activeModalButton.setAttribute("tabindex", "-1");
+      this.activeModalButton.focus();
+      this.activeModalButton.removeAttribute("tabindex");
     }
     /**
      * Restores scroll behavior to <html> and <body>
      */
 
   }, {
-    key: "handleScrollRestore",
-    value: function handleScrollRestore() {
-      this.bodyTag.classList.remove(selectors.NO_SCROLL);
-      this.htmlTag.classList.remove(selectors.NO_SCROLL);
+    key: "_handleScrollRestore",
+    value: function _handleScrollRestore() {
+      document.body.classList.remove(selectors.NO_SCROLL);
+      document.querySelector("html").classList.remove(selectors.NO_SCROLL);
     }
     /**
      * Prevents scroll behavior on <html> and <body>
      */
 
   }, {
-    key: "handleScrollStop",
-    value: function handleScrollStop() {
-      this.bodyTag.classList.add(selectors.NO_SCROLL);
-      this.htmlTag.classList.add(selectors.NO_SCROLL);
+    key: "_handleScrollStop",
+    value: function _handleScrollStop() {
+      document.body.classList.add(selectors.NO_SCROLL);
+      document.querySelector("html").classList.add(selectors.NO_SCROLL);
     }
   }]);
 

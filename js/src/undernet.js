@@ -2,11 +2,11 @@
 
 import _Modals from "./components/modal"
 import _Accordion from "./components/accordion"
-import _Utilities from "./utils"
+import _Utils from "./utils"
 
 const Modals = new _Modals()
 const Accordions = new _Accordion()
-const Utilities = new _Utilities()
+const Utils = new _Utils()
 
 const Undernet = {
   // Components
@@ -14,7 +14,7 @@ const Undernet = {
   Accordions,
 
   // Utils
-  Utilities,
+  Utils,
 }
 
 Undernet.start = () => {
@@ -23,7 +23,7 @@ Undernet.start = () => {
   Undernet.Accordions.start()
 
   // Utils
-  Undernet.Utilities.enableFocusOutline()
+  Undernet.Utils.enableFocusOutline()
 }
 
 Undernet.stop = () => {
@@ -32,7 +32,7 @@ Undernet.stop = () => {
   Undernet.Accordions.stop()
 
   // Utils
-  Undernet.Utilities.disableFocusOutline()
+  Undernet.Utils.disableFocusOutline()
 }
 
 window.Undernet = Undernet
