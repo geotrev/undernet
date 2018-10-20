@@ -1,19 +1,14 @@
 "use strict"
 
-import _FocusOutline from "./helpers/focus-outline"
 import _Modals from "./components/modal"
 import _Accordion from "./components/accordion"
 import _Utilities from "./utils"
 
-const FocusOutline = new _FocusOutline()
 const Modals = new _Modals()
 const Accordions = new _Accordion()
 const Utilities = new _Utilities()
 
 const Undernet = {
-  // Helpers
-  FocusOutline,
-
   // Components
   Modals,
   Accordions,
@@ -23,15 +18,21 @@ const Undernet = {
 }
 
 Undernet.start = () => {
-  Undernet.FocusOutline.start()
+  // Components
   Undernet.Modals.start()
   Undernet.Accordions.start()
+
+  // Utils
+  Undernet.Utilities.enableFocusOutline()
 }
 
 Undernet.stop = () => {
-  Undernet.FocusOutline.stop()
+  // Components
   Undernet.Modals.stop()
   Undernet.Accordions.stop()
+
+  // Utils
+  Undernet.Utilities.disableFocusOutline()
 }
 
 window.Undernet = Undernet

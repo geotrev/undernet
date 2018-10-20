@@ -5,8 +5,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _focusOutline = _interopRequireDefault(require("./helpers/focus-outline"));
-
 var _modal = _interopRequireDefault(require("./components/modal"));
 
 var _accordion = _interopRequireDefault(require("./components/accordion"));
@@ -15,13 +13,10 @@ var _utils = _interopRequireDefault(require("./utils"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var FocusOutline = new _focusOutline.default();
 var Modals = new _modal.default();
 var Accordions = new _accordion.default();
 var Utilities = new _utils.default();
 var Undernet = {
-  // Helpers
-  FocusOutline: FocusOutline,
   // Components
   Modals: Modals,
   Accordions: Accordions,
@@ -30,15 +25,19 @@ var Undernet = {
 };
 
 Undernet.start = function () {
-  Undernet.FocusOutline.start();
+  // Components
   Undernet.Modals.start();
-  Undernet.Accordions.start();
+  Undernet.Accordions.start(); // Utils
+
+  Undernet.Utilities.enableFocusOutline();
 };
 
 Undernet.stop = function () {
-  Undernet.FocusOutline.stop();
+  // Components
   Undernet.Modals.stop();
-  Undernet.Accordions.stop();
+  Undernet.Accordions.stop(); // Utils
+
+  Undernet.Utilities.disableFocusOutline();
 };
 
 window.Undernet = Undernet;

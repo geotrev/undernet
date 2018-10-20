@@ -8,10 +8,12 @@ const keyCodes = {
 const selectors = {
   FOCUSABLE_SELECTOR: ":not(.is-visually-hidden)",
   FOCUSABLE_TAGS: ["a", "button", "input", "object", "select", "textarea", "[tabindex]"],
+  USING_KEYBOARD: "using-keyboard",
 }
 
 const events = {
   KEYDOWN: "keydown",
+  CLICK: "click",
 }
 
 /**
@@ -20,8 +22,9 @@ const events = {
  */
 export default class Utils {
   constructor() {
-    // bind events to Utils
     this.handleFocusTrap = this.handleFocusTrap.bind(this)
+    this.listenForKeyboard = this.listenForKeyboard.bind(this)
+    this.listenForClick = this.listenForClick.bind(this)
   }
 
   /**
@@ -33,6 +36,32 @@ export default class Utils {
   getElements(element) {
     const nodeList = document.querySelectorAll(element)
     return Array.apply(null, nodeList)
+  }
+
+  enableFocusOutline() {
+    document.addEventListener(events.KEYDOWN, this.listenForKeyboard)
+  }
+
+  listenForKeyboard(event) {
+    const tabKey = event.which === keyCodes.TAB
+    const shiftKey = event.which === keyCodes.SHIFT || event.shiftKey
+
+    if (tabKey || shiftKey) {
+      document.body.classList.add(selectors.USING_KEYBOARD)
+      document.removeEventListener(events.KEYDOWN, this.listenForKeyboard)
+      document.addEventListener(events.CLICK, this.listenForClick)
+    }
+  }
+
+  listenForClick(event) {
+    document.body.classList.remove(selectors.USING_KEYBOARD)
+    document.removeEventListener(events.CLICK, this.listenForClick)
+    document.addEventListener(events.KEYDOWN, this.listenForKeyboard)
+  }
+
+  disableFocusOutline() {
+    document.removeEventListener(events.KEYDOWN, this.listenForKeyboard)
+    document.removeEventListener(events.CLICK, this.listenForKeyboard)
   }
 
   /**

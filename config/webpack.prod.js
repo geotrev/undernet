@@ -23,7 +23,7 @@ module.exports = merge(common(true), {
       name: "manifest",
     },
   },
-  stats: { children: false },
+  stats: { children: false, warnings: false },
   plugins: [
     // remove previous build assets
     new CleanWebpackPlugin(["../build"], {
