@@ -18,7 +18,7 @@ const Undernet = {
 }
 
 Undernet.start = () => {
-  // components
+  // Components
   Undernet.Modals.start()
   Undernet.Accordions.start()
 
@@ -27,8 +27,12 @@ Undernet.start = () => {
 }
 
 Undernet.stop = () => {
+  // Components
   Undernet.Modals.stop()
   Undernet.Accordions.stop()
+
+  // Utils
+  Undernet.Utilities.disableFocusOutline()
 }
 
 window.Undernet = Undernet

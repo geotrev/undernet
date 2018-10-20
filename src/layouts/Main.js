@@ -1,10 +1,11 @@
-import React, { Fragment } from "react"
+import React, { Component, Fragment } from "react"
 import { Route } from "react-router-dom"
+import Loadable from "react-loadable"
 import "./Main.scss"
 
 import { rootPath, docsPath } from "routes"
 import { GlobalNav, Footer, LoadingSpinner } from "components"
-import Loadable from "react-loadable"
+import Undernet from "undernet"
 
 const Home = Loadable({
   loader: () => import(/* webpackPrefetch: true */ "../pages/Home/Home"),
@@ -16,19 +17,29 @@ const Docs = Loadable({
   loading: () => <LoadingSpinner />,
 })
 
-export default function Main() {
-  return (
-    <Fragment>
-      <header>
-        <GlobalNav />
-      </header>
-      <main>
-        <Route exact path={rootPath} component={Home} />
-        <Route path={docsPath} component={Docs} />
-      </main>
-      <footer>
-        <Footer />
-      </footer>
-    </Fragment>
-  )
+export default class Main extends Component {
+  constructor() {
+    super()
+  }
+
+  componentDidMount() {
+    Undernet.Utilities.enableFocusOutline()
+  }
+
+  render() {
+    return (
+      <Fragment>
+        <header>
+          <GlobalNav />
+        </header>
+        <main>
+          <Route exact path={rootPath} component={Home} />
+          <Route path={docsPath} component={Docs} />
+        </main>
+        <footer>
+          <Footer />
+        </footer>
+      </Fragment>
+    )
+  }
 }

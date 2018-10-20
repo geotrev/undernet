@@ -25,7 +25,7 @@ var Undernet = {
 };
 
 Undernet.start = function () {
-  // components
+  // Components
   Undernet.Modals.start();
   Undernet.Accordions.start(); // Utils
 
@@ -33,8 +33,11 @@ Undernet.start = function () {
 };
 
 Undernet.stop = function () {
+  // Components
   Undernet.Modals.stop();
-  Undernet.Accordions.stop();
+  Undernet.Accordions.stop(); // Utils
+
+  Undernet.Utilities.disableFocusOutline();
 };
 
 window.Undernet = Undernet;
