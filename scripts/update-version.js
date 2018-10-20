@@ -42,29 +42,31 @@ function getNewScssVersion() {
   return undernetScssFile.replace(scssVersion, newScssVersion)
 }
 
-// hash helpers
+// get update for docs/introduction.md
+
 const introArticleFile = fs.readFileSync(introArticleFilePath, readFormat)
+
 function createNewHash(str) {
   return new Hashes.SHA256().b64(str)
 }
 
 // regex pattern to detect base 64 encoded string.
 // https://stackoverflow.com/a/31245864
-const reb64 = /\"sha256-([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}|[A-Za-z0-9+/]{2}==)\"/g
+const reb64 = /\"sha256-([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}|[A-Za-z0-9+/]{2})=\"/g
 
 // retrieve existing hashes
 const b64Strings = introArticleFile.match(reb64)
-const currentCssHash = b64Strings[0]
-const currentJsHash = b64Strings[1]
 
 // apply new hashes and return new introduction.md
 const distCssFile = fs.readFileSync(distCssFilePath, readFormat)
 const distJsFile = fs.readFileSync(distJsFilePath, readFormat)
-const newCssHash = `"sha256-${createNewHash(distCssFile).replace("=", "")}"`
-const newJsHash = `"sha256-${createNewHash(distJsFile).replace("=", "")}"`
+const newCssHash = `"sha256-${createNewHash(distCssFile)}"`
+const newJsHash = `"sha256-${createNewHash(distJsFile)}"`
 
 // get new hashes and inject them into docs/introduction.md
 function getNewIntroductionArticle() {
+  const currentCssHash = b64Strings[0]
+  const currentJsHash = b64Strings[1]
   const versionRegEx = new RegExp(pkg.version, "g")
   return introArticleFile
     .replace(currentJsHash, newJsHash)

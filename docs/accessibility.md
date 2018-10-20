@@ -39,7 +39,7 @@ Undernet.Utilities.releaseFocus()
 
 For users who have poor eye sight or difficult motor reflexes, it's very hard to use a mouse since the pointer is too small or it requires too much precision. Instead, it's common for these types of users to instead surf the web with their keyboard.
 
-To make identifying the active element on the page, an outline is applied to it when focused. To enable the outline, you can access it from `Utilities`:
+To make identifying the active element on the page easier, an outline is applied to it when focused. To enable the outline, you can access it from `Utilities`:
 
 ```js
 Undernet.Utilities.enableFocusOutline()

@@ -38,10 +38,19 @@ export default class Utils {
     return Array.apply(null, nodeList)
   }
 
+  /**
+   * Begin listening to listenForKeyboard()
+   */
   enableFocusOutline() {
     document.addEventListener(events.KEYDOWN, this.listenForKeyboard)
   }
 
+  /**
+   * When a key is pressed, detect if it's tab or shift keys and enable
+   * focus outlines on currently focused element(s). Then, remove keydown listener
+   * and add click listener on listenForClick().
+   * @param {Object} event - Event (keypress).
+   */
   listenForKeyboard(event) {
     const tabKey = event.which === keyCodes.TAB
     const shiftKey = event.which === keyCodes.SHIFT || event.shiftKey
@@ -53,12 +62,19 @@ export default class Utils {
     }
   }
 
+  /**
+   * On click, remove selectors.USING_KEYBOARD and re-add keydown listener.
+   * @param {Object} event - Event (keypress).
+   */
   listenForClick(event) {
     document.body.classList.remove(selectors.USING_KEYBOARD)
     document.removeEventListener(events.CLICK, this.listenForClick)
     document.addEventListener(events.KEYDOWN, this.listenForKeyboard)
   }
 
+  /**
+   * Completely disable focus outline utility.
+   */
   disableFocusOutline() {
     document.removeEventListener(events.KEYDOWN, this.listenForKeyboard)
     document.removeEventListener(events.CLICK, this.listenForKeyboard)
