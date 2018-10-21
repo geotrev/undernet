@@ -75,7 +75,7 @@ function (_Utils) {
     _this._renderAccordionContent = _this._renderAccordionContent.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this._handleSpaceKeyPress = _this._handleSpaceKeyPress.bind(_assertThisInitialized(_assertThisInitialized(_this))); // all accordions
 
-    _this.accordionButtons = null;
+    _this.accordionButtons = [];
     _this.accordionContentsAttr = "";
     _this.accordionContents = []; // active accordion
 

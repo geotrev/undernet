@@ -42,11 +42,11 @@ export default class Accordion extends Utils {
   constructor() {
     super()
     // accordion event methods
-    this._renderAccordionContent = this._renderAccordionContent.bind(this)
+    this._render = this._render.bind(this)
     this._handleSpaceKeyPress = this._handleSpaceKeyPress.bind(this)
 
     // all accordions
-    this.accordionButtons = null
+    this.accordionButtons = []
     this.accordionContentsAttr = ""
     this.accordionContents = []
 
@@ -87,7 +87,7 @@ export default class Accordion extends Utils {
     if (this.accordionButtons.length) {
       this.accordionButtons.forEach(button => {
         this._setupButton(button)
-        button.addEventListener(events.CLICK, this._renderAccordionContent)
+        button.addEventListener(events.CLICK, this._render)
         button.addEventListener(events.KEYDOWN, this._handleSpaceKeyPress)
       })
     }
@@ -114,7 +114,7 @@ export default class Accordion extends Utils {
    */
   stop() {
     this.accordionButtons.forEach(button => {
-      button.removeEventListener(events.CLICK, this._renderAccordionContent)
+      button.removeEventListener(events.CLICK, this._render)
       button.removeEventListener(events.KEYDOWN, this._handleSpaceKeyPress)
     })
   }
@@ -151,7 +151,7 @@ export default class Accordion extends Utils {
    * Open accordion content associated with a [data-accordion-button] element.
    * @param {Object} event - The event object.
    */
-  _renderAccordionContent(event) {
+  _render(event) {
     event.preventDefault()
 
     this.activeButton = event.target
@@ -187,7 +187,7 @@ export default class Accordion extends Utils {
    * @param {Object} event - The event object.
    */
   _handleSpaceKeyPress(event) {
-    if (event.which === keyCodes.SPACE) this._renderAccordionContent(event)
+    if (event.which === keyCodes.SPACE) this._render(event)
   }
 
   /**

@@ -73,16 +73,16 @@ function (_Utils) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Modal).call(this)); // modal event methods
 
-    _this._getModal = _this._getModal.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this._renderModal = _this._renderModal.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this._handleModalClose = _this._handleModalClose.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this._handleEscapeKeyPress = _this._handleEscapeKeyPress.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this._handleOverlayClick = _this._handleOverlayClick.bind(_assertThisInitialized(_assertThisInitialized(_this))); // all modals
 
     _this.modalContainerAttr = "[".concat(selectors.MODAL_CONTAINER, "]");
     _this.closeButtonAttr = "[".concat(selectors.MODAL_CONTAINER, "] [").concat(selectors.CLOSE, "]");
-    _this.modals = null;
-    _this.modalButtons = null;
-    _this.closeButtons = null; // active modal
+    _this.modals = [];
+    _this.modalButtons = [];
+    _this.closeButtons = []; // active modal
 
     _this.activeModalButton = {};
     _this.activeModalId = "";
@@ -124,7 +124,7 @@ function (_Utils) {
 
       if (this.modalButtons.length) {
         this.modalButtons.forEach(function (button) {
-          button.addEventListener(events.CLICK, _this2._getModal);
+          button.addEventListener(events.CLICK, _this2._renderModal);
         });
       }
     }
@@ -138,22 +138,10 @@ function (_Utils) {
       var _this3 = this;
 
       this.modalButtons.forEach(function (button) {
-        button.removeEventListener(events.CLICK, _this3._getModal);
+        button.removeEventListener(events.CLICK, _this3._renderModal);
       });
     } // private
 
-    /**
-     * Locate a button's corresponding modal container.
-     * @param {Object} event - The event object
-     */
-
-  }, {
-    key: "_getModal",
-    value: function _getModal(event) {
-      event.preventDefault();
-
-      this._renderModal(event);
-    }
     /**
      * Find a button through event.target, then render the corresponding modal attribute via matching target id
      * @param {Object} event - The event object
@@ -164,9 +152,10 @@ function (_Utils) {
     value: function _renderModal(event) {
       var _this4 = this;
 
+      event.preventDefault();
       this.activeModalButton = event.target;
       this.activeModalId = this.activeModalButton.getAttribute(selectors.TARGET);
-      this.activeModalOverlayAttr = "[".concat(selectors.MODAL_ID, "='").concat(this.activeModalId, "']");
+      this.activeModalOverlayAttr = "[".concat(selectors.MODAL_ID, "=\"").concat(this.activeModalId, "\"]");
       this.activeModalOverlay = document.querySelector(this.activeModalOverlayAttr);
 
       if (!this.activeModalOverlay) {

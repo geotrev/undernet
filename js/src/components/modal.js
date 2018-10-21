@@ -43,7 +43,7 @@ export default class Modal extends Utils {
   constructor() {
     super()
     // modal event methods
-    this._getModal = this._getModal.bind(this)
+    this._render = this._render.bind(this)
     this._handleModalClose = this._handleModalClose.bind(this)
     this._handleEscapeKeyPress = this._handleEscapeKeyPress.bind(this)
     this._handleOverlayClick = this._handleOverlayClick.bind(this)
@@ -51,9 +51,9 @@ export default class Modal extends Utils {
     // all modals
     this.modalContainerAttr = `[${selectors.MODAL_CONTAINER}]`
     this.closeButtonAttr = `[${selectors.MODAL_CONTAINER}] [${selectors.CLOSE}]`
-    this.modals = null
-    this.modalButtons = null
-    this.closeButtons = null
+    this.modals = []
+    this.modalButtons = []
+    this.closeButtons = []
 
     // active modal
     this.activeModalButton = {}
@@ -91,7 +91,7 @@ export default class Modal extends Utils {
 
     if (this.modalButtons.length) {
       this.modalButtons.forEach(button => {
-        button.addEventListener(events.CLICK, this._getModal)
+        button.addEventListener(events.CLICK, this._render)
       })
     }
   }
@@ -101,29 +101,22 @@ export default class Modal extends Utils {
    */
   stop() {
     this.modalButtons.forEach(button => {
-      button.removeEventListener(events.CLICK, this._getModal)
+      button.removeEventListener(events.CLICK, this._render)
     })
   }
 
   // private
 
   /**
-   * Locate a button's corresponding modal container.
-   * @param {Object} event - The event object
-   */
-  _getModal(event) {
-    event.preventDefault()
-    this._renderModal(event)
-  }
-
-  /**
    * Find a button through event.target, then render the corresponding modal attribute via matching target id
    * @param {Object} event - The event object
    */
-  _renderModal(event) {
+  _render(event) {
+    event.preventDefault()
+
     this.activeModalButton = event.target
     this.activeModalId = this.activeModalButton.getAttribute(selectors.TARGET)
-    this.activeModalOverlayAttr = `[${selectors.MODAL_ID}='${this.activeModalId}']`
+    this.activeModalOverlayAttr = `[${selectors.MODAL_ID}="${this.activeModalId}"]`
     this.activeModalOverlay = document.querySelector(this.activeModalOverlayAttr)
 
     if (!this.activeModalOverlay) {
