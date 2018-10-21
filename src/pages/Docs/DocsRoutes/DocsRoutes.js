@@ -28,7 +28,7 @@ import ChevronRight from "react-feather/dist/icons/chevron-right"
 
 function getRoute(name) {
   return Loadable({
-    loader: () => import(`./articles/${name}.js`),
+    loader: () => import(`./articles/${name}`),
     loading: () => <LoadingSpinner />,
   })
 }
