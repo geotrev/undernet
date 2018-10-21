@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { Link } from "react-router-dom"
 import Prism from "prismjs"
 import Markdown from "react-markdown"
+import Loadable from "react-loadable"
 import ChevronRight from "react-feather/dist/icons/chevron-right"
 import "./Home.scss"
 
@@ -9,13 +10,17 @@ import { ScrollUpOnMount } from "helpers"
 import { downloadPath, introductionPath } from "routes"
 
 import pkg from "../../../package.json"
-import statusBadges from "./badges.md"
 import installNpm from "./install-npm.md"
 import installAssets from "./install-assets.md"
 import tinySvg from "assets/images/tiny.svg"
 import modSvg from "assets/images/modular.svg"
 import configSvg from "assets/images/configurable.svg"
 import a11ySvg from "assets/images/accessible.svg"
+
+const StatusBadges = Loadable({
+  loader: () => import("./Badges"),
+  loading: () => <span className="is-visually-hidden">Loading badges</span>,
+})
 
 export default class Home extends Component {
   constructor() {
@@ -54,7 +59,7 @@ export default class Home extends Component {
             </div>
 
             <div className="xsmall-12 columns badges">
-              <Markdown source={statusBadges} escapeHtml={false} />
+              <StatusBadges />
             </div>
           </div>
         </div>
