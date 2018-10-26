@@ -1,6 +1,6 @@
 {
   "name": "undernet",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "homepage": "https://undernet.io",
   "description": "Undernet is a Front-End Framework for Modern Web Development",
   "main": "js/dist/undernet.js",
@@ -20,7 +20,8 @@
     "framework"
   ],
   "bin": {
-    "update-version": "./scripts/update-version.js"
+    "update-version": "./scripts/update-version.js",
+    "create-hashes": "./scripts/create-hashes.js"
   },
   "scripts": {
     "test": "BABEL_ENV=test nyc mocha -r @babel/register -r config/mocha.config.js --recursive src/**/*.spec.js",
@@ -30,7 +31,7 @@
     "lint": "prettier --write 'src/**/*.js' && prettier --write 'src/**/*.scss'",
     "build:development": "npm run build:lint && npm run js:build && npm run css:build && npm run css:minify",
     "build:lint": "npm run js:lint && npm run scss:lint",
-    "build:release": "npm run clean && npm run build:lint && npm run scss:prepublish && npm run css:prepublish && npm run js:prepublish",
+    "build:release": "npm run clean && npm run build:lint && npm run scss:prepublish && npm run css:prepublish && npm run js:prepublish && create-hashes",
     "clean": "rm -rf dist/ && mkdir dist/",
     "js:build": "babel js/src/ --out-dir js/dist/",
     "js:merge": "BABEL_ENV=rollup rollup -c config/rollup.config.js",
