@@ -126,10 +126,10 @@ Clone the repo and re-clone the wiki contents.
 ```sh
 $ git clone git@github.com:USER_NAME/undernet.git
 $ cd undernet/
-$ npm run setup
+$ npm install
 ```
 
-The site is both a demo and marketing tool. It is built with my own webpack setup called [Pulsar](https://github.com/geotrev/pulsar). It's basically just Webpack + React, so don't panic.
+The site is both a demo and marketing tool. It is built with my own webpack setup called [Pulsar](https://github.com/geotrev/pulsar). It's basically just Webpack + React, so don't panic. :)
 
 ### Run the dev server
 
@@ -183,18 +183,19 @@ $ npm run js:watch
 
 ### New releases
 
-New releases are simply zipped and compiled files.
+New releases are simply zipped and compiled files to be distributed on npm, then for use on a CDN, such as jsdelivr.
 
-To increment the version of the release, run the following command, where `VERSION` is the semver value. E.g., `--tag=2.3.0`. The script will find specific files: `package.json`, `scss/undernet.scss`, and `docs/introduction.md`. It then increments the version, creates new sub-resource integrity hashes, and updates unpkg.com links for CDN access.
+To run a release build, run the following two commands, where `VERSION` is the semver value incremented from `package.json`:
 
 ```sh
 $ update-version --tag=VERSION
-```
-
-Then to build assets:
-
-```sh
 $ npm run build:release
 ```
 
-All that's left is a `npm publish` and the new version is out in the wild!
+These will do three things:
+
+1. Increment the project version across multiple files that require it.
+2. Build all assets with the new version.
+3. Generate new sha-256 hashes for CDN access (see `docs/introduction.md`, "Get Started" section).
+
+All that's left is a `npm publish` and the new version is out in the wild! Crazy cool!
