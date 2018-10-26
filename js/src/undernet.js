@@ -2,16 +2,19 @@
 
 import _Modals from "./components/modal"
 import _Accordion from "./components/accordion"
+// import _Dropdown from "./components/dropdown"
 import _Utils from "./utils"
 
-const Modals = new _Modals()
-const Accordions = new _Accordion()
-const Utils = new _Utils()
+export const Modals = new _Modals()
+export const Accordions = new _Accordion()
+// export const Dropdowns = new _Dropdown()
+export const Utils = new _Utils()
 
 const Undernet = {
   // Components
   Modals,
   Accordions,
+  // Dropdowns,
 
   // Utils
   Utils,
@@ -21,6 +24,7 @@ Undernet.start = () => {
   // Components
   Undernet.Modals.start()
   Undernet.Accordions.start()
+  // Undernet.Dropdowns.start()
 
   // Utils
   Undernet.Utils.enableFocusOutline()
@@ -30,6 +34,7 @@ Undernet.stop = () => {
   // Components
   Undernet.Modals.stop()
   Undernet.Accordions.stop()
+  // Undernet.Dropdowns.stop()
 
   // Utils
   Undernet.Utils.disableFocusOutline()

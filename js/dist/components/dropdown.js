@@ -108,14 +108,16 @@ function (_Utils) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Dropdown).call(this)); //  dropdown event methods
 
-    _this._renderDropdown = _this._renderDropdown.bind(_assertThisInitialized(_assertThisInitialized(_this))); // active dropdown
+    _this._render = _this._render.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this._handleClose = _this._handleClose.bind(_assertThisInitialized(_assertThisInitialized(_this))); // active dropdown
 
     _this.activeDropdownButton = {};
     _this.activeDropdownId = "";
     _this.activeDropdownAttr = "";
     _this.activeDropdownMenuId = "";
     _this.activeDropdown = {};
-    _this.activeDropdownMenu = {}; // all dropdowns
+    _this.activeDropdownMenu = {};
+    _this.activeDropdownLinks = []; // all dropdowns
 
     _this.dropdowns = [];
     _this.dropdownButtons = [];
@@ -140,7 +142,7 @@ function (_Utils) {
       }
 
       this.dropdownButtons.forEach(function (button) {
-        button.addEventListener(events.CLICK, _this2._renderDropdown);
+        button.addEventListener(events.CLICK, _this2._render);
       });
     }
   }, {
@@ -149,43 +151,71 @@ function (_Utils) {
       var _this3 = this;
 
       this.dropdownButtons.forEach(function (button) {
-        button.removeEventListener(events.CLICK, _this3._renderDropdown);
+        button.removeEventListener(events.CLICK, _this3._render);
       });
     } // private
 
   }, {
-    key: "_renderDropdown",
-    value: function _renderDropdown(event) {
+    key: "_render",
+    value: function _render(event) {
+      var _this4 = this;
+
       // dropdown button / trigger
       this.activeDropdownButton = event.target;
       this.activeDropdownId = this.activeDropdownButton.getAttribute(selectors.DATA_PARENT);
-      this.activeDropdownAttr = "[".concat(selectors.DATA_DROPDOWN, "=\"").concat(this.activeDropdownId, "\"]");
-      this.activeDropdownMenuId = this.activeDropdownButton.getAttribute(selectors.DATA_TARGET); // dropdown container
 
+      if (!this.activeDropdownId || !document.getElementById(this.activeDropdownId)) {
+        throw messages.MISSING_DROPDOWN;
+        return;
+      }
+
+      this.activeDropdownButton.setAttribute(selectors.ARIA_EXPANDED, "true"); // dropdown container
+
+      this.activeDropdownAttr = "[".concat(selectors.DATA_DROPDOWN, "=\"").concat(this.activeDropdownId, "\"]");
       this.activeDropdown = document.querySelector(this.activeDropdownAttr); // dropdown menu
 
+      this.activeDropdownMenuId = this.activeDropdownButton.getAttribute(selectors.DATA_TARGET);
       this.activeDropdownMenu = document.getElementById(this.activeDropdownMenuId);
       this.activeDropdownButton.setAttribute(selectors.ARIA_EXPANDED, "true");
-      this.activeDropdown.setAttribute(selectors.DATA_VISIBLE, "true"); // set dropdown links to have tabindex === "0"
+      this.activeDropdown.setAttribute(selectors.DATA_VISIBLE, "true");
+      this.activeDropdownLinks = this._getElements("".concat(this.activeDropdownAttr, " > ul > li > a"));
+      var accordionContentHasAttr = this.activeContent.hasAttribute(selectors.CONTENT);
+
+      if (!accordionContentHasAttr) {
+        throw messages.MISSING_CONTENT;
+        return;
+      }
+
+      this.activeDropdownLinks.forEach(function (link) {
+        link.setAttribute(selectors.TABINDEX, "0");
+        link.addEventListener(events.CLICK, _this4._handleClose);
+      });
+    }
+  }, {
+    key: "_handleClose",
+    value: function _handleClose() {
+      var _this5 = this;
+
+      this.activeDropdownButton.setAttribute(selectors.ARIA_EXPANDED, "false");
+      this.activeDropdown.setAttribute(selectors.DATA_VISIBLE, "false");
+      this.activeDropdownLinks.forEach(function (link) {
+        link.setAttribute(selectors.TABINDEX, "-1");
+        link.removeEventListener(events.CLICK, _this5._handleClose);
+      });
     }
   }, {
     key: "_setupDropdown",
     value: function _setupDropdown(dropdown) {
       var dropdownId = dropdown.getAttribute(selectors.DATA_DROPDOWN);
       var dropdownIdAttr = "[".concat(selectors.DATA_DROPDOWN, "=\"").concat(dropdownId, "\"]");
-      var dropdownMenuAttr = "".concat(dropdownIdAttr, " > ul");
-      var dropdownMenu = document.querySelector(dropdownMenuAttr);
+      var dropdownMenu = document.querySelector("".concat(dropdownIdAttr, " > ul"));
       var dropdownMenuId = dropdownMenu.id;
-      var dropdownMenuItemAttr = "".concat(dropdownIdAttr, " > ul > li");
 
-      var dropdownMenuItems = this._getElements(dropdownMenuItemAttr);
+      var dropdownMenuItems = this._getElements("".concat(dropdownIdAttr, " > ul > li"));
 
-      var dropdownMenuItemLinkAttr = "".concat(dropdownIdAttr, " > ul > li > a");
+      var dropdownMenuItemLinks = this._getElements("".concat(dropdownIdAttr, " > ul > li > a"));
 
-      var dropdownMenuItemLinks = this._getElements(dropdownMenuItemLinkAttr);
-
-      var dropdownButtonAttr = "".concat(dropdownIdAttr, " > ").concat(selectors.DATA_TARGET);
-      var dropdownButton = document.querySelector(dropdownButtonAttr);
+      var dropdownButton = document.querySelector("".concat(dropdownIdAttr, " > ").concat(selectors.DATA_TARGET));
       var dropdownButtonId = dropdownButton.id;
       dropdownButton.setAttribute(selectors.ARIA_CONTROLS, dropdownMenuId);
       dropdownButton.setAttribute(selectors.ARIA_HASPOPUP, "true");

@@ -73,7 +73,7 @@ function (_Utils) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Modal).call(this)); // modal event methods
 
-    _this._renderModal = _this._renderModal.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this._render = _this._render.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this._handleModalClose = _this._handleModalClose.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this._handleEscapeKeyPress = _this._handleEscapeKeyPress.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this._handleOverlayClick = _this._handleOverlayClick.bind(_assertThisInitialized(_assertThisInitialized(_this))); // all modals
@@ -124,7 +124,7 @@ function (_Utils) {
 
       if (this.modalButtons.length) {
         this.modalButtons.forEach(function (button) {
-          button.addEventListener(events.CLICK, _this2._renderModal);
+          button.addEventListener(events.CLICK, _this2._render);
         });
       }
     }
@@ -138,7 +138,7 @@ function (_Utils) {
       var _this3 = this;
 
       this.modalButtons.forEach(function (button) {
-        button.removeEventListener(events.CLICK, _this3._renderModal);
+        button.removeEventListener(events.CLICK, _this3._render);
       });
     } // private
 
@@ -148,8 +148,8 @@ function (_Utils) {
      */
 
   }, {
-    key: "_renderModal",
-    value: function _renderModal(event) {
+    key: "_render",
+    value: function _render(event) {
       var _this4 = this;
 
       event.preventDefault();

@@ -72,7 +72,7 @@ function (_Utils) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Accordion).call(this)); // accordion event methods
 
-    _this._renderAccordionContent = _this._renderAccordionContent.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this._render = _this._render.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this._handleSpaceKeyPress = _this._handleSpaceKeyPress.bind(_assertThisInitialized(_assertThisInitialized(_this))); // all accordions
 
     _this.accordionButtons = [];
@@ -118,7 +118,7 @@ function (_Utils) {
         this.accordionButtons.forEach(function (button) {
           _this2._setupButton(button);
 
-          button.addEventListener(events.CLICK, _this2._renderAccordionContent);
+          button.addEventListener(events.CLICK, _this2._render);
           button.addEventListener(events.KEYDOWN, _this2._handleSpaceKeyPress);
         });
       }
@@ -150,7 +150,7 @@ function (_Utils) {
       var _this3 = this;
 
       this.accordionButtons.forEach(function (button) {
-        button.removeEventListener(events.CLICK, _this3._renderAccordionContent);
+        button.removeEventListener(events.CLICK, _this3._render);
         button.removeEventListener(events.KEYDOWN, _this3._handleSpaceKeyPress);
       });
     } // private
@@ -191,8 +191,8 @@ function (_Utils) {
      */
 
   }, {
-    key: "_renderAccordionContent",
-    value: function _renderAccordionContent(event) {
+    key: "_render",
+    value: function _render(event) {
       event.preventDefault();
       this.activeButton = event.target;
       this.activeAccordionRowId = this.activeButton.getAttribute(selectors.TARGET);
@@ -227,7 +227,7 @@ function (_Utils) {
   }, {
     key: "_handleSpaceKeyPress",
     value: function _handleSpaceKeyPress(event) {
-      if (event.which === keyCodes.SPACE) this._renderAccordionContent(event);
+      if (event.which === keyCodes.SPACE) this._render(event);
     }
     /**
      * If toggling multiple rows at once isn't enabled, close all rows except the selected one.

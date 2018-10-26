@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.default = exports.Utils = exports.Accordions = exports.Modals = void 0;
 
 var _modal = _interopRequireDefault(require("./components/modal"));
 
@@ -13,13 +13,19 @@ var _utils = _interopRequireDefault(require("./utils"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// import _Dropdown from "./components/dropdown"
 var Modals = new _modal.default();
-var Accordions = new _accordion.default();
+exports.Modals = Modals;
+var Accordions = new _accordion.default(); // export const Dropdowns = new _Dropdown()
+
+exports.Accordions = Accordions;
 var Utils = new _utils.default();
+exports.Utils = Utils;
 var Undernet = {
   // Components
   Modals: Modals,
   Accordions: Accordions,
+  // Dropdowns,
   // Utils
   Utils: Utils
 };
@@ -27,7 +33,8 @@ var Undernet = {
 Undernet.start = function () {
   // Components
   Undernet.Modals.start();
-  Undernet.Accordions.start(); // Utils
+  Undernet.Accordions.start(); // Undernet.Dropdowns.start()
+  // Utils
 
   Undernet.Utils.enableFocusOutline();
 };
@@ -35,7 +42,8 @@ Undernet.start = function () {
 Undernet.stop = function () {
   // Components
   Undernet.Modals.stop();
-  Undernet.Accordions.stop(); // Utils
+  Undernet.Accordions.stop(); // Undernet.Dropdowns.stop()
+  // Utils
 
   Undernet.Utils.disableFocusOutline();
 };

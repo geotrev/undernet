@@ -6,7 +6,7 @@ import "./Main.scss"
 import { rootPath, docsPath } from "routes"
 import { GlobalNav, Footer, LoadingSpinner } from "components"
 import { Home, Docs } from "pages"
-import Undernet from "undernet"
+import { Utils } from "undernet"
 
 export default class Main extends Component {
   constructor() {
@@ -14,7 +14,7 @@ export default class Main extends Component {
   }
 
   componentDidMount() {
-    Undernet.Utils.enableFocusOutline()
+    Utils.enableFocusOutline()
   }
 
   render() {
