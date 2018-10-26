@@ -33,7 +33,7 @@
     "build:lint": "npm run js:lint && npm run scss:lint",
     "build:release": "npm run clean && npm run build:lint && npm run scss:prepublish && npm run css:prepublish && npm run js:prepublish && create-hashes",
     "clean": "rm -rf dist/ && mkdir dist/",
-    "js:build": "babel js/src/ --out-dir js/dist/",
+    "js:build": "babel js/src/ --out-dir js/dist/ --no-comments",
     "js:merge": "BABEL_ENV=rollup rollup -c config/rollup.config.js",
     "js:minify": "BABEL_ENV=rollup rollup -c config/rollup.config.prod.js",
     "js:watch": "babel js/src/ --watch --out-dir js/dist/",

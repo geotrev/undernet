@@ -35,13 +35,10 @@ var keyCodes = {
   ESCAPE: 27
 };
 var selectors = {
-  // unique
   DATA_DROPDOWN: "data-dropdown",
-  // common
   DATA_TARGET: "data-target",
   DATA_PARENT: "data-parent",
   DATA_VISIBLE: "data-visible",
-  // accessibility
   TABINDEX: "tabindex",
   ARIA_HASPOPUP: "aria-haspopup",
   ARIA_CONTROLS: "aria-controls",
@@ -54,51 +51,10 @@ var events = {
   CLICK: "click"
 };
 var messages = {
-  MISSING_DROPDOWN: "You have a dropdown button missing its corresponding menu." // Attributes for button in JS:
-  // - aria-haspopup="true"
-  // - aria-expanded="false"
-  // - aria-controls === ul id
-  //
-  // Attributes for ul in JS:
-  // - aria-labelledby === button id
-  // - list items have role="none"
-  // - anchors inside li have role="menuitem"
-  //
-  // Opens with:
-  // - Down arrow, focus to first element
-  // - Up arrow, focus to last element
-  // - Space
-  // - Enter
-  //
-  // `tabindex` on menu items set to "0":
-  // - When menu is open
-  //
-  // `tabindex` on menu items set to "-1":
-  // - When menu is closed
-  //
-  // Close menu:
-  // - Escape
-  //
-  // Trap focus:
-  // - Using arrow keys (up and down)
-  //
-  // Stop trapping focus and close menu:
-  // - Using tab on last item, or shift+tab on first item
-  //
-  // Set focus to menu button
-  // - When menu is closed
-
-  /**
-   * Dropdown component class.
-   * @module Dropdown
-   * @requires Utils
-   */
-
+  MISSING_DROPDOWN: "You have a dropdown button missing its corresponding menu."
 };
 
-var Dropdown =
-/*#__PURE__*/
-function (_Utils) {
+var Dropdown = function (_Utils) {
   _inherits(Dropdown, _Utils);
 
   function Dropdown() {
@@ -106,27 +62,22 @@ function (_Utils) {
 
     _classCallCheck(this, Dropdown);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Dropdown).call(this)); //  dropdown event methods
-
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Dropdown).call(this));
     _this._render = _this._render.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this._handleClose = _this._handleClose.bind(_assertThisInitialized(_assertThisInitialized(_this))); // active dropdown
-
+    _this._handleClose = _this._handleClose.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.activeDropdownButton = {};
     _this.activeDropdownId = "";
     _this.activeDropdownAttr = "";
     _this.activeDropdownMenuId = "";
     _this.activeDropdown = {};
     _this.activeDropdownMenu = {};
-    _this.activeDropdownLinks = []; // all dropdowns
-
+    _this.activeDropdownLinks = [];
     _this.dropdowns = [];
-    _this.dropdownButtons = []; // attribute helpers
-
+    _this.dropdownButtons = [];
     _this.dropdownAttr = "[".concat(selectors.DATA_DROPDOWN, "]");
     _this.dropdownButtonAttr = "[".concat(selectors.DATA_DROPDOWN, "] > [").concat(selectors.DATA_TARGET, "]");
     return _this;
-  } // public
-
+  }
 
   _createClass(Dropdown, [{
     key: "start",
@@ -154,14 +105,12 @@ function (_Utils) {
       this.dropdownButtons.forEach(function (button) {
         button.removeEventListener(events.CLICK, _this3._render);
       });
-    } // private
-
+    }
   }, {
     key: "_render",
     value: function _render(event) {
       var _this4 = this;
 
-      // dropdown button / trigger
       this.activeDropdownButton = event.target;
       this.activeDropdownId = this.activeDropdownButton.getAttribute(selectors.DATA_PARENT);
 
@@ -170,16 +119,13 @@ function (_Utils) {
         return;
       }
 
-      this.activeDropdownButton.setAttribute(selectors.ARIA_EXPANDED, "true"); // dropdown container
-
+      this.activeDropdownButton.setAttribute(selectors.ARIA_EXPANDED, "true");
       this.activeDropdownAttr = "[".concat(selectors.DATA_DROPDOWN, "=\"").concat(this.activeDropdownId, "\"]");
-      this.activeDropdown = document.querySelector(this.activeDropdownAttr); // dropdown menu
-
+      this.activeDropdown = document.querySelector(this.activeDropdownAttr);
       this.activeDropdownMenuId = this.activeDropdownButton.getAttribute(selectors.DATA_TARGET);
       this.activeDropdownMenu = document.getElementById(this.activeDropdownMenuId);
       this.activeDropdownButton.setAttribute(selectors.ARIA_EXPANDED, "true");
-      this.activeDropdown.setAttribute(selectors.DATA_VISIBLE, "true"); // make links focusable
-
+      this.activeDropdown.setAttribute(selectors.DATA_VISIBLE, "true");
       this.activeDropdownLinks = this._getElements("".concat(this.activeDropdownAttr, " > ul > li > a"));
       this.activeDropdownLinks.forEach(function (link) {
         link.setAttribute(selectors.TABINDEX, "0");

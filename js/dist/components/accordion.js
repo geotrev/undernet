@@ -31,16 +31,13 @@ var keyCodes = {
   SPACE: 32
 };
 var selectors = {
-  // unique
   ACCORDION_CONTAINER: "data-accordion",
   ACCORDION_ROW: "data-accordion-row",
-  // common
   EXPANDED: "data-expanded",
   TARGET: "data-target",
   CONTENT: "data-content",
   TOGGLE_MULTIPLE: "data-toggle-multiple",
   PARENT: "data-parent",
-  // accessibility
   ARIA_EXPANDED: "aria-expanded",
   ARIA_CONTROLS: "aria-controls",
   ARIA_HIDDEN: "aria-hidden",
@@ -52,17 +49,9 @@ var events = {
 };
 var messages = {
   MISSING_CONTENT: "You have an accordion button that is missing its [data-content] attribute, and has a matching id to the button's [data-target] attribute's value."
-  /**
-   * Accordion component class.
-   * @module Accordion
-   * @requires Utils
-   */
-
 };
 
-var Accordion =
-/*#__PURE__*/
-function (_Utils) {
+var Accordion = function (_Utils) {
   _inherits(Accordion, _Utils);
 
   function Accordion() {
@@ -70,15 +59,12 @@ function (_Utils) {
 
     _classCallCheck(this, Accordion);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Accordion).call(this)); // accordion event methods
-
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Accordion).call(this));
     _this._render = _this._render.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this._handleSpaceKeyPress = _this._handleSpaceKeyPress.bind(_assertThisInitialized(_assertThisInitialized(_this))); // all accordions
-
+    _this._handleSpaceKeyPress = _this._handleSpaceKeyPress.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.accordionButtons = [];
     _this.accordionContentsAttr = "";
-    _this.accordionContents = []; // active accordion
-
+    _this.accordionContents = [];
     _this.activeContainer = {};
     _this.activeButton = {};
     _this.activeAccordionRowId = "";
@@ -93,13 +79,7 @@ function (_Utils) {
     _this.toggleHiddenState = null;
     _this.allContentAttr = "";
     return _this;
-  } // public
-
-  /**
-   * Add accessible attributes [data-accordion-button] and [data-accordion-content] elements
-   * Begin listening to [data-accordion-button] elements
-   */
-
+  }
 
   _createClass(Accordion, [{
     key: "start",
@@ -140,10 +120,6 @@ function (_Utils) {
         });
       }
     }
-    /**
-     * Stop listening to accordion buttons.
-     */
-
   }, {
     key: "stop",
     value: function stop() {
@@ -153,8 +129,7 @@ function (_Utils) {
         button.removeEventListener(events.CLICK, _this3._render);
         button.removeEventListener(events.KEYDOWN, _this3._handleSpaceKeyPress);
       });
-    } // private
-
+    }
   }, {
     key: "_setupButton",
     value: function _setupButton(button) {
@@ -174,22 +149,11 @@ function (_Utils) {
         button.setAttribute(selectors.ARIA_EXPANDED, "false");
       }
     }
-    /**
-     * Return a selector that targets `selectors.ACCORDION_ROW` with value of the id.
-     * @param {String} id - An id value associated with a given selectors.TARGET
-     * @return {String}
-     */
-
   }, {
     key: "_getAccordionRowAttr",
     value: function _getAccordionRowAttr(id) {
       return "[".concat(selectors.ACCORDION_ROW, "='").concat(id, "']");
     }
-    /**
-     * Open accordion content associated with a [data-accordion-button] element.
-     * @param {Object} event - The event object.
-     */
-
   }, {
     key: "_render",
     value: function _render(event) {
@@ -219,21 +183,11 @@ function (_Utils) {
 
       this._toggleSelectedAccordion();
     }
-    /**
-     * If a keypress is the spacebar on a button, open its correlated content.
-     * @param {Object} event - The event object.
-     */
-
   }, {
     key: "_handleSpaceKeyPress",
     value: function _handleSpaceKeyPress(event) {
       if (event.which === keyCodes.SPACE) this._render(event);
     }
-    /**
-     * If toggling multiple rows at once isn't enabled, close all rows except the selected one.
-     * This ensures the selected one can be closed if it's already open.
-     */
-
   }, {
     key: "_closeAllIfToggleable",
     value: function _closeAllIfToggleable() {
@@ -264,10 +218,6 @@ function (_Utils) {
 
       this._toggleAttributeInCollection(allContent, selectors.CONTENT, "visible", "hidden");
     }
-    /**
-     * Toggle a [data-accordion-button]'s corresponding [data-accordion-content] element.
-     */
-
   }, {
     key: "_toggleSelectedAccordion",
     value: function _toggleSelectedAccordion() {
@@ -290,10 +240,6 @@ function (_Utils) {
         this.activeContent.style.maxHeight = "".concat(this.activeContent.scrollHeight, "px");
       }
     }
-    /**
-     * Toggles a single attribute of a series of elements within a parent.
-     */
-
   }, {
     key: "_toggleAttributeInCollection",
     value: function _toggleAttributeInCollection(elements, attributeName, currentValue, newValue) {
