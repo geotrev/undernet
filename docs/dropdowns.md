@@ -9,22 +9,31 @@ Try using this example dropdown:
 <div data-dropdown="dropdown1" class="dropdown">
   <button id="dropdown-button" data-parent="dropdown1" data-target="new-dropdown">Open Dropdown</button>
   <ul id="new-dropdown" class="dropdown-menu">
-    <li data-close><a href="#">&times;</a></li>
+    <li class="dropdown-close"><a href="#">&times;</a></li>
     <li><a href="#">menu item</a></li>
     <li><a href="#">menu item</a></li>
     <li><a href="#">menu item</a></li>
   </ul>
 </div>
 
-<!-- <div data-dropdown="dropdown2" class="dropdown">
+<div data-dropdown="dropdown2" class="dropdown">
   <a class="split-left button">Primary Option</button>
   <button id="dropdown-button2" data-parent="dropdown2" data-target="new-dropdown2" class="split-right">&#9650;</button>
   <ul id="new-dropdown2" class="dropdown-menu">
+    <li class="dropdown-close"><a href="#">&times;</a></li>
     <li><a href="#">menu item</a></li>
     <li><a href="#">menu item</a></li>
     <li><a href="#">menu item</a></li>
   </ul>
-</div> -->
+</div>
+
+## Requirements
+### HTML
+#### Attributes <!-- button -->
+#### Attributes <!-- rendered component -->
+#### Accessibility
+#### Styling Classes
+### API
 
 #### Accessibility
 

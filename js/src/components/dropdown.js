@@ -93,6 +93,8 @@ export default class Dropdown extends Utils {
     // all dropdowns
     this.dropdowns = []
     this.dropdownButtons = []
+
+    // attribute helpers
     this.dropdownAttr = `[${selectors.DATA_DROPDOWN}]`
     this.dropdownButtonAttr = `[${selectors.DATA_DROPDOWN}] > [${selectors.DATA_TARGET}]`
   }
@@ -145,13 +147,8 @@ export default class Dropdown extends Utils {
     this.activeDropdownButton.setAttribute(selectors.ARIA_EXPANDED, "true")
     this.activeDropdown.setAttribute(selectors.DATA_VISIBLE, "true")
 
+    // make links focusable
     this.activeDropdownLinks = this._getElements(`${this.activeDropdownAttr} > ul > li > a`)
-
-    const accordionContentHasAttr = this.activeContent.hasAttribute(selectors.CONTENT)
-    if (!accordionContentHasAttr) {
-      throw messages.MISSING_CONTENT
-      return
-    }
 
     this.activeDropdownLinks.forEach(link => {
       link.setAttribute(selectors.TABINDEX, "0")

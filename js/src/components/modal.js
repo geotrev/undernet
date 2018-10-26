@@ -44,16 +44,13 @@ export default class Modal extends Utils {
     super()
     // modal event methods
     this._render = this._render.bind(this)
-    this._handleModalClose = this._handleModalClose.bind(this)
+    this._handleClose = this._handleClose.bind(this)
     this._handleEscapeKeyPress = this._handleEscapeKeyPress.bind(this)
     this._handleOverlayClick = this._handleOverlayClick.bind(this)
 
     // all modals
-    this.modalContainerAttr = `[${selectors.MODAL_CONTAINER}]`
-    this.closeButtonAttr = `[${selectors.MODAL_CONTAINER}] [${selectors.CLOSE}]`
     this.modals = []
     this.modalButtons = []
-    this.closeButtons = []
 
     // active modal
     this.activeModalButton = {}
@@ -63,6 +60,10 @@ export default class Modal extends Utils {
     this.activeModalSelector = ""
     this.activeModal = null
     this.activeModalCloseButtons = []
+
+    // attribute helpers
+    this.modalContainerAttr = `[${selectors.MODAL_CONTAINER}]`
+    this.closeButtonAttr = `[${selectors.MODAL_CONTAINER}] [${selectors.CLOSE}]`
   }
 
   // public
@@ -74,7 +75,6 @@ export default class Modal extends Utils {
   start() {
     this.modals = this._getElements(this.modalContainerAttr)
     this.modalButtons = this._getElements(`[${selectors.MODAL_BUTTON}]`)
-    this.closeButtons = this._getElements(this.closeButtonAttr)
 
     this._getFocusableElements(this.modalContainerAttr).forEach(element => {
       element.setAttribute(selectors.TAB_INDEX, "-1")
@@ -148,7 +148,7 @@ export default class Modal extends Utils {
     document.addEventListener(events.KEYDOWN, this._handleEscapeKeyPress)
     document.addEventListener(events.CLICK, this._handleOverlayClick)
     this.activeModalCloseButtons.forEach(button => {
-      button.addEventListener(events.CLICK, this._handleModalClose)
+      button.addEventListener(events.CLICK, this._handleClose)
     })
   }
 
@@ -156,7 +156,7 @@ export default class Modal extends Utils {
    * Turn off event listeners and reset focus to last selected DOM node (button)
    * @param {Object} event - Event (keydown or click)
    */
-  _handleModalClose(event) {
+  _handleClose(event) {
     event.preventDefault()
     this.activeModalOverlay.setAttribute(selectors.VISIBLE, "false")
     this._handleReturnFocus()
@@ -173,7 +173,7 @@ export default class Modal extends Utils {
     document.removeEventListener(events.KEYDOWN, this._handleEscapeKeyPress)
     document.removeEventListener(events.CLICK, this._handleOverlayClick)
     this.activeModalCloseButtons.forEach(button => {
-      button.removeEventListener(events.CLICK, this._handleModalClose)
+      button.removeEventListener(events.CLICK, this._handleClose)
     })
   }
 
@@ -183,7 +183,7 @@ export default class Modal extends Utils {
    */
   _handleOverlayClick(event) {
     if (event.target === this.activeModalOverlay) {
-      this._handleModalClose(event)
+      this._handleClose(event)
     }
   }
 
@@ -193,7 +193,7 @@ export default class Modal extends Utils {
    */
   _handleEscapeKeyPress(event) {
     if (event.which === keyCodes.ESCAPE) {
-      this._handleModalClose(event)
+      this._handleClose(event)
     }
   }
 

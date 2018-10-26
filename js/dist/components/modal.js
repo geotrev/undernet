@@ -74,15 +74,12 @@ function (_Utils) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Modal).call(this)); // modal event methods
 
     _this._render = _this._render.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this._handleModalClose = _this._handleModalClose.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this._handleClose = _this._handleClose.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this._handleEscapeKeyPress = _this._handleEscapeKeyPress.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this._handleOverlayClick = _this._handleOverlayClick.bind(_assertThisInitialized(_assertThisInitialized(_this))); // all modals
 
-    _this.modalContainerAttr = "[".concat(selectors.MODAL_CONTAINER, "]");
-    _this.closeButtonAttr = "[".concat(selectors.MODAL_CONTAINER, "] [").concat(selectors.CLOSE, "]");
     _this.modals = [];
-    _this.modalButtons = [];
-    _this.closeButtons = []; // active modal
+    _this.modalButtons = []; // active modal
 
     _this.activeModalButton = {};
     _this.activeModalId = "";
@@ -90,7 +87,10 @@ function (_Utils) {
     _this.activeModalOverlay = {};
     _this.activeModalSelector = "";
     _this.activeModal = null;
-    _this.activeModalCloseButtons = [];
+    _this.activeModalCloseButtons = []; // attribute helpers
+
+    _this.modalContainerAttr = "[".concat(selectors.MODAL_CONTAINER, "]");
+    _this.closeButtonAttr = "[".concat(selectors.MODAL_CONTAINER, "] [").concat(selectors.CLOSE, "]");
     return _this;
   } // public
 
@@ -107,7 +107,6 @@ function (_Utils) {
 
       this.modals = this._getElements(this.modalContainerAttr);
       this.modalButtons = this._getElements("[".concat(selectors.MODAL_BUTTON, "]"));
-      this.closeButtons = this._getElements(this.closeButtonAttr);
 
       this._getFocusableElements(this.modalContainerAttr).forEach(function (element) {
         element.setAttribute(selectors.TAB_INDEX, "-1");
@@ -184,7 +183,7 @@ function (_Utils) {
       document.addEventListener(events.KEYDOWN, this._handleEscapeKeyPress);
       document.addEventListener(events.CLICK, this._handleOverlayClick);
       this.activeModalCloseButtons.forEach(function (button) {
-        button.addEventListener(events.CLICK, _this4._handleModalClose);
+        button.addEventListener(events.CLICK, _this4._handleClose);
       });
     }
     /**
@@ -193,8 +192,8 @@ function (_Utils) {
      */
 
   }, {
-    key: "_handleModalClose",
-    value: function _handleModalClose(event) {
+    key: "_handleClose",
+    value: function _handleClose(event) {
       var _this5 = this;
 
       event.preventDefault();
@@ -216,7 +215,7 @@ function (_Utils) {
       document.removeEventListener(events.KEYDOWN, this._handleEscapeKeyPress);
       document.removeEventListener(events.CLICK, this._handleOverlayClick);
       this.activeModalCloseButtons.forEach(function (button) {
-        button.removeEventListener(events.CLICK, _this5._handleModalClose);
+        button.removeEventListener(events.CLICK, _this5._handleClose);
       });
     }
     /**
@@ -228,7 +227,7 @@ function (_Utils) {
     key: "_handleOverlayClick",
     value: function _handleOverlayClick(event) {
       if (event.target === this.activeModalOverlay) {
-        this._handleModalClose(event);
+        this._handleClose(event);
       }
     }
     /**
@@ -240,7 +239,7 @@ function (_Utils) {
     key: "_handleEscapeKeyPress",
     value: function _handleEscapeKeyPress(event) {
       if (event.which === keyCodes.ESCAPE) {
-        this._handleModalClose(event);
+        this._handleClose(event);
       }
     }
     /**

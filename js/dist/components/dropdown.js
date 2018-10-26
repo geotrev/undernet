@@ -120,7 +120,8 @@ function (_Utils) {
     _this.activeDropdownLinks = []; // all dropdowns
 
     _this.dropdowns = [];
-    _this.dropdownButtons = [];
+    _this.dropdownButtons = []; // attribute helpers
+
     _this.dropdownAttr = "[".concat(selectors.DATA_DROPDOWN, "]");
     _this.dropdownButtonAttr = "[".concat(selectors.DATA_DROPDOWN, "] > [").concat(selectors.DATA_TARGET, "]");
     return _this;
@@ -177,15 +178,9 @@ function (_Utils) {
       this.activeDropdownMenuId = this.activeDropdownButton.getAttribute(selectors.DATA_TARGET);
       this.activeDropdownMenu = document.getElementById(this.activeDropdownMenuId);
       this.activeDropdownButton.setAttribute(selectors.ARIA_EXPANDED, "true");
-      this.activeDropdown.setAttribute(selectors.DATA_VISIBLE, "true");
+      this.activeDropdown.setAttribute(selectors.DATA_VISIBLE, "true"); // make links focusable
+
       this.activeDropdownLinks = this._getElements("".concat(this.activeDropdownAttr, " > ul > li > a"));
-      var accordionContentHasAttr = this.activeContent.hasAttribute(selectors.CONTENT);
-
-      if (!accordionContentHasAttr) {
-        throw messages.MISSING_CONTENT;
-        return;
-      }
-
       this.activeDropdownLinks.forEach(function (link) {
         link.setAttribute(selectors.TABINDEX, "0");
         link.addEventListener(events.CLICK, _this4._handleClose);
