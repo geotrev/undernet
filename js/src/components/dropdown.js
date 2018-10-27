@@ -58,13 +58,16 @@ const messages = {
 // - [x] When menu is closed
 //
 // Close menu:
-// - [ ] Escape
+// - [x] Escape
+// - [x] Menu link is clicked
+// - [x] Dropdown button is clicked
 //
 // Trap focus:
-// - [ ] Using arrow keys (up and down)
+// - [ ] Using up and down arrow keys
 //
 // Stop trapping focus and close menu:
-// - [ ] Using tab on last item, or shift+tab on first item
+// - [ ] Using tab on last item
+// - [ ] Using shift+tab on first item
 //
 // Set focus to menu button
 // - [x] When menu is closed
@@ -80,6 +83,8 @@ export default class Dropdown extends Utils {
     //  dropdown event methods
     this._render = this._render.bind(this)
     this._handleClose = this._handleClose.bind(this)
+    this._handleEscapeKeyPress = this._handleEscapeKeyPress.bind(this)
+    this._handleDropdownButtonOrBgClose = this._handleDropdownButtonOrBgClose.bind(this)
 
     // active dropdown
     this.activeDropdownButton = {}
@@ -125,6 +130,8 @@ export default class Dropdown extends Utils {
   // private
 
   _render(event) {
+    event.preventDefault()
+
     // dropdown button / trigger
     this.activeDropdownButton = event.target
     this.activeDropdownId = this.activeDropdownButton.getAttribute(selectors.DATA_PARENT)
@@ -147,22 +154,42 @@ export default class Dropdown extends Utils {
     this.activeDropdownButton.setAttribute(selectors.ARIA_EXPANDED, "true")
     this.activeDropdown.setAttribute(selectors.DATA_VISIBLE, "true")
 
+    document.addEventListener(selectors.KEYDOWN, this._handleEscapeKeyPress)
+    document.addEventListener(selectors.KEYDOWN, this._handleDropdownButtonOrBgClose)
+
     // make links focusable
     this.activeDropdownLinks = this._getElements(`${this.activeDropdownAttr} > ul > li > a`)
-
     this.activeDropdownLinks.forEach(link => {
       link.setAttribute(selectors.TABINDEX, "0")
       link.addEventListener(events.CLICK, this._handleClose)
     })
   }
 
-  _handleClose() {
+  _handleEscapeKeyPress(event) {
+    if (event.which === keyCodes.ESCAPE) {
+      this._handleClose(event)
+    }
+  }
+
+  _handleDropdownButtonOrBgClose(event) {
+    if (event.target !== this.activeDropdown || event.target === this.activeDropdownButton) {
+      this._handleClose(event)
+    }
+  }
+
+  _handleClose(event) {
+    event.preventDefault()
+
     this.activeDropdownButton.setAttribute(selectors.ARIA_EXPANDED, "false")
     this.activeDropdown.setAttribute(selectors.DATA_VISIBLE, "false")
+
     this.activeDropdownLinks.forEach(link => {
       link.setAttribute(selectors.TABINDEX, "-1")
       link.removeEventListener(events.CLICK, this._handleClose)
     })
+
+    document.removeEventListener(selectors.KEYDOWN, this._handleEscapeKeyPress)
+    document.removeEventListener(selectors.KEYDOWN, this._handleDropdownButtonOrBgClose)
 
     this._handleReturnFocus()
   }
