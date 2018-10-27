@@ -2,9 +2,24 @@
 
 Grab whichever source code best suits your project. Learn how to link your scripts and styles in the [Branding](/docs/overview/branding) and [JavaScript](/docs/overview/javascript) articles for the below assets.
 
+## CDN
+
+The quickest way to use Undernet is to link the bundled js and minified css using a CDN, such as [jsdelivr](https://jsdelivr.com).
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/undernet@2.4.1/dist/undernet.min.css" integrity="sha256-bX29Vc8vjuAFBJS+PKK2r9iJOj1aMLn4A1Sj8iH63BM=" crossorigin="anonymous">
+```
+
+```html
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/undernet@2.4.1/dist/undernet.bundle.min.js" integrity="sha256-1QnHhJ6tkW1PuBOTUeAPdrzYxcRceAvqJTi4mHxGmZg=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', Undernet.start())
+</script>
+```
+
 ## Minified & Compiled
 
-In addition to the CDN links from the [introduction](/docs/overview/introduction) article, you can grab all the compiled assets here.
+Grab compiled assets if you need them statically.
 
 - CSS: [Download](https://github.com/geotrev/undernet/raw/master/dist/undernet.css.zip)
 - JS: [Download](https://github.com/geotrev/undernet/raw/master/dist/undernet.js.zip)
@@ -15,6 +30,8 @@ Going this route allows for far more customization, but do so at your own risk. 
 
 - SCSS: [Download](https://github.com/geotrev/undernet/raw/master/dist/undernet.scss.zip)
 - JS: [Download](https://github.com/geotrev/undernet/raw/master/dist/undernet.modules.js.zip)
+
+## NPM & Yarn
 
 You can also install with npm or yarn. See the [JavaScript](/docs/overview/javascript) article for more details.
 
