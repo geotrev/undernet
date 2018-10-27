@@ -36,38 +36,38 @@ const messages = {
 }
 
 // Attributes for button in JS:
-// - aria-haspopup="true"
-// - aria-expanded="false"
-// - aria-controls === ul id
+// - [x] aria-haspopup="true"
+// - [x] aria-expanded="false"
+// - [x] aria-controls === ul id
 //
 // Attributes for ul in JS:
-// - aria-labelledby === button id
-// - list items have role="none"
-// - anchors inside li have role="menuitem"
+// - [x] aria-labelledby === button id
+// - [x] list items have role="none"
+// - [x] anchors inside li have role="menuitem"
 //
 // Opens with:
-// - Down arrow, focus to first element
-// - Up arrow, focus to last element
-// - Space
-// - Enter
+// - [ ] Down arrow, focus to first element
+// - [ ] Up arrow, focus to last element
+// - [ ] Space
+// - [ ] Enter
 //
 // `tabindex` on menu items set to "0":
-// - When menu is open
+// - [x] When menu is open
 //
 // `tabindex` on menu items set to "-1":
-// - When menu is closed
+// - [x] When menu is closed
 //
 // Close menu:
-// - Escape
+// - [ ] Escape
 //
 // Trap focus:
-// - Using arrow keys (up and down)
+// - [ ] Using arrow keys (up and down)
 //
 // Stop trapping focus and close menu:
-// - Using tab on last item, or shift+tab on first item
+// - [ ] Using tab on last item, or shift+tab on first item
 //
 // Set focus to menu button
-// - When menu is closed
+// - [x] When menu is closed
 
 /**
  * Dropdown component class.
@@ -163,6 +163,14 @@ export default class Dropdown extends Utils {
       link.setAttribute(selectors.TABINDEX, "-1")
       link.removeEventListener(events.CLICK, this._handleClose)
     })
+
+    this._handleReturnFocus()
+  }
+
+  _handleReturnFocus() {
+    this.activeModalButton.setAttribute(selectors.TAB_INDEX, "-1")
+    this.activeModalButton.focus()
+    this.activeModalButton.removeAttribute(selectors.TAB_INDEX)
   }
 
   _setupDropdown(dropdown) {

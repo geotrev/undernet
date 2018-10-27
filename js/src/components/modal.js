@@ -137,7 +137,7 @@ export default class Modal extends Utils {
     this._handleScrollStop()
     this.captureFocus(this.activeModalSelector)
     this.activeModalOverlay.setAttribute(selectors.ARIA_HIDDEN, "false")
-    this.activeModal.setAttribute("tabindex", "-1")
+    this.activeModal.setAttribute(selectors.TAB_INDEX, "-1")
     this.activeModalOverlay.setAttribute(selectors.VISIBLE, "true")
     this.activeModal.focus()
 
@@ -163,7 +163,7 @@ export default class Modal extends Utils {
     this._handleScrollRestore()
     this.releaseFocus()
     this.activeModalOverlay.setAttribute(selectors.ARIA_HIDDEN, "true")
-    this.activeModal.removeAttribute("tabindex")
+    this.activeModal.removeAttribute(selectors.TAB_INDEX)
 
     this._getFocusableElements(this.activeModalSelector).forEach(element => {
       element.setAttribute(selectors.TAB_INDEX, "-1")
@@ -202,9 +202,9 @@ export default class Modal extends Utils {
    * @param {Object} button - The current modal's corresponding button.
    */
   _handleReturnFocus() {
-    this.activeModalButton.setAttribute("tabindex", "-1")
+    this.activeModalButton.setAttribute(selectors.TAB_INDEX, "-1")
     this.activeModalButton.focus()
-    this.activeModalButton.removeAttribute("tabindex")
+    this.activeModalButton.removeAttribute(selectors.TAB_INDEX)
   }
 
   /**
