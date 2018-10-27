@@ -16,6 +16,7 @@ const selectors = {
   VISIBLE: "data-visible",
   CLOSE: "data-close",
   TARGET: "data-target",
+  DATA_PARENT: "data-parent",
   // accessibility
   ARIA_HIDDEN: "aria-hidden",
   ARIA_MODAL: "aria-modal",
@@ -82,9 +83,11 @@ export default class Modal extends Utils {
 
     if (this.modals.length) {
       this.modals.forEach(modal => {
+        const modalId = modal.getAttribute(selectors.DATA_PARENT)
+        const modalWrapper = document.getElementById(modalId)
+        modalWrapper.setAttribute(selectors.ARIA_HIDDEN, "true")
+        modalWrapper.setAttribute(selectors.VISIBLE, "false")
         modal.setAttribute(selectors.ARIA_MODAL, "true")
-        modal.parentNode.setAttribute(selectors.ARIA_HIDDEN, "true")
-        modal.parentNode.setAttribute(selectors.VISIBLE, "false")
         modal.setAttribute(selectors.ROLE, "dialog")
       })
     }

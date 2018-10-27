@@ -9,7 +9,7 @@ Check out this example modal:
 <button href="#" data-modal-button data-target="new-modal">Open modal</button>
 
 <div class="modal-overlay" data-modal-id="new-modal">
-  <div class="modal-dialog" aria-labelledby="header-id" data-modal>
+  <div class="modal-dialog" data-parent="new-modal" aria-labelledby="header-id" data-modal>
     <header>
       <h2 class="h6 has-no-margin-top" id="header-id">
         Modal Header
@@ -37,7 +37,7 @@ Check out this example modal:
 ```
 ```html
 <div class="modal-overlay" data-modal-id="new-modal">
-  <div class="modal-dialog" aria-labelledby="header-id" data-modal>
+  <div class="modal-dialog" data-parent="new-modal" aria-labelledby="header-id" data-modal>
     <header>
       <h2 class="h6" id="header-id">
         Modal Header
@@ -71,7 +71,7 @@ The modal will be able to handle long-content with ease, turning the overlay int
 <button href="#" data-modal-button data-target="new-modal-3">Open modal</button>
 
 <div class="modal-overlay" data-modal-id="new-modal-3">
-  <div class="modal-dialog" aria-labelledby="header-id" data-modal>
+  <div class="modal-dialog" data-parent="new-modal-3" aria-labelledby="header-id" data-modal>
     <header>
       <h2 class="h6 has-no-margin-top" id="header-id">
         Modal Header
@@ -101,7 +101,7 @@ Adding the `is-centered` class onto the modal overlay will vertically center the
 <button href="#" data-modal-button data-target="new-modal-2">Open centered modal</button>
 
 <div class="modal-overlay is-centered" data-modal-id="new-modal-2">
-  <div class="modal-dialog" aria-labelledby="header-id-2" data-modal>
+  <div class="modal-dialog" data-parent="new-modal-2" aria-labelledby="header-id-2" data-modal>
     <header>
       <h2 class="h6 has-no-margin-top" id="header-id-2">
         Modal Header
@@ -129,7 +129,7 @@ Adding the `is-centered` class onto the modal overlay will vertically center the
 ```
 ```html
 <div class="modal-overlay is-centered" data-modal-id="new-modal-2">
-  <div class="modal-dialog" aria-labelledby="header-id-2" data-modal>
+  <div class="modal-dialog" data-parent="new-modal-2" aria-labelledby="header-id-2" data-modal>
     ...
   </div>
 </div>
@@ -155,7 +155,7 @@ For the modal itself, you need a few more things.
 
 ```html
 <div class="modal-overlay" data-modal-id="new-modal-2">
-  <div class="modal-dialog" aria-labelledby="header-id-2" data-modal>
+  <div class="modal-dialog" data-parent="new-modal-2" aria-labelledby="header-id-2" data-modal>
     <header>
       <h2 class="h6" id="header-id-2">...</h2>
       <a data-close href="#">
@@ -176,6 +176,7 @@ For the modal itself, you need a few more things.
 #### Attributes
 - `data-modal-id`: an attribute matching your corresponding button's `data-target`. Add it to the modal overlay element.
 - `data-modal`: an attribute indicating the element is a modal dialog. It should be the immediate child of the modal overlay.
+- `data-parent`: an attribute pointing to the modal wrapper. It should equal the value of the element with `data-modal-id`.
 - `data-close`: an attribute indicating a button or link will close the modal dialog.
 
 #### Accessibility
