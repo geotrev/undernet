@@ -29,10 +29,10 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 var keyCodes = {
   TAB: 9,
-  ARROW_UP: 38,
-  ARROW_DOWN: 40,
   SPACE: 32,
-  ESCAPE: 27
+  ESCAPE: 27,
+  ARROW_UP: 38,
+  ARROW_DOWN: 40
 };
 var selectors = {
   DATA_DROPDOWN: "data-dropdown",
@@ -145,9 +145,13 @@ var Dropdown = function (_Utils) {
       document.addEventListener(events.KEYDOWN, this._handleEscapeKeyPress);
       document.addEventListener(events.CLICK, this._handleOffMenuClick);
       this.activeDropdownLinks = this._getElements("".concat(this.activeDropdownAttr, " > ul > li > a"));
+      this.activeDropdownLinks[0].focus();
       this.activeDropdownLinks.forEach(function (link) {
         link.setAttribute(selectors.TABINDEX, "0");
         link.addEventListener(events.CLICK, _this4._handleClose);
+      });
+      this.captureFocus("".concat(this.activeDropdownAttr, " > ul"), {
+        useArrows: true
       });
     }
   }, {
@@ -156,6 +160,7 @@ var Dropdown = function (_Utils) {
       var _this5 = this;
 
       event.preventDefault();
+      this.releaseFocus();
       this.activeDropdownButton.setAttribute(selectors.ARIA_EXPANDED, "false");
       this.activeDropdown.setAttribute(selectors.DATA_VISIBLE, "false");
       this.activeDropdownLinks.forEach(function (link) {

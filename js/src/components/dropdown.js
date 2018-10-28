@@ -4,10 +4,10 @@ import Utils from "../utils"
 
 const keyCodes = {
   TAB: 9,
-  ARROW_UP: 38,
-  ARROW_DOWN: 40,
   SPACE: 32,
   ESCAPE: 27,
+  ARROW_UP: 38,
+  ARROW_DOWN: 40,
 }
 
 const selectors = {
@@ -170,14 +170,19 @@ export default class Dropdown extends Utils {
 
     // make links focusable
     this.activeDropdownLinks = this._getElements(`${this.activeDropdownAttr} > ul > li > a`)
+    this.activeDropdownLinks[0].focus()
     this.activeDropdownLinks.forEach(link => {
       link.setAttribute(selectors.TABINDEX, "0")
       link.addEventListener(events.CLICK, this._handleClose)
     })
+
+    this.captureFocus(`${this.activeDropdownAttr} > ul`, { useArrows: true })
   }
 
   _handleClose(event) {
     event.preventDefault()
+
+    this.releaseFocus()
 
     this.activeDropdownButton.setAttribute(selectors.ARIA_EXPANDED, "false")
     this.activeDropdown.setAttribute(selectors.DATA_VISIBLE, "false")

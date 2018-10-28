@@ -3,6 +3,8 @@
 const keyCodes = {
   SHIFT: 16,
   TAB: 9,
+  ARROW_UP: 38,
+  ARROW_DOWN: 40,
 }
 
 const selectors = {
@@ -22,7 +24,8 @@ const events = {
  */
 export default class Utils {
   constructor() {
-    this._handleFocusTrap = this._handleFocusTrap.bind(this)
+    this._handleFocusTrapWithTab = this._handleFocusTrapWithTab.bind(this)
+    this._handleFocusTrapWithArrows = this._handleFocusTrapWithArrows.bind(this)
     this._listenForKeyboard = this._listenForKeyboard.bind(this)
     this._listenForClick = this._listenForClick.bind(this)
   }
@@ -33,20 +36,26 @@ export default class Utils {
    * Listens to the first and last elements matched from this._getFocusableElements()
    * @param {String} container - The container's class, attribute, etc.
    */
-  captureFocus(container) {
-    this.focusContainerSelector = container
-    const children = this._getFocusableElements(this.focusContainerSelector)
-    this.focusableFirstChild = children[0]
-    this.focusableLastChild = children[children.length - 1]
 
-    document.addEventListener(events.KEYDOWN, this._handleFocusTrap)
+  captureFocus(container, options) {
+    this.focusContainerSelector = container
+    this.focusableChildren = this._getFocusableElements(this.focusContainerSelector)
+    this.focusableFirstChild = this.focusableChildren[0]
+    this.focusableLastChild = this.focusableChildren[this.focusableChildren.length - 1]
+
+    if (options.useArrows) {
+      document.addEventListener(events.KEYDOWN, this._handleFocusTrapWithArrows)
+    } else {
+      document.addEventListener(events.KEYDOWN, this._handleFocusTrapWithTab)
+    }
   }
 
   /**
    * Stop trapping focus set in this.captureFocus()
    */
   releaseFocus() {
-    document.removeEventListener(events.KEYDOWN, this._handleFocusTrap)
+    document.removeEventListener(events.KEYDOWN, this._handleFocusTrapWithTab)
+    document.removeEventListener(events.KEYDOWN, this._handleFocusTrapWithArrows)
   }
 
   /**
@@ -118,10 +127,61 @@ export default class Utils {
   }
 
   /**
-   * Handles focus on first or last child in a container.
+   * Handles focus on first or last child in a container, using tab and tab+shift keys
    * @param {Object} event - Event (keypress)
    */
-  _handleFocusTrap(event) {
+  _handleFocusTrapWithArrows(event) {
+    const activeElement = document.activeElement
+    const containerElement = document.querySelector(this.focusContainerSelector)
+    const containerActive = activeElement === containerElement
+    const firstActive = activeElement === this.focusableFirstChild
+    const lastActive = activeElement === this.focusableLastChild
+    const arrowUp = event.which === keyCodes.ARROW_UP
+    const arrowDown = event.which === keyCodes.ARROW_DOWN
+
+    // Just in case the first or last child have changed -
+    // recapture focus and continue trapping.
+    this.releaseFocus()
+    this.captureFocus(this.focusContainerSelector, { useArrows: true })
+
+    if (arrowUp || arrowDown) {
+      event.preventDefault()
+
+      if (firstActive && arrowUp) {
+        this.focusableLastChild.focus()
+      } else if (lastActive && arrowDown) {
+        this.focusableFirstChild.focus()
+      } else if (arrowDown) {
+        this._focusNextChild()
+      } else if (arrowUp) {
+        this._focusLastChild()
+      }
+    }
+  }
+
+  _focusNextChild() {
+    console.log(document.activeElement)
+    this.focusableChildren.forEach((child, i) => {
+      if (child === document.activeElement) {
+        this.focusableChildren[i + 1].focus()
+      }
+    })
+  }
+
+  _focusLastChild() {
+    console.log(document.activeElement)
+    this.focusableChildren.forEach((child, i) => {
+      if (child === document.activeElement) {
+        this.focusableChildren[i - 1].focus()
+      }
+    })
+  }
+
+  /**
+   * Handles focus on first or last child in a container, using tab and tab+shift keys
+   * @param {Object} event - Event (keypress)
+   */
+  _handleFocusTrapWithTab(event) {
     const activeElement = document.activeElement
     const containerElement = document.querySelector(this.focusContainerSelector)
     const containerActive = activeElement === containerElement

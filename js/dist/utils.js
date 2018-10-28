@@ -13,7 +13,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 var keyCodes = {
   SHIFT: 16,
-  TAB: 9
+  TAB: 9,
+  ARROW_UP: 38,
+  ARROW_DOWN: 40
 };
 var selectors = {
   FOCUSABLE_SELECTOR: ":not(.is-visually-hidden)",
@@ -29,26 +31,31 @@ var Utils = function () {
   function Utils() {
     _classCallCheck(this, Utils);
 
-    this._handleFocusTrap = this._handleFocusTrap.bind(this);
+    this._handleFocusTrapWithTab = this._handleFocusTrapWithTab.bind(this);
+    this._handleFocusTrapWithArrows = this._handleFocusTrapWithArrows.bind(this);
     this._listenForKeyboard = this._listenForKeyboard.bind(this);
     this._listenForClick = this._listenForClick.bind(this);
   }
 
   _createClass(Utils, [{
     key: "captureFocus",
-    value: function captureFocus(container) {
+    value: function captureFocus(container, options) {
       this.focusContainerSelector = container;
+      this.focusableChildren = this._getFocusableElements(this.focusContainerSelector);
+      this.focusableFirstChild = this.focusableChildren[0];
+      this.focusableLastChild = this.focusableChildren[this.focusableChildren.length - 1];
 
-      var children = this._getFocusableElements(this.focusContainerSelector);
-
-      this.focusableFirstChild = children[0];
-      this.focusableLastChild = children[children.length - 1];
-      document.addEventListener(events.KEYDOWN, this._handleFocusTrap);
+      if (options.useArrows) {
+        document.addEventListener(events.KEYDOWN, this._handleFocusTrapWithArrows);
+      } else {
+        document.addEventListener(events.KEYDOWN, this._handleFocusTrapWithTab);
+      }
     }
   }, {
     key: "releaseFocus",
     value: function releaseFocus() {
-      document.removeEventListener(events.KEYDOWN, this._handleFocusTrap);
+      document.removeEventListener(events.KEYDOWN, this._handleFocusTrapWithTab);
+      document.removeEventListener(events.KEYDOWN, this._handleFocusTrapWithArrows);
     }
   }, {
     key: "enableFocusOutline",
@@ -96,8 +103,61 @@ var Utils = function () {
       return this._getElements(focusables.join(", "));
     }
   }, {
-    key: "_handleFocusTrap",
-    value: function _handleFocusTrap(event) {
+    key: "_handleFocusTrapWithArrows",
+    value: function _handleFocusTrapWithArrows(event) {
+      var activeElement = document.activeElement;
+      var containerElement = document.querySelector(this.focusContainerSelector);
+      var containerActive = activeElement === containerElement;
+      var firstActive = activeElement === this.focusableFirstChild;
+      var lastActive = activeElement === this.focusableLastChild;
+      var arrowUp = event.which === keyCodes.ARROW_UP;
+      var arrowDown = event.which === keyCodes.ARROW_DOWN;
+      this.releaseFocus();
+      this.captureFocus(this.focusContainerSelector, {
+        useArrows: true
+      });
+
+      if (arrowUp || arrowDown) {
+        event.preventDefault();
+
+        if (firstActive && arrowUp) {
+          this.focusableLastChild.focus();
+        } else if (lastActive && arrowDown) {
+          this.focusableFirstChild.focus();
+        } else if (arrowDown) {
+          this._focusNextChild();
+        } else if (arrowUp) {
+          this._focusLastChild();
+        }
+      }
+    }
+  }, {
+    key: "_focusNextChild",
+    value: function _focusNextChild() {
+      var _this = this;
+
+      console.log(document.activeElement);
+      this.focusableChildren.forEach(function (child, i) {
+        if (child === document.activeElement) {
+          _this.focusableChildren[i + 1].focus();
+        }
+      });
+    }
+  }, {
+    key: "_focusLastChild",
+    value: function _focusLastChild() {
+      var _this2 = this;
+
+      console.log(document.activeElement);
+      this.focusableChildren.forEach(function (child, i) {
+        if (child === document.activeElement) {
+          _this2.focusableChildren[i - 1].focus();
+        }
+      });
+    }
+  }, {
+    key: "_handleFocusTrapWithTab",
+    value: function _handleFocusTrapWithTab(event) {
       var activeElement = document.activeElement;
       var containerElement = document.querySelector(this.focusContainerSelector);
       var containerActive = activeElement === containerElement;
