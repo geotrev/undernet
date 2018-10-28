@@ -65,17 +65,21 @@ var Dropdown = function (_Utils) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Dropdown).call(this));
     _this._render = _this._render.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this._handleClose = _this._handleClose.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.activeDropdownButton = {};
+    _this._handleEscapeKeyPress = _this._handleEscapeKeyPress.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this._handleOffMenuClick = _this._handleOffMenuClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.activeDropdownButton = null;
+    _this.activeDropdown = null;
+    _this.activeDropdownMenu = null;
+    _this.activeDropdownLinks = [];
+    _this.allowFocusReturn = true;
     _this.activeDropdownId = "";
     _this.activeDropdownAttr = "";
     _this.activeDropdownMenuId = "";
-    _this.activeDropdown = {};
-    _this.activeDropdownMenu = {};
-    _this.activeDropdownLinks = [];
     _this.dropdowns = [];
     _this.dropdownButtons = [];
     _this.dropdownAttr = "[".concat(selectors.DATA_DROPDOWN, "]");
-    _this.dropdownButtonAttr = "[".concat(selectors.DATA_DROPDOWN, "] > [").concat(selectors.DATA_TARGET, "]");
+    _this.dropdownTargetAttr = "[".concat(selectors.DATA_TARGET, "]");
+    _this.dropdownButtonAttr = "[".concat(selectors.DATA_DROPDOWN, "] > ").concat(_this.dropdownTargetAttr);
     return _this;
   }
 
@@ -111,10 +115,20 @@ var Dropdown = function (_Utils) {
     value: function _render(event) {
       var _this4 = this;
 
+      event.preventDefault();
+
+      if (this.activeDropdownButton) {
+        this.allowFocusReturn = false;
+
+        this._handleClose(event);
+
+        this.allowFocusReturn = true;
+      }
+
       this.activeDropdownButton = event.target;
       this.activeDropdownId = this.activeDropdownButton.getAttribute(selectors.DATA_PARENT);
 
-      if (!this.activeDropdownId || !document.getElementById(this.activeDropdownId)) {
+      if (!this.activeDropdownId) {
         throw messages.MISSING_DROPDOWN;
         return;
       }
@@ -126,6 +140,10 @@ var Dropdown = function (_Utils) {
       this.activeDropdownMenu = document.getElementById(this.activeDropdownMenuId);
       this.activeDropdownButton.setAttribute(selectors.ARIA_EXPANDED, "true");
       this.activeDropdown.setAttribute(selectors.DATA_VISIBLE, "true");
+      this.activeDropdownButton.removeEventListener(events.CLICK, this._render);
+      this.activeDropdownButton.addEventListener(events.CLICK, this._handleClose);
+      document.addEventListener(events.KEYDOWN, this._handleEscapeKeyPress);
+      document.addEventListener(events.CLICK, this._handleOffMenuClick);
       this.activeDropdownLinks = this._getElements("".concat(this.activeDropdownAttr, " > ul > li > a"));
       this.activeDropdownLinks.forEach(function (link) {
         link.setAttribute(selectors.TABINDEX, "0");
@@ -134,29 +152,60 @@ var Dropdown = function (_Utils) {
     }
   }, {
     key: "_handleClose",
-    value: function _handleClose() {
+    value: function _handleClose(event) {
       var _this5 = this;
 
+      event.preventDefault();
       this.activeDropdownButton.setAttribute(selectors.ARIA_EXPANDED, "false");
       this.activeDropdown.setAttribute(selectors.DATA_VISIBLE, "false");
       this.activeDropdownLinks.forEach(function (link) {
         link.setAttribute(selectors.TABINDEX, "-1");
         link.removeEventListener(events.CLICK, _this5._handleClose);
       });
+      this.activeDropdownButton.removeEventListener(events.CLICK, this._handleClose);
+      this.activeDropdownButton.addEventListener(events.CLICK, this._render);
+      document.removeEventListener(events.KEYDOWN, this._handleEscapeKeyPress);
+      document.removeEventListener(events.CLICK, this._handleOffMenuClick);
+
+      if (this.allowFocusReturn) {
+        this._handleReturnFocus();
+      }
+    }
+  }, {
+    key: "_handleEscapeKeyPress",
+    value: function _handleEscapeKeyPress(event) {
+      if (event.which === keyCodes.ESCAPE) {
+        this._handleClose(event);
+      }
+    }
+  }, {
+    key: "_handleOffMenuClick",
+    value: function _handleOffMenuClick(event) {
+      if (event.target !== this.activeDropdownButton && event.target !== this.activeDropdownMenu) {
+        this._handleClose(event);
+      }
+    }
+  }, {
+    key: "_handleReturnFocus",
+    value: function _handleReturnFocus() {
+      this.activeDropdownButton.setAttribute(selectors.TAB_INDEX, "-1");
+      this.activeDropdownButton.focus();
+      this.activeDropdownButton.removeAttribute(selectors.TAB_INDEX);
     }
   }, {
     key: "_setupDropdown",
     value: function _setupDropdown(dropdown) {
       var dropdownId = dropdown.getAttribute(selectors.DATA_DROPDOWN);
       var dropdownIdAttr = "[".concat(selectors.DATA_DROPDOWN, "=\"").concat(dropdownId, "\"]");
+      var dropdownMenuItemsAttr = "".concat(dropdownIdAttr, " > ul > li");
       var dropdownMenu = document.querySelector("".concat(dropdownIdAttr, " > ul"));
       var dropdownMenuId = dropdownMenu.id;
 
-      var dropdownMenuItems = this._getElements("".concat(dropdownIdAttr, " > ul > li"));
+      var dropdownMenuItems = this._getElements(dropdownMenuItemsAttr);
 
-      var dropdownMenuItemLinks = this._getElements("".concat(dropdownIdAttr, " > ul > li > a"));
+      var dropdownMenuItemLinks = this._getElements("".concat(dropdownMenuItemsAttr, " > a, ").concat(dropdownMenuItemsAttr, " > button"));
 
-      var dropdownButton = document.querySelector("".concat(dropdownIdAttr, " > ").concat(selectors.DATA_TARGET));
+      var dropdownButton = document.querySelector("".concat(dropdownIdAttr, " > ").concat(this.dropdownTargetAttr));
       var dropdownButtonId = dropdownButton.id;
       dropdownButton.setAttribute(selectors.ARIA_CONTROLS, dropdownMenuId);
       dropdownButton.setAttribute(selectors.ARIA_HASPOPUP, "true");

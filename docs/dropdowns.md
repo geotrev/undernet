@@ -7,20 +7,15 @@ Use a dropdown to put multiple options or items in a single menu. Although they 
 Try using this example dropdown:
 
 <div data-dropdown="dropdown1" class="dropdown">
-  <button id="dropdown-button" data-parent="dropdown1" data-target="new-dropdown">Open Dropdown</button>
+  <button id="dropdown-button" data-parent="dropdown1" data-target="new-dropdown">Open Dropdown &#9660;</button>
   <ul id="new-dropdown" class="dropdown-menu">
-    <li class="dropdown-close"><a href="#">&times;</a></li>
     <li><a href="#">menu item</a></li>
     <li><a href="#">menu item</a></li>
     <li><a href="#">menu item</a></li>
   </ul>
-</div>
-
-<div data-dropdown="dropdown2" class="dropdown">
-  <a class="split-left button">Primary Option</button>
-  <button id="dropdown-button2" data-parent="dropdown2" data-target="new-dropdown2" class="split-right">&#9650;</button>
+</div><div data-dropdown="dropdown2" class="dropdown">
+  <button id="dropdown-button2" data-parent="dropdown2" data-target="new-dropdown2">Open Dropdown &#9660;</button>
   <ul id="new-dropdown2" class="dropdown-menu">
-    <li class="dropdown-close"><a href="#">&times;</a></li>
     <li><a href="#">menu item</a></li>
     <li><a href="#">menu item</a></li>
     <li><a href="#">menu item</a></li>

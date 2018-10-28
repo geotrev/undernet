@@ -38,6 +38,7 @@ var selectors = {
   VISIBLE: "data-visible",
   CLOSE: "data-close",
   TARGET: "data-target",
+  DATA_PARENT: "data-parent",
   ARIA_HIDDEN: "aria-hidden",
   ARIA_MODAL: "aria-modal",
   ROLE: "role",
@@ -93,9 +94,11 @@ var Modal = function (_Utils) {
 
       if (this.modals.length) {
         this.modals.forEach(function (modal) {
+          var modalId = modal.getAttribute(selectors.DATA_PARENT);
+          var modalWrapper = document.getElementById(modalId);
+          modalWrapper.setAttribute(selectors.ARIA_HIDDEN, "true");
+          modalWrapper.setAttribute(selectors.VISIBLE, "false");
           modal.setAttribute(selectors.ARIA_MODAL, "true");
-          modal.parentNode.setAttribute(selectors.ARIA_HIDDEN, "true");
-          modal.parentNode.setAttribute(selectors.VISIBLE, "false");
           modal.setAttribute(selectors.ROLE, "dialog");
         });
       }
@@ -143,7 +146,7 @@ var Modal = function (_Utils) {
 
       this.captureFocus(this.activeModalSelector);
       this.activeModalOverlay.setAttribute(selectors.ARIA_HIDDEN, "false");
-      this.activeModal.setAttribute("tabindex", "-1");
+      this.activeModal.setAttribute(selectors.TAB_INDEX, "-1");
       this.activeModalOverlay.setAttribute(selectors.VISIBLE, "true");
       this.activeModal.focus();
       this.activeModalOverlay.scrollTop = 0;
@@ -167,7 +170,7 @@ var Modal = function (_Utils) {
 
       this.releaseFocus();
       this.activeModalOverlay.setAttribute(selectors.ARIA_HIDDEN, "true");
-      this.activeModal.removeAttribute("tabindex");
+      this.activeModal.removeAttribute(selectors.TAB_INDEX);
 
       this._getFocusableElements(this.activeModalSelector).forEach(function (element) {
         element.setAttribute(selectors.TAB_INDEX, "-1");
@@ -196,9 +199,9 @@ var Modal = function (_Utils) {
   }, {
     key: "_handleReturnFocus",
     value: function _handleReturnFocus() {
-      this.activeModalButton.setAttribute("tabindex", "-1");
+      this.activeModalButton.setAttribute(selectors.TAB_INDEX, "-1");
       this.activeModalButton.focus();
-      this.activeModalButton.removeAttribute("tabindex");
+      this.activeModalButton.removeAttribute(selectors.TAB_INDEX);
     }
   }, {
     key: "_handleScrollRestore",

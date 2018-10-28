@@ -1,5 +1,6 @@
 .dropdown {
   position: relative;
+  display: inline-block;
 
   .dropdown-menu {
     position: absolute;
@@ -11,25 +12,22 @@
     margin: 0;
     padding: 0;
     border-radius: $global-border-radius;
+    background: white;
+    width: 200px;
+    box-shadow: 0 3px 9px 0 rgba($black, 0.35);
+    z-index: 1999;
 
     li {
       padding: 0;
       display: flex;
-      flex-flow: row nowrap;
+      position: relative;
 
       a {
-        padding: 12px;
-      }
-    }
-
-    [data-close] {
-      display: none;
-
-      a {
-        margin-left: auto;
-        font-size: 24px;
-        text-decoration: none;
-        padding: 0 8px;
+        display: flex;
+        position: relative;
+        padding: 8px 12px;
+        flex: 0 0 100%;
+        max-width: 100%;
       }
     }
   }
@@ -43,15 +41,5 @@
         display: flex;
       }
     }
-  }
-
-  .split-left {
-    border-bottom-right-radius: 0;
-    border-top-right-radius: 0;
-  }
-
-  .split-right {
-    border-bottom-left-radius: 0;
-    border-top-left-radius: 0;
   }
 }

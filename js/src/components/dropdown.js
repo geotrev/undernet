@@ -84,24 +84,26 @@ export default class Dropdown extends Utils {
     this._render = this._render.bind(this)
     this._handleClose = this._handleClose.bind(this)
     this._handleEscapeKeyPress = this._handleEscapeKeyPress.bind(this)
-    this._handleDropdownButtonOrBgClose = this._handleDropdownButtonOrBgClose.bind(this)
+    this._handleOffMenuClick = this._handleOffMenuClick.bind(this)
 
     // active dropdown
-    this.activeDropdownButton = {}
+    this.activeDropdownButton = null
+    this.activeDropdown = null
+    this.activeDropdownMenu = null
+    this.activeDropdownLinks = []
+    this.allowFocusReturn = true
     this.activeDropdownId = ""
     this.activeDropdownAttr = ""
     this.activeDropdownMenuId = ""
-    this.activeDropdown = {}
-    this.activeDropdownMenu = {}
-    this.activeDropdownLinks = []
 
     // all dropdowns
     this.dropdowns = []
     this.dropdownButtons = []
 
-    // attribute helpers
+    // dropdown element selectors
     this.dropdownAttr = `[${selectors.DATA_DROPDOWN}]`
-    this.dropdownButtonAttr = `[${selectors.DATA_DROPDOWN}] > [${selectors.DATA_TARGET}]`
+    this.dropdownTargetAttr = `[${selectors.DATA_TARGET}]`
+    this.dropdownButtonAttr = `[${selectors.DATA_DROPDOWN}] > ${this.dropdownTargetAttr}`
   }
 
   // public
@@ -132,11 +134,17 @@ export default class Dropdown extends Utils {
   _render(event) {
     event.preventDefault()
 
+    if (this.activeDropdownButton) {
+      this.allowFocusReturn = false
+      this._handleClose(event)
+      this.allowFocusReturn = true
+    }
+
     // dropdown button / trigger
     this.activeDropdownButton = event.target
     this.activeDropdownId = this.activeDropdownButton.getAttribute(selectors.DATA_PARENT)
 
-    if (!this.activeDropdownId || !document.getElementById(this.activeDropdownId)) {
+    if (!this.activeDropdownId) {
       throw messages.MISSING_DROPDOWN
       return
     }
@@ -154,8 +162,11 @@ export default class Dropdown extends Utils {
     this.activeDropdownButton.setAttribute(selectors.ARIA_EXPANDED, "true")
     this.activeDropdown.setAttribute(selectors.DATA_VISIBLE, "true")
 
-    document.addEventListener(selectors.KEYDOWN, this._handleEscapeKeyPress)
-    document.addEventListener(selectors.KEYDOWN, this._handleDropdownButtonOrBgClose)
+    this.activeDropdownButton.removeEventListener(events.CLICK, this._render)
+    this.activeDropdownButton.addEventListener(events.CLICK, this._handleClose)
+
+    document.addEventListener(events.KEYDOWN, this._handleEscapeKeyPress)
+    document.addEventListener(events.CLICK, this._handleOffMenuClick)
 
     // make links focusable
     this.activeDropdownLinks = this._getElements(`${this.activeDropdownAttr} > ul > li > a`)
@@ -163,18 +174,6 @@ export default class Dropdown extends Utils {
       link.setAttribute(selectors.TABINDEX, "0")
       link.addEventListener(events.CLICK, this._handleClose)
     })
-  }
-
-  _handleEscapeKeyPress(event) {
-    if (event.which === keyCodes.ESCAPE) {
-      this._handleClose(event)
-    }
-  }
-
-  _handleDropdownButtonOrBgClose(event) {
-    if (event.target !== this.activeDropdown || event.target === this.activeDropdownButton) {
-      this._handleClose(event)
-    }
   }
 
   _handleClose(event) {
@@ -188,26 +187,47 @@ export default class Dropdown extends Utils {
       link.removeEventListener(events.CLICK, this._handleClose)
     })
 
-    document.removeEventListener(selectors.KEYDOWN, this._handleEscapeKeyPress)
-    document.removeEventListener(selectors.KEYDOWN, this._handleDropdownButtonOrBgClose)
+    this.activeDropdownButton.removeEventListener(events.CLICK, this._handleClose)
+    this.activeDropdownButton.addEventListener(events.CLICK, this._render)
 
-    this._handleReturnFocus()
+    document.removeEventListener(events.KEYDOWN, this._handleEscapeKeyPress)
+    document.removeEventListener(events.CLICK, this._handleOffMenuClick)
+
+    if (this.allowFocusReturn) {
+      this._handleReturnFocus()
+    }
+  }
+
+  _handleEscapeKeyPress(event) {
+    if (event.which === keyCodes.ESCAPE) {
+      this._handleClose(event)
+    }
+  }
+
+  _handleOffMenuClick(event) {
+    if (event.target !== this.activeDropdownButton && event.target !== this.activeDropdownMenu) {
+      this._handleClose(event)
+    }
   }
 
   _handleReturnFocus() {
-    this.activeModalButton.setAttribute(selectors.TAB_INDEX, "-1")
-    this.activeModalButton.focus()
-    this.activeModalButton.removeAttribute(selectors.TAB_INDEX)
+    this.activeDropdownButton.setAttribute(selectors.TAB_INDEX, "-1")
+    this.activeDropdownButton.focus()
+    this.activeDropdownButton.removeAttribute(selectors.TAB_INDEX)
   }
 
   _setupDropdown(dropdown) {
     const dropdownId = dropdown.getAttribute(selectors.DATA_DROPDOWN)
     const dropdownIdAttr = `[${selectors.DATA_DROPDOWN}="${dropdownId}"]`
+    const dropdownMenuItemsAttr = `${dropdownIdAttr} > ul > li`
+
     const dropdownMenu = document.querySelector(`${dropdownIdAttr} > ul`)
     const dropdownMenuId = dropdownMenu.id
-    const dropdownMenuItems = this._getElements(`${dropdownIdAttr} > ul > li`)
-    const dropdownMenuItemLinks = this._getElements(`${dropdownIdAttr} > ul > li > a`)
-    const dropdownButton = document.querySelector(`${dropdownIdAttr} > ${selectors.DATA_TARGET}`)
+    const dropdownMenuItems = this._getElements(dropdownMenuItemsAttr)
+    const dropdownMenuItemLinks = this._getElements(
+      `${dropdownMenuItemsAttr} > a, ${dropdownMenuItemsAttr} > button`,
+    )
+    const dropdownButton = document.querySelector(`${dropdownIdAttr} > ${this.dropdownTargetAttr}`)
     const dropdownButtonId = dropdownButton.id
 
     dropdownButton.setAttribute(selectors.ARIA_CONTROLS, dropdownMenuId)
