@@ -48,8 +48,8 @@ const messages = {
 // Opens with:
 // - [ ] Down arrow, focus to first element
 // - [ ] Up arrow, focus to last element
-// - [ ] Space
-// - [ ] Enter
+// - [x] Space
+// - [x] Enter
 //
 // `tabindex` on menu items set to "0":
 // - [x] When menu is open
@@ -63,7 +63,7 @@ const messages = {
 // - [x] Dropdown button is clicked
 //
 // Trap focus:
-// - [ ] Using up and down arrow keys
+// - [x] Using up and down arrow keys
 //
 // Stop trapping focus and close menu:
 // - [ ] Using tab on last item
