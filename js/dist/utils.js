@@ -136,24 +136,26 @@ var Utils = function () {
     value: function _focusNextChild() {
       var _this = this;
 
-      console.log(document.activeElement);
+      var nextChild = null;
       this.focusableChildren.forEach(function (child, i) {
         if (child === document.activeElement) {
-          _this.focusableChildren[i + 1].focus();
+          nextChild = _this.focusableChildren[i + 1];
         }
       });
+      nextChild.focus();
     }
   }, {
     key: "_focusLastChild",
     value: function _focusLastChild() {
       var _this2 = this;
 
-      console.log(document.activeElement);
+      var prevChild = null;
       this.focusableChildren.forEach(function (child, i) {
         if (child === document.activeElement) {
-          _this2.focusableChildren[i - 1].focus();
+          prevChild = _this2.focusableChildren[i - 1];
         }
       });
+      prevChild.focus();
     }
   }, {
     key: "_handleFocusTrapWithTab",

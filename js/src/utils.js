@@ -160,21 +160,23 @@ export default class Utils {
   }
 
   _focusNextChild() {
-    console.log(document.activeElement)
+    let nextChild = null
     this.focusableChildren.forEach((child, i) => {
       if (child === document.activeElement) {
-        this.focusableChildren[i + 1].focus()
+        nextChild = this.focusableChildren[i + 1]
       }
     })
+    nextChild.focus()
   }
 
   _focusLastChild() {
-    console.log(document.activeElement)
+    let prevChild = null
     this.focusableChildren.forEach((child, i) => {
       if (child === document.activeElement) {
-        this.focusableChildren[i - 1].focus()
+        prevChild = this.focusableChildren[i - 1]
       }
     })
+    prevChild.focus()
   }
 
   /**
