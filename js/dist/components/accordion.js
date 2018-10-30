@@ -33,11 +33,11 @@ var keyCodes = {
 var selectors = {
   ACCORDION_CONTAINER: "data-accordion",
   ACCORDION_ROW: "data-accordion-row",
-  EXPANDED: "data-expanded",
-  TARGET: "data-target",
-  CONTENT: "data-content",
-  TOGGLE_MULTIPLE: "data-toggle-multiple",
-  PARENT: "data-parent",
+  DATA_EXPANDED: "data-expanded",
+  DATA_TARGET: "data-target",
+  DATA_CONTENT: "data-content",
+  DATA_TOGGLE_MULTIPLE: "data-toggle-multiple",
+  DATA_PARENT: "data-parent",
   ARIA_EXPANDED: "aria-expanded",
   ARIA_CONTROLS: "aria-controls",
   ARIA_HIDDEN: "aria-hidden",
@@ -86,8 +86,8 @@ var Accordion = function (_Utils) {
     value: function start() {
       var _this2 = this;
 
-      this.accordionButtons = this._getElements("[".concat(selectors.ACCORDION_CONTAINER, "] [").concat(selectors.TARGET, "]"));
-      this.accordionContentsAttr = "[".concat(selectors.ACCORDION_CONTAINER, "] [").concat(selectors.CONTENT, "]");
+      this.accordionButtons = this._getElements("[".concat(selectors.ACCORDION_CONTAINER, "] [").concat(selectors.DATA_TARGET, "]"));
+      this.accordionContentsAttr = "[".concat(selectors.ACCORDION_CONTAINER, "] [").concat(selectors.DATA_CONTENT, "]");
       this.accordionContents = this._getElements(this.accordionContentsAttr);
 
       this._getFocusableElements(this.accordionContentsAttr).forEach(function (element) {
@@ -108,7 +108,7 @@ var Accordion = function (_Utils) {
           var contentRowAttr = _this2._getAccordionRowAttr(content.id);
 
           var contentRow = document.querySelector(contentRowAttr);
-          var contentHiddenState = contentRow.getAttribute(selectors.EXPANDED);
+          var contentHiddenState = contentRow.getAttribute(selectors.DATA_EXPANDED);
           var toggleContentHiddenState = contentHiddenState === "true" ? "false" : "true";
           content.setAttribute(selectors.ARIA_HIDDEN, toggleContentHiddenState);
 
@@ -133,12 +133,12 @@ var Accordion = function (_Utils) {
   }, {
     key: "_setupButton",
     value: function _setupButton(button) {
-      var buttonId = button.getAttribute(selectors.TARGET);
+      var buttonId = button.getAttribute(selectors.DATA_TARGET);
 
       var accordionRowAttr = this._getAccordionRowAttr(buttonId);
 
       var accordionRow = document.querySelector(accordionRowAttr);
-      var shouldContentExpand = accordionRow.getAttribute(selectors.EXPANDED);
+      var shouldContentExpand = accordionRow.getAttribute(selectors.DATA_EXPANDED);
       var buttonContent = document.getElementById(buttonId);
       button.setAttribute(selectors.ARIA_CONTROLS, buttonId);
 
@@ -159,22 +159,22 @@ var Accordion = function (_Utils) {
     value: function _render(event) {
       event.preventDefault();
       this.activeButton = event.target;
-      this.activeAccordionRowId = this.activeButton.getAttribute(selectors.TARGET);
+      this.activeAccordionRowId = this.activeButton.getAttribute(selectors.DATA_TARGET);
       this.activeRowAttr = this._getAccordionRowAttr(this.activeAccordionRowId);
       this.activeRow = document.querySelector(this.activeRowAttr);
-      this.activeContainerId = this.activeButton.getAttribute(selectors.PARENT);
+      this.activeContainerId = this.activeButton.getAttribute(selectors.DATA_PARENT);
       this.activeContainerAttr = "[".concat(selectors.ACCORDION_CONTAINER, "='").concat(this.activeContainerId, "']");
       this.activeContainer = document.querySelector(this.activeContainerAttr);
       this.activeContent = document.getElementById(this.activeAccordionRowId);
-      var accordionContentHasAttr = this.activeContent.hasAttribute(selectors.CONTENT);
+      var accordionContentHasAttr = this.activeContent.hasAttribute(selectors.DATA_CONTENT);
 
       if (!accordionContentHasAttr) {
         throw messages.MISSING_CONTENT;
         return;
       }
 
-      var accordionButtonState = this.activeRow.getAttribute(selectors.EXPANDED);
-      var accordionContentState = this.activeContent.getAttribute(selectors.CONTENT);
+      var accordionButtonState = this.activeRow.getAttribute(selectors.DATA_EXPANDED);
+      var accordionContentState = this.activeContent.getAttribute(selectors.DATA_CONTENT);
       this.toggleExpandState = accordionButtonState === "true" ? "false" : "true";
       this.toggleContentState = accordionContentState === "visible" ? "hidden" : "visible";
       this.toggleHiddenState = this.toggleExpandState === "false" ? "true" : "false";
@@ -193,14 +193,14 @@ var Accordion = function (_Utils) {
     value: function _closeAllIfToggleable() {
       var _this4 = this;
 
-      if (this.activeContainer.hasAttribute(selectors.TOGGLE_MULTIPLE)) return;
-      this.allContentAttr = "".concat(this.activeContainerAttr, " [").concat(selectors.CONTENT, "]");
+      if (this.activeContainer.hasAttribute(selectors.DATA_TOGGLE_MULTIPLE)) return;
+      this.allContentAttr = "".concat(this.activeContainerAttr, " [").concat(selectors.DATA_CONTENT, "]");
 
-      var allRows = this._getElements("".concat(this.activeContainerAttr, " [").concat(selectors.EXPANDED, "]"));
+      var allRows = this._getElements("".concat(this.activeContainerAttr, " [").concat(selectors.DATA_EXPANDED, "]"));
 
       var allContent = this._getElements(this.allContentAttr);
 
-      var allButtons = this._getElements("".concat(this.activeContainerAttr, " [").concat(selectors.TARGET, "]"));
+      var allButtons = this._getElements("".concat(this.activeContainerAttr, " [").concat(selectors.DATA_TARGET, "]"));
 
       allContent.forEach(function (content) {
         if (!(content === _this4.activeContent)) content.style.maxHeight = null;
@@ -210,21 +210,21 @@ var Accordion = function (_Utils) {
         element.setAttribute(selectors.TAB_INDEX, "-1");
       });
 
-      this._toggleAttributeInCollection(allRows, selectors.EXPANDED, "true", "false");
+      this._toggleAttributeInCollection(allRows, selectors.DATA_EXPANDED, "true", "false");
 
       this._toggleAttributeInCollection(allButtons, selectors.ARIA_EXPANDED, "true", "false");
 
       this._toggleAttributeInCollection(allContent, selectors.ARIA_HIDDEN, "false", "true");
 
-      this._toggleAttributeInCollection(allContent, selectors.CONTENT, "visible", "hidden");
+      this._toggleAttributeInCollection(allContent, selectors.DATA_CONTENT, "visible", "hidden");
     }
   }, {
     key: "_toggleSelectedAccordion",
     value: function _toggleSelectedAccordion() {
       var _this5 = this;
 
-      this.activeRow.setAttribute(selectors.EXPANDED, this.toggleExpandState);
-      this.activeContent.setAttribute(selectors.CONTENT, this.toggleContentState);
+      this.activeRow.setAttribute(selectors.DATA_EXPANDED, this.toggleExpandState);
+      this.activeContent.setAttribute(selectors.DATA_CONTENT, this.toggleContentState);
       this.activeButton.setAttribute(selectors.ARIA_EXPANDED, this.toggleExpandState);
       this.activeContent.setAttribute(selectors.ARIA_HIDDEN, this.toggleHiddenState);
       var activeContentBlock = "#".concat(this.activeAccordionRowId);

@@ -4,7 +4,7 @@ import Utils from "../utils"
 
 const keyCodes = {
   TAB: 9,
-  SPACE: 32,
+  SHIFT: 16,
   ESCAPE: 27,
   ARROW_UP: 38,
   ARROW_DOWN: 40,
@@ -66,11 +66,13 @@ const messages = {
 // - [x] Using up and down arrow keys
 //
 // Stop trapping focus and close menu:
-// - [ ] Using tab on last item
-// - [ ] Using shift+tab on first item
+// - [x] Using tab on last item
+// - [x] Using shift+tab on first item
 //
 // Set focus to menu button
 // - [x] When menu is closed
+//
+// - [ ] DOCUMENT ALL THE METHODS
 
 /**
  * Dropdown component class.
@@ -86,6 +88,8 @@ export default class Dropdown extends Utils {
     this._handleClose = this._handleClose.bind(this)
     this._handleEscapeKeyPress = this._handleEscapeKeyPress.bind(this)
     this._handleOffMenuClick = this._handleOffMenuClick.bind(this)
+    this._handleFirstTabClose = this._handleFirstTabClose.bind(this)
+    this._handleLastTabClose = this._handleLastTabClose.bind(this)
 
     // active dropdown
     this.activeDropdownButton = null
@@ -93,7 +97,6 @@ export default class Dropdown extends Utils {
     this.activeDropdownMenu = null
     this.activeDropdownLinks = []
     this.allowFocusReturn = true
-    this.openedWithArrowKeys = false
     this.activeDropdownId = ""
     this.activeDropdownAttr = ""
     this.activeDropdownMenuId = ""
@@ -135,9 +138,7 @@ export default class Dropdown extends Utils {
   // private
 
   _render(event, key) {
-    if (!this.openedWithArrowKeys) {
-      event.preventDefault()
-    }
+    if (!key) event.preventDefault()
 
     if (this.activeDropdownButton) {
       this.allowFocusReturn = false
@@ -175,15 +176,20 @@ export default class Dropdown extends Utils {
 
     // make links focusable
     this.activeDropdownLinks = this._getElements(`${this.activeDropdownAttr} > ul > li > a`)
+    this.firstDropdownLink = this.activeDropdownLinks[0]
+    this.lastDropdownLink = this.activeDropdownLinks[this.activeDropdownLinks.length - 1]
 
-    if (this.openedWithArrowKeys) {
+    this.firstDropdownLink.addEventListener(events.KEYDOWN, this._handleFirstTabClose)
+    this.lastDropdownLink.addEventListener(events.KEYDOWN, this._handleLastTabClose)
+
+    if (key) {
       if (key === keyCodes.ARROW_UP) {
-        this.activeDropdownLinks[this.activeDropdownLinks.length - 1].focus()
+        this.lastDropdownLink.focus()
       } else if (key === keyCodes.ARROW_DOWN) {
-        this.activeDropdownLinks[0].focus()
+        this.firstDropdownLink.focus()
       }
     } else {
-      this.activeDropdownLinks[0].focus()
+      this.firstDropdownLink.focus()
     }
 
     this.activeDropdownLinks.forEach(link => {
@@ -192,13 +198,28 @@ export default class Dropdown extends Utils {
     })
 
     this.captureFocus(`${this.activeDropdownAttr} > ul`, { useArrows: true })
+  }
 
-    this.openedWithArrowKeys = false
+  _handleFirstTabClose(event) {
+    const shiftKey = event.which === keyCodes.SHIFT || event.shiftKey
+    const tabKey = event.which === keyCodes.TAB
+
+    if (shiftKey && tabKey) {
+      this._handleClose(event)
+    }
+  }
+
+  _handleLastTabClose(event) {
+    const shiftKey = event.which === keyCodes.SHIFT || event.shiftKey
+    const tabKey = event.which === keyCodes.TAB
+
+    if (tabKey && !shiftKey) {
+      this._handleClose(event)
+    }
   }
 
   _renderFromArrowKeys(event) {
     if (event.which === keyCodes.ARROW_UP || event.which === keyCodes.ARROW_DOWN) {
-      this.openedWithArrowKeys = true
       this._render(event, event.which)
     }
   }

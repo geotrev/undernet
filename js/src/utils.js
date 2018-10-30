@@ -28,6 +28,7 @@ export default class Utils {
     this._handleFocusTrapWithArrows = this._handleFocusTrapWithArrows.bind(this)
     this._listenForKeyboard = this._listenForKeyboard.bind(this)
     this._listenForClick = this._listenForClick.bind(this)
+    this.focusWithArrows = false
   }
 
   // public
@@ -43,6 +44,8 @@ export default class Utils {
     this.focusableFirstChild = this.focusableChildren[0]
     this.focusableLastChild = this.focusableChildren[this.focusableChildren.length - 1]
 
+    this.focusWithArrows = options.useArrows
+
     if (options.useArrows) {
       document.addEventListener(events.KEYDOWN, this._handleFocusTrapWithArrows)
     } else {
@@ -54,8 +57,12 @@ export default class Utils {
    * Stop trapping focus set in this.captureFocus()
    */
   releaseFocus() {
-    document.removeEventListener(events.KEYDOWN, this._handleFocusTrapWithTab)
-    document.removeEventListener(events.KEYDOWN, this._handleFocusTrapWithArrows)
+    if (this.focusWithArrows) {
+      document.removeEventListener(events.KEYDOWN, this._handleFocusTrapWithArrows)
+      this.focusWithArrows = false
+    } else {
+      document.removeEventListener(events.KEYDOWN, this._handleFocusTrapWithTab)
+    }
   }
 
   /**
@@ -70,7 +77,7 @@ export default class Utils {
    */
   disableFocusOutline() {
     document.removeEventListener(events.KEYDOWN, this._listenForKeyboard)
-    document.removeEventListener(events.CLICK, this.__listenForClick)
+    document.removeEventListener(events.CLICK, this._listenForClick)
   }
 
   // private
@@ -84,8 +91,10 @@ export default class Utils {
   _listenForKeyboard(event) {
     const tabKey = event.which === keyCodes.TAB
     const shiftKey = event.which === keyCodes.SHIFT || event.shiftKey
+    const arrowUp = event.which === keyCodes.ARROW_UP
+    const arrowDown = event.which === keyCodes.ARROW_DOWN
 
-    if (tabKey || shiftKey) {
+    if (tabKey || shiftKey || arrowUp || arrowDown) {
       document.body.classList.add(selectors.KEYBOARD_CLASS)
       document.removeEventListener(events.KEYDOWN, this._listenForKeyboard)
       document.addEventListener(events.CLICK, this._listenForClick)
@@ -139,11 +148,6 @@ export default class Utils {
     const arrowUp = event.which === keyCodes.ARROW_UP
     const arrowDown = event.which === keyCodes.ARROW_DOWN
 
-    // Just in case the first or last child have changed -
-    // recapture focus and continue trapping.
-    this.releaseFocus()
-    this.captureFocus(this.focusContainerSelector, { useArrows: true })
-
     if (arrowUp || arrowDown) {
       event.preventDefault()
 
@@ -193,11 +197,6 @@ export default class Utils {
     const shiftKey = event.which === keyCodes.SHIFT || event.shiftKey
     const hasShift = shiftKey && tabKey
     const noShift = !shiftKey && tabKey
-
-    // Just in case the first or last child have changed -
-    // recapture focus and continue trapping.
-    this.releaseFocus()
-    this.captureFocus(this.focusContainerSelector)
 
     if (hasShift && (firstActive || containerActive)) {
       event.preventDefault()

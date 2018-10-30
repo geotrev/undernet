@@ -13,7 +13,9 @@ Try using this example dropdown:
     <li><a href="#">menu item 2</a></li>
     <li><a href="#">menu item 3</a></li>
   </ul>
-</div><div data-dropdown="dropdown2" class="dropdown">
+</div>
+
+<div data-dropdown="dropdown2" class="dropdown">
   <button id="dropdown-button2" data-parent="dropdown2" data-target="new-dropdown2">Open Dropdown &#9660;</button>
   <ul id="new-dropdown2" class="dropdown-menu">
     <li><a href="#">menu item 1</a></li>

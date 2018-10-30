@@ -14,7 +14,7 @@
     border-radius: $global-border-radius;
     background: white;
     width: 200px;
-    box-shadow: 0 3px 9px 0 rgba($black, 0.35);
+    border: 1px solid $gray900;
     z-index: 1999;
 
     li {

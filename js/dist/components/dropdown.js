@@ -29,7 +29,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 var keyCodes = {
   TAB: 9,
-  SPACE: 32,
+  SHIFT: 16,
   ESCAPE: 27,
   ARROW_UP: 38,
   ARROW_DOWN: 40
@@ -68,12 +68,13 @@ var Dropdown = function (_Utils) {
     _this._handleClose = _this._handleClose.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this._handleEscapeKeyPress = _this._handleEscapeKeyPress.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this._handleOffMenuClick = _this._handleOffMenuClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this._handleFirstTabClose = _this._handleFirstTabClose.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this._handleLastTabClose = _this._handleLastTabClose.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.activeDropdownButton = null;
     _this.activeDropdown = null;
     _this.activeDropdownMenu = null;
     _this.activeDropdownLinks = [];
     _this.allowFocusReturn = true;
-    _this.openedWithArrowKeys = false;
     _this.activeDropdownId = "";
     _this.activeDropdownAttr = "";
     _this.activeDropdownMenuId = "";
@@ -118,9 +119,7 @@ var Dropdown = function (_Utils) {
     value: function _render(event, key) {
       var _this4 = this;
 
-      if (!this.openedWithArrowKeys) {
-        event.preventDefault();
-      }
+      if (!key) event.preventDefault();
 
       if (this.activeDropdownButton) {
         this.allowFocusReturn = false;
@@ -150,15 +149,19 @@ var Dropdown = function (_Utils) {
       document.addEventListener(events.KEYDOWN, this._handleEscapeKeyPress);
       document.addEventListener(events.CLICK, this._handleOffMenuClick);
       this.activeDropdownLinks = this._getElements("".concat(this.activeDropdownAttr, " > ul > li > a"));
+      this.firstDropdownLink = this.activeDropdownLinks[0];
+      this.lastDropdownLink = this.activeDropdownLinks[this.activeDropdownLinks.length - 1];
+      this.firstDropdownLink.addEventListener(events.KEYDOWN, this._handleFirstTabClose);
+      this.lastDropdownLink.addEventListener(events.KEYDOWN, this._handleLastTabClose);
 
-      if (this.openedWithArrowKeys) {
+      if (key) {
         if (key === keyCodes.ARROW_UP) {
-          this.activeDropdownLinks[this.activeDropdownLinks.length - 1].focus();
+          this.lastDropdownLink.focus();
         } else if (key === keyCodes.ARROW_DOWN) {
-          this.activeDropdownLinks[0].focus();
+          this.firstDropdownLink.focus();
         }
       } else {
-        this.activeDropdownLinks[0].focus();
+        this.firstDropdownLink.focus();
       }
 
       this.activeDropdownLinks.forEach(function (link) {
@@ -168,14 +171,31 @@ var Dropdown = function (_Utils) {
       this.captureFocus("".concat(this.activeDropdownAttr, " > ul"), {
         useArrows: true
       });
-      this.openedWithArrowKeys = false;
+    }
+  }, {
+    key: "_handleFirstTabClose",
+    value: function _handleFirstTabClose(event) {
+      var shiftKey = event.which === keyCodes.SHIFT || event.shiftKey;
+      var tabKey = event.which === keyCodes.TAB;
+
+      if (shiftKey && tabKey) {
+        this._handleClose(event);
+      }
+    }
+  }, {
+    key: "_handleLastTabClose",
+    value: function _handleLastTabClose(event) {
+      var shiftKey = event.which === keyCodes.SHIFT || event.shiftKey;
+      var tabKey = event.which === keyCodes.TAB;
+
+      if (tabKey && !shiftKey) {
+        this._handleClose(event);
+      }
     }
   }, {
     key: "_renderFromArrowKeys",
     value: function _renderFromArrowKeys(event) {
       if (event.which === keyCodes.ARROW_UP || event.which === keyCodes.ARROW_DOWN) {
-        this.openedWithArrowKeys = true;
-
         this._render(event, event.which);
       }
     }

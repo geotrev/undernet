@@ -13,9 +13,9 @@ const selectors = {
   MODAL_BUTTON: "data-modal-button",
   NO_SCROLL: "no-scroll",
   // common
-  VISIBLE: "data-visible",
-  CLOSE: "data-close",
-  TARGET: "data-target",
+  DATA_VISIBLE: "data-visible",
+  DATA_CLOSE: "data-close",
+  DATA_TARGET: "data-target",
   DATA_PARENT: "data-parent",
   // accessibility
   ARIA_HIDDEN: "aria-hidden",
@@ -64,7 +64,7 @@ export default class Modal extends Utils {
 
     // attribute helpers
     this.modalContainerAttr = `[${selectors.MODAL_CONTAINER}]`
-    this.closeButtonAttr = `[${selectors.MODAL_CONTAINER}] [${selectors.CLOSE}]`
+    this.closeButtonAttr = `[${selectors.MODAL_CONTAINER}] [${selectors.DATA_CLOSE}]`
   }
 
   // public
@@ -86,7 +86,7 @@ export default class Modal extends Utils {
         const modalId = modal.getAttribute(selectors.DATA_PARENT)
         const modalWrapper = document.getElementById(modalId)
         modalWrapper.setAttribute(selectors.ARIA_HIDDEN, "true")
-        modalWrapper.setAttribute(selectors.VISIBLE, "false")
+        modalWrapper.setAttribute(selectors.DATA_VISIBLE, "false")
         modal.setAttribute(selectors.ARIA_MODAL, "true")
         modal.setAttribute(selectors.ROLE, "dialog")
       })
@@ -118,7 +118,7 @@ export default class Modal extends Utils {
     event.preventDefault()
 
     this.activeModalButton = event.target
-    this.activeModalId = this.activeModalButton.getAttribute(selectors.TARGET)
+    this.activeModalId = this.activeModalButton.getAttribute(selectors.DATA_TARGET)
     this.activeModalOverlayAttr = `[${selectors.MODAL_ID}="${this.activeModalId}"]`
     this.activeModalOverlay = document.querySelector(this.activeModalOverlayAttr)
 
@@ -141,7 +141,7 @@ export default class Modal extends Utils {
     this.captureFocus(this.activeModalSelector)
     this.activeModalOverlay.setAttribute(selectors.ARIA_HIDDEN, "false")
     this.activeModal.setAttribute(selectors.TAB_INDEX, "-1")
-    this.activeModalOverlay.setAttribute(selectors.VISIBLE, "true")
+    this.activeModalOverlay.setAttribute(selectors.DATA_VISIBLE, "true")
     this.activeModal.focus()
 
     // offset slight scroll caused by this.activeModal.focus()
@@ -161,7 +161,7 @@ export default class Modal extends Utils {
    */
   _handleClose(event) {
     event.preventDefault()
-    this.activeModalOverlay.setAttribute(selectors.VISIBLE, "false")
+    this.activeModalOverlay.setAttribute(selectors.DATA_VISIBLE, "false")
     this._handleReturnFocus()
     this._handleScrollRestore()
     this.releaseFocus()

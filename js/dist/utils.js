@@ -35,6 +35,7 @@ var Utils = function () {
     this._handleFocusTrapWithArrows = this._handleFocusTrapWithArrows.bind(this);
     this._listenForKeyboard = this._listenForKeyboard.bind(this);
     this._listenForClick = this._listenForClick.bind(this);
+    this.focusWithArrows = false;
   }
 
   _createClass(Utils, [{
@@ -44,6 +45,7 @@ var Utils = function () {
       this.focusableChildren = this._getFocusableElements(this.focusContainerSelector);
       this.focusableFirstChild = this.focusableChildren[0];
       this.focusableLastChild = this.focusableChildren[this.focusableChildren.length - 1];
+      this.focusWithArrows = options.useArrows;
 
       if (options.useArrows) {
         document.addEventListener(events.KEYDOWN, this._handleFocusTrapWithArrows);
@@ -54,8 +56,12 @@ var Utils = function () {
   }, {
     key: "releaseFocus",
     value: function releaseFocus() {
-      document.removeEventListener(events.KEYDOWN, this._handleFocusTrapWithTab);
-      document.removeEventListener(events.KEYDOWN, this._handleFocusTrapWithArrows);
+      if (this.focusWithArrows) {
+        document.removeEventListener(events.KEYDOWN, this._handleFocusTrapWithArrows);
+        this.focusWithArrows = false;
+      } else {
+        document.removeEventListener(events.KEYDOWN, this._handleFocusTrapWithTab);
+      }
     }
   }, {
     key: "enableFocusOutline",
@@ -66,15 +72,17 @@ var Utils = function () {
     key: "disableFocusOutline",
     value: function disableFocusOutline() {
       document.removeEventListener(events.KEYDOWN, this._listenForKeyboard);
-      document.removeEventListener(events.CLICK, this.__listenForClick);
+      document.removeEventListener(events.CLICK, this._listenForClick);
     }
   }, {
     key: "_listenForKeyboard",
     value: function _listenForKeyboard(event) {
       var tabKey = event.which === keyCodes.TAB;
       var shiftKey = event.which === keyCodes.SHIFT || event.shiftKey;
+      var arrowUp = event.which === keyCodes.ARROW_UP;
+      var arrowDown = event.which === keyCodes.ARROW_DOWN;
 
-      if (tabKey || shiftKey) {
+      if (tabKey || shiftKey || arrowUp || arrowDown) {
         document.body.classList.add(selectors.KEYBOARD_CLASS);
         document.removeEventListener(events.KEYDOWN, this._listenForKeyboard);
         document.addEventListener(events.CLICK, this._listenForClick);
@@ -112,10 +120,6 @@ var Utils = function () {
       var lastActive = activeElement === this.focusableLastChild;
       var arrowUp = event.which === keyCodes.ARROW_UP;
       var arrowDown = event.which === keyCodes.ARROW_DOWN;
-      this.releaseFocus();
-      this.captureFocus(this.focusContainerSelector, {
-        useArrows: true
-      });
 
       if (arrowUp || arrowDown) {
         event.preventDefault();
@@ -169,8 +173,6 @@ var Utils = function () {
       var shiftKey = event.which === keyCodes.SHIFT || event.shiftKey;
       var hasShift = shiftKey && tabKey;
       var noShift = !shiftKey && tabKey;
-      this.releaseFocus();
-      this.captureFocus(this.focusContainerSelector);
 
       if (hasShift && (firstActive || containerActive)) {
         event.preventDefault();
