@@ -21,7 +21,7 @@ const selectors = {
   ARIA_HIDDEN: "aria-hidden",
   ARIA_MODAL: "aria-modal",
   ROLE: "role",
-  TAB_INDEX: "tabindex",
+  TABINDEX: "tabindex",
 }
 
 const events = {
@@ -78,13 +78,13 @@ export default class Modal extends Utils {
     this.modalButtons = this._getElements(`[${selectors.MODAL_BUTTON}]`)
 
     this._getFocusableElements(this.modalContainerAttr).forEach(element => {
-      element.setAttribute(selectors.TAB_INDEX, "-1")
+      element.setAttribute(selectors.TABINDEX, "-1")
     })
 
     if (this.modals.length) {
       this.modals.forEach(modal => {
         const modalId = modal.getAttribute(selectors.DATA_PARENT)
-        const modalWrapper = document.getElementById(modalId)
+        const modalWrapper = document.querySelector(`[${selectors.MODAL_ID}='${modalId}']`)
         modalWrapper.setAttribute(selectors.ARIA_HIDDEN, "true")
         modalWrapper.setAttribute(selectors.DATA_VISIBLE, "false")
         modal.setAttribute(selectors.ARIA_MODAL, "true")
@@ -134,13 +134,13 @@ export default class Modal extends Utils {
     )
 
     this._getFocusableElements(this.activeModalSelector).forEach(element => {
-      element.setAttribute(selectors.TAB_INDEX, "0")
+      element.setAttribute(selectors.TABINDEX, "0")
     })
 
     this._handleScrollStop()
     this.captureFocus(this.activeModalSelector)
     this.activeModalOverlay.setAttribute(selectors.ARIA_HIDDEN, "false")
-    this.activeModal.setAttribute(selectors.TAB_INDEX, "-1")
+    this.activeModal.setAttribute(selectors.TABINDEX, "-1")
     this.activeModalOverlay.setAttribute(selectors.DATA_VISIBLE, "true")
     this.activeModal.focus()
 
@@ -166,10 +166,10 @@ export default class Modal extends Utils {
     this._handleScrollRestore()
     this.releaseFocus()
     this.activeModalOverlay.setAttribute(selectors.ARIA_HIDDEN, "true")
-    this.activeModal.removeAttribute(selectors.TAB_INDEX)
+    this.activeModal.removeAttribute(selectors.TABINDEX)
 
     this._getFocusableElements(this.activeModalSelector).forEach(element => {
-      element.setAttribute(selectors.TAB_INDEX, "-1")
+      element.setAttribute(selectors.TABINDEX, "-1")
     })
 
     // stop listening to events
@@ -205,9 +205,9 @@ export default class Modal extends Utils {
    * @param {Object} button - The current modal's corresponding button.
    */
   _handleReturnFocus() {
-    this.activeModalButton.setAttribute(selectors.TAB_INDEX, "-1")
+    this.activeModalButton.setAttribute(selectors.TABINDEX, "-1")
     this.activeModalButton.focus()
-    this.activeModalButton.removeAttribute(selectors.TAB_INDEX)
+    this.activeModalButton.removeAttribute(selectors.TABINDEX)
   }
 
   /**

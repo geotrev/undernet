@@ -37,17 +37,17 @@ export default class Utils {
    * Listens to the first and last elements matched from this._getFocusableElements()
    * @param {String} container - The container's class, attribute, etc.
    */
-
   captureFocus(container, options) {
     this.focusContainerSelector = container
     this.focusableChildren = this._getFocusableElements(this.focusContainerSelector)
     this.focusableFirstChild = this.focusableChildren[0]
     this.focusableLastChild = this.focusableChildren[this.focusableChildren.length - 1]
 
-    this.focusWithArrows = options.useArrows
-
-    if (options.useArrows) {
-      document.addEventListener(events.KEYDOWN, this._handleFocusTrapWithArrows)
+    if (options) {
+      if (options.useArrows) {
+        this.focusWithArrows = options.useArrows || this.focusWithArrows
+        document.addEventListener(events.KEYDOWN, this._handleFocusTrapWithArrows)
+      }
     } else {
       document.addEventListener(events.KEYDOWN, this._handleFocusTrapWithTab)
     }

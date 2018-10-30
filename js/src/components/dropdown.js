@@ -132,6 +132,7 @@ export default class Dropdown extends Utils {
   stop() {
     this.dropdownButtons.forEach(button => {
       button.removeEventListener(events.CLICK, this._render)
+      button.removeEventListener(events.KEYDOWN, this._renderFromArrowKeys)
     })
   }
 
@@ -139,6 +140,7 @@ export default class Dropdown extends Utils {
 
   _render(event, key) {
     if (!key) event.preventDefault()
+    event.stopPropagation()
 
     if (this.activeDropdownButton) {
       this.allowFocusReturn = false
@@ -174,7 +176,6 @@ export default class Dropdown extends Utils {
     document.addEventListener(events.KEYDOWN, this._handleEscapeKeyPress)
     document.addEventListener(events.CLICK, this._handleOffMenuClick)
 
-    // make links focusable
     this.activeDropdownLinks = this._getElements(`${this.activeDropdownAttr} > ul > li > a`)
     this.firstDropdownLink = this.activeDropdownLinks[0]
     this.lastDropdownLink = this.activeDropdownLinks[this.activeDropdownLinks.length - 1]
@@ -182,12 +183,8 @@ export default class Dropdown extends Utils {
     this.firstDropdownLink.addEventListener(events.KEYDOWN, this._handleFirstTabClose)
     this.lastDropdownLink.addEventListener(events.KEYDOWN, this._handleLastTabClose)
 
-    if (key) {
-      if (key === keyCodes.ARROW_UP) {
-        this.lastDropdownLink.focus()
-      } else if (key === keyCodes.ARROW_DOWN) {
-        this.firstDropdownLink.focus()
-      }
+    if (key && key === keyCodes.ARROW_UP) {
+      this.lastDropdownLink.focus()
     } else {
       this.firstDropdownLink.focus()
     }

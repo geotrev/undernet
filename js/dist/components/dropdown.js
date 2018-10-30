@@ -112,6 +112,7 @@ var Dropdown = function (_Utils) {
 
       this.dropdownButtons.forEach(function (button) {
         button.removeEventListener(events.CLICK, _this3._render);
+        button.removeEventListener(events.KEYDOWN, _this3._renderFromArrowKeys);
       });
     }
   }, {
@@ -120,6 +121,7 @@ var Dropdown = function (_Utils) {
       var _this4 = this;
 
       if (!key) event.preventDefault();
+      event.stopPropagation();
 
       if (this.activeDropdownButton) {
         this.allowFocusReturn = false;
@@ -154,12 +156,8 @@ var Dropdown = function (_Utils) {
       this.firstDropdownLink.addEventListener(events.KEYDOWN, this._handleFirstTabClose);
       this.lastDropdownLink.addEventListener(events.KEYDOWN, this._handleLastTabClose);
 
-      if (key) {
-        if (key === keyCodes.ARROW_UP) {
-          this.lastDropdownLink.focus();
-        } else if (key === keyCodes.ARROW_DOWN) {
-          this.firstDropdownLink.focus();
-        }
+      if (key && key === keyCodes.ARROW_UP) {
+        this.lastDropdownLink.focus();
       } else {
         this.firstDropdownLink.focus();
       }

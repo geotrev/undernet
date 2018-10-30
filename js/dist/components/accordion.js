@@ -41,7 +41,7 @@ var selectors = {
   ARIA_EXPANDED: "aria-expanded",
   ARIA_CONTROLS: "aria-controls",
   ARIA_HIDDEN: "aria-hidden",
-  TAB_INDEX: "tabindex"
+  TABINDEX: "tabindex"
 };
 var events = {
   CLICK: "click",
@@ -91,7 +91,7 @@ var Accordion = function (_Utils) {
       this.accordionContents = this._getElements(this.accordionContentsAttr);
 
       this._getFocusableElements(this.accordionContentsAttr).forEach(function (element) {
-        element.setAttribute(selectors.TAB_INDEX, "-1");
+        element.setAttribute(selectors.TABINDEX, "-1");
       });
 
       if (this.accordionButtons.length) {
@@ -114,7 +114,7 @@ var Accordion = function (_Utils) {
 
           if (toggleContentHiddenState === "false") {
             _this2._getFocusableElements("#".concat(content.id)).forEach(function (element) {
-              element.setAttribute(selectors.TAB_INDEX, "0");
+              element.setAttribute(selectors.TABINDEX, "0");
             });
           }
         });
@@ -207,7 +207,7 @@ var Accordion = function (_Utils) {
       });
 
       this._getFocusableElements(this.allContentAttr).forEach(function (element) {
-        element.setAttribute(selectors.TAB_INDEX, "-1");
+        element.setAttribute(selectors.TABINDEX, "-1");
       });
 
       this._toggleAttributeInCollection(allRows, selectors.DATA_EXPANDED, "true", "false");
@@ -231,7 +231,7 @@ var Accordion = function (_Utils) {
 
       this._getFocusableElements(activeContentBlock).forEach(function (element) {
         var value = _this5.toggleExpandState === "true" ? "0" : "-1";
-        element.setAttribute(selectors.TAB_INDEX, value);
+        element.setAttribute(selectors.TABINDEX, value);
       });
 
       if (this.activeContent.style.maxHeight) {

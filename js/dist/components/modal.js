@@ -35,14 +35,14 @@ var selectors = {
   MODAL_ID: "data-modal-id",
   MODAL_BUTTON: "data-modal-button",
   NO_SCROLL: "no-scroll",
-  VISIBLE: "data-visible",
-  CLOSE: "data-close",
-  TARGET: "data-target",
+  DATA_VISIBLE: "data-visible",
+  DATA_CLOSE: "data-close",
+  DATA_TARGET: "data-target",
   DATA_PARENT: "data-parent",
   ARIA_HIDDEN: "aria-hidden",
   ARIA_MODAL: "aria-modal",
   ROLE: "role",
-  TAB_INDEX: "tabindex"
+  TABINDEX: "tabindex"
 };
 var events = {
   KEYDOWN: "keydown",
@@ -76,7 +76,7 @@ var Modal = function (_Utils) {
     _this.activeModal = null;
     _this.activeModalCloseButtons = [];
     _this.modalContainerAttr = "[".concat(selectors.MODAL_CONTAINER, "]");
-    _this.closeButtonAttr = "[".concat(selectors.MODAL_CONTAINER, "] [").concat(selectors.CLOSE, "]");
+    _this.closeButtonAttr = "[".concat(selectors.MODAL_CONTAINER, "] [").concat(selectors.DATA_CLOSE, "]");
     return _this;
   }
 
@@ -89,15 +89,15 @@ var Modal = function (_Utils) {
       this.modalButtons = this._getElements("[".concat(selectors.MODAL_BUTTON, "]"));
 
       this._getFocusableElements(this.modalContainerAttr).forEach(function (element) {
-        element.setAttribute(selectors.TAB_INDEX, "-1");
+        element.setAttribute(selectors.TABINDEX, "-1");
       });
 
       if (this.modals.length) {
         this.modals.forEach(function (modal) {
           var modalId = modal.getAttribute(selectors.DATA_PARENT);
-          var modalWrapper = document.getElementById(modalId);
+          var modalWrapper = document.querySelector("[".concat(selectors.MODAL_ID, "='").concat(modalId, "']"));
           modalWrapper.setAttribute(selectors.ARIA_HIDDEN, "true");
-          modalWrapper.setAttribute(selectors.VISIBLE, "false");
+          modalWrapper.setAttribute(selectors.DATA_VISIBLE, "false");
           modal.setAttribute(selectors.ARIA_MODAL, "true");
           modal.setAttribute(selectors.ROLE, "dialog");
         });
@@ -125,7 +125,7 @@ var Modal = function (_Utils) {
 
       event.preventDefault();
       this.activeModalButton = event.target;
-      this.activeModalId = this.activeModalButton.getAttribute(selectors.TARGET);
+      this.activeModalId = this.activeModalButton.getAttribute(selectors.DATA_TARGET);
       this.activeModalOverlayAttr = "[".concat(selectors.MODAL_ID, "=\"").concat(this.activeModalId, "\"]");
       this.activeModalOverlay = document.querySelector(this.activeModalOverlayAttr);
 
@@ -139,15 +139,15 @@ var Modal = function (_Utils) {
       this.activeModalCloseButtons = this._getElements("".concat(this.activeModalOverlayAttr, " ").concat(this.closeButtonAttr));
 
       this._getFocusableElements(this.activeModalSelector).forEach(function (element) {
-        element.setAttribute(selectors.TAB_INDEX, "0");
+        element.setAttribute(selectors.TABINDEX, "0");
       });
 
       this._handleScrollStop();
 
       this.captureFocus(this.activeModalSelector);
       this.activeModalOverlay.setAttribute(selectors.ARIA_HIDDEN, "false");
-      this.activeModal.setAttribute(selectors.TAB_INDEX, "-1");
-      this.activeModalOverlay.setAttribute(selectors.VISIBLE, "true");
+      this.activeModal.setAttribute(selectors.TABINDEX, "-1");
+      this.activeModalOverlay.setAttribute(selectors.DATA_VISIBLE, "true");
       this.activeModal.focus();
       this.activeModalOverlay.scrollTop = 0;
       document.addEventListener(events.KEYDOWN, this._handleEscapeKeyPress);
@@ -162,7 +162,7 @@ var Modal = function (_Utils) {
       var _this5 = this;
 
       event.preventDefault();
-      this.activeModalOverlay.setAttribute(selectors.VISIBLE, "false");
+      this.activeModalOverlay.setAttribute(selectors.DATA_VISIBLE, "false");
 
       this._handleReturnFocus();
 
@@ -170,10 +170,10 @@ var Modal = function (_Utils) {
 
       this.releaseFocus();
       this.activeModalOverlay.setAttribute(selectors.ARIA_HIDDEN, "true");
-      this.activeModal.removeAttribute(selectors.TAB_INDEX);
+      this.activeModal.removeAttribute(selectors.TABINDEX);
 
       this._getFocusableElements(this.activeModalSelector).forEach(function (element) {
-        element.setAttribute(selectors.TAB_INDEX, "-1");
+        element.setAttribute(selectors.TABINDEX, "-1");
       });
 
       document.removeEventListener(events.KEYDOWN, this._handleEscapeKeyPress);
@@ -199,9 +199,9 @@ var Modal = function (_Utils) {
   }, {
     key: "_handleReturnFocus",
     value: function _handleReturnFocus() {
-      this.activeModalButton.setAttribute(selectors.TAB_INDEX, "-1");
+      this.activeModalButton.setAttribute(selectors.TABINDEX, "-1");
       this.activeModalButton.focus();
-      this.activeModalButton.removeAttribute(selectors.TAB_INDEX);
+      this.activeModalButton.removeAttribute(selectors.TABINDEX);
     }
   }, {
     key: "_handleScrollRestore",
