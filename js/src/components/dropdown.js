@@ -82,6 +82,7 @@ export default class Dropdown extends Utils {
     super()
     //  dropdown event methods
     this._render = this._render.bind(this)
+    this._renderFromArrowKeys = this._renderFromArrowKeys.bind(this)
     this._handleClose = this._handleClose.bind(this)
     this._handleEscapeKeyPress = this._handleEscapeKeyPress.bind(this)
     this._handleOffMenuClick = this._handleOffMenuClick.bind(this)
@@ -92,6 +93,7 @@ export default class Dropdown extends Utils {
     this.activeDropdownMenu = null
     this.activeDropdownLinks = []
     this.allowFocusReturn = true
+    this.openedWithArrowKeys = false
     this.activeDropdownId = ""
     this.activeDropdownAttr = ""
     this.activeDropdownMenuId = ""
@@ -120,6 +122,7 @@ export default class Dropdown extends Utils {
 
     this.dropdownButtons.forEach(button => {
       button.addEventListener(events.CLICK, this._render)
+      button.addEventListener(events.KEYDOWN, this._renderFromArrowKeys)
     })
   }
 
@@ -131,8 +134,10 @@ export default class Dropdown extends Utils {
 
   // private
 
-  _render(event) {
-    event.preventDefault()
+  _render(event, key) {
+    if (!this.openedWithArrowKeys) {
+      event.preventDefault()
+    }
 
     if (this.activeDropdownButton) {
       this.allowFocusReturn = false
@@ -170,13 +175,32 @@ export default class Dropdown extends Utils {
 
     // make links focusable
     this.activeDropdownLinks = this._getElements(`${this.activeDropdownAttr} > ul > li > a`)
-    this.activeDropdownLinks[0].focus()
+
+    if (this.openedWithArrowKeys) {
+      if (key === keyCodes.ARROW_UP) {
+        this.activeDropdownLinks[this.activeDropdownLinks.length - 1].focus()
+      } else if (key === keyCodes.ARROW_DOWN) {
+        this.activeDropdownLinks[0].focus()
+      }
+    } else {
+      this.activeDropdownLinks[0].focus()
+    }
+
     this.activeDropdownLinks.forEach(link => {
       link.setAttribute(selectors.TABINDEX, "0")
       link.addEventListener(events.CLICK, this._handleClose)
     })
 
     this.captureFocus(`${this.activeDropdownAttr} > ul`, { useArrows: true })
+
+    this.openedWithArrowKeys = false
+  }
+
+  _renderFromArrowKeys(event) {
+    if (event.which === keyCodes.ARROW_UP || event.which === keyCodes.ARROW_DOWN) {
+      this.openedWithArrowKeys = true
+      this._render(event, event.which)
+    }
   }
 
   _handleClose(event) {
