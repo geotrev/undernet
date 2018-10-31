@@ -35,45 +35,6 @@ const messages = {
   MISSING_DROPDOWN: "You have a dropdown button missing its corresponding menu.",
 }
 
-// Attributes for button in JS:
-// - [x] aria-haspopup="true"
-// - [x] aria-expanded="false"
-// - [x] aria-controls === ul id
-//
-// Attributes for ul in JS:
-// - [x] aria-labelledby === button id
-// - [x] list items have role="none"
-// - [x] anchors inside li have role="menuitem"
-//
-// Opens with:
-// - [ ] Down arrow, focus to first element
-// - [ ] Up arrow, focus to last element
-// - [x] Space
-// - [x] Enter
-//
-// `tabindex` on menu items set to "0":
-// - [x] When menu is open
-//
-// `tabindex` on menu items set to "-1":
-// - [x] When menu is closed
-//
-// Close menu:
-// - [x] Escape
-// - [x] Menu link is clicked
-// - [x] Dropdown button is clicked
-//
-// Trap focus:
-// - [x] Using up and down arrow keys
-//
-// Stop trapping focus and close menu:
-// - [x] Using tab on last item
-// - [x] Using shift+tab on first item
-//
-// Set focus to menu button
-// - [x] When menu is closed
-//
-// - [ ] DOCUMENT ALL THE METHODS
-
 /**
  * Dropdown component class.
  * @module Dropdown
@@ -84,7 +45,7 @@ export default class Dropdown extends Utils {
     super()
     //  dropdown event methods
     this._render = this._render.bind(this)
-    this._renderFromArrowKeys = this._renderFromArrowKeys.bind(this)
+    this._renderWithKeys = this._renderWithKeys.bind(this)
     this._handleClose = this._handleClose.bind(this)
     this._handleEscapeKeyPress = this._handleEscapeKeyPress.bind(this)
     this._handleOffMenuClick = this._handleOffMenuClick.bind(this)
@@ -102,42 +63,51 @@ export default class Dropdown extends Utils {
     this.activeDropdownMenuId = ""
 
     // all dropdowns
-    this.dropdowns = []
     this.dropdownButtons = []
+    this.dropdowns = []
 
     // dropdown element selectors
-    this.dropdownAttr = `[${selectors.DATA_DROPDOWN}]`
     this.dropdownTargetAttr = `[${selectors.DATA_TARGET}]`
     this.dropdownButtonAttr = `[${selectors.DATA_DROPDOWN}] > ${this.dropdownTargetAttr}`
   }
 
   // public
 
+  /**
+   * Find and set up dropdown buttons and menus.
+   * Begin listening to dropdowns for events.
+   */
   start() {
-    this.dropdowns = this._getElements(this.dropdownAttr)
+    this.dropdowns = this._getElements(`[${selectors.DATA_DROPDOWN}]`)
     this.dropdownButtons = this._getElements(this.dropdownButtonAttr)
 
     if (this.dropdowns.length) {
-      this.dropdowns.forEach(dropdown => {
-        this._setupDropdown(dropdown)
-      })
+      this.dropdowns.forEach(dropdown => this._setupDropdown(dropdown))
     }
 
     this.dropdownButtons.forEach(button => {
       button.addEventListener(events.CLICK, this._render)
-      button.addEventListener(events.KEYDOWN, this._renderFromArrowKeys)
+      button.addEventListener(events.KEYDOWN, this._renderWithKeys)
     })
   }
 
+  /**
+   * Stop listening for dropdown events.
+   */
   stop() {
     this.dropdownButtons.forEach(button => {
       button.removeEventListener(events.CLICK, this._render)
-      button.removeEventListener(events.KEYDOWN, this._renderFromArrowKeys)
+      button.removeEventListener(events.KEYDOWN, this._renderWithKeys)
     })
   }
 
   // private
 
+  /**
+   * Find a button through event.target, then render the corresponding modal attribute via matching target id
+   * @param {Object} event - The event object
+   * @param {Number} key - The key code that called _render()
+   */
   _render(event, key) {
     if (!key) event.preventDefault()
     event.stopPropagation()
@@ -167,9 +137,11 @@ export default class Dropdown extends Utils {
     this.activeDropdownMenuId = this.activeDropdownButton.getAttribute(selectors.DATA_TARGET)
     this.activeDropdownMenu = document.getElementById(this.activeDropdownMenuId)
 
+    // dropdown button
     this.activeDropdownButton.setAttribute(selectors.ARIA_EXPANDED, "true")
     this.activeDropdown.setAttribute(selectors.DATA_VISIBLE, "true")
 
+    // reset button event listener to close the menu, instead of open it
     this.activeDropdownButton.removeEventListener(events.CLICK, this._render)
     this.activeDropdownButton.addEventListener(events.CLICK, this._handleClose)
 
@@ -197,6 +169,10 @@ export default class Dropdown extends Utils {
     this.captureFocus(`${this.activeDropdownAttr} > ul`, { useArrows: true })
   }
 
+  /**
+   * Closes the dropdown if user uses shift and tab keys on the first dropdown element.
+   * @param {Object} event - The event object
+   */
   _handleFirstTabClose(event) {
     const shiftKey = event.which === keyCodes.SHIFT || event.shiftKey
     const tabKey = event.which === keyCodes.TAB
@@ -206,6 +182,10 @@ export default class Dropdown extends Utils {
     }
   }
 
+  /**
+   * Closes the dropdown if user uses tab key on the last dropdown element.
+   * @param {Object} event - The event object
+   */
   _handleLastTabClose(event) {
     const shiftKey = event.which === keyCodes.SHIFT || event.shiftKey
     const tabKey = event.which === keyCodes.TAB
@@ -215,7 +195,7 @@ export default class Dropdown extends Utils {
     }
   }
 
-  _renderFromArrowKeys(event) {
+  _renderWithKeys(event) {
     if (event.which === keyCodes.ARROW_UP || event.which === keyCodes.ARROW_DOWN) {
       this._render(event, event.which)
     }
@@ -269,24 +249,19 @@ export default class Dropdown extends Utils {
     const dropdownMenuItemsAttr = `${dropdownIdAttr} > ul > li`
 
     const dropdownMenu = document.querySelector(`${dropdownIdAttr} > ul`)
-    const dropdownMenuId = dropdownMenu.id
+    const dropdownButton = document.querySelector(`${dropdownIdAttr} > ${this.dropdownTargetAttr}`)
+
+    dropdownButton.setAttribute(selectors.ARIA_CONTROLS, dropdownMenu.id)
+    dropdownButton.setAttribute(selectors.ARIA_HASPOPUP, "true")
+    dropdownButton.setAttribute(selectors.ARIA_EXPANDED, "false")
+    dropdownMenu.setAttribute(selectors.ARIA_LABELLEDBY, dropdownButton.id)
+
     const dropdownMenuItems = this._getElements(dropdownMenuItemsAttr)
+    dropdownMenuItems.forEach(item => item.setAttribute(selectors.ROLE, "none"))
+
     const dropdownMenuItemLinks = this._getElements(
       `${dropdownMenuItemsAttr} > a, ${dropdownMenuItemsAttr} > button`,
     )
-    const dropdownButton = document.querySelector(`${dropdownIdAttr} > ${this.dropdownTargetAttr}`)
-    const dropdownButtonId = dropdownButton.id
-
-    dropdownButton.setAttribute(selectors.ARIA_CONTROLS, dropdownMenuId)
-    dropdownButton.setAttribute(selectors.ARIA_HASPOPUP, "true")
-    dropdownButton.setAttribute(selectors.ARIA_EXPANDED, "false")
-
-    dropdownMenu.setAttribute(selectors.ARIA_LABELLEDBY, dropdownButtonId)
-
-    dropdownMenuItems.forEach(item => {
-      item.setAttribute(selectors.ROLE, "none")
-    })
-
     dropdownMenuItemLinks.forEach(link => {
       link.setAttribute(selectors.ROLE, "menuitem")
       link.setAttribute(selectors.TABINDEX, "-1")

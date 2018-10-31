@@ -18,7 +18,7 @@ var keyCodes = {
   ARROW_DOWN: 40
 };
 var selectors = {
-  FOCUSABLE_SELECTOR: ":not(.is-visually-hidden)",
+  NOT_VISUALLY_HIDDEN: ":not(.is-visually-hidden)",
   FOCUSABLE_TAGS: ["a", "button", "input", "object", "select", "textarea", "[tabindex]"],
   KEYBOARD_CLASS: "using-keyboard"
 };
@@ -35,7 +35,8 @@ var Utils = function () {
     this._handleFocusTrapWithArrows = this._handleFocusTrapWithArrows.bind(this);
     this._listenForKeyboard = this._listenForKeyboard.bind(this);
     this._listenForClick = this._listenForClick.bind(this);
-    this.focusWithArrows = false;
+    this.listeningForKeydown = false;
+    this.trapFocusWithArrows = false;
   }
 
   _createClass(Utils, [{
@@ -48,7 +49,7 @@ var Utils = function () {
 
       if (options) {
         if (options.useArrows) {
-          this.focusWithArrows = options.useArrows || this.focusWithArrows;
+          this.trapFocusWithArrows = options.useArrows || this.trapFocusWithArrows;
           document.addEventListener(events.KEYDOWN, this._handleFocusTrapWithArrows);
         }
       } else {
@@ -58,9 +59,9 @@ var Utils = function () {
   }, {
     key: "releaseFocus",
     value: function releaseFocus() {
-      if (this.focusWithArrows) {
+      if (this.trapFocusWithArrows) {
         document.removeEventListener(events.KEYDOWN, this._handleFocusTrapWithArrows);
-        this.focusWithArrows = false;
+        this.trapFocusWithArrows = false;
       } else {
         document.removeEventListener(events.KEYDOWN, this._handleFocusTrapWithTab);
       }
@@ -73,8 +74,11 @@ var Utils = function () {
   }, {
     key: "disableFocusOutline",
     value: function disableFocusOutline() {
-      document.removeEventListener(events.KEYDOWN, this._listenForKeyboard);
-      document.removeEventListener(events.CLICK, this._listenForClick);
+      if (this.listeningForKeydown) {
+        document.removeEventListener(events.KEYDOWN, this._listenForKeyboard);
+      } else {
+        document.removeEventListener(events.CLICK, this._listenForClick);
+      }
     }
   }, {
     key: "_listenForKeyboard",
@@ -88,6 +92,7 @@ var Utils = function () {
         document.body.classList.add(selectors.KEYBOARD_CLASS);
         document.removeEventListener(events.KEYDOWN, this._listenForKeyboard);
         document.addEventListener(events.CLICK, this._listenForClick);
+        this.listeningForKeydown = false;
       }
     }
   }, {
@@ -96,6 +101,7 @@ var Utils = function () {
       document.body.classList.remove(selectors.KEYBOARD_CLASS);
       document.removeEventListener(events.CLICK, this._listenForClick);
       document.addEventListener(events.KEYDOWN, this._listenForKeyboard);
+      this.listeningForKeydown = true;
     }
   }, {
     key: "_getElements",
@@ -106,20 +112,36 @@ var Utils = function () {
   }, {
     key: "_getFocusableElements",
     value: function _getFocusableElements(container) {
-      var focusables = [];
-      selectors.FOCUSABLE_TAGS.map(function (element) {
-        return focusables.push("".concat(container, " ").concat(element).concat(selectors.FOCUSABLE_SELECTOR));
+      var focusables = selectors.FOCUSABLE_TAGS.map(function (element) {
+        return "".concat(container, " ").concat(element).concat(selectors.NOT_VISUALLY_HIDDEN);
       });
       return this._getElements(focusables.join(", "));
     }
   }, {
+    key: "_handleFocusTrapWithTab",
+    value: function _handleFocusTrapWithTab(event) {
+      var containerElement = document.querySelector(this.focusContainerSelector);
+      var containerActive = document.activeElement === containerElement;
+      var firstActive = document.activeElement === this.focusableFirstChild;
+      var lastActive = document.activeElement === this.focusableLastChild;
+      var tabKey = event.which === keyCodes.TAB;
+      var shiftKey = event.which === keyCodes.SHIFT || event.shiftKey;
+      var hasShift = shiftKey && tabKey;
+      var noShift = !shiftKey && tabKey;
+
+      if (shiftKey && tabKey && (firstActive || containerActive)) {
+        event.preventDefault();
+        this.focusableLastChild.focus();
+      } else if (!shiftKey && tabKey && lastActive) {
+        event.preventDefault();
+        this.focusableFirstChild.focus();
+      }
+    }
+  }, {
     key: "_handleFocusTrapWithArrows",
     value: function _handleFocusTrapWithArrows(event) {
-      var activeElement = document.activeElement;
-      var containerElement = document.querySelector(this.focusContainerSelector);
-      var containerActive = activeElement === containerElement;
-      var firstActive = activeElement === this.focusableFirstChild;
-      var lastActive = activeElement === this.focusableLastChild;
+      var firstActive = document.activeElement === this.focusableFirstChild;
+      var lastActive = document.activeElement === this.focusableLastChild;
       var arrowUp = event.which === keyCodes.ARROW_UP;
       var arrowDown = event.which === keyCodes.ARROW_DOWN;
 
@@ -140,48 +162,21 @@ var Utils = function () {
   }, {
     key: "_focusNextChild",
     value: function _focusNextChild() {
-      var _this = this;
-
-      var nextChild = null;
-      this.focusableChildren.forEach(function (child, i) {
-        if (child === document.activeElement) {
-          nextChild = _this.focusableChildren[i + 1];
+      for (var i = 0; i < this.focusableChildren.length; i++) {
+        if (this.focusableChildren[i] === document.activeElement) {
+          this.focusableChildren[i + 1].focus();
+          break;
         }
-      });
-      nextChild.focus();
+      }
     }
   }, {
     key: "_focusLastChild",
     value: function _focusLastChild() {
-      var _this2 = this;
-
-      var prevChild = null;
-      this.focusableChildren.forEach(function (child, i) {
-        if (child === document.activeElement) {
-          prevChild = _this2.focusableChildren[i - 1];
+      for (var i = 0; i < this.focusableChildren.length; i++) {
+        if (this.focusableChildren[i] === document.activeElement) {
+          this.focusableChildren[i - 1].focus();
+          break;
         }
-      });
-      prevChild.focus();
-    }
-  }, {
-    key: "_handleFocusTrapWithTab",
-    value: function _handleFocusTrapWithTab(event) {
-      var activeElement = document.activeElement;
-      var containerElement = document.querySelector(this.focusContainerSelector);
-      var containerActive = activeElement === containerElement;
-      var firstActive = activeElement === this.focusableFirstChild;
-      var lastActive = activeElement === this.focusableLastChild;
-      var tabKey = event.which === keyCodes.TAB;
-      var shiftKey = event.which === keyCodes.SHIFT || event.shiftKey;
-      var hasShift = shiftKey && tabKey;
-      var noShift = !shiftKey && tabKey;
-
-      if (hasShift && (firstActive || containerActive)) {
-        event.preventDefault();
-        this.focusableLastChild.focus();
-      } else if (noShift && lastActive) {
-        event.preventDefault();
-        this.focusableFirstChild.focus();
       }
     }
   }]);
