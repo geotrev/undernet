@@ -35,6 +35,10 @@ var Utils = function () {
     this._handleFocusTrapWithArrows = this._handleFocusTrapWithArrows.bind(this);
     this._listenForKeyboard = this._listenForKeyboard.bind(this);
     this._listenForClick = this._listenForClick.bind(this);
+    this.focusContainerSelector = "";
+    this.focusableChildren = [];
+    this.focusableFirstChild = null;
+    this.focusableLastChild = null;
     this.listeningForKeydown = false;
     this.trapFocusWithArrows = false;
   }

@@ -65,18 +65,17 @@ var Accordion = function (_Utils) {
     _this.accordionButtons = [];
     _this.accordionContentsAttr = "";
     _this.accordionContents = [];
-    _this.activeContainer = {};
-    _this.activeButton = {};
+    _this.activeContainer = null;
+    _this.activeButton = null;
     _this.activeAccordionRowId = "";
     _this.activeRowAttr = "";
     _this.activeRow = "";
     _this.activeContainerId = "";
     _this.activeContainerAttr = "";
-    _this.activeContainer = {};
-    _this.activeContent = {};
-    _this.toggleExpandState = null;
-    _this.toggleContentState = null;
-    _this.toggleHiddenState = null;
+    _this.activeContent = null;
+    _this.toggleExpandState = "";
+    _this.toggleContentState = "";
+    _this.toggleHiddenState = "";
     _this.allContentAttr = "";
     return _this;
   }
@@ -194,11 +193,11 @@ var Accordion = function (_Utils) {
       var _this4 = this;
 
       if (this.activeContainer.hasAttribute(selectors.DATA_TOGGLE_MULTIPLE)) return;
-      this.allContentAttr = "".concat(this.activeContainerAttr, " [").concat(selectors.DATA_CONTENT, "]");
+      var allContentAttr = "".concat(this.activeContainerAttr, " [").concat(selectors.DATA_CONTENT, "]");
 
       var allRows = this._getElements("".concat(this.activeContainerAttr, " [").concat(selectors.DATA_EXPANDED, "]"));
 
-      var allContent = this._getElements(this.allContentAttr);
+      var allContent = this._getElements(allContentAttr);
 
       var allButtons = this._getElements("".concat(this.activeContainerAttr, " [").concat(selectors.DATA_TARGET, "]"));
 
@@ -206,7 +205,7 @@ var Accordion = function (_Utils) {
         if (!(content === _this4.activeContent)) content.style.maxHeight = null;
       });
 
-      this._getFocusableElements(this.allContentAttr).forEach(function (element) {
+      this._getFocusableElements(allContentAttr).forEach(function (element) {
         element.setAttribute(selectors.TABINDEX, "-1");
       });
 

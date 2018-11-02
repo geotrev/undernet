@@ -29,7 +29,12 @@ export default class Utils {
     this._listenForKeyboard = this._listenForKeyboard.bind(this)
     this._listenForClick = this._listenForClick.bind(this)
 
-    // Used for focus outline elper
+    this.focusContainerSelector = ""
+    this.focusableChildren = []
+    this.focusableFirstChild = null
+    this.focusableLastChild = null
+
+    // Used for focus outline helper
     this.listeningForKeydown = false
 
     // Used for captureFocus() if options.useArrows is passed

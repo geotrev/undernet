@@ -51,18 +51,17 @@ export default class Accordion extends Utils {
     this.accordionContents = []
 
     // active accordion
-    this.activeContainer = {}
-    this.activeButton = {}
+    this.activeContainer = null
+    this.activeButton = null
     this.activeAccordionRowId = ""
     this.activeRowAttr = ""
     this.activeRow = ""
     this.activeContainerId = ""
     this.activeContainerAttr = ""
-    this.activeContainer = {}
-    this.activeContent = {}
-    this.toggleExpandState = null
-    this.toggleContentState = null
-    this.toggleHiddenState = null
+    this.activeContent = null
+    this.toggleExpandState = ""
+    this.toggleContentState = ""
+    this.toggleHiddenState = ""
     this.allContentAttr = ""
   }
 
@@ -196,16 +195,17 @@ export default class Accordion extends Utils {
    */
   _closeAllIfToggleable() {
     if (this.activeContainer.hasAttribute(selectors.DATA_TOGGLE_MULTIPLE)) return
-    this.allContentAttr = `${this.activeContainerAttr} [${selectors.DATA_CONTENT}]`
+
+    const allContentAttr = `${this.activeContainerAttr} [${selectors.DATA_CONTENT}]`
     const allRows = this._getElements(`${this.activeContainerAttr} [${selectors.DATA_EXPANDED}]`)
-    const allContent = this._getElements(this.allContentAttr)
+    const allContent = this._getElements(allContentAttr)
     const allButtons = this._getElements(`${this.activeContainerAttr} [${selectors.DATA_TARGET}]`)
 
     allContent.forEach(content => {
       if (!(content === this.activeContent)) content.style.maxHeight = null
     })
 
-    this._getFocusableElements(this.allContentAttr).forEach(element => {
+    this._getFocusableElements(allContentAttr).forEach(element => {
       element.setAttribute(selectors.TABINDEX, "-1")
     })
 
@@ -216,7 +216,7 @@ export default class Accordion extends Utils {
   }
 
   /**
-   * Toggle a [data-accordion-button]'s corresponding [data-accordion-content] element.
+   * Toggle the currently selected accordion button.
    */
   _toggleSelectedAccordion() {
     this.activeRow.setAttribute(selectors.DATA_EXPANDED, this.toggleExpandState)

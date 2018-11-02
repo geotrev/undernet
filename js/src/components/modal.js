@@ -54,7 +54,7 @@ export default class Modal extends Utils {
     this.modalButtons = []
 
     // active modal
-    this.activeModalButton = {}
+    this.activeModalButton = null
     this.activeModalId = ""
     this.activeModalOverlayAttr = ""
     this.activeModalOverlay = {}

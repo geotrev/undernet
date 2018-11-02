@@ -195,12 +195,20 @@ export default class Dropdown extends Utils {
     }
   }
 
+  /**
+   * Renders dropdown if the user uses arrow up or down.
+   * @param {Object} event - The event object
+   */
   _renderWithKeys(event) {
     if (event.which === keyCodes.ARROW_UP || event.which === keyCodes.ARROW_DOWN) {
       this._render(event, event.which)
     }
   }
 
+  /**
+   * Closes currently open dropdown.
+   * @param {Object} event - The event object
+   */
   _handleClose(event) {
     event.preventDefault()
 
@@ -225,24 +233,39 @@ export default class Dropdown extends Utils {
     }
   }
 
+  /**
+   * Use escape key to close dropdown.
+   * @param {Object} event - The event object
+   */
   _handleEscapeKeyPress(event) {
     if (event.which === keyCodes.ESCAPE) {
       this._handleClose(event)
     }
   }
 
+  /**
+   * Closes dropdown
+   * @param {Object} event - The event object
+   */
   _handleOffMenuClick(event) {
     if (event.target !== this.activeDropdownButton && event.target !== this.activeDropdownMenu) {
       this._handleClose(event)
     }
   }
 
+  /**
+   * Puts focus on a the active dropdown button.
+   */
   _handleReturnFocus() {
     this.activeDropdownButton.setAttribute(selectors.TAB_INDEX, "-1")
     this.activeDropdownButton.focus()
     this.activeDropdownButton.removeAttribute(selectors.TAB_INDEX)
   }
 
+  /**
+   * Add starting attributes to a dropdown.
+   * @param {Element} dropdown - A dropdown element.
+   */
   _setupDropdown(dropdown) {
     const dropdownId = dropdown.getAttribute(selectors.DATA_DROPDOWN)
     const dropdownIdAttr = `[${selectors.DATA_DROPDOWN}="${dropdownId}"]`
