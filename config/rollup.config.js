@@ -21,6 +21,7 @@ module.exports = {
     resolve(),
     babel({
       exclude: "node_modules/**",
+      comments: false,
     }),
   ],
 }

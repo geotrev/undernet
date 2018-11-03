@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = exports.Utils = exports.Dropdowns = exports.Accordions = exports.Modals = void 0;
+exports.default = void 0;
 
 var _modal = _interopRequireDefault(require("./components/modal"));
 
@@ -16,13 +16,9 @@ var _utils = _interopRequireDefault(require("./utils"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Modals = new _modal.default();
-exports.Modals = Modals;
 var Accordions = new _accordion.default();
-exports.Accordions = Accordions;
 var Dropdowns = new _dropdown.default();
-exports.Dropdowns = Dropdowns;
 var Utils = new _utils.default();
-exports.Utils = Utils;
 var Undernet = {
   Modals: Modals,
   Accordions: Accordions,

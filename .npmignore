@@ -3,7 +3,6 @@ yarn-error.log*
 npm-error.log*
 
 /build/
-/node_modules/
 /.nyc_output/
 
 .ruby-version

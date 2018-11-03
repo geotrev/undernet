@@ -1,9 +1,11 @@
 function presets(rollup) {
-  if (rollup) {
-    return [["@babel/preset-env", { modules: false }]]
-  } else {
-    return ["@babel/preset-env", "@babel/preset-react"]
+  let result = ["@babel/preset-env"]
+
+  if (!rollup) {
+    result.push("@babel/preset-react")
   }
+
+  return result
 }
 
 function plugins(options) {
