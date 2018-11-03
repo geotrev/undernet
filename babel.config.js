@@ -2,6 +2,8 @@ function presets(dist) {
   let result = ["@babel/preset-env"]
 
   if (!dist) {
+    result.pop()
+    result.push(["@babel/preset-env", { useBuiltIns: "entry" }])
     result.push("@babel/preset-react")
   }
 
