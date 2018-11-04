@@ -47,6 +47,15 @@ textarea {
   margin: 0;
 }
 
+a,
+button,
+label,
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
 *,
 *:before,
 *:after {
