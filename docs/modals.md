@@ -141,15 +141,18 @@ Two main pieces are required: an API call and correct HTML markup.
 
 ### HTML
 
+#### Trigger Attributes
+
 For the modal button, it should have two main properties:
 
 ```html
 <button data-modal-button data-target="new-modal">Press me</button>
 ```
 
-#### Attributes
 - `data-modal-button`: an attribute indicating this button opens a modal dialog.
 - `data-target`: an attribute containing a unique id pointing to the modal overlay's `data-modal-id` attribute.
+
+#### Modal Attributes
 
 For the modal itself, you need a few more things.
 
@@ -173,13 +176,13 @@ For the modal itself, you need a few more things.
 </div>
 ```
 
-#### Attributes
 - `data-modal-id`: an attribute matching your corresponding button's `data-target`. Add it to the modal overlay element.
 - `data-modal`: an attribute indicating the element is a modal dialog. It should be the immediate child of the modal overlay.
 - `data-parent`: an attribute pointing to the modal wrapper. It should equal the value of the element with `data-modal-id`.
 - `data-close`: an attribute indicating a button or link will close the modal dialog.
 
 #### Accessibility
+
 - `aria-hidden`: an attribute that should be attached to any icons (close or otherwise) in the modal. Screen readers are inconsistent with icons, so they should be hidden instead. When using an icon, make sure you have `is-visually-hidden` text describing the action.
 - `aria-labelledby`: an attribute to be attached to the modal dialog element. It should have a matching value to the header element's `id`.
 

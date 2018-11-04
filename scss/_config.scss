@@ -94,6 +94,8 @@ $spacing-increments: (
 ) !default;
 
 $modal-index: 2000 !default;
+$dropdown-menu-index: 1999;
+$dropdown-menu-index-in-modal: 2001;
 
 // 2. Grid
 // -------
@@ -689,3 +691,27 @@ $accordion-row-divider: $accordion-border !default;
 $accordion-content-margin: $global-space !default;
 $accordion-content-font-size: $global-font-size !default;
 $accordion-content-background: $white !default;
+
+// 8. Dropdowns
+// ------------
+
+$dropdown-button-arrow: "\25bc";
+$dropdown-button-arrow-padding: 0 0 0 8px;
+
+$dropdown-menu-transition: opacity $global-transition;
+$dropdown-menu-padding: 4px 0;
+$dropdown-menu-border-radius: $global-border-radius;
+$dropdown-menu-background-color: $white;
+$dropdown-menu-width: 200px;
+$dropdown-menu-border: 1px solid $gray900;
+
+$dropdown-menu-button-padding: 8px 12px;
+$dropdown-menu-button-text-color: $gray400;
+
+$dropdown-menu-rule-height: 1px;
+$dropdown-menu-rule-color: $gray900;
+$dropdown-menu-rule-margin: 8px 0;
+
+$dropdown-menu-header-font-size: 14px;
+$dropdown-menu-header-padding: 12px;
+$dropdown-menu-header-color: $gray800;
