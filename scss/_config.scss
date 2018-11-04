@@ -17,6 +17,7 @@
 // ------------------
 // 6. Modals
 // 7. Accordions
+// 8. Dropdowns
 // ------------------
 
 // ******************
@@ -697,6 +698,7 @@ $accordion-content-background: $white !default;
 
 $dropdown-button-arrow: "\25bc";
 $dropdown-button-arrow-padding: 0 0 0 8px;
+$dropdown-button-arrow-font-size: 12px;
 
 $dropdown-menu-transition: opacity $global-transition;
 $dropdown-menu-padding: 4px 0;

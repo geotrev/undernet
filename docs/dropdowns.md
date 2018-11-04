@@ -55,7 +55,7 @@ You can use any button style with a dropdown. Just add the appropriate class to 
 
 ## Alignment
 
-Although a dropdown will align to the left by default, you can let it align from the right using `is-aligned-right` on `.dropdown-menu`.
+Dropdowns align to the left of their respective button by default, but you can let it align from the right using `is-aligned-right` on the dropdown menu.
 
 <div data-dropdown="dropdown5" class="dropdown">
   <button id="dropdown-button5" data-parent="dropdown5" data-target="new-dropdown5">Open Dropdown</button>
@@ -70,13 +70,52 @@ Although a dropdown will align to the left by default, you can let it align from
 
 ```html
 <div data-dropdown="dropdown5" class="dropdown">
-  <button id="dropdown-button5" data-parent="dropdown5" data-target="new-dropdown5">Open Dropdown</button>
+  <button id="dropdown-button5" data-parent="dropdown5" data-target="new-dropdown5">Open Right-Aligned Dropdown</button>
   <ul id="new-dropdown5" class="dropdown-menu is-aligned-right">
     <li class="dropdown-header">
       <h6>Aligned right!</h6>
     </li>
     <li><a href="#">Item 1</a></li>
     <li><a href="#">Item 2</a></li>
+  </ul>
+</div>
+```
+
+## Direction
+
+Using a few custom classes, you can specify where the menu pops open relative to its button. The available classes are `is-drop-up`, `is-drop-left`, and `is-drop-right`. Note that this only works for viewports above a specific width, as defined using the variable `$dropdown-menu-direction-breakpoint` (sorry mobile viewers).
+
+<div data-dropdown="dropdown9" class="dropdown">
+  <button id="dropdown-button9" data-parent="dropdown9" data-target="new-dropdown9">Open Up</button>
+  <ul id="new-dropdown9" class="dropdown-menu is-drop-up">
+    <li><a href="#">Item 1</a></li>
+    <li><a href="#">Item 2</a></li>
+    <li><a href="#">Item 3</a></li>
+  </ul>
+</div> <div data-dropdown="dropdown10" class="dropdown">
+  <button id="dropdown-button10" data-parent="dropdown10" data-target="new-dropdown10">Open Left</button>
+  <ul id="new-dropdown10" class="dropdown-menu is-drop-left">
+    <li><a href="#">Item 1</a></li>
+    <li><a href="#">Item 2</a></li>
+    <li><a href="#">Item 3</a></li>
+  </ul>
+</div> <div data-dropdown="dropdown11" class="dropdown">
+  <button id="dropdown-button11" data-parent="dropdown11" data-target="new-dropdown11">Open Right</button>
+  <ul id="new-dropdown11" class="dropdown-menu is-drop-right">
+    <li><a href="#">Item 1</a></li>
+    <li><a href="#">Item 2</a></li>
+    <li><a href="#">Item 3</a></li>
+  </ul>
+</div>
+
+```html
+<!-- menu drops up -->
+<div data-dropdown="dropdown9" class="dropdown">
+  <button id="dropdown-button9" data-parent="dropdown9" data-target="new-dropdown9">Open Dropdown</button>
+  <ul id="new-dropdown9" class="dropdown-menu is-drop-up">
+    <li><a href="#">Item 1</a></li>
+    <li><a href="#">Item 2</a></li>
+    <li><a href="#">Item 3</a></li>
   </ul>
 </div>
 ```
@@ -240,6 +279,9 @@ A few classes will add the styling necessary of hide/show, and add menu position
 - `dropdown`: the container class providing inline and relative positioning of the component.
 - `dropdown-menu`: the menu class that provides positioning relative to the button.
 - `is-aligned-right`: a helper class that aligns the dropdown to the right (default is left).
+- `is-drop-up`: a helper class that positions the dropdown upward when open
+- `is-drop-left`: a helper class that positions the dropdown left when open
+- `is-drop-right`: a helper class that positions the dropdown right when open
 
 ### API
 
