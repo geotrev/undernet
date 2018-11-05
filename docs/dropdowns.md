@@ -262,7 +262,7 @@ The menu itself only needs one attribute.
 
 #### Accessibility
 
-A few key attributes are added for you when the modal is instantiated by the plugin. These help assistive technologies know how to treat and navigate through the component.
+A few key attributes are added for you when the dropdown is instantiated. These help assistive technologies know how to treat and navigate through the component.
 
 - `aria-expanded`: added to the button element, describing if the dropdown menu is visible or not.
 - `aria-haspopup`: added to the button element, an attribute equal to `true`, it will tell assistive technologies this button has a menu associated with it.

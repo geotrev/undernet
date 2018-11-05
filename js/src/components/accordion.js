@@ -11,15 +11,15 @@ const selectors = {
   ACCORDION_CONTAINER: "data-accordion",
   ACCORDION_ROW: "data-accordion-row",
   // common
-  DATA_EXPANDED: "data-expanded",
+  DATA_VISIBLE: "data-visible",
   DATA_TARGET: "data-target",
-  DATA_CONTENT: "data-content",
   DATA_TOGGLE_MULTIPLE: "data-toggle-multiple",
   DATA_PARENT: "data-parent",
   // accessibility
   ARIA_EXPANDED: "aria-expanded",
   ARIA_CONTROLS: "aria-controls",
   ARIA_HIDDEN: "aria-hidden",
+  ARIA_LABELLEDBY: "aria-labelledby",
   TABINDEX: "tabindex",
 }
 
@@ -76,34 +76,11 @@ export default class Accordion extends Utils {
       `[${selectors.ACCORDION_CONTAINER}] [${selectors.DATA_TARGET}]`,
     )
 
-    this.accordionContentsAttr = `[${selectors.ACCORDION_CONTAINER}] [${selectors.DATA_CONTENT}]`
-    this.accordionContents = this._getElements(this.accordionContentsAttr)
-
-    this._getFocusableElements(this.accordionContentsAttr).forEach(element => {
-      element.setAttribute(selectors.TABINDEX, "-1")
-    })
-
     if (this.accordionButtons.length) {
       this.accordionButtons.forEach(button => {
-        this._setupButton(button)
+        this._setupAccordion(button)
         button.addEventListener(events.CLICK, this._render)
         button.addEventListener(events.KEYDOWN, this._handleSpaceKeyPress)
-      })
-    }
-
-    if (this.accordionContents.length) {
-      this.accordionContents.forEach(content => {
-        const contentRowAttr = this._getAccordionRowAttr(content.id)
-        const contentRow = document.querySelector(contentRowAttr)
-        const contentHiddenState = contentRow.getAttribute(selectors.DATA_EXPANDED)
-        const toggleContentHiddenState = contentHiddenState === "true" ? "false" : "true"
-        content.setAttribute(selectors.ARIA_HIDDEN, toggleContentHiddenState)
-
-        if (toggleContentHiddenState === "false") {
-          this._getFocusableElements(`#${content.id}`).forEach(element => {
-            element.setAttribute(selectors.TABINDEX, "0")
-          })
-        }
       })
     }
   }
@@ -120,21 +97,39 @@ export default class Accordion extends Utils {
 
   // private
 
-  _setupButton(button) {
+  _setupAccordion(button) {
     const buttonId = button.getAttribute(selectors.DATA_TARGET)
-    const accordionRowAttr = this._getAccordionRowAttr(buttonId)
-    const accordionRow = document.querySelector(accordionRowAttr)
-    const shouldContentExpand = accordionRow.getAttribute(selectors.DATA_EXPANDED)
-    const buttonContent = document.getElementById(buttonId)
-
     button.setAttribute(selectors.ARIA_CONTROLS, buttonId)
 
-    if (shouldContentExpand === "true") {
-      buttonContent.style.maxHeight = `${buttonContent.scrollHeight}px`
+    const accordionRowAttr = this._getAccordionRowAttr(buttonId)
+    const accordionRow = document.querySelector(accordionRowAttr)
+    const contentShouldExpand = accordionRow.getAttribute(selectors.DATA_VISIBLE)
+    const buttonContent = document.getElementById(buttonId)
+
+    const buttonHeaderAttr = this._getPossibleAccordionHeaderAttrs(accordionRowAttr)
+    const buttonHeader = this._getElements(buttonHeaderAttr)[0]
+    buttonContent.setAttribute(selectors.ARIA_LABELLEDBY, buttonHeader.id)
+
+    const buttonContentChildren = this._getFocusableElements(`#${buttonId}`)
+
+    if (contentShouldExpand === "true") {
       button.setAttribute(selectors.ARIA_EXPANDED, "true")
+      buttonContent.style.maxHeight = `${buttonContent.scrollHeight}px`
+      buttonContent.setAttribute(selectors.ARIA_HIDDEN, "false")
+      buttonContentChildren.forEach(element => {
+        element.setAttribute(selectors.TABINDEX, "0")
+      })
     } else {
       button.setAttribute(selectors.ARIA_EXPANDED, "false")
+      buttonContent.setAttribute(selectors.ARIA_HIDDEN, "true")
+      buttonContentChildren.forEach(element => {
+        element.setAttribute(selectors.TABINDEX, "-1")
+      })
     }
+  }
+
+  _getPossibleAccordionHeaderAttrs(attr) {
+    return `${attr} h1, ${attr} h2, ${attr} h3, ${attr} h4, ${attr} h5, ${attr} h6`
   }
 
   /**
@@ -164,13 +159,7 @@ export default class Accordion extends Utils {
 
     this.activeContent = document.getElementById(this.activeAccordionRowId)
 
-    const accordionContentHasAttr = this.activeContent.hasAttribute(selectors.DATA_CONTENT)
-    if (!accordionContentHasAttr) {
-      throw messages.MISSING_CONTENT
-      return
-    }
-
-    const accordionButtonState = this.activeRow.getAttribute(selectors.DATA_EXPANDED)
+    const accordionButtonState = this.activeRow.getAttribute(selectors.DATA_VISIBLE)
     const accordionContentState = this.activeContent.getAttribute(selectors.DATA_CONTENT)
 
     this.toggleExpandState = accordionButtonState === "true" ? "false" : "true"
@@ -197,7 +186,7 @@ export default class Accordion extends Utils {
     if (this.activeContainer.hasAttribute(selectors.DATA_TOGGLE_MULTIPLE)) return
 
     const allContentAttr = `${this.activeContainerAttr} [${selectors.DATA_CONTENT}]`
-    const allRows = this._getElements(`${this.activeContainerAttr} [${selectors.DATA_EXPANDED}]`)
+    const allRows = this._getElements(`${this.activeContainerAttr} [${selectors.DATA_VISIBLE}]`)
     const allContent = this._getElements(allContentAttr)
     const allButtons = this._getElements(`${this.activeContainerAttr} [${selectors.DATA_TARGET}]`)
 
@@ -209,7 +198,7 @@ export default class Accordion extends Utils {
       element.setAttribute(selectors.TABINDEX, "-1")
     })
 
-    this._toggleAttributeInCollection(allRows, selectors.DATA_EXPANDED, "true", "false")
+    this._toggleAttributeInCollection(allRows, selectors.DATA_VISIBLE, "true", "false")
     this._toggleAttributeInCollection(allButtons, selectors.ARIA_EXPANDED, "true", "false")
     this._toggleAttributeInCollection(allContent, selectors.ARIA_HIDDEN, "false", "true")
     this._toggleAttributeInCollection(allContent, selectors.DATA_CONTENT, "visible", "hidden")
@@ -219,7 +208,7 @@ export default class Accordion extends Utils {
    * Toggle the currently selected accordion button.
    */
   _toggleSelectedAccordion() {
-    this.activeRow.setAttribute(selectors.DATA_EXPANDED, this.toggleExpandState)
+    this.activeRow.setAttribute(selectors.DATA_VISIBLE, this.toggleExpandState)
     this.activeContent.setAttribute(selectors.DATA_CONTENT, this.toggleContentState)
     this.activeButton.setAttribute(selectors.ARIA_EXPANDED, this.toggleExpandState)
     this.activeContent.setAttribute(selectors.ARIA_HIDDEN, this.toggleHiddenState)

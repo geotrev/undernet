@@ -3,7 +3,7 @@
   overflow: hidden;
   border-radius: $accordion-border-radius;
 
-  [data-expanded="false"] .accordion-button::after {
+  [data-visible="false"] .accordion-button::after {
     transform: rotate(180deg);
   }
 
