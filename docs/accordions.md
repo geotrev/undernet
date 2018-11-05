@@ -14,7 +14,7 @@ Check out this example accordion:
       </button>
     </h5>
     <div class="accordion-content" id="content-1">
-      <p class="accordion-inner-content">
+      <p class="has-margin">
         Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
         ipsum ut voluptate.
       </p>
@@ -27,7 +27,7 @@ Check out this example accordion:
       </button>
     </h5>
     <div class="accordion-content" id="content-2">
-      <p class="accordion-inner-content">
+      <p class="has-margin">
         Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
         ipsum ut voluptate.
       </p>
@@ -40,7 +40,7 @@ Check out this example accordion:
       </button>
     </h5>
     <div class="accordion-content" id="content-3">
-      <p class="accordion-inner-content">
+      <p class="has-margin">
         Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
         ipsum ut voluptate.
       </p>
@@ -51,7 +51,6 @@ Check out this example accordion:
 
 ```html
 <div data-accordion="new-accordion" class="accordion">
-
   <div class="accordion-row" data-visible="true" data-accordion-row="content-1">
     <h5 id="button-1">
       <button data-parent="accordion-1" class="accordion-button" data-target="content-1">
@@ -59,13 +58,12 @@ Check out this example accordion:
       </button>
     </h5>
     <div class="accordion-content" id="content-1">
-      <p class="accordion-inner-content">
+      <p class="has-margin">
         Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
         ipsum ut voluptate.
       </p>
     </div>
   </div>
-
   <div class="accordion-row" data-visible="false" data-accordion-row="content-2">
     <h5 id="button-2">
       <button data-parent="accordion-1" class="accordion-button" data-target="content-2">
@@ -73,7 +71,7 @@ Check out this example accordion:
       </button>
     </h5>
     <div class="accordion-content" id="content-2">
-      <p class="accordion-inner-content">
+      <p class="has-margin">
         Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
         ipsum ut voluptate.
       </p>
@@ -86,7 +84,7 @@ Check out this example accordion:
       </button>
     </h5>
     <div class="accordion-content" id="content-3">
-      <p class="accordion-inner-content">
+      <p class="has-margin">
         Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
         ipsum ut voluptate.
       </p>
@@ -109,7 +107,7 @@ Add `data-toggle-multiple` on the accordion container to let each accordion row 
       </button>
     </h5>
     <div class="accordion-content" id="content-4">
-      <p class="accordion-inner-content">
+      <p class="has-margin">
         Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
         ipsum ut voluptate.
       </p>
@@ -122,7 +120,7 @@ Add `data-toggle-multiple` on the accordion container to let each accordion row 
       </button>
     </h5>
     <div class="accordion-content" id="content-5">
-      <p class="accordion-inner-content">
+      <p class="has-margin">
         Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
         ipsum ut voluptate.
       </p>
@@ -135,7 +133,7 @@ Add `data-toggle-multiple` on the accordion container to let each accordion row 
       </button>
     </h5>
     <div class="accordion-content" id="content-6">
-      <p class="accordion-inner-content">
+      <p class="has-margin">
         Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
         ipsum ut voluptate.
       </p>
@@ -166,7 +164,7 @@ When making an accordion, there are two major considerations in its structure: t
       <button data-parent="accordion-1" class="accordion-button" data-target="content-1">...</button>
     </h5>
     <div class="accordion-content" id="content-1">
-      <p class="accordion-inner-content">...</p>
+      <p class="has-margin">...</p>
     </div>
   </div>
   ...
@@ -200,12 +198,6 @@ A few key attributes are added for you when the accordion is instantiated. These
 - `accordion-content`: gives separator styling for a row.
 
 Edit much of the styling within `_config.scss`.
-
-#### Optional Classes
-
-Each of these elements has corresponding options under `_config.scss`.
-
-- `accordion-inner-content`: A helper element that adds 16px of padding inside the content container.
 
 ### API
 

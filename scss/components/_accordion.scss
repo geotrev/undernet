@@ -57,10 +57,6 @@
       background: $accordion-content-background;
       transition: max-height $accordion-transition-duration $accordion-transition-ease;
       border-bottom: $accordion-row-divider;
-
-      .accordion-inner-content {
-        margin: $accordion-content-margin;
-      }
     }
   }
 }

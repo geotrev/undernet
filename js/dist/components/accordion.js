@@ -74,9 +74,7 @@ var Accordion = function (_Utils) {
     _this.activeContainerAttr = "";
     _this.activeContent = null;
     _this.toggleExpandState = "";
-    _this.toggleContentState = "";
     _this.toggleHiddenState = "";
-    _this.allContentAttr = "";
     return _this;
   }
 
@@ -110,25 +108,25 @@ var Accordion = function (_Utils) {
     key: "_setupAccordion",
     value: function _setupAccordion(button) {
       var buttonId = button.getAttribute(selectors.DATA_TARGET);
-      button.setAttribute(selectors.ARIA_CONTROLS, buttonId);
+      var buttonContent = document.getElementById(buttonId);
 
       var accordionRowAttr = this._getAccordionRowAttr(buttonId);
 
       var accordionRow = document.querySelector(accordionRowAttr);
-      var contentShouldExpand = accordionRow.getAttribute(selectors.DATA_VISIBLE);
-      var buttonContent = document.getElementById(buttonId);
 
       var buttonHeaderAttr = this._getPossibleAccordionHeaderAttrs(accordionRowAttr);
 
       var buttonHeader = this._getElements(buttonHeaderAttr)[0];
 
-      buttonContent.setAttribute(selectors.ARIA_LABELLEDBY, buttonHeader.id);
+      var buttonContentChildren = this._getFocusableElements("#".concat(buttonContent.id));
 
-      var buttonContentChildren = this._getFocusableElements("#".concat(buttonId));
+      button.setAttribute(selectors.ARIA_CONTROLS, buttonId);
+      buttonContent.setAttribute(selectors.ARIA_LABELLEDBY, buttonHeader.id);
+      var contentShouldExpand = accordionRow.getAttribute(selectors.DATA_VISIBLE);
 
       if (contentShouldExpand === "true") {
-        button.setAttribute(selectors.ARIA_EXPANDED, "true");
         buttonContent.style.maxHeight = "".concat(buttonContent.scrollHeight, "px");
+        button.setAttribute(selectors.ARIA_EXPANDED, "true");
         buttonContent.setAttribute(selectors.ARIA_HIDDEN, "false");
         buttonContentChildren.forEach(function (element) {
           element.setAttribute(selectors.TABINDEX, "0");
@@ -164,9 +162,7 @@ var Accordion = function (_Utils) {
       this.activeContainer = document.querySelector(this.activeContainerAttr);
       this.activeContent = document.getElementById(this.activeAccordionRowId);
       var accordionButtonState = this.activeRow.getAttribute(selectors.DATA_VISIBLE);
-      var accordionContentState = this.activeContent.getAttribute(selectors.DATA_CONTENT);
       this.toggleExpandState = accordionButtonState === "true" ? "false" : "true";
-      this.toggleContentState = accordionContentState === "visible" ? "hidden" : "visible";
       this.toggleHiddenState = this.toggleExpandState === "false" ? "true" : "false";
 
       this._closeAllIfToggleable();
@@ -184,7 +180,7 @@ var Accordion = function (_Utils) {
       var _this4 = this;
 
       if (this.activeContainer.hasAttribute(selectors.DATA_TOGGLE_MULTIPLE)) return;
-      var allContentAttr = "".concat(this.activeContainerAttr, " [").concat(selectors.DATA_CONTENT, "]");
+      var allContentAttr = "".concat(this.activeContainerAttr, " [").concat(selectors.ARIA_HIDDEN, "]");
 
       var allRows = this._getElements("".concat(this.activeContainerAttr, " [").concat(selectors.DATA_VISIBLE, "]"));
 
@@ -205,8 +201,6 @@ var Accordion = function (_Utils) {
       this._toggleAttributeInCollection(allButtons, selectors.ARIA_EXPANDED, "true", "false");
 
       this._toggleAttributeInCollection(allContent, selectors.ARIA_HIDDEN, "false", "true");
-
-      this._toggleAttributeInCollection(allContent, selectors.DATA_CONTENT, "visible", "hidden");
     }
   }, {
     key: "_toggleSelectedAccordion",
@@ -214,7 +208,6 @@ var Accordion = function (_Utils) {
       var _this5 = this;
 
       this.activeRow.setAttribute(selectors.DATA_VISIBLE, this.toggleExpandState);
-      this.activeContent.setAttribute(selectors.DATA_CONTENT, this.toggleContentState);
       this.activeButton.setAttribute(selectors.ARIA_EXPANDED, this.toggleExpandState);
       this.activeContent.setAttribute(selectors.ARIA_HIDDEN, this.toggleHiddenState);
       var activeContentBlock = "#".concat(this.activeAccordionRowId);
