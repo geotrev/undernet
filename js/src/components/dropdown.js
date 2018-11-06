@@ -139,10 +139,7 @@ export default class Dropdown extends Utils {
     document.addEventListener(events.KEYDOWN, this._handleEscapeKeyPress)
     document.addEventListener(events.CLICK, this._handleOffMenuClick)
 
-    const buttonSelector = `${this.activeDropdownAttr} > ul > li`
-    this.activeDropdownLinks = this._getElements(
-      `${buttonSelector} > a, ${buttonSelector} > button`,
-    )
+    this.activeDropdownLinks = this._getDropdownButtons(this.activeDropdownAttr)
 
     this.firstDropdownLink = this.activeDropdownLinks[0]
     this.lastDropdownLink = this.activeDropdownLinks[this.activeDropdownLinks.length - 1]
@@ -257,6 +254,10 @@ export default class Dropdown extends Utils {
     this.activeDropdownButton.removeAttribute(selectors.TAB_INDEX)
   }
 
+  _getDropdownButtons(attr) {
+    return this._getElements(`${attr} > ul > li > a, ${attr} > ul > li > button`)
+  }
+
   /**
    * Add starting attributes to a dropdown.
    * @param {Element} dropdown - A dropdown element.
@@ -277,10 +278,7 @@ export default class Dropdown extends Utils {
     const dropdownMenuItems = this._getElements(dropdownMenuItemsAttr)
     dropdownMenuItems.forEach(item => item.setAttribute(selectors.ROLE, "none"))
 
-    const dropdownMenuItemLinks = this._getElements(
-      `${dropdownMenuItemsAttr} > a, ${dropdownMenuItemsAttr} > button`,
-    )
-    dropdownMenuItemLinks.forEach(link => {
+    this._getDropdownButtons(dropdownIdAttr).forEach(link => {
       link.setAttribute(selectors.ROLE, "menuitem")
       link.setAttribute(selectors.TABINDEX, "-1")
     })

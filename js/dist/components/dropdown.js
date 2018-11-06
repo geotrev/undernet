@@ -140,8 +140,7 @@ var Dropdown = function (_Utils) {
       this.activeDropdownButton.addEventListener(events.CLICK, this._handleClose);
       document.addEventListener(events.KEYDOWN, this._handleEscapeKeyPress);
       document.addEventListener(events.CLICK, this._handleOffMenuClick);
-      var buttonSelector = "".concat(this.activeDropdownAttr, " > ul > li");
-      this.activeDropdownLinks = this._getElements("".concat(buttonSelector, " > a, ").concat(buttonSelector, " > button"));
+      this.activeDropdownLinks = this._getDropdownButtons(this.activeDropdownAttr);
       this.firstDropdownLink = this.activeDropdownLinks[0];
       this.lastDropdownLink = this.activeDropdownLinks[this.activeDropdownLinks.length - 1];
       this.firstDropdownLink.addEventListener(events.KEYDOWN, this._handleFirstTabClose);
@@ -232,6 +231,11 @@ var Dropdown = function (_Utils) {
       this.activeDropdownButton.removeAttribute(selectors.TAB_INDEX);
     }
   }, {
+    key: "_getDropdownButtons",
+    value: function _getDropdownButtons(attr) {
+      return this._getElements("".concat(attr, " > ul > li > a, ").concat(attr, " > ul > li > button"));
+    }
+  }, {
     key: "_setupDropdown",
     value: function _setupDropdown(dropdown) {
       var dropdownId = dropdown.getAttribute(selectors.DATA_DROPDOWN);
@@ -250,9 +254,7 @@ var Dropdown = function (_Utils) {
         return item.setAttribute(selectors.ROLE, "none");
       });
 
-      var dropdownMenuItemLinks = this._getElements("".concat(dropdownMenuItemsAttr, " > a, ").concat(dropdownMenuItemsAttr, " > button"));
-
-      dropdownMenuItemLinks.forEach(function (link) {
+      this._getDropdownButtons(dropdownIdAttr).forEach(function (link) {
         link.setAttribute(selectors.ROLE, "menuitem");
         link.setAttribute(selectors.TABINDEX, "-1");
       });

@@ -30,9 +30,6 @@ const events = {
   RESIZE: "resize",
 }
 
-// check data-target
-// data-parent check
-// data-modal-id check
 const messages = {
   NO_TARGET_ERROR: `One of your [data-modal-button] elements is missing its [data-target] attribute.`,
   NO_PARENT_ERROR: `One of your [data-modal] elements is missing its [data-parent] attribute.`,
