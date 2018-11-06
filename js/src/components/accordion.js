@@ -95,6 +95,10 @@ export default class Accordion extends Utils {
 
   // private
 
+  /**
+   * Add initial attributes to accordion elements.
+   * @param {Element} button - A button element that triggers an accordion.
+   */
   _setupAccordion(button) {
     const buttonId = button.getAttribute(selectors.DATA_TARGET)
     const buttonContent = document.getElementById(buttonId)
@@ -124,6 +128,10 @@ export default class Accordion extends Utils {
     }
   }
 
+  /**
+   * Build a selector string to be passed into querySelectorAll() / _getElements()
+   * @param {String} - A unique attribute.
+   */
   _getPossibleAccordionHeaderAttrs(attr) {
     return `${attr} h1, ${attr} h2, ${attr} h3, ${attr} h4, ${attr} h5, ${attr} h6`
   }

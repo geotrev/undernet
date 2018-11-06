@@ -31,10 +31,6 @@ const events = {
   CLICK: "click",
 }
 
-const messages = {
-  MISSING_DROPDOWN: "You have a dropdown button missing its corresponding menu.",
-}
-
 /**
  * Dropdown component class.
  * @module Dropdown
@@ -122,11 +118,6 @@ export default class Dropdown extends Utils {
     this.activeDropdownButton = event.target
     this.activeDropdownId = this.activeDropdownButton.getAttribute(selectors.DATA_PARENT)
 
-    if (!this.activeDropdownId) {
-      throw messages.MISSING_DROPDOWN
-      return
-    }
-
     this.activeDropdownButton.setAttribute(selectors.ARIA_EXPANDED, "true")
 
     // dropdown container
@@ -148,7 +139,11 @@ export default class Dropdown extends Utils {
     document.addEventListener(events.KEYDOWN, this._handleEscapeKeyPress)
     document.addEventListener(events.CLICK, this._handleOffMenuClick)
 
-    this.activeDropdownLinks = this._getElements(`${this.activeDropdownAttr} > ul > li > a`)
+    const buttonSelector = `${this.activeDropdownAttr} > ul > li`
+    this.activeDropdownLinks = this._getElements(
+      `${buttonSelector} > a, ${buttonSelector} > button`,
+    )
+
     this.firstDropdownLink = this.activeDropdownLinks[0]
     this.lastDropdownLink = this.activeDropdownLinks[this.activeDropdownLinks.length - 1]
 

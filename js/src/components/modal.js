@@ -30,11 +30,6 @@ const events = {
   RESIZE: "resize",
 }
 
-const messages = {
-  MISSING_MODAL:
-    "Your button is missing its corresponding modal. Check to make sure your modal is in the DOM, and that it has a [data-modal-id=*] attribute matchin its [data-modal-button] and [data-target] attributes. It's possible the modal script ran before the button appeared on the page!",
-}
-
 /**
  * Modal component class.
  * @module Modal
@@ -121,11 +116,6 @@ export default class Modal extends Utils {
     this.activeModalId = this.activeModalButton.getAttribute(selectors.DATA_TARGET)
     this.activeModalOverlayAttr = `[${selectors.MODAL_ID}="${this.activeModalId}"]`
     this.activeModalOverlay = document.querySelector(this.activeModalOverlayAttr)
-
-    if (!this.activeModalOverlay) {
-      throw messages.MISSING_MODAL
-      return
-    }
 
     this.activeModalSelector = `${this.activeModalOverlayAttr} ${this.modalContainerAttr}`
     this.activeModal = document.querySelector(this.activeModalSelector)
