@@ -50,9 +50,6 @@ var events = {
   KEYDOWN: "keydown",
   CLICK: "click"
 };
-var messages = {
-  MISSING_DROPDOWN: "You have a dropdown button missing its corresponding menu."
-};
 
 var Dropdown = function (_Utils) {
   _inherits(Dropdown, _Utils);
@@ -132,12 +129,6 @@ var Dropdown = function (_Utils) {
 
       this.activeDropdownButton = event.target;
       this.activeDropdownId = this.activeDropdownButton.getAttribute(selectors.DATA_PARENT);
-
-      if (!this.activeDropdownId) {
-        throw messages.MISSING_DROPDOWN;
-        return;
-      }
-
       this.activeDropdownButton.setAttribute(selectors.ARIA_EXPANDED, "true");
       this.activeDropdownAttr = "[".concat(selectors.DATA_DROPDOWN, "=\"").concat(this.activeDropdownId, "\"]");
       this.activeDropdown = document.querySelector(this.activeDropdownAttr);
@@ -149,7 +140,8 @@ var Dropdown = function (_Utils) {
       this.activeDropdownButton.addEventListener(events.CLICK, this._handleClose);
       document.addEventListener(events.KEYDOWN, this._handleEscapeKeyPress);
       document.addEventListener(events.CLICK, this._handleOffMenuClick);
-      this.activeDropdownLinks = this._getElements("".concat(this.activeDropdownAttr, " > ul > li > a"));
+      var buttonSelector = "".concat(this.activeDropdownAttr, " > ul > li");
+      this.activeDropdownLinks = this._getElements("".concat(buttonSelector, " > a, ").concat(buttonSelector, " > button"));
       this.firstDropdownLink = this.activeDropdownLinks[0];
       this.lastDropdownLink = this.activeDropdownLinks[this.activeDropdownLinks.length - 1];
       this.firstDropdownLink.addEventListener(events.KEYDOWN, this._handleFirstTabClose);
