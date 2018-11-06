@@ -48,7 +48,21 @@ var events = {
   KEYDOWN: "keydown"
 };
 var messages = {
-  MISSING_CONTENT: "You have an accordion button that is missing its [data-content] attribute, and has a matching id to the button's [data-target] attribute's value."
+  NO_VISIBLE_ERROR: function NO_VISIBLE_ERROR(id) {
+    return "Your accordion button with [data-target='".concat(id, "'] doesn't have a row with [data-visible='true|false']");
+  },
+  NO_ROW_ERROR: function NO_ROW_ERROR(id) {
+    return "Your accordion button should be contained in an element with [data-accordion-row='".concat(id, "']");
+  },
+  NO_HEADER_ID_ERROR: function NO_HEADER_ID_ERROR(id) {
+    return "Your accordion button with [data-target='".concat(id, "'] should be contained in a header element with a unique id.");
+  },
+  NO_PARENT_ERROR: function NO_PARENT_ERROR(id) {
+    return "Your accordion button with [data-target='".concat(id, "'] is missing its [data-parent] attribute - the accordion can't be opened.");
+  },
+  NO_CONTENT_ERROR: function NO_CONTENT_ERROR(id) {
+    return "Your accordion button doesn't seem to have a content block - make sure your button's [data-target] and the content block's [id] value both equal ".concat(id);
+  }
 };
 
 var Accordion = function (_Utils) {
@@ -73,8 +87,8 @@ var Accordion = function (_Utils) {
     _this.activeContainerId = "";
     _this.activeContainerAttr = "";
     _this.activeContent = null;
-    _this.toggleExpandState = "";
-    _this.toggleHiddenState = "";
+    _this.activeButtonExpandState = "";
+    _this.activeContentHiddenState = "";
     return _this;
   }
 
@@ -108,9 +122,18 @@ var Accordion = function (_Utils) {
     key: "_setupAccordion",
     value: function _setupAccordion(button) {
       var buttonId = button.getAttribute(selectors.DATA_TARGET);
+
+      if (!document.getElementById(buttonId)) {
+        return console.error(messages.NO_CONTENT_ERROR(buttonId));
+      }
+
       var buttonContent = document.getElementById(buttonId);
 
       var accordionRowAttr = this._getAccordionRowAttr(buttonId);
+
+      if (!document.querySelector(accordionRowAttr)) {
+        return console.error(messages.NO_ROW_ERROR(buttonId));
+      }
 
       var accordionRow = document.querySelector(accordionRowAttr);
 
@@ -118,10 +141,19 @@ var Accordion = function (_Utils) {
 
       var buttonHeader = this._getElements(buttonHeaderAttr)[0];
 
+      if (!buttonHeader || !buttonHeader.id) {
+        console.error(messages.NO_HEADER_ID_ERROR(buttonId));
+      }
+
       var buttonContentChildren = this._getFocusableElements("#".concat(buttonContent.id));
 
       button.setAttribute(selectors.ARIA_CONTROLS, buttonId);
       buttonContent.setAttribute(selectors.ARIA_LABELLEDBY, buttonHeader.id);
+
+      if (!accordionRow.getAttribute(selectors.DATA_VISIBLE)) {
+        return console.error(messages.NO_VISIBLE_ERROR(buttonId));
+      }
+
       var contentShouldExpand = accordionRow.getAttribute(selectors.DATA_VISIBLE);
 
       if (contentShouldExpand === "true") {
@@ -157,13 +189,23 @@ var Accordion = function (_Utils) {
       this.activeAccordionRowId = this.activeButton.getAttribute(selectors.DATA_TARGET);
       this.activeRowAttr = this._getAccordionRowAttr(this.activeAccordionRowId);
       this.activeRow = document.querySelector(this.activeRowAttr);
+
+      if (!this.activeButton.getAttribute(selectors.DATA_PARENT)) {
+        return console.error(messages.NO_PARENT_ERROR(this.activeAccordionRowId));
+      }
+
       this.activeContainerId = this.activeButton.getAttribute(selectors.DATA_PARENT);
       this.activeContainerAttr = "[".concat(selectors.ACCORDION_CONTAINER, "='").concat(this.activeContainerId, "']");
+
+      if (!document.querySelector(this.activeContainerAttr)) {
+        return console.error(messages.NO_ACCORDION_ERROR(this.activeContainerId));
+      }
+
       this.activeContainer = document.querySelector(this.activeContainerAttr);
       this.activeContent = document.getElementById(this.activeAccordionRowId);
       var accordionButtonState = this.activeRow.getAttribute(selectors.DATA_VISIBLE);
-      this.toggleExpandState = accordionButtonState === "true" ? "false" : "true";
-      this.toggleHiddenState = this.toggleExpandState === "false" ? "true" : "false";
+      this.activeButtonExpandState = accordionButtonState === "true" ? "false" : "true";
+      this.activeContentHiddenState = this.activeButtonExpandState === "false" ? "true" : "false";
 
       this._closeAllIfToggleable();
 
@@ -207,13 +249,13 @@ var Accordion = function (_Utils) {
     value: function _toggleSelectedAccordion() {
       var _this5 = this;
 
-      this.activeRow.setAttribute(selectors.DATA_VISIBLE, this.toggleExpandState);
-      this.activeButton.setAttribute(selectors.ARIA_EXPANDED, this.toggleExpandState);
-      this.activeContent.setAttribute(selectors.ARIA_HIDDEN, this.toggleHiddenState);
+      this.activeRow.setAttribute(selectors.DATA_VISIBLE, this.activeButtonExpandState);
+      this.activeButton.setAttribute(selectors.ARIA_EXPANDED, this.activeButtonExpandState);
+      this.activeContent.setAttribute(selectors.ARIA_HIDDEN, this.activeContentHiddenState);
       var activeContentBlock = "#".concat(this.activeAccordionRowId);
 
       this._getFocusableElements(activeContentBlock).forEach(function (element) {
-        var value = _this5.toggleExpandState === "true" ? "0" : "-1";
+        var value = _this5.activeButtonExpandState === "true" ? "0" : "-1";
         element.setAttribute(selectors.TABINDEX, value);
       });
 
