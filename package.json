@@ -1,24 +1,12 @@
 {
   "name": "undernet",
-  "version": "2.4.1",
+  "version": "3.0.0",
   "homepage": "https://undernet.io",
   "description": "Undernet is a Front-End Framework for Modern Web Development",
-  "main": "js/dist/undernet.js",
+  "main": "dist/undernet.bundle.min.js",
   "author": "George Treviranus",
   "license": "MIT",
   "private": false,
-  "engines": {
-    "node": ">=10.0.0",
-    "npm": ">=6.1.0"
-  },
-  "keywords": [
-    "scss",
-    "javascript",
-    "js",
-    "css",
-    "front-end",
-    "framework"
-  ],
   "bin": {
     "update-version": "./scripts/update-version.js",
     "create-hashes": "./scripts/create-hashes.js"
@@ -29,17 +17,16 @@
     "build": "BABEL_ENV=production webpack --config config/webpack.prod.js --progress",
     "watch": "npm run js:build && webpack-dev-server --config config/webpack.dev.js --progress --open",
     "lint": "prettier --write 'src/**/*.js' && prettier --write 'src/**/*.scss'",
-    "build:development": "npm run build:lint && npm run js:build && npm run css:build && npm run css:minify",
+    "build:development": "npm run build:lint && npm run js:build && npm run js:merge && npm run js:minify && npm run css:build && npm run css:minify",
     "build:lint": "npm run js:lint && npm run scss:lint",
     "build:release": "npm run clean && npm run build:lint && npm run scss:prepublish && npm run css:prepublish && npm run js:prepublish && create-hashes",
     "clean": "rm -rf dist/ && mkdir dist/",
-    "js:build": "babel js/src/ --out-dir js/dist/",
-    "js:merge": "BABEL_ENV=rollup rollup -c config/rollup.config.js",
-    "js:minify": "BABEL_ENV=rollup rollup -c config/rollup.config.prod.js",
-    "js:watch": "babel js/src/ --watch --out-dir js/dist/",
-    "js:modules:zip": "cd js/dist/ && zip -r ../../dist/undernet.modules.js.zip .",
+    "js:build": "BABEL_ENV=dist babel js/src/ --out-dir js/dist/ --no-comments",
+    "js:merge": "BABEL_ENV=dist rollup -c config/rollup.config.js",
+    "js:minify": "BABEL_ENV=dist rollup -c config/rollup.config.prod.js",
+    "js:watch": "BABEL_ENV=dist babel js/src/ --watch --out-dir js/dist/ --no-comments",
     "js:zip": "cd dist/ && zip -r undernet.js.zip . -x *.css *.zip *.css.map",
-    "js:prepublish": "npm run js:build && npm run js:merge && npm run js:modules:zip && npm run js:minify && npm run js:zip",
+    "js:prepublish": "npm run js:build && npm run js:merge && npm run js:minify && npm run js:zip",
     "js:lint": "prettier --write 'js/src/**/*.js'",
     "css:minify": "sass scss/undernet.scss:dist/undernet.min.css --style compressed",
     "css:build": "sass scss/undernet.scss:dist/undernet.css",
@@ -55,6 +42,7 @@
     "@babel/plugin-external-helpers": "^7.0.0",
     "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@babel/plugin-syntax-dynamic-import": "^7.0.0",
+    "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.0.0",
@@ -112,6 +100,18 @@
     "webpack-merge": "^4.1.1",
     "yargs": "^12.0.2"
   },
+  "engines": {
+    "node": ">=10.0.0",
+    "npm": ">=6.1.0"
+  },
+  "keywords": [
+    "scss",
+    "javascript",
+    "js",
+    "css",
+    "front-end",
+    "framework"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/geotrev/undernet.git"

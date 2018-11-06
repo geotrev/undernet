@@ -7,10 +7,13 @@ const args = require("yargs").argv
 // set up for operations
 
 const newUndernetVersion = args["tag"]
+
 const packageFilePath = path.resolve(__dirname, "../package.json")
 const pkg = require(packageFilePath)
+const currentUndernetVersion = pkg.version
+
 const undernetScssFilePath = path.resolve(__dirname, "../scss/undernet.scss")
-const introArticleFilePath = path.resolve(__dirname, "../docs/introduction.md")
+const downloadArticleFilePath = path.resolve(__dirname, "../docs/download.md")
 const readFormat = "utf-8"
 
 // get update for package.json
@@ -20,7 +23,7 @@ function getPackageVersion(version) {
 }
 
 function getNewPackageVersion() {
-  const packageVersion = getPackageVersion(pkg.version)
+  const packageVersion = getPackageVersion(currentUndernetVersion)
   const newPackageVersion = getPackageVersion(newUndernetVersion)
   const packageFile = fs.readFileSync(packageFilePath, readFormat)
   return packageFile.replace(packageVersion, newPackageVersion)
@@ -33,33 +36,33 @@ function getScssVersion(version) {
 }
 
 function getNewScssVersion() {
-  const scssVersion = getScssVersion(pkg.version)
+  const scssVersion = getScssVersion(currentUndernetVersion)
   const newScssVersion = getScssVersion(newUndernetVersion)
   const undernetScssFile = fs.readFileSync(undernetScssFilePath, readFormat)
   return undernetScssFile.replace(scssVersion, newScssVersion)
 }
 
-// get update for docs/introduction.md
+// get update for docs/download.md
 
 function getArticleVersion(version) {
   return `@${version}`
 }
 
 function getNewIntroductionArticle() {
-  const articleVersion = getArticleVersion(pkg.version)
+  const articleVersion = getArticleVersion(currentUndernetVersion)
   const newArticleVersion = getArticleVersion(newUndernetVersion)
-  const introArticleFile = fs.readFileSync(introArticleFilePath, readFormat)
+  const downloadArticleFile = fs.readFileSync(downloadArticleFilePath, readFormat)
   const versionRegEx = new RegExp(articleVersion, "g")
-  return introArticleFile.replace(versionRegEx, newArticleVersion)
+  return downloadArticleFile.replace(versionRegEx, newArticleVersion)
 }
 
 // write to files
 
-fs.writeFileSync("package.json", getNewPackageVersion(), readFormat)
+fs.writeFileSync(packageFilePath, getNewPackageVersion(), readFormat)
 console.log(`-> package.json version updated to ${newUndernetVersion}!`)
 
-fs.writeFileSync("scss/undernet.scss", getNewScssVersion(), readFormat)
+fs.writeFileSync(undernetScssFilePath, getNewScssVersion(), readFormat)
 console.log(`-> scss/undernet.scss version updated to ${newUndernetVersion}!`)
 
-fs.writeFileSync("docs/introduction.md", getNewIntroductionArticle(), readFormat)
-console.log(`-> docs/introduction.md version updated to ${newUndernetVersion}!`)
+fs.writeFileSync(downloadArticleFilePath, getNewIntroductionArticle(), readFormat)
+console.log(`-> docs/download.md version updated to ${newUndernetVersion}!`)

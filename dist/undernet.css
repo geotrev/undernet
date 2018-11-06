@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /*!
 * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
-* Undernet v2.4.1 (https://undernet.io)
+* Undernet v2.5.0 (https://undernet.io)
 * Copyright 2017-2018 George Treviranus
 */
 html,
@@ -83,6 +83,10 @@ body {
   padding: 0;
   box-sizing: border-box;
   line-height: 1.5; }
+
+html *:focus,
+body *:focus {
+  outline: none; }
 
 .has-sans-font {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif !important; }
@@ -1376,7 +1380,8 @@ tt,
 pre,
 .pre {
   padding: 16px;
-  overflow: auto; }
+  overflow: auto;
+  overflow-wrap: initial; }
   pre > code,
   pre .code,
   .pre > code,
@@ -1449,9 +1454,7 @@ button,
   transition: cubic-bezier(0.12, 0.72, 0.58, 1.03) 0.2s;
   background: #ffffff;
   color: #222;
-  border-color: #888;
-  box-shadow: none;
-  text-decoration: none; }
+  border-color: #888; }
   input[type="button"]:visited,
   input[type="submit"]:visited,
   input[type="file"]:visited,
@@ -1460,9 +1463,7 @@ button,
   .button:visited {
     background: #ffffff;
     color: #222;
-    border-color: #888;
-    box-shadow: none;
-    text-decoration: none; }
+    border-color: #888; }
   input[type="button"]:hover,
   input[type="submit"]:hover,
   input[type="file"]:hover,
@@ -1472,7 +1473,6 @@ button,
     background: #ffffff;
     color: #222;
     border-color: #666;
-    box-shadow: none;
     text-decoration: none; }
   input[type="button"]:active,
   input[type="submit"]:active,
@@ -1483,7 +1483,6 @@ button,
     background: #f8f8f8;
     color: #222;
     border-color: #444;
-    box-shadow: none;
     text-decoration: none; }
   input[type="button"]:focus,
   input[type="submit"]:focus,
@@ -1494,7 +1493,6 @@ button,
     background: #ffffff;
     color: #222;
     border-color: #666;
-    box-shadow: none;
     text-decoration: none; }
   input[type="button"].small,
   input[type="submit"].small,
@@ -1545,8 +1543,7 @@ button,
   .button.primary {
     background: #d874f0;
     color: #ffffff;
-    border-color: transparent;
-    box-shadow: none; }
+    border-color: transparent; }
     input[type="button"].primary:visited,
     input[type="submit"].primary:visited,
     input[type="file"].primary:visited,
@@ -1555,8 +1552,7 @@ button,
     .button.primary:visited {
       background: #d874f0;
       color: #ffffff;
-      border-color: transparent;
-      box-shadow: none; }
+      border-color: transparent; }
   input[type="button"].primary:hover,
   input[type="submit"].primary:hover,
   input[type="file"].primary:hover,
@@ -1565,8 +1561,7 @@ button,
   .button.primary:hover {
     background: #d15ded;
     color: #ffffff;
-    border-color: transparent;
-    box-shadow: none; }
+    border-color: transparent; }
   input[type="button"].primary:active,
   input[type="submit"].primary:active,
   input[type="file"].primary:active,
@@ -1575,8 +1570,7 @@ button,
   .button.primary:active {
     background: #ce54ec;
     color: #ffffff;
-    border-color: transparent;
-    box-shadow: none; }
+    border-color: transparent; }
   input[type="button"].primary:focus,
   input[type="submit"].primary:focus,
   input[type="file"].primary:focus,
@@ -1585,8 +1579,7 @@ button,
   .button.primary:focus {
     background: #d15ded;
     color: #ffffff;
-    border-color: transparent;
-    box-shadow: none; }
+    border-color: transparent; }
   input[type="button"].secondary,
   input[type="submit"].secondary,
   input[type="file"].secondary,
@@ -1595,8 +1588,7 @@ button,
   .button.secondary {
     background: transparent;
     color: #d874f0;
-    border-color: #d874f0;
-    box-shadow: none; }
+    border-color: #d874f0; }
     input[type="button"].secondary:visited,
     input[type="submit"].secondary:visited,
     input[type="file"].secondary:visited,
@@ -1605,8 +1597,7 @@ button,
     .button.secondary:visited {
       background: transparent;
       color: #d874f0;
-      border-color: #d874f0;
-      box-shadow: none; }
+      border-color: #d874f0; }
   input[type="button"].secondary:hover,
   input[type="submit"].secondary:hover,
   input[type="file"].secondary:hover,
@@ -1615,8 +1606,7 @@ button,
   .button.secondary:hover {
     background: transparent;
     color: #d15ded;
-    border-color: #d15ded;
-    box-shadow: none; }
+    border-color: #d15ded; }
   input[type="button"].secondary:active,
   input[type="submit"].secondary:active,
   input[type="file"].secondary:active,
@@ -1625,8 +1615,7 @@ button,
   .button.secondary:active {
     background: transparent;
     color: #ce54ec;
-    border-color: #ce54ec;
-    box-shadow: none; }
+    border-color: #ce54ec; }
   input[type="button"].secondary:focus,
   input[type="submit"].secondary:focus,
   input[type="file"].secondary:focus,
@@ -1635,8 +1624,7 @@ button,
   .button.secondary:focus {
     background: transparent;
     color: #d15ded;
-    border-color: #d15ded;
-    box-shadow: none; }
+    border-color: #d15ded; }
   input[type="button"].tertiary,
   input[type="submit"].tertiary,
   input[type="file"].tertiary,
@@ -1645,8 +1633,7 @@ button,
   .button.tertiary {
     background: transparent;
     color: #d15ded;
-    border-color: transparent;
-    box-shadow: none; }
+    border-color: transparent; }
     input[type="button"].tertiary:visited,
     input[type="submit"].tertiary:visited,
     input[type="file"].tertiary:visited,
@@ -1655,8 +1642,7 @@ button,
     .button.tertiary:visited {
       background: transparent;
       color: #d15ded;
-      border-color: transparent;
-      box-shadow: none; }
+      border-color: transparent; }
   input[type="button"].tertiary:hover,
   input[type="submit"].tertiary:hover,
   input[type="file"].tertiary:hover,
@@ -1665,8 +1651,7 @@ button,
   .button.tertiary:hover {
     background: rgba(222, 222, 222, 0.2);
     color: #d15ded;
-    border-color: transparent;
-    box-shadow: none; }
+    border-color: transparent; }
   input[type="button"].tertiary:active,
   input[type="submit"].tertiary:active,
   input[type="file"].tertiary:active,
@@ -1675,8 +1660,7 @@ button,
   .button.tertiary:active {
     background: rgba(222, 222, 222, 0.3);
     color: #d15ded;
-    border-color: transparent;
-    box-shadow: none; }
+    border-color: transparent; }
   input[type="button"].tertiary:focus,
   input[type="submit"].tertiary:focus,
   input[type="file"].tertiary:focus,
@@ -1685,8 +1669,7 @@ button,
   .button.tertiary:focus {
     background: rgba(222, 222, 222, 0.2);
     color: #d15ded;
-    border-color: transparent;
-    box-shadow: none; }
+    border-color: transparent; }
   input[type="button"].inverted,
   input[type="submit"].inverted,
   input[type="file"].inverted,
@@ -1695,8 +1678,7 @@ button,
   .button.inverted {
     background: #ebebeb;
     color: #222;
-    border-color: transparent;
-    box-shadow: none; }
+    border-color: transparent; }
     input[type="button"].inverted:visited,
     input[type="submit"].inverted:visited,
     input[type="file"].inverted:visited,
@@ -1705,8 +1687,7 @@ button,
     .button.inverted:visited {
       background: #ebebeb;
       color: #222;
-      border-color: transparent;
-      box-shadow: none; }
+      border-color: transparent; }
   input[type="button"].inverted:hover,
   input[type="submit"].inverted:hover,
   input[type="file"].inverted:hover,
@@ -1715,8 +1696,7 @@ button,
   .button.inverted:hover {
     background: #ffffff;
     color: #222;
-    border-color: transparent;
-    box-shadow: none; }
+    border-color: transparent; }
   input[type="button"].inverted:active,
   input[type="submit"].inverted:active,
   input[type="file"].inverted:active,
@@ -1725,8 +1705,7 @@ button,
   .button.inverted:active {
     background: #dedede;
     color: #222;
-    border-color: transparent;
-    box-shadow: none; }
+    border-color: transparent; }
   input[type="button"].inverted:focus,
   input[type="submit"].inverted:focus,
   input[type="file"].inverted:focus,
@@ -1735,8 +1714,7 @@ button,
   .button.inverted:focus {
     background: #ffffff;
     color: #222;
-    border-color: transparent;
-    box-shadow: none; }
+    border-color: transparent; }
   input[type="button"].inverted-outline,
   input[type="submit"].inverted-outline,
   input[type="file"].inverted-outline,
@@ -1745,8 +1723,7 @@ button,
   .button.inverted-outline {
     background: transparent;
     color: #ffffff;
-    border-color: #dedede;
-    box-shadow: none; }
+    border-color: #dedede; }
     input[type="button"].inverted-outline:visited,
     input[type="submit"].inverted-outline:visited,
     input[type="file"].inverted-outline:visited,
@@ -1755,8 +1732,7 @@ button,
     .button.inverted-outline:visited {
       background: transparent;
       color: #ffffff;
-      border-color: #dedede;
-      box-shadow: none; }
+      border-color: #dedede; }
   input[type="button"].inverted-outline:hover,
   input[type="submit"].inverted-outline:hover,
   input[type="file"].inverted-outline:hover,
@@ -1765,8 +1741,7 @@ button,
   .button.inverted-outline:hover {
     background: transparent;
     color: #ffffff;
-    border-color: #ffffff;
-    box-shadow: none; }
+    border-color: #ffffff; }
   input[type="button"].inverted-outline:active,
   input[type="submit"].inverted-outline:active,
   input[type="file"].inverted-outline:active,
@@ -1775,8 +1750,7 @@ button,
   .button.inverted-outline:active {
     background: transparent;
     color: #ffffff;
-    border-color: #d9d9d9;
-    box-shadow: none; }
+    border-color: #d9d9d9; }
   input[type="button"].inverted-outline:focus,
   input[type="submit"].inverted-outline:focus,
   input[type="file"].inverted-outline:focus,
@@ -1785,8 +1759,7 @@ button,
   .button.inverted-outline:focus {
     background: transparent;
     color: #ffffff;
-    border-color: #ffffff;
-    box-shadow: none; }
+    border-color: #ffffff; }
   input[type="button"].warning,
   input[type="submit"].warning,
   input[type="file"].warning,
@@ -1795,8 +1768,7 @@ button,
   .button.warning {
     background: #ede175;
     color: #000111;
-    border-color: transparent;
-    box-shadow: none; }
+    border-color: transparent; }
     input[type="button"].warning:visited,
     input[type="submit"].warning:visited,
     input[type="file"].warning:visited,
@@ -1805,8 +1777,7 @@ button,
     .button.warning:visited {
       background: #ede175;
       color: #000111;
-      border-color: transparent;
-      box-shadow: none; }
+      border-color: transparent; }
   input[type="button"].warning:hover,
   input[type="submit"].warning:hover,
   input[type="file"].warning:hover,
@@ -1815,8 +1786,7 @@ button,
   .button.warning:hover {
     background: khaki;
     color: #000111;
-    border-color: transparent;
-    box-shadow: none; }
+    border-color: transparent; }
   input[type="button"].warning:active,
   input[type="submit"].warning:active,
   input[type="file"].warning:active,
@@ -1825,8 +1795,7 @@ button,
   .button.warning:active {
     background: #efe483;
     color: #000111;
-    border-color: transparent;
-    box-shadow: none; }
+    border-color: transparent; }
   input[type="button"].warning:focus,
   input[type="submit"].warning:focus,
   input[type="file"].warning:focus,
@@ -1835,8 +1804,7 @@ button,
   .button.warning:focus {
     background: khaki;
     color: #000111;
-    border-color: transparent;
-    box-shadow: none; }
+    border-color: transparent; }
   input[type="button"].success,
   input[type="submit"].success,
   input[type="file"].success,
@@ -1845,8 +1813,7 @@ button,
   .button.success {
     background: #59b300;
     color: #ffffff;
-    border-color: transparent;
-    box-shadow: none; }
+    border-color: transparent; }
     input[type="button"].success:visited,
     input[type="submit"].success:visited,
     input[type="file"].success:visited,
@@ -1855,8 +1822,7 @@ button,
     .button.success:visited {
       background: #59b300;
       color: #ffffff;
-      border-color: transparent;
-      box-shadow: none; }
+      border-color: transparent; }
   input[type="button"].success:hover,
   input[type="submit"].success:hover,
   input[type="file"].success:hover,
@@ -1865,8 +1831,7 @@ button,
   .button.success:hover {
     background: #66cc00;
     color: #ffffff;
-    border-color: transparent;
-    box-shadow: none; }
+    border-color: transparent; }
   input[type="button"].success:active,
   input[type="submit"].success:active,
   input[type="file"].success:active,
@@ -1875,8 +1840,7 @@ button,
   .button.success:active {
     background: #61c200;
     color: #ffffff;
-    border-color: transparent;
-    box-shadow: none; }
+    border-color: transparent; }
   input[type="button"].success:focus,
   input[type="submit"].success:focus,
   input[type="file"].success:focus,
@@ -1885,8 +1849,7 @@ button,
   .button.success:focus {
     background: #66cc00;
     color: #ffffff;
-    border-color: transparent;
-    box-shadow: none; }
+    border-color: transparent; }
   input[type="button"].destroy,
   input[type="submit"].destroy,
   input[type="file"].destroy,
@@ -1895,8 +1858,7 @@ button,
   .button.destroy {
     background: #fc4f4f;
     color: #ffffff;
-    border-color: transparent;
-    box-shadow: none; }
+    border-color: transparent; }
     input[type="button"].destroy:visited,
     input[type="submit"].destroy:visited,
     input[type="file"].destroy:visited,
@@ -1905,8 +1867,7 @@ button,
     .button.destroy:visited {
       background: #fc4f4f;
       color: #ffffff;
-      border-color: transparent;
-      box-shadow: none; }
+      border-color: transparent; }
   input[type="button"].destroy:hover,
   input[type="submit"].destroy:hover,
   input[type="file"].destroy:hover,
@@ -1915,8 +1876,7 @@ button,
   .button.destroy:hover {
     background: #fc6868;
     color: #ffffff;
-    border-color: transparent;
-    box-shadow: none; }
+    border-color: transparent; }
   input[type="button"].destroy:active,
   input[type="submit"].destroy:active,
   input[type="file"].destroy:active,
@@ -1925,8 +1885,7 @@ button,
   .button.destroy:active {
     background: #fc5e5e;
     color: #ffffff;
-    border-color: transparent;
-    box-shadow: none; }
+    border-color: transparent; }
   input[type="button"].destroy:focus,
   input[type="submit"].destroy:focus,
   input[type="file"].destroy:focus,
@@ -1935,8 +1894,7 @@ button,
   .button.destroy:focus {
     background: #fc6868;
     color: #ffffff;
-    border-color: transparent;
-    box-shadow: none; }
+    border-color: transparent; }
   input[type="button"].notice,
   input[type="submit"].notice,
   input[type="file"].notice,
@@ -1945,8 +1903,7 @@ button,
   .button.notice {
     background: #3f75a2;
     color: #ffffff;
-    border-color: transparent;
-    box-shadow: none; }
+    border-color: transparent; }
     input[type="button"].notice:visited,
     input[type="submit"].notice:visited,
     input[type="file"].notice:visited,
@@ -1955,8 +1912,7 @@ button,
     .button.notice:visited {
       background: #3f75a2;
       color: #ffffff;
-      border-color: transparent;
-      box-shadow: none; }
+      border-color: transparent; }
   input[type="button"].notice:hover,
   input[type="submit"].notice:hover,
   input[type="file"].notice:hover,
@@ -1965,8 +1921,7 @@ button,
   .button.notice:hover {
     background: steelblue;
     color: #ffffff;
-    border-color: transparent;
-    box-shadow: none; }
+    border-color: transparent; }
   input[type="button"].notice:active,
   input[type="submit"].notice:active,
   input[type="file"].notice:active,
@@ -1975,8 +1930,7 @@ button,
   .button.notice:active {
     background: #437dad;
     color: #ffffff;
-    border-color: transparent;
-    box-shadow: none; }
+    border-color: transparent; }
   input[type="button"].notice:focus,
   input[type="submit"].notice:focus,
   input[type="file"].notice:focus,
@@ -1985,8 +1939,7 @@ button,
   .button.notice:focus {
     background: steelblue;
     color: #ffffff;
-    border-color: transparent;
-    box-shadow: none; }
+    border-color: transparent; }
 
 input[type="text"],
 input[type="password"],
@@ -2215,6 +2168,84 @@ textarea {
     border: 2px solid #666;
     box-shadow: none;
     transition: cubic-bezier(0.12, 0.72, 0.58, 1.03) 0.2s; }
+
+.dropdown {
+  position: relative;
+  display: inline-block; }
+  .dropdown [data-target] {
+    display: inline-flex;
+    align-items: center; }
+    .dropdown [data-target]::after {
+      content: "▼";
+      padding: 0 0 0 8px;
+      font-size: 12px; }
+  .dropdown .dropdown-menu {
+    position: absolute;
+    display: block;
+    opacity: 0;
+    transition: opacity cubic-bezier(0.12, 0.72, 0.58, 1.03) 0.2s;
+    pointer-events: none;
+    list-style-type: none;
+    margin: 0;
+    padding: 4px 0;
+    border-radius: 4px;
+    background: #ffffff;
+    width: 200px;
+    border: 1px solid #dedede;
+    z-index: 1999; }
+    .modal-dialog .dropdown .dropdown-menu {
+      z-index: 2001; }
+    .dropdown .dropdown-menu.is-aligned-right {
+      right: 0; }
+    @media screen and (min-width: 576px) {
+      .dropdown .dropdown-menu.is-drop-up {
+        bottom: 100%;
+        margin-bottom: 16px; }
+      .dropdown .dropdown-menu.is-drop-left {
+        right: 100%;
+        margin-right: 16px;
+        top: 0; }
+      .dropdown .dropdown-menu.is-drop-right {
+        left: 100%;
+        margin-left: 16px;
+        top: 0; } }
+    .dropdown .dropdown-menu li {
+      padding: 0;
+      display: flex;
+      flex-flow: column nowrap;
+      position: relative; }
+      .dropdown .dropdown-menu li hr {
+        border: none;
+        height: 1px;
+        background: #dedede;
+        margin: 8px 0; }
+      .dropdown .dropdown-menu li a {
+        display: flex;
+        position: relative;
+        padding: 8px 12px;
+        flex: 0 0 100%;
+        max-width: 100%;
+        text-decoration: none;
+        color: #444; }
+        .dropdown .dropdown-menu li a:hover {
+          background: #f8f8f8; }
+        .dropdown .dropdown-menu li a:active {
+          background: #f2f2f2; }
+      .dropdown .dropdown-menu li.dropdown-header h1,
+      .dropdown .dropdown-menu li.dropdown-header h2,
+      .dropdown .dropdown-menu li.dropdown-header h3,
+      .dropdown .dropdown-menu li.dropdown-header h4,
+      .dropdown .dropdown-menu li.dropdown-header h5,
+      .dropdown .dropdown-menu li.dropdown-header h6 {
+        font-size: 14px;
+        margin: 0;
+        padding: 12px;
+        color: #888; }
+  .dropdown[data-visible="true"] .dropdown-menu {
+    opacity: 1;
+    pointer-events: auto; }
+    .dropdown[data-visible="true"] .dropdown-menu [data-close] {
+      display: flex; }
 
 .no-scroll {
   overflow: hidden !important; }

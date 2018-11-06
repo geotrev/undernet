@@ -47,6 +47,15 @@ textarea {
   margin: 0;
 }
 
+a,
+button,
+label,
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
 *,
 *:before,
 *:after {
@@ -86,4 +95,11 @@ body {
   padding: 0;
   box-sizing: border-box;
   line-height: $global-line-height;
+}
+
+html,
+body {
+  *:focus {
+    outline: $global-outline;
+  }
 }

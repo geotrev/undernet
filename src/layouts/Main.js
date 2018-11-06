@@ -1,3 +1,4 @@
+import "@babel/polyfill"
 import React, { Component, Fragment } from "react"
 import { Route } from "react-router-dom"
 import Loadable from "react-loadable"

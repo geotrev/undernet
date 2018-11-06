@@ -13,167 +13,174 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 var keyCodes = {
   SHIFT: 16,
-  TAB: 9
+  TAB: 9,
+  ARROW_UP: 38,
+  ARROW_DOWN: 40
 };
 var selectors = {
-  FOCUSABLE_SELECTOR: ":not(.is-visually-hidden)",
+  NOT_VISUALLY_HIDDEN: ":not(.is-visually-hidden)",
   FOCUSABLE_TAGS: ["a", "button", "input", "object", "select", "textarea", "[tabindex]"],
   KEYBOARD_CLASS: "using-keyboard"
 };
 var events = {
   KEYDOWN: "keydown",
   CLICK: "click"
-  /**
-   * Utility methods for DOM traversal and focus trapping.
-   * @module Utils
-   */
-
 };
 
-var Utils =
-/*#__PURE__*/
-function () {
+var Utils = function () {
   function Utils() {
     _classCallCheck(this, Utils);
 
-    this._handleFocusTrap = this._handleFocusTrap.bind(this);
+    this._handleFocusTrapWithTab = this._handleFocusTrapWithTab.bind(this);
+    this._handleFocusTrapWithArrows = this._handleFocusTrapWithArrows.bind(this);
     this._listenForKeyboard = this._listenForKeyboard.bind(this);
     this._listenForClick = this._listenForClick.bind(this);
-  } // public
-
-  /**
-   * Listens to the first and last elements matched from this._getFocusableElements()
-   * @param {String} container - The container's class, attribute, etc.
-   */
-
+    this.focusContainerSelector = "";
+    this.focusableChildren = [];
+    this.focusableFirstChild = null;
+    this.focusableLastChild = null;
+    this.listeningForKeydown = false;
+    this.trapFocusWithArrows = false;
+  }
 
   _createClass(Utils, [{
     key: "captureFocus",
-    value: function captureFocus(container) {
+    value: function captureFocus(container, options) {
       this.focusContainerSelector = container;
+      this.focusableChildren = this._getFocusableElements(this.focusContainerSelector);
+      this.focusableFirstChild = this.focusableChildren[0];
+      this.focusableLastChild = this.focusableChildren[this.focusableChildren.length - 1];
 
-      var children = this._getFocusableElements(this.focusContainerSelector);
-
-      this.focusableFirstChild = children[0];
-      this.focusableLastChild = children[children.length - 1];
-      document.addEventListener(events.KEYDOWN, this._handleFocusTrap);
+      if (options) {
+        if (options.useArrows) {
+          this.trapFocusWithArrows = options.useArrows || this.trapFocusWithArrows;
+          document.addEventListener(events.KEYDOWN, this._handleFocusTrapWithArrows);
+        }
+      } else {
+        document.addEventListener(events.KEYDOWN, this._handleFocusTrapWithTab);
+      }
     }
-    /**
-     * Stop trapping focus set in this.captureFocus()
-     */
-
   }, {
     key: "releaseFocus",
     value: function releaseFocus() {
-      document.removeEventListener(events.KEYDOWN, this._handleFocusTrap);
+      if (this.trapFocusWithArrows) {
+        document.removeEventListener(events.KEYDOWN, this._handleFocusTrapWithArrows);
+        this.trapFocusWithArrows = false;
+      } else {
+        document.removeEventListener(events.KEYDOWN, this._handleFocusTrapWithTab);
+      }
     }
-    /**
-     * Begin listening to _listenForKeyboard()
-     */
-
   }, {
     key: "enableFocusOutline",
     value: function enableFocusOutline() {
       document.addEventListener(events.KEYDOWN, this._listenForKeyboard);
     }
-    /**
-     * Completely disable focus outline utility.
-     */
-
   }, {
     key: "disableFocusOutline",
     value: function disableFocusOutline() {
-      document.removeEventListener(events.KEYDOWN, this._listenForKeyboard);
-      document.removeEventListener(events.CLICK, this.__listenForClick);
-    } // private
-
-    /**
-     * When a key is pressed, detect if it's tab or shift keys and enable
-     * focus outlines on currently focused element(s). Then, remove keydown listener
-     * and add click listener on _listenForClick().
-     * @param {Object} event - Event (keypress).
-     */
-
+      if (this.listeningForKeydown) {
+        document.removeEventListener(events.KEYDOWN, this._listenForKeyboard);
+      } else {
+        document.removeEventListener(events.CLICK, this._listenForClick);
+      }
+    }
   }, {
     key: "_listenForKeyboard",
     value: function _listenForKeyboard(event) {
       var tabKey = event.which === keyCodes.TAB;
       var shiftKey = event.which === keyCodes.SHIFT || event.shiftKey;
+      var arrowUp = event.which === keyCodes.ARROW_UP;
+      var arrowDown = event.which === keyCodes.ARROW_DOWN;
 
-      if (tabKey || shiftKey) {
+      if (tabKey || shiftKey || arrowUp || arrowDown) {
         document.body.classList.add(selectors.KEYBOARD_CLASS);
         document.removeEventListener(events.KEYDOWN, this._listenForKeyboard);
         document.addEventListener(events.CLICK, this._listenForClick);
+        this.listeningForKeydown = false;
       }
     }
-    /**
-     * On click, remove selectors.KEYBOARD_CLASS and re-add keydown listener.
-     * @param {Object} event - Event (keypress).
-     */
-
   }, {
     key: "_listenForClick",
     value: function _listenForClick(event) {
       document.body.classList.remove(selectors.KEYBOARD_CLASS);
       document.removeEventListener(events.CLICK, this._listenForClick);
       document.addEventListener(events.KEYDOWN, this._listenForKeyboard);
+      this.listeningForKeydown = true;
     }
-    /**
-     * Because IE does not recognize NodeList.forEach(),
-     * we use a cross-browser solution for returning an array of DOM nodes every time.
-     * @param {String} element - A DOM node's class, attribute, etc., to search the document.
-     * @return {Array}
-     */
-
   }, {
     key: "_getElements",
     value: function _getElements(element) {
       var nodeList = document.querySelectorAll(element);
       return Array.apply(null, nodeList);
     }
-    /**
-     * Creates a string of element selector patterns using common elements.
-     * @param {String} container - The enclosing container's class, attribute, etc.
-     * @return {String}
-     */
-
   }, {
     key: "_getFocusableElements",
     value: function _getFocusableElements(container) {
-      var focusables = [];
-      selectors.FOCUSABLE_TAGS.map(function (element) {
-        return focusables.push("".concat(container, " ").concat(element).concat(selectors.FOCUSABLE_SELECTOR));
+      var focusables = selectors.FOCUSABLE_TAGS.map(function (element) {
+        return "".concat(container, " ").concat(element).concat(selectors.NOT_VISUALLY_HIDDEN);
       });
       return this._getElements(focusables.join(", "));
     }
-    /**
-     * Handles focus on first or last child in a container.
-     * @param {Object} event - Event (keypress)
-     */
-
   }, {
-    key: "_handleFocusTrap",
-    value: function _handleFocusTrap(event) {
-      var activeElement = document.activeElement;
+    key: "_handleFocusTrapWithTab",
+    value: function _handleFocusTrapWithTab(event) {
       var containerElement = document.querySelector(this.focusContainerSelector);
-      var containerActive = activeElement === containerElement;
-      var firstActive = activeElement === this.focusableFirstChild;
-      var lastActive = activeElement === this.focusableLastChild;
+      var containerActive = document.activeElement === containerElement;
+      var firstActive = document.activeElement === this.focusableFirstChild;
+      var lastActive = document.activeElement === this.focusableLastChild;
       var tabKey = event.which === keyCodes.TAB;
       var shiftKey = event.which === keyCodes.SHIFT || event.shiftKey;
       var hasShift = shiftKey && tabKey;
-      var noShift = !shiftKey && tabKey; // Just in case the first or last child have changed -
-      // recapture focus and continue trapping.
+      var noShift = !shiftKey && tabKey;
 
-      this.releaseFocus();
-      this.captureFocus(this.focusContainerSelector);
-
-      if (hasShift && (firstActive || containerActive)) {
+      if (shiftKey && tabKey && (firstActive || containerActive)) {
         event.preventDefault();
         this.focusableLastChild.focus();
-      } else if (noShift && lastActive) {
+      } else if (!shiftKey && tabKey && lastActive) {
         event.preventDefault();
         this.focusableFirstChild.focus();
+      }
+    }
+  }, {
+    key: "_handleFocusTrapWithArrows",
+    value: function _handleFocusTrapWithArrows(event) {
+      var firstActive = document.activeElement === this.focusableFirstChild;
+      var lastActive = document.activeElement === this.focusableLastChild;
+      var arrowUp = event.which === keyCodes.ARROW_UP;
+      var arrowDown = event.which === keyCodes.ARROW_DOWN;
+
+      if (arrowUp || arrowDown) {
+        event.preventDefault();
+
+        if (firstActive && arrowUp) {
+          this.focusableLastChild.focus();
+        } else if (lastActive && arrowDown) {
+          this.focusableFirstChild.focus();
+        } else if (arrowDown) {
+          this._focusNextChild();
+        } else if (arrowUp) {
+          this._focusLastChild();
+        }
+      }
+    }
+  }, {
+    key: "_focusNextChild",
+    value: function _focusNextChild() {
+      for (var i = 0; i < this.focusableChildren.length; i++) {
+        if (this.focusableChildren[i] === document.activeElement) {
+          this.focusableChildren[i + 1].focus();
+          break;
+        }
+      }
+    }
+  }, {
+    key: "_focusLastChild",
+    value: function _focusLastChild() {
+      for (var i = 0; i < this.focusableChildren.length; i++) {
+        if (this.focusableChildren[i] === document.activeElement) {
+          this.focusableChildren[i - 1].focus();
+          break;
+        }
       }
     }
   }]);
