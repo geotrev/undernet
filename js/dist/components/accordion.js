@@ -49,19 +49,19 @@ var events = {
 };
 var messages = {
   NO_VISIBLE_ERROR: function NO_VISIBLE_ERROR(id) {
-    return "Your accordion button with [data-target='".concat(id, "'] doesn't have a row with [data-visible='true|false']");
+    return "Could not find parent with [data-visible] attribute associated with [data-target='".concat(id, "'].");
   },
   NO_ROW_ERROR: function NO_ROW_ERROR(id) {
-    return "Your accordion button should be contained in an element with [data-accordion-row='".concat(id, "']");
+    return "Could not find [data-accordion-row] associated with ".concat(id, ".");
   },
   NO_HEADER_ID_ERROR: function NO_HEADER_ID_ERROR(id) {
-    return "Your accordion button with [data-target='".concat(id, "'] should be contained in a header element with a unique id.");
+    return "Could not find header tag associated with [data-target='".concat(id, "'].");
   },
   NO_PARENT_ERROR: function NO_PARENT_ERROR(id) {
-    return "Your accordion button with [data-target='".concat(id, "'] is missing its [data-parent] attribute - the accordion can't be opened.");
+    return "Could not find [data-parent] associated with [data-target='".concat(id, "'].");
   },
   NO_CONTENT_ERROR: function NO_CONTENT_ERROR(id) {
-    return "Your accordion button doesn't seem to have a content block - make sure your button's [data-target] and the content block's [id] value both equal ".concat(id);
+    return "Could not accordion content block with [id] ".concat(id, " associated with [data-target='").concat(id, "'].");
   }
 };
 

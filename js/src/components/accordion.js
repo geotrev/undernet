@@ -30,15 +30,12 @@ const events = {
 
 const messages = {
   NO_VISIBLE_ERROR: id =>
-    `Your accordion button with [data-target='${id}'] doesn't have a row with [data-visible='true|false']`,
-  NO_ROW_ERROR: id =>
-    `Your accordion button should be contained in an element with [data-accordion-row='${id}']`,
-  NO_HEADER_ID_ERROR: id =>
-    `Your accordion button with [data-target='${id}'] should be contained in a header element with a unique id.`,
-  NO_PARENT_ERROR: id =>
-    `Your accordion button with [data-target='${id}'] is missing its [data-parent] attribute - the accordion can't be opened.`,
+    `Could not find parent with [data-visible] attribute associated with [data-target='${id}'].`,
+  NO_ROW_ERROR: id => `Could not find [data-accordion-row] associated with ${id}.`,
+  NO_HEADER_ID_ERROR: id => `Could not find header tag associated with [data-target='${id}'].`,
+  NO_PARENT_ERROR: id => `Could not find [data-parent] associated with [data-target='${id}'].`,
   NO_CONTENT_ERROR: id =>
-    `Your accordion button doesn't seem to have a content block - make sure your button's [data-target] and the content block's [id] value both equal ${id}`,
+    `Could not accordion content block with [id] ${id} associated with [data-target='${id}'].`,
 }
 
 /**

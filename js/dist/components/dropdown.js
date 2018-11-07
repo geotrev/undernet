@@ -50,6 +50,15 @@ var events = {
   KEYDOWN: "keydown",
   CLICK: "click"
 };
+var messages = {
+  NO_PARENT_ERROR: "Could not find dropdown button's [data-parent] attribute.",
+  NO_DROPDOWN_ERROR: function NO_DROPDOWN_ERROR(attr) {
+    return "Could not find dropdown container associated with ".concat(attr, ".");
+  },
+  NO_MENU_ERROR: function NO_MENU_ERROR(attr) {
+    return "Could not find menu associated with ".concat(attr, ".");
+  }
+};
 
 var Dropdown = function (_Utils) {
   _inherits(Dropdown, _Utils);
@@ -128,9 +137,19 @@ var Dropdown = function (_Utils) {
       }
 
       this.activeDropdownButton = event.target;
+
+      if (!this.activeDropdownButton.getAttribute(selectors.DATA_PARENT)) {
+        return messages.NO_PARENT_ERROR;
+      }
+
       this.activeDropdownId = this.activeDropdownButton.getAttribute(selectors.DATA_PARENT);
       this.activeDropdownButton.setAttribute(selectors.ARIA_EXPANDED, "true");
       this.activeDropdownAttr = "[".concat(selectors.DATA_DROPDOWN, "=\"").concat(this.activeDropdownId, "\"]");
+
+      if (!document.querySelector(this.activeDropdownAttr)) {
+        return messages.NO_DROPDOWN_ERROR(this.activeDropdownAttr);
+      }
+
       this.activeDropdown = document.querySelector(this.activeDropdownAttr);
       this.activeDropdownMenuId = this.activeDropdownButton.getAttribute(selectors.DATA_TARGET);
       this.activeDropdownMenu = document.getElementById(this.activeDropdownMenuId);
@@ -241,6 +260,11 @@ var Dropdown = function (_Utils) {
       var dropdownId = dropdown.getAttribute(selectors.DATA_DROPDOWN);
       var dropdownIdAttr = "[".concat(selectors.DATA_DROPDOWN, "=\"").concat(dropdownId, "\"]");
       var dropdownMenuItemsAttr = "".concat(dropdownIdAttr, " > ul > li");
+
+      if (!document.querySelector("".concat(dropdownIdAttr, " > ul"))) {
+        return messages.NO_MENU_ERROR(dropdownIdAttr);
+      }
+
       var dropdownMenu = document.querySelector("".concat(dropdownIdAttr, " > ul"));
       var dropdownButton = document.querySelector("".concat(dropdownIdAttr, " > ").concat(this.dropdownTargetAttr));
       dropdownButton.setAttribute(selectors.ARIA_CONTROLS, dropdownMenu.id);

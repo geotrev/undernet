@@ -31,9 +31,10 @@ const events = {
 }
 
 const messages = {
-  NO_TARGET_ERROR: `One of your [data-modal-button] elements is missing its [data-target] attribute.`,
-  NO_PARENT_ERROR: `One of your [data-modal] elements is missing its [data-parent] attribute.`,
-  NO_ID_ERROR: id => `Your [data-modal] is missing its parent with [data-modal-id='${id}'].`,
+  NO_TARGET_ERROR: `Could not find [data-target] attribute associated with a [data-modal-button] element.`,
+  NO_PARENT_ERROR: `Could not find [data-parent] attribute associated with a [data-modal] element.`,
+  NO_ID_ERROR: id =>
+    `Could not find [data-modal-id='${id}'] associated with a [data-modal] element.`,
 }
 
 /**
