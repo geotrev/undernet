@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /*!
 * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
-* Undernet v2.5.0 (https://undernet.io)
+* Undernet v3.0.0 (https://undernet.io)
 * Copyright 2017-2018 George Treviranus
 */
 html,
@@ -48,6 +48,14 @@ input,
 select,
 textarea {
   margin: 0; }
+
+a,
+button,
+label,
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent; }
 
 *,
 *:before,
@@ -2330,7 +2338,7 @@ textarea {
   border: 2px solid #dedede;
   overflow: hidden;
   border-radius: 4px; }
-  .accordion [data-expanded="false"] .accordion-button::after {
+  .accordion [data-visible="false"] .accordion-button::after {
     transform: rotate(180deg); }
   .accordion .accordion-button {
     display: flex;
@@ -2370,7 +2378,5 @@ textarea {
     background: #ffffff;
     transition: max-height 0.5s cubic-bezier(0.12, 0.72, 0.58, 1.03);
     border-bottom: 2px solid #dedede; }
-    .accordion .accordion-row .accordion-content .accordion-inner-content {
-      margin: 16px; }
 
 /*# sourceMappingURL=undernet.css.map */
