@@ -50,7 +50,11 @@ var events = {
   RESIZE: "resize"
 };
 var messages = {
-  MISSING_MODAL: "Your button is missing its corresponding modal. Check to make sure your modal is in the DOM, and that it has a [data-modal-id=*] attribute matchin its [data-modal-button] and [data-target] attributes. It's possible the modal script ran before the button appeared on the page!"
+  NO_TARGET_ERROR: "Could not find [data-target] attribute associated with a [data-modal-button] element.",
+  NO_PARENT_ERROR: "Could not find [data-parent] attribute associated with a [data-modal] element.",
+  NO_ID_ERROR: function NO_ID_ERROR(id) {
+    return "Could not find [data-modal-id='".concat(id, "'] associated with a [data-modal] element.");
+  }
 };
 
 var Modal = function (_Utils) {
@@ -69,11 +73,11 @@ var Modal = function (_Utils) {
     _this.modals = [];
     _this.modalButtons = [];
     _this.activeModalButton = null;
+    _this.activeModalOverlay = null;
+    _this.activeModal = null;
     _this.activeModalId = "";
     _this.activeModalOverlayAttr = "";
-    _this.activeModalOverlay = {};
     _this.activeModalSelector = "";
-    _this.activeModal = null;
     _this.activeModalCloseButtons = [];
     _this.modalContainerAttr = "[".concat(selectors.MODAL_CONTAINER, "]");
     _this.closeButtonAttr = "[".concat(selectors.MODAL_CONTAINER, "] [").concat(selectors.DATA_CLOSE, "]");
@@ -94,12 +98,7 @@ var Modal = function (_Utils) {
 
       if (this.modals.length) {
         this.modals.forEach(function (modal) {
-          var modalId = modal.getAttribute(selectors.DATA_PARENT);
-          var modalWrapper = document.querySelector("[".concat(selectors.MODAL_ID, "='").concat(modalId, "']"));
-          modalWrapper.setAttribute(selectors.ARIA_HIDDEN, "true");
-          modalWrapper.setAttribute(selectors.DATA_VISIBLE, "false");
-          modal.setAttribute(selectors.ARIA_MODAL, "true");
-          modal.setAttribute(selectors.ROLE, "dialog");
+          _this2._setupModal(modal);
         });
       }
 
@@ -125,18 +124,22 @@ var Modal = function (_Utils) {
 
       event.preventDefault();
       this.activeModalButton = event.target;
-      this.activeModalId = this.activeModalButton.getAttribute(selectors.DATA_TARGET);
-      this.activeModalOverlayAttr = "[".concat(selectors.MODAL_ID, "=\"").concat(this.activeModalId, "\"]");
-      this.activeModalOverlay = document.querySelector(this.activeModalOverlayAttr);
 
-      if (!this.activeModalOverlay) {
-        throw messages.MISSING_MODAL;
-        return;
+      if (!this.activeModalButton.getAttribute(selectors.DATA_TARGET)) {
+        return console.error(messages.NO_TARGET_ERROR);
       }
 
+      this.activeModalId = this.activeModalButton.getAttribute(selectors.DATA_TARGET);
+      this.activeModalOverlayAttr = "[".concat(selectors.MODAL_ID, "=\"").concat(this.activeModalId, "\"]");
+
+      if (!document.querySelector(this.activeModalOverlayAttr)) {
+        return console.error(messages.NO_ID_ERROR(this.activeModalId));
+      }
+
+      this.activeModalOverlay = document.querySelector(this.activeModalOverlayAttr);
       this.activeModalSelector = "".concat(this.activeModalOverlayAttr, " ").concat(this.modalContainerAttr);
       this.activeModal = document.querySelector(this.activeModalSelector);
-      this.activeModalCloseButtons = this._getElements("".concat(this.activeModalOverlayAttr, " ").concat(this.closeButtonAttr));
+      this.activeModalCloseButtons = this._getElements("".concat(this.activeModalOverlayAttr, " [").concat(selectors.MODAL_CONTAINER, "] [").concat(selectors.DATA_CLOSE, "]"));
 
       this._getFocusableElements(this.activeModalSelector).forEach(function (element) {
         element.setAttribute(selectors.TABINDEX, "0");
@@ -155,6 +158,30 @@ var Modal = function (_Utils) {
       this.activeModalCloseButtons.forEach(function (button) {
         button.addEventListener(events.CLICK, _this4._handleClose);
       });
+    }
+  }, {
+    key: "_setupModal",
+    value: function _setupModal(modal) {
+      var modalId;
+
+      if (!modal.getAttribute(selectors.DATA_PARENT)) {
+        return console.warn(messages.NO_PARENT_ERROR);
+      } else {
+        modalId = modal.getAttribute(selectors.DATA_PARENT);
+      }
+
+      var modalWrapper;
+
+      if (!document.querySelector("[".concat(selectors.MODAL_ID, "='").concat(modalId, "']"))) {
+        return console.error(messages.NO_ID_ERROR(modalId));
+      } else {
+        modalWrapper = document.querySelector("[".concat(selectors.MODAL_ID, "='").concat(modalId, "']"));
+      }
+
+      modalWrapper.setAttribute(selectors.ARIA_HIDDEN, "true");
+      modalWrapper.setAttribute(selectors.DATA_VISIBLE, "false");
+      modal.setAttribute(selectors.ARIA_MODAL, "true");
+      modal.setAttribute(selectors.ROLE, "dialog");
     }
   }, {
     key: "_handleClose",

@@ -50,7 +50,7 @@ Check out this example accordion:
 <br/>
 
 ```html
-<div data-accordion="new-accordion" class="accordion">
+<div data-accordion="accordion-1" class="accordion">
   <div class="accordion-row" data-visible="true" data-accordion-row="content-1">
     <h5 id="button-1">
       <button data-parent="accordion-1" class="accordion-button" data-target="content-1">
@@ -157,7 +157,7 @@ Two main pieces are required: an API call and correct HTML markup.
 When making an accordion, there are two major considerations in its structure: the "wrapper" to encapsulate each accordion "row" (can be multiple), and each "row" which hold a button + corresponding content block.
 
 ```html
-<div data-accordion="new-accordion" class="accordion">
+<div data-accordion="accordion-1" class="accordion">
   ...
   <div class="accordion-row" data-visible="true" data-accordion-row="content-1">
     <h5 id="button-1">
@@ -206,6 +206,7 @@ Call one of the following scripts from Undernet's JavaScript (not both!). This s
 ```js
 Undernet.start()
 ```
+
 ```js
 Undernet.Accordions.start()
 ```

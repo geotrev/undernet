@@ -31,6 +31,12 @@ const events = {
   CLICK: "click",
 }
 
+const messages = {
+  NO_PARENT_ERROR: `Could not find dropdown button's [data-parent] attribute.`,
+  NO_DROPDOWN_ERROR: attr => `Could not find dropdown container associated with ${attr}.`,
+  NO_MENU_ERROR: attr => `Could not find menu associated with ${attr}.`,
+}
+
 /**
  * Dropdown component class.
  * @module Dropdown
@@ -116,12 +122,22 @@ export default class Dropdown extends Utils {
 
     // dropdown button / trigger
     this.activeDropdownButton = event.target
+
+    if (!this.activeDropdownButton.getAttribute(selectors.DATA_PARENT)) {
+      return messages.NO_PARENT_ERROR
+    }
+
     this.activeDropdownId = this.activeDropdownButton.getAttribute(selectors.DATA_PARENT)
 
     this.activeDropdownButton.setAttribute(selectors.ARIA_EXPANDED, "true")
 
     // dropdown container
     this.activeDropdownAttr = `[${selectors.DATA_DROPDOWN}="${this.activeDropdownId}"]`
+
+    if (!document.querySelector(this.activeDropdownAttr)) {
+      return messages.NO_DROPDOWN_ERROR(this.activeDropdownAttr)
+    }
+
     this.activeDropdown = document.querySelector(this.activeDropdownAttr)
 
     // dropdown menu
@@ -139,10 +155,7 @@ export default class Dropdown extends Utils {
     document.addEventListener(events.KEYDOWN, this._handleEscapeKeyPress)
     document.addEventListener(events.CLICK, this._handleOffMenuClick)
 
-    const buttonSelector = `${this.activeDropdownAttr} > ul > li`
-    this.activeDropdownLinks = this._getElements(
-      `${buttonSelector} > a, ${buttonSelector} > button`,
-    )
+    this.activeDropdownLinks = this._getDropdownButtons(this.activeDropdownAttr)
 
     this.firstDropdownLink = this.activeDropdownLinks[0]
     this.lastDropdownLink = this.activeDropdownLinks[this.activeDropdownLinks.length - 1]
@@ -258,6 +271,14 @@ export default class Dropdown extends Utils {
   }
 
   /**
+   * Retrieve possible menu links or buttons as an array
+   * @param {String} attr - The unique attribute for a dropdown.
+   */
+  _getDropdownButtons(attr) {
+    return this._getElements(`${attr} > ul > li > a, ${attr} > ul > li > button`)
+  }
+
+  /**
    * Add starting attributes to a dropdown.
    * @param {Element} dropdown - A dropdown element.
    */
@@ -265,6 +286,10 @@ export default class Dropdown extends Utils {
     const dropdownId = dropdown.getAttribute(selectors.DATA_DROPDOWN)
     const dropdownIdAttr = `[${selectors.DATA_DROPDOWN}="${dropdownId}"]`
     const dropdownMenuItemsAttr = `${dropdownIdAttr} > ul > li`
+
+    if (!document.querySelector(`${dropdownIdAttr} > ul`)) {
+      return messages.NO_MENU_ERROR(dropdownIdAttr)
+    }
 
     const dropdownMenu = document.querySelector(`${dropdownIdAttr} > ul`)
     const dropdownButton = document.querySelector(`${dropdownIdAttr} > ${this.dropdownTargetAttr}`)
@@ -277,10 +302,7 @@ export default class Dropdown extends Utils {
     const dropdownMenuItems = this._getElements(dropdownMenuItemsAttr)
     dropdownMenuItems.forEach(item => item.setAttribute(selectors.ROLE, "none"))
 
-    const dropdownMenuItemLinks = this._getElements(
-      `${dropdownMenuItemsAttr} > a, ${dropdownMenuItemsAttr} > button`,
-    )
-    dropdownMenuItemLinks.forEach(link => {
+    this._getDropdownButtons(dropdownIdAttr).forEach(link => {
       link.setAttribute(selectors.ROLE, "menuitem")
       link.setAttribute(selectors.TABINDEX, "-1")
     })

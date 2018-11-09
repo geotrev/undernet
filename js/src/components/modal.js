@@ -30,6 +30,13 @@ const events = {
   RESIZE: "resize",
 }
 
+const messages = {
+  NO_TARGET_ERROR: `Could not find [data-target] attribute associated with a [data-modal-button] element.`,
+  NO_PARENT_ERROR: `Could not find [data-parent] attribute associated with a [data-modal] element.`,
+  NO_ID_ERROR: id =>
+    `Could not find [data-modal-id='${id}'] associated with a [data-modal] element.`,
+}
+
 /**
  * Modal component class.
  * @module Modal
@@ -50,11 +57,11 @@ export default class Modal extends Utils {
 
     // active modal
     this.activeModalButton = null
+    this.activeModalOverlay = null
+    this.activeModal = null
     this.activeModalId = ""
     this.activeModalOverlayAttr = ""
-    this.activeModalOverlay = {}
     this.activeModalSelector = ""
-    this.activeModal = null
     this.activeModalCloseButtons = []
 
     // attribute helpers
@@ -78,12 +85,7 @@ export default class Modal extends Utils {
 
     if (this.modals.length) {
       this.modals.forEach(modal => {
-        const modalId = modal.getAttribute(selectors.DATA_PARENT)
-        const modalWrapper = document.querySelector(`[${selectors.MODAL_ID}='${modalId}']`)
-        modalWrapper.setAttribute(selectors.ARIA_HIDDEN, "true")
-        modalWrapper.setAttribute(selectors.DATA_VISIBLE, "false")
-        modal.setAttribute(selectors.ARIA_MODAL, "true")
-        modal.setAttribute(selectors.ROLE, "dialog")
+        this._setupModal(modal)
       })
     }
 
@@ -111,16 +113,25 @@ export default class Modal extends Utils {
    */
   _render(event) {
     event.preventDefault()
-
     this.activeModalButton = event.target
+
+    if (!this.activeModalButton.getAttribute(selectors.DATA_TARGET)) {
+      return console.error(messages.NO_TARGET_ERROR)
+    }
+
     this.activeModalId = this.activeModalButton.getAttribute(selectors.DATA_TARGET)
     this.activeModalOverlayAttr = `[${selectors.MODAL_ID}="${this.activeModalId}"]`
+
+    if (!document.querySelector(this.activeModalOverlayAttr)) {
+      return console.error(messages.NO_ID_ERROR(this.activeModalId))
+    }
+
     this.activeModalOverlay = document.querySelector(this.activeModalOverlayAttr)
 
     this.activeModalSelector = `${this.activeModalOverlayAttr} ${this.modalContainerAttr}`
     this.activeModal = document.querySelector(this.activeModalSelector)
     this.activeModalCloseButtons = this._getElements(
-      `${this.activeModalOverlayAttr} ${this.closeButtonAttr}`,
+      `${this.activeModalOverlayAttr} [${selectors.MODAL_CONTAINER}] [${selectors.DATA_CLOSE}]`,
     )
 
     this._getFocusableElements(this.activeModalSelector).forEach(element => {
@@ -143,6 +154,27 @@ export default class Modal extends Utils {
     this.activeModalCloseButtons.forEach(button => {
       button.addEventListener(events.CLICK, this._handleClose)
     })
+  }
+
+  _setupModal(modal) {
+    let modalId
+    if (!modal.getAttribute(selectors.DATA_PARENT)) {
+      return console.warn(messages.NO_PARENT_ERROR)
+    } else {
+      modalId = modal.getAttribute(selectors.DATA_PARENT)
+    }
+
+    let modalWrapper
+    if (!document.querySelector(`[${selectors.MODAL_ID}='${modalId}']`)) {
+      return console.error(messages.NO_ID_ERROR(modalId))
+    } else {
+      modalWrapper = document.querySelector(`[${selectors.MODAL_ID}='${modalId}']`)
+    }
+
+    modalWrapper.setAttribute(selectors.ARIA_HIDDEN, "true")
+    modalWrapper.setAttribute(selectors.DATA_VISIBLE, "false")
+    modal.setAttribute(selectors.ARIA_MODAL, "true")
+    modal.setAttribute(selectors.ROLE, "dialog")
   }
 
   /**
