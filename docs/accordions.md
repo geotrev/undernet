@@ -6,7 +6,7 @@ Use an accordion to hide and show content in a collapsable fashion.
 
 Check out this example accordion:
 
-<div class="accordion">
+<div data-accordion="accordion-1" class="accordion">
   <div class="accordion-row" data-visible="true" data-accordion-row="content-1">
     <h5 id="button-1">
       <button data-parent="accordion-1" class="accordion-button" data-target="content-1">
