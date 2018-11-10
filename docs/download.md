@@ -24,9 +24,9 @@ Grab compiled assets if you need them statically.
 - CSS: [Download](https://github.com/geotrev/undernet/raw/master/dist/undernet.css.zip)
 - JS: [Download](https://github.com/geotrev/undernet/raw/master/dist/undernet.js.zip)
 
-## Unminified & Uncompiled
+## Uncompiled CSS
 
-Going this route allows for far more customization, but do so at your own risk. For the JavaScript in particular, you can exclude specific component imports under the main `undernet.js` file to remove any unneeded pieces.
+Going this route allows for far more customization, but do so at your own risk. For the JavaScript in particular, you can exclude specific imports under the main `undernet.js` file to remove any unneeded components.
 
 - SCSS: [Download](https://github.com/geotrev/undernet/raw/master/dist/undernet.scss.zip)
 - JS: [Download](https://github.com/geotrev/undernet/raw/master/dist/undernet.modules.js.zip)
