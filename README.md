@@ -4,15 +4,13 @@
 
 # Undernet
 
-A powerful, configuration-first front-end framework.
-
-## In the box
+A modular front-end component library for modern web development.
 
 The framework features:
 
 - Layout utilities including a flex grid and spacing classes
 - CSS styling for common elements: forms, buttons, headers, etc
-- Interactive components using JS: modals, accordions, and dropdowns
+- Common interactive components using JS: modals, accordions, and dropdowns
 - Powerful configuration options for all of the above.
 
 ## Easy setup

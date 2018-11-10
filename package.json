@@ -1,8 +1,8 @@
 {
   "name": "undernet",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "homepage": "https://undernet.io",
-  "description": "Undernet is a Front-End Framework for Modern Web Development",
+  "description": "A modular front-end component library for modern web development.",
   "main": "dist/undernet.bundle.min.js",
   "author": "George Treviranus",
   "license": "MIT",

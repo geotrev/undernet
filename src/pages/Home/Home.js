@@ -39,7 +39,7 @@ export default class Home extends Component {
         <div className="medium-section fluid grid hero">
           <div className="row">
             <div className="xsmall-12 columns has-center-text">
-              <h1 className="h3">Modular front-end development. No strings.</h1>
+              <h1 className="h3">A modular front-end component library for modern web development.</h1>
             </div>
 
             <div className="xsmall-12 columns has-center-text">
