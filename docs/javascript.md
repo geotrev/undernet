@@ -26,33 +26,13 @@ Just like in the [Introduction](/docs/overview/introduction) article, the fastes
 </html>
 ```
 
-## Using NPM, Webpack, & React
+## Using NPM
 
-You can easily install the npm module and use Undernet in React. All you need to do after importing from the npm module is call start/stop to update as the DOM changes. There will likely be a package in the future that React-ifies these components for better state management. For now, this should do.
+Easily import with npm.
 
 ```js
 import Undernet from 'undernet'
-// Or locally...
-var Undernet = require('path/to/undernet')
-// Then, set up your component:
-export default class MyComponent extends React.Component {
-  // Add event listeners
-  componentDidMount() {
-    Undernet.start()
-  }
-  // Remove any lingering event listeners if the DOM changes.
-  componentWillUnmount() {
-    Undernet.stop()
-  }
-  // Undernet doesn't track state; restart the components
-  componentDidUpdate() {
-    Undernet.stop()
-    Undernet.start()
-  }
-}
 ```
-
-Fun fact: this is how the components are showcased in the component docs.
 
 ### Customizing Component Imports
 

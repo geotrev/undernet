@@ -10,10 +10,10 @@ A powerful, configuration-first front-end framework.
 
 The framework features:
 
-- A flex-grid for layouts
-- Styling for common tags: buttons, paragraphs, headers, etc.
-- Configuration file to apply core brand styling to all elements, including an option for name-spacing.
-- Functional JavaScript components. Currently includes dropdowns, modals, and accordions.
+- Layout utilities including a flex grid and spacing classes
+- CSS styling for common elements: forms, buttons, headers, etc
+- Interactive components using JS: modals, accordions, and dropdowns
+- Powerful configuration options for all of the above.
 
 ## Easy setup
 
@@ -77,42 +77,6 @@ Undernet.start()
 // or import a specific component:
 import Modals from "undernet/js/dist/components/modal"
 Modals.start()
-```
-
-
-#### React
-
-Undernet fully supports use in React. You simply need to call the `.start()` property in `componentDidMount()`, and then `.stop()` in `componentWillUnmount()` (to prevent unnecessary event listeners when the components are no longer visible):
-
-```js
-export default class SomeComponent extends React.Component {
-  componentDidMount() {
-    Undernet.Modals.start()
-  }
-
-  componentWillUnmount() {
-    Undernet.Modals.stop()
-  }
-
-  render() {
-    return <div>
-      {/* ... modal markup here! */}
-    </div>
-  }
-}
-```
-
-Since Undernet doesn't have visibility into React's state, and that's something you're worried about (i.e., adding new components dynamically), then add this bit to cover your bases:
-
-```js
-export default class SomeComponent extends React.Component {
-  ...
-  componentDidUpdate() {
-    Undernet.Modals.stop()
-    Undernet.Modals.start()
-  }
-  ...
-}
 ```
 
 ## Contribute
