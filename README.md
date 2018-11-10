@@ -160,6 +160,6 @@ These will do three things:
 
 1. Increment the project version across multiple files that require it.
 2. Build all assets with the new version.
-3. Generate new sha-256 hashes for CDN access (see `docs/introduction.md`, "Get Started" section).
+3. Generate new sha-256 hashes for CDN subresource integrity (added to `docs/download.md`).
 
-All that's left is a `npm publish` and the new version is out in the wild! Crazy cool!
+The result is a repo state ready to publish to npm!
