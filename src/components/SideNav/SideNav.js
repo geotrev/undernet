@@ -149,12 +149,7 @@ export default class SideNav extends Component {
             </Button>
           </h4>
         </li>
-        <li
-          className="accordion-content"
-          id={"nav-acc-content" + index}
-          aria-labelledby={"nav-acc-button" + index}
-          data-content={this.accordionIsActive(section.links) ? "visible" : "hidden"}
-        >
+        <li className="accordion-content" id={"nav-acc-content" + index}>
           <ul>{listItems}</ul>
         </li>
       </ul>
@@ -169,7 +164,7 @@ export default class SideNav extends Component {
 
       return (
         <div
-          data-expanded={this.accordionIsActive(section.links) ? "true" : "false"}
+          data-visible={this.accordionIsActive(section.links) ? "true" : "false"}
           data-accordion-row={"nav-acc-content" + i}
           className={classNames("accordion-row", this.props.navListClasses)}
           key={i}

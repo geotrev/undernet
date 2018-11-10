@@ -4,22 +4,7 @@ Thanks for using Undernet! Hit the ground running in your next project with this
 
 Undernet is extremely light, carrying no external dependencies apart from needing a SCSS compiler (if you aren't using the compiled CSS).
 
-## Get Started
-
-The quickest way to use Undernet is to link the bundled js and minified css using a CDN, such as [jsdelivr](https://jsdelivr.com).
-
-```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/undernet@2.4.1/dist/undernet.min.css" integrity="sha256-bX29Vc8vjuAFBJS+PKK2r9iJOj1aMLn4A1Sj8iH63BM=" crossorigin="anonymous">
-```
-
-```html
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/undernet@2.4.1/dist/undernet.bundle.min.js" integrity="sha256-1QnHhJ6tkW1PuBOTUeAPdrzYxcRceAvqJTi4mHxGmZg=" crossorigin="anonymous"></script>
-<script type="text/javascript">
-  document.addEventListener('DOMContentLoaded', Undernet.start())
-</script>
-```
-
-Head over to the [download page](/docs/overview/download) to get Undernet's assets, or see other options for [including it in your pipeline](/docs/overview/javascript).
+Head over to the [download page](/docs/overview/download) to get Undernet's assets, or see other options for [including it in your pipeline](/docs/overview/javascript) via NPM.
 
 ## About Undernet
 

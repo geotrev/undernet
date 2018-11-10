@@ -10,6 +10,7 @@ import {
   formsPath,
   modalsPath,
   accordionsPath,
+  dropdownsPath,
   alignmentPath,
   offsetOrderPath,
   textPath,
@@ -40,7 +41,11 @@ export const ITEMS = [
   },
   {
     header: "Components",
-    links: [{ name: "Modals", url: modalsPath }, { name: "Accordions", url: accordionsPath }],
+    links: [
+      { name: "Modals", url: modalsPath },
+      { name: "Accordions", url: accordionsPath },
+      { name: "Dropdowns", url: dropdownsPath },
+    ],
   },
   {
     header: "Utilities",

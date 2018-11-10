@@ -88,6 +88,7 @@ pre,
 .pre {
   padding: $type-pre-padding;
   overflow: auto;
+  overflow-wrap: initial;
 
   > code,
   .code {

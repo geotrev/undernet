@@ -13,14 +13,15 @@ const selectors = {
   MODAL_BUTTON: "data-modal-button",
   NO_SCROLL: "no-scroll",
   // common
-  VISIBLE: "data-visible",
-  CLOSE: "data-close",
-  TARGET: "data-target",
+  DATA_VISIBLE: "data-visible",
+  DATA_CLOSE: "data-close",
+  DATA_TARGET: "data-target",
+  DATA_PARENT: "data-parent",
   // accessibility
   ARIA_HIDDEN: "aria-hidden",
   ARIA_MODAL: "aria-modal",
   ROLE: "role",
-  TAB_INDEX: "tabindex",
+  TABINDEX: "tabindex",
 }
 
 const events = {
@@ -30,8 +31,10 @@ const events = {
 }
 
 const messages = {
-  MISSING_MODAL:
-    "Your button is missing its corresponding modal. Check to make sure your modal is in the DOM, and that it has a [data-modal-id=*] attribute matchin its [data-modal-button] and [data-target] attributes. It's possible the modal script ran before the button appeared on the page!",
+  NO_TARGET_ERROR: `Could not find [data-target] attribute associated with a [data-modal-button] element.`,
+  NO_PARENT_ERROR: `Could not find [data-parent] attribute associated with a [data-modal] element.`,
+  NO_ID_ERROR: id =>
+    `Could not find [data-modal-id='${id}'] associated with a [data-modal] element.`,
 }
 
 /**
@@ -43,26 +46,27 @@ export default class Modal extends Utils {
   constructor() {
     super()
     // modal event methods
-    this._getModal = this._getModal.bind(this)
-    this._handleModalClose = this._handleModalClose.bind(this)
+    this._render = this._render.bind(this)
+    this._handleClose = this._handleClose.bind(this)
     this._handleEscapeKeyPress = this._handleEscapeKeyPress.bind(this)
     this._handleOverlayClick = this._handleOverlayClick.bind(this)
 
     // all modals
-    this.modalContainerAttr = `[${selectors.MODAL_CONTAINER}]`
-    this.closeButtonAttr = `[${selectors.MODAL_CONTAINER}] [${selectors.CLOSE}]`
-    this.modals = null
-    this.modalButtons = null
-    this.closeButtons = null
+    this.modals = []
+    this.modalButtons = []
 
     // active modal
-    this.activeModalButton = {}
+    this.activeModalButton = null
+    this.activeModalOverlay = null
+    this.activeModal = null
     this.activeModalId = ""
     this.activeModalOverlayAttr = ""
-    this.activeModalOverlay = {}
     this.activeModalSelector = ""
-    this.activeModal = null
     this.activeModalCloseButtons = []
+
+    // attribute helpers
+    this.modalContainerAttr = `[${selectors.MODAL_CONTAINER}]`
+    this.closeButtonAttr = `[${selectors.MODAL_CONTAINER}] [${selectors.DATA_CLOSE}]`
   }
 
   // public
@@ -74,24 +78,20 @@ export default class Modal extends Utils {
   start() {
     this.modals = this._getElements(this.modalContainerAttr)
     this.modalButtons = this._getElements(`[${selectors.MODAL_BUTTON}]`)
-    this.closeButtons = this._getElements(this.closeButtonAttr)
 
     this._getFocusableElements(this.modalContainerAttr).forEach(element => {
-      element.setAttribute(selectors.TAB_INDEX, "-1")
+      element.setAttribute(selectors.TABINDEX, "-1")
     })
 
     if (this.modals.length) {
       this.modals.forEach(modal => {
-        modal.setAttribute(selectors.ARIA_MODAL, "true")
-        modal.parentNode.setAttribute(selectors.ARIA_HIDDEN, "true")
-        modal.parentNode.setAttribute(selectors.VISIBLE, "false")
-        modal.setAttribute(selectors.ROLE, "dialog")
+        this._setupModal(modal)
       })
     }
 
     if (this.modalButtons.length) {
       this.modalButtons.forEach(button => {
-        button.addEventListener(events.CLICK, this._getModal)
+        button.addEventListener(events.CLICK, this._render)
       })
     }
   }
@@ -101,51 +101,48 @@ export default class Modal extends Utils {
    */
   stop() {
     this.modalButtons.forEach(button => {
-      button.removeEventListener(events.CLICK, this._getModal)
+      button.removeEventListener(events.CLICK, this._render)
     })
   }
 
   // private
 
   /**
-   * Locate a button's corresponding modal container.
-   * @param {Object} event - The event object
-   */
-  _getModal(event) {
-    event.preventDefault()
-    this._renderModal(event)
-  }
-
-  /**
    * Find a button through event.target, then render the corresponding modal attribute via matching target id
    * @param {Object} event - The event object
    */
-  _renderModal(event) {
+  _render(event) {
+    event.preventDefault()
     this.activeModalButton = event.target
-    this.activeModalId = this.activeModalButton.getAttribute(selectors.TARGET)
-    this.activeModalOverlayAttr = `[${selectors.MODAL_ID}='${this.activeModalId}']`
-    this.activeModalOverlay = document.querySelector(this.activeModalOverlayAttr)
 
-    if (!this.activeModalOverlay) {
-      throw messages.MISSING_MODAL
-      return
+    if (!this.activeModalButton.getAttribute(selectors.DATA_TARGET)) {
+      return console.error(messages.NO_TARGET_ERROR)
     }
+
+    this.activeModalId = this.activeModalButton.getAttribute(selectors.DATA_TARGET)
+    this.activeModalOverlayAttr = `[${selectors.MODAL_ID}="${this.activeModalId}"]`
+
+    if (!document.querySelector(this.activeModalOverlayAttr)) {
+      return console.error(messages.NO_ID_ERROR(this.activeModalId))
+    }
+
+    this.activeModalOverlay = document.querySelector(this.activeModalOverlayAttr)
 
     this.activeModalSelector = `${this.activeModalOverlayAttr} ${this.modalContainerAttr}`
     this.activeModal = document.querySelector(this.activeModalSelector)
     this.activeModalCloseButtons = this._getElements(
-      `${this.activeModalOverlayAttr} ${this.closeButtonAttr}`,
+      `${this.activeModalOverlayAttr} [${selectors.MODAL_CONTAINER}] [${selectors.DATA_CLOSE}]`,
     )
 
     this._getFocusableElements(this.activeModalSelector).forEach(element => {
-      element.setAttribute(selectors.TAB_INDEX, "0")
+      element.setAttribute(selectors.TABINDEX, "0")
     })
 
     this._handleScrollStop()
     this.captureFocus(this.activeModalSelector)
     this.activeModalOverlay.setAttribute(selectors.ARIA_HIDDEN, "false")
-    this.activeModal.setAttribute("tabindex", "-1")
-    this.activeModalOverlay.setAttribute(selectors.VISIBLE, "true")
+    this.activeModal.setAttribute(selectors.TABINDEX, "-1")
+    this.activeModalOverlay.setAttribute(selectors.DATA_VISIBLE, "true")
     this.activeModal.focus()
 
     // offset slight scroll caused by this.activeModal.focus()
@@ -155,32 +152,53 @@ export default class Modal extends Utils {
     document.addEventListener(events.KEYDOWN, this._handleEscapeKeyPress)
     document.addEventListener(events.CLICK, this._handleOverlayClick)
     this.activeModalCloseButtons.forEach(button => {
-      button.addEventListener(events.CLICK, this._handleModalClose)
+      button.addEventListener(events.CLICK, this._handleClose)
     })
+  }
+
+  _setupModal(modal) {
+    let modalId
+    if (!modal.getAttribute(selectors.DATA_PARENT)) {
+      return console.warn(messages.NO_PARENT_ERROR)
+    } else {
+      modalId = modal.getAttribute(selectors.DATA_PARENT)
+    }
+
+    let modalWrapper
+    if (!document.querySelector(`[${selectors.MODAL_ID}='${modalId}']`)) {
+      return console.error(messages.NO_ID_ERROR(modalId))
+    } else {
+      modalWrapper = document.querySelector(`[${selectors.MODAL_ID}='${modalId}']`)
+    }
+
+    modalWrapper.setAttribute(selectors.ARIA_HIDDEN, "true")
+    modalWrapper.setAttribute(selectors.DATA_VISIBLE, "false")
+    modal.setAttribute(selectors.ARIA_MODAL, "true")
+    modal.setAttribute(selectors.ROLE, "dialog")
   }
 
   /**
    * Turn off event listeners and reset focus to last selected DOM node (button)
    * @param {Object} event - Event (keydown or click)
    */
-  _handleModalClose(event) {
+  _handleClose(event) {
     event.preventDefault()
-    this.activeModalOverlay.setAttribute(selectors.VISIBLE, "false")
+    this.activeModalOverlay.setAttribute(selectors.DATA_VISIBLE, "false")
     this._handleReturnFocus()
     this._handleScrollRestore()
     this.releaseFocus()
     this.activeModalOverlay.setAttribute(selectors.ARIA_HIDDEN, "true")
-    this.activeModal.removeAttribute("tabindex")
+    this.activeModal.removeAttribute(selectors.TABINDEX)
 
     this._getFocusableElements(this.activeModalSelector).forEach(element => {
-      element.setAttribute(selectors.TAB_INDEX, "-1")
+      element.setAttribute(selectors.TABINDEX, "-1")
     })
 
     // stop listening to events
     document.removeEventListener(events.KEYDOWN, this._handleEscapeKeyPress)
     document.removeEventListener(events.CLICK, this._handleOverlayClick)
     this.activeModalCloseButtons.forEach(button => {
-      button.removeEventListener(events.CLICK, this._handleModalClose)
+      button.removeEventListener(events.CLICK, this._handleClose)
     })
   }
 
@@ -190,7 +208,7 @@ export default class Modal extends Utils {
    */
   _handleOverlayClick(event) {
     if (event.target === this.activeModalOverlay) {
-      this._handleModalClose(event)
+      this._handleClose(event)
     }
   }
 
@@ -200,7 +218,7 @@ export default class Modal extends Utils {
    */
   _handleEscapeKeyPress(event) {
     if (event.which === keyCodes.ESCAPE) {
-      this._handleModalClose(event)
+      this._handleClose(event)
     }
   }
 
@@ -209,9 +227,9 @@ export default class Modal extends Utils {
    * @param {Object} button - The current modal's corresponding button.
    */
   _handleReturnFocus() {
-    this.activeModalButton.setAttribute("tabindex", "-1")
+    this.activeModalButton.setAttribute(selectors.TABINDEX, "-1")
     this.activeModalButton.focus()
-    this.activeModalButton.removeAttribute("tabindex")
+    this.activeModalButton.removeAttribute(selectors.TABINDEX)
   }
 
   /**

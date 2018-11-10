@@ -13,7 +13,7 @@ The framework features:
 - A flex-grid for layouts
 - Styling for common tags: buttons, paragraphs, headers, etc.
 - Configuration file to apply core brand styling to all elements, including an option for name-spacing.
-- Functional JavaScript components: modals, accordions, etc.
+- Functional JavaScript components. Currently includes dropdowns, modals, and accordions.
 
 ## Easy setup
 
@@ -59,7 +59,7 @@ For more details on customizing branding, check out the [Branding](https://under
 
 ### NPM / JS modules
 
-Another option is to use the npm package and borrow the modules you need. This is great for webpack where you can tree shake the modules you won't be needing.
+Another option is to use the npm package and borrow the modules you need. This is great for webpack where you can choose to import specific components directly.
 
 ```sh
 $ npm install --save-dev undernet
@@ -70,15 +70,15 @@ Check out the [documentation](https://undernet.io/docs/overview/javascript) to s
 Then require or import the dependency in your js, or add it to a script tag in your main layout (see the **Easy setup** method above for script usage).
 
 ```js
+// import everything
 import Undernet from "undernet"
-
-// start all components
 Undernet.start()
 
-// or only use a single component, e.g. the Modal:
-// NOTE: if you use Undernet.start(), you're effectively doing nothing with this property call
-Undernet.Modals.start()
+// or import a specific component:
+import Modals from "undernet/js/dist/components/modal"
+Modals.start()
 ```
+
 
 #### React
 
@@ -96,7 +96,7 @@ export default class SomeComponent extends React.Component {
 
   render() {
     return <div>
-      // ... modal markup here!
+      {/* ... modal markup here! */}
     </div>
   }
 }
@@ -121,7 +121,7 @@ See CONTRIBUTING.md for more details on git flow and recommendations for pull re
 
 ### Fork and clone for development
 
-Clone the repo and re-clone the wiki contents.
+First fork the project on Github. Then set up locally.
 
 ```sh
 $ git clone git@github.com:USER_NAME/undernet.git

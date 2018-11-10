@@ -1,0 +1,117 @@
+.dropdown {
+  position: relative;
+  display: inline-block;
+
+  // &#9660;
+
+  [data-target] {
+    display: inline-flex;
+    align-items: center;
+
+    &::after {
+      content: $dropdown-button-arrow;
+      padding: $dropdown-button-arrow-padding;
+      font-size: $dropdown-button-arrow-font-size;
+    }
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    display: block;
+    opacity: 0;
+    transition: $dropdown-menu-transition;
+    pointer-events: none;
+    list-style-type: none;
+    margin: 0;
+    padding: $dropdown-menu-padding;
+    border-radius: $dropdown-menu-border-radius;
+    background: $dropdown-menu-background-color;
+    width: $dropdown-menu-width;
+    border: $dropdown-menu-border;
+    z-index: $dropdown-menu-index;
+
+    .modal-dialog & {
+      z-index: $dropdown-menu-index-in-modal;
+    }
+
+    &.is-aligned-right {
+      right: 0;
+    }
+
+    @include breakpoint-up(small) {
+      &.is-drop-up {
+        bottom: 100%;
+        margin-bottom: $global-space;
+      }
+
+      &.is-drop-left {
+        right: 100%;
+        margin-right: $global-space;
+        top: 0;
+      }
+
+      &.is-drop-right {
+        left: 100%;
+        margin-left: $global-space;
+        top: 0;
+      }
+    }
+
+    li {
+      padding: 0;
+      display: flex;
+      flex-flow: column nowrap;
+      position: relative;
+
+      hr {
+        border: none;
+        height: $dropdown-menu-rule-height;
+        background: $dropdown-menu-rule-color;
+        margin: $dropdown-menu-rule-margin;
+      }
+
+      a {
+        display: flex;
+        position: relative;
+        padding: $dropdown-menu-button-padding;
+        flex: 0 0 100%;
+        max-width: 100%;
+        text-decoration: none;
+        color: $dropdown-menu-button-text-color;
+
+        &:hover {
+          background: lighten($gray900, 10%);
+        }
+
+        &:active {
+          background: lighten($gray900, 8%);
+        }
+      }
+
+      &.dropdown-header {
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+          font-size: $dropdown-menu-header-font-size;
+          margin: 0;
+          padding: $dropdown-menu-header-padding;
+          color: $dropdown-menu-header-color;
+        }
+      }
+    }
+  }
+
+  &[data-visible="true"] {
+    .dropdown-menu {
+      opacity: 1;
+      pointer-events: auto;
+
+      [data-close] {
+        display: flex;
+      }
+    }
+  }
+}
