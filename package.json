@@ -1,6 +1,6 @@
 {
   "name": "undernet",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "homepage": "https://undernet.io",
   "description": "Undernet is a Front-End Framework for Modern Web Development",
   "main": "dist/undernet.bundle.min.js",
@@ -27,7 +27,7 @@
     "js:watch": "BABEL_ENV=dist babel js/src/ --watch --out-dir js/dist/ --no-comments",
     "js:modules:zip": "cd js/dist/ && zip -r ../../dist/undernet.modules.js.zip .",
     "js:zip": "cd dist/ && zip -r undernet.js.zip . -x *.css *.zip *.css.map",
-    "js:prepublish": "npm run js:build && npm run js:merge && js:modules:zip && npm run js:minify && npm run js:zip",
+    "js:prepublish": "npm run js:build && npm run js:merge && npm run js:modules:zip && npm run js:minify && npm run js:zip",
     "js:lint": "prettier --write 'js/src/**/*.js'",
     "css:minify": "sass scss/undernet.scss:dist/undernet.min.css --style compressed",
     "css:build": "sass scss/undernet.scss:dist/undernet.css",

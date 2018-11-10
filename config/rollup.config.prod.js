@@ -5,12 +5,12 @@ import { uglify } from "rollup-plugin-uglify"
 
 module.exports = merge(common, {
   output: {
-    file: path.resolve("dist/undernet.bundle.min.js"),
+    file: path.resolve(__dirname, "../dist/undernet.bundle.min.js"),
   },
   plugins: [
     uglify({
       output: {
-        comments: function(node, comment) {
+        comments: (node, comment) => {
           if (comment.type === "comment2") {
             return /@preserve|@license|@cc_on/i.test(comment.value)
           }
