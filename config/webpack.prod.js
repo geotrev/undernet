@@ -17,7 +17,6 @@ module.exports = merge(common(true), {
         parallel: true,
         sourceMap: false,
       }),
-      new OptimizeCSSAssetsPlugin(),
     ],
     runtimeChunk: {
       name: "manifest",
@@ -32,6 +31,15 @@ module.exports = merge(common(true), {
 
       // external is required because this config is not in the root directory.
       allowExternal: true,
+    }),
+
+    // minify styles
+    new OptimizeCSSAssetsPlugin({
+      cssProcessorPluginOptions: {
+        preset: ['default', {
+          discardComments: { removeAll: true }
+        }],
+      },
     }),
 
     // create gzip assets
