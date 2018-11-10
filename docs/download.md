@@ -24,9 +24,9 @@ Grab compiled assets if you need them statically.
 - CSS: [Download](https://github.com/geotrev/undernet/raw/master/dist/undernet.css.zip)
 - JS: [Download](https://github.com/geotrev/undernet/raw/master/dist/undernet.js.zip)
 
-## Uncompiled CSS
+## Uncompiled & Unminified
 
-Going this route allows for far more customization, but do so at your own risk. For the JavaScript in particular, you can exclude specific imports under the main `undernet.js` file to remove any unneeded components.
+Going this route allows for far more customization, but do so at your own risk. For the JavaScript in particular, you can exclude any unneeded component imports under the main `undernet.js` file.
 
 - SCSS: [Download](https://github.com/geotrev/undernet/raw/master/dist/undernet.scss.zip)
 - JS: [Download](https://github.com/geotrev/undernet/raw/master/dist/undernet.modules.js.zip)
@@ -41,6 +41,15 @@ $ npm install undernet
 
 ```sh
 $ yarn add undernet
+```
+
+And then import as you would normally:
+
+```js
+// import all of Undernet
+import Undernet from "undernet"
+// or only grab a single component
+import Modal from "undernet/js/dist/components/modal"
 ```
 
 <p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/download.md">Edit this page on Github!</a></p>
