@@ -4,15 +4,13 @@
 
 # Undernet
 
-A powerful, configuration-first front-end framework.
-
-## In the box
+A modular front-end component library for modern web development.
 
 The framework features:
 
 - Layout utilities including a flex grid and spacing classes
 - CSS styling for common elements: forms, buttons, headers, etc
-- Interactive components using JS: modals, accordions, and dropdowns
+- Common interactive components using JS: modals, accordions, and dropdowns
 - Powerful configuration options for all of the above.
 
 ## Easy setup
@@ -125,17 +123,14 @@ The site itself is a demo of the framework, so you should be able to work on the
 
 The build environment works only for macOS at the moment.
 
-To compile and test the framework in this project, you'll need to have a stable version of ruby for sass. I recommend using [ruby-install](https://www.ruby-lang.org/en/documentation/installation/#ruby-install) and managing your version for this project with [chruby](https://www.ruby-lang.org/en/documentation/installation/#chruby) or [rvm](https://www.ruby-lang.org/en/documentation/installation/#rvm). Use whatever setup is easiest for your machine.
-
-Then globally install `sass` and `rollup`:
+If you've already run `npm install`, these commands should Just Work™.
 
 ```sh
-$ gem install sass
 $ npm run build:development
 $ npm link
 ```
 
-From there, everything should build correctly: the framework scss and js will be prettified by `prettier` and distributions of js and css will be output using `@babel`, `rollup`, `sass`, and a few macOS specific commands for zipping/prepping files for release. The output typically takes 5-10 seconds at most.
+From there, everything should build correctly: the framework scss and js will be prettified by `prettier` and distributions of js and css will be output using `@babel`, `rollup`, `node-sass`, and a few macOS specific commands for zipping/prepping files for release. The output typically takes 5-10 seconds at most.
 
 ### Rebuild assets on the fly
 
