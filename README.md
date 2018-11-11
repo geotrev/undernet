@@ -13,69 +13,29 @@ The framework features:
 - Common interactive components using JS: modals, accordions, and dropdowns
 - Powerful configuration options for all of the above.
 
-## Easy setup
-
-Setting up and using Undernet is fairly straightforward:
-
-### Easiest
-
-Simply download the compiled assets and add them to your layout. Great for prototyping.
-
-```html
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>I'm using Undernet!</title>
-    <link rel="stylesheet" href="path/to/undernet.min.css">
-    <!-- Add new styles after -->
-  </head>
-  <body>
-    ...
-    <script type="text/javascript" src="path/to/undernet.bundle.min.js" async></script>
-    <script type="text/javascript">
-      Undernet.start()
-    </script>
-  </body>
-</html>
-```
-
-## Advanced setup
-
-If you prefer to have more control over the styles and components, you are free to use the uncompiled SCSS modules along with the JS modules (via npm or as static assets).
-
-### SCSS
-
-For the most control over your CSS, it's highly recommended to integrate the SCSS modules with your asset pipeline. Simply link to the main `undernet.scss` file in your main stylesheet (only once!) before your other styles (or anywhere, if you've added an optional scope to the styles):
-
-```css
-@import "path/to/undernet";
-```
-
-You can then easily customize `_config.scss` with your intended brand attributes. This is where you'd also define a scope to isolate Undernet styles.
-
-For more details on customizing branding, check out the [Branding](https://undernet.io/docs/overview/branding) page.
-
-### NPM / JS modules
-
-Another option is to use the npm package and borrow the modules you need. This is great for webpack where you can choose to import specific components directly.
+## Install via npm or yarn
 
 ```sh
-$ npm install --save-dev undernet
+$ npm install -S undernet
 ```
 
-Check out the [documentation](https://undernet.io/docs/overview/javascript) to see the necessary DOM structure for a given component.
-
-Then require or import the dependency in your js, or add it to a script tag in your main layout (see the **Easy setup** method above for script usage).
-
-```js
-// import everything
-import Undernet from "undernet"
-Undernet.start()
-
-// or import a specific component:
-import Modals from "undernet/js/dist/components/modal"
-Modals.start()
+```sh
+$ yarn add -D undernet
 ```
+
+### Components / JS
+
+See [javascript documentation](https://www.undernet.io/docs/overview/javascript) to learn how to setup and use Undernet's scripts for interactive components.
+
+Here are the current components included:
+
+- [Modals](https://www.undernet.io/docs/components/modals)
+- [Accordions](https://www.undernet.io/docs/components/accordions)
+- [Dropdowns](https://www.undernet.io/docs/components/dropdowns)
+
+### Styles
+
+See [branding documentation](https://www.undernet.io/docs/overview/branding) to setup a custom pipeline with Undernet's SCSS modules.
 
 ## Contribute
 
