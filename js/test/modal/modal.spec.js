@@ -26,47 +26,78 @@ const dom = `
   </div>
 `
 
-describe("Modals", () => {
-  describe("#setup", () => {
-    beforeEach(() => {
+describe("Modals", function() {
+  describe("#start", function() {
+    let modalOverlay
+    let modalDialog
+
+    beforeEach(function() {
       document.body.innerHTML = dom
       Undernet.Modals.start()
+      modalOverlay = document.querySelector("[data-modal-id]")
+      modalDialog = document.querySelector("[data-modal]")
     })
 
-    it("adds [role='dialog'] to [data-modal]", () => {
-      const fixture = document.querySelector("[data-modal]")
-      expect(fixture.getAttribute("role")).to.equal("dialog")
+    it("adds [aria-hidden='true'] to modal overlay", function() {
+      expect(modalOverlay.getAttribute("aria-hidden")).to.equal("true")
     })
 
-    it("adds [aria-modal='true'] to [data-modal]", () => {
-      const fixture = document.querySelector("[data-modal]")
-      expect(fixture.getAttribute("aria-modal")).to.equal("true")
+    it("adds [data-visible='false'] to modal overlay", function() {
+      expect(modalOverlay.getAttribute("data-visible")).to.equal("false")
+    })
+      
+    it("adds [role='dialog'] to modal dialog", function() {
+      expect(modalDialog.getAttribute("role")).to.equal("dialog")
     })
 
-    it("adds [aria-hidden='true'] to [data-modal-id]", () => {
-      const fixture = document.querySelector("[data-modal-id]")
-      expect(fixture.getAttribute("aria-hidden")).to.equal("true")
+    it("adds [aria-modal='true'] to modal dialog", function() {
+      expect(modalDialog.getAttribute("aria-modal")).to.equal("true")
     })
 
-    it("adds [data-visible='false'] to [data-modal-id]", () => {
-      const fixture = document.querySelector("[data-modal-id]")
-      expect(fixture.getAttribute("data-visible")).to.equal("false")
-    })
-
-    it(`adds [tabindex='-1'] to each focusable element within [data-modal]`, () => {
-      const focusableElements = document.querySelector("[data-modal]").querySelectorAll("a")
+    it(`adds [tabindex='-1'] to each focusable element within the modal dialog`, function() {
+      const focusableElements = modalDialog.querySelectorAll("a")
       focusableElements.forEach(el => {
         expect(el.getAttribute("tabindex")).to.equal("-1")
       })
     })
   })
 
-  describe.skip("#start", () => {})
-  describe.skip("#stop", () => {})
-  describe.skip("#_handleClose", () => {})
-  describe.skip("#_handleOverlayClick", () => {})
-  describe.skip("#_handleEscapeKeyPress", () => {})
-  describe.skip("#_handleReturnFocus", () => {})
-  describe.skip("#_handleScrollRestore", () => {})
-  describe.skip("#_handleScrollStop", () => {})
+  describe.skip("#stop", function() {})
+
+  describe("#_render", function() {
+    let button
+    let modalOverlay
+    let modalDialog
+
+    beforeEach(function() {
+      document.body.innerHTML = dom
+      Undernet.Modals.start()
+      button = document.querySelector("[data-modal-button]")
+      modalOverlay = document.querySelector("[data-modal-id]")
+      modalDialog = document.querySelector("[data-modal]")
+      button.click()
+    })
+
+    it("sets [data-visible='true'] on modal overlay when modal button is clicked", function() {
+      expect(modalOverlay.getAttribute("data-visible")).to.equal("true")
+    })
+
+    it("sets [aria-hidden='false'] on modal overlay when modal button is clicked", function() {
+      expect(modalOverlay.getAttribute("aria-hidden")).to.equal("false")
+    })
+
+    it("adds [tabindex='0'] to each focusable element within the modal dialog", function() {
+      const focusableElements = modalDialog.querySelectorAll("a")
+      focusableElements.forEach(el => {
+        expect(el.getAttribute("tabindex")).to.equal("0")
+      })
+    })
+  })
+
+  describe.skip("#_handleClose", function() {})
+  describe.skip("#_handleOverlayClick", function() {})
+  describe.skip("#_handleEscapeKeyPress", function() {})
+  describe.skip("#_handleReturnFocus", function() {})
+  describe.skip("#_handleScrollRestore", function() {})
+  describe.skip("#_handleScrollStop", function() {})
 })
