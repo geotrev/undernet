@@ -30,6 +30,7 @@
     "js:prepublish": "npm run js:build && npm run js:merge && npm run js:modules:zip && npm run js:minify && npm run js:zip",
     "js:lint": "prettier --write 'js/src/**/*.js'",
     "js:test": "mocha -r @babel/register -r jsdom-global/register --recursive js/test/**/*.spec.js",
+    "js:test:w": "mocha --watch -r @babel/register -r jsdom-global/register --recursive js/test/**/*.spec.js",
     "css:minify": "node-sass --source-map true --output-style compressed scss/undernet.scss dist/undernet.min.css",
     "css:build": "node-sass --source-map true scss/undernet.scss dist/undernet.css",
     "css:package": "npm run css:build && npm run css:minify",

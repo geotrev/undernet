@@ -1,3 +1,1 @@
-Undernet's JS is tested in stateless react components to utilize Mocha.
-
-Check `config/mocha.config.js` for the base test setup used for both component and website tests.
+Undernet's JS is tested using Node's default [assertion tool](https://nodejs.org/api/assert.html) alongside [`jsdom-global`](https://github.com/rstacruz/jsdom-global).
