@@ -31,7 +31,7 @@ describe("Modals", function() {
     let modalOverlay
     let modalDialog
 
-    beforeEach(function() {
+    before(function() {
       document.body.innerHTML = dom
       Undernet.Modals.start()
       modalOverlay = document.querySelector("[data-modal-id]")
@@ -62,20 +62,57 @@ describe("Modals", function() {
     })
   })
 
-  describe.skip("#stop", function() {})
+  describe("#stop", function() {
+    let button
+    let modalOverlay
+    let modalDialog
+
+    before(() => {
+      document.body.innerHTML = dom
+      Undernet.Modals.start()
+      Undernet.Modals.stop()
+      button = document.querySelector("[data-modal-button]")
+      modalOverlay = document.querySelector("[data-modal-id]")
+      modalDialog = document.querySelector("[data-modal]")
+      button.click()
+    })
+
+    it("does not modify [tabindex] on modal dialog when modal button is clicked", function() {
+      expect(modalDialog.getAttribute("tabindex")).to.equal(null)
+    })
+
+    it("does not modify [data-visible] on modal overlay when modal button is clicked", function() {
+      expect(modalOverlay.getAttribute("data-visible")).to.equal("false")
+    })
+
+    it("does not modify [aria-hidden] on modal overlay when modal button is clicked", function() {
+      expect(modalOverlay.getAttribute("aria-hidden")).to.equal("true")
+    })
+
+    it("does not modify [tabindex] on each focusable element within the modal dialog", function() {
+      const focusableElements = modalDialog.querySelectorAll("a")
+      focusableElements.forEach(el => {
+        expect(el.getAttribute("tabindex")).to.equal("-1")
+      })
+    })
+  })
 
   describe("#_render", function() {
     let button
     let modalOverlay
     let modalDialog
 
-    beforeEach(function() {
+    before(function() {
       document.body.innerHTML = dom
       Undernet.Modals.start()
       button = document.querySelector("[data-modal-button]")
       modalOverlay = document.querySelector("[data-modal-id]")
       modalDialog = document.querySelector("[data-modal]")
       button.click()
+    })
+
+    it("sets [tabindex='-1'] on modal dialog when modal button is clicked", function() {
+      expect(modalDialog.getAttribute("tabindex")).to.equal("-1")
     })
 
     it("sets [data-visible='true'] on modal overlay when modal button is clicked", function() {
