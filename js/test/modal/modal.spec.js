@@ -1,8 +1,3 @@
-import assert from "assert"
-import Undernet from "../../src/undernet"
-
-const cleanup = require("jsdom-global")()
-
 const dom = `
   <button href="#" data-modal-button data-target="new-modal">Open modal</button>
   
@@ -33,32 +28,35 @@ const dom = `
 
 describe("Modals", () => {
   describe("#setup", () => {
-    let focusableElements
     beforeEach(() => {
       document.body.innerHTML = dom
       Undernet.Modals.start()
     })
 
     it("adds [role='dialog'] to [data-modal]", () => {
-      assert.strictEqual("dialog", document.querySelector("[data-modal]").getAttribute("role"))
+      const fixture = document.querySelector("[data-modal]")
+      expect(fixture.getAttribute("role")).to.equal("dialog")
     })
 
     it("adds [aria-modal='true'] to [data-modal]", () => {
-      assert.strictEqual("true", document.querySelector("[data-modal]").getAttribute("aria-modal"))
+      const fixture = document.querySelector("[data-modal]")
+      expect(fixture.getAttribute("aria-modal")).to.equal("true")
     })
 
     it("adds [aria-hidden='true'] to [data-modal-id]", () => {
-      assert.strictEqual("true", document.querySelector("[data-modal-id]").getAttribute("aria-hidden"))
+      const fixture = document.querySelector("[data-modal-id]")
+      expect(fixture.getAttribute("aria-hidden")).to.equal("true")
     })
 
     it("adds [data-visible='false'] to [data-modal-id]", () => {
-      assert.strictEqual("false", document.querySelector("[data-modal-id]").getAttribute("data-visible"))
+      const fixture = document.querySelector("[data-modal-id]")
+      expect(fixture.getAttribute("data-visible")).to.equal("false")
     })
 
     it(`adds [tabindex='-1'] to each focusable element within [data-modal]`, () => {
       const focusableElements = document.querySelector("[data-modal]").querySelectorAll("a")
       focusableElements.forEach(el => {
-        assert.strictEqual("-1", el.getAttribute("tabindex"))
+        expect(el.getAttribute("tabindex")).to.equal("-1")
       })
     })
   })
