@@ -131,7 +131,43 @@ describe("Modals", function() {
     })
   })
 
-  describe.skip("#_handleClose", function() {})
+  describe("#_handleClose -> [data-close] Button Click", function() {
+    let openButton
+    let closeButton
+    let modalOverlay
+    let modalDialog
+
+    before(function() {
+      document.body.innerHTML = dom
+      Undernet.Modals.start()
+      openButton = document.querySelector("[data-modal-button]")
+      closeButton = document.querySelector("[data-close]")
+      modalOverlay = document.querySelector("[data-modal-id]")
+      modalDialog = document.querySelector("[data-modal]")
+      openButton.click()
+      closeButton.click()
+    })
+
+    it("sets [tabindex='null'] on modal dialog", function() {
+      expect(modalDialog.getAttribute("tabindex")).to.equal(null)
+    })
+
+    it("sets [data-visible='false'] on modal overlay", function() {
+      expect(modalOverlay.getAttribute("data-visible")).to.equal("false")
+    })
+
+    it("sets [aria-hidden='true'] on modal overlay", function() {
+      expect(modalOverlay.getAttribute("aria-hidden")).to.equal("true")
+    })
+
+    it("does not modify [tabindex='-1'] on each focusable element within modal dialog", function() {
+      const focusableElements = modalDialog.querySelectorAll("a")
+      focusableElements.forEach(el => {
+        expect(el.getAttribute("tabindex")).to.equal("-1")
+      })
+    })
+  })
+
   describe.skip("#_handleOverlayClick", function() {})
   describe.skip("#_handleEscapeKeyPress", function() {})
   describe.skip("#_handleReturnFocus", function() {})
