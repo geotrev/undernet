@@ -1,6 +1,6 @@
 const dom = `
   <button href="#" data-modal-button data-target="new-modal">Open modal</button>
-  
+
   <div className="modal-overlay" data-modal-id="new-modal">
     <div className="modal-dialog" data-parent="new-modal" aria-labelledby="header-id" data-modal>
       <header>
@@ -168,9 +168,43 @@ describe("Modals", function() {
     })
   })
 
-  describe.skip("#_handleOverlayClick", function() {})
-  describe.skip("#_handleEscapeKeyPress", function() {})
-  describe.skip("#_handleReturnFocus", function() {})
-  describe.skip("#_handleScrollRestore", function() {})
-  describe.skip("#_handleScrollStop", function() {})
+  describe("#_handleOverlayClick -> [data-modal-id] Click", function() {
+    let button
+    let modalOverlay
+    let modalDialog
+
+    before(function() {
+      document.body.innerHTML = dom
+      Undernet.Modals.start()
+      button = document.querySelector("[data-modal-button]")
+      modalOverlay = document.querySelector("[data-modal-id]")
+      modalDialog = document.querySelector("[data-modal]")
+      button.click()
+      modalOverlay.click()
+    })
+
+    it("sets [tabindex='null'] on modal dialog", function() {
+      expect(modalDialog.getAttribute("tabindex")).to.equal(null)
+    })
+
+    it("sets [data-visible='false'] on modal overlay", function() {
+      expect(modalOverlay.getAttribute("data-visible")).to.equal("false")
+    })
+
+    it("sets [aria-hidden='true'] on modal overlay", function() {
+      expect(modalOverlay.getAttribute("aria-hidden")).to.equal("true")
+    })
+
+    it("does not modify [tabindex='-1'] on each focusable element within modal dialog", function() {
+      const focusableElements = modalDialog.querySelectorAll("a")
+      focusableElements.forEach(el => {
+        expect(el.getAttribute("tabindex")).to.equal("-1")
+      })
+    })
+  })
+
+  describe("#_handleEscapeKeyPress", function() {})
+  describe("#_handleReturnFocus", function() {})
+  describe("#_handleScrollRestore", function() {})
+  describe("#_handleScrollStop", function() {})
 })
