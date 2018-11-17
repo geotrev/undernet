@@ -1,1 +1,0 @@
-// accordion component setup
