@@ -38,12 +38,16 @@ describe("Modals", function() {
       modalDialog = document.querySelector("[data-modal]")
     })
 
-    it("adds [aria-hidden='true'] to modal overlay", function() {
-      expect(modalOverlay.getAttribute("aria-hidden")).to.equal("true")
+    it("No [tabindex] on modal dialog", function() {
+      expect(modalDialog.getAttribute("tabindex")).to.equal(null)
     })
 
     it("adds [data-visible='false'] to modal overlay", function() {
       expect(modalOverlay.getAttribute("data-visible")).to.equal("false")
+    })
+
+    it("adds [aria-hidden='true'] to modal overlay", function() {
+      expect(modalOverlay.getAttribute("aria-hidden")).to.equal("true")
     })
 
     it("adds [role='dialog'] to modal dialog", function() {
@@ -195,7 +199,7 @@ describe("Modals", function() {
       expect(modalOverlay.getAttribute("aria-hidden")).to.equal("true")
     })
 
-    it("does not modify [tabindex='-1'] on each focusable element within modal dialog", function() {
+    it("sets [tabindex='-1'] on each focusable element within modal dialog", function() {
       const focusableElements = modalDialog.querySelectorAll("a")
       focusableElements.forEach(el => {
         expect(el.getAttribute("tabindex")).to.equal("-1")
@@ -203,7 +207,41 @@ describe("Modals", function() {
     })
   })
 
-  describe("#_handleEscapeKeyPress", function() {})
+  describe("#_handleEscapeKeyPress", function() {
+    let button
+    let modalOverlay
+    let modalDialog
+
+    before(function() {
+      document.body.innerHTML = dom
+      Undernet.Modals.start()
+      button = document.querySelector("[data-modal-button]")
+      modalOverlay = document.querySelector("[data-modal-id]")
+      modalDialog = document.querySelector("[data-modal]")
+      button.click()
+      window.simulateKeyPress(27)
+    })
+
+    it("sets [tabindex='null'] on modal dialog", function() {
+      expect(modalDialog.getAttribute("tabindex")).to.equal(null)
+    })
+
+    it("sets [data-visible='false'] on modal overlay", function() {
+      expect(modalOverlay.getAttribute("data-visible")).to.equal("false")
+    })
+
+    it("sets [aria-hidden='true'] on modal overlay", function() {
+      expect(modalOverlay.getAttribute("aria-hidden")).to.equal("true")
+    })
+
+    it("sets [tabindex='-1'] on each focusable element within modal dialog", function() {
+      const focusableElements = modalDialog.querySelectorAll("a")
+      focusableElements.forEach(el => {
+        expect(el.getAttribute("tabindex")).to.equal("-1")
+      })
+    })
+  })
+
   describe("#_handleReturnFocus", function() {})
   describe("#_handleScrollRestore", function() {})
   describe("#_handleScrollStop", function() {})
