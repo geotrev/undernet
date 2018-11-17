@@ -38,10 +38,6 @@ describe("Modals", function() {
       modalDialog = document.querySelector("[data-modal]")
     })
 
-    it("No [tabindex] on modal dialog", function() {
-      expect(modalDialog.getAttribute("tabindex")).to.equal(null)
-    })
-
     it("adds [data-visible='false'] to modal overlay", function() {
       expect(modalOverlay.getAttribute("data-visible")).to.equal("false")
     })
@@ -71,7 +67,7 @@ describe("Modals", function() {
     let modalOverlay
     let modalDialog
 
-    before(() => {
+    before(function() {
       document.body.innerHTML = dom
       Undernet.Modals.start()
       Undernet.Modals.stop()
@@ -132,6 +128,10 @@ describe("Modals", function() {
       focusableElements.forEach(el => {
         expect(el.getAttribute("tabindex")).to.equal("0")
       })
+    })
+
+    it("sets focus to [data-modal]", function() {
+      expect(document.activeElement).to.equal(modalDialog)
     })
   })
 
@@ -207,7 +207,7 @@ describe("Modals", function() {
     })
   })
 
-  describe("#_handleEscapeKeyPress", function() {
+  describe("#_handleEscapeKeyPress -> [esc] Keydown Event", function() {
     let button
     let modalOverlay
     let modalDialog
@@ -242,7 +242,61 @@ describe("Modals", function() {
     })
   })
 
-  describe("#_handleReturnFocus", function() {})
-  describe("#_handleScrollRestore", function() {})
-  describe("#_handleScrollStop", function() {})
+  describe("#_handleReturnFocus -> [data-close] Button Click", function() {
+    let openButton
+    let closeButton
+    let modalOverlay
+    let modalDialog
+
+    before(function() {
+      document.body.innerHTML = dom
+      Undernet.Modals.start()
+      openButton = document.querySelector("[data-modal-button]")
+      closeButton = document.querySelector("[data-close]")
+      openButton.click()
+      closeButton.click()
+    })
+
+    it("moves focus back to [data-modal-button]", function() {
+      expect(document.activeElement).to.equal(openButton)
+    })
+  })
+
+  describe("#_handleScrollRestore -> [data-close] Button Click", function() {
+    let openButton
+    let closeButton
+    let modalOverlay
+    let modalDialog
+
+    before(function() {
+      document.body.innerHTML = dom
+      Undernet.Modals.start()
+      openButton = document.querySelector("[data-modal-button]")
+      closeButton = document.querySelector("[data-close]")
+      openButton.click()
+      closeButton.click()
+    })
+
+    it("removes 'no-scroll' class from <body>", function() {
+      expect(document.body.className).to.equal("")
+    })
+  })
+
+  describe("#_handleScrollStop", function() {
+    let button
+    let modalOverlay
+    let modalDialog
+
+    before(function() {
+      document.body.innerHTML = dom
+      Undernet.Modals.start()
+      button = document.querySelector("[data-modal-button]")
+      button.click()
+    })
+
+    it("adds 'no-scroll' class from <body>", function() {
+      // console.log(document.querySelector("html").innerHTML)
+      expect(document.body.className).to.equal("no-scroll")
+    })
+  })
 })
