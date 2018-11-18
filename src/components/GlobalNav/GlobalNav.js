@@ -21,11 +21,15 @@ export default function GlobalNav() {
             <li>
               <a className="has-feather" href="https://www.twitter.com/gwtrev">
                 <Twitter role="presentation" focusable="false" />
+                <span className="is-visually-hidden">Open link to www.twitter.com/gwtrev</span>
               </a>
             </li>
             <li>
               <a className="has-feather" href="https://www.github.com/geotrev/undernet">
                 <Github role="presentation" focusable="false" />
+                <span className="is-visually-hidden">
+                  Open link to www.github.com/geotrev/undernet
+                </span>
               </a>
             </li>
             <li>

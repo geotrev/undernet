@@ -139,10 +139,12 @@ export default class Home extends Component {
               <h2 className="h6">Painless Setup</h2>
               <p>Install with npm:</p>
               <Markdown source={installNpm} escapeHtml={false} />
-              <br />
+            </div>
+            <div className="xsmall-12 columns has-center-text">
               <p>Or simply link to minified assets:</p>
               <Markdown source={installAssets} escapeHtml={false} />
-              <br />
+            </div>
+            <div className="xsmall-12 columns has-center-text">
               <p>See how Undernet can improve your developer experience!</p>
               <Link
                 to={introductionPath}
