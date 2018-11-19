@@ -2,6 +2,8 @@
 #
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
+# This is really just needed to run website + framework tests. Nothing complex really.
+#
 version: 2
 jobs:
   build:
@@ -14,8 +16,8 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          - v1-dependencies-
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
 
       - run: npm install
       - save_cache:

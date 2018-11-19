@@ -90,6 +90,11 @@ describe("Modals", function() {
     it("sets [aria-modal='true'] to modal dialog", function() {
       expect(modalDialog.getAttribute("aria-modal")).to.equal("true")
     })
+
+    it("sets [aria-labelledby] on modal dialog equal to header id", function() {
+      const header = document.querySelector("h2")
+      expect(modalDialog.getAttribute("aria-labelledby")).to.equal(header.id)
+    })
   })
 
   describe("API #stop -> Modal Button Click", function() {
@@ -130,7 +135,7 @@ describe("Modals", function() {
     })
   })
 
-  describe("#_handleClose -> [data-close] Button Click", function() {
+  describe("#_handleClose -> Modal Close Button Click", function() {
     let openButton
     let closeButton
 
