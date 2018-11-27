@@ -18,13 +18,13 @@ export default function Footer() {
           </p>
           <p className="has-center-text has-gray900-text">
             <a className="has-white-text has-feather" href="https://www.twitter.com/gwtrev">
-              <Twitter />
+              <Twitter role="presentation" focusable="false" />
             </a>
             <a
               className="has-white-text has-feather"
               href="https://www.github.com/geotrev/undernet"
             >
-              <Github />
+              <Github role="presentation" focusable="false" />
             </a>
           </p>
         </div>

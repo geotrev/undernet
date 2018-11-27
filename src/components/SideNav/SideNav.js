@@ -128,7 +128,7 @@ export default class SideNav extends Component {
           onClick={this.handleCollapseClick}
           to={item.url}
         >
-          {item.name} <ChevronRight size={16} otherProps={{ role="presentation" focusable="false"}} />
+          {item.name} <ChevronRight size={16} role="presentation" focusable="false" />
         </NavLink>
       </li>
     )
@@ -181,7 +181,7 @@ export default class SideNav extends Component {
         <div className="fluid grid side-nav-wrapper">
           <div className="row is-flex is-hidden-xlarge side-nav-expand">
             <Button onClick={this.handleClick} href="#" className={this.getButtonClasses()}>
-              <Menu size={20} /> <span className="has-black-text" otherProps={{ role="presentation" focusable="false"}}>Explore</span>
+              <Menu size={20} role="presentation" focusable="false" /> <span className="has-black-text">Explore</span>
             </Button>
           </div>
 
