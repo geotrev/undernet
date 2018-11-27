@@ -66,46 +66,48 @@ export default class Home extends Component {
 
         <div className="medium-section fluid grid perks">
           <div className="row has-no-padding">
-            <div className="wide grid">
-              <ul className="row is-unstyled-list has-no-padding">
-                <li className="large-3 small-6 xsmall-12 columns has-center-text">
-                  <img className="home-icon" src={tinySvg} role="presentation" alt="tiny" />
-                  <h2 className="h6 has-white-text">Tiny</h2>
-                  <p className="has-white-text">
-                    CSS and JS are only 8.5kb minified + gzipped; you can be assured performance
-                    isn’t an issue.
-                  </p>
-                </li>
-                <li className="large-3 small-6 xsmall-12 columns has-center-text">
-                  <img className="home-icon" src={modSvg} role="presentation" alt="modular" />
-                  <h2 className="h6 has-white-text">Modular</h2>
-                  <p className="has-white-text">
-                    Include only the pieces you need, or even namespace the components for existing
-                    projects.
-                  </p>
-                </li>
-                <li className="large-3 small-6 xsmall-12 columns has-center-text">
-                  <img
-                    className="home-icon"
-                    src={configSvg}
-                    role="presentation"
-                    alt="configurable"
-                  />
-                  <h2 className="h6 has-white-text">Configurable</h2>
-                  <p className="has-white-text">
-                    Built for a great developer experience, you can customize and extend the library
-                    with ease.
-                  </p>
-                </li>
-                <li className="large-3 small-6 xsmall-12 columns has-center-text">
-                  <img className="home-icon" src={a11ySvg} role="presentation" alt="a11y" />
-                  <h2 className="h6 has-white-text">Accessible</h2>
-                  <p className="has-white-text">
-                    Undernet is designed with WAI-ARIA guidelines in mind to ensure your project is
-                    accessible.
-                  </p>
-                </li>
-              </ul>
+            <div classname="column has-no-padding">
+              <div className="wide grid">
+                <ul className="row is-unstyled-list has-no-padding">
+                  <li className="large-3 small-6 xsmall-12 columns has-center-text">
+                    <img className="home-icon" src={tinySvg} role="presentation" alt="tiny" />
+                    <h2 className="h6 has-white-text">Tiny</h2>
+                    <p className="has-white-text">
+                      CSS and JS are only 8.5kb minified + gzipped; you can be assured performance
+                      isn’t an issue.
+                    </p>
+                  </li>
+                  <li className="large-3 small-6 xsmall-12 columns has-center-text">
+                    <img className="home-icon" src={modSvg} role="presentation" alt="modular" />
+                    <h2 className="h6 has-white-text">Modular</h2>
+                    <p className="has-white-text">
+                      Include only the pieces you need, or even namespace the components for existing
+                      projects.
+                    </p>
+                  </li>
+                  <li className="large-3 small-6 xsmall-12 columns has-center-text">
+                    <img
+                      className="home-icon"
+                      src={configSvg}
+                      role="presentation"
+                      alt="configurable"
+                    />
+                    <h2 className="h6 has-white-text">Configurable</h2>
+                    <p className="has-white-text">
+                      Built for a great developer experience, you can customize and extend the library
+                      with ease.
+                    </p>
+                  </li>
+                  <li className="large-3 small-6 xsmall-12 columns has-center-text">
+                    <img className="home-icon" src={a11ySvg} role="presentation" alt="a11y" />
+                    <h2 className="h6 has-white-text">Accessible</h2>
+                    <p className="has-white-text">
+                      Undernet is designed with WAI-ARIA guidelines in mind to ensure your project is
+                      accessible.
+                    </p>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
