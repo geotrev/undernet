@@ -68,7 +68,7 @@ export default class Home extends Component {
 
         <div className="medium-section fluid grid perks">
           <div className="row has-no-padding">
-            <div classname="column has-no-padding">
+            <div className="column has-no-padding">
               <div className="wide grid">
                 <ul className="row is-unstyled-list has-no-padding">
                   <li className="large-3 small-6 xsmall-12 columns has-center-text">
