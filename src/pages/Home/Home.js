@@ -39,7 +39,9 @@ export default class Home extends Component {
         <div className="medium-section fluid grid hero">
           <div className="row">
             <div className="xsmall-12 columns has-center-text">
-              <h1 className="h3">A modular front-end component library for modern web development.</h1>
+              <h1 className="h3">
+                A modular front-end component library for modern web development.
+              </h1>
             </div>
 
             <div className="xsmall-12 columns has-center-text">
@@ -70,7 +72,13 @@ export default class Home extends Component {
               <div className="wide grid">
                 <ul className="row is-unstyled-list has-no-padding">
                   <li className="large-3 small-6 xsmall-12 columns has-center-text">
-                    <img className="home-icon" src={tinySvg} role="presentation" alt="tiny" />
+                    <img
+                      className="home-icon"
+                      src={tinySvg}
+                      role="presentation"
+                      alt=""
+                      aria-hidden="true"
+                    />
                     <h2 className="h6 has-white-text">Tiny</h2>
                     <p className="has-white-text">
                       CSS and JS are only 8.5kb minified + gzipped; you can be assured performance
@@ -78,11 +86,17 @@ export default class Home extends Component {
                     </p>
                   </li>
                   <li className="large-3 small-6 xsmall-12 columns has-center-text">
-                    <img className="home-icon" src={modSvg} role="presentation" alt="modular" />
+                    <img
+                      className="home-icon"
+                      src={modSvg}
+                      role="presentation"
+                      alt=""
+                      aria-hidden="true"
+                    />
                     <h2 className="h6 has-white-text">Modular</h2>
                     <p className="has-white-text">
-                      Include only the pieces you need, or even namespace the components for existing
-                      projects.
+                      Include only the pieces you need, or even namespace the components for
+                      existing projects.
                     </p>
                   </li>
                   <li className="large-3 small-6 xsmall-12 columns has-center-text">
@@ -90,20 +104,27 @@ export default class Home extends Component {
                       className="home-icon"
                       src={configSvg}
                       role="presentation"
-                      alt="configurable"
+                      alt=""
+                      aria-hidden="true"
                     />
                     <h2 className="h6 has-white-text">Configurable</h2>
                     <p className="has-white-text">
-                      Built for a great developer experience, you can customize and extend the library
-                      with ease.
+                      Built for a great developer experience, you can customize and extend the
+                      library with ease.
                     </p>
                   </li>
                   <li className="large-3 small-6 xsmall-12 columns has-center-text">
-                    <img className="home-icon" src={a11ySvg} role="presentation" alt="a11y" />
+                    <img
+                      className="home-icon"
+                      src={a11ySvg}
+                      role="presentation"
+                      alt=""
+                      aria-hidden="true"
+                    />
                     <h2 className="h6 has-white-text">Accessible</h2>
                     <p className="has-white-text">
-                      Undernet is designed with WAI-ARIA guidelines in mind to ensure your project is
-                      accessible.
+                      Undernet is designed with WAI-ARIA guidelines in mind to ensure your project
+                      is accessible.
                     </p>
                   </li>
                 </ul>

@@ -20,12 +20,12 @@ export default function GlobalNav() {
           <ul className="row">
             <li>
               <a className="has-feather" href="https://www.twitter.com/gwtrev">
-                <Twitter />
+                <Twitter role="presentation" focusable="false" />
               </a>
             </li>
             <li>
               <a className="has-feather" href="https://www.github.com/geotrev/undernet">
-                <Github />
+                <Github role="presentation" focusable="false" />
               </a>
             </li>
             <li>
