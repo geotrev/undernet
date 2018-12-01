@@ -1,4 +1,4 @@
-import Undernet from "../src/undernet"
+import Undernet from "../js/src/undernet"
 global.Undernet = Undernet
 
 import { expect } from "chai"

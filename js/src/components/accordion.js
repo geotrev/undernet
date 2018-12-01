@@ -46,10 +46,6 @@ const messages = {
 export default class Accordion extends Utils {
   constructor() {
     super()
-    // accordion event methods
-    this._render = this._render.bind(this)
-    this._handleSpaceKeyPress = this._handleSpaceKeyPress.bind(this)
-
     // all accordions
     this.accordionButtons = []
     this.accordionContentsAttr = ""
@@ -75,7 +71,7 @@ export default class Accordion extends Utils {
    * Begin listening to [data-accordion-button] elements
    */
   start() {
-    this.accordionButtons = this._getElements(
+    this.accordionButtons = this.getElements(
       `[${selectors.ACCORDION_CONTAINER}] [${selectors.DATA_TARGET}]`,
     )
 
@@ -120,13 +116,13 @@ export default class Accordion extends Utils {
 
     const accordionRow = document.querySelector(accordionRowAttr)
     const buttonHeaderAttr = this._getPossibleAccordionHeaderAttrs(accordionRowAttr)
-    const buttonHeader = this._getElements(buttonHeaderAttr)[0]
+    const buttonHeader = this.getElements(buttonHeaderAttr)[0]
 
     if (!buttonHeader || !buttonHeader.id) {
       console.error(messages.NO_HEADER_ID_ERROR(buttonId))
     }
 
-    const buttonContentChildren = this._getFocusableElements(`#${buttonContent.id}`)
+    const buttonContentChildren = this.getFocusableElements(`#${buttonContent.id}`)
 
     button.setAttribute(selectors.ARIA_CONTROLS, buttonId)
     buttonContent.setAttribute(selectors.ARIA_LABELLEDBY, buttonHeader.id)
@@ -173,7 +169,7 @@ export default class Accordion extends Utils {
    * Open accordion content associated with an accordion button.
    * @param {Object} event - The event object.
    */
-  _render(event) {
+  _render = event => {
     event.preventDefault()
 
     this.activeButton = event.target
@@ -209,7 +205,7 @@ export default class Accordion extends Utils {
    * If a keypress is the spacebar on a button, open its accordion content.
    * @param {Object} event - The event object.
    */
-  _handleSpaceKeyPress(event) {
+  _handleSpaceKeyPress = event => {
     if (event.which === keyCodes.SPACE) this._render(event)
   }
 
@@ -221,15 +217,15 @@ export default class Accordion extends Utils {
     if (this.activeContainer.hasAttribute(selectors.DATA_TOGGLE_MULTIPLE)) return
 
     const allContentAttr = `${this.activeContainerAttr} [${selectors.ARIA_HIDDEN}]`
-    const allRows = this._getElements(`${this.activeContainerAttr} [${selectors.DATA_VISIBLE}]`)
-    const allContent = this._getElements(allContentAttr)
-    const allButtons = this._getElements(`${this.activeContainerAttr} [${selectors.DATA_TARGET}]`)
+    const allRows = this.getElements(`${this.activeContainerAttr} [${selectors.DATA_VISIBLE}]`)
+    const allContent = this.getElements(allContentAttr)
+    const allButtons = this.getElements(`${this.activeContainerAttr} [${selectors.DATA_TARGET}]`)
 
     allContent.forEach(content => {
       if (!(content === this.activeContent)) content.style.maxHeight = null
     })
 
-    this._getFocusableElements(allContentAttr).forEach(element => {
+    this.getFocusableElements(allContentAttr).forEach(element => {
       element.setAttribute(selectors.TABINDEX, "-1")
     })
 
@@ -247,7 +243,7 @@ export default class Accordion extends Utils {
     this.activeContent.setAttribute(selectors.ARIA_HIDDEN, this.activeContentHiddenState)
 
     const activeContentBlock = `#${this.activeAccordionRowId}`
-    this._getFocusableElements(activeContentBlock).forEach(element => {
+    this.getFocusableElements(activeContentBlock).forEach(element => {
       const value = this.activeButtonExpandState === "true" ? "0" : "-1"
       element.setAttribute(selectors.TABINDEX, value)
     })

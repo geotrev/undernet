@@ -45,15 +45,6 @@ const messages = {
 export default class Dropdown extends Utils {
   constructor() {
     super()
-    //  dropdown event methods
-    this._render = this._render.bind(this)
-    this._renderWithKeys = this._renderWithKeys.bind(this)
-    this._handleClose = this._handleClose.bind(this)
-    this._handleEscapeKeyPress = this._handleEscapeKeyPress.bind(this)
-    this._handleOffMenuClick = this._handleOffMenuClick.bind(this)
-    this._handleFirstTabClose = this._handleFirstTabClose.bind(this)
-    this._handleLastTabClose = this._handleLastTabClose.bind(this)
-
     // active dropdown
     this.activeDropdownButton = null
     this.activeDropdown = null
@@ -80,8 +71,8 @@ export default class Dropdown extends Utils {
    * Begin listening to dropdowns for events.
    */
   start() {
-    this.dropdowns = this._getElements(`[${selectors.DATA_DROPDOWN}]`)
-    this.dropdownButtons = this._getElements(this.dropdownButtonAttr)
+    this.dropdowns = this.getElements(`[${selectors.DATA_DROPDOWN}]`)
+    this.dropdownButtons = this.getElements(this.dropdownButtonAttr)
 
     if (this.dropdowns.length) {
       this.dropdowns.forEach(dropdown => this._setupDropdown(dropdown))
@@ -110,7 +101,7 @@ export default class Dropdown extends Utils {
    * @param {Object} event - The event object
    * @param {Number} key - The key code that called _render()
    */
-  _render(event, key) {
+  _render = (event, key) => {
     if (!key) event.preventDefault()
     event.stopPropagation()
 
@@ -181,7 +172,7 @@ export default class Dropdown extends Utils {
    * Closes the dropdown if user uses shift and tab keys on the first dropdown element.
    * @param {Object} event - The event object
    */
-  _handleFirstTabClose(event) {
+  _handleFirstTabClose = event => {
     const shiftKey = event.which === keyCodes.SHIFT || event.shiftKey
     const tabKey = event.which === keyCodes.TAB
 
@@ -194,7 +185,7 @@ export default class Dropdown extends Utils {
    * Closes the dropdown if user uses tab key on the last dropdown element.
    * @param {Object} event - The event object
    */
-  _handleLastTabClose(event) {
+  _handleLastTabClose = event => {
     const shiftKey = event.which === keyCodes.SHIFT || event.shiftKey
     const tabKey = event.which === keyCodes.TAB
 
@@ -207,7 +198,7 @@ export default class Dropdown extends Utils {
    * Renders dropdown if the user uses arrow up or down.
    * @param {Object} event - The event object
    */
-  _renderWithKeys(event) {
+  _renderWithKeys = event => {
     if (event.which === keyCodes.ARROW_UP || event.which === keyCodes.ARROW_DOWN) {
       this._render(event, event.which)
     }
@@ -217,7 +208,7 @@ export default class Dropdown extends Utils {
    * Closes currently open dropdown.
    * @param {Object} event - The event object
    */
-  _handleClose(event) {
+  _handleClose = event => {
     event.preventDefault()
 
     this.releaseFocus()
@@ -245,7 +236,7 @@ export default class Dropdown extends Utils {
    * Use escape key to close dropdown.
    * @param {Object} event - The event object
    */
-  _handleEscapeKeyPress(event) {
+  _handleEscapeKeyPress = event => {
     if (event.which === keyCodes.ESCAPE) {
       this._handleClose(event)
     }
@@ -255,7 +246,7 @@ export default class Dropdown extends Utils {
    * Closes dropdown
    * @param {Object} event - The event object
    */
-  _handleOffMenuClick(event) {
+  _handleOffMenuClick = event => {
     if (event.target !== this.activeDropdownButton && event.target !== this.activeDropdownMenu) {
       this._handleClose(event)
     }
@@ -275,7 +266,7 @@ export default class Dropdown extends Utils {
    * @param {String} attr - The unique attribute for a dropdown.
    */
   _getDropdownButtons(attr) {
-    return this._getElements(`${attr} > ul > li > a, ${attr} > ul > li > button`)
+    return this.getElements(`${attr} > ul > li > a, ${attr} > ul > li > button`)
   }
 
   /**
@@ -299,7 +290,7 @@ export default class Dropdown extends Utils {
     dropdownButton.setAttribute(selectors.ARIA_EXPANDED, "false")
     dropdownMenu.setAttribute(selectors.ARIA_LABELLEDBY, dropdownButton.id)
 
-    const dropdownMenuItems = this._getElements(dropdownMenuItemsAttr)
+    const dropdownMenuItems = this.getElements(dropdownMenuItemsAttr)
     dropdownMenuItems.forEach(item => item.setAttribute(selectors.ROLE, "none"))
 
     this._getDropdownButtons(dropdownIdAttr).forEach(link => {
