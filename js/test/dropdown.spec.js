@@ -46,4 +46,57 @@ describe("Dropdowns", function() {
       expect(menu.getAttribute("aria-labelledby")).to.equal(button.id)
     })
   })
+
+  describe("API #stop -> Dropdown Button Click", function() {
+    let button
+    let dropdownWrapper
+
+    before(function() {
+      document.body.innerHTML = dom
+      button = document.querySelector("#dropdown-button")
+      dropdownWrapper = document.querySelector("[data-dropdown='dropdown1']")
+      Undernet.Dropdowns.start()
+      Undernet.Dropdowns.stop()
+      button.click()
+    })
+
+    it("sets [aria-expanded='false'] on button", function() {
+      expect(button.getAttribute("aria-expanded")).to.equal("false")
+    })
+
+    it("does not set [data-visible] on dropdown wrapper", function() {
+      expect(dropdownWrapper.getAttribute("data-visible")).to.equal(null)
+    })
+  })
+
+  describe("#_render -> Dropdown Button Click", function() {
+    let button
+    let dropdownWrapper
+
+    before(function() {
+      document.body.innerHTML = dom
+      button = document.querySelector("#dropdown-button")
+      dropdownWrapper = document.querySelector("[data-dropdown='dropdown1']")
+      Undernet.Dropdowns.start()
+      button.click()
+    })
+
+    it("sets [aria-expanded='true'] on button", function() {
+      expect(button.getAttribute("aria-expanded")).to.equal("true")
+    })
+
+    it("sets [data-visible='true'] on dropdownWrapper", function() {
+      expect(dropdownWrapper.getAttribute("data-visible")).to.equal("true")
+    })
+  })
+
+  describe("#_renderWithKeys", function() {})
+  describe("#_handleFirstTabClose", function() {})
+  describe("#_handleLastTabClose", function() {})
+  describe("#_handleClose", function() {})
+  describe("#_handleEscapeKeyPress", function() {})
+  describe("#_handleOffMenuClick", function() {})
+  describe("#_handleReturnFocus", function() {})
+  describe("#_getDropdownLinks", function() {})
+  describe("#_setupDropdown", function() {})
 })

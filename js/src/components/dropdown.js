@@ -120,8 +120,6 @@ export default class Dropdown extends Utils {
 
     this.activeDropdownId = this.activeDropdownButton.getAttribute(selectors.DATA_PARENT)
 
-    this.activeDropdownButton.setAttribute(selectors.ARIA_EXPANDED, "true")
-
     // dropdown container
     this.activeDropdownAttr = `[${selectors.DATA_DROPDOWN}="${this.activeDropdownId}"]`
 
@@ -146,7 +144,7 @@ export default class Dropdown extends Utils {
     document.addEventListener(events.KEYDOWN, this._handleEscapeKeyPress)
     document.addEventListener(events.CLICK, this._handleOffMenuClick)
 
-    this.activeDropdownLinks = this._getDropdownButtons(this.activeDropdownAttr)
+    this.activeDropdownLinks = this._getDropdownLinks(this.activeDropdownAttr)
 
     this.firstDropdownLink = this.activeDropdownLinks[0]
     this.lastDropdownLink = this.activeDropdownLinks[this.activeDropdownLinks.length - 1]
@@ -265,7 +263,7 @@ export default class Dropdown extends Utils {
    * Retrieve possible menu links or buttons as an array
    * @param {String} attr - The unique attribute for a dropdown.
    */
-  _getDropdownButtons(attr) {
+  _getDropdownLinks(attr) {
     return this.getElements(`${attr} > ul > li > a, ${attr} > ul > li > button`)
   }
 
@@ -293,7 +291,7 @@ export default class Dropdown extends Utils {
     const dropdownMenuItems = this.getElements(dropdownMenuItemsAttr)
     dropdownMenuItems.forEach(item => item.setAttribute(selectors.ROLE, "none"))
 
-    this._getDropdownButtons(dropdownIdAttr).forEach(link => {
+    this._getDropdownLinks(dropdownIdAttr).forEach(link => {
       link.setAttribute(selectors.ROLE, "menuitem")
       link.setAttribute(selectors.TABINDEX, "-1")
     })
