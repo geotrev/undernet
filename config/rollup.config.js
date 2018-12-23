@@ -11,6 +11,7 @@ module.exports = {
     name: "undernet",
     sourcemap: true,
     banner: banner,
+    exports: "named",
   },
   plugins: [
     resolve(),

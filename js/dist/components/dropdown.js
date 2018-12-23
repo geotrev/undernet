@@ -91,9 +91,6 @@ var Dropdown = function (_Utils) {
       }
 
       _this.activeDropdownId = _this.activeDropdownButton.getAttribute(selectors.DATA_PARENT);
-
-      _this.activeDropdownButton.setAttribute(selectors.ARIA_EXPANDED, "true");
-
       _this.activeDropdownAttr = "[".concat(selectors.DATA_DROPDOWN, "=\"").concat(_this.activeDropdownId, "\"]");
 
       if (!document.querySelector(_this.activeDropdownAttr)) {
@@ -114,7 +111,7 @@ var Dropdown = function (_Utils) {
 
       document.addEventListener(events.KEYDOWN, _this._handleEscapeKeyPress);
       document.addEventListener(events.CLICK, _this._handleOffMenuClick);
-      _this.activeDropdownLinks = _this._getDropdownButtons(_this.activeDropdownAttr);
+      _this.activeDropdownLinks = _this._getDropdownLinks(_this.activeDropdownAttr);
       _this.firstDropdownLink = _this.activeDropdownLinks[0];
       _this.lastDropdownLink = _this.activeDropdownLinks[_this.activeDropdownLinks.length - 1];
 
@@ -252,8 +249,8 @@ var Dropdown = function (_Utils) {
       this.activeDropdownButton.removeAttribute(selectors.TAB_INDEX);
     }
   }, {
-    key: "_getDropdownButtons",
-    value: function _getDropdownButtons(attr) {
+    key: "_getDropdownLinks",
+    value: function _getDropdownLinks(attr) {
       return this.getElements("".concat(attr, " > ul > li > a, ").concat(attr, " > ul > li > button"));
     }
   }, {
@@ -278,7 +275,7 @@ var Dropdown = function (_Utils) {
         return item.setAttribute(selectors.ROLE, "none");
       });
 
-      this._getDropdownButtons(dropdownIdAttr).forEach(function (link) {
+      this._getDropdownLinks(dropdownIdAttr).forEach(function (link) {
         link.setAttribute(selectors.ROLE, "menuitem");
         link.setAttribute(selectors.TABINDEX, "-1");
       });
