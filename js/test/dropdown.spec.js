@@ -85,12 +85,36 @@ describe("Dropdowns", function() {
       expect(button.getAttribute("aria-expanded")).to.equal("true")
     })
 
-    it("sets [data-visible='true'] on dropdownWrapper", function() {
+    it("sets [data-visible='true'] on dropdown wrapper", function() {
+      expect(dropdownWrapper.getAttribute("data-visible")).to.equal("true")
+    })
+
+    it("sets focus to the first dropdown link", function() {
+      const focusableElements = document.querySelectorAll("#new-dropdown a")
+      expect(document.activeElement).to.equal(focusableElements[0])
+    })
+  })
+
+  describe("#_renderWithKeys", function() {
+    let button
+    let dropdownWrapper
+
+    before(function() {
+      document.body.innerHTML = dom
+      button = document.getElementById("dropdown-button")
+      dropdownWrapper = document.querySelector("[data-dropdown='dropdown1']")
+      Undernet.Dropdowns.start()
+      button.focus()
+
+      // why doesn't this work? :(
+      window.simulateKeyPress(40)
+    })
+
+    it.skip("sets [data-visible='true'] on dropdown wrapper", function() {
       expect(dropdownWrapper.getAttribute("data-visible")).to.equal("true")
     })
   })
 
-  describe("#_renderWithKeys", function() {})
   describe("#_handleFirstTabClose", function() {})
   describe("#_handleLastTabClose", function() {})
   describe("#_handleClose", function() {})

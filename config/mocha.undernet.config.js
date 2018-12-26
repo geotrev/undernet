@@ -14,10 +14,7 @@ global.document = window.document
  * Create and fire a keyboard event.
  * @param {Number} keyCode - The key code to simulate.
  */
-global.window.simulateKeyPress = keyCode => {
-  const event = new KeyboardEvent("keydown", {
-    which: keyCode,
-  })
-
+global.window.simulateKeyPress = which => {
+  const event = new KeyboardEvent("keydown", { which })
   document.dispatchEvent(event)
 }

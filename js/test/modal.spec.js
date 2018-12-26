@@ -28,60 +28,38 @@ const dom = `
   </div>
 `
 
-// This is a helper function to check key attributes on the
-// modal, essentially confirming open vs. closed state.
-const validateModalState = (newState = {}) => {
-  const state = Object.assign(
-    {
-      modalDialogTabindex: null,
-      dataVisible: "false",
-      ariaHidden: "true",
-      focusableElementsTabindex: "-1",
-    },
-    newState,
-  )
-
-  let modalOverlay
-  let modalDialog
-
-  before(function() {
-    modalOverlay = document.querySelector("[data-modal-id]")
-    modalDialog = document.querySelector("[data-modal]")
-  })
-
-  it(`has [tabindex='${state.modalDialogTabindex}'] on modal dialog`, function() {
-    expect(modalDialog.getAttribute("tabindex")).to.equal(state.modalDialogTabindex)
-  })
-
-  it(`has [data-visible='${state.dataVisible}'] on modal overlay`, function() {
-    expect(modalOverlay.getAttribute("data-visible")).to.equal(state.dataVisible)
-  })
-
-  it(`has [aria-hidden='${state.ariaHidden}'] on modal overlay`, function() {
-    expect(modalOverlay.getAttribute("aria-hidden")).to.equal(state.ariaHidden)
-  })
-
-  it(`has [tabindex='${state.focusableElementsTabindex}'] on each focusable element`, function() {
-    const focusableElements = modalDialog.querySelectorAll("a")
-    focusableElements.forEach(el => {
-      expect(el.getAttribute("tabindex")).to.equal(state.focusableElementsTabindex)
-    })
-  })
-}
-
 // Begin modal tests.
 
 describe("Modals", function() {
   describe("API #start", function() {
     let modalDialog
+    let modalOverlay
 
     before(function() {
       document.body.innerHTML = dom
       Undernet.Modals.start()
       modalDialog = document.querySelector("[data-modal]")
+      modalOverlay = document.querySelector("[data-modal-id]")
     })
 
-    validateModalState()
+    it(`has no [tabindex] on modal dialog`, function() {
+      expect(modalDialog.getAttribute("tabindex")).to.equal(null)
+    })
+
+    it(`sets [data-visible='false'] on modal overlay`, function() {
+      expect(modalOverlay.getAttribute("data-visible")).to.equal("false")
+    })
+
+    it(`sets [aria-hidden='true'] on modal overlay`, function() {
+      expect(modalOverlay.getAttribute("aria-hidden")).to.equal("true")
+    })
+
+    it(`sets [tabindex='-1'] on each focusable element`, function() {
+      const focusableElements = modalDialog.querySelectorAll("a")
+      focusableElements.forEach(el => {
+        expect(el.getAttribute("tabindex")).to.equal("-1")
+      })
+    })
 
     it("sets [role='dialog'] to modal dialog", function() {
       expect(modalDialog.getAttribute("role")).to.equal("dialog")
@@ -99,20 +77,25 @@ describe("Modals", function() {
 
   describe("API #stop -> Modal Button Click", function() {
     let button
+    let modalOverlay
 
     before(function() {
       document.body.innerHTML = dom
       Undernet.Modals.start()
       Undernet.Modals.stop()
       button = document.querySelector("[data-modal-button]")
+      modalOverlay = document.querySelector("[data-modal-id]")
       button.click()
     })
 
-    validateModalState()
+    it(`sets [data-visible='false'] on modal overlay`, function() {
+      expect(modalOverlay.getAttribute("data-visible")).to.equal("false")
+    })
   })
 
   describe("#_render -> Modal Button Click", function() {
     let button
+    let modalOverlay
     let modalDialog
 
     before(function() {
@@ -120,14 +103,27 @@ describe("Modals", function() {
       Undernet.Modals.start()
       button = document.querySelector("[data-modal-button]")
       modalDialog = document.querySelector("[data-modal]")
+      modalOverlay = document.querySelector("[data-modal-id]")
       button.click()
     })
 
-    validateModalState({
-      modalDialogTabindex: "-1",
-      dataVisible: "true",
-      ariaHidden: "false",
-      focusableElementsTabindex: "0",
+    it(`sets [tabindex='-1'] on modal dialog`, function() {
+      expect(modalDialog.getAttribute("tabindex")).to.equal("-1")
+    })
+
+    it(`sets [data-visible='true'] on modal overlay`, function() {
+      expect(modalOverlay.getAttribute("data-visible")).to.equal("true")
+    })
+
+    it(`sets [aria-hidden='false'] on modal overlay`, function() {
+      expect(modalOverlay.getAttribute("aria-hidden")).to.equal("false")
+    })
+
+    it(`sets [tabindex='0'] on each focusable element`, function() {
+      const focusableElements = modalDialog.querySelectorAll("a")
+      focusableElements.forEach(el => {
+        expect(el.getAttribute("tabindex")).to.equal("0")
+      })
     })
 
     it("sets focus to [data-modal]", function() {
@@ -138,17 +134,21 @@ describe("Modals", function() {
   describe("#_handleClose -> Modal Close Button Click", function() {
     let openButton
     let closeButton
+    let modalOverlay
 
     before(function() {
       document.body.innerHTML = dom
       Undernet.Modals.start()
       openButton = document.querySelector("[data-modal-button]")
       closeButton = document.querySelector("[data-close]")
+      modalOverlay = document.querySelector("[data-modal-id]")
       openButton.click()
       closeButton.click()
     })
 
-    validateModalState()
+    it(`sets [data-visible='false'] on modal overlay`, function() {
+      expect(modalOverlay.getAttribute("data-visible")).to.equal("false")
+    })
   })
 
   describe("#_handleOverlayClick -> Modal Overlay Click", function() {
@@ -164,21 +164,27 @@ describe("Modals", function() {
       modalOverlay.click()
     })
 
-    validateModalState()
+    it(`sets [data-visible='false'] on modal overlay`, function() {
+      expect(modalOverlay.getAttribute("data-visible")).to.equal("false")
+    })
   })
 
   describe("#_handleEscapeKeyPress -> Escape Key Press", function() {
     let button
+    let modalOverlay
 
     before(function() {
       document.body.innerHTML = dom
       Undernet.Modals.start()
       button = document.querySelector("[data-modal-button]")
+      modalOverlay = document.querySelector("[data-modal-id]")
       button.click()
       window.simulateKeyPress(27)
     })
 
-    validateModalState()
+    it(`sets [data-visible='false'] on modal overlay`, function() {
+      expect(modalOverlay.getAttribute("data-visible")).to.equal("false")
+    })
   })
 
   describe("#_handleReturnFocus -> Modal Close Button Click", function() {
@@ -227,7 +233,7 @@ describe("Modals", function() {
       button.click()
     })
 
-    it("adds 'no-scroll' class to <body>", function() {
+    it("sets 'no-scroll' class to <body>", function() {
       expect(document.body.className).to.equal("no-scroll")
     })
   })
