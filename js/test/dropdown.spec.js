@@ -117,22 +117,22 @@ describe("Dropdowns", function() {
     })
 
     it("sets [data-visible='true'] on dropdown wrapper", function() {
-      window.simulateKeyPress(40)
+      window.simulateKeyPress(40, button)
       expect(dropdownWrapper.getAttribute("data-visible")).to.equal("true")
     })
 
     it("sets [data-visible='true'] on dropdown wrapper", function() {
-      window.simulateKeyPress(38)
+      window.simulateKeyPress(38, button)
       expect(dropdownWrapper.getAttribute("data-visible")).to.equal("true")
     })
 
     it("sets focus to first item in dropdown menu when arrow down key is pressed", function() {
-      window.simulateKeyPress(40)
+      window.simulateKeyPress(40, button)
       expect(document.activeElement).to.equal(firstDropdownItem)
     })
 
     it("sets focus to first item in dropdown menu when arrow down key is pressed", function() {
-      window.simulateKeyPress(38)
+      window.simulateKeyPress(38, button)
       expect(document.activeElement).to.equal(lastDropdownItem)
     })
   })
