@@ -95,7 +95,7 @@ describe("Dropdowns", function() {
     })
   })
 
-  describe("#_renderWithKeys", function() {
+  describe("#_renderWithKeys -> Arrow Down or Up Key Press", function() {
     let button
     let dropdownWrapper
     let focusableElements
@@ -113,32 +113,58 @@ describe("Dropdowns", function() {
 
       Undernet.Dropdowns.stop()
       Undernet.Dropdowns.start()
-      button.focus()
     })
 
     it("sets [data-visible='true'] on dropdown wrapper", function() {
-      window.simulateKeyPress(40, button)
+      window.simulateKeyPress(40, false, button)
       expect(dropdownWrapper.getAttribute("data-visible")).to.equal("true")
     })
 
     it("sets [data-visible='true'] on dropdown wrapper", function() {
-      window.simulateKeyPress(38, button)
+      window.simulateKeyPress(38, false, button)
       expect(dropdownWrapper.getAttribute("data-visible")).to.equal("true")
     })
 
     it("sets focus to first item in dropdown menu when arrow down key is pressed", function() {
-      window.simulateKeyPress(40, button)
+      window.simulateKeyPress(40, false, button)
       expect(document.activeElement).to.equal(firstDropdownItem)
     })
 
     it("sets focus to first item in dropdown menu when arrow down key is pressed", function() {
-      window.simulateKeyPress(38, button)
+      window.simulateKeyPress(38, false, button)
       expect(document.activeElement).to.equal(lastDropdownItem)
     })
   })
 
-  describe("#_handleFirstTabClose", function() {})
-  describe("#_handleLastTabClose", function() {})
+  describe("#_handleFirstTabClose & #_handleLastTabClose", function() {
+    let button
+    let dropdownWrapper
+    let firstDropdownItem
+    let lastDropdownItem
+
+    beforeEach(function() {
+      document.body.innerHTML = dom
+
+      button = document.getElementById("dropdown-button")
+      dropdownWrapper = document.querySelector("[data-dropdown='dropdown1']")
+      firstDropdownItem = document.querySelectorAll("#new-dropdown a")[0]
+      lastDropdownItem = document.querySelectorAll("#new-dropdown a")[2]
+
+      Undernet.Dropdowns.start()
+      button.click()
+    })
+
+    it("sets [data-vislble='false'] on dropdown wrapper if shift + tab key is pressed in open menu", function() {
+      window.simulateKeyPress(9, true, firstDropdownItem)
+      expect(dropdownWrapper.getAttribute("data-visible")).to.equal("false")
+    })
+
+    it("sets [data-visible='false'] on dropdown wrapper if tab key is pressed in open menu", function() {
+      window.simulateKeyPress(9, false, lastDropdownItem)
+      expect(dropdownWrapper.getAttribute("data-visible")).to.equal("false")
+    })
+  })
+
   describe("#_handleClose", function() {})
   describe("#_handleEscapeKeyPress", function() {})
   describe("#_handleOffMenuClick", function() {})
