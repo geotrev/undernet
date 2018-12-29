@@ -99,43 +99,39 @@ describe("Dropdowns", function() {
     let button
     let dropdownWrapper
     let focusableElements
+    let firstDropdownItem
+    let lastDropdownItem
 
-    before(function() {
+    beforeEach(function() {
+      document.body.innerHTML = dom
+
       button = document.getElementById("dropdown-button")
       dropdownWrapper = document.querySelector("[data-dropdown='dropdown1']")
       focusableElements = document.querySelectorAll("#new-dropdown a")
-      Undernet.Dropdowns.start()
-    })
+      firstDropdownItem = focusableElements[0]
+      lastDropdownItem = focusableElements[focusableElements.length - 1]
 
-    afterEach(function() {
       Undernet.Dropdowns.stop()
-      document.body.focus()
-      document.body.innerHTML = dom
       Undernet.Dropdowns.start()
+      button.focus()
     })
 
     it("sets [data-visible='true'] on dropdown wrapper", function() {
-      button.focus()
       window.simulateKeyPress(40)
       expect(dropdownWrapper.getAttribute("data-visible")).to.equal("true")
     })
 
     it("sets [data-visible='true'] on dropdown wrapper", function() {
-      button.focus()
       window.simulateKeyPress(38)
       expect(dropdownWrapper.getAttribute("data-visible")).to.equal("true")
     })
 
-    it.skip("sets focus to first item in dropdown menu when arrow down key is pressed", function() {
-      const firstDropdownItem = focusableElements[0]
-      button.focus()
+    it("sets focus to first item in dropdown menu when arrow down key is pressed", function() {
       window.simulateKeyPress(40)
       expect(document.activeElement).to.equal(firstDropdownItem)
     })
 
-    it.skip("sets focus to first item in dropdown menu when arrow down key is pressed", function() {
-      const lastDropdownItem = focusableElements[focusableElements.length - 1]
-      button.focus()
+    it("sets focus to first item in dropdown menu when arrow down key is pressed", function() {
       window.simulateKeyPress(38)
       expect(document.activeElement).to.equal(lastDropdownItem)
     })

@@ -178,11 +178,11 @@ describe("Modals", function() {
       Undernet.Modals.start()
       button = document.querySelector("[data-modal-button]")
       modalOverlay = document.querySelector("[data-modal-id]")
-      button.click()
-      window.simulateKeyPress(27)
     })
 
     it(`sets [data-visible='false'] on modal overlay`, function() {
+      button.click()
+      window.simulateKeyPress(27)
       expect(modalOverlay.getAttribute("data-visible")).to.equal("false")
     })
   })
