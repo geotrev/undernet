@@ -1,6 +1,6 @@
 /*!
   * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
-  * Undernet v3.0.4 (https://undernet.io)
+  * Undernet v3.1.0 (https://undernet.io)
   * Copyright 2017-2018 George Treviranus
   */
 (function (global, factory) {
@@ -29,6 +29,21 @@
     if (protoProps) _defineProperties(Constructor.prototype, protoProps);
     if (staticProps) _defineProperties(Constructor, staticProps);
     return Constructor;
+  }
+
+  function _defineProperty(obj, key, value) {
+    if (key in obj) {
+      Object.defineProperty(obj, key, {
+        value: value,
+        enumerable: true,
+        configurable: true,
+        writable: true
+      });
+    } else {
+      obj[key] = value;
+    }
+
+    return obj;
   }
 
   function _inherits(subClass, superClass) {
@@ -96,12 +111,71 @@
 
   var Utils = function () {
     function Utils() {
+      var _this = this;
+
       _classCallCheck(this, Utils);
 
-      this._handleFocusTrapWithTab = this._handleFocusTrapWithTab.bind(this);
-      this._handleFocusTrapWithArrows = this._handleFocusTrapWithArrows.bind(this);
-      this._listenForKeyboard = this._listenForKeyboard.bind(this);
-      this._listenForClick = this._listenForClick.bind(this);
+      _defineProperty(this, "_listenForKeyboard", function (event) {
+        var tabKey = event.which === keyCodes.TAB;
+        var shiftKey = event.which === keyCodes.SHIFT || event.shiftKey;
+        var arrowUp = event.which === keyCodes.ARROW_UP;
+        var arrowDown = event.which === keyCodes.ARROW_DOWN;
+
+        if (tabKey || shiftKey || arrowUp || arrowDown) {
+          document.body.classList.add(selectors.KEYBOARD_CLASS);
+          document.removeEventListener(events.KEYDOWN, _this._listenForKeyboard);
+          document.addEventListener(events.CLICK, _this._listenForClick);
+          _this.listeningForKeydown = false;
+        }
+      });
+
+      _defineProperty(this, "_listenForClick", function (event) {
+        document.body.classList.remove(selectors.KEYBOARD_CLASS);
+        document.removeEventListener(events.CLICK, _this._listenForClick);
+        document.addEventListener(events.KEYDOWN, _this._listenForKeyboard);
+        _this.listeningForKeydown = true;
+      });
+
+      _defineProperty(this, "_handleFocusTrapWithTab", function (event) {
+        var containerElement = document.querySelector(_this.focusContainerSelector);
+        var containerActive = document.activeElement === containerElement;
+        var firstActive = document.activeElement === _this.focusableFirstChild;
+        var lastActive = document.activeElement === _this.focusableLastChild;
+        var tabKey = event.which === keyCodes.TAB;
+        var shiftKey = event.which === keyCodes.SHIFT || event.shiftKey;
+
+        if (shiftKey && tabKey && (firstActive || containerActive)) {
+          event.preventDefault();
+
+          _this.focusableLastChild.focus();
+        } else if (!shiftKey && tabKey && lastActive) {
+          event.preventDefault();
+
+          _this.focusableFirstChild.focus();
+        }
+      });
+
+      _defineProperty(this, "_handleFocusTrapWithArrows", function (event) {
+        var firstActive = document.activeElement === _this.focusableFirstChild;
+        var lastActive = document.activeElement === _this.focusableLastChild;
+        var arrowUp = event.which === keyCodes.ARROW_UP;
+        var arrowDown = event.which === keyCodes.ARROW_DOWN;
+
+        if (arrowUp || arrowDown) {
+          event.preventDefault();
+
+          if (firstActive && arrowUp) {
+            _this.focusableLastChild.focus();
+          } else if (lastActive && arrowDown) {
+            _this.focusableFirstChild.focus();
+          } else if (arrowDown) {
+            _this._focusNextChild();
+          } else if (arrowUp) {
+            _this._focusLastChild();
+          }
+        }
+      });
+
       this.focusContainerSelector = "";
       this.focusableChildren = [];
       this.focusableFirstChild = null;
@@ -114,7 +188,7 @@
       key: "captureFocus",
       value: function captureFocus(container, options) {
         this.focusContainerSelector = container;
-        this.focusableChildren = this._getFocusableElements(this.focusContainerSelector);
+        this.focusableChildren = this.getFocusableElements(this.focusContainerSelector);
         this.focusableFirstChild = this.focusableChildren[0];
         this.focusableLastChild = this.focusableChildren[this.focusableChildren.length - 1];
 
@@ -152,81 +226,18 @@
         }
       }
     }, {
-      key: "_listenForKeyboard",
-      value: function _listenForKeyboard(event) {
-        var tabKey = event.which === keyCodes.TAB;
-        var shiftKey = event.which === keyCodes.SHIFT || event.shiftKey;
-        var arrowUp = event.which === keyCodes.ARROW_UP;
-        var arrowDown = event.which === keyCodes.ARROW_DOWN;
-
-        if (tabKey || shiftKey || arrowUp || arrowDown) {
-          document.body.classList.add(selectors.KEYBOARD_CLASS);
-          document.removeEventListener(events.KEYDOWN, this._listenForKeyboard);
-          document.addEventListener(events.CLICK, this._listenForClick);
-          this.listeningForKeydown = false;
-        }
-      }
-    }, {
-      key: "_listenForClick",
-      value: function _listenForClick(event) {
-        document.body.classList.remove(selectors.KEYBOARD_CLASS);
-        document.removeEventListener(events.CLICK, this._listenForClick);
-        document.addEventListener(events.KEYDOWN, this._listenForKeyboard);
-        this.listeningForKeydown = true;
-      }
-    }, {
-      key: "_getElements",
-      value: function _getElements(element) {
+      key: "getElements",
+      value: function getElements(element) {
         var nodeList = document.querySelectorAll(element);
         return Array.apply(null, nodeList);
       }
     }, {
-      key: "_getFocusableElements",
-      value: function _getFocusableElements(container) {
+      key: "getFocusableElements",
+      value: function getFocusableElements(container) {
         var focusables = selectors.FOCUSABLE_TAGS.map(function (element) {
           return "".concat(container, " ").concat(element).concat(selectors.NOT_VISUALLY_HIDDEN);
         });
-        return this._getElements(focusables.join(", "));
-      }
-    }, {
-      key: "_handleFocusTrapWithTab",
-      value: function _handleFocusTrapWithTab(event) {
-        var containerElement = document.querySelector(this.focusContainerSelector);
-        var containerActive = document.activeElement === containerElement;
-        var firstActive = document.activeElement === this.focusableFirstChild;
-        var lastActive = document.activeElement === this.focusableLastChild;
-        var tabKey = event.which === keyCodes.TAB;
-        var shiftKey = event.which === keyCodes.SHIFT || event.shiftKey;
-
-        if (shiftKey && tabKey && (firstActive || containerActive)) {
-          event.preventDefault();
-          this.focusableLastChild.focus();
-        } else if (!shiftKey && tabKey && lastActive) {
-          event.preventDefault();
-          this.focusableFirstChild.focus();
-        }
-      }
-    }, {
-      key: "_handleFocusTrapWithArrows",
-      value: function _handleFocusTrapWithArrows(event) {
-        var firstActive = document.activeElement === this.focusableFirstChild;
-        var lastActive = document.activeElement === this.focusableLastChild;
-        var arrowUp = event.which === keyCodes.ARROW_UP;
-        var arrowDown = event.which === keyCodes.ARROW_DOWN;
-
-        if (arrowUp || arrowDown) {
-          event.preventDefault();
-
-          if (firstActive && arrowUp) {
-            this.focusableLastChild.focus();
-          } else if (lastActive && arrowDown) {
-            this.focusableFirstChild.focus();
-          } else if (arrowDown) {
-            this._focusNextChild();
-          } else if (arrowUp) {
-            this._focusLastChild();
-          }
-        }
+        return this.getElements(focusables.join(", "));
       }
     }, {
       key: "_focusNextChild",
@@ -292,10 +303,91 @@
       _classCallCheck(this, Modal);
 
       _this = _possibleConstructorReturn(this, _getPrototypeOf(Modal).call(this));
-      _this._render = _this._render.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-      _this._handleClose = _this._handleClose.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-      _this._handleEscapeKeyPress = _this._handleEscapeKeyPress.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-      _this._handleOverlayClick = _this._handleOverlayClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+
+      _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "_render", function (event) {
+        event.preventDefault();
+        _this.activeModalButton = event.target;
+
+        if (!_this.activeModalButton.getAttribute(selectors$1.DATA_TARGET)) {
+          return console.error(messages.NO_TARGET_ERROR);
+        }
+
+        _this.activeModalId = _this.activeModalButton.getAttribute(selectors$1.DATA_TARGET);
+        _this.activeModalOverlayAttr = "[".concat(selectors$1.MODAL_ID, "=\"").concat(_this.activeModalId, "\"]");
+
+        if (!document.querySelector(_this.activeModalOverlayAttr)) {
+          return console.error(messages.NO_ID_ERROR(_this.activeModalId));
+        }
+
+        _this.activeModalOverlay = document.querySelector(_this.activeModalOverlayAttr);
+        _this.activeModalSelector = "".concat(_this.activeModalOverlayAttr, " ").concat(_this.modalContainerAttr);
+        _this.activeModal = document.querySelector(_this.activeModalSelector);
+        _this.activeModalCloseButtons = _this.getElements("".concat(_this.activeModalOverlayAttr, " [").concat(selectors$1.MODAL_CONTAINER, "] [").concat(selectors$1.DATA_CLOSE, "]"));
+
+        _this.getFocusableElements(_this.activeModalSelector).forEach(function (element) {
+          element.setAttribute(selectors$1.TABINDEX, "0");
+        });
+
+        _this._handleScrollStop();
+
+        _this.captureFocus(_this.activeModalSelector);
+
+        _this.activeModalOverlay.setAttribute(selectors$1.ARIA_HIDDEN, "false");
+
+        _this.activeModal.setAttribute(selectors$1.TABINDEX, "-1");
+
+        _this.activeModalOverlay.setAttribute(selectors$1.DATA_VISIBLE, "true");
+
+        _this.activeModal.focus();
+
+        _this.activeModalOverlay.scrollTop = 0;
+        document.addEventListener(events$1.KEYDOWN, _this._handleEscapeKeyPress);
+        document.addEventListener(events$1.CLICK, _this._handleOverlayClick);
+
+        _this.activeModalCloseButtons.forEach(function (button) {
+          button.addEventListener(events$1.CLICK, _this._handleClose);
+        });
+      });
+
+      _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "_handleClose", function (event) {
+        event.preventDefault();
+
+        _this.activeModalOverlay.setAttribute(selectors$1.DATA_VISIBLE, "false");
+
+        _this._handleReturnFocus();
+
+        _this._handleScrollRestore();
+
+        _this.releaseFocus();
+
+        _this.activeModalOverlay.setAttribute(selectors$1.ARIA_HIDDEN, "true");
+
+        _this.activeModal.removeAttribute(selectors$1.TABINDEX);
+
+        _this.getFocusableElements(_this.activeModalSelector).forEach(function (element) {
+          element.setAttribute(selectors$1.TABINDEX, "-1");
+        });
+
+        document.removeEventListener(events$1.KEYDOWN, _this._handleEscapeKeyPress);
+        document.removeEventListener(events$1.CLICK, _this._handleOverlayClick);
+
+        _this.activeModalCloseButtons.forEach(function (button) {
+          button.removeEventListener(events$1.CLICK, _this._handleClose);
+        });
+      });
+
+      _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "_handleOverlayClick", function (event) {
+        if (event.target === _this.activeModalOverlay) {
+          _this._handleClose(event);
+        }
+      });
+
+      _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "_handleEscapeKeyPress", function (event) {
+        if (event.which === keyCodes$1.ESCAPE) {
+          _this._handleClose(event);
+        }
+      });
+
       _this.modals = [];
       _this.modalButtons = [];
       _this.activeModalButton = null;
@@ -315,10 +407,9 @@
       value: function start() {
         var _this2 = this;
 
-        this.modals = this._getElements(this.modalContainerAttr);
-        this.modalButtons = this._getElements("[".concat(selectors$1.MODAL_BUTTON, "]"));
-
-        this._getFocusableElements(this.modalContainerAttr).forEach(function (element) {
+        this.modals = this.getElements(this.modalContainerAttr);
+        this.modalButtons = this.getElements("[".concat(selectors$1.MODAL_BUTTON, "]"));
+        this.getFocusableElements(this.modalContainerAttr).forEach(function (element) {
           element.setAttribute(selectors$1.TABINDEX, "-1");
         });
 
@@ -344,48 +435,6 @@
         });
       }
     }, {
-      key: "_render",
-      value: function _render(event) {
-        var _this4 = this;
-
-        event.preventDefault();
-        this.activeModalButton = event.target;
-
-        if (!this.activeModalButton.getAttribute(selectors$1.DATA_TARGET)) {
-          return console.error(messages.NO_TARGET_ERROR);
-        }
-
-        this.activeModalId = this.activeModalButton.getAttribute(selectors$1.DATA_TARGET);
-        this.activeModalOverlayAttr = "[".concat(selectors$1.MODAL_ID, "=\"").concat(this.activeModalId, "\"]");
-
-        if (!document.querySelector(this.activeModalOverlayAttr)) {
-          return console.error(messages.NO_ID_ERROR(this.activeModalId));
-        }
-
-        this.activeModalOverlay = document.querySelector(this.activeModalOverlayAttr);
-        this.activeModalSelector = "".concat(this.activeModalOverlayAttr, " ").concat(this.modalContainerAttr);
-        this.activeModal = document.querySelector(this.activeModalSelector);
-        this.activeModalCloseButtons = this._getElements("".concat(this.activeModalOverlayAttr, " [").concat(selectors$1.MODAL_CONTAINER, "] [").concat(selectors$1.DATA_CLOSE, "]"));
-
-        this._getFocusableElements(this.activeModalSelector).forEach(function (element) {
-          element.setAttribute(selectors$1.TABINDEX, "0");
-        });
-
-        this._handleScrollStop();
-
-        this.captureFocus(this.activeModalSelector);
-        this.activeModalOverlay.setAttribute(selectors$1.ARIA_HIDDEN, "false");
-        this.activeModal.setAttribute(selectors$1.TABINDEX, "-1");
-        this.activeModalOverlay.setAttribute(selectors$1.DATA_VISIBLE, "true");
-        this.activeModal.focus();
-        this.activeModalOverlay.scrollTop = 0;
-        document.addEventListener(events$1.KEYDOWN, this._handleEscapeKeyPress);
-        document.addEventListener(events$1.CLICK, this._handleOverlayClick);
-        this.activeModalCloseButtons.forEach(function (button) {
-          button.addEventListener(events$1.CLICK, _this4._handleClose);
-        });
-      }
-    }, {
       key: "_setupModal",
       value: function _setupModal(modal) {
         var modalId;
@@ -408,46 +457,6 @@
         modalWrapper.setAttribute(selectors$1.DATA_VISIBLE, "false");
         modal.setAttribute(selectors$1.ARIA_MODAL, "true");
         modal.setAttribute(selectors$1.ROLE, "dialog");
-      }
-    }, {
-      key: "_handleClose",
-      value: function _handleClose(event) {
-        var _this5 = this;
-
-        event.preventDefault();
-        this.activeModalOverlay.setAttribute(selectors$1.DATA_VISIBLE, "false");
-
-        this._handleReturnFocus();
-
-        this._handleScrollRestore();
-
-        this.releaseFocus();
-        this.activeModalOverlay.setAttribute(selectors$1.ARIA_HIDDEN, "true");
-        this.activeModal.removeAttribute(selectors$1.TABINDEX);
-
-        this._getFocusableElements(this.activeModalSelector).forEach(function (element) {
-          element.setAttribute(selectors$1.TABINDEX, "-1");
-        });
-
-        document.removeEventListener(events$1.KEYDOWN, this._handleEscapeKeyPress);
-        document.removeEventListener(events$1.CLICK, this._handleOverlayClick);
-        this.activeModalCloseButtons.forEach(function (button) {
-          button.removeEventListener(events$1.CLICK, _this5._handleClose);
-        });
-      }
-    }, {
-      key: "_handleOverlayClick",
-      value: function _handleOverlayClick(event) {
-        if (event.target === this.activeModalOverlay) {
-          this._handleClose(event);
-        }
-      }
-    }, {
-      key: "_handleEscapeKeyPress",
-      value: function _handleEscapeKeyPress(event) {
-        if (event.which === keyCodes$1.ESCAPE) {
-          this._handleClose(event);
-        }
       }
     }, {
       key: "_handleReturnFocus",
@@ -520,8 +529,42 @@
       _classCallCheck(this, Accordion);
 
       _this = _possibleConstructorReturn(this, _getPrototypeOf(Accordion).call(this));
-      _this._render = _this._render.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-      _this._handleSpaceKeyPress = _this._handleSpaceKeyPress.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+
+      _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "_render", function (event) {
+        event.preventDefault();
+        _this.activeButton = event.target;
+        _this.activeAccordionRowId = _this.activeButton.getAttribute(selectors$2.DATA_TARGET);
+        _this.activeRowAttr = _this._getAccordionRowAttr(_this.activeAccordionRowId);
+        _this.activeRow = document.querySelector(_this.activeRowAttr);
+
+        if (!_this.activeButton.getAttribute(selectors$2.DATA_PARENT)) {
+          return console.error(messages$1.NO_PARENT_ERROR(_this.activeAccordionRowId));
+        }
+
+        _this.activeContainerId = _this.activeButton.getAttribute(selectors$2.DATA_PARENT);
+        _this.activeContainerAttr = "[".concat(selectors$2.ACCORDION_CONTAINER, "='").concat(_this.activeContainerId, "']");
+
+        if (!document.querySelector(_this.activeContainerAttr)) {
+          return console.error(messages$1.NO_ACCORDION_ERROR(_this.activeContainerId));
+        }
+
+        _this.activeContainer = document.querySelector(_this.activeContainerAttr);
+        _this.activeContent = document.getElementById(_this.activeAccordionRowId);
+
+        var accordionButtonState = _this.activeRow.getAttribute(selectors$2.DATA_VISIBLE);
+
+        _this.activeButtonExpandState = accordionButtonState === "true" ? "false" : "true";
+        _this.activeContentHiddenState = _this.activeButtonExpandState === "false" ? "true" : "false";
+
+        _this._closeAllIfToggleable();
+
+        _this._toggleSelectedAccordion();
+      });
+
+      _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "_handleSpaceKeyPress", function (event) {
+        if (event.which === keyCodes$2.SPACE) _this._render(event);
+      });
+
       _this.accordionButtons = [];
       _this.accordionContentsAttr = "";
       _this.accordionContents = [];
@@ -543,7 +586,7 @@
       value: function start() {
         var _this2 = this;
 
-        this.accordionButtons = this._getElements("[".concat(selectors$2.ACCORDION_CONTAINER, "] [").concat(selectors$2.DATA_TARGET, "]"));
+        this.accordionButtons = this.getElements("[".concat(selectors$2.ACCORDION_CONTAINER, "] [").concat(selectors$2.DATA_TARGET, "]"));
 
         if (this.accordionButtons.length) {
           this.accordionButtons.forEach(function (button) {
@@ -585,14 +628,13 @@
 
         var buttonHeaderAttr = this._getPossibleAccordionHeaderAttrs(accordionRowAttr);
 
-        var buttonHeader = this._getElements(buttonHeaderAttr)[0];
+        var buttonHeader = this.getElements(buttonHeaderAttr)[0];
 
         if (!buttonHeader || !buttonHeader.id) {
           console.error(messages$1.NO_HEADER_ID_ERROR(buttonId));
         }
 
-        var buttonContentChildren = this._getFocusableElements("#".concat(buttonContent.id));
-
+        var buttonContentChildren = this.getFocusableElements("#".concat(buttonContent.id));
         button.setAttribute(selectors$2.ARIA_CONTROLS, buttonId);
         buttonContent.setAttribute(selectors$2.ARIA_LABELLEDBY, buttonHeader.id);
 
@@ -628,59 +670,19 @@
         return "[".concat(selectors$2.ACCORDION_ROW, "='").concat(id, "']");
       }
     }, {
-      key: "_render",
-      value: function _render(event) {
-        event.preventDefault();
-        this.activeButton = event.target;
-        this.activeAccordionRowId = this.activeButton.getAttribute(selectors$2.DATA_TARGET);
-        this.activeRowAttr = this._getAccordionRowAttr(this.activeAccordionRowId);
-        this.activeRow = document.querySelector(this.activeRowAttr);
-
-        if (!this.activeButton.getAttribute(selectors$2.DATA_PARENT)) {
-          return console.error(messages$1.NO_PARENT_ERROR(this.activeAccordionRowId));
-        }
-
-        this.activeContainerId = this.activeButton.getAttribute(selectors$2.DATA_PARENT);
-        this.activeContainerAttr = "[".concat(selectors$2.ACCORDION_CONTAINER, "='").concat(this.activeContainerId, "']");
-
-        if (!document.querySelector(this.activeContainerAttr)) {
-          return console.error(messages$1.NO_ACCORDION_ERROR(this.activeContainerId));
-        }
-
-        this.activeContainer = document.querySelector(this.activeContainerAttr);
-        this.activeContent = document.getElementById(this.activeAccordionRowId);
-        var accordionButtonState = this.activeRow.getAttribute(selectors$2.DATA_VISIBLE);
-        this.activeButtonExpandState = accordionButtonState === "true" ? "false" : "true";
-        this.activeContentHiddenState = this.activeButtonExpandState === "false" ? "true" : "false";
-
-        this._closeAllIfToggleable();
-
-        this._toggleSelectedAccordion();
-      }
-    }, {
-      key: "_handleSpaceKeyPress",
-      value: function _handleSpaceKeyPress(event) {
-        if (event.which === keyCodes$2.SPACE) this._render(event);
-      }
-    }, {
       key: "_closeAllIfToggleable",
       value: function _closeAllIfToggleable() {
         var _this4 = this;
 
         if (this.activeContainer.hasAttribute(selectors$2.DATA_TOGGLE_MULTIPLE)) return;
         var allContentAttr = "".concat(this.activeContainerAttr, " [").concat(selectors$2.ARIA_HIDDEN, "]");
-
-        var allRows = this._getElements("".concat(this.activeContainerAttr, " [").concat(selectors$2.DATA_VISIBLE, "]"));
-
-        var allContent = this._getElements(allContentAttr);
-
-        var allButtons = this._getElements("".concat(this.activeContainerAttr, " [").concat(selectors$2.DATA_TARGET, "]"));
-
+        var allRows = this.getElements("".concat(this.activeContainerAttr, " [").concat(selectors$2.DATA_VISIBLE, "]"));
+        var allContent = this.getElements(allContentAttr);
+        var allButtons = this.getElements("".concat(this.activeContainerAttr, " [").concat(selectors$2.DATA_TARGET, "]"));
         allContent.forEach(function (content) {
           if (!(content === _this4.activeContent)) content.style.maxHeight = null;
         });
-
-        this._getFocusableElements(allContentAttr).forEach(function (element) {
+        this.getFocusableElements(allContentAttr).forEach(function (element) {
           element.setAttribute(selectors$2.TABINDEX, "-1");
         });
 
@@ -699,8 +701,7 @@
         this.activeButton.setAttribute(selectors$2.ARIA_EXPANDED, this.activeButtonExpandState);
         this.activeContent.setAttribute(selectors$2.ARIA_HIDDEN, this.activeContentHiddenState);
         var activeContentBlock = "#".concat(this.activeAccordionRowId);
-
-        this._getFocusableElements(activeContentBlock).forEach(function (element) {
+        this.getFocusableElements(activeContentBlock).forEach(function (element) {
           var value = _this5.activeButtonExpandState === "true" ? "0" : "-1";
           element.setAttribute(selectors$2.TABINDEX, value);
         });
@@ -767,13 +768,132 @@
       _classCallCheck(this, Dropdown);
 
       _this = _possibleConstructorReturn(this, _getPrototypeOf(Dropdown).call(this));
-      _this._render = _this._render.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-      _this._renderWithKeys = _this._renderWithKeys.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-      _this._handleClose = _this._handleClose.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-      _this._handleEscapeKeyPress = _this._handleEscapeKeyPress.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-      _this._handleOffMenuClick = _this._handleOffMenuClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-      _this._handleFirstTabClose = _this._handleFirstTabClose.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-      _this._handleLastTabClose = _this._handleLastTabClose.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+
+      _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "_render", function (event, key) {
+        if (!key) event.preventDefault();
+        event.stopPropagation();
+
+        if (_this.activeDropdownButton) {
+          _this.allowFocusReturn = false;
+
+          _this._handleClose(event);
+
+          _this.allowFocusReturn = true;
+        }
+
+        _this.activeDropdownButton = event.target;
+
+        if (!_this.activeDropdownButton.getAttribute(selectors$3.DATA_PARENT)) {
+          return messages$2.NO_PARENT_ERROR;
+        }
+
+        _this.activeDropdownId = _this.activeDropdownButton.getAttribute(selectors$3.DATA_PARENT);
+        _this.activeDropdownAttr = "[".concat(selectors$3.DATA_DROPDOWN, "=\"").concat(_this.activeDropdownId, "\"]");
+
+        if (!document.querySelector(_this.activeDropdownAttr)) {
+          return messages$2.NO_DROPDOWN_ERROR(_this.activeDropdownAttr);
+        }
+
+        _this.activeDropdown = document.querySelector(_this.activeDropdownAttr);
+        _this.activeDropdownMenuId = _this.activeDropdownButton.getAttribute(selectors$3.DATA_TARGET);
+        _this.activeDropdownMenu = document.getElementById(_this.activeDropdownMenuId);
+
+        _this.activeDropdownButton.setAttribute(selectors$3.ARIA_EXPANDED, "true");
+
+        _this.activeDropdown.setAttribute(selectors$3.DATA_VISIBLE, "true");
+
+        _this.activeDropdownButton.removeEventListener(events$3.CLICK, _this._render);
+
+        _this.activeDropdownButton.addEventListener(events$3.CLICK, _this._handleClose);
+
+        document.addEventListener(events$3.KEYDOWN, _this._handleEscapeKeyPress);
+        document.addEventListener(events$3.CLICK, _this._handleOffMenuClick);
+        _this.activeDropdownLinks = _this._getDropdownLinks(_this.activeDropdownAttr);
+        _this.firstDropdownLink = _this.activeDropdownLinks[0];
+        _this.lastDropdownLink = _this.activeDropdownLinks[_this.activeDropdownLinks.length - 1];
+
+        _this.firstDropdownLink.addEventListener(events$3.KEYDOWN, _this._handleFirstTabClose);
+
+        _this.lastDropdownLink.addEventListener(events$3.KEYDOWN, _this._handleLastTabClose);
+
+        if (key && key === keyCodes$3.ARROW_UP) {
+          _this.lastDropdownLink.focus();
+        } else {
+          _this.firstDropdownLink.focus();
+        }
+
+        _this.activeDropdownLinks.forEach(function (link) {
+          link.setAttribute(selectors$3.TABINDEX, "0");
+          link.addEventListener(events$3.CLICK, _this._handleClose);
+        });
+
+        _this.captureFocus("".concat(_this.activeDropdownAttr, " > ul"), {
+          useArrows: true
+        });
+      });
+
+      _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "_handleFirstTabClose", function (event) {
+        var shiftKey = event.which === keyCodes$3.SHIFT || event.shiftKey;
+        var tabKey = event.which === keyCodes$3.TAB;
+
+        if (shiftKey && tabKey) {
+          _this._handleClose(event);
+        }
+      });
+
+      _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "_handleLastTabClose", function (event) {
+        var shiftKey = event.which === keyCodes$3.SHIFT || event.shiftKey;
+        var tabKey = event.which === keyCodes$3.TAB;
+
+        if (tabKey && !shiftKey) {
+          _this._handleClose(event);
+        }
+      });
+
+      _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "_renderWithKeys", function (event) {
+        if (event.which === keyCodes$3.ARROW_UP || event.which === keyCodes$3.ARROW_DOWN) {
+          _this._render(event, event.which);
+        }
+      });
+
+      _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "_handleClose", function (event) {
+        event.preventDefault();
+
+        _this.releaseFocus();
+
+        _this.activeDropdownButton.setAttribute(selectors$3.ARIA_EXPANDED, "false");
+
+        _this.activeDropdown.setAttribute(selectors$3.DATA_VISIBLE, "false");
+
+        _this.activeDropdownLinks.forEach(function (link) {
+          link.setAttribute(selectors$3.TABINDEX, "-1");
+          link.removeEventListener(events$3.CLICK, _this._handleClose);
+        });
+
+        _this.activeDropdownButton.removeEventListener(events$3.CLICK, _this._handleClose);
+
+        _this.activeDropdownButton.addEventListener(events$3.CLICK, _this._render);
+
+        document.removeEventListener(events$3.KEYDOWN, _this._handleEscapeKeyPress);
+        document.removeEventListener(events$3.CLICK, _this._handleOffMenuClick);
+
+        if (_this.allowFocusReturn) {
+          _this._handleReturnFocus();
+        }
+      });
+
+      _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "_handleEscapeKeyPress", function (event) {
+        if (event.which === keyCodes$3.ESCAPE) {
+          _this._handleClose(event);
+        }
+      });
+
+      _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "_handleOffMenuClick", function (event) {
+        if (event.target !== _this.activeDropdownButton && event.target !== _this.activeDropdownMenu) {
+          _this._handleClose(event);
+        }
+      });
+
       _this.activeDropdownButton = null;
       _this.activeDropdown = null;
       _this.activeDropdownMenu = null;
@@ -794,8 +914,8 @@
       value: function start() {
         var _this2 = this;
 
-        this.dropdowns = this._getElements("[".concat(selectors$3.DATA_DROPDOWN, "]"));
-        this.dropdownButtons = this._getElements(this.dropdownButtonAttr);
+        this.dropdowns = this.getElements("[".concat(selectors$3.DATA_DROPDOWN, "]"));
+        this.dropdownButtons = this.getElements(this.dropdownButtonAttr);
 
         if (this.dropdowns.length) {
           this.dropdowns.forEach(function (dropdown) {
@@ -819,128 +939,6 @@
         });
       }
     }, {
-      key: "_render",
-      value: function _render(event, key) {
-        var _this4 = this;
-
-        if (!key) event.preventDefault();
-        event.stopPropagation();
-
-        if (this.activeDropdownButton) {
-          this.allowFocusReturn = false;
-
-          this._handleClose(event);
-
-          this.allowFocusReturn = true;
-        }
-
-        this.activeDropdownButton = event.target;
-
-        if (!this.activeDropdownButton.getAttribute(selectors$3.DATA_PARENT)) {
-          return messages$2.NO_PARENT_ERROR;
-        }
-
-        this.activeDropdownId = this.activeDropdownButton.getAttribute(selectors$3.DATA_PARENT);
-        this.activeDropdownButton.setAttribute(selectors$3.ARIA_EXPANDED, "true");
-        this.activeDropdownAttr = "[".concat(selectors$3.DATA_DROPDOWN, "=\"").concat(this.activeDropdownId, "\"]");
-
-        if (!document.querySelector(this.activeDropdownAttr)) {
-          return messages$2.NO_DROPDOWN_ERROR(this.activeDropdownAttr);
-        }
-
-        this.activeDropdown = document.querySelector(this.activeDropdownAttr);
-        this.activeDropdownMenuId = this.activeDropdownButton.getAttribute(selectors$3.DATA_TARGET);
-        this.activeDropdownMenu = document.getElementById(this.activeDropdownMenuId);
-        this.activeDropdownButton.setAttribute(selectors$3.ARIA_EXPANDED, "true");
-        this.activeDropdown.setAttribute(selectors$3.DATA_VISIBLE, "true");
-        this.activeDropdownButton.removeEventListener(events$3.CLICK, this._render);
-        this.activeDropdownButton.addEventListener(events$3.CLICK, this._handleClose);
-        document.addEventListener(events$3.KEYDOWN, this._handleEscapeKeyPress);
-        document.addEventListener(events$3.CLICK, this._handleOffMenuClick);
-        this.activeDropdownLinks = this._getDropdownButtons(this.activeDropdownAttr);
-        this.firstDropdownLink = this.activeDropdownLinks[0];
-        this.lastDropdownLink = this.activeDropdownLinks[this.activeDropdownLinks.length - 1];
-        this.firstDropdownLink.addEventListener(events$3.KEYDOWN, this._handleFirstTabClose);
-        this.lastDropdownLink.addEventListener(events$3.KEYDOWN, this._handleLastTabClose);
-
-        if (key && key === keyCodes$3.ARROW_UP) {
-          this.lastDropdownLink.focus();
-        } else {
-          this.firstDropdownLink.focus();
-        }
-
-        this.activeDropdownLinks.forEach(function (link) {
-          link.setAttribute(selectors$3.TABINDEX, "0");
-          link.addEventListener(events$3.CLICK, _this4._handleClose);
-        });
-        this.captureFocus("".concat(this.activeDropdownAttr, " > ul"), {
-          useArrows: true
-        });
-      }
-    }, {
-      key: "_handleFirstTabClose",
-      value: function _handleFirstTabClose(event) {
-        var shiftKey = event.which === keyCodes$3.SHIFT || event.shiftKey;
-        var tabKey = event.which === keyCodes$3.TAB;
-
-        if (shiftKey && tabKey) {
-          this._handleClose(event);
-        }
-      }
-    }, {
-      key: "_handleLastTabClose",
-      value: function _handleLastTabClose(event) {
-        var shiftKey = event.which === keyCodes$3.SHIFT || event.shiftKey;
-        var tabKey = event.which === keyCodes$3.TAB;
-
-        if (tabKey && !shiftKey) {
-          this._handleClose(event);
-        }
-      }
-    }, {
-      key: "_renderWithKeys",
-      value: function _renderWithKeys(event) {
-        if (event.which === keyCodes$3.ARROW_UP || event.which === keyCodes$3.ARROW_DOWN) {
-          this._render(event, event.which);
-        }
-      }
-    }, {
-      key: "_handleClose",
-      value: function _handleClose(event) {
-        var _this5 = this;
-
-        event.preventDefault();
-        this.releaseFocus();
-        this.activeDropdownButton.setAttribute(selectors$3.ARIA_EXPANDED, "false");
-        this.activeDropdown.setAttribute(selectors$3.DATA_VISIBLE, "false");
-        this.activeDropdownLinks.forEach(function (link) {
-          link.setAttribute(selectors$3.TABINDEX, "-1");
-          link.removeEventListener(events$3.CLICK, _this5._handleClose);
-        });
-        this.activeDropdownButton.removeEventListener(events$3.CLICK, this._handleClose);
-        this.activeDropdownButton.addEventListener(events$3.CLICK, this._render);
-        document.removeEventListener(events$3.KEYDOWN, this._handleEscapeKeyPress);
-        document.removeEventListener(events$3.CLICK, this._handleOffMenuClick);
-
-        if (this.allowFocusReturn) {
-          this._handleReturnFocus();
-        }
-      }
-    }, {
-      key: "_handleEscapeKeyPress",
-      value: function _handleEscapeKeyPress(event) {
-        if (event.which === keyCodes$3.ESCAPE) {
-          this._handleClose(event);
-        }
-      }
-    }, {
-      key: "_handleOffMenuClick",
-      value: function _handleOffMenuClick(event) {
-        if (event.target !== this.activeDropdownButton && event.target !== this.activeDropdownMenu) {
-          this._handleClose(event);
-        }
-      }
-    }, {
       key: "_handleReturnFocus",
       value: function _handleReturnFocus() {
         this.activeDropdownButton.setAttribute(selectors$3.TAB_INDEX, "-1");
@@ -948,9 +946,9 @@
         this.activeDropdownButton.removeAttribute(selectors$3.TAB_INDEX);
       }
     }, {
-      key: "_getDropdownButtons",
-      value: function _getDropdownButtons(attr) {
-        return this._getElements("".concat(attr, " > ul > li > a, ").concat(attr, " > ul > li > button"));
+      key: "_getDropdownLinks",
+      value: function _getDropdownLinks(attr) {
+        return this.getElements("".concat(attr, " > ul > li > a, ").concat(attr, " > ul > li > button"));
       }
     }, {
       key: "_setupDropdown",
@@ -969,14 +967,12 @@
         dropdownButton.setAttribute(selectors$3.ARIA_HASPOPUP, "true");
         dropdownButton.setAttribute(selectors$3.ARIA_EXPANDED, "false");
         dropdownMenu.setAttribute(selectors$3.ARIA_LABELLEDBY, dropdownButton.id);
-
-        var dropdownMenuItems = this._getElements(dropdownMenuItemsAttr);
-
+        var dropdownMenuItems = this.getElements(dropdownMenuItemsAttr);
         dropdownMenuItems.forEach(function (item) {
           return item.setAttribute(selectors$3.ROLE, "none");
         });
 
-        this._getDropdownButtons(dropdownIdAttr).forEach(function (link) {
+        this._getDropdownLinks(dropdownIdAttr).forEach(function (link) {
           link.setAttribute(selectors$3.ROLE, "menuitem");
           link.setAttribute(selectors$3.TABINDEX, "-1");
         });

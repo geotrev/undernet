@@ -19,12 +19,16 @@ export default function Footer() {
           <p className="has-center-text has-gray900-text">
             <a className="has-white-text has-feather" href="https://www.twitter.com/gwtrev">
               <Twitter role="presentation" focusable="false" />
+              <span className="is-visually-hidden">Open link to www.twitter.com/gwtrev</span>
             </a>
             <a
               className="has-white-text has-feather"
               href="https://www.github.com/geotrev/undernet"
             >
               <Github role="presentation" focusable="false" />
+              <span className="is-visually-hidden">
+                Open link to www.github.com/geotrev/undernet
+              </span>
             </a>
           </p>
         </div>

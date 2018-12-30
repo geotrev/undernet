@@ -45,12 +45,6 @@ const messages = {
 export default class Modal extends Utils {
   constructor() {
     super()
-    // modal event methods
-    this._render = this._render.bind(this)
-    this._handleClose = this._handleClose.bind(this)
-    this._handleEscapeKeyPress = this._handleEscapeKeyPress.bind(this)
-    this._handleOverlayClick = this._handleOverlayClick.bind(this)
-
     // all modals
     this.modals = []
     this.modalButtons = []
@@ -76,10 +70,10 @@ export default class Modal extends Utils {
    * Begin listening to elements with [data-modal-button]
    */
   start() {
-    this.modals = this._getElements(this.modalContainerAttr)
-    this.modalButtons = this._getElements(`[${selectors.MODAL_BUTTON}]`)
+    this.modals = this.getElements(this.modalContainerAttr)
+    this.modalButtons = this.getElements(`[${selectors.MODAL_BUTTON}]`)
 
-    this._getFocusableElements(this.modalContainerAttr).forEach(element => {
+    this.getFocusableElements(this.modalContainerAttr).forEach(element => {
       element.setAttribute(selectors.TABINDEX, "-1")
     })
 
@@ -111,7 +105,7 @@ export default class Modal extends Utils {
    * Find a button through event.target, then render the corresponding modal attribute via matching target id
    * @param {Object} event - The event object
    */
-  _render(event) {
+  _render = event => {
     event.preventDefault()
     this.activeModalButton = event.target
 
@@ -130,11 +124,11 @@ export default class Modal extends Utils {
 
     this.activeModalSelector = `${this.activeModalOverlayAttr} ${this.modalContainerAttr}`
     this.activeModal = document.querySelector(this.activeModalSelector)
-    this.activeModalCloseButtons = this._getElements(
+    this.activeModalCloseButtons = this.getElements(
       `${this.activeModalOverlayAttr} [${selectors.MODAL_CONTAINER}] [${selectors.DATA_CLOSE}]`,
     )
 
-    this._getFocusableElements(this.activeModalSelector).forEach(element => {
+    this.getFocusableElements(this.activeModalSelector).forEach(element => {
       element.setAttribute(selectors.TABINDEX, "0")
     })
 
@@ -181,7 +175,7 @@ export default class Modal extends Utils {
    * Turn off event listeners and reset focus to last selected DOM node (button)
    * @param {Object} event - Event (keydown or click)
    */
-  _handleClose(event) {
+  _handleClose = event => {
     event.preventDefault()
     this.activeModalOverlay.setAttribute(selectors.DATA_VISIBLE, "false")
     this._handleReturnFocus()
@@ -190,7 +184,7 @@ export default class Modal extends Utils {
     this.activeModalOverlay.setAttribute(selectors.ARIA_HIDDEN, "true")
     this.activeModal.removeAttribute(selectors.TABINDEX)
 
-    this._getFocusableElements(this.activeModalSelector).forEach(element => {
+    this.getFocusableElements(this.activeModalSelector).forEach(element => {
       element.setAttribute(selectors.TABINDEX, "-1")
     })
 
@@ -206,7 +200,7 @@ export default class Modal extends Utils {
    * Handles click event on the modal background to close it.
    * @param {Object} event - Event (keydown)
    */
-  _handleOverlayClick(event) {
+  _handleOverlayClick = event => {
     if (event.target === this.activeModalOverlay) {
       this._handleClose(event)
     }
@@ -216,7 +210,7 @@ export default class Modal extends Utils {
    * Handles escape key event to close the current modal
    * @param {Object} event - Event (keydown)
    */
-  _handleEscapeKeyPress(event) {
+  _handleEscapeKeyPress = event => {
     if (event.which === keyCodes.ESCAPE) {
       this._handleClose(event)
     }

@@ -24,11 +24,6 @@ const events = {
  */
 export default class Utils {
   constructor() {
-    this._handleFocusTrapWithTab = this._handleFocusTrapWithTab.bind(this)
-    this._handleFocusTrapWithArrows = this._handleFocusTrapWithArrows.bind(this)
-    this._listenForKeyboard = this._listenForKeyboard.bind(this)
-    this._listenForClick = this._listenForClick.bind(this)
-
     this.focusContainerSelector = ""
     this.focusableChildren = []
     this.focusableFirstChild = null
@@ -44,13 +39,13 @@ export default class Utils {
   // public
 
   /**
-   * Listens to the first and last elements matched from this._getFocusableElements()
+   * Listens to the first and last elements matched from this.getFocusableElements()
    * @param {String} container - The container's class, attribute, etc.
    * @param {Object} options - Optional has hof options.
    */
   captureFocus(container, options) {
     this.focusContainerSelector = container
-    this.focusableChildren = this._getFocusableElements(this.focusContainerSelector)
+    this.focusableChildren = this.getFocusableElements(this.focusContainerSelector)
     this.focusableFirstChild = this.focusableChildren[0]
     this.focusableLastChild = this.focusableChildren[this.focusableChildren.length - 1]
 
@@ -94,6 +89,30 @@ export default class Utils {
     }
   }
 
+  /**
+   * Because IE does not recognize NodeList.forEach(),
+   * we use a cross-browser solution for returning an array of DOM nodes every time.
+   * @param {String} element - A DOM node's class, attribute, etc., to search the document.
+   * @return {Array}
+   */
+  getElements(element) {
+    const nodeList = document.querySelectorAll(element)
+    return Array.apply(null, nodeList)
+  }
+
+  /**
+   * Creates a string of element selector patterns using common elements.
+   * @param {String} container - The enclosing container's class, attribute, etc.
+   * @return {String}
+   */
+  getFocusableElements(container) {
+    const focusables = selectors.FOCUSABLE_TAGS.map(element => {
+      return `${container} ${element}${selectors.NOT_VISUALLY_HIDDEN}`
+    })
+
+    return this.getElements(focusables.join(", "))
+  }
+
   // private
 
   /**
@@ -102,7 +121,7 @@ export default class Utils {
    * and add click listener on _listenForClick().
    * @param {Object} event - Event (keypress).
    */
-  _listenForKeyboard(event) {
+  _listenForKeyboard = event => {
     const tabKey = event.which === keyCodes.TAB
     const shiftKey = event.which === keyCodes.SHIFT || event.shiftKey
     const arrowUp = event.which === keyCodes.ARROW_UP
@@ -120,7 +139,7 @@ export default class Utils {
    * On click, remove selectors.KEYBOARD_CLASS and re-add keydown listener.
    * @param {Object} event - Event (keypress).
    */
-  _listenForClick(event) {
+  _listenForClick = event => {
     document.body.classList.remove(selectors.KEYBOARD_CLASS)
     document.removeEventListener(events.CLICK, this._listenForClick)
     document.addEventListener(events.KEYDOWN, this._listenForKeyboard)
@@ -128,34 +147,10 @@ export default class Utils {
   }
 
   /**
-   * Because IE does not recognize NodeList.forEach(),
-   * we use a cross-browser solution for returning an array of DOM nodes every time.
-   * @param {String} element - A DOM node's class, attribute, etc., to search the document.
-   * @return {Array}
-   */
-  _getElements(element) {
-    const nodeList = document.querySelectorAll(element)
-    return Array.apply(null, nodeList)
-  }
-
-  /**
-   * Creates a string of element selector patterns using common elements.
-   * @param {String} container - The enclosing container's class, attribute, etc.
-   * @return {String}
-   */
-  _getFocusableElements(container) {
-    const focusables = selectors.FOCUSABLE_TAGS.map(element => {
-      return `${container} ${element}${selectors.NOT_VISUALLY_HIDDEN}`
-    })
-
-    return this._getElements(focusables.join(", "))
-  }
-
-  /**
    * Handles focus on first or last child in a container, using tab and tab+shift keys.
    * @param {Object} event - Event (keypress)
    */
-  _handleFocusTrapWithTab(event) {
+  _handleFocusTrapWithTab = event => {
     const containerElement = document.querySelector(this.focusContainerSelector)
     const containerActive = document.activeElement === containerElement
     const firstActive = document.activeElement === this.focusableFirstChild
@@ -178,7 +173,7 @@ export default class Utils {
    * Handles focus on the first, last, next, or previous child in a container, using up and down arrow keys.
    * @param {Object} event - Event (keypress)
    */
-  _handleFocusTrapWithArrows(event) {
+  _handleFocusTrapWithArrows = event => {
     const firstActive = document.activeElement === this.focusableFirstChild
     const lastActive = document.activeElement === this.focusableLastChild
     const arrowUp = event.which === keyCodes.ARROW_UP
