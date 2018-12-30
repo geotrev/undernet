@@ -4,7 +4,6 @@
   "homepage": "https://undernet.io",
   "description": "A modular front-end component library for modern web development.",
   "main": "js/dist/undernet.js",
-  "module": "js/dist/undernet.js",
   "author": "George Treviranus",
   "license": "MIT",
   "private": false,
