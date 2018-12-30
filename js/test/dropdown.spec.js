@@ -72,11 +72,13 @@ describe("Dropdowns", function() {
   describe("#_render -> Dropdown Button Click", function() {
     let button
     let dropdownWrapper
+    let focusableElements
 
     before(function() {
       document.body.innerHTML = dom
       button = document.querySelector("#dropdown-button")
       dropdownWrapper = document.querySelector("[data-dropdown='dropdown1']")
+      focusableElements = document.querySelectorAll("#new-dropdown a")
       Undernet.Dropdowns.start()
       button.click()
     })
@@ -89,8 +91,13 @@ describe("Dropdowns", function() {
       expect(dropdownWrapper.getAttribute("data-visible")).to.equal("true")
     })
 
+    it("sets [tabindex='0'] on each dropdown menu link", function() {
+      focusableElements.forEach(item => {
+        expect(item.getAttribute("tabindex")).to.equal("0")
+      })
+    })
+
     it("sets focus to the first dropdown link", function() {
-      const focusableElements = document.querySelectorAll("#new-dropdown a")
       expect(document.activeElement).to.equal(focusableElements[0])
     })
   })
@@ -165,10 +172,129 @@ describe("Dropdowns", function() {
     })
   })
 
-  describe("#_handleClose", function() {})
-  describe("#_handleEscapeKeyPress", function() {})
-  describe("#_handleOffMenuClick", function() {})
-  describe("#_handleReturnFocus", function() {})
-  describe("#_getDropdownLinks", function() {})
-  describe("#_setupDropdown", function() {})
+  describe("#_handleClose -> Dropdown Menu Link Click", function() {
+    let button
+    let dropdownWrapper
+    let focusableElements
+
+    before(function() {
+      document.body.innerHTML = dom
+
+      button = document.getElementById("dropdown-button")
+      dropdownWrapper = document.querySelector("[data-dropdown='dropdown1']")
+      focusableElements = document.querySelectorAll("#new-dropdown a")
+
+      Undernet.Dropdowns.start()
+      button.click()
+      focusableElements[0].click()
+    })
+
+    it("sets [data-visible='false'] on dropdown wrapper", function() {
+      expect(dropdownWrapper.getAttribute("data-visible")).to.equal("false")
+    })
+
+    it("sets [aria-expanded='false'] on dropdown button", function() {
+      expect(button.getAttribute("aria-expanded")).to.equal("false")
+    })
+
+    it("sets [tabindex='-1'] on each dropdown menu link", function() {
+      focusableElements.forEach(item => {
+        expect(item.getAttribute("tabindex")).to.equal("-1")
+      })
+    })
+
+    it("sets focus back to dropdown button", function() {
+      expect(document.activeElement).to.equal(button)
+    })
+  })
+
+  describe("#_handleEscapeKeyPress -> Escape Key Press", function() {
+    let button
+    let dropdownWrapper
+    let focusableElements
+
+    before(function() {
+      document.body.innerHTML = dom
+      button = document.querySelector("#dropdown-button")
+      dropdownWrapper = document.querySelector("[data-dropdown='dropdown1']")
+      Undernet.Dropdowns.start()
+      button.click()
+      window.simulateKeyPress(27)
+    })
+
+    it("sets [data-visible='false'] on dropdown wrapper", function() {
+      expect(dropdownWrapper.getAttribute("data-visible")).to.equal("false")
+    })
+  })
+
+  describe("#_handleOffMenuClick -> Non-Dropdown Element Click", function() {
+    let button
+    let dropdownWrapper
+    let focusableElements
+
+    before(function() {
+      document.body.innerHTML = dom
+      button = document.querySelector("#dropdown-button")
+      dropdownWrapper = document.querySelector("[data-dropdown='dropdown1']")
+      focusableElements = document.querySelectorAll("#new-dropdown a")
+      Undernet.Dropdowns.start()
+      button.click()
+      document.body.click()
+    })
+
+    it("sets [data-visible='false'] on dropdown wrapper", function() {
+      expect(dropdownWrapper.getAttribute("data-visible")).to.equal("false")
+    })
+  })
+
+  describe("#_handleReturnFocus -> ", function() {
+    let button
+    let dropdownWrapper
+    let focusableElements
+
+    before(function() {
+      document.body.innerHTML = dom
+      button = document.querySelector("#dropdown-button")
+      dropdownWrapper = document.querySelector("[data-dropdown='dropdown1']")
+      Undernet.Dropdowns.start()
+      button.click()
+      window.simulateKeyPress(27)
+    })
+
+    it("sets focus to dropdown button after dropdown menu is closed", function() {
+      expect(document.activeElement).to.equal(button)
+    })
+  })
+
+  describe("Multiple Dropdowns", function() {
+    let button1
+    let button2
+    let dropdownWrapper1
+    let dropdownWrapper2
+
+    before(function() {
+      document.body.innerHTML = dom
+      button1 = document.querySelector("#dropdown-button")
+      button2 = document.querySelector("#dropdown-button2")
+      dropdownWrapper1 = document.querySelector("[data-dropdown='dropdown1']")
+      dropdownWrapper2 = document.querySelector("[data-dropdown='dropdown2']")
+      Undernet.Dropdowns.start()
+    })
+
+    it("closes first dropdown if second dropdown is clicked", function() {
+      button1.click()
+      expect(dropdownWrapper1.getAttribute("data-visible")).to.equal("true")
+      expect(dropdownWrapper2.getAttribute("data-visible")).to.equal(null)
+      button2.click()
+      expect(dropdownWrapper1.getAttribute("data-visible")).to.equal("false")
+      expect(dropdownWrapper2.getAttribute("data-visible")).to.equal("true")
+    })
+
+    it("sets focus to first dropdown item of second dropdown", function() {
+      const dropdown2Focusables = dropdownWrapper2.querySelectorAll("a")
+      button1.click()
+      button2.click()
+      expect(document.activeElement).to.equal(dropdown2Focusables[0])
+    })
+  })
 })

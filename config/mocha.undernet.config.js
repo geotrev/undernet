@@ -12,7 +12,9 @@ global.document = window.document
 
 /**
  * Create and fire a keyboard event.
- * @param {Number} keyCode - The key code to simulate.
+ * @param {Number} which - The key code to simulate.
+ * @param {Boolean} shiftKey - Whether shift key should be used.
+ * @param {Element} node - The element to fire the event on.
  */
 global.window.simulateKeyPress = (which, shiftKey = false, node = null) => {
   const event = new KeyboardEvent("keydown", {

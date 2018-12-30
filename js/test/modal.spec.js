@@ -78,6 +78,7 @@ describe("Modals", function() {
   describe("API #stop -> Modal Button Click", function() {
     let button
     let modalOverlay
+    let modalDialog
 
     before(function() {
       document.body.innerHTML = dom
@@ -85,11 +86,16 @@ describe("Modals", function() {
       Undernet.Modals.stop()
       button = document.querySelector("[data-modal-button]")
       modalOverlay = document.querySelector("[data-modal-id]")
+      modalDialog = document.querySelector("[data-modal]")
       button.click()
     })
 
-    it(`sets [data-visible='false'] on modal overlay`, function() {
+    it(`has [data-visible='false'] on modal overlay`, function() {
       expect(modalOverlay.getAttribute("data-visible")).to.equal("false")
+    })
+
+    it(`does not set [tabindex] on modal dialog`, function() {
+      expect(modalDialog.getAttribute("tabindex")).to.equal(null)
     })
   })
 
@@ -135,6 +141,7 @@ describe("Modals", function() {
     let openButton
     let closeButton
     let modalOverlay
+    let modalDialog
 
     before(function() {
       document.body.innerHTML = dom
@@ -142,12 +149,32 @@ describe("Modals", function() {
       openButton = document.querySelector("[data-modal-button]")
       closeButton = document.querySelector("[data-close]")
       modalOverlay = document.querySelector("[data-modal-id]")
+      modalDialog = document.querySelector("[data-modal]")
       openButton.click()
       closeButton.click()
     })
 
     it(`sets [data-visible='false'] on modal overlay`, function() {
       expect(modalOverlay.getAttribute("data-visible")).to.equal("false")
+    })
+
+    it(`removes [tabindex] on modal dialog`, function() {
+      expect(modalDialog.getAttribute("tabindex")).to.equal(null)
+    })
+
+    it(`sets [aria-hidden='true'] on modal overlay`, function() {
+      expect(modalOverlay.getAttribute("aria-hidden")).to.equal("true")
+    })
+
+    it(`sets [tabindex='-1'] on each focusable element`, function() {
+      const focusableElements = modalDialog.querySelectorAll("a")
+      focusableElements.forEach(el => {
+        expect(el.getAttribute("tabindex")).to.equal("-1")
+      })
+    })
+
+    it("sets focus to [data-modal-button]", function() {
+      expect(document.activeElement).to.equal(openButton)
     })
   })
 
