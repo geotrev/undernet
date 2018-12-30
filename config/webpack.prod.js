@@ -7,7 +7,7 @@ const CleanWebpackPlugin = require("clean-webpack-plugin")
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin")
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
 
-module.exports = merge(common(true), {
+module.exports = merge(common, {
   optimization: {
     splitChunks: { chunks: "all" },
     minimizer: [

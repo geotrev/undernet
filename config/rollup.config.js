@@ -11,6 +11,12 @@ module.exports = {
     name: "undernet",
     sourcemap: true,
     banner: banner,
+
+    // if this is used, add...
+    // "module": "js/dist/undernet.js",
+    // ... to package.json
+
+    // exports: "named",
   },
   plugins: [
     resolve(),

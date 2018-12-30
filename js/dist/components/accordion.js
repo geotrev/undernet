@@ -27,6 +27,8 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var keyCodes = {
   SPACE: 32
 };
@@ -74,8 +76,42 @@ var Accordion = function (_Utils) {
     _classCallCheck(this, Accordion);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Accordion).call(this));
-    _this._render = _this._render.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this._handleSpaceKeyPress = _this._handleSpaceKeyPress.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "_render", function (event) {
+      event.preventDefault();
+      _this.activeButton = event.target;
+      _this.activeAccordionRowId = _this.activeButton.getAttribute(selectors.DATA_TARGET);
+      _this.activeRowAttr = _this._getAccordionRowAttr(_this.activeAccordionRowId);
+      _this.activeRow = document.querySelector(_this.activeRowAttr);
+
+      if (!_this.activeButton.getAttribute(selectors.DATA_PARENT)) {
+        return console.error(messages.NO_PARENT_ERROR(_this.activeAccordionRowId));
+      }
+
+      _this.activeContainerId = _this.activeButton.getAttribute(selectors.DATA_PARENT);
+      _this.activeContainerAttr = "[".concat(selectors.ACCORDION_CONTAINER, "='").concat(_this.activeContainerId, "']");
+
+      if (!document.querySelector(_this.activeContainerAttr)) {
+        return console.error(messages.NO_ACCORDION_ERROR(_this.activeContainerId));
+      }
+
+      _this.activeContainer = document.querySelector(_this.activeContainerAttr);
+      _this.activeContent = document.getElementById(_this.activeAccordionRowId);
+
+      var accordionButtonState = _this.activeRow.getAttribute(selectors.DATA_VISIBLE);
+
+      _this.activeButtonExpandState = accordionButtonState === "true" ? "false" : "true";
+      _this.activeContentHiddenState = _this.activeButtonExpandState === "false" ? "true" : "false";
+
+      _this._closeAllIfToggleable();
+
+      _this._toggleSelectedAccordion();
+    });
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "_handleSpaceKeyPress", function (event) {
+      if (event.which === keyCodes.SPACE) _this._render(event);
+    });
+
     _this.accordionButtons = [];
     _this.accordionContentsAttr = "";
     _this.accordionContents = [];
@@ -97,7 +133,7 @@ var Accordion = function (_Utils) {
     value: function start() {
       var _this2 = this;
 
-      this.accordionButtons = this._getElements("[".concat(selectors.ACCORDION_CONTAINER, "] [").concat(selectors.DATA_TARGET, "]"));
+      this.accordionButtons = this.getElements("[".concat(selectors.ACCORDION_CONTAINER, "] [").concat(selectors.DATA_TARGET, "]"));
 
       if (this.accordionButtons.length) {
         this.accordionButtons.forEach(function (button) {
@@ -139,14 +175,13 @@ var Accordion = function (_Utils) {
 
       var buttonHeaderAttr = this._getPossibleAccordionHeaderAttrs(accordionRowAttr);
 
-      var buttonHeader = this._getElements(buttonHeaderAttr)[0];
+      var buttonHeader = this.getElements(buttonHeaderAttr)[0];
 
       if (!buttonHeader || !buttonHeader.id) {
         console.error(messages.NO_HEADER_ID_ERROR(buttonId));
       }
 
-      var buttonContentChildren = this._getFocusableElements("#".concat(buttonContent.id));
-
+      var buttonContentChildren = this.getFocusableElements("#".concat(buttonContent.id));
       button.setAttribute(selectors.ARIA_CONTROLS, buttonId);
       buttonContent.setAttribute(selectors.ARIA_LABELLEDBY, buttonHeader.id);
 
@@ -182,59 +217,19 @@ var Accordion = function (_Utils) {
       return "[".concat(selectors.ACCORDION_ROW, "='").concat(id, "']");
     }
   }, {
-    key: "_render",
-    value: function _render(event) {
-      event.preventDefault();
-      this.activeButton = event.target;
-      this.activeAccordionRowId = this.activeButton.getAttribute(selectors.DATA_TARGET);
-      this.activeRowAttr = this._getAccordionRowAttr(this.activeAccordionRowId);
-      this.activeRow = document.querySelector(this.activeRowAttr);
-
-      if (!this.activeButton.getAttribute(selectors.DATA_PARENT)) {
-        return console.error(messages.NO_PARENT_ERROR(this.activeAccordionRowId));
-      }
-
-      this.activeContainerId = this.activeButton.getAttribute(selectors.DATA_PARENT);
-      this.activeContainerAttr = "[".concat(selectors.ACCORDION_CONTAINER, "='").concat(this.activeContainerId, "']");
-
-      if (!document.querySelector(this.activeContainerAttr)) {
-        return console.error(messages.NO_ACCORDION_ERROR(this.activeContainerId));
-      }
-
-      this.activeContainer = document.querySelector(this.activeContainerAttr);
-      this.activeContent = document.getElementById(this.activeAccordionRowId);
-      var accordionButtonState = this.activeRow.getAttribute(selectors.DATA_VISIBLE);
-      this.activeButtonExpandState = accordionButtonState === "true" ? "false" : "true";
-      this.activeContentHiddenState = this.activeButtonExpandState === "false" ? "true" : "false";
-
-      this._closeAllIfToggleable();
-
-      this._toggleSelectedAccordion();
-    }
-  }, {
-    key: "_handleSpaceKeyPress",
-    value: function _handleSpaceKeyPress(event) {
-      if (event.which === keyCodes.SPACE) this._render(event);
-    }
-  }, {
     key: "_closeAllIfToggleable",
     value: function _closeAllIfToggleable() {
       var _this4 = this;
 
       if (this.activeContainer.hasAttribute(selectors.DATA_TOGGLE_MULTIPLE)) return;
       var allContentAttr = "".concat(this.activeContainerAttr, " [").concat(selectors.ARIA_HIDDEN, "]");
-
-      var allRows = this._getElements("".concat(this.activeContainerAttr, " [").concat(selectors.DATA_VISIBLE, "]"));
-
-      var allContent = this._getElements(allContentAttr);
-
-      var allButtons = this._getElements("".concat(this.activeContainerAttr, " [").concat(selectors.DATA_TARGET, "]"));
-
+      var allRows = this.getElements("".concat(this.activeContainerAttr, " [").concat(selectors.DATA_VISIBLE, "]"));
+      var allContent = this.getElements(allContentAttr);
+      var allButtons = this.getElements("".concat(this.activeContainerAttr, " [").concat(selectors.DATA_TARGET, "]"));
       allContent.forEach(function (content) {
         if (!(content === _this4.activeContent)) content.style.maxHeight = null;
       });
-
-      this._getFocusableElements(allContentAttr).forEach(function (element) {
+      this.getFocusableElements(allContentAttr).forEach(function (element) {
         element.setAttribute(selectors.TABINDEX, "-1");
       });
 
@@ -253,8 +248,7 @@ var Accordion = function (_Utils) {
       this.activeButton.setAttribute(selectors.ARIA_EXPANDED, this.activeButtonExpandState);
       this.activeContent.setAttribute(selectors.ARIA_HIDDEN, this.activeContentHiddenState);
       var activeContentBlock = "#".concat(this.activeAccordionRowId);
-
-      this._getFocusableElements(activeContentBlock).forEach(function (element) {
+      this.getFocusableElements(activeContentBlock).forEach(function (element) {
         var value = _this5.activeButtonExpandState === "true" ? "0" : "-1";
         element.setAttribute(selectors.TABINDEX, value);
       });
