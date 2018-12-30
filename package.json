@@ -1,6 +1,6 @@
 {
   "name": "undernet",
-  "version": "3.0.4",
+  "version": "3.1.0",
   "homepage": "https://undernet.io",
   "description": "A modular front-end component library for modern web development.",
   "main": "js/dist/undernet.js",
