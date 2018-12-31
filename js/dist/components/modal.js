@@ -19,13 +19,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _classPrivateFieldLooseBase(receiver, privateKey) { if (!Object.prototype.hasOwnProperty.call(receiver, privateKey)) { throw new TypeError("attempted to use private field on non-instance"); } return receiver; }
+
+var id = 0;
+
+function _classPrivateFieldLooseKey(name) { return "__private_" + id++ + "_" + name; }
 
 var keyCodes = {
   ESCAPE: 27
@@ -66,102 +72,150 @@ var Modal = function (_Utils) {
     _classCallCheck(this, Modal);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Modal).call(this));
+    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _modals, {
+      writable: true,
+      value: []
+    });
+    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _modalButtons, {
+      writable: true,
+      value: []
+    });
+    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalButton, {
+      writable: true,
+      value: {}
+    });
+    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlay, {
+      writable: true,
+      value: {}
+    });
+    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeModal, {
+      writable: true,
+      value: {}
+    });
+    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalId, {
+      writable: true,
+      value: ""
+    });
+    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlayAttr, {
+      writable: true,
+      value: ""
+    });
+    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalSelector, {
+      writable: true,
+      value: ""
+    });
+    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalCloseButtons, {
+      writable: true,
+      value: []
+    });
+    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _modalContainerAttr, {
+      writable: true,
+      value: "[".concat(selectors.MODAL_CONTAINER, "]")
+    });
+    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _render, {
+      writable: true,
+      value: function value(event) {
+        event.preventDefault();
+        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalButton)[_activeModalButton] = event.target;
 
-    _this._render = function (event) {
-      event.preventDefault();
-      _this.activeModalButton = event.target;
+        if (!_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalButton)[_activeModalButton].getAttribute(selectors.DATA_TARGET)) {
+          return console.error(messages.NO_TARGET_ERROR);
+        }
 
-      if (!_this.activeModalButton.getAttribute(selectors.DATA_TARGET)) {
-        return console.error(messages.NO_TARGET_ERROR);
+        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalId)[_activeModalId] = _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalButton)[_activeModalButton].getAttribute(selectors.DATA_TARGET);
+        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlayAttr)[_activeModalOverlayAttr] = "[".concat(selectors.MODAL_ID, "=\"").concat(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalId)[_activeModalId], "\"]");
+
+        if (!document.querySelector(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlayAttr)[_activeModalOverlayAttr])) {
+          return console.error(messages.NO_ID_ERROR(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalId)[_activeModalId]));
+        }
+
+        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlay)[_activeModalOverlay] = document.querySelector(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlayAttr)[_activeModalOverlayAttr]);
+        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalSelector)[_activeModalSelector] = "".concat(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlayAttr)[_activeModalOverlayAttr], " ").concat(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _modalContainerAttr)[_modalContainerAttr]);
+        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModal)[_activeModal] = document.querySelector(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalSelector)[_activeModalSelector]);
+        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalCloseButtons)[_activeModalCloseButtons] = _this.getElements("".concat(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlayAttr)[_activeModalOverlayAttr], " [").concat(selectors.MODAL_CONTAINER, "] [").concat(selectors.DATA_CLOSE, "]"));
+
+        _this.getFocusableElements(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalSelector)[_activeModalSelector]).forEach(function (element) {
+          element.setAttribute(selectors.TABINDEX, "0");
+        });
+
+        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleScrollStop)[_handleScrollStop]();
+
+        _this.captureFocus(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalSelector)[_activeModalSelector]);
+
+        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlay)[_activeModalOverlay].setAttribute(selectors.ARIA_HIDDEN, "false");
+
+        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModal)[_activeModal].setAttribute(selectors.TABINDEX, "-1");
+
+        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlay)[_activeModalOverlay].setAttribute(selectors.DATA_VISIBLE, "true");
+
+        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModal)[_activeModal].focus();
+
+        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlay)[_activeModalOverlay].scrollTop = 0;
+        document.addEventListener(events.KEYDOWN, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleEscapeKeyPress)[_handleEscapeKeyPress]);
+        document.addEventListener(events.CLICK, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleOverlayClick)[_handleOverlayClick]);
+
+        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalCloseButtons)[_activeModalCloseButtons].forEach(function (button) {
+          button.addEventListener(events.CLICK, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose)[_handleClose]);
+        });
       }
+    });
+    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _setupModal, {
+      value: _setupModal2
+    });
+    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose, {
+      writable: true,
+      value: function value(event) {
+        event.preventDefault();
 
-      _this.activeModalId = _this.activeModalButton.getAttribute(selectors.DATA_TARGET);
-      _this.activeModalOverlayAttr = "[".concat(selectors.MODAL_ID, "=\"").concat(_this.activeModalId, "\"]");
+        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlay)[_activeModalOverlay].setAttribute(selectors.DATA_VISIBLE, "false");
 
-      if (!document.querySelector(_this.activeModalOverlayAttr)) {
-        return console.error(messages.NO_ID_ERROR(_this.activeModalId));
+        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleReturnFocus)[_handleReturnFocus]();
+
+        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleScrollRestore)[_handleScrollRestore]();
+
+        _this.releaseFocus();
+
+        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlay)[_activeModalOverlay].setAttribute(selectors.ARIA_HIDDEN, "true");
+
+        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModal)[_activeModal].removeAttribute(selectors.TABINDEX);
+
+        _this.getFocusableElements(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalSelector)[_activeModalSelector]).forEach(function (element) {
+          element.setAttribute(selectors.TABINDEX, "-1");
+        });
+
+        document.removeEventListener(events.KEYDOWN, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleEscapeKeyPress)[_handleEscapeKeyPress]);
+        document.removeEventListener(events.CLICK, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleOverlayClick)[_handleOverlayClick]);
+
+        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalCloseButtons)[_activeModalCloseButtons].forEach(function (button) {
+          button.removeEventListener(events.CLICK, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose)[_handleClose]);
+        });
       }
-
-      _this.activeModalOverlay = document.querySelector(_this.activeModalOverlayAttr);
-      _this.activeModalSelector = "".concat(_this.activeModalOverlayAttr, " ").concat(_this.modalContainerAttr);
-      _this.activeModal = document.querySelector(_this.activeModalSelector);
-      _this.activeModalCloseButtons = _this.getElements("".concat(_this.activeModalOverlayAttr, " [").concat(selectors.MODAL_CONTAINER, "] [").concat(selectors.DATA_CLOSE, "]"));
-
-      _this.getFocusableElements(_this.activeModalSelector).forEach(function (element) {
-        element.setAttribute(selectors.TABINDEX, "0");
-      });
-
-      _this._handleScrollStop();
-
-      _this.captureFocus(_this.activeModalSelector);
-
-      _this.activeModalOverlay.setAttribute(selectors.ARIA_HIDDEN, "false");
-
-      _this.activeModal.setAttribute(selectors.TABINDEX, "-1");
-
-      _this.activeModalOverlay.setAttribute(selectors.DATA_VISIBLE, "true");
-
-      _this.activeModal.focus();
-
-      _this.activeModalOverlay.scrollTop = 0;
-      document.addEventListener(events.KEYDOWN, _this._handleEscapeKeyPress);
-      document.addEventListener(events.CLICK, _this._handleOverlayClick);
-
-      _this.activeModalCloseButtons.forEach(function (button) {
-        button.addEventListener(events.CLICK, _this._handleClose);
-      });
-    };
-
-    _this._handleClose = function (event) {
-      event.preventDefault();
-
-      _this.activeModalOverlay.setAttribute(selectors.DATA_VISIBLE, "false");
-
-      _this._handleReturnFocus();
-
-      _this._handleScrollRestore();
-
-      _this.releaseFocus();
-
-      _this.activeModalOverlay.setAttribute(selectors.ARIA_HIDDEN, "true");
-
-      _this.activeModal.removeAttribute(selectors.TABINDEX);
-
-      _this.getFocusableElements(_this.activeModalSelector).forEach(function (element) {
-        element.setAttribute(selectors.TABINDEX, "-1");
-      });
-
-      document.removeEventListener(events.KEYDOWN, _this._handleEscapeKeyPress);
-      document.removeEventListener(events.CLICK, _this._handleOverlayClick);
-
-      _this.activeModalCloseButtons.forEach(function (button) {
-        button.removeEventListener(events.CLICK, _this._handleClose);
-      });
-    };
-
-    _this._handleOverlayClick = function (event) {
-      if (event.target === _this.activeModalOverlay) {
-        _this._handleClose(event);
+    });
+    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _handleOverlayClick, {
+      writable: true,
+      value: function value(event) {
+        if (event.target === _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlay)[_activeModalOverlay]) {
+          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose)[_handleClose](event);
+        }
       }
-    };
-
-    _this._handleEscapeKeyPress = function (event) {
-      if (event.which === keyCodes.ESCAPE) {
-        _this._handleClose(event);
+    });
+    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _handleEscapeKeyPress, {
+      writable: true,
+      value: function value(event) {
+        if (event.which === keyCodes.ESCAPE) {
+          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose)[_handleClose](event);
+        }
       }
-    };
-
-    _this.modals = [];
-    _this.modalButtons = [];
-    _this.activeModalButton = null;
-    _this.activeModalOverlay = null;
-    _this.activeModal = null;
-    _this.activeModalId = "";
-    _this.activeModalOverlayAttr = "";
-    _this.activeModalSelector = "";
-    _this.activeModalCloseButtons = [];
-    _this.modalContainerAttr = "[".concat(selectors.MODAL_CONTAINER, "]");
-    _this.closeButtonAttr = "[".concat(selectors.MODAL_CONTAINER, "] [").concat(selectors.DATA_CLOSE, "]");
+    });
+    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _handleReturnFocus, {
+      value: _handleReturnFocus2
+    });
+    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _handleScrollRestore, {
+      value: _handleScrollRestore2
+    });
+    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _handleScrollStop, {
+      value: _handleScrollStop2
+    });
     return _this;
   }
 
@@ -170,21 +224,21 @@ var Modal = function (_Utils) {
     value: function start() {
       var _this2 = this;
 
-      this.modals = this.getElements(this.modalContainerAttr);
-      this.modalButtons = this.getElements("[".concat(selectors.MODAL_BUTTON, "]"));
-      this.getFocusableElements(this.modalContainerAttr).forEach(function (element) {
+      _classPrivateFieldLooseBase(this, _modals)[_modals] = this.getElements(_classPrivateFieldLooseBase(this, _modalContainerAttr)[_modalContainerAttr]);
+      _classPrivateFieldLooseBase(this, _modalButtons)[_modalButtons] = this.getElements("[".concat(selectors.MODAL_BUTTON, "]"));
+      this.getFocusableElements(_classPrivateFieldLooseBase(this, _modalContainerAttr)[_modalContainerAttr]).forEach(function (element) {
         element.setAttribute(selectors.TABINDEX, "-1");
       });
 
-      if (this.modals.length) {
-        this.modals.forEach(function (modal) {
-          _this2._setupModal(modal);
+      if (_classPrivateFieldLooseBase(this, _modals)[_modals].length) {
+        _classPrivateFieldLooseBase(this, _modals)[_modals].forEach(function (modal) {
+          _classPrivateFieldLooseBase(_this2, _setupModal)[_setupModal](modal);
         });
       }
 
-      if (this.modalButtons.length) {
-        this.modalButtons.forEach(function (button) {
-          button.addEventListener(events.CLICK, _this2._render);
+      if (_classPrivateFieldLooseBase(this, _modalButtons)[_modalButtons].length) {
+        _classPrivateFieldLooseBase(this, _modalButtons)[_modalButtons].forEach(function (button) {
+          button.addEventListener(events.CLICK, _classPrivateFieldLooseBase(_this2, _render)[_render]);
         });
       }
     }
@@ -193,52 +247,9 @@ var Modal = function (_Utils) {
     value: function stop() {
       var _this3 = this;
 
-      this.modalButtons.forEach(function (button) {
-        button.removeEventListener(events.CLICK, _this3._render);
+      _classPrivateFieldLooseBase(this, _modalButtons)[_modalButtons].forEach(function (button) {
+        button.removeEventListener(events.CLICK, _classPrivateFieldLooseBase(_this3, _render)[_render]);
       });
-    }
-  }, {
-    key: "_setupModal",
-    value: function _setupModal(modal) {
-      var modalId;
-
-      if (!modal.getAttribute(selectors.DATA_PARENT)) {
-        return console.warn(messages.NO_PARENT_ERROR);
-      } else {
-        modalId = modal.getAttribute(selectors.DATA_PARENT);
-      }
-
-      var modalWrapper;
-
-      if (!document.querySelector("[".concat(selectors.MODAL_ID, "='").concat(modalId, "']"))) {
-        return console.error(messages.NO_ID_ERROR(modalId));
-      } else {
-        modalWrapper = document.querySelector("[".concat(selectors.MODAL_ID, "='").concat(modalId, "']"));
-      }
-
-      modalWrapper.setAttribute(selectors.ARIA_HIDDEN, "true");
-      modalWrapper.setAttribute(selectors.DATA_VISIBLE, "false");
-      modal.setAttribute(selectors.ARIA_MODAL, "true");
-      modal.setAttribute(selectors.ROLE, "dialog");
-    }
-  }, {
-    key: "_handleReturnFocus",
-    value: function _handleReturnFocus() {
-      this.activeModalButton.setAttribute(selectors.TABINDEX, "-1");
-      this.activeModalButton.focus();
-      this.activeModalButton.removeAttribute(selectors.TABINDEX);
-    }
-  }, {
-    key: "_handleScrollRestore",
-    value: function _handleScrollRestore() {
-      document.body.classList.remove(selectors.NO_SCROLL);
-      document.querySelector("html").classList.remove(selectors.NO_SCROLL);
-    }
-  }, {
-    key: "_handleScrollStop",
-    value: function _handleScrollStop() {
-      document.body.classList.add(selectors.NO_SCROLL);
-      document.querySelector("html").classList.add(selectors.NO_SCROLL);
     }
   }]);
 
@@ -246,3 +257,80 @@ var Modal = function (_Utils) {
 }(_utils.default);
 
 exports.default = Modal;
+
+var _modals = _classPrivateFieldLooseKey("modals");
+
+var _modalButtons = _classPrivateFieldLooseKey("modalButtons");
+
+var _activeModalButton = _classPrivateFieldLooseKey("activeModalButton");
+
+var _activeModalOverlay = _classPrivateFieldLooseKey("activeModalOverlay");
+
+var _activeModal = _classPrivateFieldLooseKey("activeModal");
+
+var _activeModalId = _classPrivateFieldLooseKey("activeModalId");
+
+var _activeModalOverlayAttr = _classPrivateFieldLooseKey("activeModalOverlayAttr");
+
+var _activeModalSelector = _classPrivateFieldLooseKey("activeModalSelector");
+
+var _activeModalCloseButtons = _classPrivateFieldLooseKey("activeModalCloseButtons");
+
+var _modalContainerAttr = _classPrivateFieldLooseKey("modalContainerAttr");
+
+var _render = _classPrivateFieldLooseKey("render");
+
+var _setupModal = _classPrivateFieldLooseKey("setupModal");
+
+var _handleClose = _classPrivateFieldLooseKey("handleClose");
+
+var _handleOverlayClick = _classPrivateFieldLooseKey("handleOverlayClick");
+
+var _handleEscapeKeyPress = _classPrivateFieldLooseKey("handleEscapeKeyPress");
+
+var _handleReturnFocus = _classPrivateFieldLooseKey("handleReturnFocus");
+
+var _handleScrollRestore = _classPrivateFieldLooseKey("handleScrollRestore");
+
+var _handleScrollStop = _classPrivateFieldLooseKey("handleScrollStop");
+
+var _setupModal2 = function _setupModal2(modal) {
+  var modalId;
+
+  if (!modal.getAttribute(selectors.DATA_PARENT)) {
+    return console.error(messages.NO_PARENT_ERROR);
+  } else {
+    modalId = modal.getAttribute(selectors.DATA_PARENT);
+  }
+
+  var modalWrapper;
+
+  if (!document.querySelector("[".concat(selectors.MODAL_ID, "='").concat(modalId, "']"))) {
+    return console.error(messages.NO_ID_ERROR(modalId));
+  } else {
+    modalWrapper = document.querySelector("[".concat(selectors.MODAL_ID, "='").concat(modalId, "']"));
+  }
+
+  modalWrapper.setAttribute(selectors.ARIA_HIDDEN, "true");
+  modalWrapper.setAttribute(selectors.DATA_VISIBLE, "false");
+  modal.setAttribute(selectors.ARIA_MODAL, "true");
+  modal.setAttribute(selectors.ROLE, "dialog");
+};
+
+var _handleReturnFocus2 = function _handleReturnFocus2() {
+  _classPrivateFieldLooseBase(this, _activeModalButton)[_activeModalButton].setAttribute(selectors.TABINDEX, "-1");
+
+  _classPrivateFieldLooseBase(this, _activeModalButton)[_activeModalButton].focus();
+
+  _classPrivateFieldLooseBase(this, _activeModalButton)[_activeModalButton].removeAttribute(selectors.TABINDEX);
+};
+
+var _handleScrollRestore2 = function _handleScrollRestore2() {
+  document.body.classList.remove(selectors.NO_SCROLL);
+  document.querySelector("html").classList.remove(selectors.NO_SCROLL);
+};
+
+var _handleScrollStop2 = function _handleScrollStop2() {
+  document.body.classList.add(selectors.NO_SCROLL);
+  document.querySelector("html").classList.add(selectors.NO_SCROLL);
+};
