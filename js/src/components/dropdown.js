@@ -264,6 +264,7 @@ export default class Dropdown extends Utils {
   /**
    * Retrieve possible menu links or buttons as an array
    * @param {String} attr - The unique attribute for a dropdown.
+   * @return {String} - Selector for possible menu item links.
    */
   #getDropdownLinks(attr) {
     return this.getElements(`${attr} > ul > li > a, ${attr} > ul > li > button`)

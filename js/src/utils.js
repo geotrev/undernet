@@ -25,8 +25,8 @@ const Events = {
 export default class Utils {
   #focusContainerSelector = ""
   #focusableChildren = []
-  #focusableFirstChild = null
-  #focusableLastChild = null
+  #focusableFirstChild = {}
+  #focusableLastChild = {}
   #listeningForKeydown = false
   #trapFocusWithArrows = false
 
