@@ -76,18 +76,16 @@ export default class Accordion extends Utils {
       this.#accordionButtons.forEach(button => {
         this.#setupAccordion(button)
         button.addEventListener(Events.CLICK, this.#render)
-        button.addEventListener(Events.KEYDOWN, this._handleSpaceKeyPress)
       })
     }
   }
 
   /**
-   * Stop listening to accordion buttons.
+   * Stop listening to accordion button events.
    */
   stop() {
     this.#accordionButtons.forEach(button => {
       button.removeEventListener(Events.CLICK, this.#render)
-      button.removeEventListener(Events.KEYDOWN, this._handleSpaceKeyPress)
     })
   }
 
@@ -147,7 +145,8 @@ export default class Accordion extends Utils {
 
   /**
    * Build a selector string to be passed into querySelectorAll() / _getElements()
-   * @param {String} - A unique attribute.
+   * @param {String} attr - A unique attribute.
+   * @return {String} - String of possible header selectors
    */
   #getPossibleAccordionHeaderAttrs(attr) {
     return `${attr} h1, ${attr} h2, ${attr} h3, ${attr} h4, ${attr} h5, ${attr} h6`
@@ -156,7 +155,7 @@ export default class Accordion extends Utils {
   /**
    * Return a unique accordion row attribute selector.
    * @param {String} id - An id value associated with a given Selectors.DATA_TARGET
-   * @return {String}
+   * @return {String} - A unique accordion row selector.
    */
   #getAccordionRowAttr(id) {
     return `[${Selectors.ACCORDION_ROW}='${id}']`
@@ -246,6 +245,10 @@ export default class Accordion extends Utils {
 
   /**
    * Toggles a single attribute of a series of elements.
+   * @param {Array} elements - An array of elements to be operated on.
+   * @param {String} attributeName - An attribute to be changed.
+   * @param {String} currentValue - The current value of attributeName
+   * @param {String} newValue - The new value of attributeName
    */
   #toggleAttributeInCollection(elements, attributeName, currentValue, newValue) {
     elements.forEach(element => {
