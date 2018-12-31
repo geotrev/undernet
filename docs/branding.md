@@ -6,14 +6,15 @@ To get a sense of what you have the easiest control over, reference the `_config
 
 ## SCSS
 
-You can build your CSS from SCSS using the [sass gem cli](https://github.com/sass/ruby-sass), or whichever build tool your project already uses. For the purposes of this example, we'll use the sass gem.
+You can build your CSS from SCSS using the [`node-sass` npm package](https://npmjs.org/package/node-sass), or whichever build tool your project already uses. The below example uses `node-sass`.
 
 ```sh
 $ cd yourProjectFolder/
-$ gem install sass
+$ npm install
+$ node-sass --output-style compressed undernet.scss undernet.css
 ```
 
-Now you can start compiling your css using the command line. Learn more about CLI options [here](https://sass-lang.com/documentation/file.SASS_REFERENCE.html#using_sass).
+Now you can start compiling your css using the command line!
 
 ```sh
 $ sass css/undernet.scss:css/undernet.css --style compressed
@@ -83,7 +84,7 @@ Only import the below **one time** in your application!
 Finally, import `undernet.scss` in your global stylesheet.
 
 ```css
-@import 'path/to/undernet';
+@import "path/to/undernet";
 ```
 
 ... or link to it in your layout. Although, webpack should handle this for it if you're using [HtmlWebpackPlugin](https://github.com/jantimon/html-webpack-plugin) or similar.
