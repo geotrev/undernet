@@ -19,15 +19,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var keyCodes = {
   TAB: 9,
@@ -72,7 +70,7 @@ var Dropdown = function (_Utils) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Dropdown).call(this));
 
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "_render", function (event, key) {
+    _this._render = function (event, key) {
       if (!key) event.preventDefault();
       event.stopPropagation();
 
@@ -133,33 +131,33 @@ var Dropdown = function (_Utils) {
       _this.captureFocus("".concat(_this.activeDropdownAttr, " > ul"), {
         useArrows: true
       });
-    });
+    };
 
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "_handleFirstTabClose", function (event) {
+    _this._handleFirstTabClose = function (event) {
       var shiftKey = event.which === keyCodes.SHIFT || event.shiftKey;
       var tabKey = event.which === keyCodes.TAB;
 
       if (shiftKey && tabKey) {
         _this._handleClose(event);
       }
-    });
+    };
 
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "_handleLastTabClose", function (event) {
+    _this._handleLastTabClose = function (event) {
       var shiftKey = event.which === keyCodes.SHIFT || event.shiftKey;
       var tabKey = event.which === keyCodes.TAB;
 
       if (tabKey && !shiftKey) {
         _this._handleClose(event);
       }
-    });
+    };
 
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "_renderWithKeys", function (event) {
+    _this._renderWithKeys = function (event) {
       if (event.which === keyCodes.ARROW_UP || event.which === keyCodes.ARROW_DOWN) {
         _this._render(event, event.which);
       }
-    });
+    };
 
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "_handleClose", function (event) {
+    _this._handleClose = function (event) {
       event.preventDefault();
 
       _this.releaseFocus();
@@ -183,19 +181,19 @@ var Dropdown = function (_Utils) {
       if (_this.allowFocusReturn) {
         _this._handleReturnFocus();
       }
-    });
+    };
 
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "_handleEscapeKeyPress", function (event) {
+    _this._handleEscapeKeyPress = function (event) {
       if (event.which === keyCodes.ESCAPE) {
         _this._handleClose(event);
       }
-    });
+    };
 
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "_handleOffMenuClick", function (event) {
+    _this._handleOffMenuClick = function (event) {
       if (event.target !== _this.activeDropdownButton && event.target !== _this.activeDropdownMenu) {
         _this._handleClose(event);
       }
-    });
+    };
 
     _this.activeDropdownButton = null;
     _this.activeDropdown = null;
