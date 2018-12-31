@@ -27,16 +27,20 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _classPrivateFieldLooseBase(receiver, privateKey) { if (!Object.prototype.hasOwnProperty.call(receiver, privateKey)) { throw new TypeError("attempted to use private field on non-instance"); } return receiver; }
 
-var keyCodes = {
+var id = 0;
+
+function _classPrivateFieldLooseKey(name) { return "__private_" + id++ + "_" + name; }
+
+var KeyCodes = {
   TAB: 9,
   SHIFT: 16,
   ESCAPE: 27,
   ARROW_UP: 38,
   ARROW_DOWN: 40
 };
-var selectors = {
+var Selectors = {
   DATA_DROPDOWN: "data-dropdown",
   DATA_TARGET: "data-target",
   DATA_PARENT: "data-parent",
@@ -48,11 +52,11 @@ var selectors = {
   ARIA_EXPANDED: "aria-expanded",
   ROLE: "role"
 };
-var events = {
+var Events = {
   KEYDOWN: "keydown",
   CLICK: "click"
 };
-var messages = {
+var Messages = {
   NO_PARENT_ERROR: "Could not find dropdown button's [data-parent] attribute.",
   NO_DROPDOWN_ERROR: function NO_DROPDOWN_ERROR(attr) {
     return "Could not find dropdown container associated with ".concat(attr, ".");
@@ -71,144 +75,198 @@ var Dropdown = function (_Utils) {
     _classCallCheck(this, Dropdown);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Dropdown).call(this));
-
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "_render", function (event, key) {
-      if (!key) event.preventDefault();
-      event.stopPropagation();
-
-      if (_this.activeDropdownButton) {
-        _this.allowFocusReturn = false;
-
-        _this._handleClose(event);
-
-        _this.allowFocusReturn = true;
-      }
-
-      _this.activeDropdownButton = event.target;
-
-      if (!_this.activeDropdownButton.getAttribute(selectors.DATA_PARENT)) {
-        return messages.NO_PARENT_ERROR;
-      }
-
-      _this.activeDropdownId = _this.activeDropdownButton.getAttribute(selectors.DATA_PARENT);
-      _this.activeDropdownAttr = "[".concat(selectors.DATA_DROPDOWN, "=\"").concat(_this.activeDropdownId, "\"]");
-
-      if (!document.querySelector(_this.activeDropdownAttr)) {
-        return messages.NO_DROPDOWN_ERROR(_this.activeDropdownAttr);
-      }
-
-      _this.activeDropdown = document.querySelector(_this.activeDropdownAttr);
-      _this.activeDropdownMenuId = _this.activeDropdownButton.getAttribute(selectors.DATA_TARGET);
-      _this.activeDropdownMenu = document.getElementById(_this.activeDropdownMenuId);
-
-      _this.activeDropdownButton.setAttribute(selectors.ARIA_EXPANDED, "true");
-
-      _this.activeDropdown.setAttribute(selectors.DATA_VISIBLE, "true");
-
-      _this.activeDropdownButton.removeEventListener(events.CLICK, _this._render);
-
-      _this.activeDropdownButton.addEventListener(events.CLICK, _this._handleClose);
-
-      document.addEventListener(events.KEYDOWN, _this._handleEscapeKeyPress);
-      document.addEventListener(events.CLICK, _this._handleOffMenuClick);
-      _this.activeDropdownLinks = _this._getDropdownLinks(_this.activeDropdownAttr);
-      _this.firstDropdownLink = _this.activeDropdownLinks[0];
-      _this.lastDropdownLink = _this.activeDropdownLinks[_this.activeDropdownLinks.length - 1];
-
-      _this.firstDropdownLink.addEventListener(events.KEYDOWN, _this._handleFirstTabClose);
-
-      _this.lastDropdownLink.addEventListener(events.KEYDOWN, _this._handleLastTabClose);
-
-      if (key && key === keyCodes.ARROW_UP) {
-        _this.lastDropdownLink.focus();
-      } else {
-        _this.firstDropdownLink.focus();
-      }
-
-      _this.activeDropdownLinks.forEach(function (link) {
-        link.setAttribute(selectors.TABINDEX, "0");
-        link.addEventListener(events.CLICK, _this._handleClose);
-      });
-
-      _this.captureFocus("".concat(_this.activeDropdownAttr, " > ul"), {
-        useArrows: true
-      });
+    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton, {
+      writable: true,
+      value: null
     });
-
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "_handleFirstTabClose", function (event) {
-      var shiftKey = event.which === keyCodes.SHIFT || event.shiftKey;
-      var tabKey = event.which === keyCodes.TAB;
-
-      if (shiftKey && tabKey) {
-        _this._handleClose(event);
-      }
+    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdown, {
+      writable: true,
+      value: null
     });
-
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "_handleLastTabClose", function (event) {
-      var shiftKey = event.which === keyCodes.SHIFT || event.shiftKey;
-      var tabKey = event.which === keyCodes.TAB;
-
-      if (tabKey && !shiftKey) {
-        _this._handleClose(event);
-      }
+    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownMenu, {
+      writable: true,
+      value: null
     });
-
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "_renderWithKeys", function (event) {
-      if (event.which === keyCodes.ARROW_UP || event.which === keyCodes.ARROW_DOWN) {
-        _this._render(event, event.which);
-      }
+    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks, {
+      writable: true,
+      value: []
     });
+    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _allowFocusReturn, {
+      writable: true,
+      value: true
+    });
+    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownId, {
+      writable: true,
+      value: ""
+    });
+    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr, {
+      writable: true,
+      value: ""
+    });
+    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownMenuId, {
+      writable: true,
+      value: ""
+    });
+    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _dropdownButtons, {
+      writable: true,
+      value: []
+    });
+    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _dropdowns, {
+      writable: true,
+      value: []
+    });
+    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _dropdownTargetAttr, {
+      writable: true,
+      value: "[".concat(Selectors.DATA_TARGET, "]")
+    });
+    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _render, {
+      writable: true,
+      value: function value(event, key) {
+        if (!key) event.preventDefault();
+        event.stopPropagation();
 
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "_handleClose", function (event) {
-      event.preventDefault();
+        if (_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton)[_activeDropdownButton]) {
+          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _allowFocusReturn)[_allowFocusReturn] = false;
 
-      _this.releaseFocus();
+          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose)[_handleClose](event);
 
-      _this.activeDropdownButton.setAttribute(selectors.ARIA_EXPANDED, "false");
+          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _allowFocusReturn)[_allowFocusReturn] = true;
+        }
 
-      _this.activeDropdown.setAttribute(selectors.DATA_VISIBLE, "false");
+        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton)[_activeDropdownButton] = event.target;
 
-      _this.activeDropdownLinks.forEach(function (link) {
-        link.setAttribute(selectors.TABINDEX, "-1");
-        link.removeEventListener(events.CLICK, _this._handleClose);
-      });
+        if (!_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton)[_activeDropdownButton].getAttribute(Selectors.DATA_PARENT)) {
+          return console.error(Messages.NO_PARENT_ERROR);
+        }
 
-      _this.activeDropdownButton.removeEventListener(events.CLICK, _this._handleClose);
+        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownId)[_activeDropdownId] = _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton)[_activeDropdownButton].getAttribute(Selectors.DATA_PARENT);
+        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr)[_activeDropdownAttr] = "[".concat(Selectors.DATA_DROPDOWN, "=\"").concat(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownId)[_activeDropdownId], "\"]");
 
-      _this.activeDropdownButton.addEventListener(events.CLICK, _this._render);
+        if (!document.querySelector(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr)[_activeDropdownAttr])) {
+          return console.error(Messages.NO_DROPDOWN_ERROR(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr)[_activeDropdownAttr]));
+        }
 
-      document.removeEventListener(events.KEYDOWN, _this._handleEscapeKeyPress);
-      document.removeEventListener(events.CLICK, _this._handleOffMenuClick);
+        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdown)[_activeDropdown] = document.querySelector(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr)[_activeDropdownAttr]);
+        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownMenuId)[_activeDropdownMenuId] = _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton)[_activeDropdownButton].getAttribute(Selectors.DATA_TARGET);
+        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownMenu)[_activeDropdownMenu] = document.getElementById(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownMenuId)[_activeDropdownMenuId]);
 
-      if (_this.allowFocusReturn) {
-        _this._handleReturnFocus();
+        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton)[_activeDropdownButton].setAttribute(Selectors.ARIA_EXPANDED, "true");
+
+        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdown)[_activeDropdown].setAttribute(Selectors.DATA_VISIBLE, "true");
+
+        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton)[_activeDropdownButton].removeEventListener(Events.CLICK, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _render)[_render]);
+
+        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton)[_activeDropdownButton].addEventListener(Events.CLICK, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose)[_handleClose]);
+
+        document.addEventListener(Events.KEYDOWN, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleEscapeKeyPress)[_handleEscapeKeyPress]);
+        document.addEventListener(Events.CLICK, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleOffMenuClick)[_handleOffMenuClick]);
+        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks)[_activeDropdownLinks] = _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _getDropdownLinks)[_getDropdownLinks](_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr)[_activeDropdownAttr]);
+        _this.firstDropdownLink = _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks)[_activeDropdownLinks][0];
+        _this.lastDropdownLink = _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks)[_activeDropdownLinks][_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks)[_activeDropdownLinks].length - 1];
+
+        _this.firstDropdownLink.addEventListener(Events.KEYDOWN, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleFirstTabClose)[_handleFirstTabClose]);
+
+        _this.lastDropdownLink.addEventListener(Events.KEYDOWN, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleLastTabClose)[_handleLastTabClose]);
+
+        if (key && key === KeyCodes.ARROW_UP) {
+          _this.lastDropdownLink.focus();
+        } else {
+          _this.firstDropdownLink.focus();
+        }
+
+        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks)[_activeDropdownLinks].forEach(function (link) {
+          link.setAttribute(Selectors.TABINDEX, "0");
+          link.addEventListener(Events.CLICK, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose)[_handleClose]);
+        });
+
+        _this.captureFocus("".concat(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr)[_activeDropdownAttr], " > ul"), {
+          useArrows: true
+        });
       }
     });
+    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _handleFirstTabClose, {
+      writable: true,
+      value: function value(event) {
+        var shiftKey = event.which === KeyCodes.SHIFT || event.shiftKey;
+        var tabKey = event.which === KeyCodes.TAB;
 
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "_handleEscapeKeyPress", function (event) {
-      if (event.which === keyCodes.ESCAPE) {
-        _this._handleClose(event);
+        if (shiftKey && tabKey) {
+          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose)[_handleClose](event);
+        }
       }
     });
+    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _handleLastTabClose, {
+      writable: true,
+      value: function value(event) {
+        var shiftKey = event.which === KeyCodes.SHIFT || event.shiftKey;
+        var tabKey = event.which === KeyCodes.TAB;
 
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "_handleOffMenuClick", function (event) {
-      if (event.target !== _this.activeDropdownButton && event.target !== _this.activeDropdownMenu) {
-        _this._handleClose(event);
+        if (tabKey && !shiftKey) {
+          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose)[_handleClose](event);
+        }
       }
     });
+    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _renderWithKeys, {
+      writable: true,
+      value: function value(event) {
+        if (event.which === KeyCodes.ARROW_UP || event.which === KeyCodes.ARROW_DOWN) {
+          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _render)[_render](event, event.which);
+        }
+      }
+    });
+    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose, {
+      writable: true,
+      value: function value(event) {
+        event.preventDefault();
 
-    _this.activeDropdownButton = null;
-    _this.activeDropdown = null;
-    _this.activeDropdownMenu = null;
-    _this.activeDropdownLinks = [];
-    _this.allowFocusReturn = true;
-    _this.activeDropdownId = "";
-    _this.activeDropdownAttr = "";
-    _this.activeDropdownMenuId = "";
-    _this.dropdownButtons = [];
-    _this.dropdowns = [];
-    _this.dropdownTargetAttr = "[".concat(selectors.DATA_TARGET, "]");
-    _this.dropdownButtonAttr = "[".concat(selectors.DATA_DROPDOWN, "] > ").concat(_this.dropdownTargetAttr);
+        _this.releaseFocus();
+
+        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton)[_activeDropdownButton].setAttribute(Selectors.ARIA_EXPANDED, "false");
+
+        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdown)[_activeDropdown].setAttribute(Selectors.DATA_VISIBLE, "false");
+
+        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks)[_activeDropdownLinks].forEach(function (link) {
+          link.setAttribute(Selectors.TABINDEX, "-1");
+          link.removeEventListener(Events.CLICK, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose)[_handleClose]);
+        });
+
+        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton)[_activeDropdownButton].removeEventListener(Events.CLICK, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose)[_handleClose]);
+
+        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton)[_activeDropdownButton].addEventListener(Events.CLICK, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _render)[_render]);
+
+        document.removeEventListener(Events.KEYDOWN, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleEscapeKeyPress)[_handleEscapeKeyPress]);
+        document.removeEventListener(Events.CLICK, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleOffMenuClick)[_handleOffMenuClick]);
+
+        if (_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _allowFocusReturn)[_allowFocusReturn]) {
+          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleReturnFocus)[_handleReturnFocus]();
+        }
+      }
+    });
+    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _handleEscapeKeyPress, {
+      writable: true,
+      value: function value(event) {
+        if (event.which === KeyCodes.ESCAPE) {
+          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose)[_handleClose](event);
+        }
+      }
+    });
+    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _handleOffMenuClick, {
+      writable: true,
+      value: function value(event) {
+        if (event.target !== _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton)[_activeDropdownButton] && event.target !== _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownMenu)[_activeDropdownMenu]) {
+          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose)[_handleClose](event);
+        }
+      }
+    });
+    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _handleReturnFocus, {
+      value: _handleReturnFocus2
+    });
+    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _getDropdownLinks, {
+      value: _getDropdownLinks2
+    });
+    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _setupDropdown, {
+      value: _setupDropdown2
+    });
     return _this;
   }
 
@@ -217,18 +275,18 @@ var Dropdown = function (_Utils) {
     value: function start() {
       var _this2 = this;
 
-      this.dropdowns = this.getElements("[".concat(selectors.DATA_DROPDOWN, "]"));
-      this.dropdownButtons = this.getElements(this.dropdownButtonAttr);
+      _classPrivateFieldLooseBase(this, _dropdowns)[_dropdowns] = this.getElements("[".concat(Selectors.DATA_DROPDOWN, "]"));
+      _classPrivateFieldLooseBase(this, _dropdownButtons)[_dropdownButtons] = this.getElements("[".concat(Selectors.DATA_DROPDOWN, "] > ").concat(_classPrivateFieldLooseBase(this, _dropdownTargetAttr)[_dropdownTargetAttr]));
 
-      if (this.dropdowns.length) {
-        this.dropdowns.forEach(function (dropdown) {
-          return _this2._setupDropdown(dropdown);
+      if (_classPrivateFieldLooseBase(this, _dropdowns)[_dropdowns].length) {
+        _classPrivateFieldLooseBase(this, _dropdowns)[_dropdowns].forEach(function (dropdown) {
+          return _classPrivateFieldLooseBase(_this2, _setupDropdown)[_setupDropdown](dropdown);
         });
       }
 
-      this.dropdownButtons.forEach(function (button) {
-        button.addEventListener(events.CLICK, _this2._render);
-        button.addEventListener(events.KEYDOWN, _this2._renderWithKeys);
+      _classPrivateFieldLooseBase(this, _dropdownButtons)[_dropdownButtons].forEach(function (button) {
+        button.addEventListener(Events.CLICK, _classPrivateFieldLooseBase(_this2, _render)[_render]);
+        button.addEventListener(Events.KEYDOWN, _classPrivateFieldLooseBase(_this2, _renderWithKeys)[_renderWithKeys]);
       });
     }
   }, {
@@ -236,48 +294,9 @@ var Dropdown = function (_Utils) {
     value: function stop() {
       var _this3 = this;
 
-      this.dropdownButtons.forEach(function (button) {
-        button.removeEventListener(events.CLICK, _this3._render);
-        button.removeEventListener(events.KEYDOWN, _this3._renderWithKeys);
-      });
-    }
-  }, {
-    key: "_handleReturnFocus",
-    value: function _handleReturnFocus() {
-      this.activeDropdownButton.setAttribute(selectors.TAB_INDEX, "-1");
-      this.activeDropdownButton.focus();
-      this.activeDropdownButton.removeAttribute(selectors.TAB_INDEX);
-    }
-  }, {
-    key: "_getDropdownLinks",
-    value: function _getDropdownLinks(attr) {
-      return this.getElements("".concat(attr, " > ul > li > a, ").concat(attr, " > ul > li > button"));
-    }
-  }, {
-    key: "_setupDropdown",
-    value: function _setupDropdown(dropdown) {
-      var dropdownId = dropdown.getAttribute(selectors.DATA_DROPDOWN);
-      var dropdownIdAttr = "[".concat(selectors.DATA_DROPDOWN, "=\"").concat(dropdownId, "\"]");
-      var dropdownMenuItemsAttr = "".concat(dropdownIdAttr, " > ul > li");
-
-      if (!document.querySelector("".concat(dropdownIdAttr, " > ul"))) {
-        return messages.NO_MENU_ERROR(dropdownIdAttr);
-      }
-
-      var dropdownMenu = document.querySelector("".concat(dropdownIdAttr, " > ul"));
-      var dropdownButton = document.querySelector("".concat(dropdownIdAttr, " > ").concat(this.dropdownTargetAttr));
-      dropdownButton.setAttribute(selectors.ARIA_CONTROLS, dropdownMenu.id);
-      dropdownButton.setAttribute(selectors.ARIA_HASPOPUP, "true");
-      dropdownButton.setAttribute(selectors.ARIA_EXPANDED, "false");
-      dropdownMenu.setAttribute(selectors.ARIA_LABELLEDBY, dropdownButton.id);
-      var dropdownMenuItems = this.getElements(dropdownMenuItemsAttr);
-      dropdownMenuItems.forEach(function (item) {
-        return item.setAttribute(selectors.ROLE, "none");
-      });
-
-      this._getDropdownLinks(dropdownIdAttr).forEach(function (link) {
-        link.setAttribute(selectors.ROLE, "menuitem");
-        link.setAttribute(selectors.TABINDEX, "-1");
+      _classPrivateFieldLooseBase(this, _dropdownButtons)[_dropdownButtons].forEach(function (button) {
+        button.removeEventListener(Events.CLICK, _classPrivateFieldLooseBase(_this3, _render)[_render]);
+        button.removeEventListener(Events.KEYDOWN, _classPrivateFieldLooseBase(_this3, _renderWithKeys)[_renderWithKeys]);
       });
     }
   }]);
@@ -286,3 +305,83 @@ var Dropdown = function (_Utils) {
 }(_utils.default);
 
 exports.default = Dropdown;
+
+var _activeDropdownButton = _classPrivateFieldLooseKey("activeDropdownButton");
+
+var _activeDropdown = _classPrivateFieldLooseKey("activeDropdown");
+
+var _activeDropdownMenu = _classPrivateFieldLooseKey("activeDropdownMenu");
+
+var _activeDropdownLinks = _classPrivateFieldLooseKey("activeDropdownLinks");
+
+var _allowFocusReturn = _classPrivateFieldLooseKey("allowFocusReturn");
+
+var _activeDropdownId = _classPrivateFieldLooseKey("activeDropdownId");
+
+var _activeDropdownAttr = _classPrivateFieldLooseKey("activeDropdownAttr");
+
+var _activeDropdownMenuId = _classPrivateFieldLooseKey("activeDropdownMenuId");
+
+var _dropdownButtons = _classPrivateFieldLooseKey("dropdownButtons");
+
+var _dropdowns = _classPrivateFieldLooseKey("dropdowns");
+
+var _dropdownTargetAttr = _classPrivateFieldLooseKey("dropdownTargetAttr");
+
+var _render = _classPrivateFieldLooseKey("render");
+
+var _handleFirstTabClose = _classPrivateFieldLooseKey("handleFirstTabClose");
+
+var _handleLastTabClose = _classPrivateFieldLooseKey("handleLastTabClose");
+
+var _renderWithKeys = _classPrivateFieldLooseKey("renderWithKeys");
+
+var _handleClose = _classPrivateFieldLooseKey("handleClose");
+
+var _handleEscapeKeyPress = _classPrivateFieldLooseKey("handleEscapeKeyPress");
+
+var _handleOffMenuClick = _classPrivateFieldLooseKey("handleOffMenuClick");
+
+var _handleReturnFocus = _classPrivateFieldLooseKey("handleReturnFocus");
+
+var _getDropdownLinks = _classPrivateFieldLooseKey("getDropdownLinks");
+
+var _setupDropdown = _classPrivateFieldLooseKey("setupDropdown");
+
+var _handleReturnFocus2 = function _handleReturnFocus2() {
+  _classPrivateFieldLooseBase(this, _activeDropdownButton)[_activeDropdownButton].setAttribute(Selectors.TAB_INDEX, "-1");
+
+  _classPrivateFieldLooseBase(this, _activeDropdownButton)[_activeDropdownButton].focus();
+
+  _classPrivateFieldLooseBase(this, _activeDropdownButton)[_activeDropdownButton].removeAttribute(Selectors.TAB_INDEX);
+};
+
+var _getDropdownLinks2 = function _getDropdownLinks2(attr) {
+  return this.getElements("".concat(attr, " > ul > li > a, ").concat(attr, " > ul > li > button"));
+};
+
+var _setupDropdown2 = function _setupDropdown2(dropdown) {
+  var dropdownId = dropdown.getAttribute(Selectors.DATA_DROPDOWN);
+  var dropdownIdAttr = "[".concat(Selectors.DATA_DROPDOWN, "=\"").concat(dropdownId, "\"]");
+  var dropdownMenuItemsAttr = "".concat(dropdownIdAttr, " > ul > li");
+
+  if (!document.querySelector("".concat(dropdownIdAttr, " > ul"))) {
+    return console.error(Messages.NO_MENU_ERROR(dropdownIdAttr));
+  }
+
+  var dropdownMenu = document.querySelector("".concat(dropdownIdAttr, " > ul"));
+  var dropdownButton = document.querySelector("".concat(dropdownIdAttr, " > ").concat(_classPrivateFieldLooseBase(this, _dropdownTargetAttr)[_dropdownTargetAttr]));
+  dropdownButton.setAttribute(Selectors.ARIA_CONTROLS, dropdownMenu.id);
+  dropdownButton.setAttribute(Selectors.ARIA_HASPOPUP, "true");
+  dropdownButton.setAttribute(Selectors.ARIA_EXPANDED, "false");
+  dropdownMenu.setAttribute(Selectors.ARIA_LABELLEDBY, dropdownButton.id);
+  var dropdownMenuItems = this.getElements(dropdownMenuItemsAttr);
+  dropdownMenuItems.forEach(function (item) {
+    return item.setAttribute(Selectors.ROLE, "none");
+  });
+
+  _classPrivateFieldLooseBase(this, _getDropdownLinks)[_getDropdownLinks](dropdownIdAttr).forEach(function (link) {
+    link.setAttribute(Selectors.ROLE, "menuitem");
+    link.setAttribute(Selectors.TABINDEX, "-1");
+  });
+};
