@@ -44,8 +44,8 @@ const dom = `
 </div>
 `
 
-describe.only("Accordions", function() {
-  describe("#start", function() {
+describe("Accordions", function() {
+  describe("API start", function() {
     let wrapper
     let rows
     let buttons
@@ -121,15 +121,15 @@ describe.only("Accordions", function() {
     })
   })
 
-  describe("#stop", function() {})
-  describe("#_setupAccordion", function() {})
-  describe("#_getPossibleAccordionHeaderAttrs", function() {})
-  describe("#_getAccordionRowAttr", function() {})
-  describe("#_render", function() {})
-  describe("#_handleSpaceKeyPress", function() {})
-  describe("#_closeAllIfToggleable", function() {})
-  describe("#_toggleSelectedAccordion", function() {})
-  describe("#_toggleAttributeInCollection", function() {})
+  describe("API stop", function() {})
+  describe("#setupAccordion", function() {})
+  describe("#getPossibleAccordionHeaderAttrs", function() {})
+  describe("#getAccordionRowAttr", function() {})
+  describe("#render", function() {})
+  describe("#handleSpaceKeyPress", function() {})
+  describe("#closeAllIfToggleable", function() {})
+  describe("#toggleSelectedAccordion", function() {})
+  describe("#toggleAttributeInCollection", function() {})
   describe("Errors", function() {})
   describe("Toggle Multiple", function() {})
 })
