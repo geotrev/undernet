@@ -49,11 +49,11 @@ var Utils = function () {
     });
     Object.defineProperty(this, _focusableFirstChild, {
       writable: true,
-      value: null
+      value: {}
     });
     Object.defineProperty(this, _focusableLastChild, {
       writable: true,
-      value: null
+      value: {}
     });
     Object.defineProperty(this, _listeningForKeydown, {
       writable: true,
