@@ -2,11 +2,11 @@
 
 import Utils from "../utils"
 
-const keyCodes = {
+const KeyCodes = {
   ESCAPE: 27,
 }
 
-const selectors = {
+const Selectors = {
   // unique
   MODAL_CONTAINER: "data-modal",
   MODAL_ID: "data-modal-id",
@@ -24,13 +24,13 @@ const selectors = {
   TABINDEX: "tabindex",
 }
 
-const events = {
+const Events = {
   KEYDOWN: "keydown",
   CLICK: "click",
   RESIZE: "resize",
 }
 
-const messages = {
+const Messages = {
   NO_TARGET_ERROR: `Could not find [data-target] attribute associated with a [data-modal-button] element.`,
   NO_PARENT_ERROR: `Could not find [data-parent] attribute associated with a [data-modal] element.`,
   NO_ID_ERROR: id =>
@@ -45,23 +45,23 @@ const messages = {
 export default class Modal extends Utils {
   constructor() {
     super()
-    // all modals
-    this.modals = []
-    this.modalButtons = []
-
-    // active modal
-    this.activeModalButton = null
-    this.activeModalOverlay = null
-    this.activeModal = null
-    this.activeModalId = ""
-    this.activeModalOverlayAttr = ""
-    this.activeModalSelector = ""
-    this.activeModalCloseButtons = []
-
-    // attribute helpers
-    this.modalContainerAttr = `[${selectors.MODAL_CONTAINER}]`
-    this.closeButtonAttr = `[${selectors.MODAL_CONTAINER}] [${selectors.DATA_CLOSE}]`
   }
+
+  // all modals
+  #modals = []
+  #modalButtons = []
+
+  // active modal
+  #activeModalButton = {}
+  #activeModalOverlay = {}
+  #activeModal = {}
+  #activeModalId = ""
+  #activeModalOverlayAttr = ""
+  #activeModalSelector = ""
+  #activeModalCloseButtons = []
+
+  // attribute helpers
+  #modalContainerAttr = `[${Selectors.MODAL_CONTAINER}]`
 
   // public
 
@@ -70,22 +70,22 @@ export default class Modal extends Utils {
    * Begin listening to elements with [data-modal-button]
    */
   start() {
-    this.modals = this.getElements(this.modalContainerAttr)
-    this.modalButtons = this.getElements(`[${selectors.MODAL_BUTTON}]`)
+    this.#modals = this.getElements(this.#modalContainerAttr)
+    this.#modalButtons = this.getElements(`[${Selectors.MODAL_BUTTON}]`)
 
-    this.getFocusableElements(this.modalContainerAttr).forEach(element => {
-      element.setAttribute(selectors.TABINDEX, "-1")
+    this.getFocusableElements(this.#modalContainerAttr).forEach(element => {
+      element.setAttribute(Selectors.TABINDEX, "-1")
     })
 
-    if (this.modals.length) {
-      this.modals.forEach(modal => {
-        this._setupModal(modal)
+    if (this.#modals.length) {
+      this.#modals.forEach(modal => {
+        this.#setupModal(modal)
       })
     }
 
-    if (this.modalButtons.length) {
-      this.modalButtons.forEach(button => {
-        button.addEventListener(events.CLICK, this._render)
+    if (this.#modalButtons.length) {
+      this.#modalButtons.forEach(button => {
+        button.addEventListener(Events.CLICK, this.#render)
       })
     }
   }
@@ -94,8 +94,8 @@ export default class Modal extends Utils {
    * Stop listening to modal buttons
    */
   stop() {
-    this.modalButtons.forEach(button => {
-      button.removeEventListener(events.CLICK, this._render)
+    this.#modalButtons.forEach(button => {
+      button.removeEventListener(Events.CLICK, this.#render)
     })
   }
 
@@ -105,94 +105,94 @@ export default class Modal extends Utils {
    * Find a button through event.target, then render the corresponding modal attribute via matching target id
    * @param {Object} event - The event object
    */
-  _render = event => {
+  #render = event => {
     event.preventDefault()
-    this.activeModalButton = event.target
+    this.#activeModalButton = event.target
 
-    if (!this.activeModalButton.getAttribute(selectors.DATA_TARGET)) {
-      return console.error(messages.NO_TARGET_ERROR)
+    if (!this.#activeModalButton.getAttribute(Selectors.DATA_TARGET)) {
+      return console.error(Messages.NO_TARGET_ERROR)
     }
 
-    this.activeModalId = this.activeModalButton.getAttribute(selectors.DATA_TARGET)
-    this.activeModalOverlayAttr = `[${selectors.MODAL_ID}="${this.activeModalId}"]`
+    this.#activeModalId = this.#activeModalButton.getAttribute(Selectors.DATA_TARGET)
+    this.#activeModalOverlayAttr = `[${Selectors.MODAL_ID}="${this.#activeModalId}"]`
 
-    if (!document.querySelector(this.activeModalOverlayAttr)) {
-      return console.error(messages.NO_ID_ERROR(this.activeModalId))
+    if (!document.querySelector(this.#activeModalOverlayAttr)) {
+      return console.error(Messages.NO_ID_ERROR(this.#activeModalId))
     }
 
-    this.activeModalOverlay = document.querySelector(this.activeModalOverlayAttr)
+    this.#activeModalOverlay = document.querySelector(this.#activeModalOverlayAttr)
 
-    this.activeModalSelector = `${this.activeModalOverlayAttr} ${this.modalContainerAttr}`
-    this.activeModal = document.querySelector(this.activeModalSelector)
-    this.activeModalCloseButtons = this.getElements(
-      `${this.activeModalOverlayAttr} [${selectors.MODAL_CONTAINER}] [${selectors.DATA_CLOSE}]`,
+    this.#activeModalSelector = `${this.#activeModalOverlayAttr} ${this.#modalContainerAttr}`
+    this.#activeModal = document.querySelector(this.#activeModalSelector)
+    this.#activeModalCloseButtons = this.getElements(
+      `${this.#activeModalOverlayAttr} [${Selectors.MODAL_CONTAINER}] [${Selectors.DATA_CLOSE}]`,
     )
 
-    this.getFocusableElements(this.activeModalSelector).forEach(element => {
-      element.setAttribute(selectors.TABINDEX, "0")
+    this.getFocusableElements(this.#activeModalSelector).forEach(element => {
+      element.setAttribute(Selectors.TABINDEX, "0")
     })
 
-    this._handleScrollStop()
-    this.captureFocus(this.activeModalSelector)
-    this.activeModalOverlay.setAttribute(selectors.ARIA_HIDDEN, "false")
-    this.activeModal.setAttribute(selectors.TABINDEX, "-1")
-    this.activeModalOverlay.setAttribute(selectors.DATA_VISIBLE, "true")
-    this.activeModal.focus()
+    this.#handleScrollStop()
+    this.captureFocus(this.#activeModalSelector)
+    this.#activeModalOverlay.setAttribute(Selectors.ARIA_HIDDEN, "false")
+    this.#activeModal.setAttribute(Selectors.TABINDEX, "-1")
+    this.#activeModalOverlay.setAttribute(Selectors.DATA_VISIBLE, "true")
+    this.#activeModal.focus()
 
-    // offset slight scroll caused by this.activeModal.focus()
-    this.activeModalOverlay.scrollTop = 0
+    // offset slight scroll caused by this.#activeModal.focus()
+    this.#activeModalOverlay.scrollTop = 0
 
     // begin listening to events
-    document.addEventListener(events.KEYDOWN, this._handleEscapeKeyPress)
-    document.addEventListener(events.CLICK, this._handleOverlayClick)
-    this.activeModalCloseButtons.forEach(button => {
-      button.addEventListener(events.CLICK, this._handleClose)
+    document.addEventListener(Events.KEYDOWN, this.#handleEscapeKeyPress)
+    document.addEventListener(Events.CLICK, this.#handleOverlayClick)
+    this.#activeModalCloseButtons.forEach(button => {
+      button.addEventListener(Events.CLICK, this.#handleClose)
     })
   }
 
-  _setupModal(modal) {
+  #setupModal(modal) {
     let modalId
-    if (!modal.getAttribute(selectors.DATA_PARENT)) {
-      return console.warn(messages.NO_PARENT_ERROR)
+    if (!modal.getAttribute(Selectors.DATA_PARENT)) {
+      return console.error(Messages.NO_PARENT_ERROR)
     } else {
-      modalId = modal.getAttribute(selectors.DATA_PARENT)
+      modalId = modal.getAttribute(Selectors.DATA_PARENT)
     }
 
     let modalWrapper
-    if (!document.querySelector(`[${selectors.MODAL_ID}='${modalId}']`)) {
-      return console.error(messages.NO_ID_ERROR(modalId))
+    if (!document.querySelector(`[${Selectors.MODAL_ID}='${modalId}']`)) {
+      return console.error(Messages.NO_ID_ERROR(modalId))
     } else {
-      modalWrapper = document.querySelector(`[${selectors.MODAL_ID}='${modalId}']`)
+      modalWrapper = document.querySelector(`[${Selectors.MODAL_ID}='${modalId}']`)
     }
 
-    modalWrapper.setAttribute(selectors.ARIA_HIDDEN, "true")
-    modalWrapper.setAttribute(selectors.DATA_VISIBLE, "false")
-    modal.setAttribute(selectors.ARIA_MODAL, "true")
-    modal.setAttribute(selectors.ROLE, "dialog")
+    modalWrapper.setAttribute(Selectors.ARIA_HIDDEN, "true")
+    modalWrapper.setAttribute(Selectors.DATA_VISIBLE, "false")
+    modal.setAttribute(Selectors.ARIA_MODAL, "true")
+    modal.setAttribute(Selectors.ROLE, "dialog")
   }
 
   /**
    * Turn off event listeners and reset focus to last selected DOM node (button)
    * @param {Object} event - Event (keydown or click)
    */
-  _handleClose = event => {
+  #handleClose = event => {
     event.preventDefault()
-    this.activeModalOverlay.setAttribute(selectors.DATA_VISIBLE, "false")
-    this._handleReturnFocus()
-    this._handleScrollRestore()
+    this.#activeModalOverlay.setAttribute(Selectors.DATA_VISIBLE, "false")
+    this.#handleReturnFocus()
+    this.#handleScrollRestore()
     this.releaseFocus()
-    this.activeModalOverlay.setAttribute(selectors.ARIA_HIDDEN, "true")
-    this.activeModal.removeAttribute(selectors.TABINDEX)
+    this.#activeModalOverlay.setAttribute(Selectors.ARIA_HIDDEN, "true")
+    this.#activeModal.removeAttribute(Selectors.TABINDEX)
 
-    this.getFocusableElements(this.activeModalSelector).forEach(element => {
-      element.setAttribute(selectors.TABINDEX, "-1")
+    this.getFocusableElements(this.#activeModalSelector).forEach(element => {
+      element.setAttribute(Selectors.TABINDEX, "-1")
     })
 
     // stop listening to events
-    document.removeEventListener(events.KEYDOWN, this._handleEscapeKeyPress)
-    document.removeEventListener(events.CLICK, this._handleOverlayClick)
-    this.activeModalCloseButtons.forEach(button => {
-      button.removeEventListener(events.CLICK, this._handleClose)
+    document.removeEventListener(Events.KEYDOWN, this.#handleEscapeKeyPress)
+    document.removeEventListener(Events.CLICK, this.#handleOverlayClick)
+    this.#activeModalCloseButtons.forEach(button => {
+      button.removeEventListener(Events.CLICK, this.#handleClose)
     })
   }
 
@@ -200,9 +200,9 @@ export default class Modal extends Utils {
    * Handles click event on the modal background to close it.
    * @param {Object} event - Event (keydown)
    */
-  _handleOverlayClick = event => {
-    if (event.target === this.activeModalOverlay) {
-      this._handleClose(event)
+  #handleOverlayClick = event => {
+    if (event.target === this.#activeModalOverlay) {
+      this.#handleClose(event)
     }
   }
 
@@ -210,9 +210,9 @@ export default class Modal extends Utils {
    * Handles escape key event to close the current modal
    * @param {Object} event - Event (keydown)
    */
-  _handleEscapeKeyPress = event => {
-    if (event.which === keyCodes.ESCAPE) {
-      this._handleClose(event)
+  #handleEscapeKeyPress = event => {
+    if (event.which === KeyCodes.ESCAPE) {
+      this.#handleClose(event)
     }
   }
 
@@ -220,25 +220,25 @@ export default class Modal extends Utils {
    * Returns focus to the last focused element before the modal was called.
    * @param {Object} button - The current modal's corresponding button.
    */
-  _handleReturnFocus() {
-    this.activeModalButton.setAttribute(selectors.TABINDEX, "-1")
-    this.activeModalButton.focus()
-    this.activeModalButton.removeAttribute(selectors.TABINDEX)
+  #handleReturnFocus() {
+    this.#activeModalButton.setAttribute(Selectors.TABINDEX, "-1")
+    this.#activeModalButton.focus()
+    this.#activeModalButton.removeAttribute(Selectors.TABINDEX)
   }
 
   /**
    * Restores scroll behavior to <html> and <body>
    */
-  _handleScrollRestore() {
-    document.body.classList.remove(selectors.NO_SCROLL)
-    document.querySelector("html").classList.remove(selectors.NO_SCROLL)
+  #handleScrollRestore() {
+    document.body.classList.remove(Selectors.NO_SCROLL)
+    document.querySelector("html").classList.remove(Selectors.NO_SCROLL)
   }
 
   /**
    * Prevents scroll behavior on <html> and <body>
    */
-  _handleScrollStop() {
-    document.body.classList.add(selectors.NO_SCROLL)
-    document.querySelector("html").classList.add(selectors.NO_SCROLL)
+  #handleScrollStop() {
+    document.body.classList.add(Selectors.NO_SCROLL)
+    document.querySelector("html").classList.add(Selectors.NO_SCROLL)
   }
 }

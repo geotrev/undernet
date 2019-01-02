@@ -6,11 +6,9 @@
   </head>
   <body>
     …
-    <script type=“text/javascript” src=“path/to/undernet.min.js”></script>
+    <script type=“text/javascript” src=“path/to/undernet.bundle.min.js”></script>
     <script>
-      document.addEventListener(“DOMContentLoaded”, function() {
-        Undernet.start()
-      })
+      document.addEventListener(“DOMContentLoaded”, Undernet.start())
     </script>
   </body>
 </html>

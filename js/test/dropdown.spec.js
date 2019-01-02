@@ -19,7 +19,7 @@ const dom = `
 `
 
 describe("Dropdowns", function() {
-  describe("API #start", function() {
+  describe("API start", function() {
     let button
     let menu
 
@@ -47,7 +47,7 @@ describe("Dropdowns", function() {
     })
   })
 
-  describe("API #stop -> Dropdown Button Click", function() {
+  describe("API stop -> Dropdown Button Click", function() {
     let button
     let dropdownWrapper
 
@@ -69,7 +69,7 @@ describe("Dropdowns", function() {
     })
   })
 
-  describe("#_render -> Dropdown Button Click", function() {
+  describe("#render -> Dropdown Button Click", function() {
     let button
     let dropdownWrapper
     let focusableElements
@@ -102,7 +102,7 @@ describe("Dropdowns", function() {
     })
   })
 
-  describe("#_renderWithKeys -> Arrow Down or Up Key Press", function() {
+  describe("#renderWithKeys -> Arrow Down or Up Key Press", function() {
     let button
     let dropdownWrapper
     let focusableElements
@@ -143,7 +143,7 @@ describe("Dropdowns", function() {
     })
   })
 
-  describe("#_handleFirstTabClose & #_handleLastTabClose", function() {
+  describe("#handleFirstTabClose & #handleLastTabClose", function() {
     let button
     let dropdownWrapper
     let firstDropdownItem
@@ -172,7 +172,7 @@ describe("Dropdowns", function() {
     })
   })
 
-  describe("#_handleClose -> Dropdown Menu Link Click", function() {
+  describe("#handleClose -> Dropdown Menu Link Click", function() {
     let button
     let dropdownWrapper
     let focusableElements
@@ -208,7 +208,7 @@ describe("Dropdowns", function() {
     })
   })
 
-  describe("#_handleEscapeKeyPress -> Escape Key Press", function() {
+  describe("#handleEscapeKeyPress -> Escape Key Press", function() {
     let button
     let dropdownWrapper
     let focusableElements
@@ -227,7 +227,7 @@ describe("Dropdowns", function() {
     })
   })
 
-  describe("#_handleOffMenuClick -> Non-Dropdown Element Click", function() {
+  describe("#handleOffMenuClick -> Non-Dropdown Close Click", function() {
     let button
     let dropdownWrapper
     let focusableElements
@@ -247,7 +247,7 @@ describe("Dropdowns", function() {
     })
   })
 
-  describe("#_handleReturnFocus -> ", function() {
+  describe("#handleReturnFocus -> Dropdown Close Click", function() {
     let button
     let dropdownWrapper
     let focusableElements
@@ -297,4 +297,6 @@ describe("Dropdowns", function() {
       expect(document.activeElement).to.equal(dropdown2Focusables[0])
     })
   })
+
+  describe("Errors", function() {})
 })

@@ -31,7 +31,7 @@ const dom = `
 // Begin modal tests.
 
 describe("Modals", function() {
-  describe("API #start", function() {
+  describe("API start", function() {
     let modalDialog
     let modalOverlay
 
@@ -75,7 +75,7 @@ describe("Modals", function() {
     })
   })
 
-  describe("API #stop -> Modal Button Click", function() {
+  describe("API stop -> Modal Button Click", function() {
     let button
     let modalOverlay
     let modalDialog
@@ -99,7 +99,7 @@ describe("Modals", function() {
     })
   })
 
-  describe("#_render -> Modal Button Click", function() {
+  describe("#render -> Modal Button Click", function() {
     let button
     let modalOverlay
     let modalDialog
@@ -137,7 +137,7 @@ describe("Modals", function() {
     })
   })
 
-  describe("#_handleClose -> Modal Close Button Click", function() {
+  describe("#handleClose -> Modal Close Button Click", function() {
     let openButton
     let closeButton
     let modalOverlay
@@ -178,7 +178,7 @@ describe("Modals", function() {
     })
   })
 
-  describe("#_handleOverlayClick -> Modal Overlay Click", function() {
+  describe("#handleOverlayClick -> Modal Overlay Click", function() {
     let button
     let modalOverlay
 
@@ -196,7 +196,7 @@ describe("Modals", function() {
     })
   })
 
-  describe("#_handleEscapeKeyPress -> Escape Key Press", function() {
+  describe("#handleEscapeKeyPress -> Escape Key Press", function() {
     let button
     let modalOverlay
 
@@ -214,7 +214,7 @@ describe("Modals", function() {
     })
   })
 
-  describe("#_handleReturnFocus -> Modal Close Button Click", function() {
+  describe("#handleReturnFocus -> Modal Close Button Click", function() {
     let openButton
     let closeButton
 
@@ -232,7 +232,7 @@ describe("Modals", function() {
     })
   })
 
-  describe("#_handleScrollRestore -> Modal Close Button Click", function() {
+  describe("#handleScrollRestore -> Modal Close Button Click", function() {
     let openButton
     let closeButton
 
@@ -250,7 +250,7 @@ describe("Modals", function() {
     })
   })
 
-  describe("#_handleScrollStop -> Modal Button Click", function() {
+  describe("#handleScrollStop -> Modal Button Click", function() {
     let button
 
     before(function() {
@@ -264,4 +264,6 @@ describe("Modals", function() {
       expect(document.body.className).to.equal("no-scroll")
     })
   })
+
+  describe("Errors", function() {})
 })

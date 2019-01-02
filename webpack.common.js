@@ -2,8 +2,6 @@ const HtmlWebpackPlugin = require("html-webpack-plugin")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const path = require("path")
 
-// @param {Boolean} production - if `true`, sets MiniCssExtractPlugin.loader for
-//                               production build, else uses "style-loader"
 module.exports = {
   entry: {
     main: path.resolve(__dirname, "src/index.js"),
