@@ -195,7 +195,6 @@ var Accordion = function (_Utils) {
           _classPrivateFieldLooseBase(_this2, _setupAccordion)[_setupAccordion](button);
 
           button.addEventListener(Events.CLICK, _classPrivateFieldLooseBase(_this2, _render)[_render]);
-          button.addEventListener(Events.KEYDOWN, _this2._handleSpaceKeyPress);
         });
       }
     }
@@ -206,7 +205,6 @@ var Accordion = function (_Utils) {
 
       _classPrivateFieldLooseBase(this, _accordionButtons)[_accordionButtons].forEach(function (button) {
         button.removeEventListener(Events.CLICK, _classPrivateFieldLooseBase(_this3, _render)[_render]);
-        button.removeEventListener(Events.KEYDOWN, _this3._handleSpaceKeyPress);
       });
     }
   }]);
