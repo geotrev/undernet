@@ -41,3 +41,4 @@ Undernet.stop = () => {
 }
 
 export default Undernet
+window.Undernet = Undernet || {}

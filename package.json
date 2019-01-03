@@ -1,6 +1,6 @@
 {
   "name": "undernet",
-  "version": "3.1.1",
+  "version": "3.1.2",
   "homepage": "https://undernet.io",
   "description": "A modular front-end component library for modern web development.",
   "main": "js/dist/undernet.js",
@@ -109,14 +109,7 @@
     "node": ">=10.0.0",
     "npm": ">=6.1.0"
   },
-  "keywords": [
-    "scss",
-    "javascript",
-    "js",
-    "css",
-    "front-end",
-    "framework"
-  ],
+  "keywords": ["scss", "javascript", "js", "css", "front-end", "framework"],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/geotrev/undernet.git"
