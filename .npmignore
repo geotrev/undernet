@@ -9,7 +9,6 @@ npm-error.log*
 /public/
 /docs/
 /config/
-/scripts/
 /.circleci/
 /.nyc_output/
 
