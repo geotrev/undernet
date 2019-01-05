@@ -11,11 +11,11 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-function _classPrivateFieldLooseBase(receiver, privateKey) { if (!Object.prototype.hasOwnProperty.call(receiver, privateKey)) { throw new TypeError("attempted to use private field on non-instance"); } return receiver; }
+function _classPrivateMethodGet(receiver, privateSet, fn) { if (!privateSet.has(receiver)) { throw new TypeError("attempted to get private field on non-instance"); } return fn; }
 
-var id = 0;
+function _classPrivateFieldGet(receiver, privateMap) { if (!privateMap.has(receiver)) { throw new TypeError("attempted to get private field on non-instance"); } return privateMap.get(receiver).value; }
 
-function _classPrivateFieldLooseKey(name) { return "__private_" + id++ + "_" + name; }
+function _classPrivateFieldSet(receiver, privateMap, value) { if (!privateMap.has(receiver)) { throw new TypeError("attempted to set private field on non-instance"); } var descriptor = privateMap.get(receiver); if (!descriptor.writable) { throw new TypeError("attempted to set read only private field"); } descriptor.value = value; return value; }
 
 var KeyCodes = {
   SHIFT: 16,
@@ -39,31 +39,37 @@ var Utils = function () {
 
     _classCallCheck(this, Utils);
 
-    Object.defineProperty(this, _focusContainerSelector, {
+    _focusContainerSelector.set(this, {
       writable: true,
       value: ""
     });
-    Object.defineProperty(this, _focusableChildren, {
+
+    _focusableChildren.set(this, {
       writable: true,
       value: []
     });
-    Object.defineProperty(this, _focusableFirstChild, {
+
+    _focusableFirstChild.set(this, {
       writable: true,
       value: {}
     });
-    Object.defineProperty(this, _focusableLastChild, {
+
+    _focusableLastChild.set(this, {
       writable: true,
       value: {}
     });
-    Object.defineProperty(this, _listeningForKeydown, {
+
+    _listeningForKeydown.set(this, {
       writable: true,
       value: false
     });
-    Object.defineProperty(this, _trapFocusWithArrows, {
+
+    _trapFocusWithArrows.set(this, {
       writable: true,
       value: false
     });
-    Object.defineProperty(this, _listenForKeyboard, {
+
+    _listenForKeyboard.set(this, {
       writable: true,
       value: function value(event) {
         var tabKey = event.which === KeyCodes.TAB;
@@ -73,30 +79,34 @@ var Utils = function () {
 
         if (tabKey || shiftKey || arrowUp || arrowDown) {
           document.body.classList.add(Selectors.KEYBOARD_CLASS);
-          document.removeEventListener(Events.KEYDOWN, _classPrivateFieldLooseBase(_this, _listenForKeyboard)[_listenForKeyboard]);
-          document.addEventListener(Events.CLICK, _classPrivateFieldLooseBase(_this, _listenForClick)[_listenForClick]);
-          _classPrivateFieldLooseBase(_this, _listeningForKeydown)[_listeningForKeydown] = false;
+          document.removeEventListener(Events.KEYDOWN, _classPrivateFieldGet(_this, _listenForKeyboard));
+          document.addEventListener(Events.CLICK, _classPrivateFieldGet(_this, _listenForClick));
+
+          _classPrivateFieldSet(_this, _listeningForKeydown, false);
         }
       }
     });
-    Object.defineProperty(this, _listenForClick, {
+
+    _listenForClick.set(this, {
       writable: true,
       value: function value(event) {
         document.body.classList.remove(Selectors.KEYBOARD_CLASS);
-        document.removeEventListener(Events.CLICK, _classPrivateFieldLooseBase(_this, _listenForClick)[_listenForClick]);
-        document.addEventListener(Events.KEYDOWN, _classPrivateFieldLooseBase(_this, _listenForKeyboard)[_listenForKeyboard]);
-        _classPrivateFieldLooseBase(_this, _listeningForKeydown)[_listeningForKeydown] = true;
+        document.removeEventListener(Events.CLICK, _classPrivateFieldGet(_this, _listenForClick));
+        document.addEventListener(Events.KEYDOWN, _classPrivateFieldGet(_this, _listenForKeyboard));
+
+        _classPrivateFieldSet(_this, _listeningForKeydown, true);
       }
     });
-    Object.defineProperty(this, _handleFocusTrapWithTab, {
+
+    _handleFocusTrapWithTab.set(this, {
       writable: true,
       value: function value(event) {
-        var containerElement = document.querySelector(_classPrivateFieldLooseBase(_this, _focusContainerSelector)[_focusContainerSelector]);
+        var containerElement = document.querySelector(_classPrivateFieldGet(_this, _focusContainerSelector));
         var containerActive = document.activeElement === containerElement;
 
-        var firstActive = document.activeElement === _classPrivateFieldLooseBase(_this, _focusableFirstChild)[_focusableFirstChild];
+        var firstActive = document.activeElement === _classPrivateFieldGet(_this, _focusableFirstChild);
 
-        var lastActive = document.activeElement === _classPrivateFieldLooseBase(_this, _focusableLastChild)[_focusableLastChild];
+        var lastActive = document.activeElement === _classPrivateFieldGet(_this, _focusableLastChild);
 
         var tabKey = event.which === KeyCodes.TAB;
         var shiftKey = event.which === KeyCodes.SHIFT || event.shiftKey;
@@ -106,20 +116,21 @@ var Utils = function () {
         if (shiftKey && tabKey && (firstActive || containerActive)) {
           event.preventDefault();
 
-          _classPrivateFieldLooseBase(_this, _focusableLastChild)[_focusableLastChild].focus();
+          _classPrivateFieldGet(_this, _focusableLastChild).focus();
         } else if (!shiftKey && tabKey && lastActive) {
           event.preventDefault();
 
-          _classPrivateFieldLooseBase(_this, _focusableFirstChild)[_focusableFirstChild].focus();
+          _classPrivateFieldGet(_this, _focusableFirstChild).focus();
         }
       }
     });
-    Object.defineProperty(this, _handleFocusTrapWithArrows, {
+
+    _handleFocusTrapWithArrows.set(this, {
       writable: true,
       value: function value(event) {
-        var firstActive = document.activeElement === _classPrivateFieldLooseBase(_this, _focusableFirstChild)[_focusableFirstChild];
+        var firstActive = document.activeElement === _classPrivateFieldGet(_this, _focusableFirstChild);
 
-        var lastActive = document.activeElement === _classPrivateFieldLooseBase(_this, _focusableLastChild)[_focusableLastChild];
+        var lastActive = document.activeElement === _classPrivateFieldGet(_this, _focusableLastChild);
 
         var arrowUp = event.which === KeyCodes.ARROW_UP;
         var arrowDown = event.which === KeyCodes.ARROW_DOWN;
@@ -128,64 +139,67 @@ var Utils = function () {
           event.preventDefault();
 
           if (firstActive && arrowUp) {
-            _classPrivateFieldLooseBase(_this, _focusableLastChild)[_focusableLastChild].focus();
+            _classPrivateFieldGet(_this, _focusableLastChild).focus();
           } else if (lastActive && arrowDown) {
-            _classPrivateFieldLooseBase(_this, _focusableFirstChild)[_focusableFirstChild].focus();
+            _classPrivateFieldGet(_this, _focusableFirstChild).focus();
           } else if (arrowDown) {
-            _classPrivateFieldLooseBase(_this, _focusNextChild)[_focusNextChild]();
+            _classPrivateMethodGet(_this, _focusNextChild, _focusNextChild2).call(_this);
           } else if (arrowUp) {
-            _classPrivateFieldLooseBase(_this, _focusLastChild)[_focusLastChild]();
+            _classPrivateMethodGet(_this, _focusLastChild, _focusLastChild2).call(_this);
           }
         }
       }
     });
-    Object.defineProperty(this, _focusNextChild, {
-      value: _focusNextChild2
-    });
-    Object.defineProperty(this, _focusLastChild, {
-      value: _focusLastChild2
-    });
+
+    _focusNextChild.add(this);
+
+    _focusLastChild.add(this);
   }
 
   _createClass(Utils, [{
     key: "captureFocus",
     value: function captureFocus(container, options) {
-      _classPrivateFieldLooseBase(this, _focusContainerSelector)[_focusContainerSelector] = container;
-      _classPrivateFieldLooseBase(this, _focusableChildren)[_focusableChildren] = this.getFocusableElements(_classPrivateFieldLooseBase(this, _focusContainerSelector)[_focusContainerSelector]);
-      _classPrivateFieldLooseBase(this, _focusableFirstChild)[_focusableFirstChild] = _classPrivateFieldLooseBase(this, _focusableChildren)[_focusableChildren][0];
-      _classPrivateFieldLooseBase(this, _focusableLastChild)[_focusableLastChild] = _classPrivateFieldLooseBase(this, _focusableChildren)[_focusableChildren][_classPrivateFieldLooseBase(this, _focusableChildren)[_focusableChildren].length - 1];
+      _classPrivateFieldSet(this, _focusContainerSelector, container);
+
+      _classPrivateFieldSet(this, _focusableChildren, this.getFocusableElements(_classPrivateFieldGet(this, _focusContainerSelector)));
+
+      _classPrivateFieldSet(this, _focusableFirstChild, _classPrivateFieldGet(this, _focusableChildren)[0]);
+
+      _classPrivateFieldSet(this, _focusableLastChild, _classPrivateFieldGet(this, _focusableChildren)[_classPrivateFieldGet(this, _focusableChildren).length - 1]);
 
       if (options) {
         if (options.useArrows) {
-          _classPrivateFieldLooseBase(this, _trapFocusWithArrows)[_trapFocusWithArrows] = options.useArrows || _classPrivateFieldLooseBase(this, _trapFocusWithArrows)[_trapFocusWithArrows];
-          document.addEventListener(Events.KEYDOWN, _classPrivateFieldLooseBase(this, _handleFocusTrapWithArrows)[_handleFocusTrapWithArrows]);
+          _classPrivateFieldSet(this, _trapFocusWithArrows, options.useArrows || _classPrivateFieldGet(this, _trapFocusWithArrows));
+
+          document.addEventListener(Events.KEYDOWN, _classPrivateFieldGet(this, _handleFocusTrapWithArrows));
         }
       } else {
-        document.addEventListener(Events.KEYDOWN, _classPrivateFieldLooseBase(this, _handleFocusTrapWithTab)[_handleFocusTrapWithTab]);
+        document.addEventListener(Events.KEYDOWN, _classPrivateFieldGet(this, _handleFocusTrapWithTab));
       }
     }
   }, {
     key: "releaseFocus",
     value: function releaseFocus() {
-      if (_classPrivateFieldLooseBase(this, _trapFocusWithArrows)[_trapFocusWithArrows]) {
-        document.removeEventListener(Events.KEYDOWN, _classPrivateFieldLooseBase(this, _handleFocusTrapWithArrows)[_handleFocusTrapWithArrows]);
-        _classPrivateFieldLooseBase(this, _trapFocusWithArrows)[_trapFocusWithArrows] = false;
+      if (_classPrivateFieldGet(this, _trapFocusWithArrows)) {
+        document.removeEventListener(Events.KEYDOWN, _classPrivateFieldGet(this, _handleFocusTrapWithArrows));
+
+        _classPrivateFieldSet(this, _trapFocusWithArrows, false);
       } else {
-        document.removeEventListener(Events.KEYDOWN, _classPrivateFieldLooseBase(this, _handleFocusTrapWithTab)[_handleFocusTrapWithTab]);
+        document.removeEventListener(Events.KEYDOWN, _classPrivateFieldGet(this, _handleFocusTrapWithTab));
       }
     }
   }, {
     key: "enableFocusOutline",
     value: function enableFocusOutline() {
-      document.addEventListener(Events.KEYDOWN, _classPrivateFieldLooseBase(this, _listenForKeyboard)[_listenForKeyboard]);
+      document.addEventListener(Events.KEYDOWN, _classPrivateFieldGet(this, _listenForKeyboard));
     }
   }, {
     key: "disableFocusOutline",
     value: function disableFocusOutline() {
-      if (_classPrivateFieldLooseBase(this, _listeningForKeydown)[_listeningForKeydown]) {
-        document.removeEventListener(Events.KEYDOWN, _classPrivateFieldLooseBase(this, _listenForKeyboard)[_listenForKeyboard]);
+      if (_classPrivateFieldGet(this, _listeningForKeydown)) {
+        document.removeEventListener(Events.KEYDOWN, _classPrivateFieldGet(this, _listenForKeyboard));
       } else {
-        document.removeEventListener(Events.CLICK, _classPrivateFieldLooseBase(this, _listenForClick)[_listenForClick]);
+        document.removeEventListener(Events.CLICK, _classPrivateFieldGet(this, _listenForClick));
       }
     }
   }, {
@@ -209,34 +223,34 @@ var Utils = function () {
 
 exports.default = Utils;
 
-var _focusContainerSelector = _classPrivateFieldLooseKey("focusContainerSelector");
+var _focusContainerSelector = new WeakMap();
 
-var _focusableChildren = _classPrivateFieldLooseKey("focusableChildren");
+var _focusableChildren = new WeakMap();
 
-var _focusableFirstChild = _classPrivateFieldLooseKey("focusableFirstChild");
+var _focusableFirstChild = new WeakMap();
 
-var _focusableLastChild = _classPrivateFieldLooseKey("focusableLastChild");
+var _focusableLastChild = new WeakMap();
 
-var _listeningForKeydown = _classPrivateFieldLooseKey("listeningForKeydown");
+var _listeningForKeydown = new WeakMap();
 
-var _trapFocusWithArrows = _classPrivateFieldLooseKey("trapFocusWithArrows");
+var _trapFocusWithArrows = new WeakMap();
 
-var _listenForKeyboard = _classPrivateFieldLooseKey("listenForKeyboard");
+var _listenForKeyboard = new WeakMap();
 
-var _listenForClick = _classPrivateFieldLooseKey("listenForClick");
+var _listenForClick = new WeakMap();
 
-var _handleFocusTrapWithTab = _classPrivateFieldLooseKey("handleFocusTrapWithTab");
+var _handleFocusTrapWithTab = new WeakMap();
 
-var _handleFocusTrapWithArrows = _classPrivateFieldLooseKey("handleFocusTrapWithArrows");
+var _handleFocusTrapWithArrows = new WeakMap();
 
-var _focusNextChild = _classPrivateFieldLooseKey("focusNextChild");
+var _focusNextChild = new WeakSet();
 
-var _focusLastChild = _classPrivateFieldLooseKey("focusLastChild");
+var _focusLastChild = new WeakSet();
 
 var _focusNextChild2 = function _focusNextChild2() {
-  for (var i = 0; i < _classPrivateFieldLooseBase(this, _focusableChildren)[_focusableChildren].length; i++) {
-    if (_classPrivateFieldLooseBase(this, _focusableChildren)[_focusableChildren][i] === document.activeElement) {
-      _classPrivateFieldLooseBase(this, _focusableChildren)[_focusableChildren][i + 1].focus();
+  for (var i = 0; i < _classPrivateFieldGet(this, _focusableChildren).length; i++) {
+    if (_classPrivateFieldGet(this, _focusableChildren)[i] === document.activeElement) {
+      _classPrivateFieldGet(this, _focusableChildren)[i + 1].focus();
 
       break;
     }
@@ -244,9 +258,9 @@ var _focusNextChild2 = function _focusNextChild2() {
 };
 
 var _focusLastChild2 = function _focusLastChild2() {
-  for (var i = 0; i < _classPrivateFieldLooseBase(this, _focusableChildren)[_focusableChildren].length; i++) {
-    if (_classPrivateFieldLooseBase(this, _focusableChildren)[_focusableChildren][i] === document.activeElement) {
-      _classPrivateFieldLooseBase(this, _focusableChildren)[_focusableChildren][i - 1].focus();
+  for (var i = 0; i < _classPrivateFieldGet(this, _focusableChildren).length; i++) {
+    if (_classPrivateFieldGet(this, _focusableChildren)[i] === document.activeElement) {
+      _classPrivateFieldGet(this, _focusableChildren)[i - 1].focus();
 
       break;
     }

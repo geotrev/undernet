@@ -10,10 +10,7 @@ function presets(dist) {
 }
 
 function plugins(options) {
-  let result = [
-    ["@babel/plugin-proposal-class-properties", { loose: true }],
-    ["@babel/plugin-proposal-private-methods", { loose: true }],
-  ]
+  let result = ["@babel/plugin-proposal-class-properties", "@babel/plugin-proposal-private-methods"]
 
   if (!options.dist) {
     result.push("@babel/plugin-syntax-dynamic-import", [

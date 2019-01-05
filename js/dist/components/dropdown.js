@@ -27,11 +27,11 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _classPrivateFieldLooseBase(receiver, privateKey) { if (!Object.prototype.hasOwnProperty.call(receiver, privateKey)) { throw new TypeError("attempted to use private field on non-instance"); } return receiver; }
+function _classPrivateMethodGet(receiver, privateSet, fn) { if (!privateSet.has(receiver)) { throw new TypeError("attempted to get private field on non-instance"); } return fn; }
 
-var id = 0;
+function _classPrivateFieldGet(receiver, privateMap) { if (!privateMap.has(receiver)) { throw new TypeError("attempted to get private field on non-instance"); } return privateMap.get(receiver).value; }
 
-function _classPrivateFieldLooseKey(name) { return "__private_" + id++ + "_" + name; }
+function _classPrivateFieldSet(receiver, privateMap, value) { if (!privateMap.has(receiver)) { throw new TypeError("attempted to set private field on non-instance"); } var descriptor = privateMap.get(receiver); if (!descriptor.writable) { throw new TypeError("attempted to set read only private field"); } descriptor.value = value; return value; }
 
 var KeyCodes = {
   TAB: 9,
@@ -75,98 +75,115 @@ var Dropdown = function (_Utils) {
     _classCallCheck(this, Dropdown);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Dropdown).call(this));
-    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton, {
+
+    _activeDropdownButton.set(_assertThisInitialized(_assertThisInitialized(_this)), {
       writable: true,
       value: null
     });
-    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdown, {
+
+    _activeDropdown.set(_assertThisInitialized(_assertThisInitialized(_this)), {
       writable: true,
       value: null
     });
-    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownMenu, {
+
+    _activeDropdownMenu.set(_assertThisInitialized(_assertThisInitialized(_this)), {
       writable: true,
       value: null
     });
-    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks, {
+
+    _activeDropdownLinks.set(_assertThisInitialized(_assertThisInitialized(_this)), {
       writable: true,
       value: []
     });
-    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _allowFocusReturn, {
+
+    _allowFocusReturn.set(_assertThisInitialized(_assertThisInitialized(_this)), {
       writable: true,
       value: true
     });
-    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownId, {
+
+    _activeDropdownId.set(_assertThisInitialized(_assertThisInitialized(_this)), {
       writable: true,
       value: ""
     });
-    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr, {
+
+    _activeDropdownAttr.set(_assertThisInitialized(_assertThisInitialized(_this)), {
       writable: true,
       value: ""
     });
-    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownMenuId, {
+
+    _activeDropdownMenuId.set(_assertThisInitialized(_assertThisInitialized(_this)), {
       writable: true,
       value: ""
     });
-    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _dropdownButtons, {
+
+    _dropdownButtons.set(_assertThisInitialized(_assertThisInitialized(_this)), {
       writable: true,
       value: []
     });
-    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _dropdowns, {
+
+    _dropdowns.set(_assertThisInitialized(_assertThisInitialized(_this)), {
       writable: true,
       value: []
     });
-    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _dropdownTargetAttr, {
+
+    _dropdownTargetAttr.set(_assertThisInitialized(_assertThisInitialized(_this)), {
       writable: true,
       value: "[".concat(Selectors.DATA_TARGET, "]")
     });
-    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _render, {
+
+    _render.set(_assertThisInitialized(_assertThisInitialized(_this)), {
       writable: true,
       value: function value(event, key) {
         if (!key) event.preventDefault();
         event.stopPropagation();
 
-        if (_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton)[_activeDropdownButton]) {
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _allowFocusReturn)[_allowFocusReturn] = false;
+        if (_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton)) {
+          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _allowFocusReturn, false);
 
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose)[_handleClose](event);
+          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose).call(_assertThisInitialized(_assertThisInitialized(_this)), event);
 
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _allowFocusReturn)[_allowFocusReturn] = true;
+          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _allowFocusReturn, true);
         }
 
-        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton)[_activeDropdownButton] = event.target;
+        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton, event.target);
 
-        if (!_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton)[_activeDropdownButton].getAttribute(Selectors.DATA_PARENT)) {
+        if (!_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton).getAttribute(Selectors.DATA_PARENT)) {
           return console.error(Messages.NO_PARENT_ERROR);
         }
 
-        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownId)[_activeDropdownId] = _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton)[_activeDropdownButton].getAttribute(Selectors.DATA_PARENT);
-        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr)[_activeDropdownAttr] = "[".concat(Selectors.DATA_DROPDOWN, "=\"").concat(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownId)[_activeDropdownId], "\"]");
+        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownId, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton).getAttribute(Selectors.DATA_PARENT));
 
-        if (!document.querySelector(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr)[_activeDropdownAttr])) {
-          return console.error(Messages.NO_DROPDOWN_ERROR(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr)[_activeDropdownAttr]));
+        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr, "[".concat(Selectors.DATA_DROPDOWN, "=\"").concat(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownId), "\"]"));
+
+        if (!document.querySelector(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr))) {
+          return console.error(Messages.NO_DROPDOWN_ERROR(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr)));
         }
 
-        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdown)[_activeDropdown] = document.querySelector(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr)[_activeDropdownAttr]);
-        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownMenuId)[_activeDropdownMenuId] = _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton)[_activeDropdownButton].getAttribute(Selectors.DATA_TARGET);
-        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownMenu)[_activeDropdownMenu] = document.getElementById(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownMenuId)[_activeDropdownMenuId]);
+        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdown, document.querySelector(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr)));
 
-        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton)[_activeDropdownButton].setAttribute(Selectors.ARIA_EXPANDED, "true");
+        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownMenuId, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton).getAttribute(Selectors.DATA_TARGET));
 
-        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdown)[_activeDropdown].setAttribute(Selectors.DATA_VISIBLE, "true");
+        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownMenu, document.getElementById(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownMenuId)));
 
-        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton)[_activeDropdownButton].removeEventListener(Events.CLICK, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _render)[_render]);
+        _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton).setAttribute(Selectors.ARIA_EXPANDED, "true");
 
-        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton)[_activeDropdownButton].addEventListener(Events.CLICK, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose)[_handleClose]);
+        _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdown).setAttribute(Selectors.DATA_VISIBLE, "true");
 
-        document.addEventListener(Events.KEYDOWN, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleEscapeKeyPress)[_handleEscapeKeyPress]);
-        document.addEventListener(Events.CLICK, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleOffMenuClick)[_handleOffMenuClick]);
-        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks)[_activeDropdownLinks] = _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _getDropdownLinks)[_getDropdownLinks](_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr)[_activeDropdownAttr]);
-        _this.firstDropdownLink = _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks)[_activeDropdownLinks][0];
-        _this.lastDropdownLink = _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks)[_activeDropdownLinks][_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks)[_activeDropdownLinks].length - 1];
+        _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton).removeEventListener(Events.CLICK, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _render));
 
-        _this.firstDropdownLink.addEventListener(Events.KEYDOWN, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleFirstTabClose)[_handleFirstTabClose]);
+        _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton).addEventListener(Events.CLICK, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose));
 
-        _this.lastDropdownLink.addEventListener(Events.KEYDOWN, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleLastTabClose)[_handleLastTabClose]);
+        document.addEventListener(Events.KEYDOWN, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleEscapeKeyPress));
+        document.addEventListener(Events.CLICK, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleOffMenuClick));
+
+        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks, _classPrivateMethodGet(_assertThisInitialized(_assertThisInitialized(_this)), _getDropdownLinks, _getDropdownLinks2).call(_assertThisInitialized(_assertThisInitialized(_this)), _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr)));
+
+        _this.firstDropdownLink = _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks)[0];
+        _this.lastDropdownLink = _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks)[_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks).length - 1];
+
+        _this.firstDropdownLink.addEventListener(Events.KEYDOWN, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleFirstTabClose));
+
+        _this.lastDropdownLink.addEventListener(Events.KEYDOWN, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleLastTabClose));
 
         if (key && key === KeyCodes.ARROW_UP) {
           _this.lastDropdownLink.focus();
@@ -174,99 +191,103 @@ var Dropdown = function (_Utils) {
           _this.firstDropdownLink.focus();
         }
 
-        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks)[_activeDropdownLinks].forEach(function (link) {
+        _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks).forEach(function (link) {
           link.setAttribute(Selectors.TABINDEX, "0");
-          link.addEventListener(Events.CLICK, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose)[_handleClose]);
+          link.addEventListener(Events.CLICK, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose));
         });
 
-        _this.captureFocus("".concat(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr)[_activeDropdownAttr], " > ul"), {
+        _this.captureFocus("".concat(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr), " > ul"), {
           useArrows: true
         });
       }
     });
-    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _handleFirstTabClose, {
+
+    _handleFirstTabClose.set(_assertThisInitialized(_assertThisInitialized(_this)), {
       writable: true,
       value: function value(event) {
         var shiftKey = event.which === KeyCodes.SHIFT || event.shiftKey;
         var tabKey = event.which === KeyCodes.TAB;
 
         if (shiftKey && tabKey) {
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose)[_handleClose](event);
+          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose).call(_assertThisInitialized(_assertThisInitialized(_this)), event);
         }
       }
     });
-    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _handleLastTabClose, {
+
+    _handleLastTabClose.set(_assertThisInitialized(_assertThisInitialized(_this)), {
       writable: true,
       value: function value(event) {
         var shiftKey = event.which === KeyCodes.SHIFT || event.shiftKey;
         var tabKey = event.which === KeyCodes.TAB;
 
         if (tabKey && !shiftKey) {
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose)[_handleClose](event);
+          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose).call(_assertThisInitialized(_assertThisInitialized(_this)), event);
         }
       }
     });
-    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _renderWithKeys, {
+
+    _renderWithKeys.set(_assertThisInitialized(_assertThisInitialized(_this)), {
       writable: true,
       value: function value(event) {
         if (event.which === KeyCodes.ARROW_UP || event.which === KeyCodes.ARROW_DOWN) {
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _render)[_render](event, event.which);
+          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _render).call(_assertThisInitialized(_assertThisInitialized(_this)), event, event.which);
         }
       }
     });
-    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose, {
+
+    _handleClose.set(_assertThisInitialized(_assertThisInitialized(_this)), {
       writable: true,
       value: function value(event) {
         event.preventDefault();
 
         _this.releaseFocus();
 
-        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton)[_activeDropdownButton].setAttribute(Selectors.ARIA_EXPANDED, "false");
+        _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton).setAttribute(Selectors.ARIA_EXPANDED, "false");
 
-        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdown)[_activeDropdown].setAttribute(Selectors.DATA_VISIBLE, "false");
+        _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdown).setAttribute(Selectors.DATA_VISIBLE, "false");
 
-        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks)[_activeDropdownLinks].forEach(function (link) {
+        _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks).forEach(function (link) {
           link.setAttribute(Selectors.TABINDEX, "-1");
-          link.removeEventListener(Events.CLICK, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose)[_handleClose]);
+          link.removeEventListener(Events.CLICK, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose));
         });
 
-        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton)[_activeDropdownButton].removeEventListener(Events.CLICK, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose)[_handleClose]);
+        _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton).removeEventListener(Events.CLICK, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose));
 
-        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton)[_activeDropdownButton].addEventListener(Events.CLICK, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _render)[_render]);
+        _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton).addEventListener(Events.CLICK, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _render));
 
-        document.removeEventListener(Events.KEYDOWN, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleEscapeKeyPress)[_handleEscapeKeyPress]);
-        document.removeEventListener(Events.CLICK, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleOffMenuClick)[_handleOffMenuClick]);
+        document.removeEventListener(Events.KEYDOWN, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleEscapeKeyPress));
+        document.removeEventListener(Events.CLICK, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleOffMenuClick));
 
-        if (_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _allowFocusReturn)[_allowFocusReturn]) {
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleReturnFocus)[_handleReturnFocus]();
+        if (_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _allowFocusReturn)) {
+          _classPrivateMethodGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleReturnFocus, _handleReturnFocus2).call(_assertThisInitialized(_assertThisInitialized(_this)));
         }
       }
     });
-    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _handleEscapeKeyPress, {
+
+    _handleEscapeKeyPress.set(_assertThisInitialized(_assertThisInitialized(_this)), {
       writable: true,
       value: function value(event) {
         if (event.which === KeyCodes.ESCAPE) {
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose)[_handleClose](event);
+          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose).call(_assertThisInitialized(_assertThisInitialized(_this)), event);
         }
       }
     });
-    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _handleOffMenuClick, {
+
+    _handleOffMenuClick.set(_assertThisInitialized(_assertThisInitialized(_this)), {
       writable: true,
       value: function value(event) {
-        if (event.target !== _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton)[_activeDropdownButton] && event.target !== _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownMenu)[_activeDropdownMenu]) {
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose)[_handleClose](event);
+        if (event.target !== _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton) && event.target !== _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownMenu)) {
+          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose).call(_assertThisInitialized(_assertThisInitialized(_this)), event);
         }
       }
     });
-    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _handleReturnFocus, {
-      value: _handleReturnFocus2
-    });
-    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _getDropdownLinks, {
-      value: _getDropdownLinks2
-    });
-    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _setupDropdown, {
-      value: _setupDropdown2
-    });
+
+    _handleReturnFocus.add(_assertThisInitialized(_assertThisInitialized(_this)));
+
+    _getDropdownLinks.add(_assertThisInitialized(_assertThisInitialized(_this)));
+
+    _setupDropdown.add(_assertThisInitialized(_assertThisInitialized(_this)));
+
     return _this;
   }
 
@@ -275,18 +296,19 @@ var Dropdown = function (_Utils) {
     value: function start() {
       var _this2 = this;
 
-      _classPrivateFieldLooseBase(this, _dropdowns)[_dropdowns] = this.getElements("[".concat(Selectors.DATA_DROPDOWN, "]"));
-      _classPrivateFieldLooseBase(this, _dropdownButtons)[_dropdownButtons] = this.getElements("[".concat(Selectors.DATA_DROPDOWN, "] > ").concat(_classPrivateFieldLooseBase(this, _dropdownTargetAttr)[_dropdownTargetAttr]));
+      _classPrivateFieldSet(this, _dropdowns, this.getElements("[".concat(Selectors.DATA_DROPDOWN, "]")));
 
-      if (_classPrivateFieldLooseBase(this, _dropdowns)[_dropdowns].length) {
-        _classPrivateFieldLooseBase(this, _dropdowns)[_dropdowns].forEach(function (dropdown) {
-          return _classPrivateFieldLooseBase(_this2, _setupDropdown)[_setupDropdown](dropdown);
+      _classPrivateFieldSet(this, _dropdownButtons, this.getElements("[".concat(Selectors.DATA_DROPDOWN, "] > ").concat(_classPrivateFieldGet(this, _dropdownTargetAttr))));
+
+      if (_classPrivateFieldGet(this, _dropdowns).length) {
+        _classPrivateFieldGet(this, _dropdowns).forEach(function (dropdown) {
+          return _classPrivateMethodGet(_this2, _setupDropdown, _setupDropdown2).call(_this2, dropdown);
         });
       }
 
-      _classPrivateFieldLooseBase(this, _dropdownButtons)[_dropdownButtons].forEach(function (button) {
-        button.addEventListener(Events.CLICK, _classPrivateFieldLooseBase(_this2, _render)[_render]);
-        button.addEventListener(Events.KEYDOWN, _classPrivateFieldLooseBase(_this2, _renderWithKeys)[_renderWithKeys]);
+      _classPrivateFieldGet(this, _dropdownButtons).forEach(function (button) {
+        button.addEventListener(Events.CLICK, _classPrivateFieldGet(_this2, _render));
+        button.addEventListener(Events.KEYDOWN, _classPrivateFieldGet(_this2, _renderWithKeys));
       });
     }
   }, {
@@ -294,9 +316,9 @@ var Dropdown = function (_Utils) {
     value: function stop() {
       var _this3 = this;
 
-      _classPrivateFieldLooseBase(this, _dropdownButtons)[_dropdownButtons].forEach(function (button) {
-        button.removeEventListener(Events.CLICK, _classPrivateFieldLooseBase(_this3, _render)[_render]);
-        button.removeEventListener(Events.KEYDOWN, _classPrivateFieldLooseBase(_this3, _renderWithKeys)[_renderWithKeys]);
+      _classPrivateFieldGet(this, _dropdownButtons).forEach(function (button) {
+        button.removeEventListener(Events.CLICK, _classPrivateFieldGet(_this3, _render));
+        button.removeEventListener(Events.KEYDOWN, _classPrivateFieldGet(_this3, _renderWithKeys));
       });
     }
   }]);
@@ -306,54 +328,54 @@ var Dropdown = function (_Utils) {
 
 exports.default = Dropdown;
 
-var _activeDropdownButton = _classPrivateFieldLooseKey("activeDropdownButton");
+var _activeDropdownButton = new WeakMap();
 
-var _activeDropdown = _classPrivateFieldLooseKey("activeDropdown");
+var _activeDropdown = new WeakMap();
 
-var _activeDropdownMenu = _classPrivateFieldLooseKey("activeDropdownMenu");
+var _activeDropdownMenu = new WeakMap();
 
-var _activeDropdownLinks = _classPrivateFieldLooseKey("activeDropdownLinks");
+var _activeDropdownLinks = new WeakMap();
 
-var _allowFocusReturn = _classPrivateFieldLooseKey("allowFocusReturn");
+var _allowFocusReturn = new WeakMap();
 
-var _activeDropdownId = _classPrivateFieldLooseKey("activeDropdownId");
+var _activeDropdownId = new WeakMap();
 
-var _activeDropdownAttr = _classPrivateFieldLooseKey("activeDropdownAttr");
+var _activeDropdownAttr = new WeakMap();
 
-var _activeDropdownMenuId = _classPrivateFieldLooseKey("activeDropdownMenuId");
+var _activeDropdownMenuId = new WeakMap();
 
-var _dropdownButtons = _classPrivateFieldLooseKey("dropdownButtons");
+var _dropdownButtons = new WeakMap();
 
-var _dropdowns = _classPrivateFieldLooseKey("dropdowns");
+var _dropdowns = new WeakMap();
 
-var _dropdownTargetAttr = _classPrivateFieldLooseKey("dropdownTargetAttr");
+var _dropdownTargetAttr = new WeakMap();
 
-var _render = _classPrivateFieldLooseKey("render");
+var _render = new WeakMap();
 
-var _handleFirstTabClose = _classPrivateFieldLooseKey("handleFirstTabClose");
+var _handleFirstTabClose = new WeakMap();
 
-var _handleLastTabClose = _classPrivateFieldLooseKey("handleLastTabClose");
+var _handleLastTabClose = new WeakMap();
 
-var _renderWithKeys = _classPrivateFieldLooseKey("renderWithKeys");
+var _renderWithKeys = new WeakMap();
 
-var _handleClose = _classPrivateFieldLooseKey("handleClose");
+var _handleClose = new WeakMap();
 
-var _handleEscapeKeyPress = _classPrivateFieldLooseKey("handleEscapeKeyPress");
+var _handleEscapeKeyPress = new WeakMap();
 
-var _handleOffMenuClick = _classPrivateFieldLooseKey("handleOffMenuClick");
+var _handleOffMenuClick = new WeakMap();
 
-var _handleReturnFocus = _classPrivateFieldLooseKey("handleReturnFocus");
+var _handleReturnFocus = new WeakSet();
 
-var _getDropdownLinks = _classPrivateFieldLooseKey("getDropdownLinks");
+var _getDropdownLinks = new WeakSet();
 
-var _setupDropdown = _classPrivateFieldLooseKey("setupDropdown");
+var _setupDropdown = new WeakSet();
 
 var _handleReturnFocus2 = function _handleReturnFocus2() {
-  _classPrivateFieldLooseBase(this, _activeDropdownButton)[_activeDropdownButton].setAttribute(Selectors.TAB_INDEX, "-1");
+  _classPrivateFieldGet(this, _activeDropdownButton).setAttribute(Selectors.TAB_INDEX, "-1");
 
-  _classPrivateFieldLooseBase(this, _activeDropdownButton)[_activeDropdownButton].focus();
+  _classPrivateFieldGet(this, _activeDropdownButton).focus();
 
-  _classPrivateFieldLooseBase(this, _activeDropdownButton)[_activeDropdownButton].removeAttribute(Selectors.TAB_INDEX);
+  _classPrivateFieldGet(this, _activeDropdownButton).removeAttribute(Selectors.TAB_INDEX);
 };
 
 var _getDropdownLinks2 = function _getDropdownLinks2(attr) {
@@ -370,7 +392,7 @@ var _setupDropdown2 = function _setupDropdown2(dropdown) {
   }
 
   var dropdownMenu = document.querySelector("".concat(dropdownIdAttr, " > ul"));
-  var dropdownButton = document.querySelector("".concat(dropdownIdAttr, " > ").concat(_classPrivateFieldLooseBase(this, _dropdownTargetAttr)[_dropdownTargetAttr]));
+  var dropdownButton = document.querySelector("".concat(dropdownIdAttr, " > ").concat(_classPrivateFieldGet(this, _dropdownTargetAttr)));
   dropdownButton.setAttribute(Selectors.ARIA_CONTROLS, dropdownMenu.id);
   dropdownButton.setAttribute(Selectors.ARIA_HASPOPUP, "true");
   dropdownButton.setAttribute(Selectors.ARIA_EXPANDED, "false");
@@ -380,7 +402,7 @@ var _setupDropdown2 = function _setupDropdown2(dropdown) {
     return item.setAttribute(Selectors.ROLE, "none");
   });
 
-  _classPrivateFieldLooseBase(this, _getDropdownLinks)[_getDropdownLinks](dropdownIdAttr).forEach(function (link) {
+  _classPrivateMethodGet(this, _getDropdownLinks, _getDropdownLinks2).call(this, dropdownIdAttr).forEach(function (link) {
     link.setAttribute(Selectors.ROLE, "menuitem");
     link.setAttribute(Selectors.TABINDEX, "-1");
   });
