@@ -35,6 +35,7 @@ Check out this example modal:
 ```html
 <button href="#" data-modal-button data-target="new-modal">Open modal</button>
 ```
+
 ```html
 <div class="modal-overlay" data-modal-id="new-modal">
   <div class="modal-dialog" data-parent="new-modal" aria-labelledby="header-id" data-modal>
@@ -127,6 +128,7 @@ Adding the `is-centered` class onto the modal overlay will vertically center the
 ```html
 <button href="#" data-modal-button data-target="new-modal-2">Open centered modal</button>
 ```
+
 ```html
 <div class="modal-overlay is-centered" data-modal-id="new-modal-2">
   <div class="modal-dialog" data-parent="new-modal-2" aria-labelledby="header-id-2" data-modal>
@@ -211,6 +213,7 @@ Call one of the following scripts from Undernet's JavaScript (not both!). This s
 ```js
 Undernet.start()
 ```
+
 ```js
 Undernet.Modals.start()
 ```

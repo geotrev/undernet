@@ -32,21 +32,9 @@ Undernet has an opinionated format for using labels, which is to keep your label
 
 The third, and possibly most important reason, is for accessibility. Although it isn't technically required to keep this information in the label tag, it gives an extra boost in click area.
 
-<label for="example-name-2">
-  Name
-  <input id="example-name-2" type="text" value="" placeholder="Dr. Thomas Light" />
-</label>
-
-```html
-<label for="example-name-2">
-  Name
-  <input id="example-name-2" type="text" value="" placeholder="Dr. Thomas Light" />
-</label>
-```
-
 ## Checkbox & Radio
 
-Checkboxes and radios are inconsistent across browsers, so Undernet has a needed modifier class which you can attach to your input's label tag. The result is a consistently spaced and arranged input that uses the browsers default styling.
+Checkboxes and radios are inconsistent across browsers, so Undernet has a needed modifier class which you can attach to your input's label tag. The result is a consistently spaced and arranged input that uses the browser's default styling.
 
 <label for="radio-example" class="has-check">
   <input id="radio-example" type="radio" /> Radio Input
@@ -152,7 +140,6 @@ The `disabled` class will visually dim the control, but not disable it functiona
 <label for="disabled-checkbox" class="has-check">
   <input id="disabled-checkbox" disabled type="checkbox" /> Disabled Checkbox Input
 </label>
-
 
 ```html
 <button disabled>Disabled Button</button>

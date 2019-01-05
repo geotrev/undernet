@@ -13,7 +13,9 @@ To have content available in the DOM that isn't visible to sighted users, add th
 </button>
 ```
 
-To sighted users, the this "Download" label has context to the surrounding page. With this hidden text, there is added context describing what the download is for, specifically.
+To sighted users, the "Download" label has context from the surrounding content.
+
+With hidden text, there is added context describing what the download is for, specifically to non-sighted and/or keyboard users.
 
 [Learn more about visibility utilities.](/docs/utilities/display)
 
@@ -51,7 +53,7 @@ To disable it, use the following:
 Undernet.Utils.disableFocusOutline()
 ```
 
-*NOTE: If you use `Undernet.start()` on any page, this utility is enabled by default.*
+_NOTE: If you use `Undernet.start()` on any page, this utility is enabled by default._
 
 The way the outline helper works is relatively straightforward. If you start to navigate (using tab or tab+shift keys), a class (`using-keyboard`) is added to the `<body>`. As a result, when focus is on certain elements (anchors, buttons, anything with a valid `tabindex` value, to name a few), they will get a bright outline around them. When you start to use your mouse again (by clicking anywhere on the page), the outline goes away.
 

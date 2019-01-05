@@ -7,11 +7,11 @@ Grab whichever source code best suits your project. Learn how to link your scrip
 The quickest way to use Undernet is to link the bundled js and minified css using a CDN, such as [jsdelivr](https://jsdelivr.com).
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/undernet@3.1.2/dist/undernet.min.css" integrity="sha256-K3j6G+Ci2kirkIASZs0//gaHdWY56dK3GHQR0oII6KI=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/undernet@3.1.3/dist/undernet.min.css" integrity="sha256-WZw0OFyjMnh8vR2D4DvSj08CppbVaGp0QF5ksQEKAsM=" crossorigin="anonymous">
 ```
 
 ```html
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/undernet@3.1.2/dist/undernet.bundle.min.js" integrity="sha256-fyQU0ApUKVNmc01prXcm061vzS40BOam4//WYAhWrmY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/undernet@3.1.3/dist/undernet.bundle.min.js" integrity="sha256-VLvc0wO2OS0ZRD/dBCflvfkJ5VktaEyFB/r3CGLYeec=" crossorigin="anonymous"></script>
 <script type="text/javascript">
   document.addEventListener('DOMContentLoaded', Undernet.start())
 </script>
@@ -36,11 +36,11 @@ Going this route allows for far more customization, but do so at your own risk. 
 You can also install with npm or yarn. See the [JavaScript](/docs/overview/javascript) article for more details.
 
 ```sh
-$ npm install undernet
+$ npm install -D undernet
 ```
 
 ```sh
-$ yarn add undernet
+$ yarn add -D undernet
 ```
 
 And then import as you would normally:
@@ -48,8 +48,8 @@ And then import as you would normally:
 ```js
 // import all of Undernet
 import Undernet from "undernet"
-// or only grab a single component
-import Modal from "undernet/js/dist/components/modal"
+// or only grab a single component - great for tree shaking unneeded components
+import { Modal } from "undernet"
 ```
 
 <p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/download.md">Edit this page on Github!</a></p>

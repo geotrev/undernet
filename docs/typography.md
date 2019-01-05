@@ -2,7 +2,7 @@
 
 Typography in Undernet makes up for a large chunk of the customization options. Headers and many of the individual paragraph and inline text tags are modifiable.
 
-Undernet also comes with each text style in class form, so if you need a header styled as with paragraph formatting, you can simply use the `paragraph` class.
+Undernet also comes with each text style in class form, so if you need a header styled as a paragraph, you can simply use the `paragraph` class.
 
 ## Headers
 
