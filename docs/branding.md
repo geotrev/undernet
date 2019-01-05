@@ -6,7 +6,7 @@ To get a sense of what you have the easiest control over, reference the `_config
 
 ## SCSS
 
-You can build your CSS from SCSS using the [`node-sass` npm package](https://npmjs.org/package/node-sass), or whichever build tool your project already uses. The below example uses `node-sass`.
+You can build your CSS from SCSS using the [`node-sass` npm package](https://npmjs.org/package/node-sass), or whichever build tool your project already uses.
 
 ```sh
 $ cd yourProjectFolder/
@@ -28,7 +28,7 @@ Then link to the css in your stylesheet.
 <html>
   <head>
     ...
-    <link rel="styleseet" ref="css/undernet.css" />
+    <link rel="stylesheet" ref="css/undernet.css" />
   </head>
   <body>
     ...
@@ -36,11 +36,11 @@ Then link to the css in your stylesheet.
 </html>
 ```
 
-## NPM and Webpack
+## NPM
 
-If you use these tools, extending Undernet requires a bit of setup. It also assumes you're using a [webpack config](https://github.com/webpack-contrib/sass-loader) that can parse scss.
+If you use these tools, extending Undernet requires a bit of setup. It also assumes you also have a SCSS compiler set up (node-sass, sass gem, etc).
 
-First, import in a new global SCSS file the functions, config vars, and mixins.
+First, import in a new global SCSS file: 1) functions, 2) default config, and 3) mixins.
 
 You can import this file in other stylesheets to get access to the mixin and variable definitions while not risking duplication of class definitions.
 
@@ -87,13 +87,11 @@ Finally, import `undernet.scss` in your global stylesheet.
 @import "path/to/undernet";
 ```
 
-... or link to it in your layout.
+... or link to the _compiled_ CSS in your layout.
 
 ```html
-<link rel="stylesheet" ref="path/to/your/styles.css" />
+<link rel="stylesheet" ref="path/to/undernet.css" />
 ```
-
-_NOTE:_ Webpack should handle this for it if you're using [HtmlWebpackPlugin](https://github.com/jantimon/html-webpack-plugin) as part of your bundle plugins.
 
 With that, you should be good to go!
 

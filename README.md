@@ -4,7 +4,7 @@
 
 # Undernet
 
-A modular front-end component library for modern web development.
+A modular, configuration-first front-end framework. No strings.
 
 The framework features:
 

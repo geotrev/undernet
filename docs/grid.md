@@ -10,7 +10,7 @@ An important part of Undernet's grid is it allows you to customize the class nam
 $grid-classes: (
   grid: "grid",
   row: "row",
-  column: "column"
+  column: "column",
 ) !default;
 ```
 
@@ -114,7 +114,7 @@ Like other grid systems, layouts are defined with rows and columns.
 
 Rows have no padding or margin, and automatically fill the width of their parent (usually a grid, but not a requirement). Columns, by default, have left, right, and bottom padding.
 
-*NOTE: columns must be inside a row, or a parent that has `display: flex`.*
+_NOTE: columns must be inside a row, or a parent that has `display: flex`._
 
 ### Multiple Columns
 
@@ -122,10 +122,10 @@ If you add a column element inside a row, they stack next to each other with equ
 
 <div class="grid filler-bg">
   <div class="row">
-    <div class="columns has-no-padding-bottom has-no-padding-left">
+    <div class="column has-no-padding-bottom has-no-padding-left">
       <p class="filler has-padding">.column</p>
     </div>
-    <div class="columns has-no-padding-bottom has-no-padding-right">
+    <div class="column has-no-padding-bottom has-no-padding-right">
       <p class="filler has-padding">.column</p>
     </div>
   </div>
@@ -155,7 +155,7 @@ Add more rows within your columns for more advanced layouts. Just make sure the 
         <div class="column filler has-padding">
           <p class="has-white-text">.column</p>
           <div class="row filler-bg">
-            <div class="xsmall-12 columns has-black-text">
+            <div class="xsmall-12 column has-black-text">
               .row
             </div>
             <div class="column">
@@ -174,12 +174,12 @@ Add more rows within your columns for more advanced layouts. Just make sure the 
 ```html
 <div class="grid">
   <div class="row">
-    <div class="columns">
+    <div class="column">
       <div class="row">
-        <div class="columns">
+        <div class="column">
           .column
         </div>
-        <div class="columns">
+        <div class="column">
           .column
         </div>
       </div>
@@ -202,10 +202,10 @@ Undernet comes with helpful breakpoint classes to define how columns should beha
             <div class="xsmall-12 columns has-black-text">
               .row
             </div>
-            <div class="xsmall-12 large-6 column">
+            <div class="xsmall-12 large-6 columns">
               <p class="has-no-margin filler has-padding">.xsmall-12.large-6.columns</p>
             </div>
-            <div class="xsmall-12 large-6 column">
+            <div class="xsmall-12 large-6 columns">
               <p class="has-no-margin filler has-padding">.xsmall-12.large-6.columns</p>
             </div>
           </div>
@@ -235,7 +235,7 @@ Undernet comes with helpful breakpoint classes to define how columns should beha
         </div>
       </div>
     </div>
-    <div class="xsmall-12 large-4 columns">
+    <div class="xsmall-12 large-4 column">
       .xsmall-12.large-4.column
     </div>
   </div>
@@ -250,7 +250,7 @@ $breakpoints: (
   small: 576px,
   medium: 768px,
   large: 992px,
-  xlarge: 1200px
+  xlarge: 1200px,
 ) !default;
 ```
 
@@ -285,7 +285,7 @@ Create a grid that always takes up the full width and height of your device/brow
 ```html
 <div class="fullscreen grid">
   <div class="row">
-    <div class="columns">
+    <div class="column">
       <p>I’m huge, woohoo!</p>
     </div>
   </div>
@@ -299,7 +299,7 @@ By default, a row will be vertically centered. To make the row top-aligned, add 
 ```html
 <div class="fullscreen grid">
   <div class="row is-aligned-top has-content-top">
-    <div class="columns">
+    <div class="column">
       <p>I’m at the top.</p>
     </div>
   </div>
@@ -311,7 +311,7 @@ By default, a row will be vertically centered. To make the row top-aligned, add 
 ```html
 <div class="fullscreen grid">
   <div class="row is-aligned-bottom has-content-bottom">
-    <div class="columns">
+    <div class="column">
       <p>I’m at the bottom.</p>
     </div>
   </div>

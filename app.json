@@ -1,6 +1,6 @@
 {
   "name": "undernet",
-  "description": "Configuration-first, front-end framework for web projects.",
+  "description": "A modular, configuration-first front-end framework. No strings.",
   "repository": "https://github.com/geotrev/undernet",
   "scripts": {
   },

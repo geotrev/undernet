@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /*!
 * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
-* Undernet v3.1.2 (https://undernet.io)
+* Undernet v3.1.3 (https://undernet.io)
 * Copyright 2017-2018 George Treviranus
 */
 html,
@@ -2096,12 +2096,7 @@ textarea {
           background: #f8f8f8; }
         .dropdown .dropdown-menu li a:active {
           background: #f2f2f2; }
-      .dropdown .dropdown-menu li.dropdown-header h1,
-      .dropdown .dropdown-menu li.dropdown-header h2,
-      .dropdown .dropdown-menu li.dropdown-header h3,
-      .dropdown .dropdown-menu li.dropdown-header h4,
-      .dropdown .dropdown-menu li.dropdown-header h5,
-      .dropdown .dropdown-menu li.dropdown-header h6 {
+      .dropdown .dropdown-menu li .dropdown-header {
         font-size: 14px;
         margin: 0;
         padding: 12px;

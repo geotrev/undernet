@@ -46,7 +46,7 @@ Undernet.Modals.start()
 
 ### Customizing Component Imports
 
-You may not want to include _every single_ component in your project. For example, let's say you only need the [Modal](/docs/components/modals) component. Grab component you need directly through destructured imports.
+You may not want to include _every single_ component in your project. For example, let's say you only need the [Modal](/docs/components/modals) component. Import the component directly as a named import.
 
 ```js
 import { Modals } from "undernet"

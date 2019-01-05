@@ -60,9 +60,7 @@ Dropdowns align to the left of their respective button by default, but you can l
 <div data-dropdown="dropdown5" class="dropdown">
   <button id="dropdown-button5" data-parent="dropdown5" data-target="new-dropdown5">Open Dropdown</button>
   <ul id="new-dropdown5" class="dropdown-menu is-aligned-right">
-    <li class="dropdown-header">
-      <h6>Aligned right!</h6>
-    </li>
+    <li><h6 class="dropdown-header">Aligned right!</h6></li>
     <li><a href="#">Item 1</a></li>
     <li><a href="#">Item 2</a></li>
   </ul>
@@ -72,9 +70,7 @@ Dropdowns align to the left of their respective button by default, but you can l
 <div data-dropdown="dropdown5" class="dropdown">
   <button id="dropdown-button5" data-parent="dropdown5" data-target="new-dropdown5">Open Right-Aligned Dropdown</button>
   <ul id="new-dropdown5" class="dropdown-menu is-aligned-right">
-    <li class="dropdown-header">
-      <h6>Aligned right!</h6>
-    </li>
+    <li><h6 class="dropdown-header">Aligned right!</h6></li>
     <li><a href="#">Item 1</a></li>
     <li><a href="#">Item 2</a></li>
   </ul>
@@ -155,14 +151,10 @@ You can add any level of header to a dropdown menu.
 <div data-dropdown="dropdown7" class="dropdown">
   <button id="dropdown-button7" data-parent="dropdown7" data-target="new-dropdown7">Open Dropdown</button>
   <ul id="new-dropdown7" class="dropdown-menu">
-    <li class="dropdown-header">
-      <h3>Menu Header (h3)</h3>
-    </li>
+    <li><h3 class="dropdown-header">Menu Header (h3)</h3></li>
     <li><a href="#">Item 1</a></li>
     <li><a href="#">Item 2</a></li>
-    <li class="dropdown-header">
-      <h5>Menu Header (h5)</h5>
-    </li>
+    <li><h5 class="dropdown-header">Menu Header (h5)</h5></li>
     <li><a href="#">Item 3</a></li>
   </ul>
 </div>
@@ -171,14 +163,10 @@ You can add any level of header to a dropdown menu.
 <div data-dropdown="dropdown7" class="dropdown">
   <button id="dropdown-button7" data-parent="dropdown7" data-target="new-dropdown7">Open Dropdown</button>
   <ul id="new-dropdown7" class="dropdown-menu">
-    <li class="dropdown-header">
-      <h3>Menu Header (h3)</h3>
-    </li>
+    <li><h3 class="dropdown-header">Menu Header (h3)</h3></li>
     <li><a href="#">Item 1</a></li>
     <li><a href="#">Item 2</a></li>
-    <li class="dropdown-header">
-      <h5>Menu Header (h5)</h5>
-    </li>
+    <li><h5 class="dropdown-header">Menu Header (h5)</h5></li>
     <li><a href="#">Item 3</a></li>
   </ul>
 </div>
@@ -258,7 +246,7 @@ The menu itself only needs one attribute.
 </div>
 ```
 
-- `id`: a unique id containing the value of the dropdown button's `data-target` attribute. 
+- `id`: a unique id containing the value of the dropdown button's `data-target` attribute.
 
 #### Accessibility
 
@@ -290,6 +278,7 @@ Call one of the following scripts from Undernet's JavaScript (not both!). This s
 ```js
 Undernet.start()
 ```
+
 ```js
 Undernet.Dropdowns.start()
 ```

@@ -1,17 +1,17 @@
 .DS_store
 npm-error.log*
 
-/build/
-/.nyc_output/
-
 .ruby-version
 .sass-cache
 
+/build/
 /src/
 /public/
-/undernet.wiki/
+/docs/
 /config/
+/scripts/
 /.circleci/
+/.nyc_output/
 
 /dist/undernet.css.zip
 /dist/undernet.js.zip

@@ -183,10 +183,10 @@ When making an accordion, there are two major considerations in its structure: t
 
 A few key attributes are added for you when the accordion is instantiated. These help assistive technologies know how to treat and navigate through the component.
 
-- `aria-labelledby`: an attribute on an accordion row's content block. It should have the same value as the `id` attribute on the accordion header tag.
-- `aria-controls`: An attribute added to an accordion row's button, telling assistive technologies which exist element is controlled by the button.
-- `aria-expanded`: An attribute added to an accordion row's button, telling assistive technologies if the row's content is visible.
-- `aria-hidden`: An attribute added to the accordion row's content block, telling assistive technologies that the element can be ignored if it's set to `true` (content block is hidden).
+- `aria-labelledby`: an attribute added to an accordion row's content block, telling assistive technologies the content is associated with its corresponding button.
+- `aria-controls`: an attribute added to an accordion row's button, telling assistive technologies which content block corresponds to it.
+- `aria-expanded`: an attribute added to an accordion row's button, telling assistive technologies if the row's content is visible.
+- `aria-hidden`: an attribute added to the accordion row's content block, telling assistive technologies that the element can be ignored if it's set to `true`.
 
 [See WAI-ARIA documentation](https://www.w3.org/TR/wai-aria-practices-1.1/examples/accordion/accordion.html) on best-practices for the accordion UI pattern.
 
