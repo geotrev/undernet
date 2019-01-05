@@ -1,6 +1,6 @@
 /*!
   * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
-  * Undernet v3.1.4 (https://undernet.io)
+  * Undernet v3.1.5 (https://undernet.io)
   * Copyright 2017-2019 George Treviranus
   */
 (function (global, factory) {
@@ -78,18 +78,35 @@
     return _assertThisInitialized(self);
   }
 
-  var id = 0;
-
-  function _classPrivateFieldLooseKey(name) {
-    return "__private_" + id++ + "_" + name;
-  }
-
-  function _classPrivateFieldLooseBase(receiver, privateKey) {
-    if (!Object.prototype.hasOwnProperty.call(receiver, privateKey)) {
-      throw new TypeError("attempted to use private field on non-instance");
+  function _classPrivateFieldGet(receiver, privateMap) {
+    if (!privateMap.has(receiver)) {
+      throw new TypeError("attempted to get private field on non-instance");
     }
 
-    return receiver;
+    return privateMap.get(receiver).value;
+  }
+
+  function _classPrivateFieldSet(receiver, privateMap, value) {
+    if (!privateMap.has(receiver)) {
+      throw new TypeError("attempted to set private field on non-instance");
+    }
+
+    var descriptor = privateMap.get(receiver);
+
+    if (!descriptor.writable) {
+      throw new TypeError("attempted to set read only private field");
+    }
+
+    descriptor.value = value;
+    return value;
+  }
+
+  function _classPrivateMethodGet(receiver, privateSet, fn) {
+    if (!privateSet.has(receiver)) {
+      throw new TypeError("attempted to get private field on non-instance");
+    }
+
+    return fn;
   }
 
   var KeyCodes = {
@@ -114,31 +131,37 @@
 
       _classCallCheck(this, Utils);
 
-      Object.defineProperty(this, _focusContainerSelector, {
+      _focusContainerSelector.set(this, {
         writable: true,
         value: ""
       });
-      Object.defineProperty(this, _focusableChildren, {
+
+      _focusableChildren.set(this, {
         writable: true,
         value: []
       });
-      Object.defineProperty(this, _focusableFirstChild, {
+
+      _focusableFirstChild.set(this, {
         writable: true,
         value: {}
       });
-      Object.defineProperty(this, _focusableLastChild, {
+
+      _focusableLastChild.set(this, {
         writable: true,
         value: {}
       });
-      Object.defineProperty(this, _listeningForKeydown, {
+
+      _listeningForKeydown.set(this, {
         writable: true,
         value: false
       });
-      Object.defineProperty(this, _trapFocusWithArrows, {
+
+      _trapFocusWithArrows.set(this, {
         writable: true,
         value: false
       });
-      Object.defineProperty(this, _listenForKeyboard, {
+
+      _listenForKeyboard.set(this, {
         writable: true,
         value: function value(event) {
           var tabKey = event.which === KeyCodes.TAB;
@@ -148,30 +171,34 @@
 
           if (tabKey || shiftKey || arrowUp || arrowDown) {
             document.body.classList.add(Selectors.KEYBOARD_CLASS);
-            document.removeEventListener(Events.KEYDOWN, _classPrivateFieldLooseBase(_this, _listenForKeyboard)[_listenForKeyboard]);
-            document.addEventListener(Events.CLICK, _classPrivateFieldLooseBase(_this, _listenForClick)[_listenForClick]);
-            _classPrivateFieldLooseBase(_this, _listeningForKeydown)[_listeningForKeydown] = false;
+            document.removeEventListener(Events.KEYDOWN, _classPrivateFieldGet(_this, _listenForKeyboard));
+            document.addEventListener(Events.CLICK, _classPrivateFieldGet(_this, _listenForClick));
+
+            _classPrivateFieldSet(_this, _listeningForKeydown, false);
           }
         }
       });
-      Object.defineProperty(this, _listenForClick, {
+
+      _listenForClick.set(this, {
         writable: true,
         value: function value(event) {
           document.body.classList.remove(Selectors.KEYBOARD_CLASS);
-          document.removeEventListener(Events.CLICK, _classPrivateFieldLooseBase(_this, _listenForClick)[_listenForClick]);
-          document.addEventListener(Events.KEYDOWN, _classPrivateFieldLooseBase(_this, _listenForKeyboard)[_listenForKeyboard]);
-          _classPrivateFieldLooseBase(_this, _listeningForKeydown)[_listeningForKeydown] = true;
+          document.removeEventListener(Events.CLICK, _classPrivateFieldGet(_this, _listenForClick));
+          document.addEventListener(Events.KEYDOWN, _classPrivateFieldGet(_this, _listenForKeyboard));
+
+          _classPrivateFieldSet(_this, _listeningForKeydown, true);
         }
       });
-      Object.defineProperty(this, _handleFocusTrapWithTab, {
+
+      _handleFocusTrapWithTab.set(this, {
         writable: true,
         value: function value(event) {
-          var containerElement = document.querySelector(_classPrivateFieldLooseBase(_this, _focusContainerSelector)[_focusContainerSelector]);
+          var containerElement = document.querySelector(_classPrivateFieldGet(_this, _focusContainerSelector));
           var containerActive = document.activeElement === containerElement;
 
-          var firstActive = document.activeElement === _classPrivateFieldLooseBase(_this, _focusableFirstChild)[_focusableFirstChild];
+          var firstActive = document.activeElement === _classPrivateFieldGet(_this, _focusableFirstChild);
 
-          var lastActive = document.activeElement === _classPrivateFieldLooseBase(_this, _focusableLastChild)[_focusableLastChild];
+          var lastActive = document.activeElement === _classPrivateFieldGet(_this, _focusableLastChild);
 
           var tabKey = event.which === KeyCodes.TAB;
           var shiftKey = event.which === KeyCodes.SHIFT || event.shiftKey;
@@ -179,20 +206,21 @@
           if (shiftKey && tabKey && (firstActive || containerActive)) {
             event.preventDefault();
 
-            _classPrivateFieldLooseBase(_this, _focusableLastChild)[_focusableLastChild].focus();
+            _classPrivateFieldGet(_this, _focusableLastChild).focus();
           } else if (!shiftKey && tabKey && lastActive) {
             event.preventDefault();
 
-            _classPrivateFieldLooseBase(_this, _focusableFirstChild)[_focusableFirstChild].focus();
+            _classPrivateFieldGet(_this, _focusableFirstChild).focus();
           }
         }
       });
-      Object.defineProperty(this, _handleFocusTrapWithArrows, {
+
+      _handleFocusTrapWithArrows.set(this, {
         writable: true,
         value: function value(event) {
-          var firstActive = document.activeElement === _classPrivateFieldLooseBase(_this, _focusableFirstChild)[_focusableFirstChild];
+          var firstActive = document.activeElement === _classPrivateFieldGet(_this, _focusableFirstChild);
 
-          var lastActive = document.activeElement === _classPrivateFieldLooseBase(_this, _focusableLastChild)[_focusableLastChild];
+          var lastActive = document.activeElement === _classPrivateFieldGet(_this, _focusableLastChild);
 
           var arrowUp = event.which === KeyCodes.ARROW_UP;
           var arrowDown = event.which === KeyCodes.ARROW_DOWN;
@@ -201,64 +229,67 @@
             event.preventDefault();
 
             if (firstActive && arrowUp) {
-              _classPrivateFieldLooseBase(_this, _focusableLastChild)[_focusableLastChild].focus();
+              _classPrivateFieldGet(_this, _focusableLastChild).focus();
             } else if (lastActive && arrowDown) {
-              _classPrivateFieldLooseBase(_this, _focusableFirstChild)[_focusableFirstChild].focus();
+              _classPrivateFieldGet(_this, _focusableFirstChild).focus();
             } else if (arrowDown) {
-              _classPrivateFieldLooseBase(_this, _focusNextChild)[_focusNextChild]();
+              _classPrivateMethodGet(_this, _focusNextChild, _focusNextChild2).call(_this);
             } else if (arrowUp) {
-              _classPrivateFieldLooseBase(_this, _focusLastChild)[_focusLastChild]();
+              _classPrivateMethodGet(_this, _focusLastChild, _focusLastChild2).call(_this);
             }
           }
         }
       });
-      Object.defineProperty(this, _focusNextChild, {
-        value: _focusNextChild2
-      });
-      Object.defineProperty(this, _focusLastChild, {
-        value: _focusLastChild2
-      });
+
+      _focusNextChild.add(this);
+
+      _focusLastChild.add(this);
     }
 
     _createClass(Utils, [{
       key: "captureFocus",
       value: function captureFocus(container, options) {
-        _classPrivateFieldLooseBase(this, _focusContainerSelector)[_focusContainerSelector] = container;
-        _classPrivateFieldLooseBase(this, _focusableChildren)[_focusableChildren] = this.getFocusableElements(_classPrivateFieldLooseBase(this, _focusContainerSelector)[_focusContainerSelector]);
-        _classPrivateFieldLooseBase(this, _focusableFirstChild)[_focusableFirstChild] = _classPrivateFieldLooseBase(this, _focusableChildren)[_focusableChildren][0];
-        _classPrivateFieldLooseBase(this, _focusableLastChild)[_focusableLastChild] = _classPrivateFieldLooseBase(this, _focusableChildren)[_focusableChildren][_classPrivateFieldLooseBase(this, _focusableChildren)[_focusableChildren].length - 1];
+        _classPrivateFieldSet(this, _focusContainerSelector, container);
+
+        _classPrivateFieldSet(this, _focusableChildren, this.getFocusableElements(_classPrivateFieldGet(this, _focusContainerSelector)));
+
+        _classPrivateFieldSet(this, _focusableFirstChild, _classPrivateFieldGet(this, _focusableChildren)[0]);
+
+        _classPrivateFieldSet(this, _focusableLastChild, _classPrivateFieldGet(this, _focusableChildren)[_classPrivateFieldGet(this, _focusableChildren).length - 1]);
 
         if (options) {
           if (options.useArrows) {
-            _classPrivateFieldLooseBase(this, _trapFocusWithArrows)[_trapFocusWithArrows] = options.useArrows || _classPrivateFieldLooseBase(this, _trapFocusWithArrows)[_trapFocusWithArrows];
-            document.addEventListener(Events.KEYDOWN, _classPrivateFieldLooseBase(this, _handleFocusTrapWithArrows)[_handleFocusTrapWithArrows]);
+            _classPrivateFieldSet(this, _trapFocusWithArrows, options.useArrows || _classPrivateFieldGet(this, _trapFocusWithArrows));
+
+            document.addEventListener(Events.KEYDOWN, _classPrivateFieldGet(this, _handleFocusTrapWithArrows));
           }
         } else {
-          document.addEventListener(Events.KEYDOWN, _classPrivateFieldLooseBase(this, _handleFocusTrapWithTab)[_handleFocusTrapWithTab]);
+          document.addEventListener(Events.KEYDOWN, _classPrivateFieldGet(this, _handleFocusTrapWithTab));
         }
       }
     }, {
       key: "releaseFocus",
       value: function releaseFocus() {
-        if (_classPrivateFieldLooseBase(this, _trapFocusWithArrows)[_trapFocusWithArrows]) {
-          document.removeEventListener(Events.KEYDOWN, _classPrivateFieldLooseBase(this, _handleFocusTrapWithArrows)[_handleFocusTrapWithArrows]);
-          _classPrivateFieldLooseBase(this, _trapFocusWithArrows)[_trapFocusWithArrows] = false;
+        if (_classPrivateFieldGet(this, _trapFocusWithArrows)) {
+          document.removeEventListener(Events.KEYDOWN, _classPrivateFieldGet(this, _handleFocusTrapWithArrows));
+
+          _classPrivateFieldSet(this, _trapFocusWithArrows, false);
         } else {
-          document.removeEventListener(Events.KEYDOWN, _classPrivateFieldLooseBase(this, _handleFocusTrapWithTab)[_handleFocusTrapWithTab]);
+          document.removeEventListener(Events.KEYDOWN, _classPrivateFieldGet(this, _handleFocusTrapWithTab));
         }
       }
     }, {
       key: "enableFocusOutline",
       value: function enableFocusOutline() {
-        document.addEventListener(Events.KEYDOWN, _classPrivateFieldLooseBase(this, _listenForKeyboard)[_listenForKeyboard]);
+        document.addEventListener(Events.KEYDOWN, _classPrivateFieldGet(this, _listenForKeyboard));
       }
     }, {
       key: "disableFocusOutline",
       value: function disableFocusOutline() {
-        if (_classPrivateFieldLooseBase(this, _listeningForKeydown)[_listeningForKeydown]) {
-          document.removeEventListener(Events.KEYDOWN, _classPrivateFieldLooseBase(this, _listenForKeyboard)[_listenForKeyboard]);
+        if (_classPrivateFieldGet(this, _listeningForKeydown)) {
+          document.removeEventListener(Events.KEYDOWN, _classPrivateFieldGet(this, _listenForKeyboard));
         } else {
-          document.removeEventListener(Events.CLICK, _classPrivateFieldLooseBase(this, _listenForClick)[_listenForClick]);
+          document.removeEventListener(Events.CLICK, _classPrivateFieldGet(this, _listenForClick));
         }
       }
     }, {
@@ -280,34 +311,34 @@
     return Utils;
   }();
 
-  var _focusContainerSelector = _classPrivateFieldLooseKey("focusContainerSelector");
+  var _focusContainerSelector = new WeakMap();
 
-  var _focusableChildren = _classPrivateFieldLooseKey("focusableChildren");
+  var _focusableChildren = new WeakMap();
 
-  var _focusableFirstChild = _classPrivateFieldLooseKey("focusableFirstChild");
+  var _focusableFirstChild = new WeakMap();
 
-  var _focusableLastChild = _classPrivateFieldLooseKey("focusableLastChild");
+  var _focusableLastChild = new WeakMap();
 
-  var _listeningForKeydown = _classPrivateFieldLooseKey("listeningForKeydown");
+  var _listeningForKeydown = new WeakMap();
 
-  var _trapFocusWithArrows = _classPrivateFieldLooseKey("trapFocusWithArrows");
+  var _trapFocusWithArrows = new WeakMap();
 
-  var _listenForKeyboard = _classPrivateFieldLooseKey("listenForKeyboard");
+  var _listenForKeyboard = new WeakMap();
 
-  var _listenForClick = _classPrivateFieldLooseKey("listenForClick");
+  var _listenForClick = new WeakMap();
 
-  var _handleFocusTrapWithTab = _classPrivateFieldLooseKey("handleFocusTrapWithTab");
+  var _handleFocusTrapWithTab = new WeakMap();
 
-  var _handleFocusTrapWithArrows = _classPrivateFieldLooseKey("handleFocusTrapWithArrows");
+  var _handleFocusTrapWithArrows = new WeakMap();
 
-  var _focusNextChild = _classPrivateFieldLooseKey("focusNextChild");
+  var _focusNextChild = new WeakSet();
 
-  var _focusLastChild = _classPrivateFieldLooseKey("focusLastChild");
+  var _focusLastChild = new WeakSet();
 
   var _focusNextChild2 = function _focusNextChild2() {
-    for (var i = 0; i < _classPrivateFieldLooseBase(this, _focusableChildren)[_focusableChildren].length; i++) {
-      if (_classPrivateFieldLooseBase(this, _focusableChildren)[_focusableChildren][i] === document.activeElement) {
-        _classPrivateFieldLooseBase(this, _focusableChildren)[_focusableChildren][i + 1].focus();
+    for (var i = 0; i < _classPrivateFieldGet(this, _focusableChildren).length; i++) {
+      if (_classPrivateFieldGet(this, _focusableChildren)[i] === document.activeElement) {
+        _classPrivateFieldGet(this, _focusableChildren)[i + 1].focus();
 
         break;
       }
@@ -315,9 +346,9 @@
   };
 
   var _focusLastChild2 = function _focusLastChild2() {
-    for (var i = 0; i < _classPrivateFieldLooseBase(this, _focusableChildren)[_focusableChildren].length; i++) {
-      if (_classPrivateFieldLooseBase(this, _focusableChildren)[_focusableChildren][i] === document.activeElement) {
-        _classPrivateFieldLooseBase(this, _focusableChildren)[_focusableChildren][i - 1].focus();
+    for (var i = 0; i < _classPrivateFieldGet(this, _focusableChildren).length; i++) {
+      if (_classPrivateFieldGet(this, _focusableChildren)[i] === document.activeElement) {
+        _classPrivateFieldGet(this, _focusableChildren)[i - 1].focus();
 
         break;
       }
@@ -363,150 +394,166 @@
       _classCallCheck(this, Modal);
 
       _this = _possibleConstructorReturn(this, _getPrototypeOf(Modal).call(this));
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _modals, {
+
+      _modals.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: []
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _modalButtons, {
+
+      _modalButtons.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: []
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalButton, {
+
+      _activeModalButton.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: {}
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlay, {
+
+      _activeModalOverlay.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: {}
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeModal, {
+
+      _activeModal.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: {}
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalId, {
+
+      _activeModalId.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: ""
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlayAttr, {
+
+      _activeModalOverlayAttr.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: ""
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalSelector, {
+
+      _activeModalSelector.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: ""
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalCloseButtons, {
+
+      _activeModalCloseButtons.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: []
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _modalContainerAttr, {
+
+      _modalContainerAttr.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: "[".concat(Selectors$1.MODAL_CONTAINER, "]")
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _render, {
+
+      _render.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: function value(event) {
           event.preventDefault();
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalButton)[_activeModalButton] = event.target;
 
-          if (!_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalButton)[_activeModalButton].getAttribute(Selectors$1.DATA_TARGET)) {
+          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalButton, event.target);
+
+          if (!_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalButton).getAttribute(Selectors$1.DATA_TARGET)) {
             return console.error(Messages.NO_TARGET_ERROR);
           }
 
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalId)[_activeModalId] = _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalButton)[_activeModalButton].getAttribute(Selectors$1.DATA_TARGET);
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlayAttr)[_activeModalOverlayAttr] = "[".concat(Selectors$1.MODAL_ID, "=\"").concat(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalId)[_activeModalId], "\"]");
+          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalId, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalButton).getAttribute(Selectors$1.DATA_TARGET));
 
-          if (!document.querySelector(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlayAttr)[_activeModalOverlayAttr])) {
-            return console.error(Messages.NO_ID_ERROR(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalId)[_activeModalId]));
+          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlayAttr, "[".concat(Selectors$1.MODAL_ID, "=\"").concat(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalId), "\"]"));
+
+          if (!document.querySelector(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlayAttr))) {
+            return console.error(Messages.NO_ID_ERROR(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalId)));
           }
 
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlay)[_activeModalOverlay] = document.querySelector(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlayAttr)[_activeModalOverlayAttr]);
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalSelector)[_activeModalSelector] = "".concat(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlayAttr)[_activeModalOverlayAttr], " ").concat(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _modalContainerAttr)[_modalContainerAttr]);
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModal)[_activeModal] = document.querySelector(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalSelector)[_activeModalSelector]);
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalCloseButtons)[_activeModalCloseButtons] = _this.getElements("".concat(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlayAttr)[_activeModalOverlayAttr], " [").concat(Selectors$1.MODAL_CONTAINER, "] [").concat(Selectors$1.DATA_CLOSE, "]"));
+          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlay, document.querySelector(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlayAttr)));
 
-          _this.getFocusableElements(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalSelector)[_activeModalSelector]).forEach(function (element) {
+          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalSelector, "".concat(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlayAttr), " ").concat(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _modalContainerAttr)));
+
+          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModal, document.querySelector(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalSelector)));
+
+          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalCloseButtons, _this.getElements("".concat(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlayAttr), " [").concat(Selectors$1.MODAL_CONTAINER, "] [").concat(Selectors$1.DATA_CLOSE, "]")));
+
+          _this.getFocusableElements(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalSelector)).forEach(function (element) {
             element.setAttribute(Selectors$1.TABINDEX, "0");
           });
 
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleScrollStop)[_handleScrollStop]();
+          _classPrivateMethodGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleScrollStop, _handleScrollStop2).call(_assertThisInitialized(_assertThisInitialized(_this)));
 
-          _this.captureFocus(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalSelector)[_activeModalSelector]);
+          _this.captureFocus(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalSelector));
 
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlay)[_activeModalOverlay].setAttribute(Selectors$1.ARIA_HIDDEN, "false");
+          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlay).setAttribute(Selectors$1.ARIA_HIDDEN, "false");
 
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModal)[_activeModal].setAttribute(Selectors$1.TABINDEX, "-1");
+          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModal).setAttribute(Selectors$1.TABINDEX, "-1");
 
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlay)[_activeModalOverlay].setAttribute(Selectors$1.DATA_VISIBLE, "true");
+          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlay).setAttribute(Selectors$1.DATA_VISIBLE, "true");
 
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModal)[_activeModal].focus();
+          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModal).focus();
 
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlay)[_activeModalOverlay].scrollTop = 0;
-          document.addEventListener(Events$1.KEYDOWN, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleEscapeKeyPress)[_handleEscapeKeyPress]);
-          document.addEventListener(Events$1.CLICK, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleOverlayClick)[_handleOverlayClick]);
+          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlay).scrollTop = 0;
+          document.addEventListener(Events$1.KEYDOWN, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleEscapeKeyPress));
+          document.addEventListener(Events$1.CLICK, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleOverlayClick));
 
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalCloseButtons)[_activeModalCloseButtons].forEach(function (button) {
-            button.addEventListener(Events$1.CLICK, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose)[_handleClose]);
+          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalCloseButtons).forEach(function (button) {
+            button.addEventListener(Events$1.CLICK, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose));
           });
         }
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _setupModal, {
-        value: _setupModal2
-      });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose, {
+
+      _setupModal.add(_assertThisInitialized(_assertThisInitialized(_this)));
+
+      _handleClose.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: function value(event) {
           event.preventDefault();
 
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlay)[_activeModalOverlay].setAttribute(Selectors$1.DATA_VISIBLE, "false");
+          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlay).setAttribute(Selectors$1.DATA_VISIBLE, "false");
 
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleReturnFocus)[_handleReturnFocus]();
+          _classPrivateMethodGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleReturnFocus, _handleReturnFocus2).call(_assertThisInitialized(_assertThisInitialized(_this)));
 
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleScrollRestore)[_handleScrollRestore]();
+          _classPrivateMethodGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleScrollRestore, _handleScrollRestore2).call(_assertThisInitialized(_assertThisInitialized(_this)));
 
           _this.releaseFocus();
 
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlay)[_activeModalOverlay].setAttribute(Selectors$1.ARIA_HIDDEN, "true");
+          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlay).setAttribute(Selectors$1.ARIA_HIDDEN, "true");
 
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModal)[_activeModal].removeAttribute(Selectors$1.TABINDEX);
+          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModal).removeAttribute(Selectors$1.TABINDEX);
 
-          _this.getFocusableElements(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalSelector)[_activeModalSelector]).forEach(function (element) {
+          _this.getFocusableElements(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalSelector)).forEach(function (element) {
             element.setAttribute(Selectors$1.TABINDEX, "-1");
           });
 
-          document.removeEventListener(Events$1.KEYDOWN, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleEscapeKeyPress)[_handleEscapeKeyPress]);
-          document.removeEventListener(Events$1.CLICK, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleOverlayClick)[_handleOverlayClick]);
+          document.removeEventListener(Events$1.KEYDOWN, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleEscapeKeyPress));
+          document.removeEventListener(Events$1.CLICK, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleOverlayClick));
 
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalCloseButtons)[_activeModalCloseButtons].forEach(function (button) {
-            button.removeEventListener(Events$1.CLICK, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose)[_handleClose]);
+          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalCloseButtons).forEach(function (button) {
+            button.removeEventListener(Events$1.CLICK, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose));
           });
         }
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _handleOverlayClick, {
+
+      _handleOverlayClick.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: function value(event) {
-          if (event.target === _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlay)[_activeModalOverlay]) {
-            _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose)[_handleClose](event);
+          if (event.target === _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlay)) {
+            _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose).call(_assertThisInitialized(_assertThisInitialized(_this)), event);
           }
         }
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _handleEscapeKeyPress, {
+
+      _handleEscapeKeyPress.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: function value(event) {
           if (event.which === KeyCodes$1.ESCAPE) {
-            _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose)[_handleClose](event);
+            _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose).call(_assertThisInitialized(_assertThisInitialized(_this)), event);
           }
         }
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _handleReturnFocus, {
-        value: _handleReturnFocus2
-      });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _handleScrollRestore, {
-        value: _handleScrollRestore2
-      });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _handleScrollStop, {
-        value: _handleScrollStop2
-      });
+
+      _handleReturnFocus.add(_assertThisInitialized(_assertThisInitialized(_this)));
+
+      _handleScrollRestore.add(_assertThisInitialized(_assertThisInitialized(_this)));
+
+      _handleScrollStop.add(_assertThisInitialized(_assertThisInitialized(_this)));
+
       return _this;
     }
 
@@ -515,21 +562,23 @@
       value: function start() {
         var _this2 = this;
 
-        _classPrivateFieldLooseBase(this, _modals)[_modals] = this.getElements(_classPrivateFieldLooseBase(this, _modalContainerAttr)[_modalContainerAttr]);
-        _classPrivateFieldLooseBase(this, _modalButtons)[_modalButtons] = this.getElements("[".concat(Selectors$1.MODAL_BUTTON, "]"));
-        this.getFocusableElements(_classPrivateFieldLooseBase(this, _modalContainerAttr)[_modalContainerAttr]).forEach(function (element) {
+        _classPrivateFieldSet(this, _modals, this.getElements(_classPrivateFieldGet(this, _modalContainerAttr)));
+
+        _classPrivateFieldSet(this, _modalButtons, this.getElements("[".concat(Selectors$1.MODAL_BUTTON, "]")));
+
+        this.getFocusableElements(_classPrivateFieldGet(this, _modalContainerAttr)).forEach(function (element) {
           element.setAttribute(Selectors$1.TABINDEX, "-1");
         });
 
-        if (_classPrivateFieldLooseBase(this, _modals)[_modals].length) {
-          _classPrivateFieldLooseBase(this, _modals)[_modals].forEach(function (modal) {
-            _classPrivateFieldLooseBase(_this2, _setupModal)[_setupModal](modal);
+        if (_classPrivateFieldGet(this, _modals).length) {
+          _classPrivateFieldGet(this, _modals).forEach(function (modal) {
+            _classPrivateMethodGet(_this2, _setupModal, _setupModal2).call(_this2, modal);
           });
         }
 
-        if (_classPrivateFieldLooseBase(this, _modalButtons)[_modalButtons].length) {
-          _classPrivateFieldLooseBase(this, _modalButtons)[_modalButtons].forEach(function (button) {
-            button.addEventListener(Events$1.CLICK, _classPrivateFieldLooseBase(_this2, _render)[_render]);
+        if (_classPrivateFieldGet(this, _modalButtons).length) {
+          _classPrivateFieldGet(this, _modalButtons).forEach(function (button) {
+            button.addEventListener(Events$1.CLICK, _classPrivateFieldGet(_this2, _render));
           });
         }
       }
@@ -538,8 +587,8 @@
       value: function stop() {
         var _this3 = this;
 
-        _classPrivateFieldLooseBase(this, _modalButtons)[_modalButtons].forEach(function (button) {
-          button.removeEventListener(Events$1.CLICK, _classPrivateFieldLooseBase(_this3, _render)[_render]);
+        _classPrivateFieldGet(this, _modalButtons).forEach(function (button) {
+          button.removeEventListener(Events$1.CLICK, _classPrivateFieldGet(_this3, _render));
         });
       }
     }]);
@@ -547,41 +596,41 @@
     return Modal;
   }(Utils);
 
-  var _modals = _classPrivateFieldLooseKey("modals");
+  var _modals = new WeakMap();
 
-  var _modalButtons = _classPrivateFieldLooseKey("modalButtons");
+  var _modalButtons = new WeakMap();
 
-  var _activeModalButton = _classPrivateFieldLooseKey("activeModalButton");
+  var _activeModalButton = new WeakMap();
 
-  var _activeModalOverlay = _classPrivateFieldLooseKey("activeModalOverlay");
+  var _activeModalOverlay = new WeakMap();
 
-  var _activeModal = _classPrivateFieldLooseKey("activeModal");
+  var _activeModal = new WeakMap();
 
-  var _activeModalId = _classPrivateFieldLooseKey("activeModalId");
+  var _activeModalId = new WeakMap();
 
-  var _activeModalOverlayAttr = _classPrivateFieldLooseKey("activeModalOverlayAttr");
+  var _activeModalOverlayAttr = new WeakMap();
 
-  var _activeModalSelector = _classPrivateFieldLooseKey("activeModalSelector");
+  var _activeModalSelector = new WeakMap();
 
-  var _activeModalCloseButtons = _classPrivateFieldLooseKey("activeModalCloseButtons");
+  var _activeModalCloseButtons = new WeakMap();
 
-  var _modalContainerAttr = _classPrivateFieldLooseKey("modalContainerAttr");
+  var _modalContainerAttr = new WeakMap();
 
-  var _render = _classPrivateFieldLooseKey("render");
+  var _render = new WeakMap();
 
-  var _setupModal = _classPrivateFieldLooseKey("setupModal");
+  var _setupModal = new WeakSet();
 
-  var _handleClose = _classPrivateFieldLooseKey("handleClose");
+  var _handleClose = new WeakMap();
 
-  var _handleOverlayClick = _classPrivateFieldLooseKey("handleOverlayClick");
+  var _handleOverlayClick = new WeakMap();
 
-  var _handleEscapeKeyPress = _classPrivateFieldLooseKey("handleEscapeKeyPress");
+  var _handleEscapeKeyPress = new WeakMap();
 
-  var _handleReturnFocus = _classPrivateFieldLooseKey("handleReturnFocus");
+  var _handleReturnFocus = new WeakSet();
 
-  var _handleScrollRestore = _classPrivateFieldLooseKey("handleScrollRestore");
+  var _handleScrollRestore = new WeakSet();
 
-  var _handleScrollStop = _classPrivateFieldLooseKey("handleScrollStop");
+  var _handleScrollStop = new WeakSet();
 
   var _setupModal2 = function _setupModal2(modal) {
     var modalId;
@@ -607,11 +656,11 @@
   };
 
   var _handleReturnFocus2 = function _handleReturnFocus2() {
-    _classPrivateFieldLooseBase(this, _activeModalButton)[_activeModalButton].setAttribute(Selectors$1.TABINDEX, "-1");
+    _classPrivateFieldGet(this, _activeModalButton).setAttribute(Selectors$1.TABINDEX, "-1");
 
-    _classPrivateFieldLooseBase(this, _activeModalButton)[_activeModalButton].focus();
+    _classPrivateFieldGet(this, _activeModalButton).focus();
 
-    _classPrivateFieldLooseBase(this, _activeModalButton)[_activeModalButton].removeAttribute(Selectors$1.TABINDEX);
+    _classPrivateFieldGet(this, _activeModalButton).removeAttribute(Selectors$1.TABINDEX);
   };
 
   var _handleScrollRestore2 = function _handleScrollRestore2() {
@@ -668,109 +717,125 @@
       _classCallCheck(this, Accordion);
 
       _this = _possibleConstructorReturn(this, _getPrototypeOf(Accordion).call(this));
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _accordionButtons, {
+
+      _accordionButtons.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: []
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _accordionContentsAttr, {
+
+      _accordionContentsAttr.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: ""
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _accordionContents, {
+
+      _accordionContents.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: []
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainer, {
+
+      _activeContainer.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: {}
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeButton, {
+
+      _activeButton.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: {}
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeAccordionRowId, {
+
+      _activeAccordionRowId.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: ""
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeRowAttr, {
+
+      _activeRowAttr.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: ""
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeRow, {
+
+      _activeRow.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: ""
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerId, {
+
+      _activeContainerId.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: ""
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerAttr, {
+
+      _activeContainerAttr.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: ""
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeContent, {
+
+      _activeContent.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: {}
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeButtonExpandState, {
+
+      _activeButtonExpandState.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: ""
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeContentHiddenState, {
+
+      _activeContentHiddenState.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: ""
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _setupAccordion, {
-        value: _setupAccordion2
-      });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _getPossibleAccordionHeaderAttrs, {
-        value: _getPossibleAccordionHeaderAttrs2
-      });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _getAccordionRowAttr, {
-        value: _getAccordionRowAttr2
-      });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _render$1, {
+
+      _setupAccordion.add(_assertThisInitialized(_assertThisInitialized(_this)));
+
+      _getPossibleAccordionHeaderAttrs.add(_assertThisInitialized(_assertThisInitialized(_this)));
+
+      _getAccordionRowAttr.add(_assertThisInitialized(_assertThisInitialized(_this)));
+
+      _render$1.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: function value(event) {
           event.preventDefault();
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeButton)[_activeButton] = event.target;
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeAccordionRowId)[_activeAccordionRowId] = _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeButton)[_activeButton].getAttribute(Selectors$2.DATA_TARGET);
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeRowAttr)[_activeRowAttr] = _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _getAccordionRowAttr)[_getAccordionRowAttr](_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeAccordionRowId)[_activeAccordionRowId]);
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeRow)[_activeRow] = document.querySelector(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeRowAttr)[_activeRowAttr]);
 
-          if (!_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeButton)[_activeButton].getAttribute(Selectors$2.DATA_PARENT)) {
-            return console.error(Messages$1.NO_PARENT_ERROR(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeAccordionRowId)[_activeAccordionRowId]));
+          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeButton, event.target);
+
+          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeAccordionRowId, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeButton).getAttribute(Selectors$2.DATA_TARGET));
+
+          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeRowAttr, _classPrivateMethodGet(_assertThisInitialized(_assertThisInitialized(_this)), _getAccordionRowAttr, _getAccordionRowAttr2).call(_assertThisInitialized(_assertThisInitialized(_this)), _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeAccordionRowId)));
+
+          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeRow, document.querySelector(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeRowAttr)));
+
+          if (!_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeButton).getAttribute(Selectors$2.DATA_PARENT)) {
+            return console.error(Messages$1.NO_PARENT_ERROR(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeAccordionRowId)));
           }
 
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerId)[_activeContainerId] = _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeButton)[_activeButton].getAttribute(Selectors$2.DATA_PARENT);
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerAttr)[_activeContainerAttr] = "[".concat(Selectors$2.ACCORDION_CONTAINER, "='").concat(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerId)[_activeContainerId], "']");
+          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerId, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeButton).getAttribute(Selectors$2.DATA_PARENT));
 
-          if (!document.querySelector(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerAttr)[_activeContainerAttr])) {
-            return console.error(Messages$1.NO_ACCORDION_ERROR(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerId)[_activeContainerId]));
+          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerAttr, "[".concat(Selectors$2.ACCORDION_CONTAINER, "='").concat(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerId), "']"));
+
+          if (!document.querySelector(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerAttr))) {
+            return console.error(Messages$1.NO_ACCORDION_ERROR(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerId)));
           }
 
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainer)[_activeContainer] = document.querySelector(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerAttr)[_activeContainerAttr]);
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeContent)[_activeContent] = document.getElementById(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeAccordionRowId)[_activeAccordionRowId]);
+          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainer, document.querySelector(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerAttr)));
 
-          var accordionButtonState = _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeRow)[_activeRow].getAttribute(Selectors$2.DATA_VISIBLE);
+          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContent, document.getElementById(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeAccordionRowId)));
 
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeButtonExpandState)[_activeButtonExpandState] = accordionButtonState === "true" ? "false" : "true";
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeContentHiddenState)[_activeContentHiddenState] = _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeButtonExpandState)[_activeButtonExpandState] === "false" ? "true" : "false";
+          var accordionButtonState = _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeRow).getAttribute(Selectors$2.DATA_VISIBLE);
 
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _closeAllIfToggleable)[_closeAllIfToggleable]();
+          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeButtonExpandState, accordionButtonState === "true" ? "false" : "true");
 
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _toggleSelectedAccordion)[_toggleSelectedAccordion]();
+          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContentHiddenState, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeButtonExpandState) === "false" ? "true" : "false");
+
+          _classPrivateMethodGet(_assertThisInitialized(_assertThisInitialized(_this)), _closeAllIfToggleable, _closeAllIfToggleable2).call(_assertThisInitialized(_assertThisInitialized(_this)));
+
+          _classPrivateMethodGet(_assertThisInitialized(_assertThisInitialized(_this)), _toggleSelectedAccordion, _toggleSelectedAccordion2).call(_assertThisInitialized(_assertThisInitialized(_this)));
         }
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _closeAllIfToggleable, {
-        value: _closeAllIfToggleable2
-      });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _toggleSelectedAccordion, {
-        value: _toggleSelectedAccordion2
-      });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _toggleAttributeInCollection, {
-        value: _toggleAttributeInCollection2
-      });
+
+      _closeAllIfToggleable.add(_assertThisInitialized(_assertThisInitialized(_this)));
+
+      _toggleSelectedAccordion.add(_assertThisInitialized(_assertThisInitialized(_this)));
+
+      _toggleAttributeInCollection.add(_assertThisInitialized(_assertThisInitialized(_this)));
+
       return _this;
     }
 
@@ -779,13 +844,13 @@
       value: function start() {
         var _this2 = this;
 
-        _classPrivateFieldLooseBase(this, _accordionButtons)[_accordionButtons] = this.getElements("[".concat(Selectors$2.ACCORDION_CONTAINER, "] [").concat(Selectors$2.DATA_TARGET, "]"));
+        _classPrivateFieldSet(this, _accordionButtons, this.getElements("[".concat(Selectors$2.ACCORDION_CONTAINER, "] [").concat(Selectors$2.DATA_TARGET, "]")));
 
-        if (_classPrivateFieldLooseBase(this, _accordionButtons)[_accordionButtons].length) {
-          _classPrivateFieldLooseBase(this, _accordionButtons)[_accordionButtons].forEach(function (button) {
-            _classPrivateFieldLooseBase(_this2, _setupAccordion)[_setupAccordion](button);
+        if (_classPrivateFieldGet(this, _accordionButtons).length) {
+          _classPrivateFieldGet(this, _accordionButtons).forEach(function (button) {
+            _classPrivateMethodGet(_this2, _setupAccordion, _setupAccordion2).call(_this2, button);
 
-            button.addEventListener(Events$2.CLICK, _classPrivateFieldLooseBase(_this2, _render$1)[_render$1]);
+            button.addEventListener(Events$2.CLICK, _classPrivateFieldGet(_this2, _render$1));
           });
         }
       }
@@ -794,8 +859,8 @@
       value: function stop() {
         var _this3 = this;
 
-        _classPrivateFieldLooseBase(this, _accordionButtons)[_accordionButtons].forEach(function (button) {
-          button.removeEventListener(Events$2.CLICK, _classPrivateFieldLooseBase(_this3, _render$1)[_render$1]);
+        _classPrivateFieldGet(this, _accordionButtons).forEach(function (button) {
+          button.removeEventListener(Events$2.CLICK, _classPrivateFieldGet(_this3, _render$1));
         });
       }
     }]);
@@ -803,45 +868,45 @@
     return Accordion;
   }(Utils);
 
-  var _accordionButtons = _classPrivateFieldLooseKey("accordionButtons");
+  var _accordionButtons = new WeakMap();
 
-  var _accordionContentsAttr = _classPrivateFieldLooseKey("accordionContentsAttr");
+  var _accordionContentsAttr = new WeakMap();
 
-  var _accordionContents = _classPrivateFieldLooseKey("accordionContents");
+  var _accordionContents = new WeakMap();
 
-  var _activeContainer = _classPrivateFieldLooseKey("activeContainer");
+  var _activeContainer = new WeakMap();
 
-  var _activeButton = _classPrivateFieldLooseKey("activeButton");
+  var _activeButton = new WeakMap();
 
-  var _activeAccordionRowId = _classPrivateFieldLooseKey("activeAccordionRowId");
+  var _activeAccordionRowId = new WeakMap();
 
-  var _activeRowAttr = _classPrivateFieldLooseKey("activeRowAttr");
+  var _activeRowAttr = new WeakMap();
 
-  var _activeRow = _classPrivateFieldLooseKey("activeRow");
+  var _activeRow = new WeakMap();
 
-  var _activeContainerId = _classPrivateFieldLooseKey("activeContainerId");
+  var _activeContainerId = new WeakMap();
 
-  var _activeContainerAttr = _classPrivateFieldLooseKey("activeContainerAttr");
+  var _activeContainerAttr = new WeakMap();
 
-  var _activeContent = _classPrivateFieldLooseKey("activeContent");
+  var _activeContent = new WeakMap();
 
-  var _activeButtonExpandState = _classPrivateFieldLooseKey("activeButtonExpandState");
+  var _activeButtonExpandState = new WeakMap();
 
-  var _activeContentHiddenState = _classPrivateFieldLooseKey("activeContentHiddenState");
+  var _activeContentHiddenState = new WeakMap();
 
-  var _setupAccordion = _classPrivateFieldLooseKey("setupAccordion");
+  var _setupAccordion = new WeakSet();
 
-  var _getPossibleAccordionHeaderAttrs = _classPrivateFieldLooseKey("getPossibleAccordionHeaderAttrs");
+  var _getPossibleAccordionHeaderAttrs = new WeakSet();
 
-  var _getAccordionRowAttr = _classPrivateFieldLooseKey("getAccordionRowAttr");
+  var _getAccordionRowAttr = new WeakSet();
 
-  var _render$1 = _classPrivateFieldLooseKey("render");
+  var _render$1 = new WeakMap();
 
-  var _closeAllIfToggleable = _classPrivateFieldLooseKey("closeAllIfToggleable");
+  var _closeAllIfToggleable = new WeakSet();
 
-  var _toggleSelectedAccordion = _classPrivateFieldLooseKey("toggleSelectedAccordion");
+  var _toggleSelectedAccordion = new WeakSet();
 
-  var _toggleAttributeInCollection = _classPrivateFieldLooseKey("toggleAttributeInCollection");
+  var _toggleAttributeInCollection = new WeakSet();
 
   var _setupAccordion2 = function _setupAccordion2(button) {
     var buttonId = button.getAttribute(Selectors$2.DATA_TARGET);
@@ -852,7 +917,7 @@
 
     var buttonContent = document.getElementById(buttonId);
 
-    var accordionRowAttr = _classPrivateFieldLooseBase(this, _getAccordionRowAttr)[_getAccordionRowAttr](buttonId);
+    var accordionRowAttr = _classPrivateMethodGet(this, _getAccordionRowAttr, _getAccordionRowAttr2).call(this, buttonId);
 
     if (!document.querySelector(accordionRowAttr)) {
       return console.error(Messages$1.NO_ROW_ERROR(buttonId));
@@ -860,7 +925,7 @@
 
     var accordionRow = document.querySelector(accordionRowAttr);
 
-    var buttonHeaderAttr = _classPrivateFieldLooseBase(this, _getPossibleAccordionHeaderAttrs)[_getPossibleAccordionHeaderAttrs](accordionRowAttr);
+    var buttonHeaderAttr = _classPrivateMethodGet(this, _getPossibleAccordionHeaderAttrs, _getPossibleAccordionHeaderAttrs2).call(this, accordionRowAttr);
 
     var buttonHeader = this.getElements(buttonHeaderAttr)[0];
 
@@ -905,44 +970,44 @@
   var _closeAllIfToggleable2 = function _closeAllIfToggleable2() {
     var _this4 = this;
 
-    if (_classPrivateFieldLooseBase(this, _activeContainer)[_activeContainer].hasAttribute(Selectors$2.DATA_TOGGLE_MULTIPLE)) return;
-    var allContentAttr = "".concat(_classPrivateFieldLooseBase(this, _activeContainerAttr)[_activeContainerAttr], " [").concat(Selectors$2.ARIA_HIDDEN, "]");
-    var allRows = this.getElements("".concat(_classPrivateFieldLooseBase(this, _activeContainerAttr)[_activeContainerAttr], " [").concat(Selectors$2.DATA_VISIBLE, "]"));
+    if (_classPrivateFieldGet(this, _activeContainer).hasAttribute(Selectors$2.DATA_TOGGLE_MULTIPLE)) return;
+    var allContentAttr = "".concat(_classPrivateFieldGet(this, _activeContainerAttr), " [").concat(Selectors$2.ARIA_HIDDEN, "]");
+    var allRows = this.getElements("".concat(_classPrivateFieldGet(this, _activeContainerAttr), " [").concat(Selectors$2.DATA_VISIBLE, "]"));
     var allContent = this.getElements(allContentAttr);
-    var allButtons = this.getElements("".concat(_classPrivateFieldLooseBase(this, _activeContainerAttr)[_activeContainerAttr], " [").concat(Selectors$2.DATA_TARGET, "]"));
+    var allButtons = this.getElements("".concat(_classPrivateFieldGet(this, _activeContainerAttr), " [").concat(Selectors$2.DATA_TARGET, "]"));
     allContent.forEach(function (content) {
-      if (!(content === _classPrivateFieldLooseBase(_this4, _activeContent)[_activeContent])) content.style.maxHeight = null;
+      if (!(content === _classPrivateFieldGet(_this4, _activeContent))) content.style.maxHeight = null;
     });
     this.getFocusableElements(allContentAttr).forEach(function (element) {
       element.setAttribute(Selectors$2.TABINDEX, "-1");
     });
 
-    _classPrivateFieldLooseBase(this, _toggleAttributeInCollection)[_toggleAttributeInCollection](allRows, Selectors$2.DATA_VISIBLE, "true", "false");
+    _classPrivateMethodGet(this, _toggleAttributeInCollection, _toggleAttributeInCollection2).call(this, allRows, Selectors$2.DATA_VISIBLE, "true", "false");
 
-    _classPrivateFieldLooseBase(this, _toggleAttributeInCollection)[_toggleAttributeInCollection](allButtons, Selectors$2.ARIA_EXPANDED, "true", "false");
+    _classPrivateMethodGet(this, _toggleAttributeInCollection, _toggleAttributeInCollection2).call(this, allButtons, Selectors$2.ARIA_EXPANDED, "true", "false");
 
-    _classPrivateFieldLooseBase(this, _toggleAttributeInCollection)[_toggleAttributeInCollection](allContent, Selectors$2.ARIA_HIDDEN, "false", "true");
+    _classPrivateMethodGet(this, _toggleAttributeInCollection, _toggleAttributeInCollection2).call(this, allContent, Selectors$2.ARIA_HIDDEN, "false", "true");
   };
 
   var _toggleSelectedAccordion2 = function _toggleSelectedAccordion2() {
     var _this5 = this;
 
-    _classPrivateFieldLooseBase(this, _activeRow)[_activeRow].setAttribute(Selectors$2.DATA_VISIBLE, _classPrivateFieldLooseBase(this, _activeButtonExpandState)[_activeButtonExpandState]);
+    _classPrivateFieldGet(this, _activeRow).setAttribute(Selectors$2.DATA_VISIBLE, _classPrivateFieldGet(this, _activeButtonExpandState));
 
-    _classPrivateFieldLooseBase(this, _activeButton)[_activeButton].setAttribute(Selectors$2.ARIA_EXPANDED, _classPrivateFieldLooseBase(this, _activeButtonExpandState)[_activeButtonExpandState]);
+    _classPrivateFieldGet(this, _activeButton).setAttribute(Selectors$2.ARIA_EXPANDED, _classPrivateFieldGet(this, _activeButtonExpandState));
 
-    _classPrivateFieldLooseBase(this, _activeContent)[_activeContent].setAttribute(Selectors$2.ARIA_HIDDEN, _classPrivateFieldLooseBase(this, _activeContentHiddenState)[_activeContentHiddenState]);
+    _classPrivateFieldGet(this, _activeContent).setAttribute(Selectors$2.ARIA_HIDDEN, _classPrivateFieldGet(this, _activeContentHiddenState));
 
-    var activeContentBlock = "#".concat(_classPrivateFieldLooseBase(this, _activeAccordionRowId)[_activeAccordionRowId]);
+    var activeContentBlock = "#".concat(_classPrivateFieldGet(this, _activeAccordionRowId));
     this.getFocusableElements(activeContentBlock).forEach(function (element) {
-      var value = _classPrivateFieldLooseBase(_this5, _activeButtonExpandState)[_activeButtonExpandState] === "true" ? "0" : "-1";
+      var value = _classPrivateFieldGet(_this5, _activeButtonExpandState) === "true" ? "0" : "-1";
       element.setAttribute(Selectors$2.TABINDEX, value);
     });
 
-    if (_classPrivateFieldLooseBase(this, _activeContent)[_activeContent].style.maxHeight) {
-      _classPrivateFieldLooseBase(this, _activeContent)[_activeContent].style.maxHeight = null;
+    if (_classPrivateFieldGet(this, _activeContent).style.maxHeight) {
+      _classPrivateFieldGet(this, _activeContent).style.maxHeight = null;
     } else {
-      _classPrivateFieldLooseBase(this, _activeContent)[_activeContent].style.maxHeight = "".concat(_classPrivateFieldLooseBase(this, _activeContent)[_activeContent].scrollHeight, "px");
+      _classPrivateFieldGet(this, _activeContent).style.maxHeight = "".concat(_classPrivateFieldGet(this, _activeContent).scrollHeight, "px");
     }
   };
 
@@ -996,98 +1061,115 @@
       _classCallCheck(this, Dropdown);
 
       _this = _possibleConstructorReturn(this, _getPrototypeOf(Dropdown).call(this));
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton, {
+
+      _activeDropdownButton.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: null
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdown, {
+
+      _activeDropdown.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: null
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownMenu, {
+
+      _activeDropdownMenu.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: null
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks, {
+
+      _activeDropdownLinks.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: []
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _allowFocusReturn, {
+
+      _allowFocusReturn.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: true
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownId, {
+
+      _activeDropdownId.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: ""
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr, {
+
+      _activeDropdownAttr.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: ""
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownMenuId, {
+
+      _activeDropdownMenuId.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: ""
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _dropdownButtons, {
+
+      _dropdownButtons.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: []
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _dropdowns, {
+
+      _dropdowns.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: []
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _dropdownTargetAttr, {
+
+      _dropdownTargetAttr.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: "[".concat(Selectors$3.DATA_TARGET, "]")
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _render$2, {
+
+      _render$2.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: function value(event, key) {
           if (!key) event.preventDefault();
           event.stopPropagation();
 
-          if (_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton)[_activeDropdownButton]) {
-            _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _allowFocusReturn)[_allowFocusReturn] = false;
+          if (_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton)) {
+            _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _allowFocusReturn, false);
 
-            _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose$1)[_handleClose$1](event);
+            _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose$1).call(_assertThisInitialized(_assertThisInitialized(_this)), event);
 
-            _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _allowFocusReturn)[_allowFocusReturn] = true;
+            _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _allowFocusReturn, true);
           }
 
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton)[_activeDropdownButton] = event.target;
+          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton, event.target);
 
-          if (!_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton)[_activeDropdownButton].getAttribute(Selectors$3.DATA_PARENT)) {
+          if (!_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton).getAttribute(Selectors$3.DATA_PARENT)) {
             return console.error(Messages$2.NO_PARENT_ERROR);
           }
 
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownId)[_activeDropdownId] = _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton)[_activeDropdownButton].getAttribute(Selectors$3.DATA_PARENT);
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr)[_activeDropdownAttr] = "[".concat(Selectors$3.DATA_DROPDOWN, "=\"").concat(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownId)[_activeDropdownId], "\"]");
+          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownId, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton).getAttribute(Selectors$3.DATA_PARENT));
 
-          if (!document.querySelector(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr)[_activeDropdownAttr])) {
-            return console.error(Messages$2.NO_DROPDOWN_ERROR(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr)[_activeDropdownAttr]));
+          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr, "[".concat(Selectors$3.DATA_DROPDOWN, "=\"").concat(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownId), "\"]"));
+
+          if (!document.querySelector(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr))) {
+            return console.error(Messages$2.NO_DROPDOWN_ERROR(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr)));
           }
 
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdown)[_activeDropdown] = document.querySelector(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr)[_activeDropdownAttr]);
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownMenuId)[_activeDropdownMenuId] = _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton)[_activeDropdownButton].getAttribute(Selectors$3.DATA_TARGET);
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownMenu)[_activeDropdownMenu] = document.getElementById(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownMenuId)[_activeDropdownMenuId]);
+          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdown, document.querySelector(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr)));
 
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton)[_activeDropdownButton].setAttribute(Selectors$3.ARIA_EXPANDED, "true");
+          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownMenuId, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton).getAttribute(Selectors$3.DATA_TARGET));
 
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdown)[_activeDropdown].setAttribute(Selectors$3.DATA_VISIBLE, "true");
+          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownMenu, document.getElementById(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownMenuId)));
 
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton)[_activeDropdownButton].removeEventListener(Events$3.CLICK, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _render$2)[_render$2]);
+          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton).setAttribute(Selectors$3.ARIA_EXPANDED, "true");
 
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton)[_activeDropdownButton].addEventListener(Events$3.CLICK, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose$1)[_handleClose$1]);
+          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdown).setAttribute(Selectors$3.DATA_VISIBLE, "true");
 
-          document.addEventListener(Events$3.KEYDOWN, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleEscapeKeyPress$1)[_handleEscapeKeyPress$1]);
-          document.addEventListener(Events$3.CLICK, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleOffMenuClick)[_handleOffMenuClick]);
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks)[_activeDropdownLinks] = _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _getDropdownLinks)[_getDropdownLinks](_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr)[_activeDropdownAttr]);
-          _this.firstDropdownLink = _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks)[_activeDropdownLinks][0];
-          _this.lastDropdownLink = _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks)[_activeDropdownLinks][_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks)[_activeDropdownLinks].length - 1];
+          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton).removeEventListener(Events$3.CLICK, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _render$2));
 
-          _this.firstDropdownLink.addEventListener(Events$3.KEYDOWN, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleFirstTabClose)[_handleFirstTabClose]);
+          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton).addEventListener(Events$3.CLICK, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose$1));
 
-          _this.lastDropdownLink.addEventListener(Events$3.KEYDOWN, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleLastTabClose)[_handleLastTabClose]);
+          document.addEventListener(Events$3.KEYDOWN, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleEscapeKeyPress$1));
+          document.addEventListener(Events$3.CLICK, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleOffMenuClick));
+
+          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks, _classPrivateMethodGet(_assertThisInitialized(_assertThisInitialized(_this)), _getDropdownLinks, _getDropdownLinks2).call(_assertThisInitialized(_assertThisInitialized(_this)), _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr)));
+
+          _this.firstDropdownLink = _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks)[0];
+          _this.lastDropdownLink = _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks)[_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks).length - 1];
+
+          _this.firstDropdownLink.addEventListener(Events$3.KEYDOWN, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleFirstTabClose));
+
+          _this.lastDropdownLink.addEventListener(Events$3.KEYDOWN, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleLastTabClose));
 
           if (key && key === KeyCodes$2.ARROW_UP) {
             _this.lastDropdownLink.focus();
@@ -1095,99 +1177,103 @@
             _this.firstDropdownLink.focus();
           }
 
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks)[_activeDropdownLinks].forEach(function (link) {
+          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks).forEach(function (link) {
             link.setAttribute(Selectors$3.TABINDEX, "0");
-            link.addEventListener(Events$3.CLICK, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose$1)[_handleClose$1]);
+            link.addEventListener(Events$3.CLICK, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose$1));
           });
 
-          _this.captureFocus("".concat(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr)[_activeDropdownAttr], " > ul"), {
+          _this.captureFocus("".concat(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr), " > ul"), {
             useArrows: true
           });
         }
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _handleFirstTabClose, {
+
+      _handleFirstTabClose.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: function value(event) {
           var shiftKey = event.which === KeyCodes$2.SHIFT || event.shiftKey;
           var tabKey = event.which === KeyCodes$2.TAB;
 
           if (shiftKey && tabKey) {
-            _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose$1)[_handleClose$1](event);
+            _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose$1).call(_assertThisInitialized(_assertThisInitialized(_this)), event);
           }
         }
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _handleLastTabClose, {
+
+      _handleLastTabClose.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: function value(event) {
           var shiftKey = event.which === KeyCodes$2.SHIFT || event.shiftKey;
           var tabKey = event.which === KeyCodes$2.TAB;
 
           if (tabKey && !shiftKey) {
-            _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose$1)[_handleClose$1](event);
+            _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose$1).call(_assertThisInitialized(_assertThisInitialized(_this)), event);
           }
         }
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _renderWithKeys, {
+
+      _renderWithKeys.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: function value(event) {
           if (event.which === KeyCodes$2.ARROW_UP || event.which === KeyCodes$2.ARROW_DOWN) {
-            _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _render$2)[_render$2](event, event.which);
+            _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _render$2).call(_assertThisInitialized(_assertThisInitialized(_this)), event, event.which);
           }
         }
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose$1, {
+
+      _handleClose$1.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: function value(event) {
           event.preventDefault();
 
           _this.releaseFocus();
 
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton)[_activeDropdownButton].setAttribute(Selectors$3.ARIA_EXPANDED, "false");
+          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton).setAttribute(Selectors$3.ARIA_EXPANDED, "false");
 
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdown)[_activeDropdown].setAttribute(Selectors$3.DATA_VISIBLE, "false");
+          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdown).setAttribute(Selectors$3.DATA_VISIBLE, "false");
 
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks)[_activeDropdownLinks].forEach(function (link) {
+          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks).forEach(function (link) {
             link.setAttribute(Selectors$3.TABINDEX, "-1");
-            link.removeEventListener(Events$3.CLICK, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose$1)[_handleClose$1]);
+            link.removeEventListener(Events$3.CLICK, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose$1));
           });
 
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton)[_activeDropdownButton].removeEventListener(Events$3.CLICK, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose$1)[_handleClose$1]);
+          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton).removeEventListener(Events$3.CLICK, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose$1));
 
-          _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton)[_activeDropdownButton].addEventListener(Events$3.CLICK, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _render$2)[_render$2]);
+          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton).addEventListener(Events$3.CLICK, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _render$2));
 
-          document.removeEventListener(Events$3.KEYDOWN, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleEscapeKeyPress$1)[_handleEscapeKeyPress$1]);
-          document.removeEventListener(Events$3.CLICK, _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleOffMenuClick)[_handleOffMenuClick]);
+          document.removeEventListener(Events$3.KEYDOWN, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleEscapeKeyPress$1));
+          document.removeEventListener(Events$3.CLICK, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleOffMenuClick));
 
-          if (_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _allowFocusReturn)[_allowFocusReturn]) {
-            _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleReturnFocus$1)[_handleReturnFocus$1]();
+          if (_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _allowFocusReturn)) {
+            _classPrivateMethodGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleReturnFocus$1, _handleReturnFocus2$1).call(_assertThisInitialized(_assertThisInitialized(_this)));
           }
         }
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _handleEscapeKeyPress$1, {
+
+      _handleEscapeKeyPress$1.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: function value(event) {
           if (event.which === KeyCodes$2.ESCAPE) {
-            _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose$1)[_handleClose$1](event);
+            _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose$1).call(_assertThisInitialized(_assertThisInitialized(_this)), event);
           }
         }
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _handleOffMenuClick, {
+
+      _handleOffMenuClick.set(_assertThisInitialized(_assertThisInitialized(_this)), {
         writable: true,
         value: function value(event) {
-          if (event.target !== _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton)[_activeDropdownButton] && event.target !== _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownMenu)[_activeDropdownMenu]) {
-            _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose$1)[_handleClose$1](event);
+          if (event.target !== _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton) && event.target !== _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownMenu)) {
+            _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose$1).call(_assertThisInitialized(_assertThisInitialized(_this)), event);
           }
         }
       });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _handleReturnFocus$1, {
-        value: _handleReturnFocus2$1
-      });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _getDropdownLinks, {
-        value: _getDropdownLinks2
-      });
-      Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _setupDropdown, {
-        value: _setupDropdown2
-      });
+
+      _handleReturnFocus$1.add(_assertThisInitialized(_assertThisInitialized(_this)));
+
+      _getDropdownLinks.add(_assertThisInitialized(_assertThisInitialized(_this)));
+
+      _setupDropdown.add(_assertThisInitialized(_assertThisInitialized(_this)));
+
       return _this;
     }
 
@@ -1196,18 +1282,19 @@
       value: function start() {
         var _this2 = this;
 
-        _classPrivateFieldLooseBase(this, _dropdowns)[_dropdowns] = this.getElements("[".concat(Selectors$3.DATA_DROPDOWN, "]"));
-        _classPrivateFieldLooseBase(this, _dropdownButtons)[_dropdownButtons] = this.getElements("[".concat(Selectors$3.DATA_DROPDOWN, "] > ").concat(_classPrivateFieldLooseBase(this, _dropdownTargetAttr)[_dropdownTargetAttr]));
+        _classPrivateFieldSet(this, _dropdowns, this.getElements("[".concat(Selectors$3.DATA_DROPDOWN, "]")));
 
-        if (_classPrivateFieldLooseBase(this, _dropdowns)[_dropdowns].length) {
-          _classPrivateFieldLooseBase(this, _dropdowns)[_dropdowns].forEach(function (dropdown) {
-            return _classPrivateFieldLooseBase(_this2, _setupDropdown)[_setupDropdown](dropdown);
+        _classPrivateFieldSet(this, _dropdownButtons, this.getElements("[".concat(Selectors$3.DATA_DROPDOWN, "] > ").concat(_classPrivateFieldGet(this, _dropdownTargetAttr))));
+
+        if (_classPrivateFieldGet(this, _dropdowns).length) {
+          _classPrivateFieldGet(this, _dropdowns).forEach(function (dropdown) {
+            return _classPrivateMethodGet(_this2, _setupDropdown, _setupDropdown2).call(_this2, dropdown);
           });
         }
 
-        _classPrivateFieldLooseBase(this, _dropdownButtons)[_dropdownButtons].forEach(function (button) {
-          button.addEventListener(Events$3.CLICK, _classPrivateFieldLooseBase(_this2, _render$2)[_render$2]);
-          button.addEventListener(Events$3.KEYDOWN, _classPrivateFieldLooseBase(_this2, _renderWithKeys)[_renderWithKeys]);
+        _classPrivateFieldGet(this, _dropdownButtons).forEach(function (button) {
+          button.addEventListener(Events$3.CLICK, _classPrivateFieldGet(_this2, _render$2));
+          button.addEventListener(Events$3.KEYDOWN, _classPrivateFieldGet(_this2, _renderWithKeys));
         });
       }
     }, {
@@ -1215,9 +1302,9 @@
       value: function stop() {
         var _this3 = this;
 
-        _classPrivateFieldLooseBase(this, _dropdownButtons)[_dropdownButtons].forEach(function (button) {
-          button.removeEventListener(Events$3.CLICK, _classPrivateFieldLooseBase(_this3, _render$2)[_render$2]);
-          button.removeEventListener(Events$3.KEYDOWN, _classPrivateFieldLooseBase(_this3, _renderWithKeys)[_renderWithKeys]);
+        _classPrivateFieldGet(this, _dropdownButtons).forEach(function (button) {
+          button.removeEventListener(Events$3.CLICK, _classPrivateFieldGet(_this3, _render$2));
+          button.removeEventListener(Events$3.KEYDOWN, _classPrivateFieldGet(_this3, _renderWithKeys));
         });
       }
     }]);
@@ -1225,54 +1312,54 @@
     return Dropdown;
   }(Utils);
 
-  var _activeDropdownButton = _classPrivateFieldLooseKey("activeDropdownButton");
+  var _activeDropdownButton = new WeakMap();
 
-  var _activeDropdown = _classPrivateFieldLooseKey("activeDropdown");
+  var _activeDropdown = new WeakMap();
 
-  var _activeDropdownMenu = _classPrivateFieldLooseKey("activeDropdownMenu");
+  var _activeDropdownMenu = new WeakMap();
 
-  var _activeDropdownLinks = _classPrivateFieldLooseKey("activeDropdownLinks");
+  var _activeDropdownLinks = new WeakMap();
 
-  var _allowFocusReturn = _classPrivateFieldLooseKey("allowFocusReturn");
+  var _allowFocusReturn = new WeakMap();
 
-  var _activeDropdownId = _classPrivateFieldLooseKey("activeDropdownId");
+  var _activeDropdownId = new WeakMap();
 
-  var _activeDropdownAttr = _classPrivateFieldLooseKey("activeDropdownAttr");
+  var _activeDropdownAttr = new WeakMap();
 
-  var _activeDropdownMenuId = _classPrivateFieldLooseKey("activeDropdownMenuId");
+  var _activeDropdownMenuId = new WeakMap();
 
-  var _dropdownButtons = _classPrivateFieldLooseKey("dropdownButtons");
+  var _dropdownButtons = new WeakMap();
 
-  var _dropdowns = _classPrivateFieldLooseKey("dropdowns");
+  var _dropdowns = new WeakMap();
 
-  var _dropdownTargetAttr = _classPrivateFieldLooseKey("dropdownTargetAttr");
+  var _dropdownTargetAttr = new WeakMap();
 
-  var _render$2 = _classPrivateFieldLooseKey("render");
+  var _render$2 = new WeakMap();
 
-  var _handleFirstTabClose = _classPrivateFieldLooseKey("handleFirstTabClose");
+  var _handleFirstTabClose = new WeakMap();
 
-  var _handleLastTabClose = _classPrivateFieldLooseKey("handleLastTabClose");
+  var _handleLastTabClose = new WeakMap();
 
-  var _renderWithKeys = _classPrivateFieldLooseKey("renderWithKeys");
+  var _renderWithKeys = new WeakMap();
 
-  var _handleClose$1 = _classPrivateFieldLooseKey("handleClose");
+  var _handleClose$1 = new WeakMap();
 
-  var _handleEscapeKeyPress$1 = _classPrivateFieldLooseKey("handleEscapeKeyPress");
+  var _handleEscapeKeyPress$1 = new WeakMap();
 
-  var _handleOffMenuClick = _classPrivateFieldLooseKey("handleOffMenuClick");
+  var _handleOffMenuClick = new WeakMap();
 
-  var _handleReturnFocus$1 = _classPrivateFieldLooseKey("handleReturnFocus");
+  var _handleReturnFocus$1 = new WeakSet();
 
-  var _getDropdownLinks = _classPrivateFieldLooseKey("getDropdownLinks");
+  var _getDropdownLinks = new WeakSet();
 
-  var _setupDropdown = _classPrivateFieldLooseKey("setupDropdown");
+  var _setupDropdown = new WeakSet();
 
   var _handleReturnFocus2$1 = function _handleReturnFocus2() {
-    _classPrivateFieldLooseBase(this, _activeDropdownButton)[_activeDropdownButton].setAttribute(Selectors$3.TAB_INDEX, "-1");
+    _classPrivateFieldGet(this, _activeDropdownButton).setAttribute(Selectors$3.TAB_INDEX, "-1");
 
-    _classPrivateFieldLooseBase(this, _activeDropdownButton)[_activeDropdownButton].focus();
+    _classPrivateFieldGet(this, _activeDropdownButton).focus();
 
-    _classPrivateFieldLooseBase(this, _activeDropdownButton)[_activeDropdownButton].removeAttribute(Selectors$3.TAB_INDEX);
+    _classPrivateFieldGet(this, _activeDropdownButton).removeAttribute(Selectors$3.TAB_INDEX);
   };
 
   var _getDropdownLinks2 = function _getDropdownLinks2(attr) {
@@ -1289,7 +1376,7 @@
     }
 
     var dropdownMenu = document.querySelector("".concat(dropdownIdAttr, " > ul"));
-    var dropdownButton = document.querySelector("".concat(dropdownIdAttr, " > ").concat(_classPrivateFieldLooseBase(this, _dropdownTargetAttr)[_dropdownTargetAttr]));
+    var dropdownButton = document.querySelector("".concat(dropdownIdAttr, " > ").concat(_classPrivateFieldGet(this, _dropdownTargetAttr)));
     dropdownButton.setAttribute(Selectors$3.ARIA_CONTROLS, dropdownMenu.id);
     dropdownButton.setAttribute(Selectors$3.ARIA_HASPOPUP, "true");
     dropdownButton.setAttribute(Selectors$3.ARIA_EXPANDED, "false");
@@ -1299,7 +1386,7 @@
       return item.setAttribute(Selectors$3.ROLE, "none");
     });
 
-    _classPrivateFieldLooseBase(this, _getDropdownLinks)[_getDropdownLinks](dropdownIdAttr).forEach(function (link) {
+    _classPrivateMethodGet(this, _getDropdownLinks, _getDropdownLinks2).call(this, dropdownIdAttr).forEach(function (link) {
       link.setAttribute(Selectors$3.ROLE, "menuitem");
       link.setAttribute(Selectors$3.TABINDEX, "-1");
     });

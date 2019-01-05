@@ -27,11 +27,11 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _classPrivateFieldLooseBase(receiver, privateKey) { if (!Object.prototype.hasOwnProperty.call(receiver, privateKey)) { throw new TypeError("attempted to use private field on non-instance"); } return receiver; }
+function _classPrivateMethodGet(receiver, privateSet, fn) { if (!privateSet.has(receiver)) { throw new TypeError("attempted to get private field on non-instance"); } return fn; }
 
-var id = 0;
+function _classPrivateFieldGet(receiver, privateMap) { if (!privateMap.has(receiver)) { throw new TypeError("attempted to get private field on non-instance"); } return privateMap.get(receiver).value; }
 
-function _classPrivateFieldLooseKey(name) { return "__private_" + id++ + "_" + name; }
+function _classPrivateFieldSet(receiver, privateMap, value) { if (!privateMap.has(receiver)) { throw new TypeError("attempted to set private field on non-instance"); } var descriptor = privateMap.get(receiver); if (!descriptor.writable) { throw new TypeError("attempted to set read only private field"); } descriptor.value = value; return value; }
 
 var Selectors = {
   ACCORDION_CONTAINER: "data-accordion",
@@ -77,109 +77,125 @@ var Accordion = function (_Utils) {
     _classCallCheck(this, Accordion);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Accordion).call(this));
-    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _accordionButtons, {
+
+    _accordionButtons.set(_assertThisInitialized(_assertThisInitialized(_this)), {
       writable: true,
       value: []
     });
-    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _accordionContentsAttr, {
+
+    _accordionContentsAttr.set(_assertThisInitialized(_assertThisInitialized(_this)), {
       writable: true,
       value: ""
     });
-    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _accordionContents, {
+
+    _accordionContents.set(_assertThisInitialized(_assertThisInitialized(_this)), {
       writable: true,
       value: []
     });
-    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainer, {
+
+    _activeContainer.set(_assertThisInitialized(_assertThisInitialized(_this)), {
       writable: true,
       value: {}
     });
-    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeButton, {
+
+    _activeButton.set(_assertThisInitialized(_assertThisInitialized(_this)), {
       writable: true,
       value: {}
     });
-    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeAccordionRowId, {
+
+    _activeAccordionRowId.set(_assertThisInitialized(_assertThisInitialized(_this)), {
       writable: true,
       value: ""
     });
-    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeRowAttr, {
+
+    _activeRowAttr.set(_assertThisInitialized(_assertThisInitialized(_this)), {
       writable: true,
       value: ""
     });
-    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeRow, {
+
+    _activeRow.set(_assertThisInitialized(_assertThisInitialized(_this)), {
       writable: true,
       value: ""
     });
-    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerId, {
+
+    _activeContainerId.set(_assertThisInitialized(_assertThisInitialized(_this)), {
       writable: true,
       value: ""
     });
-    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerAttr, {
+
+    _activeContainerAttr.set(_assertThisInitialized(_assertThisInitialized(_this)), {
       writable: true,
       value: ""
     });
-    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeContent, {
+
+    _activeContent.set(_assertThisInitialized(_assertThisInitialized(_this)), {
       writable: true,
       value: {}
     });
-    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeButtonExpandState, {
+
+    _activeButtonExpandState.set(_assertThisInitialized(_assertThisInitialized(_this)), {
       writable: true,
       value: ""
     });
-    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _activeContentHiddenState, {
+
+    _activeContentHiddenState.set(_assertThisInitialized(_assertThisInitialized(_this)), {
       writable: true,
       value: ""
     });
-    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _setupAccordion, {
-      value: _setupAccordion2
-    });
-    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _getPossibleAccordionHeaderAttrs, {
-      value: _getPossibleAccordionHeaderAttrs2
-    });
-    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _getAccordionRowAttr, {
-      value: _getAccordionRowAttr2
-    });
-    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _render, {
+
+    _setupAccordion.add(_assertThisInitialized(_assertThisInitialized(_this)));
+
+    _getPossibleAccordionHeaderAttrs.add(_assertThisInitialized(_assertThisInitialized(_this)));
+
+    _getAccordionRowAttr.add(_assertThisInitialized(_assertThisInitialized(_this)));
+
+    _render.set(_assertThisInitialized(_assertThisInitialized(_this)), {
       writable: true,
       value: function value(event) {
         event.preventDefault();
-        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeButton)[_activeButton] = event.target;
-        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeAccordionRowId)[_activeAccordionRowId] = _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeButton)[_activeButton].getAttribute(Selectors.DATA_TARGET);
-        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeRowAttr)[_activeRowAttr] = _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _getAccordionRowAttr)[_getAccordionRowAttr](_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeAccordionRowId)[_activeAccordionRowId]);
-        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeRow)[_activeRow] = document.querySelector(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeRowAttr)[_activeRowAttr]);
 
-        if (!_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeButton)[_activeButton].getAttribute(Selectors.DATA_PARENT)) {
-          return console.error(Messages.NO_PARENT_ERROR(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeAccordionRowId)[_activeAccordionRowId]));
+        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeButton, event.target);
+
+        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeAccordionRowId, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeButton).getAttribute(Selectors.DATA_TARGET));
+
+        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeRowAttr, _classPrivateMethodGet(_assertThisInitialized(_assertThisInitialized(_this)), _getAccordionRowAttr, _getAccordionRowAttr2).call(_assertThisInitialized(_assertThisInitialized(_this)), _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeAccordionRowId)));
+
+        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeRow, document.querySelector(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeRowAttr)));
+
+        if (!_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeButton).getAttribute(Selectors.DATA_PARENT)) {
+          return console.error(Messages.NO_PARENT_ERROR(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeAccordionRowId)));
         }
 
-        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerId)[_activeContainerId] = _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeButton)[_activeButton].getAttribute(Selectors.DATA_PARENT);
-        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerAttr)[_activeContainerAttr] = "[".concat(Selectors.ACCORDION_CONTAINER, "='").concat(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerId)[_activeContainerId], "']");
+        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerId, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeButton).getAttribute(Selectors.DATA_PARENT));
 
-        if (!document.querySelector(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerAttr)[_activeContainerAttr])) {
-          return console.error(Messages.NO_ACCORDION_ERROR(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerId)[_activeContainerId]));
+        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerAttr, "[".concat(Selectors.ACCORDION_CONTAINER, "='").concat(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerId), "']"));
+
+        if (!document.querySelector(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerAttr))) {
+          return console.error(Messages.NO_ACCORDION_ERROR(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerId)));
         }
 
-        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainer)[_activeContainer] = document.querySelector(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerAttr)[_activeContainerAttr]);
-        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeContent)[_activeContent] = document.getElementById(_classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeAccordionRowId)[_activeAccordionRowId]);
+        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainer, document.querySelector(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerAttr)));
 
-        var accordionButtonState = _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeRow)[_activeRow].getAttribute(Selectors.DATA_VISIBLE);
+        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContent, document.getElementById(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeAccordionRowId)));
 
-        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeButtonExpandState)[_activeButtonExpandState] = accordionButtonState === "true" ? "false" : "true";
-        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeContentHiddenState)[_activeContentHiddenState] = _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _activeButtonExpandState)[_activeButtonExpandState] === "false" ? "true" : "false";
+        var accordionButtonState = _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeRow).getAttribute(Selectors.DATA_VISIBLE);
 
-        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _closeAllIfToggleable)[_closeAllIfToggleable]();
+        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeButtonExpandState, accordionButtonState === "true" ? "false" : "true");
 
-        _classPrivateFieldLooseBase(_assertThisInitialized(_assertThisInitialized(_this)), _toggleSelectedAccordion)[_toggleSelectedAccordion]();
+        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContentHiddenState, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeButtonExpandState) === "false" ? "true" : "false");
+
+        _classPrivateMethodGet(_assertThisInitialized(_assertThisInitialized(_this)), _closeAllIfToggleable, _closeAllIfToggleable2).call(_assertThisInitialized(_assertThisInitialized(_this)));
+
+        _classPrivateMethodGet(_assertThisInitialized(_assertThisInitialized(_this)), _toggleSelectedAccordion, _toggleSelectedAccordion2).call(_assertThisInitialized(_assertThisInitialized(_this)));
       }
     });
-    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _closeAllIfToggleable, {
-      value: _closeAllIfToggleable2
-    });
-    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _toggleSelectedAccordion, {
-      value: _toggleSelectedAccordion2
-    });
-    Object.defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), _toggleAttributeInCollection, {
-      value: _toggleAttributeInCollection2
-    });
+
+    _closeAllIfToggleable.add(_assertThisInitialized(_assertThisInitialized(_this)));
+
+    _toggleSelectedAccordion.add(_assertThisInitialized(_assertThisInitialized(_this)));
+
+    _toggleAttributeInCollection.add(_assertThisInitialized(_assertThisInitialized(_this)));
+
     return _this;
   }
 
@@ -188,13 +204,13 @@ var Accordion = function (_Utils) {
     value: function start() {
       var _this2 = this;
 
-      _classPrivateFieldLooseBase(this, _accordionButtons)[_accordionButtons] = this.getElements("[".concat(Selectors.ACCORDION_CONTAINER, "] [").concat(Selectors.DATA_TARGET, "]"));
+      _classPrivateFieldSet(this, _accordionButtons, this.getElements("[".concat(Selectors.ACCORDION_CONTAINER, "] [").concat(Selectors.DATA_TARGET, "]")));
 
-      if (_classPrivateFieldLooseBase(this, _accordionButtons)[_accordionButtons].length) {
-        _classPrivateFieldLooseBase(this, _accordionButtons)[_accordionButtons].forEach(function (button) {
-          _classPrivateFieldLooseBase(_this2, _setupAccordion)[_setupAccordion](button);
+      if (_classPrivateFieldGet(this, _accordionButtons).length) {
+        _classPrivateFieldGet(this, _accordionButtons).forEach(function (button) {
+          _classPrivateMethodGet(_this2, _setupAccordion, _setupAccordion2).call(_this2, button);
 
-          button.addEventListener(Events.CLICK, _classPrivateFieldLooseBase(_this2, _render)[_render]);
+          button.addEventListener(Events.CLICK, _classPrivateFieldGet(_this2, _render));
         });
       }
     }
@@ -203,8 +219,8 @@ var Accordion = function (_Utils) {
     value: function stop() {
       var _this3 = this;
 
-      _classPrivateFieldLooseBase(this, _accordionButtons)[_accordionButtons].forEach(function (button) {
-        button.removeEventListener(Events.CLICK, _classPrivateFieldLooseBase(_this3, _render)[_render]);
+      _classPrivateFieldGet(this, _accordionButtons).forEach(function (button) {
+        button.removeEventListener(Events.CLICK, _classPrivateFieldGet(_this3, _render));
       });
     }
   }]);
@@ -214,45 +230,45 @@ var Accordion = function (_Utils) {
 
 exports.default = Accordion;
 
-var _accordionButtons = _classPrivateFieldLooseKey("accordionButtons");
+var _accordionButtons = new WeakMap();
 
-var _accordionContentsAttr = _classPrivateFieldLooseKey("accordionContentsAttr");
+var _accordionContentsAttr = new WeakMap();
 
-var _accordionContents = _classPrivateFieldLooseKey("accordionContents");
+var _accordionContents = new WeakMap();
 
-var _activeContainer = _classPrivateFieldLooseKey("activeContainer");
+var _activeContainer = new WeakMap();
 
-var _activeButton = _classPrivateFieldLooseKey("activeButton");
+var _activeButton = new WeakMap();
 
-var _activeAccordionRowId = _classPrivateFieldLooseKey("activeAccordionRowId");
+var _activeAccordionRowId = new WeakMap();
 
-var _activeRowAttr = _classPrivateFieldLooseKey("activeRowAttr");
+var _activeRowAttr = new WeakMap();
 
-var _activeRow = _classPrivateFieldLooseKey("activeRow");
+var _activeRow = new WeakMap();
 
-var _activeContainerId = _classPrivateFieldLooseKey("activeContainerId");
+var _activeContainerId = new WeakMap();
 
-var _activeContainerAttr = _classPrivateFieldLooseKey("activeContainerAttr");
+var _activeContainerAttr = new WeakMap();
 
-var _activeContent = _classPrivateFieldLooseKey("activeContent");
+var _activeContent = new WeakMap();
 
-var _activeButtonExpandState = _classPrivateFieldLooseKey("activeButtonExpandState");
+var _activeButtonExpandState = new WeakMap();
 
-var _activeContentHiddenState = _classPrivateFieldLooseKey("activeContentHiddenState");
+var _activeContentHiddenState = new WeakMap();
 
-var _setupAccordion = _classPrivateFieldLooseKey("setupAccordion");
+var _setupAccordion = new WeakSet();
 
-var _getPossibleAccordionHeaderAttrs = _classPrivateFieldLooseKey("getPossibleAccordionHeaderAttrs");
+var _getPossibleAccordionHeaderAttrs = new WeakSet();
 
-var _getAccordionRowAttr = _classPrivateFieldLooseKey("getAccordionRowAttr");
+var _getAccordionRowAttr = new WeakSet();
 
-var _render = _classPrivateFieldLooseKey("render");
+var _render = new WeakMap();
 
-var _closeAllIfToggleable = _classPrivateFieldLooseKey("closeAllIfToggleable");
+var _closeAllIfToggleable = new WeakSet();
 
-var _toggleSelectedAccordion = _classPrivateFieldLooseKey("toggleSelectedAccordion");
+var _toggleSelectedAccordion = new WeakSet();
 
-var _toggleAttributeInCollection = _classPrivateFieldLooseKey("toggleAttributeInCollection");
+var _toggleAttributeInCollection = new WeakSet();
 
 var _setupAccordion2 = function _setupAccordion2(button) {
   var buttonId = button.getAttribute(Selectors.DATA_TARGET);
@@ -263,7 +279,7 @@ var _setupAccordion2 = function _setupAccordion2(button) {
 
   var buttonContent = document.getElementById(buttonId);
 
-  var accordionRowAttr = _classPrivateFieldLooseBase(this, _getAccordionRowAttr)[_getAccordionRowAttr](buttonId);
+  var accordionRowAttr = _classPrivateMethodGet(this, _getAccordionRowAttr, _getAccordionRowAttr2).call(this, buttonId);
 
   if (!document.querySelector(accordionRowAttr)) {
     return console.error(Messages.NO_ROW_ERROR(buttonId));
@@ -271,7 +287,7 @@ var _setupAccordion2 = function _setupAccordion2(button) {
 
   var accordionRow = document.querySelector(accordionRowAttr);
 
-  var buttonHeaderAttr = _classPrivateFieldLooseBase(this, _getPossibleAccordionHeaderAttrs)[_getPossibleAccordionHeaderAttrs](accordionRowAttr);
+  var buttonHeaderAttr = _classPrivateMethodGet(this, _getPossibleAccordionHeaderAttrs, _getPossibleAccordionHeaderAttrs2).call(this, accordionRowAttr);
 
   var buttonHeader = this.getElements(buttonHeaderAttr)[0];
 
@@ -316,44 +332,44 @@ var _getAccordionRowAttr2 = function _getAccordionRowAttr2(id) {
 var _closeAllIfToggleable2 = function _closeAllIfToggleable2() {
   var _this4 = this;
 
-  if (_classPrivateFieldLooseBase(this, _activeContainer)[_activeContainer].hasAttribute(Selectors.DATA_TOGGLE_MULTIPLE)) return;
-  var allContentAttr = "".concat(_classPrivateFieldLooseBase(this, _activeContainerAttr)[_activeContainerAttr], " [").concat(Selectors.ARIA_HIDDEN, "]");
-  var allRows = this.getElements("".concat(_classPrivateFieldLooseBase(this, _activeContainerAttr)[_activeContainerAttr], " [").concat(Selectors.DATA_VISIBLE, "]"));
+  if (_classPrivateFieldGet(this, _activeContainer).hasAttribute(Selectors.DATA_TOGGLE_MULTIPLE)) return;
+  var allContentAttr = "".concat(_classPrivateFieldGet(this, _activeContainerAttr), " [").concat(Selectors.ARIA_HIDDEN, "]");
+  var allRows = this.getElements("".concat(_classPrivateFieldGet(this, _activeContainerAttr), " [").concat(Selectors.DATA_VISIBLE, "]"));
   var allContent = this.getElements(allContentAttr);
-  var allButtons = this.getElements("".concat(_classPrivateFieldLooseBase(this, _activeContainerAttr)[_activeContainerAttr], " [").concat(Selectors.DATA_TARGET, "]"));
+  var allButtons = this.getElements("".concat(_classPrivateFieldGet(this, _activeContainerAttr), " [").concat(Selectors.DATA_TARGET, "]"));
   allContent.forEach(function (content) {
-    if (!(content === _classPrivateFieldLooseBase(_this4, _activeContent)[_activeContent])) content.style.maxHeight = null;
+    if (!(content === _classPrivateFieldGet(_this4, _activeContent))) content.style.maxHeight = null;
   });
   this.getFocusableElements(allContentAttr).forEach(function (element) {
     element.setAttribute(Selectors.TABINDEX, "-1");
   });
 
-  _classPrivateFieldLooseBase(this, _toggleAttributeInCollection)[_toggleAttributeInCollection](allRows, Selectors.DATA_VISIBLE, "true", "false");
+  _classPrivateMethodGet(this, _toggleAttributeInCollection, _toggleAttributeInCollection2).call(this, allRows, Selectors.DATA_VISIBLE, "true", "false");
 
-  _classPrivateFieldLooseBase(this, _toggleAttributeInCollection)[_toggleAttributeInCollection](allButtons, Selectors.ARIA_EXPANDED, "true", "false");
+  _classPrivateMethodGet(this, _toggleAttributeInCollection, _toggleAttributeInCollection2).call(this, allButtons, Selectors.ARIA_EXPANDED, "true", "false");
 
-  _classPrivateFieldLooseBase(this, _toggleAttributeInCollection)[_toggleAttributeInCollection](allContent, Selectors.ARIA_HIDDEN, "false", "true");
+  _classPrivateMethodGet(this, _toggleAttributeInCollection, _toggleAttributeInCollection2).call(this, allContent, Selectors.ARIA_HIDDEN, "false", "true");
 };
 
 var _toggleSelectedAccordion2 = function _toggleSelectedAccordion2() {
   var _this5 = this;
 
-  _classPrivateFieldLooseBase(this, _activeRow)[_activeRow].setAttribute(Selectors.DATA_VISIBLE, _classPrivateFieldLooseBase(this, _activeButtonExpandState)[_activeButtonExpandState]);
+  _classPrivateFieldGet(this, _activeRow).setAttribute(Selectors.DATA_VISIBLE, _classPrivateFieldGet(this, _activeButtonExpandState));
 
-  _classPrivateFieldLooseBase(this, _activeButton)[_activeButton].setAttribute(Selectors.ARIA_EXPANDED, _classPrivateFieldLooseBase(this, _activeButtonExpandState)[_activeButtonExpandState]);
+  _classPrivateFieldGet(this, _activeButton).setAttribute(Selectors.ARIA_EXPANDED, _classPrivateFieldGet(this, _activeButtonExpandState));
 
-  _classPrivateFieldLooseBase(this, _activeContent)[_activeContent].setAttribute(Selectors.ARIA_HIDDEN, _classPrivateFieldLooseBase(this, _activeContentHiddenState)[_activeContentHiddenState]);
+  _classPrivateFieldGet(this, _activeContent).setAttribute(Selectors.ARIA_HIDDEN, _classPrivateFieldGet(this, _activeContentHiddenState));
 
-  var activeContentBlock = "#".concat(_classPrivateFieldLooseBase(this, _activeAccordionRowId)[_activeAccordionRowId]);
+  var activeContentBlock = "#".concat(_classPrivateFieldGet(this, _activeAccordionRowId));
   this.getFocusableElements(activeContentBlock).forEach(function (element) {
-    var value = _classPrivateFieldLooseBase(_this5, _activeButtonExpandState)[_activeButtonExpandState] === "true" ? "0" : "-1";
+    var value = _classPrivateFieldGet(_this5, _activeButtonExpandState) === "true" ? "0" : "-1";
     element.setAttribute(Selectors.TABINDEX, value);
   });
 
-  if (_classPrivateFieldLooseBase(this, _activeContent)[_activeContent].style.maxHeight) {
-    _classPrivateFieldLooseBase(this, _activeContent)[_activeContent].style.maxHeight = null;
+  if (_classPrivateFieldGet(this, _activeContent).style.maxHeight) {
+    _classPrivateFieldGet(this, _activeContent).style.maxHeight = null;
   } else {
-    _classPrivateFieldLooseBase(this, _activeContent)[_activeContent].style.maxHeight = "".concat(_classPrivateFieldLooseBase(this, _activeContent)[_activeContent].scrollHeight, "px");
+    _classPrivateFieldGet(this, _activeContent).style.maxHeight = "".concat(_classPrivateFieldGet(this, _activeContent).scrollHeight, "px");
   }
 };
 
