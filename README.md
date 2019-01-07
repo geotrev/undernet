@@ -6,12 +6,12 @@
 
 A modular, configuration-first front-end framework. No strings.
 
-The framework features:
+What does Undernet include?
 
-- Layout utilities including a flex grid and spacing classes
-- CSS styling for common elements: forms, buttons, headers, etc
-- Common interactive components using JS: modals, accordions, and dropdowns
-- Powerful configuration options for all of the above.
+- Style defaults for common page elements: buttons, form inputs, typography, and the like.
+- Flex grid for advanced layout options.
+- Interactive components powered by JavaScript.
+- Highly brandable and extendable.
 
 ## Install via npm or yarn
 
@@ -23,32 +23,34 @@ $ npm install -S undernet
 $ yarn add -D undernet
 ```
 
+### Styles
+
+See [branding documentation](https://www.undernet.io/docs/overview/branding) to setup a custom pipeline with Undernet's SCSS.
+
 ### Components / JS
 
-See [javascript documentation](https://www.undernet.io/docs/overview/javascript) to learn how to setup and use Undernet's scripts for interactive components.
+See [JS documentation](https://www.undernet.io/docs/overview/javascript) to learn how to setup and use Undernet's API for interactive components.
 
-Here are the current components included:
+Currently available list of components:
 
 - [Modals](https://www.undernet.io/docs/components/modals)
 - [Accordions](https://www.undernet.io/docs/components/accordions)
 - [Dropdowns](https://www.undernet.io/docs/components/dropdowns)
 
-### Styles
-
-See [branding documentation](https://www.undernet.io/docs/overview/branding) to setup a custom pipeline with Undernet's SCSS modules.
+Each require a specific HTML structure to allow for proper accessibility and interactivity for the user. Examples included in the links above.
 
 ## Contribute
 
 See CONTRIBUTING.md for more details on git flow and recommendations for pull requests/issues.
 
-### Fork and clone for development
+### Fork and clone for development / contributing
 
 First fork the project on Github. Then set up locally.
 
 ```sh
 $ git clone git@github.com:USER_NAME/undernet.git
 $ cd undernet/
-$ npm install
+$ npm install && npm link
 ```
 
 The site is both a demo and marketing tool. It is built with my own webpack setup called [Pulsar](https://github.com/geotrev/pulsar). It's basically just Webpack + React, so don't panic. :)
@@ -87,14 +89,13 @@ If you've already run `npm install`, these commands should Just Work™.
 
 ```sh
 $ npm run build:development
-$ npm link
 ```
 
-From there, everything should build correctly: the framework scss and js will be prettified by `prettier` and distributions of js and css will be output using `@babel`, `rollup`, `node-sass`, and a few macOS specific commands for zipping/prepping files for release. The output typically takes 5-10 seconds at most.
+The script processes the SCSS and JS, then compiles the output to a `dist/` folder.
 
 ### Rebuild assets on the fly
 
-To rebuild fresh js assets while running the site's dev server, run this in a separate session to auto-reload assets while you work:
+To continually reload fresh JS assets while running the site's dev server, run the below command in a separate terminal session.
 
 ```sh
 $ npm run js:watch
@@ -102,19 +103,16 @@ $ npm run js:watch
 
 ### New releases
 
-New releases are simply zipped and compiled files to be distributed on npm, then for use on a CDN, such as jsdelivr.
-
-To run a release build, run the following two commands, where `VERSION` is the semver value incremented from `package.json`:
+To run a release build, run the following command, where `VERSION` is the semver value incremented from `package.json`:
 
 ```sh
-$ update-version --tag=VERSION
-$ npm run build:release
+$ update-version --tag=VERSION && npm run build:release
 ```
 
 These will do three things:
 
-1. Increment the project version across multiple files that require it.
-2. Build all assets with the new version.
+1. Increment the project version across docs, package.json, and in `scss/undernet.scss`
+2. Build all assets to `dist/` with the new version.
 3. Generate new sha-256 hashes for CDN subresource integrity (added to `docs/download.md`).
 
 The result is a repo state ready to publish to npm!
