@@ -1,6 +1,6 @@
 /*!
   * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
-  * Undernet v3.1.5 (https://undernet.io)
+  * Undernet v3.1.6 (https://undernet.io)
   * Copyright 2017-2019 George Treviranus
   */
 (function (global, factory) {
@@ -1396,33 +1396,34 @@
   var Accordions = new Accordion();
   var Dropdowns = new Dropdown();
   var Utils$1 = new Utils();
-  var Undernet = {
+  var Undernet$1 = {
     Modals: Modals,
     Accordions: Accordions,
     Dropdowns: Dropdowns,
     Utils: Utils$1
   };
 
-  Undernet.start = function () {
-    Undernet.Modals.start();
-    Undernet.Accordions.start();
-    Undernet.Dropdowns.start();
-    Undernet.Utils.enableFocusOutline();
+  Undernet$1.start = function () {
+    Undernet$1.Modals.start();
+    Undernet$1.Accordions.start();
+    Undernet$1.Dropdowns.start();
+    Undernet$1.Utils.enableFocusOutline();
   };
 
-  Undernet.stop = function () {
-    Undernet.Modals.stop();
-    Undernet.Accordions.stop();
-    Undernet.Dropdowns.stop();
-    Undernet.Utils.disableFocusOutline();
+  Undernet$1.stop = function () {
+    Undernet$1.Modals.stop();
+    Undernet$1.Accordions.stop();
+    Undernet$1.Dropdowns.stop();
+    Undernet$1.Utils.disableFocusOutline();
   };
-  window.Undernet = Undernet || {};
 
+  window.Undernet = Undernet;
+
+  exports.default = Undernet$1;
   exports.Modals = Modals;
   exports.Accordions = Accordions;
   exports.Dropdowns = Dropdowns;
   exports.Utils = Utils$1;
-  exports.default = Undernet;
 
   Object.defineProperty(exports, '__esModule', { value: true });
 

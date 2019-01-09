@@ -1,10 +1,10 @@
 {
   "name": "undernet",
-  "version": "3.1.5",
+  "version": "3.1.6",
   "homepage": "https://undernet.io",
   "description": "A modular, configuration-first front-end framework. No strings.",
-  "main": "js/dist/undernet.js",
-  "module": "js/dist/undernet.js",
+  "main": "js/dist/index.js",
+  "module": "js/dist/index.js",
   "author": "George Treviranus",
   "license": "MIT",
   "private": false,
