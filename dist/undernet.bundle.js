@@ -1396,30 +1396,30 @@
   var Accordions = new Accordion();
   var Dropdowns = new Dropdown();
   var Utils$1 = new Utils();
-  var Undernet$1 = {
+  var Undernet = {
     Modals: Modals,
     Accordions: Accordions,
     Dropdowns: Dropdowns,
     Utils: Utils$1
   };
 
-  Undernet$1.start = function () {
-    Undernet$1.Modals.start();
-    Undernet$1.Accordions.start();
-    Undernet$1.Dropdowns.start();
-    Undernet$1.Utils.enableFocusOutline();
+  Undernet.start = function () {
+    Undernet.Modals.start();
+    Undernet.Accordions.start();
+    Undernet.Dropdowns.start();
+    Undernet.Utils.enableFocusOutline();
   };
 
-  Undernet$1.stop = function () {
-    Undernet$1.Modals.stop();
-    Undernet$1.Accordions.stop();
-    Undernet$1.Dropdowns.stop();
-    Undernet$1.Utils.disableFocusOutline();
+  Undernet.stop = function () {
+    Undernet.Modals.stop();
+    Undernet.Accordions.stop();
+    Undernet.Dropdowns.stop();
+    Undernet.Utils.disableFocusOutline();
   };
 
   window.Undernet = Undernet;
 
-  exports.default = Undernet$1;
+  exports.default = Undernet;
   exports.Modals = Modals;
   exports.Accordions = Accordions;
   exports.Dropdowns = Dropdowns;
