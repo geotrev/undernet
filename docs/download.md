@@ -11,7 +11,7 @@ The quickest way to use Undernet is to link the bundled js and minified css usin
 ```
 
 ```html
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/undernet@3.1.6/dist/undernet.bundle.min.js" integrity="sha256-U2rWMe1Bmm0HZRb1LyQF3uJgQddfligj3kD0r9H5zfk=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/undernet@3.1.6/dist/undernet.bundle.min.js" integrity="sha256-tHtSMPOf7x8w19jMwLhChJFOK6Z/F1tAjaDr6uuZEzc=" crossorigin="anonymous"></script>
 <script type="text/javascript">
   document.addEventListener('DOMContentLoaded', Undernet.start())
 </script>
