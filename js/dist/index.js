@@ -46,4 +46,3 @@ Undernet.stop = function () {
 
 var _default = Undernet;
 exports.default = _default;
-window.Undernet = Undernet || {};
