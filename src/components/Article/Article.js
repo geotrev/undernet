@@ -1,11 +1,11 @@
 import React, { Component } from "react"
-import "./Article.scss"
 import Markdown from "react-markdown"
 import Prism from "prismjs"
 import Undernet from "undernet"
-
 import classNames from "classnames"
-import { ScrollUpOnMount } from "helpers"
+
+import ScrollUpOnMount from "helpers/ScrollUpOnMount"
+import "./styles.scss"
 
 export default class Article extends Component {
   constructor() {

@@ -1,8 +1,8 @@
 import React from "react"
-import "./Footer.scss"
-
 import Github from "react-feather/dist/icons/github"
 import Twitter from "react-feather/dist/icons/twitter"
+
+import "./styles.scss"
 
 export default function Footer() {
   return (

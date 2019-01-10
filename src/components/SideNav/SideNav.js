@@ -1,18 +1,16 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
-import "./SideNav.scss"
-
-const path = require("path")
-const pkg = require("../../../package.json")
-
 import classNames from "classnames"
 import { NavLink } from "react-router-dom"
 import Menu from "react-feather/dist/icons/menu"
 import ChevronRight from "react-feather/dist/icons/chevron-right"
-
-import { Button } from "components"
 import Undernet from "undernet"
+const path = require("path")
 
+import Button from "components/Button"
+import "./styles.scss"
+
+const pkg = require("../../../package.json")
 const MENU_COLLAPSE_BREAKPOINT = 1199
 
 export default class SideNav extends Component {
@@ -24,8 +22,8 @@ export default class SideNav extends Component {
       currentWindowWidth: null,
     }
 
-    this.updateMenuVisibility = this.updateMenuVisibility.bind(this)
-    this.getCurrentWidth = this.getCurrentWidth.bind(this)
+    this.handleMenuVisibility = this.handleMenuVisibility.bind(this)
+    this.handleCurrentWidth = this.handleCurrentWidth.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.handleCollapseClick = this.handleCollapseClick.bind(this)
   }
@@ -46,13 +44,13 @@ export default class SideNav extends Component {
   }
 
   componentWillMount() {
-    this.getCurrentWidth()
-    this.updateMenuVisibility()
+    this.handleCurrentWidth()
+    this.handleMenuVisibility()
   }
 
   componentDidMount() {
-    window.addEventListener("resize", this.getCurrentWidth)
-    window.addEventListener("resize", this.updateMenuVisibility)
+    window.addEventListener("resize", this.handleCurrentWidth)
+    window.addEventListener("resize", this.handleMenuVisibility)
 
     const menuIsOpen = this.state.currentWindowWidth > MENU_COLLAPSE_BREAKPOINT
     this.setState({ menuIsOpen })
@@ -66,8 +64,8 @@ export default class SideNav extends Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener("resize", this.getCurrentWidth)
-    window.removeEventListener("resize", this.updateMenuVisibility)
+    window.removeEventListener("resize", this.handleCurrentWidth)
+    window.removeEventListener("resize", this.handleMenuVisibility)
     Undernet.Accordions.stop()
   }
 
@@ -77,13 +75,13 @@ export default class SideNav extends Component {
     }
   }
 
-  getCurrentWidth() {
+  handleCurrentWidth() {
     this.setState({
       currentWindowWidth: window.outerWidth,
     })
   }
 
-  updateMenuVisibility() {
+  handleMenuVisibility() {
     if (this.state.currentWindowWidth > MENU_COLLAPSE_BREAKPOINT) {
       this.setState({ menuIsOpen: true })
     }
@@ -181,7 +179,8 @@ export default class SideNav extends Component {
         <div className="fluid grid side-nav-wrapper">
           <div className="row is-flex is-hidden-xlarge side-nav-expand">
             <Button onClick={this.handleClick} href="#" className={this.getButtonClasses()}>
-              <Menu size={20} role="presentation" focusable="false" /> <span className="has-black-text">Explore</span>
+              <Menu size={20} role="presentation" focusable="false" />{" "}
+              <span className="has-black-text">Explore</span>
             </Button>
           </div>
 

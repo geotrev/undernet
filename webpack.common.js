@@ -16,9 +16,9 @@ module.exports = {
     extensions: [".js", ".jsx"],
     alias: {
       routes: path.resolve(__dirname, "src/routes"),
-      components: path.resolve(__dirname, "src/components/exports"),
-      helpers: path.resolve(__dirname, "src/helpers/exports"),
-      pages: path.resolve(__dirname, "src/pages/exports"),
+      components: path.resolve(__dirname, "src/components/"),
+      helpers: path.resolve(__dirname, "src/helpers/"),
+      pages: path.resolve(__dirname, "src/pages/"),
       assets: path.resolve(__dirname, "src/assets/"),
       docs: path.resolve(__dirname, "docs/"),
       undernet: path.resolve(__dirname, "js/dist/index"),
@@ -27,7 +27,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        test: /\.js$/,
         exclude: /node_modules/,
         use: "babel-loader",
       },

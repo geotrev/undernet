@@ -1,6 +1,8 @@
 import React, { Component } from "react"
 import { Route } from "react-router-dom"
 import Loadable from "react-loadable"
+import { Link } from "react-router-dom"
+import ChevronRight from "react-feather/dist/icons/chevron-right"
 
 import {
   introductionPath,
@@ -23,9 +25,8 @@ import {
   spacingPath,
 } from "routes"
 
-import { Article, LoadingSpinner } from "components"
-import { Link } from "react-router-dom"
-import ChevronRight from "react-feather/dist/icons/chevron-right"
+import Article from "components/Article"
+import LoadingSpinner from "components/LoadingSpinner"
 
 function getRoute(name) {
   return Loadable({

@@ -4,10 +4,10 @@ import Prism from "prismjs"
 import Markdown from "react-markdown"
 import Loadable from "react-loadable"
 import ChevronRight from "react-feather/dist/icons/chevron-right"
-import "./Home.scss"
 
-import { ScrollUpOnMount } from "helpers"
+import ScrollUpOnMount from "helpers/ScrollUpOnMount"
 import { downloadPath, introductionPath } from "routes"
+import "./styles.scss"
 
 import pkg from "../../../package.json"
 import installNpm from "./install-npm.md"

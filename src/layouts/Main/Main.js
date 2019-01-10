@@ -2,12 +2,16 @@ import "@babel/polyfill"
 import React, { Component, Fragment } from "react"
 import { Route } from "react-router-dom"
 import Loadable from "react-loadable"
-import "./Main.scss"
+import Undernet from "undernet"
 
 import { rootPath, docsPath } from "routes"
-import { GlobalNav, Footer, LoadingSpinner } from "components"
-import { Home, Docs } from "pages"
-import Undernet from "undernet"
+import GlobalNav from "components/GlobalNav"
+import Footer from "components/Footer"
+import LoadingSpinner from "components/LoadingSpinner"
+import Home from "pages/Home"
+import Docs from "pages/Docs"
+
+import "./styles.scss"
 
 export default class Main extends Component {
   constructor() {

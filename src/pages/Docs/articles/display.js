@@ -1,5 +1,5 @@
 import React from "react"
-import { Article } from "components"
+import Article from "components/Article"
 import DisplayMd from "docs/display.md"
 
 const Display = () => <Article>{DisplayMd}</Article>
