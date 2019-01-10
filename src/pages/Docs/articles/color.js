@@ -1,5 +1,5 @@
 import React from "react"
-import { Article } from "components"
+import Article from "components/Article"
 import ColorMd from "docs/color.md"
 
 const Color = () => <Article>{ColorMd}</Article>

@@ -1,7 +1,7 @@
 import Docs from "./Docs"
 import { BrowserRouter as Router } from "react-router-dom"
-import { SideNav } from "components"
-import DocsRoutes from "./DocsRoutes/DocsRoutes"
+import SideNav from "components/SideNav"
+import DocsRoutes from "./DocsRoutes"
 
 describe("<Docs />", () => {
   it("renders", () => {

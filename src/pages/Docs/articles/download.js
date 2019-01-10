@@ -1,5 +1,5 @@
 import React from "react"
-import { Article } from "components"
+import Article from "components/Article"
 import DownloadMd from "docs/download.md"
 
 const Download = () => <Article>{DownloadMd}</Article>

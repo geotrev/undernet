@@ -1,9 +1,9 @@
 import React from "react"
-import "./Docs.scss"
 
-import { SideNav } from "components"
-import DocsRoutes from "./DocsRoutes/DocsRoutes"
+import SideNav from "components/SideNav"
+import DocsRoutes from "./DocsRoutes"
 import { ITEMS } from "./docs-nav-items"
+import "./styles.scss"
 
 export default function Docs() {
   return (

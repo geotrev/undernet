@@ -1,6 +1,0 @@
-export { default as Article } from "./Article/Article"
-export { default as Button } from "./Button/Button"
-export { default as Footer } from "./Footer/Footer"
-export { default as GlobalNav } from "./GlobalNav/GlobalNav"
-export { default as SideNav } from "./SideNav/SideNav"
-export { default as LoadingSpinner } from "./LoadingSpinner/LoadingSpinner"
