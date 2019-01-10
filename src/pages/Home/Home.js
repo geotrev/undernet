@@ -79,8 +79,8 @@ export default class Home extends Component {
                     />
                     <h2 className="h6 has-white-text">Tiny</h2>
                     <p className="has-white-text">
-                      CSS and JS are only 8.5kb minified + gzipped; you can be assured performance
-                      isn’t an issue.
+                      CSS and JS under 12kb minified + gzipped; you can be assured performance isn’t
+                      an issue.
                     </p>
                   </li>
                   <li className="large-3 small-6 xsmall-12 columns has-center-text">
