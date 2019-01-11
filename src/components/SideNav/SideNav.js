@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
 import classNames from "classnames"
+import throttle from "lodash/throttle"
 import { NavLink } from "react-router-dom"
 import Menu from "react-feather/dist/icons/menu"
 import ChevronRight from "react-feather/dist/icons/chevron-right"
@@ -23,7 +24,7 @@ export default class SideNav extends Component {
     }
 
     this.handleMenuVisibility = this.handleMenuVisibility.bind(this)
-    this.handleCurrentWidth = this.handleCurrentWidth.bind(this)
+    this.handleCurrentWidth = throttle(this.handleCurrentWidth.bind(this), 50)
     this.handleClick = this.handleClick.bind(this)
     this.handleCollapseClick = this.handleCollapseClick.bind(this)
   }
@@ -77,7 +78,7 @@ export default class SideNav extends Component {
 
   handleCurrentWidth() {
     this.setState({
-      currentWindowWidth: window.outerWidth,
+      currentWindowWidth: window.innerWidth,
     })
   }
 
