@@ -25,7 +25,7 @@ Check out this example modal:
       <a class="button" data-close href="#">
         Cancel
       </a>
-      <a class="primary button" href="#">
+      <a class="primary button">
         OK
       </a>
     </footer>
@@ -88,7 +88,7 @@ The modal will be able to handle long-content with ease, turning the overlay int
       <a class="button" data-close href="#">
         Cancel
       </a>
-      <a class="primary button" href="#">
+      <a class="primary button">
         OK
       </a>
     </footer>
@@ -118,7 +118,7 @@ Adding the `is-centered` class onto the modal overlay will vertically center the
       <a class="button" data-close href="#">
         Cancel
       </a>
-      <a class="primary button" href="#">
+      <a class="primary button">
         OK
       </a>
     </footer>
@@ -159,10 +159,10 @@ For the modal button, it should have two main properties:
 For the modal itself, you need a few more things.
 
 ```html
-<div class="modal-overlay" data-modal-id="new-modal-2">
-  <div class="modal-dialog" data-parent="new-modal-2" aria-labelledby="header-id-2" data-modal>
+<div class="modal-overlay" data-modal-id="new-modal">
+  <div class="modal-dialog" data-parent="new-modal" aria-labelledby="header-id" data-modal>
     <header>
-      <h2 class="h6" id="header-id-2">...</h2>
+      <h2 class="h6" id="header-id">...</h2>
       <a data-close href="#">
         <span aria-hidden="true">&times;</span>
         <span class"is-visually-hidden">close modal</span>
