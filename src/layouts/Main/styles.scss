@@ -16,11 +16,7 @@
 @import "../../../scss/components/dropdown";
 // }
 
-@if $scope != null {
-  .no-scroll {
-    overflow: hidden;
-  }
-}
+@import "../../../scss/helpers/scope-overrides";
 
 main {
   display: block;

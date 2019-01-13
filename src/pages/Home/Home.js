@@ -31,6 +31,52 @@ export default class Home extends Component {
     Prism.highlightAll()
   }
 
+  PERK_COLUMNS = [
+    {
+      src: tinySvg,
+      title: "Tiny",
+      subtitle:
+        "CSS and JS under 12kb minified + gzipped; you can be assured performance isn’t an issue.",
+    },
+    {
+      src: modSvg,
+      title: "Modular",
+      subtitle:
+        "Include only the pieces you need, or even namespace the components for existing projects.",
+    },
+    {
+      src: configSvg,
+      title: "Configurable",
+      subtitle:
+        "Built for a great developer experience, you can customize and extend the library with ease.",
+    },
+    {
+      src: a11ySvg,
+      title: "Accessible",
+      subtitle:
+        "Undernet is designed with WAI-ARIA guidelines in mind to ensure your project is accessible.",
+    },
+  ]
+
+  renderPerkColumns() {
+    return this.PERK_COLUMNS.map(column => {
+      return (
+        <li className="large-3 small-6 xsmall-12 columns has-center-text">
+          <img
+            className="home-icon"
+            src={column.src}
+            role="presentation"
+            alt=""
+            key={column.title}
+            aria-hidden="true"
+          />
+          <h2 className="h6 has-white-text">{column.title}</h2>
+          <p className="has-white-text">{column.subtitle}</p>
+        </li>
+      )
+    })
+  }
+
   render() {
     return (
       <div id="home">
@@ -68,64 +114,7 @@ export default class Home extends Component {
           <div className="row has-no-padding">
             <div className="column has-no-padding">
               <div className="wide grid">
-                <ul className="row is-unstyled-list has-no-padding">
-                  <li className="large-3 small-6 xsmall-12 columns has-center-text">
-                    <img
-                      className="home-icon"
-                      src={tinySvg}
-                      role="presentation"
-                      alt=""
-                      aria-hidden="true"
-                    />
-                    <h2 className="h6 has-white-text">Tiny</h2>
-                    <p className="has-white-text">
-                      CSS and JS under 12kb minified + gzipped; you can be assured performance isn’t
-                      an issue.
-                    </p>
-                  </li>
-                  <li className="large-3 small-6 xsmall-12 columns has-center-text">
-                    <img
-                      className="home-icon"
-                      src={modSvg}
-                      role="presentation"
-                      alt=""
-                      aria-hidden="true"
-                    />
-                    <h2 className="h6 has-white-text">Modular</h2>
-                    <p className="has-white-text">
-                      Include only the pieces you need, or even namespace the components for
-                      existing projects.
-                    </p>
-                  </li>
-                  <li className="large-3 small-6 xsmall-12 columns has-center-text">
-                    <img
-                      className="home-icon"
-                      src={configSvg}
-                      role="presentation"
-                      alt=""
-                      aria-hidden="true"
-                    />
-                    <h2 className="h6 has-white-text">Configurable</h2>
-                    <p className="has-white-text">
-                      Built for a great developer experience, you can customize and extend the
-                      library with ease.
-                    </p>
-                  </li>
-                  <li className="large-3 small-6 xsmall-12 columns has-center-text">
-                    <img
-                      className="home-icon"
-                      src={a11ySvg}
-                      role="presentation"
-                      alt=""
-                      aria-hidden="true"
-                    />
-                    <h2 className="h6 has-white-text">Accessible</h2>
-                    <p className="has-white-text">
-                      Undernet is designed with WAI-ARIA guidelines in mind to ensure your project
-                      is accessible.
-                    </p>
-                  </li>
-                </ul>
+                <ul className="row is-unstyled-list has-no-padding">{this.renderPerkColumns()}</ul>
               </div>
             </div>
           </div>

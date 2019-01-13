@@ -155,7 +155,7 @@ export default class SideNav extends Component {
     )
   }
 
-  renderAccordion() {
+  renderNavAccordion() {
     return this.props.navItems.map((section, i) => {
       let listItems = section.links.map((item, j) => {
         return this.renderAccordionChildLink(item, j)
@@ -189,7 +189,7 @@ export default class SideNav extends Component {
             <p className="version-text has-no-padding has-gray800-text xsmall-12 columns">
               Version {pkg.version}
             </p>
-            {this.renderAccordion()}
+            {this.renderNavAccordion()}
           </nav>
         </div>
       </div>
