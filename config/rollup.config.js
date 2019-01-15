@@ -1,11 +1,11 @@
 import { uglify } from "rollup-plugin-uglify"
 import pkg from "../package.json"
-const path = require("path")
-const resolve = require("rollup-plugin-node-resolve")
-const babel = require("rollup-plugin-babel")
-const banner = require("./banner.js")
+import path from "path"
+import resolve from "rollup-plugin-node-resolve"
+import babel from "rollup-plugin-babel"
+import banner from "./banner"
 
-const input = path.resolve(__dirname, "../js/src/index.bundle.js")
+const input = path.resolve(__dirname, `../js/src/index.bundle.js`)
 
 const umdOutput = {
   file: path.resolve(__dirname, "../dist/undernet.bundle.js"),
@@ -25,7 +25,7 @@ const plugins = [
 ]
 
 const umdMinOutput = Object.assign({}, umdOutput, {
-  file: path.resolve(__dirname, `../dist/undernet.bundle.min.js`),
+  file: path.resolve(__dirname, `../${pkg.browser}`),
 })
 
 const umdMinPlugins = []
