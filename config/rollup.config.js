@@ -5,10 +5,19 @@ import resolve from "rollup-plugin-node-resolve"
 import babel from "rollup-plugin-babel"
 import banner from "./banner"
 
-const input = path.resolve(__dirname, `../js/src/index.bundle.js`)
+const inputs = {
+  umd: path.resolve(__dirname, "../js/src/index.bundle.js"),
+  esm: path.resolve(__dirname, `../js/src/index.js`),
+}
+
+const outputs = {
+  umd: path.resolve(__dirname, "../dist/undernet.bundle.js"),
+  umdMin: path.resolve(__dirname, `../${pkg.browser}`),
+  esm: path.resolve(__dirname, `../${pkg.module}`),
+}
 
 const umdOutput = {
-  file: path.resolve(__dirname, "../dist/undernet.bundle.js"),
+  file: outputs.umd,
   format: "umd",
   name: "undernet",
   sourcemap: true,
@@ -25,7 +34,7 @@ const plugins = [
 ]
 
 const umdMinOutput = Object.assign({}, umdOutput, {
-  file: path.resolve(__dirname, `../${pkg.browser}`),
+  file: outputs.umdMin,
 })
 
 const umdMinPlugins = []
@@ -40,22 +49,28 @@ umdMinPlugins.push(
         return false
       },
     },
-    mangle: {
-      reserved: ["Undernet"],
-    },
+    mangle: { reserved: ["Undernet"] },
   }),
 )
 
+const esmOutput = { file: outputs.esm, format: "es" }
+
 const umdBundle = {
-  input,
+  input: inputs.umd,
   output: umdOutput,
   plugins,
 }
 
 const umdMinBundle = {
-  input,
+  input: inputs.umd,
   output: umdMinOutput,
   plugins: umdMinPlugins,
 }
 
-module.exports = [umdBundle, umdMinBundle]
+const esmConfig = {
+  input: inputs.esm,
+  output: esmOutput,
+  plugins,
+}
+
+module.exports = [umdBundle, umdMinBundle, esmConfig]
