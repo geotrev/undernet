@@ -7,11 +7,11 @@ Grab whichever source code best suits your project. Learn how to link your scrip
 The quickest way to use Undernet is to link the bundled js and minified css using a CDN, such as [jsdelivr](https://jsdelivr.com).
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/undernet@3.1.6/dist/undernet.min.css" integrity="sha256-lvUGuD+AioCbpuH3JJQgaxSKPiIlMhBML3hNecZurl8=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/undernet@3.2.0/dist/undernet.min.css" integrity="sha256-jIfO9tio+Kz7ZAqolK9tI/9kB6s7FOsgs04QudlMrUc=" crossorigin="anonymous">
 ```
 
 ```html
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/undernet@3.1.6/dist/undernet.bundle.min.js" integrity="sha256-tHtSMPOf7x8w19jMwLhChJFOK6Z/F1tAjaDr6uuZEzc=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/undernet@3.2.0/dist/undernet.bundle.min.js" integrity="sha256-frnOuAHdruA+4hxb8bjLBdks3k0QTFhWAwgcqI56Esc=" crossorigin="anonymous"></script>
 <script type="text/javascript">
   document.addEventListener('DOMContentLoaded', Undernet.start())
 </script>

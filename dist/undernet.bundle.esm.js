@@ -1,3 +1,8 @@
+/*!
+  * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
+  * Undernet v3.2.0 (https://undernet.io)
+  * Copyright 2017-2019 George Treviranus
+  */
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
