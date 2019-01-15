@@ -47,24 +47,23 @@ $column: map-get($grid-classes, column);
   padding-right: $column-gutter;
   padding-top: $column-padding-top;
   word-wrap: break-word;
-
-  @if $column-order-classes == true {
-    order: 999;
-  }
 }
 
-@each $breakpoint in $breakpoints {
-  $break-name: nth($breakpoint, 1);
-  $smallest-break-name: nth(nth($breakpoints, 1), 1);
+@each $name, $value in $breakpoints {
+  // Returns index of the current $name + $value pair
+  $breakpoint-index: index(($breakpoints), ($name $value));
 
-  @if $break-name == $smallest-break-name {
-    @include grid-classes($break-name);
+  // If the index is on the first item in $breakpoints
+  @if $breakpoint-index == 1 {
+    @include grid-classes($name);
+
+    // Else add a media query
   } @else {
-    @include breakpoint-up($break-name) {
-      @include grid-classes($break-name);
-    } // end @include
-  } // end @if
-} // end @each
+    @include breakpoint-up($name) {
+      @include grid-classes($name);
+    }
+  }
+}
 
 .#{$grid} {
   @each $name, $width in $grid-widths {
