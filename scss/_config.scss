@@ -83,7 +83,7 @@ $full-palette: map-merge(
 $global-border-radius: 4px !default;
 $global-border-width: 2px !default;
 
-$global-outline: none;
+$global-outline: none !default;
 $global-outline-using-keyboard: 2px solid $secondary-color !default;
 
 $global-space: 16px !default;
@@ -95,8 +95,8 @@ $spacing-increments: (
 ) !default;
 
 $modal-index: 2000 !default;
-$dropdown-menu-index: 1999;
-$dropdown-menu-index-in-modal: 2001;
+$dropdown-menu-index: 1999 !default;
+$dropdown-menu-index-in-modal: 2001 !default;
 
 // 2. Grid
 // -------
@@ -694,24 +694,24 @@ $accordion-content-background: $white !default;
 // 8. Dropdowns
 // ------------
 
-$dropdown-button-arrow: "\25bc";
-$dropdown-button-arrow-padding: 0 0 0 8px;
-$dropdown-button-arrow-font-size: 12px;
+$dropdown-button-arrow: "\25bc" !default;
+$dropdown-button-arrow-padding: 0 0 0 8px !default;
+$dropdown-button-arrow-font-size: 12px !default;
 
-$dropdown-menu-transition: opacity $global-transition;
-$dropdown-menu-padding: 4px 0;
-$dropdown-menu-border-radius: $global-border-radius;
-$dropdown-menu-background-color: $white;
-$dropdown-menu-width: 200px;
-$dropdown-menu-border: 1px solid $gray900;
+$dropdown-menu-transition: opacity $global-transition !default;
+$dropdown-menu-padding: 8px 0 !default;
+$dropdown-menu-border-radius: $global-border-radius !default;
+$dropdown-menu-background-color: $white !default;
+$dropdown-menu-width: 200px !default;
+$dropdown-menu-border: 1px solid $gray900 !default;
 
-$dropdown-menu-button-padding: 8px 12px;
-$dropdown-menu-button-text-color: $gray400;
+$dropdown-menu-button-padding: 8px 12px !default;
+$dropdown-menu-button-text-color: $gray400 !default;
 
-$dropdown-menu-rule-height: 1px;
-$dropdown-menu-rule-color: $gray900;
-$dropdown-menu-rule-margin: 8px 0;
+$dropdown-menu-rule-height: 1px !default;
+$dropdown-menu-rule-color: $gray900 !default;
+$dropdown-menu-rule-margin: 8px 0 !default;
 
-$dropdown-menu-header-font-size: 14px;
-$dropdown-menu-header-padding: 12px;
-$dropdown-menu-header-color: $gray800;
+$dropdown-menu-header-font-size: 14px !default;
+$dropdown-menu-header-padding: 12px !default;
+$dropdown-menu-header-color: $gray800 !default;
