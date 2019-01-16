@@ -50,8 +50,8 @@ $column: map-get($grid-classes, column);
 }
 
 @each $name, $value in $breakpoints {
-  // Returns index of the current $name + $value pair
-  $breakpoint-index: index(($breakpoints), ($name $value));
+  // Returns index of the current $key + $value pair
+  $breakpoint-index: index($breakpoints, ($name $value));
 
   // If the index is on the first item in $breakpoints
   @if $breakpoint-index == 1 {

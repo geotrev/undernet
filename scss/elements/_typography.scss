@@ -45,10 +45,14 @@ ol {
 }
 
 @each $size, $headers in $type-header-sizes {
-  $smallest-breakpoint: nth(nth($breakpoints, 1), 1);
+  // Returns index of the current $key + $value pair
+  $breakpoint-index: index($type-header-sizes, ($size $headers));
 
-  @if $size == $smallest-breakpoint {
+  // If the index is on the first item in $breakpoints
+  @if $breakpoint-index == 1 {
     @include header-sizes($headers);
+
+    // Else add a media query
   } @else {
     @include breakpoint-up($size) {
       @include header-sizes($headers);

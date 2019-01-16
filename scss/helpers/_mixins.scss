@@ -31,7 +31,7 @@
         // order-1 = -12
         // order-2 = -11
         // etc...
-        order: -1 - $columns + $i;
+        order: $i - 1 - $columns;
       }
     }
   }
