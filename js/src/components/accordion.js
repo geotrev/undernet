@@ -4,8 +4,8 @@ import Utils from "../utils"
 
 const Selectors = {
   // unique
-  ACCORDION_CONTAINER: "data-accordion",
-  ACCORDION_ROW: "data-accordion-row",
+  DATA_ACCORDION: "data-accordion",
+  DATA_ACCORDION_ROW: "data-accordion-row",
   // common
   DATA_VISIBLE: "data-visible",
   DATA_TARGET: "data-target",
@@ -69,7 +69,7 @@ export default class Accordion extends Utils {
    */
   start() {
     this.#accordionButtons = this.getElements(
-      `[${Selectors.ACCORDION_CONTAINER}] [${Selectors.DATA_TARGET}]`,
+      `[${Selectors.DATA_ACCORDION}] [${Selectors.DATA_TARGET}]`,
     )
 
     if (this.#accordionButtons.length) {
@@ -158,7 +158,7 @@ export default class Accordion extends Utils {
    * @return {String} - A unique accordion row selector.
    */
   #getAccordionRowAttr(id) {
-    return `[${Selectors.ACCORDION_ROW}='${id}']`
+    return `[${Selectors.DATA_ACCORDION_ROW}='${id}']`
   }
 
   /**
@@ -179,7 +179,7 @@ export default class Accordion extends Utils {
     }
 
     this.#activeContainerId = this.#activeButton.getAttribute(Selectors.DATA_PARENT)
-    this.#activeContainerAttr = `[${Selectors.ACCORDION_CONTAINER}='${this.#activeContainerId}']`
+    this.#activeContainerAttr = `[${Selectors.DATA_ACCORDION}='${this.#activeContainerId}']`
 
     if (!document.querySelector(this.#activeContainerAttr)) {
       return console.error(Messages.NO_ACCORDION_ERROR(this.#activeContainerId))

@@ -37,10 +37,9 @@ var KeyCodes = {
   ESCAPE: 27
 };
 var Selectors = {
-  MODAL_CONTAINER: "data-modal",
-  MODAL_ID: "data-modal-id",
-  MODAL_BUTTON: "data-modal-button",
-  NO_SCROLL: "no-scroll",
+  DATA_MODAL: "data-modal",
+  DATA_MODAL_ID: "data-modal-id",
+  DATA_MODAL_BUTTON: "data-modal-button",
   DATA_VISIBLE: "data-visible",
   DATA_CLOSE: "data-close",
   DATA_TARGET: "data-target",
@@ -48,7 +47,8 @@ var Selectors = {
   ARIA_HIDDEN: "aria-hidden",
   ARIA_MODAL: "aria-modal",
   ROLE: "role",
-  TABINDEX: "tabindex"
+  TABINDEX: "tabindex",
+  NO_SCROLL: "no-scroll"
 };
 var Events = {
   KEYDOWN: "keydown",
@@ -120,7 +120,7 @@ var Modal = function (_Utils) {
 
     _modalContainerAttr.set(_assertThisInitialized(_assertThisInitialized(_this)), {
       writable: true,
-      value: "[".concat(Selectors.MODAL_CONTAINER, "]")
+      value: "[".concat(Selectors.DATA_MODAL, "]")
     });
 
     _render.set(_assertThisInitialized(_assertThisInitialized(_this)), {
@@ -136,7 +136,7 @@ var Modal = function (_Utils) {
 
         _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalId, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalButton).getAttribute(Selectors.DATA_TARGET));
 
-        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlayAttr, "[".concat(Selectors.MODAL_ID, "=\"").concat(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalId), "\"]"));
+        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlayAttr, "[".concat(Selectors.DATA_MODAL_ID, "=\"").concat(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalId), "\"]"));
 
         if (!document.querySelector(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlayAttr))) {
           return console.error(Messages.NO_ID_ERROR(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalId)));
@@ -148,7 +148,7 @@ var Modal = function (_Utils) {
 
         _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModal, document.querySelector(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalSelector)));
 
-        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalCloseButtons, _this.getElements("".concat(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlayAttr), " [").concat(Selectors.MODAL_CONTAINER, "] [").concat(Selectors.DATA_CLOSE, "]")));
+        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalCloseButtons, _this.getElements("".concat(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlayAttr), " [").concat(Selectors.DATA_CLOSE, "]")));
 
         _this.getFocusableElements(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalSelector)).forEach(function (element) {
           element.setAttribute(Selectors.TABINDEX, "0");
@@ -242,7 +242,7 @@ var Modal = function (_Utils) {
 
       _classPrivateFieldSet(this, _modals, this.getElements(_classPrivateFieldGet(this, _modalContainerAttr)));
 
-      _classPrivateFieldSet(this, _modalButtons, this.getElements("[".concat(Selectors.MODAL_BUTTON, "]")));
+      _classPrivateFieldSet(this, _modalButtons, this.getElements("[".concat(Selectors.DATA_MODAL_BUTTON, "]")));
 
       this.getFocusableElements(_classPrivateFieldGet(this, _modalContainerAttr)).forEach(function (element) {
         element.setAttribute(Selectors.TABINDEX, "-1");
@@ -323,10 +323,10 @@ var _setupModal2 = function _setupModal2(modal) {
 
   var modalWrapper;
 
-  if (!document.querySelector("[".concat(Selectors.MODAL_ID, "='").concat(modalId, "']"))) {
+  if (!document.querySelector("[".concat(Selectors.DATA_MODAL_ID, "='").concat(modalId, "']"))) {
     return console.error(Messages.NO_ID_ERROR(modalId));
   } else {
-    modalWrapper = document.querySelector("[".concat(Selectors.MODAL_ID, "='").concat(modalId, "']"));
+    modalWrapper = document.querySelector("[".concat(Selectors.DATA_MODAL_ID, "='").concat(modalId, "']"));
   }
 
   modalWrapper.setAttribute(Selectors.ARIA_HIDDEN, "true");

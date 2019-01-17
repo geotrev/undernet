@@ -62,6 +62,7 @@ export default class Dropdown extends Utils {
   #dropdowns = []
 
   // dropdown element selectors
+  #dropdownContainerAttr = `[${Selectors.DATA_DROPDOWN}]`
   #dropdownTargetAttr = `[${Selectors.DATA_TARGET}]`
 
   // public
@@ -71,9 +72,9 @@ export default class Dropdown extends Utils {
    * Begin listening to dropdowns for events.
    */
   start() {
-    this.#dropdowns = this.getElements(`[${Selectors.DATA_DROPDOWN}]`)
+    this.#dropdowns = this.getElements(`${this.#dropdownContainerAttr}`)
     this.#dropdownButtons = this.getElements(
-      `[${Selectors.DATA_DROPDOWN}] > ${this.#dropdownTargetAttr}`,
+      `${this.#dropdownContainerAttr} > ${this.#dropdownTargetAttr}`,
     )
 
     if (this.#dropdowns.length) {

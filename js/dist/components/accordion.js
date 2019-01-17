@@ -34,8 +34,8 @@ function _classPrivateFieldGet(receiver, privateMap) { if (!privateMap.has(recei
 function _classPrivateFieldSet(receiver, privateMap, value) { if (!privateMap.has(receiver)) { throw new TypeError("attempted to set private field on non-instance"); } var descriptor = privateMap.get(receiver); if (!descriptor.writable) { throw new TypeError("attempted to set read only private field"); } descriptor.value = value; return value; }
 
 var Selectors = {
-  ACCORDION_CONTAINER: "data-accordion",
-  ACCORDION_ROW: "data-accordion-row",
+  DATA_ACCORDION: "data-accordion",
+  DATA_ACCORDION_ROW: "data-accordion-row",
   DATA_VISIBLE: "data-visible",
   DATA_TARGET: "data-target",
   DATA_TOGGLE_MULTIPLE: "data-toggle-multiple",
@@ -168,7 +168,7 @@ var Accordion = function (_Utils) {
 
         _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerId, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeButton).getAttribute(Selectors.DATA_PARENT));
 
-        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerAttr, "[".concat(Selectors.ACCORDION_CONTAINER, "='").concat(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerId), "']"));
+        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerAttr, "[".concat(Selectors.DATA_ACCORDION, "='").concat(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerId), "']"));
 
         if (!document.querySelector(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerAttr))) {
           return console.error(Messages.NO_ACCORDION_ERROR(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerId)));
@@ -204,7 +204,7 @@ var Accordion = function (_Utils) {
     value: function start() {
       var _this2 = this;
 
-      _classPrivateFieldSet(this, _accordionButtons, this.getElements("[".concat(Selectors.ACCORDION_CONTAINER, "] [").concat(Selectors.DATA_TARGET, "]")));
+      _classPrivateFieldSet(this, _accordionButtons, this.getElements("[".concat(Selectors.DATA_ACCORDION, "] [").concat(Selectors.DATA_TARGET, "]")));
 
       if (_classPrivateFieldGet(this, _accordionButtons).length) {
         _classPrivateFieldGet(this, _accordionButtons).forEach(function (button) {
@@ -326,7 +326,7 @@ var _getPossibleAccordionHeaderAttrs2 = function _getPossibleAccordionHeaderAttr
 };
 
 var _getAccordionRowAttr2 = function _getAccordionRowAttr2(id) {
-  return "[".concat(Selectors.ACCORDION_ROW, "='").concat(id, "']");
+  return "[".concat(Selectors.DATA_ACCORDION_ROW, "='").concat(id, "']");
 };
 
 var _closeAllIfToggleable2 = function _closeAllIfToggleable2() {
