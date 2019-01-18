@@ -16,7 +16,7 @@ Check out this example accordion:
     <div class="accordion-content" id="content-1">
       <p class="has-margin">
         Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
-        ipsum ut voluptate.
+        ipsum ut voluptate. <a>A link,</a> and <a>another link!</a>.
       </p>
     </div>
   </div>
@@ -29,20 +29,20 @@ Check out this example accordion:
     <div class="accordion-content" id="content-2">
       <p class="has-margin">
         Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
-        ipsum ut voluptate.
+        ipsum ut voluptate. <a>A link,</a> and <a>another link!</a>.
       </p>
     </div>
   </div>
   <div class="accordion-row" data-visible="false" data-accordion-row="content-3">
     <h5 id="button-3">
       <button data-parent="accordion-1" class="accordion-button" data-target="content-3">
-        Accordion Button 3
+        Accordion Button 3 
       </button>
     </h5>
     <div class="accordion-content" id="content-3">
       <p class="has-margin">
         Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
-        ipsum ut voluptate.
+        ipsum ut voluptate. <a>A link,</a> and <a>another link!</a>.
       </p>
     </div>
   </div>

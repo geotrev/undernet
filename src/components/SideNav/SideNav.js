@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { Component, Fragment } from "react"
 import PropTypes from "prop-types"
 import classNames from "classnames"
 import throttle from "lodash/throttle"
@@ -119,7 +119,7 @@ export default class SideNav extends Component {
 
   renderAccordionChildLink(item, index) {
     return (
-      <li key={index} role="none">
+      <li key={item.name} role="none">
         <NavLink
           role="listitem"
           className="side-nav-link-item has-black-text is-flex is-aligned-center"
@@ -135,23 +135,21 @@ export default class SideNav extends Component {
 
   renderAccordionRow(section, index, listItems) {
     return (
-      <ul>
-        <li role="none">
-          <h4 id={"nav-acc-button" + index} className="paragraph">
-            <Button
-              dataParent="side-nav-accordion"
-              className="accordion-button"
-              dataTarget={"nav-acc-content" + index}
-              role="listitem"
-            >
-              {section.header}
-            </Button>
-          </h4>
-        </li>
-        <li className="accordion-content" id={"nav-acc-content" + index}>
-          <ul>{listItems}</ul>
-        </li>
-      </ul>
+      <Fragment key={section.header}>
+        <h4 id={"nav-acc-button" + index} className="paragraph">
+          <Button
+            dataParent="side-nav-accordion"
+            className="accordion-button"
+            dataTarget={"nav-acc-content" + index}
+            role="listitem"
+          >
+            {section.header}
+          </Button>
+        </h4>
+        <ul className="accordion-content" id={"nav-acc-content" + index}>
+          {listItems}
+        </ul>
+      </Fragment>
     )
   }
 
