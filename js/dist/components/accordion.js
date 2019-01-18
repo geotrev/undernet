@@ -342,7 +342,7 @@ var _getPossibleAccordionButtonAttrs2 = function _getPossibleAccordionButtonAttr
 
 var _getPossibleAccordionHeaderAttrs2 = function _getPossibleAccordionHeaderAttrs2(attr) {
   return _classPrivateFieldGet(this, _headerLevels).map(function (num) {
-    return "".concat(attr, " h").concat(num);
+    return "".concat(attr, " > h").concat(num);
   }).join(", ");
 };
 

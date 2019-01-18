@@ -162,7 +162,7 @@ export default class Accordion extends Utils {
    * @return {String} - String of possible header selectors
    */
   #getPossibleAccordionHeaderAttrs(attr) {
-    return this.#headerLevels.map(num => `${attr} h${num}`).join(", ")
+    return this.#headerLevels.map(num => `${attr} > h${num}`).join(", ")
   }
 
   /**
