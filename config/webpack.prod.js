@@ -22,7 +22,7 @@ module.exports = merge(common, {
       name: "manifest",
     },
   },
-  stats: { children: false, warnings: false },
+  stats: { children: false, warnings: false, entrypoints: false, modules: false },
   plugins: [
     // remove previous build assets
     new CleanWebpackPlugin(["../build"], {
@@ -36,9 +36,12 @@ module.exports = merge(common, {
     // minify styles
     new OptimizeCSSAssetsPlugin({
       cssProcessorPluginOptions: {
-        preset: ['default', {
-          discardComments: { removeAll: true }
-        }],
+        preset: [
+          "default",
+          {
+            discardComments: { removeAll: true },
+          },
+        ],
       },
     }),
 
