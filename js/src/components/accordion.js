@@ -4,8 +4,8 @@ import Utils from "../utils"
 
 const Selectors = {
   // unique
-  ACCORDION_CONTAINER: "data-accordion",
-  ACCORDION_ROW: "data-accordion-row",
+  DATA_ACCORDION: "data-accordion",
+  DATA_ACCORDION_ROW: "data-accordion-row",
   // common
   DATA_VISIBLE: "data-visible",
   DATA_TARGET: "data-target",
@@ -61,6 +61,9 @@ export default class Accordion extends Utils {
   #activeButtonExpandState = ""
   #activeContentHiddenState = ""
 
+  // other data
+  #headerLevels = [1, 2, 3, 4, 5, 6]
+
   // public
 
   /**
@@ -68,9 +71,8 @@ export default class Accordion extends Utils {
    * Begin listening to [data-accordion-button] elements
    */
   start() {
-    this.#accordionButtons = this.getElements(
-      `[${Selectors.ACCORDION_CONTAINER}] [${Selectors.DATA_TARGET}]`,
-    )
+    const accordionButtonSelector = this.#getPossibleAccordionButtonAttrs(`[${Selectors.DATA_ACCORDION}]`)
+    this.#accordionButtons = this.getElements(accordionButtonSelector)
 
     if (this.#accordionButtons.length) {
       this.#accordionButtons.forEach(button => {
@@ -144,26 +146,37 @@ export default class Accordion extends Utils {
   }
 
   /**
-   * Build a selector string to be passed into querySelectorAll() / _getElements()
-   * @param {String} attr - A unique attribute.
-   * @return {String} - String of possible header selectors
+   * Build a selector string to match possible accordion buttons
+   * @param {String} attr - A unique attribute
+   * @return {String} - String of possible button selectors
    */
-  #getPossibleAccordionHeaderAttrs(attr) {
-    return `${attr} h1, ${attr} h2, ${attr} h3, ${attr} h4, ${attr} h5, ${attr} h6`
+  #getPossibleAccordionButtonAttrs(attr) {
+    return this.#headerLevels
+      .map(num => `${attr} > [${Selectors.DATA_ACCORDION_ROW}] > h${num} [${Selectors.DATA_TARGET}]`)
+      .join(", ")
   }
 
   /**
-   * Return a unique accordion row attribute selector.
+   * Build a selector string to match possible accordion headers
+   * @param {String} attr - A unique attribute
+   * @return {String} - String of possible header selectors
+   */
+  #getPossibleAccordionHeaderAttrs(attr) {
+    return this.#headerLevels.map(num => `${attr} > h${num}`).join(", ")
+  }
+
+  /**
+   * Build a unique accordion row attribute selector.
    * @param {String} id - An id value associated with a given Selectors.DATA_TARGET
-   * @return {String} - A unique accordion row selector.
+   * @return {String} - A unique accordion row selector
    */
   #getAccordionRowAttr(id) {
-    return `[${Selectors.ACCORDION_ROW}='${id}']`
+    return `[${Selectors.DATA_ACCORDION_ROW}='${id}']`
   }
 
   /**
    * Open accordion content associated with an accordion button.
-   * @param {Object} event - The event object.
+   * @param {Object} event - The event object
    */
   #render = event => {
     event.preventDefault()
@@ -179,7 +192,7 @@ export default class Accordion extends Utils {
     }
 
     this.#activeContainerId = this.#activeButton.getAttribute(Selectors.DATA_PARENT)
-    this.#activeContainerAttr = `[${Selectors.ACCORDION_CONTAINER}='${this.#activeContainerId}']`
+    this.#activeContainerAttr = `[${Selectors.DATA_ACCORDION}='${this.#activeContainerId}']`
 
     if (!document.querySelector(this.#activeContainerAttr)) {
       return console.error(Messages.NO_ACCORDION_ERROR(this.#activeContainerId))
@@ -207,10 +220,12 @@ export default class Accordion extends Utils {
     const allContentAttr = `${this.#activeContainerAttr} [${Selectors.ARIA_HIDDEN}]`
     const allRows = this.getElements(`${this.#activeContainerAttr} [${Selectors.DATA_VISIBLE}]`)
     const allContent = this.getElements(allContentAttr)
-    const allButtons = this.getElements(`${this.#activeContainerAttr} [${Selectors.DATA_TARGET}]`)
+
+    const accordionButtonSelector = this.#getPossibleAccordionButtonAttrs(this.#activeContainerAttr)
+    const allButtons = this.getElements(accordionButtonSelector)
 
     allContent.forEach(content => {
-      if (!(content === this.#activeContent)) content.style.maxHeight = null
+      if (content !== this.#activeContent) content.style.maxHeight = null
     })
 
     this.getFocusableElements(allContentAttr).forEach(element => {

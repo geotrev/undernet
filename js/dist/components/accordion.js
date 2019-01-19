@@ -27,15 +27,15 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _classPrivateMethodGet(receiver, privateSet, fn) { if (!privateSet.has(receiver)) { throw new TypeError("attempted to get private field on non-instance"); } return fn; }
-
 function _classPrivateFieldGet(receiver, privateMap) { if (!privateMap.has(receiver)) { throw new TypeError("attempted to get private field on non-instance"); } return privateMap.get(receiver).value; }
 
 function _classPrivateFieldSet(receiver, privateMap, value) { if (!privateMap.has(receiver)) { throw new TypeError("attempted to set private field on non-instance"); } var descriptor = privateMap.get(receiver); if (!descriptor.writable) { throw new TypeError("attempted to set read only private field"); } descriptor.value = value; return value; }
 
+function _classPrivateMethodGet(receiver, privateSet, fn) { if (!privateSet.has(receiver)) { throw new TypeError("attempted to get private field on non-instance"); } return fn; }
+
 var Selectors = {
-  ACCORDION_CONTAINER: "data-accordion",
-  ACCORDION_ROW: "data-accordion-row",
+  DATA_ACCORDION: "data-accordion",
+  DATA_ACCORDION_ROW: "data-accordion-row",
   DATA_VISIBLE: "data-visible",
   DATA_TARGET: "data-target",
   DATA_TOGGLE_MULTIPLE: "data-toggle-multiple",
@@ -143,7 +143,14 @@ var Accordion = function (_Utils) {
       value: ""
     });
 
+    _headerLevels.set(_assertThisInitialized(_assertThisInitialized(_this)), {
+      writable: true,
+      value: [1, 2, 3, 4, 5, 6]
+    });
+
     _setupAccordion.add(_assertThisInitialized(_assertThisInitialized(_this)));
+
+    _getPossibleAccordionButtonAttrs.add(_assertThisInitialized(_assertThisInitialized(_this)));
 
     _getPossibleAccordionHeaderAttrs.add(_assertThisInitialized(_assertThisInitialized(_this)));
 
@@ -168,7 +175,7 @@ var Accordion = function (_Utils) {
 
         _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerId, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeButton).getAttribute(Selectors.DATA_PARENT));
 
-        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerAttr, "[".concat(Selectors.ACCORDION_CONTAINER, "='").concat(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerId), "']"));
+        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerAttr, "[".concat(Selectors.DATA_ACCORDION, "='").concat(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerId), "']"));
 
         if (!document.querySelector(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerAttr))) {
           return console.error(Messages.NO_ACCORDION_ERROR(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerId)));
@@ -204,7 +211,9 @@ var Accordion = function (_Utils) {
     value: function start() {
       var _this2 = this;
 
-      _classPrivateFieldSet(this, _accordionButtons, this.getElements("[".concat(Selectors.ACCORDION_CONTAINER, "] [").concat(Selectors.DATA_TARGET, "]")));
+      var accordionButtonSelector = _classPrivateMethodGet(this, _getPossibleAccordionButtonAttrs, _getPossibleAccordionButtonAttrs2).call(this, "[".concat(Selectors.DATA_ACCORDION, "]"));
+
+      _classPrivateFieldSet(this, _accordionButtons, this.getElements(accordionButtonSelector));
 
       if (_classPrivateFieldGet(this, _accordionButtons).length) {
         _classPrivateFieldGet(this, _accordionButtons).forEach(function (button) {
@@ -256,7 +265,11 @@ var _activeButtonExpandState = new WeakMap();
 
 var _activeContentHiddenState = new WeakMap();
 
+var _headerLevels = new WeakMap();
+
 var _setupAccordion = new WeakSet();
+
+var _getPossibleAccordionButtonAttrs = new WeakSet();
 
 var _getPossibleAccordionHeaderAttrs = new WeakSet();
 
@@ -321,12 +334,20 @@ var _setupAccordion2 = function _setupAccordion2(button) {
   }
 };
 
+var _getPossibleAccordionButtonAttrs2 = function _getPossibleAccordionButtonAttrs2(attr) {
+  return _classPrivateFieldGet(this, _headerLevels).map(function (num) {
+    return "".concat(attr, " > [").concat(Selectors.DATA_ACCORDION_ROW, "] > h").concat(num, " [").concat(Selectors.DATA_TARGET, "]");
+  }).join(", ");
+};
+
 var _getPossibleAccordionHeaderAttrs2 = function _getPossibleAccordionHeaderAttrs2(attr) {
-  return "".concat(attr, " h1, ").concat(attr, " h2, ").concat(attr, " h3, ").concat(attr, " h4, ").concat(attr, " h5, ").concat(attr, " h6");
+  return _classPrivateFieldGet(this, _headerLevels).map(function (num) {
+    return "".concat(attr, " > h").concat(num);
+  }).join(", ");
 };
 
 var _getAccordionRowAttr2 = function _getAccordionRowAttr2(id) {
-  return "[".concat(Selectors.ACCORDION_ROW, "='").concat(id, "']");
+  return "[".concat(Selectors.DATA_ACCORDION_ROW, "='").concat(id, "']");
 };
 
 var _closeAllIfToggleable2 = function _closeAllIfToggleable2() {
@@ -336,9 +357,12 @@ var _closeAllIfToggleable2 = function _closeAllIfToggleable2() {
   var allContentAttr = "".concat(_classPrivateFieldGet(this, _activeContainerAttr), " [").concat(Selectors.ARIA_HIDDEN, "]");
   var allRows = this.getElements("".concat(_classPrivateFieldGet(this, _activeContainerAttr), " [").concat(Selectors.DATA_VISIBLE, "]"));
   var allContent = this.getElements(allContentAttr);
-  var allButtons = this.getElements("".concat(_classPrivateFieldGet(this, _activeContainerAttr), " [").concat(Selectors.DATA_TARGET, "]"));
+
+  var accordionButtonSelector = _classPrivateMethodGet(this, _getPossibleAccordionButtonAttrs, _getPossibleAccordionButtonAttrs2).call(this, _classPrivateFieldGet(this, _activeContainerAttr));
+
+  var allButtons = this.getElements(accordionButtonSelector);
   allContent.forEach(function (content) {
-    if (!(content === _classPrivateFieldGet(_this4, _activeContent))) content.style.maxHeight = null;
+    if (content !== _classPrivateFieldGet(_this4, _activeContent)) content.style.maxHeight = null;
   });
   this.getFocusableElements(allContentAttr).forEach(function (element) {
     element.setAttribute(Selectors.TABINDEX, "-1");

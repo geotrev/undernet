@@ -126,6 +126,11 @@ var Dropdown = function (_Utils) {
       value: []
     });
 
+    _dropdownContainerAttr.set(_assertThisInitialized(_assertThisInitialized(_this)), {
+      writable: true,
+      value: "[".concat(Selectors.DATA_DROPDOWN, "]")
+    });
+
     _dropdownTargetAttr.set(_assertThisInitialized(_assertThisInitialized(_this)), {
       writable: true,
       value: "[".concat(Selectors.DATA_TARGET, "]")
@@ -296,9 +301,9 @@ var Dropdown = function (_Utils) {
     value: function start() {
       var _this2 = this;
 
-      _classPrivateFieldSet(this, _dropdowns, this.getElements("[".concat(Selectors.DATA_DROPDOWN, "]")));
+      _classPrivateFieldSet(this, _dropdowns, this.getElements("".concat(_classPrivateFieldGet(this, _dropdownContainerAttr))));
 
-      _classPrivateFieldSet(this, _dropdownButtons, this.getElements("[".concat(Selectors.DATA_DROPDOWN, "] > ").concat(_classPrivateFieldGet(this, _dropdownTargetAttr))));
+      _classPrivateFieldSet(this, _dropdownButtons, this.getElements("".concat(_classPrivateFieldGet(this, _dropdownContainerAttr), " > ").concat(_classPrivateFieldGet(this, _dropdownTargetAttr))));
 
       if (_classPrivateFieldGet(this, _dropdowns).length) {
         _classPrivateFieldGet(this, _dropdowns).forEach(function (dropdown) {
@@ -347,6 +352,8 @@ var _activeDropdownMenuId = new WeakMap();
 var _dropdownButtons = new WeakMap();
 
 var _dropdowns = new WeakMap();
+
+var _dropdownContainerAttr = new WeakMap();
 
 var _dropdownTargetAttr = new WeakMap();
 

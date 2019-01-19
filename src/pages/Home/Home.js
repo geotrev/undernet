@@ -61,13 +61,12 @@ export default class Home extends Component {
   renderPerkColumns() {
     return this.PERK_COLUMNS.map(column => {
       return (
-        <li className="large-3 small-6 xsmall-12 columns has-center-text">
+        <li className="large-3 small-6 xsmall-12 columns has-center-text" key={column.title}>
           <img
             className="home-icon"
             src={column.src}
             role="presentation"
             alt=""
-            key={column.title}
             aria-hidden="true"
           />
           <h2 className="h6 has-white-text">{column.title}</h2>

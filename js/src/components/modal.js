@@ -8,10 +8,9 @@ const KeyCodes = {
 
 const Selectors = {
   // unique
-  MODAL_CONTAINER: "data-modal",
-  MODAL_ID: "data-modal-id",
-  MODAL_BUTTON: "data-modal-button",
-  NO_SCROLL: "no-scroll",
+  DATA_MODAL: "data-modal",
+  DATA_MODAL_ID: "data-modal-id",
+  DATA_MODAL_BUTTON: "data-modal-button",
   // common
   DATA_VISIBLE: "data-visible",
   DATA_CLOSE: "data-close",
@@ -22,6 +21,8 @@ const Selectors = {
   ARIA_MODAL: "aria-modal",
   ROLE: "role",
   TABINDEX: "tabindex",
+  // classes
+  NO_SCROLL: "no-scroll",
 }
 
 const Events = {
@@ -61,7 +62,7 @@ export default class Modal extends Utils {
   #activeModalCloseButtons = []
 
   // attribute helpers
-  #modalContainerAttr = `[${Selectors.MODAL_CONTAINER}]`
+  #modalContainerAttr = `[${Selectors.DATA_MODAL}]`
 
   // public
 
@@ -71,7 +72,7 @@ export default class Modal extends Utils {
    */
   start() {
     this.#modals = this.getElements(this.#modalContainerAttr)
-    this.#modalButtons = this.getElements(`[${Selectors.MODAL_BUTTON}]`)
+    this.#modalButtons = this.getElements(`[${Selectors.DATA_MODAL_BUTTON}]`)
 
     this.getFocusableElements(this.#modalContainerAttr).forEach(element => {
       element.setAttribute(Selectors.TABINDEX, "-1")
@@ -114,7 +115,7 @@ export default class Modal extends Utils {
     }
 
     this.#activeModalId = this.#activeModalButton.getAttribute(Selectors.DATA_TARGET)
-    this.#activeModalOverlayAttr = `[${Selectors.MODAL_ID}="${this.#activeModalId}"]`
+    this.#activeModalOverlayAttr = `[${Selectors.DATA_MODAL_ID}="${this.#activeModalId}"]`
 
     if (!document.querySelector(this.#activeModalOverlayAttr)) {
       return console.error(Messages.NO_ID_ERROR(this.#activeModalId))
@@ -125,7 +126,7 @@ export default class Modal extends Utils {
     this.#activeModalSelector = `${this.#activeModalOverlayAttr} ${this.#modalContainerAttr}`
     this.#activeModal = document.querySelector(this.#activeModalSelector)
     this.#activeModalCloseButtons = this.getElements(
-      `${this.#activeModalOverlayAttr} [${Selectors.MODAL_CONTAINER}] [${Selectors.DATA_CLOSE}]`,
+      `${this.#activeModalOverlayAttr} [${Selectors.DATA_CLOSE}]`,
     )
 
     this.getFocusableElements(this.#activeModalSelector).forEach(element => {
@@ -159,10 +160,10 @@ export default class Modal extends Utils {
     }
 
     let modalWrapper
-    if (!document.querySelector(`[${Selectors.MODAL_ID}='${modalId}']`)) {
+    if (!document.querySelector(`[${Selectors.DATA_MODAL_ID}='${modalId}']`)) {
       return console.error(Messages.NO_ID_ERROR(modalId))
     } else {
-      modalWrapper = document.querySelector(`[${Selectors.MODAL_ID}='${modalId}']`)
+      modalWrapper = document.querySelector(`[${Selectors.DATA_MODAL_ID}='${modalId}']`)
     }
 
     modalWrapper.setAttribute(Selectors.ARIA_HIDDEN, "true")
