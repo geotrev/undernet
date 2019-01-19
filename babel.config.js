@@ -3,7 +3,7 @@ function presets(dist) {
 
   if (!dist) {
     result.pop()
-    result.push(["@babel/preset-env", { useBuiltIns: "usage" }], "@babel/preset-react")
+    result.push(["@babel/preset-env", { useBuiltIns: "entry" }], "@babel/preset-react")
   }
 
   return result
