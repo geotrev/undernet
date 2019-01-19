@@ -1,6 +1,6 @@
 {
   "name": "undernet",
-  "version": "3.2.0",
+  "version": "3.2.1",
   "homepage": "https://undernet.io",
   "description": "A modular, configuration-first front-end framework. No strings.",
   "main": "js/dist/index.js",
@@ -13,7 +13,9 @@
     "update-version": "./scripts/update-version.js",
     "create-hashes": "./scripts/create-hashes.js"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "test": "BABEL_ENV=test mocha -r @babel/register -r config/mocha.config.js --recursive src/**/*.spec.js",
     "test:w": "BABEL_ENV=test mocha --watch -r @babel/register -r config/mocha.config.js --recursive src/**/*.spec.js",
@@ -111,7 +113,14 @@
     "node": ">=10.0.0",
     "npm": ">=6.1.0"
   },
-  "keywords": ["scss", "javascript", "js", "css", "front-end", "framework"],
+  "keywords": [
+    "scss",
+    "javascript",
+    "js",
+    "css",
+    "front-end",
+    "framework"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/geotrev/undernet.git"
