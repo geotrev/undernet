@@ -1,3 +1,8 @@
->0.25%
-ie 11
+edge >= 14
+firefox >= 52
+chrome >= 49
+safari >= 10
+android >= 4.4
+ios >= 9
+explorer 11
 not op_mini all
