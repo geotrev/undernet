@@ -53,7 +53,7 @@ umdMinPlugins.push(
   }),
 )
 
-const esmOutput = { file: outputs.esm, format: "es", banner }
+const esmOutput = { file: outputs.esm, format: "esm", banner }
 
 const umdBundle = {
   input: inputs.umd,
