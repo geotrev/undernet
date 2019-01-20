@@ -2,9 +2,9 @@
 
 Thanks for using Undernet! Hit the ground running in your next project with this fully modular, highly configurable front-end framework.
 
-Undernet is extremely light, carrying no external dependencies apart from needing a SCSS compiler (if you aren't using the compiled CSS).
+Undernet is extremely light, carrying no external dependencies, with a fully module-based interface through [npm](https://www.npmjs.org/package/undernet).
 
-Head over to the [download page](/docs/overview/download) to get Undernet's assets, or see other options for [including it in your pipeline](/docs/overview/javascript) via NPM.
+Head over to the [download page](/docs/overview/download) to get Undernet's assets, or see other options for [including it in your pipeline](/docs/overview/javascript).
 
 ## About Undernet
 
@@ -16,8 +16,8 @@ Undernet can both be a prototyping tool or the basis for your web app.
 
 - **Configuration:** The framework comes with a configuration file that you can update with your intended brand attributes, including colors, typography, grid, forms, and more.
 - **Semantics:** If markup is required, it's logical and written with accessibility in mind.
-- **Modularity:** Can act independent from your core stylesheet; the framework is specifically designed to be scoped and controlled as an alternative, to existing projects.
-- **Agility:** Because all that's needed is an understanding of semantic HTML (and possibly SCSS), you will quickly get to developing without worrying about tons of custom styling/javascript.
+- **Modularity:** Can act independent from your core stylesheet; the framework is specifically designed to be scoped and controlled as an alternative for existing projects.
+- **Agility:** Worka s fast or methodical as you need to use the framework; installation options range from CDN to full pipeline control.
 
 ### Support
 
