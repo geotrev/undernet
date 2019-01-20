@@ -1,6 +1,6 @@
 ![Undernet](src/assets/images/github-logo.png?raw=true)
 
-[![CircleCI](https://circleci.com/gh/geotrev/undernet/tree/master.svg?style=svg)](https://circleci.com/gh/geotrev/undernet/tree/master) [![devDependencies Status](https://david-dm.org/geotrev/undernet/dev-status.svg)](https://david-dm.org/geotrev/undernet?type=dev) [![dependencies Status](https://david-dm.org/geotrev/undernet.svg)](https://david-dm.org/geotrev/undernet) [![npm version](https://badge.fury.io/js/undernet.svg)](https://badge.fury.io/js/undernet)
+[![CircleCI](https://circleci.com/gh/geotrev/undernet/tree/master.svg?style=svg)](https://circleci.com/gh/geotrev/undernet/tree/master) [![devDependencies Status](https://david-dm.org/geotrev/undernet/dev-status.svg)](https://david-dm.org/geotrev/undernet?type=dev) [![dependencies Status](https://david-dm.org/geotrev/undernet.svg)](https://david-dm.org/geotrev/undernet) [![npm version](https://badge.fury.io/js/undernet.svg)](https://badge.fury.io/js/undernet) ![Code style](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)
 
 # Undernet
 
