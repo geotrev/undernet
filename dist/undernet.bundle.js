@@ -78,37 +78,6 @@
     return _assertThisInitialized(self);
   }
 
-  function _classPrivateFieldGet(receiver, privateMap) {
-    if (!privateMap.has(receiver)) {
-      throw new TypeError("attempted to get private field on non-instance");
-    }
-
-    return privateMap.get(receiver).value;
-  }
-
-  function _classPrivateFieldSet(receiver, privateMap, value) {
-    if (!privateMap.has(receiver)) {
-      throw new TypeError("attempted to set private field on non-instance");
-    }
-
-    var descriptor = privateMap.get(receiver);
-
-    if (!descriptor.writable) {
-      throw new TypeError("attempted to set read only private field");
-    }
-
-    descriptor.value = value;
-    return value;
-  }
-
-  function _classPrivateMethodGet(receiver, privateSet, fn) {
-    if (!privateSet.has(receiver)) {
-      throw new TypeError("attempted to get private field on non-instance");
-    }
-
-    return fn;
-  }
-
   var KeyCodes = {
     SHIFT: 16,
     TAB: 9,
@@ -127,169 +96,59 @@
 
   var Utils = function () {
     function Utils() {
-      var _this = this;
-
       _classCallCheck(this, Utils);
 
-      _focusContainerSelector.set(this, {
-        writable: true,
-        value: ""
-      });
-
-      _focusableChildren.set(this, {
-        writable: true,
-        value: []
-      });
-
-      _focusableFirstChild.set(this, {
-        writable: true,
-        value: {}
-      });
-
-      _focusableLastChild.set(this, {
-        writable: true,
-        value: {}
-      });
-
-      _listeningForKeydown.set(this, {
-        writable: true,
-        value: false
-      });
-
-      _trapFocusWithArrows.set(this, {
-        writable: true,
-        value: false
-      });
-
-      _listenForKeyboard.set(this, {
-        writable: true,
-        value: function value(event) {
-          var tabKey = event.which === KeyCodes.TAB;
-          var shiftKey = event.which === KeyCodes.SHIFT || event.shiftKey;
-          var arrowUp = event.which === KeyCodes.ARROW_UP;
-          var arrowDown = event.which === KeyCodes.ARROW_DOWN;
-
-          if (tabKey || shiftKey || arrowUp || arrowDown) {
-            document.body.classList.add(Selectors.KEYBOARD_CLASS);
-            document.removeEventListener(Events.KEYDOWN, _classPrivateFieldGet(_this, _listenForKeyboard));
-            document.addEventListener(Events.CLICK, _classPrivateFieldGet(_this, _listenForClick));
-
-            _classPrivateFieldSet(_this, _listeningForKeydown, false);
-          }
-        }
-      });
-
-      _listenForClick.set(this, {
-        writable: true,
-        value: function value(event) {
-          document.body.classList.remove(Selectors.KEYBOARD_CLASS);
-          document.removeEventListener(Events.CLICK, _classPrivateFieldGet(_this, _listenForClick));
-          document.addEventListener(Events.KEYDOWN, _classPrivateFieldGet(_this, _listenForKeyboard));
-
-          _classPrivateFieldSet(_this, _listeningForKeydown, true);
-        }
-      });
-
-      _handleFocusTrapWithTab.set(this, {
-        writable: true,
-        value: function value(event) {
-          var containerElement = document.querySelector(_classPrivateFieldGet(_this, _focusContainerSelector));
-          var containerActive = document.activeElement === containerElement;
-
-          var firstActive = document.activeElement === _classPrivateFieldGet(_this, _focusableFirstChild);
-
-          var lastActive = document.activeElement === _classPrivateFieldGet(_this, _focusableLastChild);
-
-          var tabKey = event.which === KeyCodes.TAB;
-          var shiftKey = event.which === KeyCodes.SHIFT || event.shiftKey;
-
-          if (shiftKey && tabKey && (firstActive || containerActive)) {
-            event.preventDefault();
-
-            _classPrivateFieldGet(_this, _focusableLastChild).focus();
-          } else if (!shiftKey && tabKey && lastActive) {
-            event.preventDefault();
-
-            _classPrivateFieldGet(_this, _focusableFirstChild).focus();
-          }
-        }
-      });
-
-      _handleFocusTrapWithArrows.set(this, {
-        writable: true,
-        value: function value(event) {
-          var firstActive = document.activeElement === _classPrivateFieldGet(_this, _focusableFirstChild);
-
-          var lastActive = document.activeElement === _classPrivateFieldGet(_this, _focusableLastChild);
-
-          var arrowUp = event.which === KeyCodes.ARROW_UP;
-          var arrowDown = event.which === KeyCodes.ARROW_DOWN;
-
-          if (arrowUp || arrowDown) {
-            event.preventDefault();
-
-            if (firstActive && arrowUp) {
-              _classPrivateFieldGet(_this, _focusableLastChild).focus();
-            } else if (lastActive && arrowDown) {
-              _classPrivateFieldGet(_this, _focusableFirstChild).focus();
-            } else if (arrowDown) {
-              _classPrivateMethodGet(_this, _focusNextChild, _focusNextChild2).call(_this);
-            } else if (arrowUp) {
-              _classPrivateMethodGet(_this, _focusLastChild, _focusLastChild2).call(_this);
-            }
-          }
-        }
-      });
-
-      _focusNextChild.add(this);
-
-      _focusLastChild.add(this);
+      this._listenForKeyboard = this._listenForKeyboard.bind(this);
+      this._listenForClick = this._listenForClick.bind(this);
+      this._handleFocusTrapWithTab = this._handleFocusTrapWithTab.bind(this);
+      this._handleFocusTrapWithArrows = this._handleFocusTrapWithArrows.bind(this);
+      this._focusContainerSelector = "";
+      this._focusableChildren = [];
+      this._focusableFirstChild = {};
+      this._focusableLastChild = {};
+      this._listeningForKeydown = false;
+      this._trapFocusWithArrows = false;
     }
 
     _createClass(Utils, [{
       key: "captureFocus",
       value: function captureFocus(container, options) {
-        _classPrivateFieldSet(this, _focusContainerSelector, container);
-
-        _classPrivateFieldSet(this, _focusableChildren, this.getFocusableElements(_classPrivateFieldGet(this, _focusContainerSelector)));
-
-        _classPrivateFieldSet(this, _focusableFirstChild, _classPrivateFieldGet(this, _focusableChildren)[0]);
-
-        _classPrivateFieldSet(this, _focusableLastChild, _classPrivateFieldGet(this, _focusableChildren)[_classPrivateFieldGet(this, _focusableChildren).length - 1]);
+        this._focusContainerSelector = container;
+        this._focusableChildren = this.getFocusableElements(this._focusContainerSelector);
+        this._focusableFirstChild = this._focusableChildren[0];
+        this._focusableLastChild = this._focusableChildren[this._focusableChildren.length - 1];
 
         if (options) {
           if (options.useArrows) {
-            _classPrivateFieldSet(this, _trapFocusWithArrows, options.useArrows || _classPrivateFieldGet(this, _trapFocusWithArrows));
-
-            document.addEventListener(Events.KEYDOWN, _classPrivateFieldGet(this, _handleFocusTrapWithArrows));
+            this._trapFocusWithArrows = options.useArrows || this._trapFocusWithArrows;
+            document.addEventListener(Events.KEYDOWN, this._handleFocusTrapWithArrows);
           }
         } else {
-          document.addEventListener(Events.KEYDOWN, _classPrivateFieldGet(this, _handleFocusTrapWithTab));
+          document.addEventListener(Events.KEYDOWN, this._handleFocusTrapWithTab);
         }
       }
     }, {
       key: "releaseFocus",
       value: function releaseFocus() {
-        if (_classPrivateFieldGet(this, _trapFocusWithArrows)) {
-          document.removeEventListener(Events.KEYDOWN, _classPrivateFieldGet(this, _handleFocusTrapWithArrows));
-
-          _classPrivateFieldSet(this, _trapFocusWithArrows, false);
+        if (this._trapFocusWithArrows) {
+          document.removeEventListener(Events.KEYDOWN, this._handleFocusTrapWithArrows);
+          this._trapFocusWithArrows = false;
         } else {
-          document.removeEventListener(Events.KEYDOWN, _classPrivateFieldGet(this, _handleFocusTrapWithTab));
+          document.removeEventListener(Events.KEYDOWN, this._handleFocusTrapWithTab);
         }
       }
     }, {
       key: "enableFocusOutline",
       value: function enableFocusOutline() {
-        document.addEventListener(Events.KEYDOWN, _classPrivateFieldGet(this, _listenForKeyboard));
+        document.addEventListener(Events.KEYDOWN, this._listenForKeyboard);
       }
     }, {
       key: "disableFocusOutline",
       value: function disableFocusOutline() {
-        if (_classPrivateFieldGet(this, _listeningForKeydown)) {
-          document.removeEventListener(Events.KEYDOWN, _classPrivateFieldGet(this, _listenForKeyboard));
+        if (this._listeningForKeydown) {
+          document.removeEventListener(Events.KEYDOWN, this._listenForKeyboard);
         } else {
-          document.removeEventListener(Events.CLICK, _classPrivateFieldGet(this, _listenForClick));
+          document.removeEventListener(Events.CLICK, this._listenForClick);
         }
       }
     }, {
@@ -306,54 +165,97 @@
         });
         return this.getElements(focusables.join(", "));
       }
+    }, {
+      key: "_listenForKeyboard",
+      value: function _listenForKeyboard(event) {
+        var tabKey = event.which === KeyCodes.TAB;
+        var shiftKey = event.which === KeyCodes.SHIFT || event.shiftKey;
+        var arrowUp = event.which === KeyCodes.ARROW_UP;
+        var arrowDown = event.which === KeyCodes.ARROW_DOWN;
+
+        if (tabKey || shiftKey || arrowUp || arrowDown) {
+          document.body.classList.add(Selectors.KEYBOARD_CLASS);
+          document.removeEventListener(Events.KEYDOWN, this._listenForKeyboard);
+          document.addEventListener(Events.CLICK, this._listenForClick);
+          this._listeningForKeydown = false;
+        }
+      }
+    }, {
+      key: "_listenForClick",
+      value: function _listenForClick(event) {
+        document.body.classList.remove(Selectors.KEYBOARD_CLASS);
+        document.removeEventListener(Events.CLICK, this._listenForClick);
+        document.addEventListener(Events.KEYDOWN, this._listenForKeyboard);
+        this._listeningForKeydown = true;
+      }
+    }, {
+      key: "_handleFocusTrapWithTab",
+      value: function _handleFocusTrapWithTab(event) {
+        var containerElement = document.querySelector(this._focusContainerSelector);
+        var containerActive = document.activeElement === containerElement;
+        var firstActive = document.activeElement === this._focusableFirstChild;
+        var lastActive = document.activeElement === this._focusableLastChild;
+        var tabKey = event.which === KeyCodes.TAB;
+        var shiftKey = event.which === KeyCodes.SHIFT || event.shiftKey;
+
+        if (shiftKey && tabKey && (firstActive || containerActive)) {
+          event.preventDefault();
+
+          this._focusableLastChild.focus();
+        } else if (!shiftKey && tabKey && lastActive) {
+          event.preventDefault();
+
+          this._focusableFirstChild.focus();
+        }
+      }
+    }, {
+      key: "_handleFocusTrapWithArrows",
+      value: function _handleFocusTrapWithArrows(event) {
+        var firstActive = document.activeElement === this._focusableFirstChild;
+        var lastActive = document.activeElement === this._focusableLastChild;
+        var arrowUp = event.which === KeyCodes.ARROW_UP;
+        var arrowDown = event.which === KeyCodes.ARROW_DOWN;
+
+        if (arrowUp || arrowDown) {
+          event.preventDefault();
+
+          if (firstActive && arrowUp) {
+            this._focusableLastChild.focus();
+          } else if (lastActive && arrowDown) {
+            this._focusableFirstChild.focus();
+          } else if (arrowDown) {
+            this._focusNextChild();
+          } else if (arrowUp) {
+            this._focusLastChild();
+          }
+        }
+      }
+    }, {
+      key: "_focusNextChild",
+      value: function _focusNextChild() {
+        for (var i = 0; i < this._focusableChildren.length; i++) {
+          if (this._focusableChildren[i] === document.activeElement) {
+            this._focusableChildren[i + 1].focus();
+
+            break;
+          }
+        }
+      }
+    }, {
+      key: "_focusLastChild",
+      value: function _focusLastChild() {
+        for (var i = 0; i < this._focusableChildren.length; i++) {
+          if (this._focusableChildren[i] === document.activeElement) {
+            this._focusableChildren[i - 1].focus();
+
+            break;
+          }
+        }
+      }
     }]);
 
     return Utils;
   }();
-
-  var _focusContainerSelector = new WeakMap();
-
-  var _focusableChildren = new WeakMap();
-
-  var _focusableFirstChild = new WeakMap();
-
-  var _focusableLastChild = new WeakMap();
-
-  var _listeningForKeydown = new WeakMap();
-
-  var _trapFocusWithArrows = new WeakMap();
-
-  var _listenForKeyboard = new WeakMap();
-
-  var _listenForClick = new WeakMap();
-
-  var _handleFocusTrapWithTab = new WeakMap();
-
-  var _handleFocusTrapWithArrows = new WeakMap();
-
-  var _focusNextChild = new WeakSet();
-
-  var _focusLastChild = new WeakSet();
-
-  var _focusNextChild2 = function _focusNextChild2() {
-    for (var i = 0; i < _classPrivateFieldGet(this, _focusableChildren).length; i++) {
-      if (_classPrivateFieldGet(this, _focusableChildren)[i] === document.activeElement) {
-        _classPrivateFieldGet(this, _focusableChildren)[i + 1].focus();
-
-        break;
-      }
-    }
-  };
-
-  var _focusLastChild2 = function _focusLastChild2() {
-    for (var i = 0; i < _classPrivateFieldGet(this, _focusableChildren).length; i++) {
-      if (_classPrivateFieldGet(this, _focusableChildren)[i] === document.activeElement) {
-        _classPrivateFieldGet(this, _focusableChildren)[i - 1].focus();
-
-        break;
-      }
-    }
-  };
 
   var KeyCodes$1 = {
     ESCAPE: 27
@@ -394,166 +296,20 @@
       _classCallCheck(this, Modal);
 
       _this = _possibleConstructorReturn(this, _getPrototypeOf(Modal).call(this));
-
-      _modals.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: []
-      });
-
-      _modalButtons.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: []
-      });
-
-      _activeModalButton.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: {}
-      });
-
-      _activeModalOverlay.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: {}
-      });
-
-      _activeModal.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: {}
-      });
-
-      _activeModalId.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: ""
-      });
-
-      _activeModalOverlayAttr.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: ""
-      });
-
-      _activeModalSelector.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: ""
-      });
-
-      _activeModalCloseButtons.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: []
-      });
-
-      _modalContainerAttr.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: "[".concat(Selectors$1.DATA_MODAL, "]")
-      });
-
-      _render.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: function value(event) {
-          event.preventDefault();
-
-          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalButton, event.target);
-
-          if (!_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalButton).getAttribute(Selectors$1.DATA_TARGET)) {
-            return console.error(Messages.NO_TARGET_ERROR);
-          }
-
-          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalId, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalButton).getAttribute(Selectors$1.DATA_TARGET));
-
-          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlayAttr, "[".concat(Selectors$1.DATA_MODAL_ID, "=\"").concat(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalId), "\"]"));
-
-          if (!document.querySelector(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlayAttr))) {
-            return console.error(Messages.NO_ID_ERROR(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalId)));
-          }
-
-          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlay, document.querySelector(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlayAttr)));
-
-          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalSelector, "".concat(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlayAttr), " ").concat(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _modalContainerAttr)));
-
-          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModal, document.querySelector(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalSelector)));
-
-          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalCloseButtons, _this.getElements("".concat(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlayAttr), " [").concat(Selectors$1.DATA_CLOSE, "]")));
-
-          _this.getFocusableElements(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalSelector)).forEach(function (element) {
-            element.setAttribute(Selectors$1.TABINDEX, "0");
-          });
-
-          _classPrivateMethodGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleScrollStop, _handleScrollStop2).call(_assertThisInitialized(_assertThisInitialized(_this)));
-
-          _this.captureFocus(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalSelector));
-
-          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlay).setAttribute(Selectors$1.ARIA_HIDDEN, "false");
-
-          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModal).setAttribute(Selectors$1.TABINDEX, "-1");
-
-          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlay).setAttribute(Selectors$1.DATA_VISIBLE, "true");
-
-          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModal).focus();
-
-          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlay).scrollTop = 0;
-          document.addEventListener(Events$1.KEYDOWN, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleEscapeKeyPress));
-          document.addEventListener(Events$1.CLICK, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleOverlayClick));
-
-          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalCloseButtons).forEach(function (button) {
-            button.addEventListener(Events$1.CLICK, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose));
-          });
-        }
-      });
-
-      _setupModal.add(_assertThisInitialized(_assertThisInitialized(_this)));
-
-      _handleClose.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: function value(event) {
-          event.preventDefault();
-
-          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlay).setAttribute(Selectors$1.DATA_VISIBLE, "false");
-
-          _classPrivateMethodGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleReturnFocus, _handleReturnFocus2).call(_assertThisInitialized(_assertThisInitialized(_this)));
-
-          _classPrivateMethodGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleScrollRestore, _handleScrollRestore2).call(_assertThisInitialized(_assertThisInitialized(_this)));
-
-          _this.releaseFocus();
-
-          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlay).setAttribute(Selectors$1.ARIA_HIDDEN, "true");
-
-          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModal).removeAttribute(Selectors$1.TABINDEX);
-
-          _this.getFocusableElements(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalSelector)).forEach(function (element) {
-            element.setAttribute(Selectors$1.TABINDEX, "-1");
-          });
-
-          document.removeEventListener(Events$1.KEYDOWN, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleEscapeKeyPress));
-          document.removeEventListener(Events$1.CLICK, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleOverlayClick));
-
-          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalCloseButtons).forEach(function (button) {
-            button.removeEventListener(Events$1.CLICK, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose));
-          });
-        }
-      });
-
-      _handleOverlayClick.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: function value(event) {
-          if (event.target === _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlay)) {
-            _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose).call(_assertThisInitialized(_assertThisInitialized(_this)), event);
-          }
-        }
-      });
-
-      _handleEscapeKeyPress.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: function value(event) {
-          if (event.which === KeyCodes$1.ESCAPE) {
-            _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose).call(_assertThisInitialized(_assertThisInitialized(_this)), event);
-          }
-        }
-      });
-
-      _handleReturnFocus.add(_assertThisInitialized(_assertThisInitialized(_this)));
-
-      _handleScrollRestore.add(_assertThisInitialized(_assertThisInitialized(_this)));
-
-      _handleScrollStop.add(_assertThisInitialized(_assertThisInitialized(_this)));
-
+      _this._render = _this._render.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+      _this._handleClose = _this._handleClose.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+      _this._handleOverlayClick = _this._handleOverlayClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+      _this._handleEscapeKeyPress = _this._handleEscapeKeyPress.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+      _this._modals = [];
+      _this._modalButtons = [];
+      _this._activeModalButton = {};
+      _this._activeModalOverlay = {};
+      _this._activeModal = {};
+      _this._activeModalId = "";
+      _this._activeModalOverlayAttr = "";
+      _this._activeModalSelector = "";
+      _this._activeModalCloseButtons = [];
+      _this._modalContainerAttr = "[".concat(Selectors$1.DATA_MODAL, "]");
       return _this;
     }
 
@@ -562,23 +318,21 @@
       value: function start() {
         var _this2 = this;
 
-        _classPrivateFieldSet(this, _modals, this.getElements(_classPrivateFieldGet(this, _modalContainerAttr)));
-
-        _classPrivateFieldSet(this, _modalButtons, this.getElements("[".concat(Selectors$1.DATA_MODAL_BUTTON, "]")));
-
-        this.getFocusableElements(_classPrivateFieldGet(this, _modalContainerAttr)).forEach(function (element) {
+        this._modals = this.getElements(this._modalContainerAttr);
+        this._modalButtons = this.getElements("[".concat(Selectors$1.DATA_MODAL_BUTTON, "]"));
+        this.getFocusableElements(this._modalContainerAttr).forEach(function (element) {
           element.setAttribute(Selectors$1.TABINDEX, "-1");
         });
 
-        if (_classPrivateFieldGet(this, _modals).length) {
-          _classPrivateFieldGet(this, _modals).forEach(function (modal) {
-            _classPrivateMethodGet(_this2, _setupModal, _setupModal2).call(_this2, modal);
+        if (this._modals.length) {
+          this._modals.forEach(function (modal) {
+            _this2._setupModal(modal);
           });
         }
 
-        if (_classPrivateFieldGet(this, _modalButtons).length) {
-          _classPrivateFieldGet(this, _modalButtons).forEach(function (button) {
-            button.addEventListener(Events$1.CLICK, _classPrivateFieldGet(_this2, _render));
+        if (this._modalButtons.length) {
+          this._modalButtons.forEach(function (button) {
+            button.addEventListener(Events$1.CLICK, _this2._render);
           });
         }
       }
@@ -587,91 +341,149 @@
       value: function stop() {
         var _this3 = this;
 
-        _classPrivateFieldGet(this, _modalButtons).forEach(function (button) {
-          button.removeEventListener(Events$1.CLICK, _classPrivateFieldGet(_this3, _render));
+        this._modalButtons.forEach(function (button) {
+          button.removeEventListener(Events$1.CLICK, _this3._render);
         });
+      }
+    }, {
+      key: "_render",
+      value: function _render(event) {
+        var _this4 = this;
+
+        event.preventDefault();
+        this._activeModalButton = event.target;
+
+        if (!this._activeModalButton.getAttribute(Selectors$1.DATA_TARGET)) {
+          return console.error(Messages.NO_TARGET_ERROR);
+        }
+
+        this._activeModalId = this._activeModalButton.getAttribute(Selectors$1.DATA_TARGET);
+        this._activeModalOverlayAttr = "[".concat(Selectors$1.DATA_MODAL_ID, "=\"").concat(this._activeModalId, "\"]");
+
+        if (!document.querySelector(this._activeModalOverlayAttr)) {
+          return console.error(Messages.NO_ID_ERROR(this._activeModalId));
+        }
+
+        this._activeModalOverlay = document.querySelector(this._activeModalOverlayAttr);
+        this._activeModalSelector = "".concat(this._activeModalOverlayAttr, " ").concat(this._modalContainerAttr);
+        this._activeModal = document.querySelector(this._activeModalSelector);
+        this._activeModalCloseButtons = this.getElements("".concat(this._activeModalOverlayAttr, " [").concat(Selectors$1.DATA_CLOSE, "]"));
+        this.getFocusableElements(this._activeModalSelector).forEach(function (element) {
+          element.setAttribute(Selectors$1.TABINDEX, "0");
+        });
+
+        this._handleScrollStop();
+
+        this.captureFocus(this._activeModalSelector);
+
+        this._activeModalOverlay.setAttribute(Selectors$1.ARIA_HIDDEN, "false");
+
+        this._activeModal.setAttribute(Selectors$1.TABINDEX, "-1");
+
+        this._activeModalOverlay.setAttribute(Selectors$1.DATA_VISIBLE, "true");
+
+        this._activeModal.focus();
+
+        this._activeModalOverlay.scrollTop = 0;
+        document.addEventListener(Events$1.KEYDOWN, this._handleEscapeKeyPress);
+        document.addEventListener(Events$1.CLICK, this._handleOverlayClick);
+
+        this._activeModalCloseButtons.forEach(function (button) {
+          button.addEventListener(Events$1.CLICK, _this4._handleClose);
+        });
+      }
+    }, {
+      key: "_setupModal",
+      value: function _setupModal(modal) {
+        var modalId;
+
+        if (!modal.getAttribute(Selectors$1.DATA_PARENT)) {
+          return console.error(Messages.NO_PARENT_ERROR);
+        } else {
+          modalId = modal.getAttribute(Selectors$1.DATA_PARENT);
+        }
+
+        var modalWrapper;
+
+        if (!document.querySelector("[".concat(Selectors$1.DATA_MODAL_ID, "='").concat(modalId, "']"))) {
+          return console.error(Messages.NO_ID_ERROR(modalId));
+        } else {
+          modalWrapper = document.querySelector("[".concat(Selectors$1.DATA_MODAL_ID, "='").concat(modalId, "']"));
+        }
+
+        modalWrapper.setAttribute(Selectors$1.ARIA_HIDDEN, "true");
+        modalWrapper.setAttribute(Selectors$1.DATA_VISIBLE, "false");
+        modal.setAttribute(Selectors$1.ARIA_MODAL, "true");
+        modal.setAttribute(Selectors$1.ROLE, "dialog");
+      }
+    }, {
+      key: "_handleClose",
+      value: function _handleClose(event) {
+        var _this5 = this;
+
+        event.preventDefault();
+
+        this._activeModalOverlay.setAttribute(Selectors$1.DATA_VISIBLE, "false");
+
+        this._handleReturnFocus();
+
+        this._handleScrollRestore();
+
+        this.releaseFocus();
+
+        this._activeModalOverlay.setAttribute(Selectors$1.ARIA_HIDDEN, "true");
+
+        this._activeModal.removeAttribute(Selectors$1.TABINDEX);
+
+        this.getFocusableElements(this._activeModalSelector).forEach(function (element) {
+          element.setAttribute(Selectors$1.TABINDEX, "-1");
+        });
+        document.removeEventListener(Events$1.KEYDOWN, this._handleEscapeKeyPress);
+        document.removeEventListener(Events$1.CLICK, this._handleOverlayClick);
+
+        this._activeModalCloseButtons.forEach(function (button) {
+          button.removeEventListener(Events$1.CLICK, _this5._handleClose);
+        });
+      }
+    }, {
+      key: "_handleOverlayClick",
+      value: function _handleOverlayClick(event) {
+        if (event.target === this._activeModalOverlay) {
+          this._handleClose(event);
+        }
+      }
+    }, {
+      key: "_handleEscapeKeyPress",
+      value: function _handleEscapeKeyPress(event) {
+        if (event.which === KeyCodes$1.ESCAPE) {
+          this._handleClose(event);
+        }
+      }
+    }, {
+      key: "_handleReturnFocus",
+      value: function _handleReturnFocus() {
+        this._activeModalButton.setAttribute(Selectors$1.TABINDEX, "-1");
+
+        this._activeModalButton.focus();
+
+        this._activeModalButton.removeAttribute(Selectors$1.TABINDEX);
+      }
+    }, {
+      key: "_handleScrollRestore",
+      value: function _handleScrollRestore() {
+        document.body.classList.remove(Selectors$1.NO_SCROLL);
+        document.querySelector("html").classList.remove(Selectors$1.NO_SCROLL);
+      }
+    }, {
+      key: "_handleScrollStop",
+      value: function _handleScrollStop() {
+        document.body.classList.add(Selectors$1.NO_SCROLL);
+        document.querySelector("html").classList.add(Selectors$1.NO_SCROLL);
       }
     }]);
 
     return Modal;
   }(Utils);
-
-  var _modals = new WeakMap();
-
-  var _modalButtons = new WeakMap();
-
-  var _activeModalButton = new WeakMap();
-
-  var _activeModalOverlay = new WeakMap();
-
-  var _activeModal = new WeakMap();
-
-  var _activeModalId = new WeakMap();
-
-  var _activeModalOverlayAttr = new WeakMap();
-
-  var _activeModalSelector = new WeakMap();
-
-  var _activeModalCloseButtons = new WeakMap();
-
-  var _modalContainerAttr = new WeakMap();
-
-  var _render = new WeakMap();
-
-  var _setupModal = new WeakSet();
-
-  var _handleClose = new WeakMap();
-
-  var _handleOverlayClick = new WeakMap();
-
-  var _handleEscapeKeyPress = new WeakMap();
-
-  var _handleReturnFocus = new WeakSet();
-
-  var _handleScrollRestore = new WeakSet();
-
-  var _handleScrollStop = new WeakSet();
-
-  var _setupModal2 = function _setupModal2(modal) {
-    var modalId;
-
-    if (!modal.getAttribute(Selectors$1.DATA_PARENT)) {
-      return console.error(Messages.NO_PARENT_ERROR);
-    } else {
-      modalId = modal.getAttribute(Selectors$1.DATA_PARENT);
-    }
-
-    var modalWrapper;
-
-    if (!document.querySelector("[".concat(Selectors$1.DATA_MODAL_ID, "='").concat(modalId, "']"))) {
-      return console.error(Messages.NO_ID_ERROR(modalId));
-    } else {
-      modalWrapper = document.querySelector("[".concat(Selectors$1.DATA_MODAL_ID, "='").concat(modalId, "']"));
-    }
-
-    modalWrapper.setAttribute(Selectors$1.ARIA_HIDDEN, "true");
-    modalWrapper.setAttribute(Selectors$1.DATA_VISIBLE, "false");
-    modal.setAttribute(Selectors$1.ARIA_MODAL, "true");
-    modal.setAttribute(Selectors$1.ROLE, "dialog");
-  };
-
-  var _handleReturnFocus2 = function _handleReturnFocus2() {
-    _classPrivateFieldGet(this, _activeModalButton).setAttribute(Selectors$1.TABINDEX, "-1");
-
-    _classPrivateFieldGet(this, _activeModalButton).focus();
-
-    _classPrivateFieldGet(this, _activeModalButton).removeAttribute(Selectors$1.TABINDEX);
-  };
-
-  var _handleScrollRestore2 = function _handleScrollRestore2() {
-    document.body.classList.remove(Selectors$1.NO_SCROLL);
-    document.querySelector("html").classList.remove(Selectors$1.NO_SCROLL);
-  };
-
-  var _handleScrollStop2 = function _handleScrollStop2() {
-    document.body.classList.add(Selectors$1.NO_SCROLL);
-    document.querySelector("html").classList.add(Selectors$1.NO_SCROLL);
-  };
 
   var Selectors$2 = {
     DATA_ACCORDION: "data-accordion",
@@ -717,132 +529,21 @@
       _classCallCheck(this, Accordion);
 
       _this = _possibleConstructorReturn(this, _getPrototypeOf(Accordion).call(this));
-
-      _accordionButtons.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: []
-      });
-
-      _accordionContentsAttr.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: ""
-      });
-
-      _accordionContents.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: []
-      });
-
-      _activeContainer.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: {}
-      });
-
-      _activeButton.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: {}
-      });
-
-      _activeAccordionRowId.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: ""
-      });
-
-      _activeRowAttr.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: ""
-      });
-
-      _activeRow.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: ""
-      });
-
-      _activeContainerId.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: ""
-      });
-
-      _activeContainerAttr.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: ""
-      });
-
-      _activeContent.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: {}
-      });
-
-      _activeButtonExpandState.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: ""
-      });
-
-      _activeContentHiddenState.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: ""
-      });
-
-      _headerLevels.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: [1, 2, 3, 4, 5, 6]
-      });
-
-      _setupAccordion.add(_assertThisInitialized(_assertThisInitialized(_this)));
-
-      _getPossibleAccordionButtonAttrs.add(_assertThisInitialized(_assertThisInitialized(_this)));
-
-      _getPossibleAccordionHeaderAttrs.add(_assertThisInitialized(_assertThisInitialized(_this)));
-
-      _getAccordionRowAttr.add(_assertThisInitialized(_assertThisInitialized(_this)));
-
-      _render$1.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: function value(event) {
-          event.preventDefault();
-
-          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeButton, event.target);
-
-          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeAccordionRowId, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeButton).getAttribute(Selectors$2.DATA_TARGET));
-
-          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeRowAttr, _classPrivateMethodGet(_assertThisInitialized(_assertThisInitialized(_this)), _getAccordionRowAttr, _getAccordionRowAttr2).call(_assertThisInitialized(_assertThisInitialized(_this)), _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeAccordionRowId)));
-
-          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeRow, document.querySelector(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeRowAttr)));
-
-          if (!_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeButton).getAttribute(Selectors$2.DATA_PARENT)) {
-            return console.error(Messages$1.NO_PARENT_ERROR(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeAccordionRowId)));
-          }
-
-          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerId, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeButton).getAttribute(Selectors$2.DATA_PARENT));
-
-          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerAttr, "[".concat(Selectors$2.DATA_ACCORDION, "='").concat(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerId), "']"));
-
-          if (!document.querySelector(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerAttr))) {
-            return console.error(Messages$1.NO_ACCORDION_ERROR(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerId)));
-          }
-
-          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainer, document.querySelector(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerAttr)));
-
-          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContent, document.getElementById(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeAccordionRowId)));
-
-          var accordionButtonState = _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeRow).getAttribute(Selectors$2.DATA_VISIBLE);
-
-          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeButtonExpandState, accordionButtonState === "true" ? "false" : "true");
-
-          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContentHiddenState, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeButtonExpandState) === "false" ? "true" : "false");
-
-          _classPrivateMethodGet(_assertThisInitialized(_assertThisInitialized(_this)), _closeAllIfToggleable, _closeAllIfToggleable2).call(_assertThisInitialized(_assertThisInitialized(_this)));
-
-          _classPrivateMethodGet(_assertThisInitialized(_assertThisInitialized(_this)), _toggleSelectedAccordion, _toggleSelectedAccordion2).call(_assertThisInitialized(_assertThisInitialized(_this)));
-        }
-      });
-
-      _closeAllIfToggleable.add(_assertThisInitialized(_assertThisInitialized(_this)));
-
-      _toggleSelectedAccordion.add(_assertThisInitialized(_assertThisInitialized(_this)));
-
-      _toggleAttributeInCollection.add(_assertThisInitialized(_assertThisInitialized(_this)));
-
+      _this._render = _this._render.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+      _this._accordionButtons = [];
+      _this._accordionContentsAttr = "";
+      _this._accordionContents = [];
+      _this._activeContainer = {};
+      _this._activeButton = {};
+      _this._activeAccordionRowId = "";
+      _this._activeRowAttr = "";
+      _this._activeRow = "";
+      _this._activeContainerId = "";
+      _this._activeContainerAttr = "";
+      _this._activeContent = {};
+      _this._activeButtonExpandState = "";
+      _this._activeContentHiddenState = "";
+      _this._headerLevels = [1, 2, 3, 4, 5, 6];
       return _this;
     }
 
@@ -851,15 +552,15 @@
       value: function start() {
         var _this2 = this;
 
-        var accordionButtonSelector = _classPrivateMethodGet(this, _getPossibleAccordionButtonAttrs, _getPossibleAccordionButtonAttrs2).call(this, "[".concat(Selectors$2.DATA_ACCORDION, "]"));
+        var accordionButtonSelector = this._getPossibleAccordionButtonAttrs("[".concat(Selectors$2.DATA_ACCORDION, "]"));
 
-        _classPrivateFieldSet(this, _accordionButtons, this.getElements(accordionButtonSelector));
+        this._accordionButtons = this.getElements(accordionButtonSelector);
 
-        if (_classPrivateFieldGet(this, _accordionButtons).length) {
-          _classPrivateFieldGet(this, _accordionButtons).forEach(function (button) {
-            _classPrivateMethodGet(_this2, _setupAccordion, _setupAccordion2).call(_this2, button);
+        if (this._accordionButtons.length) {
+          this._accordionButtons.forEach(function (button) {
+            _this2._setupAccordion(button);
 
-            button.addEventListener(Events$2.CLICK, _classPrivateFieldGet(_this2, _render$1));
+            button.addEventListener(Events$2.CLICK, _this2._render);
           });
         }
       }
@@ -868,180 +569,175 @@
       value: function stop() {
         var _this3 = this;
 
-        _classPrivateFieldGet(this, _accordionButtons).forEach(function (button) {
-          button.removeEventListener(Events$2.CLICK, _classPrivateFieldGet(_this3, _render$1));
+        this._accordionButtons.forEach(function (button) {
+          button.removeEventListener(Events$2.CLICK, _this3._render);
+        });
+      }
+    }, {
+      key: "_setupAccordion",
+      value: function _setupAccordion(button) {
+        var buttonId = button.getAttribute(Selectors$2.DATA_TARGET);
+
+        if (!document.getElementById(buttonId)) {
+          return console.error(Messages$1.NO_CONTENT_ERROR(buttonId));
+        }
+
+        var buttonContent = document.getElementById(buttonId);
+
+        var accordionRowAttr = this._getAccordionRowAttr(buttonId);
+
+        if (!document.querySelector(accordionRowAttr)) {
+          return console.error(Messages$1.NO_ROW_ERROR(buttonId));
+        }
+
+        var accordionRow = document.querySelector(accordionRowAttr);
+
+        var buttonHeaderAttr = this._getPossibleAccordionHeaderAttrs(accordionRowAttr);
+
+        var buttonHeader = this.getElements(buttonHeaderAttr)[0];
+
+        if (!buttonHeader || !buttonHeader.id) {
+          console.error(Messages$1.NO_HEADER_ID_ERROR(buttonId));
+        }
+
+        var buttonContentChildren = this.getFocusableElements("#".concat(buttonContent.id));
+        button.setAttribute(Selectors$2.ARIA_CONTROLS, buttonId);
+        buttonContent.setAttribute(Selectors$2.ARIA_LABELLEDBY, buttonHeader.id);
+
+        if (!accordionRow.getAttribute(Selectors$2.DATA_VISIBLE)) {
+          return console.error(Messages$1.NO_VISIBLE_ERROR(buttonId));
+        }
+
+        var contentShouldExpand = accordionRow.getAttribute(Selectors$2.DATA_VISIBLE);
+
+        if (contentShouldExpand === "true") {
+          buttonContent.style.maxHeight = "".concat(buttonContent.scrollHeight, "px");
+          button.setAttribute(Selectors$2.ARIA_EXPANDED, "true");
+          buttonContent.setAttribute(Selectors$2.ARIA_HIDDEN, "false");
+          buttonContentChildren.forEach(function (element) {
+            element.setAttribute(Selectors$2.TABINDEX, "0");
+          });
+        } else {
+          button.setAttribute(Selectors$2.ARIA_EXPANDED, "false");
+          buttonContent.setAttribute(Selectors$2.ARIA_HIDDEN, "true");
+          buttonContentChildren.forEach(function (element) {
+            element.setAttribute(Selectors$2.TABINDEX, "-1");
+          });
+        }
+      }
+    }, {
+      key: "_getPossibleAccordionButtonAttrs",
+      value: function _getPossibleAccordionButtonAttrs(attr) {
+        return this._headerLevels.map(function (num) {
+          return "".concat(attr, " > [").concat(Selectors$2.DATA_ACCORDION_ROW, "] > h").concat(num, " [").concat(Selectors$2.DATA_TARGET, "]");
+        }).join(", ");
+      }
+    }, {
+      key: "_getPossibleAccordionHeaderAttrs",
+      value: function _getPossibleAccordionHeaderAttrs(attr) {
+        return this._headerLevels.map(function (num) {
+          return "".concat(attr, " > h").concat(num);
+        }).join(", ");
+      }
+    }, {
+      key: "_getAccordionRowAttr",
+      value: function _getAccordionRowAttr(id) {
+        return "[".concat(Selectors$2.DATA_ACCORDION_ROW, "='").concat(id, "']");
+      }
+    }, {
+      key: "_render",
+      value: function _render(event) {
+        event.preventDefault();
+        this._activeButton = event.target;
+        this._activeAccordionRowId = this._activeButton.getAttribute(Selectors$2.DATA_TARGET);
+        this._activeRowAttr = this._getAccordionRowAttr(this._activeAccordionRowId);
+        this._activeRow = document.querySelector(this._activeRowAttr);
+
+        if (!this._activeButton.getAttribute(Selectors$2.DATA_PARENT)) {
+          return console.error(Messages$1.NO_PARENT_ERROR(this._activeAccordionRowId));
+        }
+
+        this._activeContainerId = this._activeButton.getAttribute(Selectors$2.DATA_PARENT);
+        this._activeContainerAttr = "[".concat(Selectors$2.DATA_ACCORDION, "='").concat(this._activeContainerId, "']");
+
+        if (!document.querySelector(this._activeContainerAttr)) {
+          return console.error(Messages$1.NO_ACCORDION_ERROR(this._activeContainerId));
+        }
+
+        this._activeContainer = document.querySelector(this._activeContainerAttr);
+        this._activeContent = document.getElementById(this._activeAccordionRowId);
+
+        var accordionButtonState = this._activeRow.getAttribute(Selectors$2.DATA_VISIBLE);
+
+        this._activeButtonExpandState = accordionButtonState === "true" ? "false" : "true";
+        this._activeContentHiddenState = this._activeButtonExpandState === "false" ? "true" : "false";
+
+        this._closeAllIfToggleable();
+
+        this._toggleSelectedAccordion();
+      }
+    }, {
+      key: "_closeAllIfToggleable",
+      value: function _closeAllIfToggleable() {
+        var _this4 = this;
+
+        if (this._activeContainer.hasAttribute(Selectors$2.DATA_TOGGLE_MULTIPLE)) return;
+        var allContentAttr = "".concat(this._activeContainerAttr, " [").concat(Selectors$2.ARIA_HIDDEN, "]");
+        var allRows = this.getElements("".concat(this._activeContainerAttr, " [").concat(Selectors$2.DATA_VISIBLE, "]"));
+        var allContent = this.getElements(allContentAttr);
+
+        var accordionButtonSelector = this._getPossibleAccordionButtonAttrs(this._activeContainerAttr);
+
+        var allButtons = this.getElements(accordionButtonSelector);
+        allContent.forEach(function (content) {
+          if (content !== _this4._activeContent) content.style.maxHeight = null;
+        });
+        this.getFocusableElements(allContentAttr).forEach(function (element) {
+          element.setAttribute(Selectors$2.TABINDEX, "-1");
+        });
+
+        this._toggleAttributeInCollection(allRows, Selectors$2.DATA_VISIBLE, "true", "false");
+
+        this._toggleAttributeInCollection(allButtons, Selectors$2.ARIA_EXPANDED, "true", "false");
+
+        this._toggleAttributeInCollection(allContent, Selectors$2.ARIA_HIDDEN, "false", "true");
+      }
+    }, {
+      key: "_toggleSelectedAccordion",
+      value: function _toggleSelectedAccordion() {
+        var _this5 = this;
+
+        this._activeRow.setAttribute(Selectors$2.DATA_VISIBLE, this._activeButtonExpandState);
+
+        this._activeButton.setAttribute(Selectors$2.ARIA_EXPANDED, this._activeButtonExpandState);
+
+        this._activeContent.setAttribute(Selectors$2.ARIA_HIDDEN, this._activeContentHiddenState);
+
+        var activeContentBlock = "#".concat(this._activeAccordionRowId);
+        this.getFocusableElements(activeContentBlock).forEach(function (element) {
+          var value = _this5._activeButtonExpandState === "true" ? "0" : "-1";
+          element.setAttribute(Selectors$2.TABINDEX, value);
+        });
+
+        if (this._activeContent.style.maxHeight) {
+          this._activeContent.style.maxHeight = null;
+        } else {
+          this._activeContent.style.maxHeight = "".concat(this._activeContent.scrollHeight, "px");
+        }
+      }
+    }, {
+      key: "_toggleAttributeInCollection",
+      value: function _toggleAttributeInCollection(elements, attributeName, currentValue, newValue) {
+        elements.forEach(function (element) {
+          if (element.hasAttribute(attributeName, currentValue)) {
+            element.setAttribute(attributeName, newValue);
+          }
         });
       }
     }]);
 
     return Accordion;
   }(Utils);
-
-  var _accordionButtons = new WeakMap();
-
-  var _accordionContentsAttr = new WeakMap();
-
-  var _accordionContents = new WeakMap();
-
-  var _activeContainer = new WeakMap();
-
-  var _activeButton = new WeakMap();
-
-  var _activeAccordionRowId = new WeakMap();
-
-  var _activeRowAttr = new WeakMap();
-
-  var _activeRow = new WeakMap();
-
-  var _activeContainerId = new WeakMap();
-
-  var _activeContainerAttr = new WeakMap();
-
-  var _activeContent = new WeakMap();
-
-  var _activeButtonExpandState = new WeakMap();
-
-  var _activeContentHiddenState = new WeakMap();
-
-  var _headerLevels = new WeakMap();
-
-  var _setupAccordion = new WeakSet();
-
-  var _getPossibleAccordionButtonAttrs = new WeakSet();
-
-  var _getPossibleAccordionHeaderAttrs = new WeakSet();
-
-  var _getAccordionRowAttr = new WeakSet();
-
-  var _render$1 = new WeakMap();
-
-  var _closeAllIfToggleable = new WeakSet();
-
-  var _toggleSelectedAccordion = new WeakSet();
-
-  var _toggleAttributeInCollection = new WeakSet();
-
-  var _setupAccordion2 = function _setupAccordion2(button) {
-    var buttonId = button.getAttribute(Selectors$2.DATA_TARGET);
-
-    if (!document.getElementById(buttonId)) {
-      return console.error(Messages$1.NO_CONTENT_ERROR(buttonId));
-    }
-
-    var buttonContent = document.getElementById(buttonId);
-
-    var accordionRowAttr = _classPrivateMethodGet(this, _getAccordionRowAttr, _getAccordionRowAttr2).call(this, buttonId);
-
-    if (!document.querySelector(accordionRowAttr)) {
-      return console.error(Messages$1.NO_ROW_ERROR(buttonId));
-    }
-
-    var accordionRow = document.querySelector(accordionRowAttr);
-
-    var buttonHeaderAttr = _classPrivateMethodGet(this, _getPossibleAccordionHeaderAttrs, _getPossibleAccordionHeaderAttrs2).call(this, accordionRowAttr);
-
-    var buttonHeader = this.getElements(buttonHeaderAttr)[0];
-
-    if (!buttonHeader || !buttonHeader.id) {
-      console.error(Messages$1.NO_HEADER_ID_ERROR(buttonId));
-    }
-
-    var buttonContentChildren = this.getFocusableElements("#".concat(buttonContent.id));
-    button.setAttribute(Selectors$2.ARIA_CONTROLS, buttonId);
-    buttonContent.setAttribute(Selectors$2.ARIA_LABELLEDBY, buttonHeader.id);
-
-    if (!accordionRow.getAttribute(Selectors$2.DATA_VISIBLE)) {
-      return console.error(Messages$1.NO_VISIBLE_ERROR(buttonId));
-    }
-
-    var contentShouldExpand = accordionRow.getAttribute(Selectors$2.DATA_VISIBLE);
-
-    if (contentShouldExpand === "true") {
-      buttonContent.style.maxHeight = "".concat(buttonContent.scrollHeight, "px");
-      button.setAttribute(Selectors$2.ARIA_EXPANDED, "true");
-      buttonContent.setAttribute(Selectors$2.ARIA_HIDDEN, "false");
-      buttonContentChildren.forEach(function (element) {
-        element.setAttribute(Selectors$2.TABINDEX, "0");
-      });
-    } else {
-      button.setAttribute(Selectors$2.ARIA_EXPANDED, "false");
-      buttonContent.setAttribute(Selectors$2.ARIA_HIDDEN, "true");
-      buttonContentChildren.forEach(function (element) {
-        element.setAttribute(Selectors$2.TABINDEX, "-1");
-      });
-    }
-  };
-
-  var _getPossibleAccordionButtonAttrs2 = function _getPossibleAccordionButtonAttrs2(attr) {
-    return _classPrivateFieldGet(this, _headerLevels).map(function (num) {
-      return "".concat(attr, " > [").concat(Selectors$2.DATA_ACCORDION_ROW, "] > h").concat(num, " [").concat(Selectors$2.DATA_TARGET, "]");
-    }).join(", ");
-  };
-
-  var _getPossibleAccordionHeaderAttrs2 = function _getPossibleAccordionHeaderAttrs2(attr) {
-    return _classPrivateFieldGet(this, _headerLevels).map(function (num) {
-      return "".concat(attr, " > h").concat(num);
-    }).join(", ");
-  };
-
-  var _getAccordionRowAttr2 = function _getAccordionRowAttr2(id) {
-    return "[".concat(Selectors$2.DATA_ACCORDION_ROW, "='").concat(id, "']");
-  };
-
-  var _closeAllIfToggleable2 = function _closeAllIfToggleable2() {
-    var _this4 = this;
-
-    if (_classPrivateFieldGet(this, _activeContainer).hasAttribute(Selectors$2.DATA_TOGGLE_MULTIPLE)) return;
-    var allContentAttr = "".concat(_classPrivateFieldGet(this, _activeContainerAttr), " [").concat(Selectors$2.ARIA_HIDDEN, "]");
-    var allRows = this.getElements("".concat(_classPrivateFieldGet(this, _activeContainerAttr), " [").concat(Selectors$2.DATA_VISIBLE, "]"));
-    var allContent = this.getElements(allContentAttr);
-
-    var accordionButtonSelector = _classPrivateMethodGet(this, _getPossibleAccordionButtonAttrs, _getPossibleAccordionButtonAttrs2).call(this, _classPrivateFieldGet(this, _activeContainerAttr));
-
-    var allButtons = this.getElements(accordionButtonSelector);
-    allContent.forEach(function (content) {
-      if (content !== _classPrivateFieldGet(_this4, _activeContent)) content.style.maxHeight = null;
-    });
-    this.getFocusableElements(allContentAttr).forEach(function (element) {
-      element.setAttribute(Selectors$2.TABINDEX, "-1");
-    });
-
-    _classPrivateMethodGet(this, _toggleAttributeInCollection, _toggleAttributeInCollection2).call(this, allRows, Selectors$2.DATA_VISIBLE, "true", "false");
-
-    _classPrivateMethodGet(this, _toggleAttributeInCollection, _toggleAttributeInCollection2).call(this, allButtons, Selectors$2.ARIA_EXPANDED, "true", "false");
-
-    _classPrivateMethodGet(this, _toggleAttributeInCollection, _toggleAttributeInCollection2).call(this, allContent, Selectors$2.ARIA_HIDDEN, "false", "true");
-  };
-
-  var _toggleSelectedAccordion2 = function _toggleSelectedAccordion2() {
-    var _this5 = this;
-
-    _classPrivateFieldGet(this, _activeRow).setAttribute(Selectors$2.DATA_VISIBLE, _classPrivateFieldGet(this, _activeButtonExpandState));
-
-    _classPrivateFieldGet(this, _activeButton).setAttribute(Selectors$2.ARIA_EXPANDED, _classPrivateFieldGet(this, _activeButtonExpandState));
-
-    _classPrivateFieldGet(this, _activeContent).setAttribute(Selectors$2.ARIA_HIDDEN, _classPrivateFieldGet(this, _activeContentHiddenState));
-
-    var activeContentBlock = "#".concat(_classPrivateFieldGet(this, _activeAccordionRowId));
-    this.getFocusableElements(activeContentBlock).forEach(function (element) {
-      var value = _classPrivateFieldGet(_this5, _activeButtonExpandState) === "true" ? "0" : "-1";
-      element.setAttribute(Selectors$2.TABINDEX, value);
-    });
-
-    if (_classPrivateFieldGet(this, _activeContent).style.maxHeight) {
-      _classPrivateFieldGet(this, _activeContent).style.maxHeight = null;
-    } else {
-      _classPrivateFieldGet(this, _activeContent).style.maxHeight = "".concat(_classPrivateFieldGet(this, _activeContent).scrollHeight, "px");
-    }
-  };
-
-  var _toggleAttributeInCollection2 = function _toggleAttributeInCollection2(elements, attributeName, currentValue, newValue) {
-    elements.forEach(function (element) {
-      if (element.hasAttribute(attributeName, currentValue)) {
-        element.setAttribute(attributeName, newValue);
-      }
-    });
-  };
 
   var KeyCodes$2 = {
     TAB: 9,
@@ -1085,224 +781,25 @@
       _classCallCheck(this, Dropdown);
 
       _this = _possibleConstructorReturn(this, _getPrototypeOf(Dropdown).call(this));
-
-      _activeDropdownButton.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: null
-      });
-
-      _activeDropdown.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: null
-      });
-
-      _activeDropdownMenu.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: null
-      });
-
-      _activeDropdownLinks.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: []
-      });
-
-      _allowFocusReturn.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: true
-      });
-
-      _activeDropdownId.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: ""
-      });
-
-      _activeDropdownAttr.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: ""
-      });
-
-      _activeDropdownMenuId.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: ""
-      });
-
-      _dropdownButtons.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: []
-      });
-
-      _dropdowns.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: []
-      });
-
-      _dropdownContainerAttr.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: "[".concat(Selectors$3.DATA_DROPDOWN, "]")
-      });
-
-      _dropdownTargetAttr.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: "[".concat(Selectors$3.DATA_TARGET, "]")
-      });
-
-      _render$2.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: function value(event, key) {
-          if (!key) event.preventDefault();
-          event.stopPropagation();
-
-          if (_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton)) {
-            _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _allowFocusReturn, false);
-
-            _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose$1).call(_assertThisInitialized(_assertThisInitialized(_this)), event);
-
-            _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _allowFocusReturn, true);
-          }
-
-          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton, event.target);
-
-          if (!_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton).getAttribute(Selectors$3.DATA_PARENT)) {
-            return console.error(Messages$2.NO_PARENT_ERROR);
-          }
-
-          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownId, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton).getAttribute(Selectors$3.DATA_PARENT));
-
-          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr, "[".concat(Selectors$3.DATA_DROPDOWN, "=\"").concat(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownId), "\"]"));
-
-          if (!document.querySelector(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr))) {
-            return console.error(Messages$2.NO_DROPDOWN_ERROR(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr)));
-          }
-
-          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdown, document.querySelector(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr)));
-
-          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownMenuId, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton).getAttribute(Selectors$3.DATA_TARGET));
-
-          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownMenu, document.getElementById(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownMenuId)));
-
-          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton).setAttribute(Selectors$3.ARIA_EXPANDED, "true");
-
-          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdown).setAttribute(Selectors$3.DATA_VISIBLE, "true");
-
-          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton).removeEventListener(Events$3.CLICK, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _render$2));
-
-          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton).addEventListener(Events$3.CLICK, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose$1));
-
-          document.addEventListener(Events$3.KEYDOWN, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleEscapeKeyPress$1));
-          document.addEventListener(Events$3.CLICK, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleOffMenuClick));
-
-          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks, _classPrivateMethodGet(_assertThisInitialized(_assertThisInitialized(_this)), _getDropdownLinks, _getDropdownLinks2).call(_assertThisInitialized(_assertThisInitialized(_this)), _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr)));
-
-          _this.firstDropdownLink = _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks)[0];
-          _this.lastDropdownLink = _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks)[_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks).length - 1];
-
-          _this.firstDropdownLink.addEventListener(Events$3.KEYDOWN, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleFirstTabClose));
-
-          _this.lastDropdownLink.addEventListener(Events$3.KEYDOWN, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleLastTabClose));
-
-          if (key && key === KeyCodes$2.ARROW_UP) {
-            _this.lastDropdownLink.focus();
-          } else {
-            _this.firstDropdownLink.focus();
-          }
-
-          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks).forEach(function (link) {
-            link.setAttribute(Selectors$3.TABINDEX, "0");
-            link.addEventListener(Events$3.CLICK, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose$1));
-          });
-
-          _this.captureFocus("".concat(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr), " > ul"), {
-            useArrows: true
-          });
-        }
-      });
-
-      _handleFirstTabClose.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: function value(event) {
-          var shiftKey = event.which === KeyCodes$2.SHIFT || event.shiftKey;
-          var tabKey = event.which === KeyCodes$2.TAB;
-
-          if (shiftKey && tabKey) {
-            _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose$1).call(_assertThisInitialized(_assertThisInitialized(_this)), event);
-          }
-        }
-      });
-
-      _handleLastTabClose.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: function value(event) {
-          var shiftKey = event.which === KeyCodes$2.SHIFT || event.shiftKey;
-          var tabKey = event.which === KeyCodes$2.TAB;
-
-          if (tabKey && !shiftKey) {
-            _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose$1).call(_assertThisInitialized(_assertThisInitialized(_this)), event);
-          }
-        }
-      });
-
-      _renderWithKeys.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: function value(event) {
-          if (event.which === KeyCodes$2.ARROW_UP || event.which === KeyCodes$2.ARROW_DOWN) {
-            _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _render$2).call(_assertThisInitialized(_assertThisInitialized(_this)), event, event.which);
-          }
-        }
-      });
-
-      _handleClose$1.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: function value(event) {
-          event.preventDefault();
-
-          _this.releaseFocus();
-
-          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton).setAttribute(Selectors$3.ARIA_EXPANDED, "false");
-
-          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdown).setAttribute(Selectors$3.DATA_VISIBLE, "false");
-
-          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks).forEach(function (link) {
-            link.setAttribute(Selectors$3.TABINDEX, "-1");
-            link.removeEventListener(Events$3.CLICK, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose$1));
-          });
-
-          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton).removeEventListener(Events$3.CLICK, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose$1));
-
-          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton).addEventListener(Events$3.CLICK, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _render$2));
-
-          document.removeEventListener(Events$3.KEYDOWN, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleEscapeKeyPress$1));
-          document.removeEventListener(Events$3.CLICK, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleOffMenuClick));
-
-          if (_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _allowFocusReturn)) {
-            _classPrivateMethodGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleReturnFocus$1, _handleReturnFocus2$1).call(_assertThisInitialized(_assertThisInitialized(_this)));
-          }
-        }
-      });
-
-      _handleEscapeKeyPress$1.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: function value(event) {
-          if (event.which === KeyCodes$2.ESCAPE) {
-            _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose$1).call(_assertThisInitialized(_assertThisInitialized(_this)), event);
-          }
-        }
-      });
-
-      _handleOffMenuClick.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-        writable: true,
-        value: function value(event) {
-          if (event.target !== _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton) && event.target !== _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownMenu)) {
-            _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose$1).call(_assertThisInitialized(_assertThisInitialized(_this)), event);
-          }
-        }
-      });
-
-      _handleReturnFocus$1.add(_assertThisInitialized(_assertThisInitialized(_this)));
-
-      _getDropdownLinks.add(_assertThisInitialized(_assertThisInitialized(_this)));
-
-      _setupDropdown.add(_assertThisInitialized(_assertThisInitialized(_this)));
-
+      _this._render = _this._render.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+      _this._handleFirstTabClose = _this._handleFirstTabClose.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+      _this._handleLastTabClose = _this._handleLastTabClose.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+      _this._renderWithKeys = _this._renderWithKeys.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+      _this._handleClose = _this._handleClose.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+      _this._handleEscapeKeyPress = _this._handleEscapeKeyPress.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+      _this._handleOffMenuClick = _this._handleOffMenuClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+      _this._activeDropdownButton = null;
+      _this._activeDropdown = null;
+      _this._activeDropdownMenu = null;
+      _this._activeDropdownLinks = [];
+      _this._allowFocusReturn = true;
+      _this._activeDropdownId = "";
+      _this._activeDropdownAttr = "";
+      _this._activeDropdownMenuId = "";
+      _this._dropdownButtons = [];
+      _this._dropdowns = [];
+      _this._dropdownContainerAttr = "[".concat(Selectors$3.DATA_DROPDOWN, "]");
+      _this._dropdownTargetAttr = "[".concat(Selectors$3.DATA_TARGET, "]");
       return _this;
     }
 
@@ -1311,19 +808,18 @@
       value: function start() {
         var _this2 = this;
 
-        _classPrivateFieldSet(this, _dropdowns, this.getElements("".concat(_classPrivateFieldGet(this, _dropdownContainerAttr))));
+        this._dropdowns = this.getElements("".concat(this._dropdownContainerAttr));
+        this._dropdownButtons = this.getElements("".concat(this._dropdownContainerAttr, " > ").concat(this._dropdownTargetAttr));
 
-        _classPrivateFieldSet(this, _dropdownButtons, this.getElements("".concat(_classPrivateFieldGet(this, _dropdownContainerAttr), " > ").concat(_classPrivateFieldGet(this, _dropdownTargetAttr))));
-
-        if (_classPrivateFieldGet(this, _dropdowns).length) {
-          _classPrivateFieldGet(this, _dropdowns).forEach(function (dropdown) {
-            return _classPrivateMethodGet(_this2, _setupDropdown, _setupDropdown2).call(_this2, dropdown);
+        if (this._dropdowns.length) {
+          this._dropdowns.forEach(function (dropdown) {
+            return _this2._setupDropdown(dropdown);
           });
         }
 
-        _classPrivateFieldGet(this, _dropdownButtons).forEach(function (button) {
-          button.addEventListener(Events$3.CLICK, _classPrivateFieldGet(_this2, _render$2));
-          button.addEventListener(Events$3.KEYDOWN, _classPrivateFieldGet(_this2, _renderWithKeys));
+        this._dropdownButtons.forEach(function (button) {
+          button.addEventListener(Events$3.CLICK, _this2._render);
+          button.addEventListener(Events$3.KEYDOWN, _this2._renderWithKeys);
         });
       }
     }, {
@@ -1331,97 +827,189 @@
       value: function stop() {
         var _this3 = this;
 
-        _classPrivateFieldGet(this, _dropdownButtons).forEach(function (button) {
-          button.removeEventListener(Events$3.CLICK, _classPrivateFieldGet(_this3, _render$2));
-          button.removeEventListener(Events$3.KEYDOWN, _classPrivateFieldGet(_this3, _renderWithKeys));
+        this._dropdownButtons.forEach(function (button) {
+          button.removeEventListener(Events$3.CLICK, _this3._render);
+          button.removeEventListener(Events$3.KEYDOWN, _this3._renderWithKeys);
+        });
+      }
+    }, {
+      key: "_render",
+      value: function _render(event, key) {
+        var _this4 = this;
+
+        if (!key) event.preventDefault();
+        event.stopPropagation();
+
+        if (this._activeDropdownButton) {
+          this._allowFocusReturn = false;
+
+          this._handleClose(event);
+
+          this._allowFocusReturn = true;
+        }
+
+        this._activeDropdownButton = event.target;
+
+        if (!this._activeDropdownButton.getAttribute(Selectors$3.DATA_PARENT)) {
+          return console.error(Messages$2.NO_PARENT_ERROR);
+        }
+
+        this._activeDropdownId = this._activeDropdownButton.getAttribute(Selectors$3.DATA_PARENT);
+        this._activeDropdownAttr = "[".concat(Selectors$3.DATA_DROPDOWN, "=\"").concat(this._activeDropdownId, "\"]");
+
+        if (!document.querySelector(this._activeDropdownAttr)) {
+          return console.error(Messages$2.NO_DROPDOWN_ERROR(this._activeDropdownAttr));
+        }
+
+        this._activeDropdown = document.querySelector(this._activeDropdownAttr);
+        this._activeDropdownMenuId = this._activeDropdownButton.getAttribute(Selectors$3.DATA_TARGET);
+        this._activeDropdownMenu = document.getElementById(this._activeDropdownMenuId);
+
+        this._activeDropdownButton.setAttribute(Selectors$3.ARIA_EXPANDED, "true");
+
+        this._activeDropdown.setAttribute(Selectors$3.DATA_VISIBLE, "true");
+
+        this._activeDropdownButton.removeEventListener(Events$3.CLICK, this._render);
+
+        this._activeDropdownButton.addEventListener(Events$3.CLICK, this._handleClose);
+
+        document.addEventListener(Events$3.KEYDOWN, this._handleEscapeKeyPress);
+        document.addEventListener(Events$3.CLICK, this._handleOffMenuClick);
+        this._activeDropdownLinks = this._getDropdownLinks(this._activeDropdownAttr);
+        this.firstDropdownLink = this._activeDropdownLinks[0];
+        this.lastDropdownLink = this._activeDropdownLinks[this._activeDropdownLinks.length - 1];
+        this.firstDropdownLink.addEventListener(Events$3.KEYDOWN, this._handleFirstTabClose);
+        this.lastDropdownLink.addEventListener(Events$3.KEYDOWN, this._handleLastTabClose);
+
+        if (key && key === KeyCodes$2.ARROW_UP) {
+          this.lastDropdownLink.focus();
+        } else {
+          this.firstDropdownLink.focus();
+        }
+
+        this._activeDropdownLinks.forEach(function (link) {
+          link.setAttribute(Selectors$3.TABINDEX, "0");
+          link.addEventListener(Events$3.CLICK, _this4._handleClose);
+        });
+
+        this.captureFocus("".concat(this._activeDropdownAttr, " > ul"), {
+          useArrows: true
+        });
+      }
+    }, {
+      key: "_handleFirstTabClose",
+      value: function _handleFirstTabClose(event) {
+        var shiftKey = event.which === KeyCodes$2.SHIFT || event.shiftKey;
+        var tabKey = event.which === KeyCodes$2.TAB;
+
+        if (shiftKey && tabKey) {
+          this._handleClose(event);
+        }
+      }
+    }, {
+      key: "_handleLastTabClose",
+      value: function _handleLastTabClose(event) {
+        var shiftKey = event.which === KeyCodes$2.SHIFT || event.shiftKey;
+        var tabKey = event.which === KeyCodes$2.TAB;
+
+        if (tabKey && !shiftKey) {
+          this._handleClose(event);
+        }
+      }
+    }, {
+      key: "_renderWithKeys",
+      value: function _renderWithKeys(event) {
+        if (event.which === KeyCodes$2.ARROW_UP || event.which === KeyCodes$2.ARROW_DOWN) {
+          this._render(event, event.which);
+        }
+      }
+    }, {
+      key: "_handleClose",
+      value: function _handleClose(event) {
+        var _this5 = this;
+
+        event.preventDefault();
+        this.releaseFocus();
+
+        this._activeDropdownButton.setAttribute(Selectors$3.ARIA_EXPANDED, "false");
+
+        this._activeDropdown.setAttribute(Selectors$3.DATA_VISIBLE, "false");
+
+        this._activeDropdownLinks.forEach(function (link) {
+          link.setAttribute(Selectors$3.TABINDEX, "-1");
+          link.removeEventListener(Events$3.CLICK, _this5._handleClose);
+        });
+
+        this._activeDropdownButton.removeEventListener(Events$3.CLICK, this._handleClose);
+
+        this._activeDropdownButton.addEventListener(Events$3.CLICK, this._render);
+
+        document.removeEventListener(Events$3.KEYDOWN, this._handleEscapeKeyPress);
+        document.removeEventListener(Events$3.CLICK, this._handleOffMenuClick);
+
+        if (this._allowFocusReturn) {
+          this._handleReturnFocus();
+        }
+      }
+    }, {
+      key: "_handleEscapeKeyPress",
+      value: function _handleEscapeKeyPress(event) {
+        if (event.which === KeyCodes$2.ESCAPE) {
+          this._handleClose(event);
+        }
+      }
+    }, {
+      key: "_handleOffMenuClick",
+      value: function _handleOffMenuClick(event) {
+        if (event.target !== this._activeDropdownButton && event.target !== this._activeDropdownMenu) {
+          this._handleClose(event);
+        }
+      }
+    }, {
+      key: "_handleReturnFocus",
+      value: function _handleReturnFocus() {
+        this._activeDropdownButton.setAttribute(Selectors$3.TAB_INDEX, "-1");
+
+        this._activeDropdownButton.focus();
+
+        this._activeDropdownButton.removeAttribute(Selectors$3.TAB_INDEX);
+      }
+    }, {
+      key: "_getDropdownLinks",
+      value: function _getDropdownLinks(attr) {
+        return this.getElements("".concat(attr, " > ul > li > a, ").concat(attr, " > ul > li > button"));
+      }
+    }, {
+      key: "_setupDropdown",
+      value: function _setupDropdown(dropdown) {
+        var dropdownId = dropdown.getAttribute(Selectors$3.DATA_DROPDOWN);
+        var dropdownIdAttr = "[".concat(Selectors$3.DATA_DROPDOWN, "=\"").concat(dropdownId, "\"]");
+        var dropdownMenuItemsAttr = "".concat(dropdownIdAttr, " > ul > li");
+
+        if (!document.querySelector("".concat(dropdownIdAttr, " > ul"))) {
+          return console.error(Messages$2.NO_MENU_ERROR(dropdownIdAttr));
+        }
+
+        var dropdownMenu = document.querySelector("".concat(dropdownIdAttr, " > ul"));
+        var dropdownButton = document.querySelector("".concat(dropdownIdAttr, " > ").concat(this._dropdownTargetAttr));
+        dropdownButton.setAttribute(Selectors$3.ARIA_CONTROLS, dropdownMenu.id);
+        dropdownButton.setAttribute(Selectors$3.ARIA_HASPOPUP, "true");
+        dropdownButton.setAttribute(Selectors$3.ARIA_EXPANDED, "false");
+        dropdownMenu.setAttribute(Selectors$3.ARIA_LABELLEDBY, dropdownButton.id);
+        var dropdownMenuItems = this.getElements(dropdownMenuItemsAttr);
+        dropdownMenuItems.forEach(function (item) {
+          return item.setAttribute(Selectors$3.ROLE, "none");
+        });
+
+        this._getDropdownLinks(dropdownIdAttr).forEach(function (link) {
+          link.setAttribute(Selectors$3.ROLE, "menuitem");
+          link.setAttribute(Selectors$3.TABINDEX, "-1");
         });
       }
     }]);
 
     return Dropdown;
   }(Utils);
-
-  var _activeDropdownButton = new WeakMap();
-
-  var _activeDropdown = new WeakMap();
-
-  var _activeDropdownMenu = new WeakMap();
-
-  var _activeDropdownLinks = new WeakMap();
-
-  var _allowFocusReturn = new WeakMap();
-
-  var _activeDropdownId = new WeakMap();
-
-  var _activeDropdownAttr = new WeakMap();
-
-  var _activeDropdownMenuId = new WeakMap();
-
-  var _dropdownButtons = new WeakMap();
-
-  var _dropdowns = new WeakMap();
-
-  var _dropdownContainerAttr = new WeakMap();
-
-  var _dropdownTargetAttr = new WeakMap();
-
-  var _render$2 = new WeakMap();
-
-  var _handleFirstTabClose = new WeakMap();
-
-  var _handleLastTabClose = new WeakMap();
-
-  var _renderWithKeys = new WeakMap();
-
-  var _handleClose$1 = new WeakMap();
-
-  var _handleEscapeKeyPress$1 = new WeakMap();
-
-  var _handleOffMenuClick = new WeakMap();
-
-  var _handleReturnFocus$1 = new WeakSet();
-
-  var _getDropdownLinks = new WeakSet();
-
-  var _setupDropdown = new WeakSet();
-
-  var _handleReturnFocus2$1 = function _handleReturnFocus2() {
-    _classPrivateFieldGet(this, _activeDropdownButton).setAttribute(Selectors$3.TAB_INDEX, "-1");
-
-    _classPrivateFieldGet(this, _activeDropdownButton).focus();
-
-    _classPrivateFieldGet(this, _activeDropdownButton).removeAttribute(Selectors$3.TAB_INDEX);
-  };
-
-  var _getDropdownLinks2 = function _getDropdownLinks2(attr) {
-    return this.getElements("".concat(attr, " > ul > li > a, ").concat(attr, " > ul > li > button"));
-  };
-
-  var _setupDropdown2 = function _setupDropdown2(dropdown) {
-    var dropdownId = dropdown.getAttribute(Selectors$3.DATA_DROPDOWN);
-    var dropdownIdAttr = "[".concat(Selectors$3.DATA_DROPDOWN, "=\"").concat(dropdownId, "\"]");
-    var dropdownMenuItemsAttr = "".concat(dropdownIdAttr, " > ul > li");
-
-    if (!document.querySelector("".concat(dropdownIdAttr, " > ul"))) {
-      return console.error(Messages$2.NO_MENU_ERROR(dropdownIdAttr));
-    }
-
-    var dropdownMenu = document.querySelector("".concat(dropdownIdAttr, " > ul"));
-    var dropdownButton = document.querySelector("".concat(dropdownIdAttr, " > ").concat(_classPrivateFieldGet(this, _dropdownTargetAttr)));
-    dropdownButton.setAttribute(Selectors$3.ARIA_CONTROLS, dropdownMenu.id);
-    dropdownButton.setAttribute(Selectors$3.ARIA_HASPOPUP, "true");
-    dropdownButton.setAttribute(Selectors$3.ARIA_EXPANDED, "false");
-    dropdownMenu.setAttribute(Selectors$3.ARIA_LABELLEDBY, dropdownButton.id);
-    var dropdownMenuItems = this.getElements(dropdownMenuItemsAttr);
-    dropdownMenuItems.forEach(function (item) {
-      return item.setAttribute(Selectors$3.ROLE, "none");
-    });
-
-    _classPrivateMethodGet(this, _getDropdownLinks, _getDropdownLinks2).call(this, dropdownIdAttr).forEach(function (link) {
-      link.setAttribute(Selectors$3.ROLE, "menuitem");
-      link.setAttribute(Selectors$3.TABINDEX, "-1");
-    });
-  };
 
   var Modals = new Modal();
   var Accordions = new Accordion();

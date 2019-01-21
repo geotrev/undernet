@@ -36,3 +36,4 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 var _default = _index.default;
 exports.default = _default;
 window.Undernet = _index.default;
+//# sourceMappingURL=index.bundle.js.map

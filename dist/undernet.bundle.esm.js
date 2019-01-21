@@ -3,1442 +3,1093 @@
   * Undernet v3.2.1 (https://undernet.io)
   * Copyright 2017-2019 George Treviranus
   */
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-
-function _defineProperties(target, props) {
-  for (var i = 0; i < props.length; i++) {
-    var descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, descriptor.key, descriptor);
-  }
-}
-
-function _createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties(Constructor, staticProps);
-  return Constructor;
-}
-
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function");
-  }
-
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      writable: true,
-      configurable: true
-    }
-  });
-  if (superClass) _setPrototypeOf(subClass, superClass);
-}
-
-function _getPrototypeOf(o) {
-  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
-    return o.__proto__ || Object.getPrototypeOf(o);
-  };
-  return _getPrototypeOf(o);
-}
-
-function _setPrototypeOf(o, p) {
-  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
-    o.__proto__ = p;
-    return o;
-  };
-
-  return _setPrototypeOf(o, p);
-}
-
-function _assertThisInitialized(self) {
-  if (self === void 0) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return self;
-}
-
-function _possibleConstructorReturn(self, call) {
-  if (call && (typeof call === "object" || typeof call === "function")) {
-    return call;
-  }
-
-  return _assertThisInitialized(self);
-}
-
-function _classPrivateFieldGet(receiver, privateMap) {
-  if (!privateMap.has(receiver)) {
-    throw new TypeError("attempted to get private field on non-instance");
-  }
-
-  return privateMap.get(receiver).value;
-}
-
-function _classPrivateFieldSet(receiver, privateMap, value) {
-  if (!privateMap.has(receiver)) {
-    throw new TypeError("attempted to set private field on non-instance");
-  }
-
-  var descriptor = privateMap.get(receiver);
-
-  if (!descriptor.writable) {
-    throw new TypeError("attempted to set read only private field");
-  }
-
-  descriptor.value = value;
-  return value;
-}
-
-function _classPrivateMethodGet(receiver, privateSet, fn) {
-  if (!privateSet.has(receiver)) {
-    throw new TypeError("attempted to get private field on non-instance");
-  }
-
-  return fn;
-}
-
-var KeyCodes = {
+const KeyCodes = {
   SHIFT: 16,
   TAB: 9,
   ARROW_UP: 38,
-  ARROW_DOWN: 40
+  ARROW_DOWN: 40,
 };
-var Selectors = {
+
+const Selectors = {
   NOT_VISUALLY_HIDDEN: ":not(.is-visually-hidden)",
   FOCUSABLE_TAGS: ["a", "button", "input", "object", "select", "textarea", "[tabindex]"],
-  KEYBOARD_CLASS: "using-keyboard"
+  KEYBOARD_CLASS: "using-keyboard",
 };
-var Events = {
+
+const Events = {
   KEYDOWN: "keydown",
-  CLICK: "click"
+  CLICK: "click",
 };
 
-var Utils = function () {
-  function Utils() {
-    var _this = this;
+/**
+ * Utility methods for DOM traversal and focus trapping.
+ * @module Utils
+ */
+class Utils {
+  constructor() {
+    // events
+    this._listenForKeyboard = this._listenForKeyboard.bind(this);
+    this._listenForClick = this._listenForClick.bind(this);
+    this._handleFocusTrapWithTab = this._handleFocusTrapWithTab.bind(this);
+    this._handleFocusTrapWithArrows = this._handleFocusTrapWithArrows.bind(this);
 
-    _classCallCheck(this, Utils);
-
-    _focusContainerSelector.set(this, {
-      writable: true,
-      value: ""
-    });
-
-    _focusableChildren.set(this, {
-      writable: true,
-      value: []
-    });
-
-    _focusableFirstChild.set(this, {
-      writable: true,
-      value: {}
-    });
-
-    _focusableLastChild.set(this, {
-      writable: true,
-      value: {}
-    });
-
-    _listeningForKeydown.set(this, {
-      writable: true,
-      value: false
-    });
-
-    _trapFocusWithArrows.set(this, {
-      writable: true,
-      value: false
-    });
-
-    _listenForKeyboard.set(this, {
-      writable: true,
-      value: function value(event) {
-        var tabKey = event.which === KeyCodes.TAB;
-        var shiftKey = event.which === KeyCodes.SHIFT || event.shiftKey;
-        var arrowUp = event.which === KeyCodes.ARROW_UP;
-        var arrowDown = event.which === KeyCodes.ARROW_DOWN;
-
-        if (tabKey || shiftKey || arrowUp || arrowDown) {
-          document.body.classList.add(Selectors.KEYBOARD_CLASS);
-          document.removeEventListener(Events.KEYDOWN, _classPrivateFieldGet(_this, _listenForKeyboard));
-          document.addEventListener(Events.CLICK, _classPrivateFieldGet(_this, _listenForClick));
-
-          _classPrivateFieldSet(_this, _listeningForKeydown, false);
-        }
-      }
-    });
-
-    _listenForClick.set(this, {
-      writable: true,
-      value: function value(event) {
-        document.body.classList.remove(Selectors.KEYBOARD_CLASS);
-        document.removeEventListener(Events.CLICK, _classPrivateFieldGet(_this, _listenForClick));
-        document.addEventListener(Events.KEYDOWN, _classPrivateFieldGet(_this, _listenForKeyboard));
-
-        _classPrivateFieldSet(_this, _listeningForKeydown, true);
-      }
-    });
-
-    _handleFocusTrapWithTab.set(this, {
-      writable: true,
-      value: function value(event) {
-        var containerElement = document.querySelector(_classPrivateFieldGet(_this, _focusContainerSelector));
-        var containerActive = document.activeElement === containerElement;
-
-        var firstActive = document.activeElement === _classPrivateFieldGet(_this, _focusableFirstChild);
-
-        var lastActive = document.activeElement === _classPrivateFieldGet(_this, _focusableLastChild);
-
-        var tabKey = event.which === KeyCodes.TAB;
-        var shiftKey = event.which === KeyCodes.SHIFT || event.shiftKey;
-
-        if (shiftKey && tabKey && (firstActive || containerActive)) {
-          event.preventDefault();
-
-          _classPrivateFieldGet(_this, _focusableLastChild).focus();
-        } else if (!shiftKey && tabKey && lastActive) {
-          event.preventDefault();
-
-          _classPrivateFieldGet(_this, _focusableFirstChild).focus();
-        }
-      }
-    });
-
-    _handleFocusTrapWithArrows.set(this, {
-      writable: true,
-      value: function value(event) {
-        var firstActive = document.activeElement === _classPrivateFieldGet(_this, _focusableFirstChild);
-
-        var lastActive = document.activeElement === _classPrivateFieldGet(_this, _focusableLastChild);
-
-        var arrowUp = event.which === KeyCodes.ARROW_UP;
-        var arrowDown = event.which === KeyCodes.ARROW_DOWN;
-
-        if (arrowUp || arrowDown) {
-          event.preventDefault();
-
-          if (firstActive && arrowUp) {
-            _classPrivateFieldGet(_this, _focusableLastChild).focus();
-          } else if (lastActive && arrowDown) {
-            _classPrivateFieldGet(_this, _focusableFirstChild).focus();
-          } else if (arrowDown) {
-            _classPrivateMethodGet(_this, _focusNextChild, _focusNextChild2).call(_this);
-          } else if (arrowUp) {
-            _classPrivateMethodGet(_this, _focusLastChild, _focusLastChild2).call(_this);
-          }
-        }
-      }
-    });
-
-    _focusNextChild.add(this);
-
-    _focusLastChild.add(this);
+    this._focusContainerSelector = "";
+    this._focusableChildren = [];
+    this._focusableFirstChild = {};
+    this._focusableLastChild = {};
+    this._listeningForKeydown = false;
+    this._trapFocusWithArrows = false;
   }
 
-  _createClass(Utils, [{
-    key: "captureFocus",
-    value: function captureFocus(container, options) {
-      _classPrivateFieldSet(this, _focusContainerSelector, container);
+  // public
 
-      _classPrivateFieldSet(this, _focusableChildren, this.getFocusableElements(_classPrivateFieldGet(this, _focusContainerSelector)));
+  /**
+   * Listens to the first and last elements matched from this.getFocusableElements()
+   * @param {String} container - The container's class, attribute, etc.
+   * @param {Object} options - Optional has hof options.
+   */
+  captureFocus(container, options) {
+    this._focusContainerSelector = container;
+    this._focusableChildren = this.getFocusableElements(this._focusContainerSelector);
+    this._focusableFirstChild = this._focusableChildren[0];
+    this._focusableLastChild = this._focusableChildren[this._focusableChildren.length - 1];
 
-      _classPrivateFieldSet(this, _focusableFirstChild, _classPrivateFieldGet(this, _focusableChildren)[0]);
-
-      _classPrivateFieldSet(this, _focusableLastChild, _classPrivateFieldGet(this, _focusableChildren)[_classPrivateFieldGet(this, _focusableChildren).length - 1]);
-
-      if (options) {
-        if (options.useArrows) {
-          _classPrivateFieldSet(this, _trapFocusWithArrows, options.useArrows || _classPrivateFieldGet(this, _trapFocusWithArrows));
-
-          document.addEventListener(Events.KEYDOWN, _classPrivateFieldGet(this, _handleFocusTrapWithArrows));
-        }
-      } else {
-        document.addEventListener(Events.KEYDOWN, _classPrivateFieldGet(this, _handleFocusTrapWithTab));
+    if (options) {
+      if (options.useArrows) {
+        this._trapFocusWithArrows = options.useArrows || this._trapFocusWithArrows;
+        document.addEventListener(Events.KEYDOWN, this._handleFocusTrapWithArrows);
       }
-    }
-  }, {
-    key: "releaseFocus",
-    value: function releaseFocus() {
-      if (_classPrivateFieldGet(this, _trapFocusWithArrows)) {
-        document.removeEventListener(Events.KEYDOWN, _classPrivateFieldGet(this, _handleFocusTrapWithArrows));
-
-        _classPrivateFieldSet(this, _trapFocusWithArrows, false);
-      } else {
-        document.removeEventListener(Events.KEYDOWN, _classPrivateFieldGet(this, _handleFocusTrapWithTab));
-      }
-    }
-  }, {
-    key: "enableFocusOutline",
-    value: function enableFocusOutline() {
-      document.addEventListener(Events.KEYDOWN, _classPrivateFieldGet(this, _listenForKeyboard));
-    }
-  }, {
-    key: "disableFocusOutline",
-    value: function disableFocusOutline() {
-      if (_classPrivateFieldGet(this, _listeningForKeydown)) {
-        document.removeEventListener(Events.KEYDOWN, _classPrivateFieldGet(this, _listenForKeyboard));
-      } else {
-        document.removeEventListener(Events.CLICK, _classPrivateFieldGet(this, _listenForClick));
-      }
-    }
-  }, {
-    key: "getElements",
-    value: function getElements(element) {
-      var nodeList = document.querySelectorAll(element);
-      return Array.apply(null, nodeList);
-    }
-  }, {
-    key: "getFocusableElements",
-    value: function getFocusableElements(container) {
-      var focusables = Selectors.FOCUSABLE_TAGS.map(function (element) {
-        return "".concat(container, " ").concat(element).concat(Selectors.NOT_VISUALLY_HIDDEN);
-      });
-      return this.getElements(focusables.join(", "));
-    }
-  }]);
-
-  return Utils;
-}();
-
-var _focusContainerSelector = new WeakMap();
-
-var _focusableChildren = new WeakMap();
-
-var _focusableFirstChild = new WeakMap();
-
-var _focusableLastChild = new WeakMap();
-
-var _listeningForKeydown = new WeakMap();
-
-var _trapFocusWithArrows = new WeakMap();
-
-var _listenForKeyboard = new WeakMap();
-
-var _listenForClick = new WeakMap();
-
-var _handleFocusTrapWithTab = new WeakMap();
-
-var _handleFocusTrapWithArrows = new WeakMap();
-
-var _focusNextChild = new WeakSet();
-
-var _focusLastChild = new WeakSet();
-
-var _focusNextChild2 = function _focusNextChild2() {
-  for (var i = 0; i < _classPrivateFieldGet(this, _focusableChildren).length; i++) {
-    if (_classPrivateFieldGet(this, _focusableChildren)[i] === document.activeElement) {
-      _classPrivateFieldGet(this, _focusableChildren)[i + 1].focus();
-
-      break;
+    } else {
+      document.addEventListener(Events.KEYDOWN, this._handleFocusTrapWithTab);
     }
   }
-};
 
-var _focusLastChild2 = function _focusLastChild2() {
-  for (var i = 0; i < _classPrivateFieldGet(this, _focusableChildren).length; i++) {
-    if (_classPrivateFieldGet(this, _focusableChildren)[i] === document.activeElement) {
-      _classPrivateFieldGet(this, _focusableChildren)[i - 1].focus();
-
-      break;
+  /**
+   * Stop trapping focus set in this.captureFocus()
+   */
+  releaseFocus() {
+    if (this._trapFocusWithArrows) {
+      document.removeEventListener(Events.KEYDOWN, this._handleFocusTrapWithArrows);
+      this._trapFocusWithArrows = false;
+    } else {
+      document.removeEventListener(Events.KEYDOWN, this._handleFocusTrapWithTab);
     }
   }
+
+  /**
+   * Begin listening to _listenForKeyboard()
+   */
+  enableFocusOutline() {
+    document.addEventListener(Events.KEYDOWN, this._listenForKeyboard);
+  }
+
+  /**
+   * Completely disable focus outline utility.
+   */
+  disableFocusOutline() {
+    if (this._listeningForKeydown) {
+      document.removeEventListener(Events.KEYDOWN, this._listenForKeyboard);
+    } else {
+      document.removeEventListener(Events.CLICK, this._listenForClick);
+    }
+  }
+
+  /**
+   * Because IE does not recognize NodeList.forEach(),
+   * we use a cross-browser solution for returning an array of DOM nodes every time.
+   * @param {String} element - A DOM node's class, attribute, etc., to search the document.
+   * @return {Array}
+   */
+  getElements(element) {
+    const nodeList = document.querySelectorAll(element);
+    return Array.apply(null, nodeList)
+  }
+
+  /**
+   * Creates a string of element selector patterns using common elements.
+   * @param {String} container - The enclosing container's class, attribute, etc.
+   * @return {String}
+   */
+  getFocusableElements(container) {
+    const focusables = Selectors.FOCUSABLE_TAGS.map(element => {
+      return `${container} ${element}${Selectors.NOT_VISUALLY_HIDDEN}`
+    });
+
+    return this.getElements(focusables.join(", "))
+  }
+
+  // private
+
+  /**
+   * When a key is pressed, detect if it's tab or shift keys and enable
+   * focus outlines on currently focused element(s). Then, remove keydown listener
+   * and add click listener on _listenForClick().
+   * @param {Object} event - Event (keypress).
+   */
+  _listenForKeyboard(event) {
+    const tabKey = event.which === KeyCodes.TAB;
+    const shiftKey = event.which === KeyCodes.SHIFT || event.shiftKey;
+    const arrowUp = event.which === KeyCodes.ARROW_UP;
+    const arrowDown = event.which === KeyCodes.ARROW_DOWN;
+
+    if (tabKey || shiftKey || arrowUp || arrowDown) {
+      document.body.classList.add(Selectors.KEYBOARD_CLASS);
+      document.removeEventListener(Events.KEYDOWN, this._listenForKeyboard);
+      document.addEventListener(Events.CLICK, this._listenForClick);
+      this._listeningForKeydown = false;
+    }
+  }
+
+  /**
+   * On click, remove Selectors.KEYBOARD_CLASS and re-add keydown listener.
+   * @param {Object} event - Event (keypress).
+   */
+  _listenForClick(event) {
+    document.body.classList.remove(Selectors.KEYBOARD_CLASS);
+    document.removeEventListener(Events.CLICK, this._listenForClick);
+    document.addEventListener(Events.KEYDOWN, this._listenForKeyboard);
+    this._listeningForKeydown = true;
+  }
+
+  /**
+   * Handles focus on first or last child in a container, using tab and tab+shift keys.
+   * @param {Object} event - Event (keypress)
+   */
+  _handleFocusTrapWithTab(event) {
+    const containerElement = document.querySelector(this._focusContainerSelector);
+    const containerActive = document.activeElement === containerElement;
+    const firstActive = document.activeElement === this._focusableFirstChild;
+    const lastActive = document.activeElement === this._focusableLastChild;
+    const tabKey = event.which === KeyCodes.TAB;
+    const shiftKey = event.which === KeyCodes.SHIFT || event.shiftKey;
+
+    if (shiftKey && tabKey && (firstActive || containerActive)) {
+      event.preventDefault();
+      this._focusableLastChild.focus();
+    } else if (!shiftKey && tabKey && lastActive) {
+      event.preventDefault();
+      this._focusableFirstChild.focus();
+    }
+  }
+
+  /**
+   * Handles focus on the first, last, next, or previous child in a container, using up and down arrow keys.
+   * @param {Object} event - Event (keypress)
+   */
+  _handleFocusTrapWithArrows(event) {
+    const firstActive = document.activeElement === this._focusableFirstChild;
+    const lastActive = document.activeElement === this._focusableLastChild;
+    const arrowUp = event.which === KeyCodes.ARROW_UP;
+    const arrowDown = event.which === KeyCodes.ARROW_DOWN;
+
+    if (arrowUp || arrowDown) {
+      event.preventDefault();
+
+      if (firstActive && arrowUp) {
+        this._focusableLastChild.focus();
+      } else if (lastActive && arrowDown) {
+        this._focusableFirstChild.focus();
+      } else if (arrowDown) {
+        this._focusNextChild();
+      } else if (arrowUp) {
+        this._focusLastChild();
+      }
+    }
+  }
+
+  /**
+   * Focus the next child in this._focusableChildren.
+   */
+  _focusNextChild() {
+    for (let i = 0; i < this._focusableChildren.length; i++) {
+      if (this._focusableChildren[i] === document.activeElement) {
+        this._focusableChildren[i + 1].focus();
+        break
+      }
+    }
+  }
+
+  /**
+   * Focus the previous child in this._focusableChildren.
+   */
+  _focusLastChild() {
+    for (let i = 0; i < this._focusableChildren.length; i++) {
+      if (this._focusableChildren[i] === document.activeElement) {
+        this._focusableChildren[i - 1].focus();
+        break
+      }
+    }
+  }
+}
+
+const KeyCodes$1 = {
+  ESCAPE: 27,
 };
 
-var KeyCodes$1 = {
-  ESCAPE: 27
-};
-var Selectors$1 = {
+const Selectors$1 = {
+  // unique
   DATA_MODAL: "data-modal",
   DATA_MODAL_ID: "data-modal-id",
   DATA_MODAL_BUTTON: "data-modal-button",
+  // common
   DATA_VISIBLE: "data-visible",
   DATA_CLOSE: "data-close",
   DATA_TARGET: "data-target",
   DATA_PARENT: "data-parent",
+  // accessibility
   ARIA_HIDDEN: "aria-hidden",
   ARIA_MODAL: "aria-modal",
   ROLE: "role",
   TABINDEX: "tabindex",
-  NO_SCROLL: "no-scroll"
+  // classes
+  NO_SCROLL: "no-scroll",
 };
-var Events$1 = {
+
+const Events$1 = {
   KEYDOWN: "keydown",
   CLICK: "click",
-  RESIZE: "resize"
-};
-var Messages = {
-  NO_TARGET_ERROR: "Could not find [data-target] attribute associated with a [data-modal-button] element.",
-  NO_PARENT_ERROR: "Could not find [data-parent] attribute associated with a [data-modal] element.",
-  NO_ID_ERROR: function NO_ID_ERROR(id) {
-    return "Could not find [data-modal-id='".concat(id, "'] associated with a [data-modal] element.");
-  }
+  RESIZE: "resize",
 };
 
-var Modal = function (_Utils) {
-  _inherits(Modal, _Utils);
+const Messages = {
+  NO_TARGET_ERROR: `Could not find [data-target] attribute associated with a [data-modal-button] element.`,
+  NO_PARENT_ERROR: `Could not find [data-parent] attribute associated with a [data-modal] element.`,
+  NO_ID_ERROR: id =>
+    `Could not find [data-modal-id='${id}'] associated with a [data-modal] element.`,
+};
 
-  function Modal() {
-    var _this;
+/**
+ * Modal component class.
+ * @module Modal
+ * @requires Utils
+ */
+class Modal extends Utils {
+  constructor() {
+    super();
 
-    _classCallCheck(this, Modal);
+    // events
+    this._render = this._render.bind(this);
+    this._handleClose = this._handleClose.bind(this);
+    this._handleOverlayClick = this._handleOverlayClick.bind(this);
+    this._handleEscapeKeyPress = this._handleEscapeKeyPress.bind(this);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Modal).call(this));
+    // all modals
+    this._modals = [];
+    this._modalButtons = [];
 
-    _modals.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: []
-    });
+    // active modal
+    this._activeModalButton = {};
+    this._activeModalOverlay = {};
+    this._activeModal = {};
+    this._activeModalId = "";
+    this._activeModalOverlayAttr = "";
+    this._activeModalSelector = "";
+    this._activeModalCloseButtons = [];
 
-    _modalButtons.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: []
-    });
-
-    _activeModalButton.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: {}
-    });
-
-    _activeModalOverlay.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: {}
-    });
-
-    _activeModal.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: {}
-    });
-
-    _activeModalId.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: ""
-    });
-
-    _activeModalOverlayAttr.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: ""
-    });
-
-    _activeModalSelector.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: ""
-    });
-
-    _activeModalCloseButtons.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: []
-    });
-
-    _modalContainerAttr.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: "[".concat(Selectors$1.DATA_MODAL, "]")
-    });
-
-    _render.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: function value(event) {
-        event.preventDefault();
-
-        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalButton, event.target);
-
-        if (!_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalButton).getAttribute(Selectors$1.DATA_TARGET)) {
-          return console.error(Messages.NO_TARGET_ERROR);
-        }
-
-        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalId, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalButton).getAttribute(Selectors$1.DATA_TARGET));
-
-        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlayAttr, "[".concat(Selectors$1.DATA_MODAL_ID, "=\"").concat(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalId), "\"]"));
-
-        if (!document.querySelector(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlayAttr))) {
-          return console.error(Messages.NO_ID_ERROR(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalId)));
-        }
-
-        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlay, document.querySelector(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlayAttr)));
-
-        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalSelector, "".concat(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlayAttr), " ").concat(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _modalContainerAttr)));
-
-        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModal, document.querySelector(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalSelector)));
-
-        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalCloseButtons, _this.getElements("".concat(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlayAttr), " [").concat(Selectors$1.DATA_CLOSE, "]")));
-
-        _this.getFocusableElements(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalSelector)).forEach(function (element) {
-          element.setAttribute(Selectors$1.TABINDEX, "0");
-        });
-
-        _classPrivateMethodGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleScrollStop, _handleScrollStop2).call(_assertThisInitialized(_assertThisInitialized(_this)));
-
-        _this.captureFocus(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalSelector));
-
-        _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlay).setAttribute(Selectors$1.ARIA_HIDDEN, "false");
-
-        _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModal).setAttribute(Selectors$1.TABINDEX, "-1");
-
-        _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlay).setAttribute(Selectors$1.DATA_VISIBLE, "true");
-
-        _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModal).focus();
-
-        _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlay).scrollTop = 0;
-        document.addEventListener(Events$1.KEYDOWN, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleEscapeKeyPress));
-        document.addEventListener(Events$1.CLICK, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleOverlayClick));
-
-        _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalCloseButtons).forEach(function (button) {
-          button.addEventListener(Events$1.CLICK, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose));
-        });
-      }
-    });
-
-    _setupModal.add(_assertThisInitialized(_assertThisInitialized(_this)));
-
-    _handleClose.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: function value(event) {
-        event.preventDefault();
-
-        _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlay).setAttribute(Selectors$1.DATA_VISIBLE, "false");
-
-        _classPrivateMethodGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleReturnFocus, _handleReturnFocus2).call(_assertThisInitialized(_assertThisInitialized(_this)));
-
-        _classPrivateMethodGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleScrollRestore, _handleScrollRestore2).call(_assertThisInitialized(_assertThisInitialized(_this)));
-
-        _this.releaseFocus();
-
-        _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlay).setAttribute(Selectors$1.ARIA_HIDDEN, "true");
-
-        _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModal).removeAttribute(Selectors$1.TABINDEX);
-
-        _this.getFocusableElements(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalSelector)).forEach(function (element) {
-          element.setAttribute(Selectors$1.TABINDEX, "-1");
-        });
-
-        document.removeEventListener(Events$1.KEYDOWN, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleEscapeKeyPress));
-        document.removeEventListener(Events$1.CLICK, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleOverlayClick));
-
-        _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalCloseButtons).forEach(function (button) {
-          button.removeEventListener(Events$1.CLICK, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose));
-        });
-      }
-    });
-
-    _handleOverlayClick.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: function value(event) {
-        if (event.target === _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeModalOverlay)) {
-          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose).call(_assertThisInitialized(_assertThisInitialized(_this)), event);
-        }
-      }
-    });
-
-    _handleEscapeKeyPress.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: function value(event) {
-        if (event.which === KeyCodes$1.ESCAPE) {
-          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose).call(_assertThisInitialized(_assertThisInitialized(_this)), event);
-        }
-      }
-    });
-
-    _handleReturnFocus.add(_assertThisInitialized(_assertThisInitialized(_this)));
-
-    _handleScrollRestore.add(_assertThisInitialized(_assertThisInitialized(_this)));
-
-    _handleScrollStop.add(_assertThisInitialized(_assertThisInitialized(_this)));
-
-    return _this;
+    // attribute helpers
+    this._modalContainerAttr = `[${Selectors$1.DATA_MODAL}]`;
   }
 
-  _createClass(Modal, [{
-    key: "start",
-    value: function start() {
-      var _this2 = this;
+  // public
 
-      _classPrivateFieldSet(this, _modals, this.getElements(_classPrivateFieldGet(this, _modalContainerAttr)));
+  /**
+   * Add accessible attributes to modal containers
+   * Begin listening to elements with [data-modal-button]
+   */
+  start() {
+    this._modals = this.getElements(this._modalContainerAttr);
+    this._modalButtons = this.getElements(`[${Selectors$1.DATA_MODAL_BUTTON}]`);
 
-      _classPrivateFieldSet(this, _modalButtons, this.getElements("[".concat(Selectors$1.DATA_MODAL_BUTTON, "]")));
+    this.getFocusableElements(this._modalContainerAttr).forEach(element => {
+      element.setAttribute(Selectors$1.TABINDEX, "-1");
+    });
 
-      this.getFocusableElements(_classPrivateFieldGet(this, _modalContainerAttr)).forEach(function (element) {
-        element.setAttribute(Selectors$1.TABINDEX, "-1");
-      });
-
-      if (_classPrivateFieldGet(this, _modals).length) {
-        _classPrivateFieldGet(this, _modals).forEach(function (modal) {
-          _classPrivateMethodGet(_this2, _setupModal, _setupModal2).call(_this2, modal);
-        });
-      }
-
-      if (_classPrivateFieldGet(this, _modalButtons).length) {
-        _classPrivateFieldGet(this, _modalButtons).forEach(function (button) {
-          button.addEventListener(Events$1.CLICK, _classPrivateFieldGet(_this2, _render));
-        });
-      }
-    }
-  }, {
-    key: "stop",
-    value: function stop() {
-      var _this3 = this;
-
-      _classPrivateFieldGet(this, _modalButtons).forEach(function (button) {
-        button.removeEventListener(Events$1.CLICK, _classPrivateFieldGet(_this3, _render));
+    if (this._modals.length) {
+      this._modals.forEach(modal => {
+        this._setupModal(modal);
       });
     }
-  }]);
 
-  return Modal;
-}(Utils);
-
-var _modals = new WeakMap();
-
-var _modalButtons = new WeakMap();
-
-var _activeModalButton = new WeakMap();
-
-var _activeModalOverlay = new WeakMap();
-
-var _activeModal = new WeakMap();
-
-var _activeModalId = new WeakMap();
-
-var _activeModalOverlayAttr = new WeakMap();
-
-var _activeModalSelector = new WeakMap();
-
-var _activeModalCloseButtons = new WeakMap();
-
-var _modalContainerAttr = new WeakMap();
-
-var _render = new WeakMap();
-
-var _setupModal = new WeakSet();
-
-var _handleClose = new WeakMap();
-
-var _handleOverlayClick = new WeakMap();
-
-var _handleEscapeKeyPress = new WeakMap();
-
-var _handleReturnFocus = new WeakSet();
-
-var _handleScrollRestore = new WeakSet();
-
-var _handleScrollStop = new WeakSet();
-
-var _setupModal2 = function _setupModal2(modal) {
-  var modalId;
-
-  if (!modal.getAttribute(Selectors$1.DATA_PARENT)) {
-    return console.error(Messages.NO_PARENT_ERROR);
-  } else {
-    modalId = modal.getAttribute(Selectors$1.DATA_PARENT);
+    if (this._modalButtons.length) {
+      this._modalButtons.forEach(button => {
+        button.addEventListener(Events$1.CLICK, this._render);
+      });
+    }
   }
 
-  var modalWrapper;
-
-  if (!document.querySelector("[".concat(Selectors$1.DATA_MODAL_ID, "='").concat(modalId, "']"))) {
-    return console.error(Messages.NO_ID_ERROR(modalId));
-  } else {
-    modalWrapper = document.querySelector("[".concat(Selectors$1.DATA_MODAL_ID, "='").concat(modalId, "']"));
+  /**
+   * Stop listening to modal buttons
+   */
+  stop() {
+    this._modalButtons.forEach(button => {
+      button.removeEventListener(Events$1.CLICK, this._render);
+    });
   }
 
-  modalWrapper.setAttribute(Selectors$1.ARIA_HIDDEN, "true");
-  modalWrapper.setAttribute(Selectors$1.DATA_VISIBLE, "false");
-  modal.setAttribute(Selectors$1.ARIA_MODAL, "true");
-  modal.setAttribute(Selectors$1.ROLE, "dialog");
-};
+  // private
 
-var _handleReturnFocus2 = function _handleReturnFocus2() {
-  _classPrivateFieldGet(this, _activeModalButton).setAttribute(Selectors$1.TABINDEX, "-1");
+  /**
+   * Find a button through event.target, then render the corresponding modal attribute via matching target id
+   * @param {Object} event - The event object
+   */
+  _render(event) {
+    event.preventDefault();
+    this._activeModalButton = event.target;
 
-  _classPrivateFieldGet(this, _activeModalButton).focus();
+    if (!this._activeModalButton.getAttribute(Selectors$1.DATA_TARGET)) {
+      return console.error(Messages.NO_TARGET_ERROR)
+    }
 
-  _classPrivateFieldGet(this, _activeModalButton).removeAttribute(Selectors$1.TABINDEX);
-};
+    this._activeModalId = this._activeModalButton.getAttribute(Selectors$1.DATA_TARGET);
+    this._activeModalOverlayAttr = `[${Selectors$1.DATA_MODAL_ID}="${this._activeModalId}"]`;
 
-var _handleScrollRestore2 = function _handleScrollRestore2() {
-  document.body.classList.remove(Selectors$1.NO_SCROLL);
-  document.querySelector("html").classList.remove(Selectors$1.NO_SCROLL);
-};
+    if (!document.querySelector(this._activeModalOverlayAttr)) {
+      return console.error(Messages.NO_ID_ERROR(this._activeModalId))
+    }
 
-var _handleScrollStop2 = function _handleScrollStop2() {
-  document.body.classList.add(Selectors$1.NO_SCROLL);
-  document.querySelector("html").classList.add(Selectors$1.NO_SCROLL);
-};
+    this._activeModalOverlay = document.querySelector(this._activeModalOverlayAttr);
 
-var Selectors$2 = {
+    this._activeModalSelector = `${this._activeModalOverlayAttr} ${this._modalContainerAttr}`;
+    this._activeModal = document.querySelector(this._activeModalSelector);
+    this._activeModalCloseButtons = this.getElements(
+      `${this._activeModalOverlayAttr} [${Selectors$1.DATA_CLOSE}]`,
+    );
+
+    this.getFocusableElements(this._activeModalSelector).forEach(element => {
+      element.setAttribute(Selectors$1.TABINDEX, "0");
+    });
+
+    this._handleScrollStop();
+    this.captureFocus(this._activeModalSelector);
+    this._activeModalOverlay.setAttribute(Selectors$1.ARIA_HIDDEN, "false");
+    this._activeModal.setAttribute(Selectors$1.TABINDEX, "-1");
+    this._activeModalOverlay.setAttribute(Selectors$1.DATA_VISIBLE, "true");
+    this._activeModal.focus();
+
+    // offset slight scroll caused by this._activeModal.focus()
+    this._activeModalOverlay.scrollTop = 0;
+
+    // begin listening to events
+    document.addEventListener(Events$1.KEYDOWN, this._handleEscapeKeyPress);
+    document.addEventListener(Events$1.CLICK, this._handleOverlayClick);
+    this._activeModalCloseButtons.forEach(button => {
+      button.addEventListener(Events$1.CLICK, this._handleClose);
+    });
+  }
+
+  _setupModal(modal) {
+    let modalId;
+    if (!modal.getAttribute(Selectors$1.DATA_PARENT)) {
+      return console.error(Messages.NO_PARENT_ERROR)
+    } else {
+      modalId = modal.getAttribute(Selectors$1.DATA_PARENT);
+    }
+
+    let modalWrapper;
+    if (!document.querySelector(`[${Selectors$1.DATA_MODAL_ID}='${modalId}']`)) {
+      return console.error(Messages.NO_ID_ERROR(modalId))
+    } else {
+      modalWrapper = document.querySelector(`[${Selectors$1.DATA_MODAL_ID}='${modalId}']`);
+    }
+
+    modalWrapper.setAttribute(Selectors$1.ARIA_HIDDEN, "true");
+    modalWrapper.setAttribute(Selectors$1.DATA_VISIBLE, "false");
+    modal.setAttribute(Selectors$1.ARIA_MODAL, "true");
+    modal.setAttribute(Selectors$1.ROLE, "dialog");
+  }
+
+  /**
+   * Turn off event listeners and reset focus to last selected DOM node (button)
+   * @param {Object} event - Event (keydown or click)
+   */
+  _handleClose(event) {
+    event.preventDefault();
+    this._activeModalOverlay.setAttribute(Selectors$1.DATA_VISIBLE, "false");
+    this._handleReturnFocus();
+    this._handleScrollRestore();
+    this.releaseFocus();
+    this._activeModalOverlay.setAttribute(Selectors$1.ARIA_HIDDEN, "true");
+    this._activeModal.removeAttribute(Selectors$1.TABINDEX);
+
+    this.getFocusableElements(this._activeModalSelector).forEach(element => {
+      element.setAttribute(Selectors$1.TABINDEX, "-1");
+    });
+
+    // stop listening to events
+    document.removeEventListener(Events$1.KEYDOWN, this._handleEscapeKeyPress);
+    document.removeEventListener(Events$1.CLICK, this._handleOverlayClick);
+    this._activeModalCloseButtons.forEach(button => {
+      button.removeEventListener(Events$1.CLICK, this._handleClose);
+    });
+  }
+
+  /**
+   * Handles click event on the modal background to close it.
+   * @param {Object} event - Event (keydown)
+   */
+  _handleOverlayClick(event) {
+    if (event.target === this._activeModalOverlay) {
+      this._handleClose(event);
+    }
+  }
+
+  /**
+   * Handles escape key event to close the current modal
+   * @param {Object} event - Event (keydown)
+   */
+  _handleEscapeKeyPress(event) {
+    if (event.which === KeyCodes$1.ESCAPE) {
+      this._handleClose(event);
+    }
+  }
+
+  /**
+   * Returns focus to the last focused element before the modal was called.
+   * @param {Object} button - The current modal's corresponding button.
+   */
+  _handleReturnFocus() {
+    this._activeModalButton.setAttribute(Selectors$1.TABINDEX, "-1");
+    this._activeModalButton.focus();
+    this._activeModalButton.removeAttribute(Selectors$1.TABINDEX);
+  }
+
+  /**
+   * Restores scroll behavior to <html> and <body>
+   */
+  _handleScrollRestore() {
+    document.body.classList.remove(Selectors$1.NO_SCROLL);
+    document.querySelector("html").classList.remove(Selectors$1.NO_SCROLL);
+  }
+
+  /**
+   * Prevents scroll behavior on <html> and <body>
+   */
+  _handleScrollStop() {
+    document.body.classList.add(Selectors$1.NO_SCROLL);
+    document.querySelector("html").classList.add(Selectors$1.NO_SCROLL);
+  }
+}
+
+const Selectors$2 = {
+  // unique
   DATA_ACCORDION: "data-accordion",
   DATA_ACCORDION_ROW: "data-accordion-row",
+  // common
   DATA_VISIBLE: "data-visible",
   DATA_TARGET: "data-target",
   DATA_TOGGLE_MULTIPLE: "data-toggle-multiple",
   DATA_PARENT: "data-parent",
+  // accessibility
   ARIA_EXPANDED: "aria-expanded",
   ARIA_CONTROLS: "aria-controls",
   ARIA_HIDDEN: "aria-hidden",
   ARIA_LABELLEDBY: "aria-labelledby",
-  TABINDEX: "tabindex"
+  TABINDEX: "tabindex",
 };
-var Events$2 = {
+
+const Events$2 = {
   CLICK: "click",
-  KEYDOWN: "keydown"
-};
-var Messages$1 = {
-  NO_VISIBLE_ERROR: function NO_VISIBLE_ERROR(id) {
-    return "Could not find parent with [data-visible] attribute associated with [data-target='".concat(id, "'].");
-  },
-  NO_ROW_ERROR: function NO_ROW_ERROR(id) {
-    return "Could not find [data-accordion-row] associated with ".concat(id, ".");
-  },
-  NO_HEADER_ID_ERROR: function NO_HEADER_ID_ERROR(id) {
-    return "Could not find header tag associated with [data-target='".concat(id, "'].");
-  },
-  NO_PARENT_ERROR: function NO_PARENT_ERROR(id) {
-    return "Could not find [data-parent] associated with [data-target='".concat(id, "'].");
-  },
-  NO_CONTENT_ERROR: function NO_CONTENT_ERROR(id) {
-    return "Could not find accordion content block with [id] ".concat(id, " associated with [data-target='").concat(id, "'].");
-  }
+  KEYDOWN: "keydown",
 };
 
-var Accordion = function (_Utils) {
-  _inherits(Accordion, _Utils);
+const Messages$1 = {
+  NO_VISIBLE_ERROR: id =>
+    `Could not find parent with [data-visible] attribute associated with [data-target='${id}'].`,
+  NO_ROW_ERROR: id => `Could not find [data-accordion-row] associated with ${id}.`,
+  NO_HEADER_ID_ERROR: id => `Could not find header tag associated with [data-target='${id}'].`,
+  NO_PARENT_ERROR: id => `Could not find [data-parent] associated with [data-target='${id}'].`,
+  NO_CONTENT_ERROR: id =>
+    `Could not find accordion content block with [id] ${id} associated with [data-target='${id}'].`,
+};
 
-  function Accordion() {
-    var _this;
+/**
+ * Accordion component class.
+ * @module Accordion
+ * @requires Utils
+ */
+class Accordion extends Utils {
+  constructor() {
+    super();
 
-    _classCallCheck(this, Accordion);
+    // events
+    this._render = this._render.bind(this);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Accordion).call(this));
+    // all accordions
+    this._accordionButtons = [];
+    this._accordionContentsAttr = "";
+    this._accordionContents = [];
 
-    _accordionButtons.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: []
-    });
+    // active accordion
+    this._activeContainer = {};
+    this._activeButton = {};
+    this._activeAccordionRowId = "";
+    this._activeRowAttr = "";
+    this._activeRow = "";
+    this._activeContainerId = "";
+    this._activeContainerAttr = "";
+    this._activeContent = {};
+    this._activeButtonExpandState = "";
+    this._activeContentHiddenState = "";
 
-    _accordionContentsAttr.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: ""
-    });
-
-    _accordionContents.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: []
-    });
-
-    _activeContainer.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: {}
-    });
-
-    _activeButton.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: {}
-    });
-
-    _activeAccordionRowId.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: ""
-    });
-
-    _activeRowAttr.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: ""
-    });
-
-    _activeRow.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: ""
-    });
-
-    _activeContainerId.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: ""
-    });
-
-    _activeContainerAttr.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: ""
-    });
-
-    _activeContent.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: {}
-    });
-
-    _activeButtonExpandState.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: ""
-    });
-
-    _activeContentHiddenState.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: ""
-    });
-
-    _headerLevels.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: [1, 2, 3, 4, 5, 6]
-    });
-
-    _setupAccordion.add(_assertThisInitialized(_assertThisInitialized(_this)));
-
-    _getPossibleAccordionButtonAttrs.add(_assertThisInitialized(_assertThisInitialized(_this)));
-
-    _getPossibleAccordionHeaderAttrs.add(_assertThisInitialized(_assertThisInitialized(_this)));
-
-    _getAccordionRowAttr.add(_assertThisInitialized(_assertThisInitialized(_this)));
-
-    _render$1.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: function value(event) {
-        event.preventDefault();
-
-        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeButton, event.target);
-
-        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeAccordionRowId, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeButton).getAttribute(Selectors$2.DATA_TARGET));
-
-        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeRowAttr, _classPrivateMethodGet(_assertThisInitialized(_assertThisInitialized(_this)), _getAccordionRowAttr, _getAccordionRowAttr2).call(_assertThisInitialized(_assertThisInitialized(_this)), _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeAccordionRowId)));
-
-        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeRow, document.querySelector(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeRowAttr)));
-
-        if (!_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeButton).getAttribute(Selectors$2.DATA_PARENT)) {
-          return console.error(Messages$1.NO_PARENT_ERROR(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeAccordionRowId)));
-        }
-
-        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerId, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeButton).getAttribute(Selectors$2.DATA_PARENT));
-
-        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerAttr, "[".concat(Selectors$2.DATA_ACCORDION, "='").concat(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerId), "']"));
-
-        if (!document.querySelector(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerAttr))) {
-          return console.error(Messages$1.NO_ACCORDION_ERROR(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerId)));
-        }
-
-        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainer, document.querySelector(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContainerAttr)));
-
-        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContent, document.getElementById(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeAccordionRowId)));
-
-        var accordionButtonState = _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeRow).getAttribute(Selectors$2.DATA_VISIBLE);
-
-        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeButtonExpandState, accordionButtonState === "true" ? "false" : "true");
-
-        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeContentHiddenState, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeButtonExpandState) === "false" ? "true" : "false");
-
-        _classPrivateMethodGet(_assertThisInitialized(_assertThisInitialized(_this)), _closeAllIfToggleable, _closeAllIfToggleable2).call(_assertThisInitialized(_assertThisInitialized(_this)));
-
-        _classPrivateMethodGet(_assertThisInitialized(_assertThisInitialized(_this)), _toggleSelectedAccordion, _toggleSelectedAccordion2).call(_assertThisInitialized(_assertThisInitialized(_this)));
-      }
-    });
-
-    _closeAllIfToggleable.add(_assertThisInitialized(_assertThisInitialized(_this)));
-
-    _toggleSelectedAccordion.add(_assertThisInitialized(_assertThisInitialized(_this)));
-
-    _toggleAttributeInCollection.add(_assertThisInitialized(_assertThisInitialized(_this)));
-
-    return _this;
+    // other data
+    this._headerLevels = [1, 2, 3, 4, 5, 6];
   }
 
-  _createClass(Accordion, [{
-    key: "start",
-    value: function start() {
-      var _this2 = this;
+  // public
 
-      var accordionButtonSelector = _classPrivateMethodGet(this, _getPossibleAccordionButtonAttrs, _getPossibleAccordionButtonAttrs2).call(this, "[".concat(Selectors$2.DATA_ACCORDION, "]"));
+  /**
+   * Sets up accordion components and listens to buttons for events.
+   * Begin listening to [data-accordion-button] elements
+   */
+  start() {
+    const accordionButtonSelector = this._getPossibleAccordionButtonAttrs(
+      `[${Selectors$2.DATA_ACCORDION}]`,
+    );
+    this._accordionButtons = this.getElements(accordionButtonSelector);
 
-      _classPrivateFieldSet(this, _accordionButtons, this.getElements(accordionButtonSelector));
-
-      if (_classPrivateFieldGet(this, _accordionButtons).length) {
-        _classPrivateFieldGet(this, _accordionButtons).forEach(function (button) {
-          _classPrivateMethodGet(_this2, _setupAccordion, _setupAccordion2).call(_this2, button);
-
-          button.addEventListener(Events$2.CLICK, _classPrivateFieldGet(_this2, _render$1));
-        });
-      }
-    }
-  }, {
-    key: "stop",
-    value: function stop() {
-      var _this3 = this;
-
-      _classPrivateFieldGet(this, _accordionButtons).forEach(function (button) {
-        button.removeEventListener(Events$2.CLICK, _classPrivateFieldGet(_this3, _render$1));
+    if (this._accordionButtons.length) {
+      this._accordionButtons.forEach(button => {
+        this._setupAccordion(button);
+        button.addEventListener(Events$2.CLICK, this._render);
       });
     }
-  }]);
-
-  return Accordion;
-}(Utils);
-
-var _accordionButtons = new WeakMap();
-
-var _accordionContentsAttr = new WeakMap();
-
-var _accordionContents = new WeakMap();
-
-var _activeContainer = new WeakMap();
-
-var _activeButton = new WeakMap();
-
-var _activeAccordionRowId = new WeakMap();
-
-var _activeRowAttr = new WeakMap();
-
-var _activeRow = new WeakMap();
-
-var _activeContainerId = new WeakMap();
-
-var _activeContainerAttr = new WeakMap();
-
-var _activeContent = new WeakMap();
-
-var _activeButtonExpandState = new WeakMap();
-
-var _activeContentHiddenState = new WeakMap();
-
-var _headerLevels = new WeakMap();
-
-var _setupAccordion = new WeakSet();
-
-var _getPossibleAccordionButtonAttrs = new WeakSet();
-
-var _getPossibleAccordionHeaderAttrs = new WeakSet();
-
-var _getAccordionRowAttr = new WeakSet();
-
-var _render$1 = new WeakMap();
-
-var _closeAllIfToggleable = new WeakSet();
-
-var _toggleSelectedAccordion = new WeakSet();
-
-var _toggleAttributeInCollection = new WeakSet();
-
-var _setupAccordion2 = function _setupAccordion2(button) {
-  var buttonId = button.getAttribute(Selectors$2.DATA_TARGET);
-
-  if (!document.getElementById(buttonId)) {
-    return console.error(Messages$1.NO_CONTENT_ERROR(buttonId));
   }
 
-  var buttonContent = document.getElementById(buttonId);
-
-  var accordionRowAttr = _classPrivateMethodGet(this, _getAccordionRowAttr, _getAccordionRowAttr2).call(this, buttonId);
-
-  if (!document.querySelector(accordionRowAttr)) {
-    return console.error(Messages$1.NO_ROW_ERROR(buttonId));
-  }
-
-  var accordionRow = document.querySelector(accordionRowAttr);
-
-  var buttonHeaderAttr = _classPrivateMethodGet(this, _getPossibleAccordionHeaderAttrs, _getPossibleAccordionHeaderAttrs2).call(this, accordionRowAttr);
-
-  var buttonHeader = this.getElements(buttonHeaderAttr)[0];
-
-  if (!buttonHeader || !buttonHeader.id) {
-    console.error(Messages$1.NO_HEADER_ID_ERROR(buttonId));
-  }
-
-  var buttonContentChildren = this.getFocusableElements("#".concat(buttonContent.id));
-  button.setAttribute(Selectors$2.ARIA_CONTROLS, buttonId);
-  buttonContent.setAttribute(Selectors$2.ARIA_LABELLEDBY, buttonHeader.id);
-
-  if (!accordionRow.getAttribute(Selectors$2.DATA_VISIBLE)) {
-    return console.error(Messages$1.NO_VISIBLE_ERROR(buttonId));
-  }
-
-  var contentShouldExpand = accordionRow.getAttribute(Selectors$2.DATA_VISIBLE);
-
-  if (contentShouldExpand === "true") {
-    buttonContent.style.maxHeight = "".concat(buttonContent.scrollHeight, "px");
-    button.setAttribute(Selectors$2.ARIA_EXPANDED, "true");
-    buttonContent.setAttribute(Selectors$2.ARIA_HIDDEN, "false");
-    buttonContentChildren.forEach(function (element) {
-      element.setAttribute(Selectors$2.TABINDEX, "0");
+  /**
+   * Stop listening to accordion button events.
+   */
+  stop() {
+    this._accordionButtons.forEach(button => {
+      button.removeEventListener(Events$2.CLICK, this._render);
     });
-  } else {
-    button.setAttribute(Selectors$2.ARIA_EXPANDED, "false");
-    buttonContent.setAttribute(Selectors$2.ARIA_HIDDEN, "true");
-    buttonContentChildren.forEach(function (element) {
+  }
+
+  // private
+
+  /**
+   * Add initial attributes to accordion elements.
+   * @param {Element} button - A button element that triggers an accordion.
+   */
+  _setupAccordion(button) {
+    const buttonId = button.getAttribute(Selectors$2.DATA_TARGET);
+
+    if (!document.getElementById(buttonId)) {
+      return console.error(Messages$1.NO_CONTENT_ERROR(buttonId))
+    }
+
+    const buttonContent = document.getElementById(buttonId);
+    const accordionRowAttr = this._getAccordionRowAttr(buttonId);
+
+    if (!document.querySelector(accordionRowAttr)) {
+      return console.error(Messages$1.NO_ROW_ERROR(buttonId))
+    }
+
+    const accordionRow = document.querySelector(accordionRowAttr);
+    const buttonHeaderAttr = this._getPossibleAccordionHeaderAttrs(accordionRowAttr);
+    const buttonHeader = this.getElements(buttonHeaderAttr)[0];
+
+    if (!buttonHeader || !buttonHeader.id) {
+      console.error(Messages$1.NO_HEADER_ID_ERROR(buttonId));
+    }
+
+    const buttonContentChildren = this.getFocusableElements(`#${buttonContent.id}`);
+
+    button.setAttribute(Selectors$2.ARIA_CONTROLS, buttonId);
+    buttonContent.setAttribute(Selectors$2.ARIA_LABELLEDBY, buttonHeader.id);
+
+    if (!accordionRow.getAttribute(Selectors$2.DATA_VISIBLE)) {
+      return console.error(Messages$1.NO_VISIBLE_ERROR(buttonId))
+    }
+
+    const contentShouldExpand = accordionRow.getAttribute(Selectors$2.DATA_VISIBLE);
+    if (contentShouldExpand === "true") {
+      buttonContent.style.maxHeight = `${buttonContent.scrollHeight}px`;
+      button.setAttribute(Selectors$2.ARIA_EXPANDED, "true");
+      buttonContent.setAttribute(Selectors$2.ARIA_HIDDEN, "false");
+      buttonContentChildren.forEach(element => {
+        element.setAttribute(Selectors$2.TABINDEX, "0");
+      });
+    } else {
+      button.setAttribute(Selectors$2.ARIA_EXPANDED, "false");
+      buttonContent.setAttribute(Selectors$2.ARIA_HIDDEN, "true");
+      buttonContentChildren.forEach(element => {
+        element.setAttribute(Selectors$2.TABINDEX, "-1");
+      });
+    }
+  }
+
+  /**
+   * Build a selector string to match possible accordion buttons
+   * @param {String} attr - A unique attribute
+   * @return {String} - String of possible button selectors
+   */
+  _getPossibleAccordionButtonAttrs(attr) {
+    return this._headerLevels
+      .map(
+        num => `${attr} > [${Selectors$2.DATA_ACCORDION_ROW}] > h${num} [${Selectors$2.DATA_TARGET}]`,
+      )
+      .join(", ")
+  }
+
+  /**
+   * Build a selector string to match possible accordion headers
+   * @param {String} attr - A unique attribute
+   * @return {String} - String of possible header selectors
+   */
+  _getPossibleAccordionHeaderAttrs(attr) {
+    return this._headerLevels.map(num => `${attr} > h${num}`).join(", ")
+  }
+
+  /**
+   * Build a unique accordion row attribute selector.
+   * @param {String} id - An id value associated with a given Selectors.DATA_TARGET
+   * @return {String} - A unique accordion row selector
+   */
+  _getAccordionRowAttr(id) {
+    return `[${Selectors$2.DATA_ACCORDION_ROW}='${id}']`
+  }
+
+  /**
+   * Open accordion content associated with an accordion button.
+   * @param {Object} event - The event object
+   */
+  _render(event) {
+    event.preventDefault();
+
+    this._activeButton = event.target;
+    this._activeAccordionRowId = this._activeButton.getAttribute(Selectors$2.DATA_TARGET);
+
+    this._activeRowAttr = this._getAccordionRowAttr(this._activeAccordionRowId);
+    this._activeRow = document.querySelector(this._activeRowAttr);
+
+    if (!this._activeButton.getAttribute(Selectors$2.DATA_PARENT)) {
+      return console.error(Messages$1.NO_PARENT_ERROR(this._activeAccordionRowId))
+    }
+
+    this._activeContainerId = this._activeButton.getAttribute(Selectors$2.DATA_PARENT);
+    this._activeContainerAttr = `[${Selectors$2.DATA_ACCORDION}='${this._activeContainerId}']`;
+
+    if (!document.querySelector(this._activeContainerAttr)) {
+      return console.error(Messages$1.NO_ACCORDION_ERROR(this._activeContainerId))
+    }
+
+    this._activeContainer = document.querySelector(this._activeContainerAttr);
+    this._activeContent = document.getElementById(this._activeAccordionRowId);
+
+    const accordionButtonState = this._activeRow.getAttribute(Selectors$2.DATA_VISIBLE);
+
+    this._activeButtonExpandState = accordionButtonState === "true" ? "false" : "true";
+    this._activeContentHiddenState = this._activeButtonExpandState === "false" ? "true" : "false";
+
+    this._closeAllIfToggleable();
+    this._toggleSelectedAccordion();
+  }
+
+  /**
+   * If toggling multiple rows at once isn't enabled, close all rows except the selected one.
+   * This ensures the selected one can be closed if it's already open.
+   */
+  _closeAllIfToggleable() {
+    if (this._activeContainer.hasAttribute(Selectors$2.DATA_TOGGLE_MULTIPLE)) return
+
+    const allContentAttr = `${this._activeContainerAttr} [${Selectors$2.ARIA_HIDDEN}]`;
+    const allRows = this.getElements(`${this._activeContainerAttr} [${Selectors$2.DATA_VISIBLE}]`);
+    const allContent = this.getElements(allContentAttr);
+
+    const accordionButtonSelector = this._getPossibleAccordionButtonAttrs(this._activeContainerAttr);
+    const allButtons = this.getElements(accordionButtonSelector);
+
+    allContent.forEach(content => {
+      if (content !== this._activeContent) content.style.maxHeight = null;
+    });
+
+    this.getFocusableElements(allContentAttr).forEach(element => {
       element.setAttribute(Selectors$2.TABINDEX, "-1");
     });
+
+    this._toggleAttributeInCollection(allRows, Selectors$2.DATA_VISIBLE, "true", "false");
+    this._toggleAttributeInCollection(allButtons, Selectors$2.ARIA_EXPANDED, "true", "false");
+    this._toggleAttributeInCollection(allContent, Selectors$2.ARIA_HIDDEN, "false", "true");
   }
-};
 
-var _getPossibleAccordionButtonAttrs2 = function _getPossibleAccordionButtonAttrs2(attr) {
-  return _classPrivateFieldGet(this, _headerLevels).map(function (num) {
-    return "".concat(attr, " > [").concat(Selectors$2.DATA_ACCORDION_ROW, "] > h").concat(num, " [").concat(Selectors$2.DATA_TARGET, "]");
-  }).join(", ");
-};
+  /**
+   * Toggle the currently selected accordion button's content.
+   */
+  _toggleSelectedAccordion() {
+    this._activeRow.setAttribute(Selectors$2.DATA_VISIBLE, this._activeButtonExpandState);
+    this._activeButton.setAttribute(Selectors$2.ARIA_EXPANDED, this._activeButtonExpandState);
+    this._activeContent.setAttribute(Selectors$2.ARIA_HIDDEN, this._activeContentHiddenState);
 
-var _getPossibleAccordionHeaderAttrs2 = function _getPossibleAccordionHeaderAttrs2(attr) {
-  return _classPrivateFieldGet(this, _headerLevels).map(function (num) {
-    return "".concat(attr, " > h").concat(num);
-  }).join(", ");
-};
+    const activeContentBlock = `#${this._activeAccordionRowId}`;
+    this.getFocusableElements(activeContentBlock).forEach(element => {
+      const value = this._activeButtonExpandState === "true" ? "0" : "-1";
+      element.setAttribute(Selectors$2.TABINDEX, value);
+    });
 
-var _getAccordionRowAttr2 = function _getAccordionRowAttr2(id) {
-  return "[".concat(Selectors$2.DATA_ACCORDION_ROW, "='").concat(id, "']");
-};
-
-var _closeAllIfToggleable2 = function _closeAllIfToggleable2() {
-  var _this4 = this;
-
-  if (_classPrivateFieldGet(this, _activeContainer).hasAttribute(Selectors$2.DATA_TOGGLE_MULTIPLE)) return;
-  var allContentAttr = "".concat(_classPrivateFieldGet(this, _activeContainerAttr), " [").concat(Selectors$2.ARIA_HIDDEN, "]");
-  var allRows = this.getElements("".concat(_classPrivateFieldGet(this, _activeContainerAttr), " [").concat(Selectors$2.DATA_VISIBLE, "]"));
-  var allContent = this.getElements(allContentAttr);
-
-  var accordionButtonSelector = _classPrivateMethodGet(this, _getPossibleAccordionButtonAttrs, _getPossibleAccordionButtonAttrs2).call(this, _classPrivateFieldGet(this, _activeContainerAttr));
-
-  var allButtons = this.getElements(accordionButtonSelector);
-  allContent.forEach(function (content) {
-    if (content !== _classPrivateFieldGet(_this4, _activeContent)) content.style.maxHeight = null;
-  });
-  this.getFocusableElements(allContentAttr).forEach(function (element) {
-    element.setAttribute(Selectors$2.TABINDEX, "-1");
-  });
-
-  _classPrivateMethodGet(this, _toggleAttributeInCollection, _toggleAttributeInCollection2).call(this, allRows, Selectors$2.DATA_VISIBLE, "true", "false");
-
-  _classPrivateMethodGet(this, _toggleAttributeInCollection, _toggleAttributeInCollection2).call(this, allButtons, Selectors$2.ARIA_EXPANDED, "true", "false");
-
-  _classPrivateMethodGet(this, _toggleAttributeInCollection, _toggleAttributeInCollection2).call(this, allContent, Selectors$2.ARIA_HIDDEN, "false", "true");
-};
-
-var _toggleSelectedAccordion2 = function _toggleSelectedAccordion2() {
-  var _this5 = this;
-
-  _classPrivateFieldGet(this, _activeRow).setAttribute(Selectors$2.DATA_VISIBLE, _classPrivateFieldGet(this, _activeButtonExpandState));
-
-  _classPrivateFieldGet(this, _activeButton).setAttribute(Selectors$2.ARIA_EXPANDED, _classPrivateFieldGet(this, _activeButtonExpandState));
-
-  _classPrivateFieldGet(this, _activeContent).setAttribute(Selectors$2.ARIA_HIDDEN, _classPrivateFieldGet(this, _activeContentHiddenState));
-
-  var activeContentBlock = "#".concat(_classPrivateFieldGet(this, _activeAccordionRowId));
-  this.getFocusableElements(activeContentBlock).forEach(function (element) {
-    var value = _classPrivateFieldGet(_this5, _activeButtonExpandState) === "true" ? "0" : "-1";
-    element.setAttribute(Selectors$2.TABINDEX, value);
-  });
-
-  if (_classPrivateFieldGet(this, _activeContent).style.maxHeight) {
-    _classPrivateFieldGet(this, _activeContent).style.maxHeight = null;
-  } else {
-    _classPrivateFieldGet(this, _activeContent).style.maxHeight = "".concat(_classPrivateFieldGet(this, _activeContent).scrollHeight, "px");
-  }
-};
-
-var _toggleAttributeInCollection2 = function _toggleAttributeInCollection2(elements, attributeName, currentValue, newValue) {
-  elements.forEach(function (element) {
-    if (element.hasAttribute(attributeName, currentValue)) {
-      element.setAttribute(attributeName, newValue);
+    if (this._activeContent.style.maxHeight) {
+      this._activeContent.style.maxHeight = null;
+    } else {
+      this._activeContent.style.maxHeight = `${this._activeContent.scrollHeight}px`;
     }
-  });
-};
+  }
 
-var KeyCodes$2 = {
+  /**
+   * Toggles a single attribute of a series of elements.
+   * @param {Array} elements - An array of elements to be operated on.
+   * @param {String} attributeName - An attribute to be changed.
+   * @param {String} currentValue - The current value of attributeName
+   * @param {String} newValue - The new value of attributeName
+   */
+  _toggleAttributeInCollection(elements, attributeName, currentValue, newValue) {
+    elements.forEach(element => {
+      if (element.hasAttribute(attributeName, currentValue)) {
+        element.setAttribute(attributeName, newValue);
+      }
+    });
+  }
+}
+
+const KeyCodes$2 = {
   TAB: 9,
   SHIFT: 16,
   ESCAPE: 27,
   ARROW_UP: 38,
-  ARROW_DOWN: 40
+  ARROW_DOWN: 40,
 };
-var Selectors$3 = {
+
+const Selectors$3 = {
+  // unique
   DATA_DROPDOWN: "data-dropdown",
+  // common
   DATA_TARGET: "data-target",
   DATA_PARENT: "data-parent",
   DATA_VISIBLE: "data-visible",
+  // accessibility
   TABINDEX: "tabindex",
   ARIA_HASPOPUP: "aria-haspopup",
   ARIA_CONTROLS: "aria-controls",
   ARIA_LABELLEDBY: "aria-labelledby",
   ARIA_EXPANDED: "aria-expanded",
-  ROLE: "role"
+  ROLE: "role",
 };
-var Events$3 = {
+
+const Events$3 = {
   KEYDOWN: "keydown",
-  CLICK: "click"
-};
-var Messages$2 = {
-  NO_PARENT_ERROR: "Could not find dropdown button's [data-parent] attribute.",
-  NO_DROPDOWN_ERROR: function NO_DROPDOWN_ERROR(attr) {
-    return "Could not find dropdown container associated with ".concat(attr, ".");
-  },
-  NO_MENU_ERROR: function NO_MENU_ERROR(attr) {
-    return "Could not find menu associated with ".concat(attr, ".");
-  }
+  CLICK: "click",
 };
 
-var Dropdown = function (_Utils) {
-  _inherits(Dropdown, _Utils);
+const Messages$2 = {
+  NO_PARENT_ERROR: `Could not find dropdown button's [data-parent] attribute.`,
+  NO_DROPDOWN_ERROR: attr => `Could not find dropdown container associated with ${attr}.`,
+  NO_MENU_ERROR: attr => `Could not find menu associated with ${attr}.`,
+};
 
-  function Dropdown() {
-    var _this;
+/**
+ * Dropdown component class.
+ * @module Dropdown
+ * @requires Utils
+ */
+class Dropdown extends Utils {
+  constructor() {
+    super();
 
-    _classCallCheck(this, Dropdown);
+    // events
+    this._render = this._render.bind(this);
+    this._handleFirstTabClose = this._handleFirstTabClose.bind(this);
+    this._handleLastTabClose = this._handleLastTabClose.bind(this);
+    this._renderWithKeys = this._renderWithKeys.bind(this);
+    this._handleClose = this._handleClose.bind(this);
+    this._handleEscapeKeyPress = this._handleEscapeKeyPress.bind(this);
+    this._handleOffMenuClick = this._handleOffMenuClick.bind(this);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Dropdown).call(this));
+    // active dropdown
+    this._activeDropdownButton = null;
+    this._activeDropdown = null;
+    this._activeDropdownMenu = null;
+    this._activeDropdownLinks = [];
+    this._allowFocusReturn = true;
+    this._activeDropdownId = "";
+    this._activeDropdownAttr = "";
+    this._activeDropdownMenuId = "";
 
-    _activeDropdownButton.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: null
-    });
+    // all dropdowns
+    this._dropdownButtons = [];
+    this._dropdowns = [];
 
-    _activeDropdown.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: null
-    });
-
-    _activeDropdownMenu.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: null
-    });
-
-    _activeDropdownLinks.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: []
-    });
-
-    _allowFocusReturn.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: true
-    });
-
-    _activeDropdownId.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: ""
-    });
-
-    _activeDropdownAttr.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: ""
-    });
-
-    _activeDropdownMenuId.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: ""
-    });
-
-    _dropdownButtons.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: []
-    });
-
-    _dropdowns.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: []
-    });
-
-    _dropdownContainerAttr.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: "[".concat(Selectors$3.DATA_DROPDOWN, "]")
-    });
-
-    _dropdownTargetAttr.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: "[".concat(Selectors$3.DATA_TARGET, "]")
-    });
-
-    _render$2.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: function value(event, key) {
-        if (!key) event.preventDefault();
-        event.stopPropagation();
-
-        if (_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton)) {
-          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _allowFocusReturn, false);
-
-          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose$1).call(_assertThisInitialized(_assertThisInitialized(_this)), event);
-
-          _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _allowFocusReturn, true);
-        }
-
-        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton, event.target);
-
-        if (!_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton).getAttribute(Selectors$3.DATA_PARENT)) {
-          return console.error(Messages$2.NO_PARENT_ERROR);
-        }
-
-        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownId, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton).getAttribute(Selectors$3.DATA_PARENT));
-
-        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr, "[".concat(Selectors$3.DATA_DROPDOWN, "=\"").concat(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownId), "\"]"));
-
-        if (!document.querySelector(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr))) {
-          return console.error(Messages$2.NO_DROPDOWN_ERROR(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr)));
-        }
-
-        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdown, document.querySelector(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr)));
-
-        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownMenuId, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton).getAttribute(Selectors$3.DATA_TARGET));
-
-        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownMenu, document.getElementById(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownMenuId)));
-
-        _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton).setAttribute(Selectors$3.ARIA_EXPANDED, "true");
-
-        _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdown).setAttribute(Selectors$3.DATA_VISIBLE, "true");
-
-        _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton).removeEventListener(Events$3.CLICK, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _render$2));
-
-        _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton).addEventListener(Events$3.CLICK, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose$1));
-
-        document.addEventListener(Events$3.KEYDOWN, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleEscapeKeyPress$1));
-        document.addEventListener(Events$3.CLICK, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleOffMenuClick));
-
-        _classPrivateFieldSet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks, _classPrivateMethodGet(_assertThisInitialized(_assertThisInitialized(_this)), _getDropdownLinks, _getDropdownLinks2).call(_assertThisInitialized(_assertThisInitialized(_this)), _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr)));
-
-        _this.firstDropdownLink = _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks)[0];
-        _this.lastDropdownLink = _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks)[_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks).length - 1];
-
-        _this.firstDropdownLink.addEventListener(Events$3.KEYDOWN, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleFirstTabClose));
-
-        _this.lastDropdownLink.addEventListener(Events$3.KEYDOWN, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleLastTabClose));
-
-        if (key && key === KeyCodes$2.ARROW_UP) {
-          _this.lastDropdownLink.focus();
-        } else {
-          _this.firstDropdownLink.focus();
-        }
-
-        _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks).forEach(function (link) {
-          link.setAttribute(Selectors$3.TABINDEX, "0");
-          link.addEventListener(Events$3.CLICK, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose$1));
-        });
-
-        _this.captureFocus("".concat(_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownAttr), " > ul"), {
-          useArrows: true
-        });
-      }
-    });
-
-    _handleFirstTabClose.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: function value(event) {
-        var shiftKey = event.which === KeyCodes$2.SHIFT || event.shiftKey;
-        var tabKey = event.which === KeyCodes$2.TAB;
-
-        if (shiftKey && tabKey) {
-          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose$1).call(_assertThisInitialized(_assertThisInitialized(_this)), event);
-        }
-      }
-    });
-
-    _handleLastTabClose.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: function value(event) {
-        var shiftKey = event.which === KeyCodes$2.SHIFT || event.shiftKey;
-        var tabKey = event.which === KeyCodes$2.TAB;
-
-        if (tabKey && !shiftKey) {
-          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose$1).call(_assertThisInitialized(_assertThisInitialized(_this)), event);
-        }
-      }
-    });
-
-    _renderWithKeys.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: function value(event) {
-        if (event.which === KeyCodes$2.ARROW_UP || event.which === KeyCodes$2.ARROW_DOWN) {
-          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _render$2).call(_assertThisInitialized(_assertThisInitialized(_this)), event, event.which);
-        }
-      }
-    });
-
-    _handleClose$1.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: function value(event) {
-        event.preventDefault();
-
-        _this.releaseFocus();
-
-        _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton).setAttribute(Selectors$3.ARIA_EXPANDED, "false");
-
-        _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdown).setAttribute(Selectors$3.DATA_VISIBLE, "false");
-
-        _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownLinks).forEach(function (link) {
-          link.setAttribute(Selectors$3.TABINDEX, "-1");
-          link.removeEventListener(Events$3.CLICK, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose$1));
-        });
-
-        _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton).removeEventListener(Events$3.CLICK, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose$1));
-
-        _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton).addEventListener(Events$3.CLICK, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _render$2));
-
-        document.removeEventListener(Events$3.KEYDOWN, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleEscapeKeyPress$1));
-        document.removeEventListener(Events$3.CLICK, _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleOffMenuClick));
-
-        if (_classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _allowFocusReturn)) {
-          _classPrivateMethodGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleReturnFocus$1, _handleReturnFocus2$1).call(_assertThisInitialized(_assertThisInitialized(_this)));
-        }
-      }
-    });
-
-    _handleEscapeKeyPress$1.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: function value(event) {
-        if (event.which === KeyCodes$2.ESCAPE) {
-          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose$1).call(_assertThisInitialized(_assertThisInitialized(_this)), event);
-        }
-      }
-    });
-
-    _handleOffMenuClick.set(_assertThisInitialized(_assertThisInitialized(_this)), {
-      writable: true,
-      value: function value(event) {
-        if (event.target !== _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownButton) && event.target !== _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _activeDropdownMenu)) {
-          _classPrivateFieldGet(_assertThisInitialized(_assertThisInitialized(_this)), _handleClose$1).call(_assertThisInitialized(_assertThisInitialized(_this)), event);
-        }
-      }
-    });
-
-    _handleReturnFocus$1.add(_assertThisInitialized(_assertThisInitialized(_this)));
-
-    _getDropdownLinks.add(_assertThisInitialized(_assertThisInitialized(_this)));
-
-    _setupDropdown.add(_assertThisInitialized(_assertThisInitialized(_this)));
-
-    return _this;
+    // dropdown element selectors
+    this._dropdownContainerAttr = `[${Selectors$3.DATA_DROPDOWN}]`;
+    this._dropdownTargetAttr = `[${Selectors$3.DATA_TARGET}]`;
   }
 
-  _createClass(Dropdown, [{
-    key: "start",
-    value: function start() {
-      var _this2 = this;
+  // public
 
-      _classPrivateFieldSet(this, _dropdowns, this.getElements("".concat(_classPrivateFieldGet(this, _dropdownContainerAttr))));
+  /**
+   * Find and set up dropdown buttons and menus.
+   * Begin listening to dropdowns for events.
+   */
+  start() {
+    this._dropdowns = this.getElements(`${this._dropdownContainerAttr}`);
+    this._dropdownButtons = this.getElements(
+      `${this._dropdownContainerAttr} > ${this._dropdownTargetAttr}`,
+    );
 
-      _classPrivateFieldSet(this, _dropdownButtons, this.getElements("".concat(_classPrivateFieldGet(this, _dropdownContainerAttr), " > ").concat(_classPrivateFieldGet(this, _dropdownTargetAttr))));
-
-      if (_classPrivateFieldGet(this, _dropdowns).length) {
-        _classPrivateFieldGet(this, _dropdowns).forEach(function (dropdown) {
-          return _classPrivateMethodGet(_this2, _setupDropdown, _setupDropdown2).call(_this2, dropdown);
-        });
-      }
-
-      _classPrivateFieldGet(this, _dropdownButtons).forEach(function (button) {
-        button.addEventListener(Events$3.CLICK, _classPrivateFieldGet(_this2, _render$2));
-        button.addEventListener(Events$3.KEYDOWN, _classPrivateFieldGet(_this2, _renderWithKeys));
-      });
+    if (this._dropdowns.length) {
+      this._dropdowns.forEach(dropdown => this._setupDropdown(dropdown));
     }
-  }, {
-    key: "stop",
-    value: function stop() {
-      var _this3 = this;
 
-      _classPrivateFieldGet(this, _dropdownButtons).forEach(function (button) {
-        button.removeEventListener(Events$3.CLICK, _classPrivateFieldGet(_this3, _render$2));
-        button.removeEventListener(Events$3.KEYDOWN, _classPrivateFieldGet(_this3, _renderWithKeys));
-      });
-    }
-  }]);
-
-  return Dropdown;
-}(Utils);
-
-var _activeDropdownButton = new WeakMap();
-
-var _activeDropdown = new WeakMap();
-
-var _activeDropdownMenu = new WeakMap();
-
-var _activeDropdownLinks = new WeakMap();
-
-var _allowFocusReturn = new WeakMap();
-
-var _activeDropdownId = new WeakMap();
-
-var _activeDropdownAttr = new WeakMap();
-
-var _activeDropdownMenuId = new WeakMap();
-
-var _dropdownButtons = new WeakMap();
-
-var _dropdowns = new WeakMap();
-
-var _dropdownContainerAttr = new WeakMap();
-
-var _dropdownTargetAttr = new WeakMap();
-
-var _render$2 = new WeakMap();
-
-var _handleFirstTabClose = new WeakMap();
-
-var _handleLastTabClose = new WeakMap();
-
-var _renderWithKeys = new WeakMap();
-
-var _handleClose$1 = new WeakMap();
-
-var _handleEscapeKeyPress$1 = new WeakMap();
-
-var _handleOffMenuClick = new WeakMap();
-
-var _handleReturnFocus$1 = new WeakSet();
-
-var _getDropdownLinks = new WeakSet();
-
-var _setupDropdown = new WeakSet();
-
-var _handleReturnFocus2$1 = function _handleReturnFocus2() {
-  _classPrivateFieldGet(this, _activeDropdownButton).setAttribute(Selectors$3.TAB_INDEX, "-1");
-
-  _classPrivateFieldGet(this, _activeDropdownButton).focus();
-
-  _classPrivateFieldGet(this, _activeDropdownButton).removeAttribute(Selectors$3.TAB_INDEX);
-};
-
-var _getDropdownLinks2 = function _getDropdownLinks2(attr) {
-  return this.getElements("".concat(attr, " > ul > li > a, ").concat(attr, " > ul > li > button"));
-};
-
-var _setupDropdown2 = function _setupDropdown2(dropdown) {
-  var dropdownId = dropdown.getAttribute(Selectors$3.DATA_DROPDOWN);
-  var dropdownIdAttr = "[".concat(Selectors$3.DATA_DROPDOWN, "=\"").concat(dropdownId, "\"]");
-  var dropdownMenuItemsAttr = "".concat(dropdownIdAttr, " > ul > li");
-
-  if (!document.querySelector("".concat(dropdownIdAttr, " > ul"))) {
-    return console.error(Messages$2.NO_MENU_ERROR(dropdownIdAttr));
+    this._dropdownButtons.forEach(button => {
+      button.addEventListener(Events$3.CLICK, this._render);
+      button.addEventListener(Events$3.KEYDOWN, this._renderWithKeys);
+    });
   }
 
-  var dropdownMenu = document.querySelector("".concat(dropdownIdAttr, " > ul"));
-  var dropdownButton = document.querySelector("".concat(dropdownIdAttr, " > ").concat(_classPrivateFieldGet(this, _dropdownTargetAttr)));
-  dropdownButton.setAttribute(Selectors$3.ARIA_CONTROLS, dropdownMenu.id);
-  dropdownButton.setAttribute(Selectors$3.ARIA_HASPOPUP, "true");
-  dropdownButton.setAttribute(Selectors$3.ARIA_EXPANDED, "false");
-  dropdownMenu.setAttribute(Selectors$3.ARIA_LABELLEDBY, dropdownButton.id);
-  var dropdownMenuItems = this.getElements(dropdownMenuItemsAttr);
-  dropdownMenuItems.forEach(function (item) {
-    return item.setAttribute(Selectors$3.ROLE, "none");
-  });
+  /**
+   * Stop listening for dropdown events.
+   */
+  stop() {
+    this._dropdownButtons.forEach(button => {
+      button.removeEventListener(Events$3.CLICK, this._render);
+      button.removeEventListener(Events$3.KEYDOWN, this._renderWithKeys);
+    });
+  }
 
-  _classPrivateMethodGet(this, _getDropdownLinks, _getDropdownLinks2).call(this, dropdownIdAttr).forEach(function (link) {
-    link.setAttribute(Selectors$3.ROLE, "menuitem");
-    link.setAttribute(Selectors$3.TABINDEX, "-1");
-  });
+  // private
+
+  /**
+   * Find a button through event.target, then render the corresponding modal attribute via matching target id
+   * @param {Object} event - The event object
+   * @param {Number} key - The key code that called _render()
+   */
+  _render(event, key) {
+    if (!key) event.preventDefault();
+    event.stopPropagation();
+
+    if (this._activeDropdownButton) {
+      this._allowFocusReturn = false;
+      this._handleClose(event);
+      this._allowFocusReturn = true;
+    }
+
+    // dropdown button / trigger
+    this._activeDropdownButton = event.target;
+
+    if (!this._activeDropdownButton.getAttribute(Selectors$3.DATA_PARENT)) {
+      return console.error(Messages$2.NO_PARENT_ERROR)
+    }
+
+    this._activeDropdownId = this._activeDropdownButton.getAttribute(Selectors$3.DATA_PARENT);
+
+    // dropdown container
+    this._activeDropdownAttr = `[${Selectors$3.DATA_DROPDOWN}="${this._activeDropdownId}"]`;
+
+    if (!document.querySelector(this._activeDropdownAttr)) {
+      return console.error(Messages$2.NO_DROPDOWN_ERROR(this._activeDropdownAttr))
+    }
+
+    this._activeDropdown = document.querySelector(this._activeDropdownAttr);
+
+    // dropdown menu
+    this._activeDropdownMenuId = this._activeDropdownButton.getAttribute(Selectors$3.DATA_TARGET);
+    this._activeDropdownMenu = document.getElementById(this._activeDropdownMenuId);
+
+    // dropdown button
+    this._activeDropdownButton.setAttribute(Selectors$3.ARIA_EXPANDED, "true");
+    this._activeDropdown.setAttribute(Selectors$3.DATA_VISIBLE, "true");
+
+    // reset button event listener to close the menu, instead of open it
+    this._activeDropdownButton.removeEventListener(Events$3.CLICK, this._render);
+    this._activeDropdownButton.addEventListener(Events$3.CLICK, this._handleClose);
+
+    document.addEventListener(Events$3.KEYDOWN, this._handleEscapeKeyPress);
+    document.addEventListener(Events$3.CLICK, this._handleOffMenuClick);
+
+    this._activeDropdownLinks = this._getDropdownLinks(this._activeDropdownAttr);
+
+    this.firstDropdownLink = this._activeDropdownLinks[0];
+    this.lastDropdownLink = this._activeDropdownLinks[this._activeDropdownLinks.length - 1];
+
+    this.firstDropdownLink.addEventListener(Events$3.KEYDOWN, this._handleFirstTabClose);
+    this.lastDropdownLink.addEventListener(Events$3.KEYDOWN, this._handleLastTabClose);
+
+    if (key && key === KeyCodes$2.ARROW_UP) {
+      this.lastDropdownLink.focus();
+    } else {
+      this.firstDropdownLink.focus();
+    }
+
+    this._activeDropdownLinks.forEach(link => {
+      link.setAttribute(Selectors$3.TABINDEX, "0");
+      link.addEventListener(Events$3.CLICK, this._handleClose);
+    });
+
+    this.captureFocus(`${this._activeDropdownAttr} > ul`, { useArrows: true });
+  }
+
+  /**
+   * Closes the dropdown if user uses shift and tab keys on the first dropdown element.
+   * @param {Object} event - The event object
+   */
+  _handleFirstTabClose(event) {
+    const shiftKey = event.which === KeyCodes$2.SHIFT || event.shiftKey;
+    const tabKey = event.which === KeyCodes$2.TAB;
+
+    if (shiftKey && tabKey) {
+      this._handleClose(event);
+    }
+  }
+
+  /**
+   * Closes the dropdown if user uses tab key on the last dropdown element.
+   * @param {Object} event - The event object
+   */
+  _handleLastTabClose(event) {
+    const shiftKey = event.which === KeyCodes$2.SHIFT || event.shiftKey;
+    const tabKey = event.which === KeyCodes$2.TAB;
+
+    if (tabKey && !shiftKey) {
+      this._handleClose(event);
+    }
+  }
+
+  /**
+   * Renders dropdown if the user uses arrow up or down.
+   * @param {Object} event - The event object
+   */
+  _renderWithKeys(event) {
+    if (event.which === KeyCodes$2.ARROW_UP || event.which === KeyCodes$2.ARROW_DOWN) {
+      this._render(event, event.which);
+    }
+  }
+
+  /**
+   * Closes currently open dropdown.
+   * @param {Object} event - The event object
+   */
+  _handleClose(event) {
+    event.preventDefault();
+
+    this.releaseFocus();
+
+    this._activeDropdownButton.setAttribute(Selectors$3.ARIA_EXPANDED, "false");
+    this._activeDropdown.setAttribute(Selectors$3.DATA_VISIBLE, "false");
+
+    this._activeDropdownLinks.forEach(link => {
+      link.setAttribute(Selectors$3.TABINDEX, "-1");
+      link.removeEventListener(Events$3.CLICK, this._handleClose);
+    });
+
+    this._activeDropdownButton.removeEventListener(Events$3.CLICK, this._handleClose);
+    this._activeDropdownButton.addEventListener(Events$3.CLICK, this._render);
+
+    document.removeEventListener(Events$3.KEYDOWN, this._handleEscapeKeyPress);
+    document.removeEventListener(Events$3.CLICK, this._handleOffMenuClick);
+
+    if (this._allowFocusReturn) {
+      this._handleReturnFocus();
+    }
+  }
+
+  /**
+   * Use escape key to close dropdown.
+   * @param {Object} event - The event object
+   */
+  _handleEscapeKeyPress(event) {
+    if (event.which === KeyCodes$2.ESCAPE) {
+      this._handleClose(event);
+    }
+  }
+
+  /**
+   * Closes dropdown
+   * @param {Object} event - The event object
+   */
+  _handleOffMenuClick(event) {
+    if (event.target !== this._activeDropdownButton && event.target !== this._activeDropdownMenu) {
+      this._handleClose(event);
+    }
+  }
+
+  /**
+   * Puts focus on a the active dropdown button.
+   */
+  _handleReturnFocus() {
+    this._activeDropdownButton.setAttribute(Selectors$3.TAB_INDEX, "-1");
+    this._activeDropdownButton.focus();
+    this._activeDropdownButton.removeAttribute(Selectors$3.TAB_INDEX);
+  }
+
+  /**
+   * Retrieve possible menu links or buttons as an array
+   * @param {String} attr - The unique attribute for a dropdown.
+   * @return {String} - Selector for possible menu item links.
+   */
+  _getDropdownLinks(attr) {
+    return this.getElements(`${attr} > ul > li > a, ${attr} > ul > li > button`)
+  }
+
+  /**
+   * Add starting attributes to a dropdown.
+   * @param {Element} dropdown - A dropdown element.
+   */
+  _setupDropdown(dropdown) {
+    const dropdownId = dropdown.getAttribute(Selectors$3.DATA_DROPDOWN);
+    const dropdownIdAttr = `[${Selectors$3.DATA_DROPDOWN}="${dropdownId}"]`;
+    const dropdownMenuItemsAttr = `${dropdownIdAttr} > ul > li`;
+
+    if (!document.querySelector(`${dropdownIdAttr} > ul`)) {
+      return console.error(Messages$2.NO_MENU_ERROR(dropdownIdAttr))
+    }
+
+    const dropdownMenu = document.querySelector(`${dropdownIdAttr} > ul`);
+    const dropdownButton = document.querySelector(`${dropdownIdAttr} > ${this._dropdownTargetAttr}`);
+
+    dropdownButton.setAttribute(Selectors$3.ARIA_CONTROLS, dropdownMenu.id);
+    dropdownButton.setAttribute(Selectors$3.ARIA_HASPOPUP, "true");
+    dropdownButton.setAttribute(Selectors$3.ARIA_EXPANDED, "false");
+    dropdownMenu.setAttribute(Selectors$3.ARIA_LABELLEDBY, dropdownButton.id);
+
+    const dropdownMenuItems = this.getElements(dropdownMenuItemsAttr);
+    dropdownMenuItems.forEach(item => item.setAttribute(Selectors$3.ROLE, "none"));
+
+    this._getDropdownLinks(dropdownIdAttr).forEach(link => {
+      link.setAttribute(Selectors$3.ROLE, "menuitem");
+      link.setAttribute(Selectors$3.TABINDEX, "-1");
+    });
+  }
+}
+
+const Modals = new Modal();
+const Accordions = new Accordion();
+const Dropdowns = new Dropdown();
+const Utils$1 = new Utils();
+
+const Undernet = {
+  // Components
+  Modals,
+  Accordions,
+  Dropdowns,
+
+  // Utils
+  Utils: Utils$1,
 };
 
-var Modals = new Modal();
-var Accordions = new Accordion();
-var Dropdowns = new Dropdown();
-var Utils$1 = new Utils();
-var Undernet = {
-  Modals: Modals,
-  Accordions: Accordions,
-  Dropdowns: Dropdowns,
-  Utils: Utils$1
-};
-
-Undernet.start = function () {
+Undernet.start = () => {
+  // Components
   Undernet.Modals.start();
   Undernet.Accordions.start();
   Undernet.Dropdowns.start();
+
+  // Utils
   Undernet.Utils.enableFocusOutline();
 };
 
-Undernet.stop = function () {
+Undernet.stop = () => {
+  // Components
   Undernet.Modals.stop();
   Undernet.Accordions.stop();
   Undernet.Dropdowns.stop();
+
+  // Utils
   Undernet.Utils.disableFocusOutline();
 };
 

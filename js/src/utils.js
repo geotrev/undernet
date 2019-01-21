@@ -23,12 +23,20 @@ const Events = {
  * @module Utils
  */
 export default class Utils {
-  #focusContainerSelector = ""
-  #focusableChildren = []
-  #focusableFirstChild = {}
-  #focusableLastChild = {}
-  #listeningForKeydown = false
-  #trapFocusWithArrows = false
+  constructor() {
+    // events
+    this._listenForKeyboard = this._listenForKeyboard.bind(this)
+    this._listenForClick = this._listenForClick.bind(this)
+    this._handleFocusTrapWithTab = this._handleFocusTrapWithTab.bind(this)
+    this._handleFocusTrapWithArrows = this._handleFocusTrapWithArrows.bind(this)
+
+    this._focusContainerSelector = ""
+    this._focusableChildren = []
+    this._focusableFirstChild = {}
+    this._focusableLastChild = {}
+    this._listeningForKeydown = false
+    this._trapFocusWithArrows = false
+  }
 
   // public
 
@@ -38,18 +46,18 @@ export default class Utils {
    * @param {Object} options - Optional has hof options.
    */
   captureFocus(container, options) {
-    this.#focusContainerSelector = container
-    this.#focusableChildren = this.getFocusableElements(this.#focusContainerSelector)
-    this.#focusableFirstChild = this.#focusableChildren[0]
-    this.#focusableLastChild = this.#focusableChildren[this.#focusableChildren.length - 1]
+    this._focusContainerSelector = container
+    this._focusableChildren = this.getFocusableElements(this._focusContainerSelector)
+    this._focusableFirstChild = this._focusableChildren[0]
+    this._focusableLastChild = this._focusableChildren[this._focusableChildren.length - 1]
 
     if (options) {
       if (options.useArrows) {
-        this.#trapFocusWithArrows = options.useArrows || this.#trapFocusWithArrows
-        document.addEventListener(Events.KEYDOWN, this.#handleFocusTrapWithArrows)
+        this._trapFocusWithArrows = options.useArrows || this._trapFocusWithArrows
+        document.addEventListener(Events.KEYDOWN, this._handleFocusTrapWithArrows)
       }
     } else {
-      document.addEventListener(Events.KEYDOWN, this.#handleFocusTrapWithTab)
+      document.addEventListener(Events.KEYDOWN, this._handleFocusTrapWithTab)
     }
   }
 
@@ -57,29 +65,29 @@ export default class Utils {
    * Stop trapping focus set in this.captureFocus()
    */
   releaseFocus() {
-    if (this.#trapFocusWithArrows) {
-      document.removeEventListener(Events.KEYDOWN, this.#handleFocusTrapWithArrows)
-      this.#trapFocusWithArrows = false
+    if (this._trapFocusWithArrows) {
+      document.removeEventListener(Events.KEYDOWN, this._handleFocusTrapWithArrows)
+      this._trapFocusWithArrows = false
     } else {
-      document.removeEventListener(Events.KEYDOWN, this.#handleFocusTrapWithTab)
+      document.removeEventListener(Events.KEYDOWN, this._handleFocusTrapWithTab)
     }
   }
 
   /**
-   * Begin listening to #listenForKeyboard()
+   * Begin listening to _listenForKeyboard()
    */
   enableFocusOutline() {
-    document.addEventListener(Events.KEYDOWN, this.#listenForKeyboard)
+    document.addEventListener(Events.KEYDOWN, this._listenForKeyboard)
   }
 
   /**
    * Completely disable focus outline utility.
    */
   disableFocusOutline() {
-    if (this.#listeningForKeydown) {
-      document.removeEventListener(Events.KEYDOWN, this.#listenForKeyboard)
+    if (this._listeningForKeydown) {
+      document.removeEventListener(Events.KEYDOWN, this._listenForKeyboard)
     } else {
-      document.removeEventListener(Events.CLICK, this.#listenForClick)
+      document.removeEventListener(Events.CLICK, this._listenForClick)
     }
   }
 
@@ -112,10 +120,10 @@ export default class Utils {
   /**
    * When a key is pressed, detect if it's tab or shift keys and enable
    * focus outlines on currently focused element(s). Then, remove keydown listener
-   * and add click listener on #listenForClick().
+   * and add click listener on _listenForClick().
    * @param {Object} event - Event (keypress).
    */
-  #listenForKeyboard = event => {
+  _listenForKeyboard(event) {
     const tabKey = event.which === KeyCodes.TAB
     const shiftKey = event.which === KeyCodes.SHIFT || event.shiftKey
     const arrowUp = event.which === KeyCodes.ARROW_UP
@@ -123,9 +131,9 @@ export default class Utils {
 
     if (tabKey || shiftKey || arrowUp || arrowDown) {
       document.body.classList.add(Selectors.KEYBOARD_CLASS)
-      document.removeEventListener(Events.KEYDOWN, this.#listenForKeyboard)
-      document.addEventListener(Events.CLICK, this.#listenForClick)
-      this.#listeningForKeydown = false
+      document.removeEventListener(Events.KEYDOWN, this._listenForKeyboard)
+      document.addEventListener(Events.CLICK, this._listenForClick)
+      this._listeningForKeydown = false
     }
   }
 
@@ -133,22 +141,22 @@ export default class Utils {
    * On click, remove Selectors.KEYBOARD_CLASS and re-add keydown listener.
    * @param {Object} event - Event (keypress).
    */
-  #listenForClick = event => {
+  _listenForClick(event) {
     document.body.classList.remove(Selectors.KEYBOARD_CLASS)
-    document.removeEventListener(Events.CLICK, this.#listenForClick)
-    document.addEventListener(Events.KEYDOWN, this.#listenForKeyboard)
-    this.#listeningForKeydown = true
+    document.removeEventListener(Events.CLICK, this._listenForClick)
+    document.addEventListener(Events.KEYDOWN, this._listenForKeyboard)
+    this._listeningForKeydown = true
   }
 
   /**
    * Handles focus on first or last child in a container, using tab and tab+shift keys.
    * @param {Object} event - Event (keypress)
    */
-  #handleFocusTrapWithTab = event => {
-    const containerElement = document.querySelector(this.#focusContainerSelector)
+  _handleFocusTrapWithTab(event) {
+    const containerElement = document.querySelector(this._focusContainerSelector)
     const containerActive = document.activeElement === containerElement
-    const firstActive = document.activeElement === this.#focusableFirstChild
-    const lastActive = document.activeElement === this.#focusableLastChild
+    const firstActive = document.activeElement === this._focusableFirstChild
+    const lastActive = document.activeElement === this._focusableLastChild
     const tabKey = event.which === KeyCodes.TAB
     const shiftKey = event.which === KeyCodes.SHIFT || event.shiftKey
     const hasShift = shiftKey && tabKey
@@ -156,10 +164,10 @@ export default class Utils {
 
     if (shiftKey && tabKey && (firstActive || containerActive)) {
       event.preventDefault()
-      this.#focusableLastChild.focus()
+      this._focusableLastChild.focus()
     } else if (!shiftKey && tabKey && lastActive) {
       event.preventDefault()
-      this.#focusableFirstChild.focus()
+      this._focusableFirstChild.focus()
     }
   }
 
@@ -167,9 +175,9 @@ export default class Utils {
    * Handles focus on the first, last, next, or previous child in a container, using up and down arrow keys.
    * @param {Object} event - Event (keypress)
    */
-  #handleFocusTrapWithArrows = event => {
-    const firstActive = document.activeElement === this.#focusableFirstChild
-    const lastActive = document.activeElement === this.#focusableLastChild
+  _handleFocusTrapWithArrows(event) {
+    const firstActive = document.activeElement === this._focusableFirstChild
+    const lastActive = document.activeElement === this._focusableLastChild
     const arrowUp = event.which === KeyCodes.ARROW_UP
     const arrowDown = event.which === KeyCodes.ARROW_DOWN
 
@@ -177,36 +185,36 @@ export default class Utils {
       event.preventDefault()
 
       if (firstActive && arrowUp) {
-        this.#focusableLastChild.focus()
+        this._focusableLastChild.focus()
       } else if (lastActive && arrowDown) {
-        this.#focusableFirstChild.focus()
+        this._focusableFirstChild.focus()
       } else if (arrowDown) {
-        this.#focusNextChild()
+        this._focusNextChild()
       } else if (arrowUp) {
-        this.#focusLastChild()
+        this._focusLastChild()
       }
     }
   }
 
   /**
-   * Focus the next child in this.#focusableChildren.
+   * Focus the next child in this._focusableChildren.
    */
-  #focusNextChild() {
-    for (let i = 0; i < this.#focusableChildren.length; i++) {
-      if (this.#focusableChildren[i] === document.activeElement) {
-        this.#focusableChildren[i + 1].focus()
+  _focusNextChild() {
+    for (let i = 0; i < this._focusableChildren.length; i++) {
+      if (this._focusableChildren[i] === document.activeElement) {
+        this._focusableChildren[i + 1].focus()
         break
       }
     }
   }
 
   /**
-   * Focus the previous child in this.#focusableChildren.
+   * Focus the previous child in this._focusableChildren.
    */
-  #focusLastChild() {
-    for (let i = 0; i < this.#focusableChildren.length; i++) {
-      if (this.#focusableChildren[i] === document.activeElement) {
-        this.#focusableChildren[i - 1].focus()
+  _focusLastChild() {
+    for (let i = 0; i < this._focusableChildren.length; i++) {
+      if (this._focusableChildren[i] === document.activeElement) {
+        this._focusableChildren[i - 1].focus()
         break
       }
     }
