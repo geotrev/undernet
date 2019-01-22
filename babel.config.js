@@ -1,16 +1,13 @@
 function presets(dist) {
-  let result = ["@babel/preset-env"]
-
-  if (!dist) {
-    result.pop()
-    result.push(["@babel/preset-env", { useBuiltIns: "entry" }], "@babel/preset-react")
+  if (dist) {
+    return ["@babel/preset-env"]
   }
 
-  return result
+  return [["@babel/preset-env", { useBuiltIns: "entry" }], "@babel/preset-react"]
 }
 
 function plugins(options) {
-  let result = ["@babel/plugin-proposal-class-properties", "@babel/plugin-proposal-private-methods"]
+  let result = ["@babel/plugin-proposal-class-properties"]
 
   if (!options.dist) {
     result.push("@babel/plugin-syntax-dynamic-import", [
@@ -29,7 +26,6 @@ module.exports = {
   env: {
     dist: {
       presets: presets(true),
-      plugins: plugins({ dist: true }),
     },
     development: {
       presets: presets(),

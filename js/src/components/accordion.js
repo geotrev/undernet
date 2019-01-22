@@ -42,27 +42,30 @@ const Messages = {
 export default class Accordion extends Utils {
   constructor() {
     super()
+
+    // events
+    this._render = this._render.bind(this)
+
+    // all accordions
+    this._accordionButtons = []
+    this._accordionContentsAttr = ""
+    this._accordionContents = []
+
+    // active accordion
+    this._activeContainer = {}
+    this._activeButton = {}
+    this._activeAccordionRowId = ""
+    this._activeRowAttr = ""
+    this._activeRow = ""
+    this._activeContainerId = ""
+    this._activeContainerAttr = ""
+    this._activeContent = {}
+    this._activeButtonExpandState = ""
+    this._activeContentHiddenState = ""
+
+    // other data
+    this._headerLevels = [1, 2, 3, 4, 5, 6]
   }
-
-  // all accordions
-  #accordionButtons = []
-  #accordionContentsAttr = ""
-  #accordionContents = []
-
-  // active accordion
-  #activeContainer = {}
-  #activeButton = {}
-  #activeAccordionRowId = ""
-  #activeRowAttr = ""
-  #activeRow = ""
-  #activeContainerId = ""
-  #activeContainerAttr = ""
-  #activeContent = {}
-  #activeButtonExpandState = ""
-  #activeContentHiddenState = ""
-
-  // other data
-  #headerLevels = [1, 2, 3, 4, 5, 6]
 
   // public
 
@@ -71,13 +74,15 @@ export default class Accordion extends Utils {
    * Begin listening to [data-accordion-button] elements
    */
   start() {
-    const accordionButtonSelector = this.#getPossibleAccordionButtonAttrs(`[${Selectors.DATA_ACCORDION}]`)
-    this.#accordionButtons = this.getElements(accordionButtonSelector)
+    const accordionButtonSelector = this._getPossibleAccordionButtonAttrs(
+      `[${Selectors.DATA_ACCORDION}]`,
+    )
+    this._accordionButtons = this.getElements(accordionButtonSelector)
 
-    if (this.#accordionButtons.length) {
-      this.#accordionButtons.forEach(button => {
-        this.#setupAccordion(button)
-        button.addEventListener(Events.CLICK, this.#render)
+    if (this._accordionButtons.length) {
+      this._accordionButtons.forEach(button => {
+        this._setupAccordion(button)
+        button.addEventListener(Events.CLICK, this._render)
       })
     }
   }
@@ -86,8 +91,8 @@ export default class Accordion extends Utils {
    * Stop listening to accordion button events.
    */
   stop() {
-    this.#accordionButtons.forEach(button => {
-      button.removeEventListener(Events.CLICK, this.#render)
+    this._accordionButtons.forEach(button => {
+      button.removeEventListener(Events.CLICK, this._render)
     })
   }
 
@@ -97,7 +102,7 @@ export default class Accordion extends Utils {
    * Add initial attributes to accordion elements.
    * @param {Element} button - A button element that triggers an accordion.
    */
-  #setupAccordion(button) {
+  _setupAccordion(button) {
     const buttonId = button.getAttribute(Selectors.DATA_TARGET)
 
     if (!document.getElementById(buttonId)) {
@@ -105,14 +110,14 @@ export default class Accordion extends Utils {
     }
 
     const buttonContent = document.getElementById(buttonId)
-    const accordionRowAttr = this.#getAccordionRowAttr(buttonId)
+    const accordionRowAttr = this._getAccordionRowAttr(buttonId)
 
     if (!document.querySelector(accordionRowAttr)) {
       return console.error(Messages.NO_ROW_ERROR(buttonId))
     }
 
     const accordionRow = document.querySelector(accordionRowAttr)
-    const buttonHeaderAttr = this.#getPossibleAccordionHeaderAttrs(accordionRowAttr)
+    const buttonHeaderAttr = this._getPossibleAccordionHeaderAttrs(accordionRowAttr)
     const buttonHeader = this.getElements(buttonHeaderAttr)[0]
 
     if (!buttonHeader || !buttonHeader.id) {
@@ -150,9 +155,11 @@ export default class Accordion extends Utils {
    * @param {String} attr - A unique attribute
    * @return {String} - String of possible button selectors
    */
-  #getPossibleAccordionButtonAttrs(attr) {
-    return this.#headerLevels
-      .map(num => `${attr} > [${Selectors.DATA_ACCORDION_ROW}] > h${num} [${Selectors.DATA_TARGET}]`)
+  _getPossibleAccordionButtonAttrs(attr) {
+    return this._headerLevels
+      .map(
+        num => `${attr} > [${Selectors.DATA_ACCORDION_ROW}] > h${num} [${Selectors.DATA_TARGET}]`,
+      )
       .join(", ")
   }
 
@@ -161,8 +168,8 @@ export default class Accordion extends Utils {
    * @param {String} attr - A unique attribute
    * @return {String} - String of possible header selectors
    */
-  #getPossibleAccordionHeaderAttrs(attr) {
-    return this.#headerLevels.map(num => `${attr} > h${num}`).join(", ")
+  _getPossibleAccordionHeaderAttrs(attr) {
+    return this._headerLevels.map(num => `${attr} > h${num}`).join(", ")
   }
 
   /**
@@ -170,7 +177,7 @@ export default class Accordion extends Utils {
    * @param {String} id - An id value associated with a given Selectors.DATA_TARGET
    * @return {String} - A unique accordion row selector
    */
-  #getAccordionRowAttr(id) {
+  _getAccordionRowAttr(id) {
     return `[${Selectors.DATA_ACCORDION_ROW}='${id}']`
   }
 
@@ -178,83 +185,83 @@ export default class Accordion extends Utils {
    * Open accordion content associated with an accordion button.
    * @param {Object} event - The event object
    */
-  #render = event => {
+  _render(event) {
     event.preventDefault()
 
-    this.#activeButton = event.target
-    this.#activeAccordionRowId = this.#activeButton.getAttribute(Selectors.DATA_TARGET)
+    this._activeButton = event.target
+    this._activeAccordionRowId = this._activeButton.getAttribute(Selectors.DATA_TARGET)
 
-    this.#activeRowAttr = this.#getAccordionRowAttr(this.#activeAccordionRowId)
-    this.#activeRow = document.querySelector(this.#activeRowAttr)
+    this._activeRowAttr = this._getAccordionRowAttr(this._activeAccordionRowId)
+    this._activeRow = document.querySelector(this._activeRowAttr)
 
-    if (!this.#activeButton.getAttribute(Selectors.DATA_PARENT)) {
-      return console.error(Messages.NO_PARENT_ERROR(this.#activeAccordionRowId))
+    if (!this._activeButton.getAttribute(Selectors.DATA_PARENT)) {
+      return console.error(Messages.NO_PARENT_ERROR(this._activeAccordionRowId))
     }
 
-    this.#activeContainerId = this.#activeButton.getAttribute(Selectors.DATA_PARENT)
-    this.#activeContainerAttr = `[${Selectors.DATA_ACCORDION}='${this.#activeContainerId}']`
+    this._activeContainerId = this._activeButton.getAttribute(Selectors.DATA_PARENT)
+    this._activeContainerAttr = `[${Selectors.DATA_ACCORDION}='${this._activeContainerId}']`
 
-    if (!document.querySelector(this.#activeContainerAttr)) {
-      return console.error(Messages.NO_ACCORDION_ERROR(this.#activeContainerId))
+    if (!document.querySelector(this._activeContainerAttr)) {
+      return console.error(Messages.NO_ACCORDION_ERROR(this._activeContainerId))
     }
 
-    this.#activeContainer = document.querySelector(this.#activeContainerAttr)
-    this.#activeContent = document.getElementById(this.#activeAccordionRowId)
+    this._activeContainer = document.querySelector(this._activeContainerAttr)
+    this._activeContent = document.getElementById(this._activeAccordionRowId)
 
-    const accordionButtonState = this.#activeRow.getAttribute(Selectors.DATA_VISIBLE)
+    const accordionButtonState = this._activeRow.getAttribute(Selectors.DATA_VISIBLE)
 
-    this.#activeButtonExpandState = accordionButtonState === "true" ? "false" : "true"
-    this.#activeContentHiddenState = this.#activeButtonExpandState === "false" ? "true" : "false"
+    this._activeButtonExpandState = accordionButtonState === "true" ? "false" : "true"
+    this._activeContentHiddenState = this._activeButtonExpandState === "false" ? "true" : "false"
 
-    this.#closeAllIfToggleable()
-    this.#toggleSelectedAccordion()
+    this._closeAllIfToggleable()
+    this._toggleSelectedAccordion()
   }
 
   /**
    * If toggling multiple rows at once isn't enabled, close all rows except the selected one.
    * This ensures the selected one can be closed if it's already open.
    */
-  #closeAllIfToggleable() {
-    if (this.#activeContainer.hasAttribute(Selectors.DATA_TOGGLE_MULTIPLE)) return
+  _closeAllIfToggleable() {
+    if (this._activeContainer.hasAttribute(Selectors.DATA_TOGGLE_MULTIPLE)) return
 
-    const allContentAttr = `${this.#activeContainerAttr} [${Selectors.ARIA_HIDDEN}]`
-    const allRows = this.getElements(`${this.#activeContainerAttr} [${Selectors.DATA_VISIBLE}]`)
+    const allContentAttr = `${this._activeContainerAttr} [${Selectors.ARIA_HIDDEN}]`
+    const allRows = this.getElements(`${this._activeContainerAttr} [${Selectors.DATA_VISIBLE}]`)
     const allContent = this.getElements(allContentAttr)
 
-    const accordionButtonSelector = this.#getPossibleAccordionButtonAttrs(this.#activeContainerAttr)
+    const accordionButtonSelector = this._getPossibleAccordionButtonAttrs(this._activeContainerAttr)
     const allButtons = this.getElements(accordionButtonSelector)
 
     allContent.forEach(content => {
-      if (content !== this.#activeContent) content.style.maxHeight = null
+      if (content !== this._activeContent) content.style.maxHeight = null
     })
 
     this.getFocusableElements(allContentAttr).forEach(element => {
       element.setAttribute(Selectors.TABINDEX, "-1")
     })
 
-    this.#toggleAttributeInCollection(allRows, Selectors.DATA_VISIBLE, "true", "false")
-    this.#toggleAttributeInCollection(allButtons, Selectors.ARIA_EXPANDED, "true", "false")
-    this.#toggleAttributeInCollection(allContent, Selectors.ARIA_HIDDEN, "false", "true")
+    this._toggleAttributeInCollection(allRows, Selectors.DATA_VISIBLE, "true", "false")
+    this._toggleAttributeInCollection(allButtons, Selectors.ARIA_EXPANDED, "true", "false")
+    this._toggleAttributeInCollection(allContent, Selectors.ARIA_HIDDEN, "false", "true")
   }
 
   /**
    * Toggle the currently selected accordion button's content.
    */
-  #toggleSelectedAccordion() {
-    this.#activeRow.setAttribute(Selectors.DATA_VISIBLE, this.#activeButtonExpandState)
-    this.#activeButton.setAttribute(Selectors.ARIA_EXPANDED, this.#activeButtonExpandState)
-    this.#activeContent.setAttribute(Selectors.ARIA_HIDDEN, this.#activeContentHiddenState)
+  _toggleSelectedAccordion() {
+    this._activeRow.setAttribute(Selectors.DATA_VISIBLE, this._activeButtonExpandState)
+    this._activeButton.setAttribute(Selectors.ARIA_EXPANDED, this._activeButtonExpandState)
+    this._activeContent.setAttribute(Selectors.ARIA_HIDDEN, this._activeContentHiddenState)
 
-    const activeContentBlock = `#${this.#activeAccordionRowId}`
+    const activeContentBlock = `#${this._activeAccordionRowId}`
     this.getFocusableElements(activeContentBlock).forEach(element => {
-      const value = this.#activeButtonExpandState === "true" ? "0" : "-1"
+      const value = this._activeButtonExpandState === "true" ? "0" : "-1"
       element.setAttribute(Selectors.TABINDEX, value)
     })
 
-    if (this.#activeContent.style.maxHeight) {
-      this.#activeContent.style.maxHeight = null
+    if (this._activeContent.style.maxHeight) {
+      this._activeContent.style.maxHeight = null
     } else {
-      this.#activeContent.style.maxHeight = `${this.#activeContent.scrollHeight}px`
+      this._activeContent.style.maxHeight = `${this._activeContent.scrollHeight}px`
     }
   }
 
@@ -265,7 +272,7 @@ export default class Accordion extends Utils {
    * @param {String} currentValue - The current value of attributeName
    * @param {String} newValue - The new value of attributeName
    */
-  #toggleAttributeInCollection(elements, attributeName, currentValue, newValue) {
+  _toggleAttributeInCollection(elements, attributeName, currentValue, newValue) {
     elements.forEach(element => {
       if (element.hasAttribute(attributeName, currentValue)) {
         element.setAttribute(attributeName, newValue)

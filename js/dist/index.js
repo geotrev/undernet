@@ -46,3 +46,4 @@ Undernet.stop = function () {
 
 var _default = Undernet;
 exports.default = _default;
+//# sourceMappingURL=index.js.map

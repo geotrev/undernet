@@ -19,7 +19,7 @@ const outputs = {
 const umdOutput = {
   file: outputs.umd,
   format: "umd",
-  name: "undernet",
+  name: pkg.name,
   sourcemap: true,
   exports: "named",
   banner,
@@ -70,7 +70,7 @@ const umdMinBundle = {
 const esmConfig = {
   input: inputs.esm,
   output: esmOutput,
-  plugins,
+  plugins: [],
 }
 
 module.exports = [umdBundle, umdMinBundle, esmConfig]
