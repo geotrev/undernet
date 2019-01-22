@@ -3,12 +3,14 @@
   "version": "3.3.0",
   "homepage": "https://undernet.io",
   "description": "A modular, configuration-first front-end framework. No strings.",
-  "main": "js/dist/index.js",
-  "module": "dist/undernet.bundle.esm.js",
-  "browser": "dist/undernet.bundle.min.js",
   "author": "George Treviranus",
   "license": "MIT",
   "private": false,
+  "main": "js/dist/index.js",
+  "module": "dist/undernet.bundle.esm.js",
+  "browser": "dist/undernet.bundle.min.js",
+  "sass": "scss/undernet.scss",
+  "style": "dist/undernet.css",
   "bin": {
     "update-version": "./scripts/update-version.js",
     "create-hashes": "./scripts/create-hashes.js"
@@ -17,8 +19,9 @@
     "dist"
   ],
   "scripts": {
-    "test": "BABEL_ENV=test mocha -r @babel/register -r config/mocha.config.js --recursive src/**/*.spec.js",
-    "test:w": "BABEL_ENV=test mocha --watch -r @babel/register -r config/mocha.config.js --recursive src/**/*.spec.js",
+    "test": "npm run test:web && npm run js:test",
+    "test:web": "BABEL_ENV=test mocha -r @babel/register -r config/mocha.config.js --recursive src/**/*.spec.js",
+    "test:web:watch": "BABEL_ENV=test mocha --watch -r @babel/register -r config/mocha.config.js --recursive src/**/*.spec.js",
     "build": "BABEL_ENV=production webpack --config config/webpack.prod.js --progress",
     "watch": "npm run js:build && webpack-dev-server --config config/webpack.dev.js --progress --open",
     "lint": "prettier --write 'src/**/*.js' && prettier --write 'src/**/*.scss'",
@@ -27,7 +30,7 @@
     "build:release": "npm run clean && npm run build:lint && npm run scss:prepublish && npm run css:prepublish && npm run js:prepublish && create-hashes",
     "clean": "rm -rf dist/ && mkdir dist/",
     "js:test": "mocha -r @babel/register -r jsdom-global/register -r config/mocha.undernet.config.js --recursive js/test/**/*.spec.js",
-    "js:test:w": "mocha --watch -r @babel/register -r jsdom-global/register -r config/mocha.undernet.config.js --recursive js/test/**/*.spec.js",
+    "js:test:watch": "mocha --watch -r @babel/register -r jsdom-global/register -r config/mocha.undernet.config.js --recursive js/test/**/*.spec.js",
     "js:build": "BABEL_ENV=dist babel js/src/ -d js/dist/ --no-comments -s",
     "js:watch": "BABEL_ENV=dist babel js/src/ --watch -d js/dist/ --no-comments -s",
     "js:lint": "prettier --write 'js/src/**/*.js'",
@@ -124,5 +127,8 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/geotrev/undernet.git"
+  },
+  "bugs": {
+    "url" : "https://github.com/geotrev/undernet/issues"
   }
 }
