@@ -1,6 +1,6 @@
 /*!
   * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
-  * Undernet v3.2.1 (https://undernet.io)
+  * Undernet v3.3.0 (https://undernet.io)
   * Copyright 2017-2019 George Treviranus
   */
 const KeyCodes = {
@@ -111,11 +111,11 @@ class Utils {
    * @return {String}
    */
   getFocusableElements(container) {
-    const focusables = Selectors.FOCUSABLE_TAGS.map(element => {
-      return `${container} ${element}${Selectors.NOT_VISUALLY_HIDDEN}`
-    });
+    const focusables = Selectors.FOCUSABLE_TAGS.map(
+      element => `${container} ${element}${Selectors.NOT_VISUALLY_HIDDEN}`,
+    ).join(", ");
 
-    return this.getElements(focusables.join(", "))
+    return this.getElements(focusables)
   }
 
   // private

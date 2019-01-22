@@ -108,11 +108,11 @@ export default class Utils {
    * @return {String}
    */
   getFocusableElements(container) {
-    const focusables = Selectors.FOCUSABLE_TAGS.map(element => {
-      return `${container} ${element}${Selectors.NOT_VISUALLY_HIDDEN}`
-    })
+    const focusables = Selectors.FOCUSABLE_TAGS.map(
+      element => `${container} ${element}${Selectors.NOT_VISUALLY_HIDDEN}`,
+    ).join(", ")
 
-    return this.getElements(focusables.join(", "))
+    return this.getElements(focusables)
   }
 
   // private

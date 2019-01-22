@@ -95,8 +95,8 @@ var Utils = function () {
     value: function getFocusableElements(container) {
       var focusables = Selectors.FOCUSABLE_TAGS.map(function (element) {
         return "".concat(container, " ").concat(element).concat(Selectors.NOT_VISUALLY_HIDDEN);
-      });
-      return this.getElements(focusables.join(", "));
+      }).join(", ");
+      return this.getElements(focusables);
     }
   }, {
     key: "_listenForKeyboard",

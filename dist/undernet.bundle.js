@@ -1,6 +1,6 @@
 /*!
   * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
-  * Undernet v3.2.1 (https://undernet.io)
+  * Undernet v3.3.0 (https://undernet.io)
   * Copyright 2017-2019 George Treviranus
   */
 (function (global, factory) {
@@ -162,8 +162,8 @@
       value: function getFocusableElements(container) {
         var focusables = Selectors.FOCUSABLE_TAGS.map(function (element) {
           return "".concat(container, " ").concat(element).concat(Selectors.NOT_VISUALLY_HIDDEN);
-        });
-        return this.getElements(focusables.join(", "));
+        }).join(", ");
+        return this.getElements(focusables);
       }
     }, {
       key: "_listenForKeyboard",
