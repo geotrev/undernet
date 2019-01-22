@@ -106,7 +106,7 @@ $ npm run js:watch
 To run a release build, run the following command, where `VERSION` is the semver value incremented from `package.json`:
 
 ```sh
-$ update-version --tag=VERSION && npm run build:release
+$ npm run update-version -- --tag=VERSION && npm run build:release
 ```
 
 These will do three things:
