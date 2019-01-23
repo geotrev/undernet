@@ -11,13 +11,6 @@
   "browser": "dist/undernet.bundle.min.js",
   "sass": "scss/undernet.scss",
   "style": "dist/undernet.css",
-  "bin": {
-    "update-version": "./scripts/update-version.js",
-    "create-hashes": "./scripts/create-hashes.js"
-  },
-  "files": [
-    "dist"
-  ],
   "scripts": {
     "test": "npm run test:web && npm run js:test",
     "test:web": "BABEL_ENV=test mocha -r @babel/register -r config/mocha.config.js --recursive src/**/*.spec.js",
@@ -27,7 +20,7 @@
     "lint": "prettier --write 'src/**/*.js' && prettier --write 'src/**/*.scss'",
     "build:development": "npm run build:lint && npm run js:build && npm run js:rollup && npm run css:build && npm run css:minify",
     "build:lint": "npm run js:lint && npm run scss:lint",
-    "build:release": "npm run clean && npm run build:lint && npm run scss:prepublish && npm run css:prepublish && npm run js:prepublish && create-hashes",
+    "build:release": "npm run clean && npm run build:lint && npm run scss:prepublish && npm run css:prepublish && npm run js:prepublish && npm run create-hashes",
     "clean": "rm -rf dist/ && mkdir dist/",
     "js:test": "mocha -r @babel/register -r jsdom-global/register -r config/mocha.undernet.config.js --recursive js/test/**/*.spec.js",
     "js:test:watch": "mocha --watch -r @babel/register -r jsdom-global/register -r config/mocha.undernet.config.js --recursive js/test/**/*.spec.js",
@@ -44,7 +37,8 @@
     "css:prepublish": "npm run css:package && cd dist/ && zip -r undernet.css.zip . -x *.js *.zip *.js.map",
     "scss:lint": "prettier --write 'scss/**/*.scss'",
     "scss:prepublish": "cd scss/ && zip -r ../dist/undernet.scss.zip .",
-    "heroku:default": "heroku git:remote -a"
+    "update-version": "node scripts/update-version.js",
+    "create-hashes": "node scripts/create-hashes.js"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
@@ -123,6 +117,11 @@
     "frontend",
     "framework",
     "web"
+  ],
+  "files": [
+    "dist/*.{css,js,map}",
+    "js/{src,dist}/*.{js,map}",
+    "scss/**/*.scss"
   ],
   "repository": {
     "type": "git",
