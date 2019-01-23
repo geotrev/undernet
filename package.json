@@ -11,9 +11,6 @@
   "browser": "dist/undernet.bundle.min.js",
   "sass": "scss/undernet.scss",
   "style": "dist/undernet.css",
-  "directories": {
-    "lib": "dist/"
-  },
   "scripts": {
     "test": "npm run test:web && npm run js:test",
     "test:web": "BABEL_ENV=test mocha -r @babel/register -r config/mocha.config.js --recursive src/**/*.spec.js",
@@ -120,6 +117,11 @@
     "frontend",
     "framework",
     "web"
+  ],
+  "files": [
+    "dist/*.{css,js,map}",
+    "js/{src,dist}/*.{js,map}",
+    "scss/**/*.scss"
   ],
   "repository": {
     "type": "git",
