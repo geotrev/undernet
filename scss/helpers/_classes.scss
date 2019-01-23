@@ -249,8 +249,5 @@
 // .using-keyboard is added to <body> if the FocusOutline JS helper is enabled
 
 @if $scope == "" {
-  .using-keyboard
-    *:not([type="text"]):not([type="email"]):not([type="password"]):not([type="search"]):not([type="url"]):not(textarea):not(select):focus {
-    outline: $global-outline-using-keyboard !important;
-  }
+  @include using-keyboard;
 }

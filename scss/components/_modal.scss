@@ -1,13 +1,3 @@
-// stop scrolling on html/body elements
-
-@if $scope == "" {
-  .no-scroll {
-    overflow: hidden !important;
-  }
-}
-
-// modal visibility & positioning
-
 .modal-overlay {
   display: block;
   background: $modal-overlay-color;
@@ -37,76 +27,80 @@
     justify-content: center;
     flex-flow: row nowrap;
   }
+  
+  .modal-dialog {
+    background: $modal-container-background-color;
+    width: $modal-container-width-small;
+    position: relative;
+    flex-flow: column nowrap;
+    display: flex;
+    cursor: default;
+    margin: $modal-container-margin-small;
+    border-radius: $modal-container-border-radius;
+
+    // windows high contrast mode
+    border: 1px solid transparent;
+
+    @media screen and (min-width: $modal-horizontal-breakpoint) and (min-height: $modal-vertical-breakpoint) {
+      width: $modal-container-width;
+      margin: $modal-container-margin;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-size: $modal-header-font-size;
+        display: inline-flex;
+        margin-bottom: 0;
+      }
+    }
+
+    header > button[data-close],
+    header > a[data-close] {
+      margin-left: auto;
+      font-size: 32px;
+      text-decoration: none;
+      padding: 0 8px;
+    }
+
+    header,
+    section,
+    footer {
+      padding: $modal-container-padding;
+    }
+
+    header,
+    section {
+      border-bottom: $modal-header-border;
+    }
+
+    footer {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: $modal-footer-button-alignment;
+
+      a:first-child,
+      button:first-child {
+        margin-right: 16px;
+      }
+
+      a,
+      button {
+        margin-bottom: 0;
+      }
+    }
+  }
 }
 
-// modal container
+// stop scrolling on html/body elements
 
-.modal-dialog {
-  background: $modal-container-background-color;
-  width: $modal-container-width-small;
-  position: relative;
-  flex-flow: column nowrap;
-  display: flex;
-  cursor: default;
-  margin: $modal-container-margin-small;
-  border-radius: $modal-container-border-radius;
-
-  // windows high contrast mode
-  border: 1px solid transparent;
-
-  @media screen and (min-width: $modal-horizontal-breakpoint) and (min-height: $modal-vertical-breakpoint) {
-    width: $modal-container-width;
-    margin: $modal-container-margin;
-  }
-
-  header {
-    display: flex;
-    align-items: center;
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      font-size: $modal-header-font-size;
-      display: inline-flex;
-      margin-bottom: 0;
-    }
-  }
-
-  header > button[data-close],
-  header > a[data-close] {
-    margin-left: auto;
-    font-size: 32px;
-    text-decoration: none;
-    padding: 0 8px;
-  }
-
-  header,
-  section,
-  footer {
-    padding: $modal-container-padding;
-  }
-
-  header,
-  section {
-    border-bottom: $modal-header-border;
-  }
-
-  footer {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: $modal-footer-button-alignment;
-
-    a:first-child,
-    button:first-child {
-      margin-right: 16px;
-    }
-
-    a,
-    button {
-      margin-bottom: 0;
-    }
-  }
+@if $scope == "" {
+  @include no-scroll;
 }

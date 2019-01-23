@@ -1,12 +1,4 @@
 @if $scope != "" {
-  // .no-scroll is added to the body if a modal is open.
-  .no-scroll {
-    overflow: hidden !important;
-  }
-
-  // .using-keyboard is added to <body> if FocusOutline JS helper is enabled.
-  .using-keyboard
-    *:not([type="text"]):not([type="email"]):not([type="password"]):not([type="search"]):not([type="url"]):not(textarea):not(select):focus {
-    outline: $global-outline-using-keyboard !important;
-  }
+  @include no-scroll;
+  @include using-keyboard;
 }

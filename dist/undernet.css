@@ -2037,6 +2037,11 @@ textarea {
 .dropdown {
   position: relative;
   display: inline-block; }
+  .dropdown[data-visible="true"] .dropdown-menu {
+    opacity: 1;
+    pointer-events: auto; }
+    .dropdown[data-visible="true"] .dropdown-menu [data-close] {
+      display: flex; }
   .dropdown [data-target] {
     display: inline-flex;
     align-items: center; }
@@ -2100,14 +2105,6 @@ textarea {
         margin: 0;
         padding: 12px;
         color: #888; }
-  .dropdown[data-visible="true"] .dropdown-menu {
-    opacity: 1;
-    pointer-events: auto; }
-    .dropdown[data-visible="true"] .dropdown-menu [data-close] {
-      display: flex; }
-
-.no-scroll {
-  overflow: hidden !important; }
 
 .modal-overlay {
   display: block;
@@ -2134,56 +2131,58 @@ textarea {
     align-items: center;
     justify-content: center;
     flex-flow: row nowrap; }
+  .modal-overlay .modal-dialog {
+    background: #ffffff;
+    width: 95%;
+    position: relative;
+    flex-flow: column nowrap;
+    display: flex;
+    cursor: default;
+    margin: 16px auto;
+    border-radius: 4px;
+    border: 1px solid transparent; }
+    @media screen and (min-width: 576px) and (min-height: 576px) {
+      .modal-overlay .modal-dialog {
+        width: 450px;
+        margin: 40px auto; } }
+    .modal-overlay .modal-dialog header {
+      display: flex;
+      align-items: center; }
+      .modal-overlay .modal-dialog header h1,
+      .modal-overlay .modal-dialog header h2,
+      .modal-overlay .modal-dialog header h3,
+      .modal-overlay .modal-dialog header h4,
+      .modal-overlay .modal-dialog header h5,
+      .modal-overlay .modal-dialog header h6 {
+        font-size: 20px;
+        display: inline-flex;
+        margin-bottom: 0; }
+    .modal-overlay .modal-dialog header > button[data-close],
+    .modal-overlay .modal-dialog header > a[data-close] {
+      margin-left: auto;
+      font-size: 32px;
+      text-decoration: none;
+      padding: 0 8px; }
+    .modal-overlay .modal-dialog header,
+    .modal-overlay .modal-dialog section,
+    .modal-overlay .modal-dialog footer {
+      padding: 16px; }
+    .modal-overlay .modal-dialog header,
+    .modal-overlay .modal-dialog section {
+      border-bottom: 1px solid #dedede; }
+    .modal-overlay .modal-dialog footer {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: flex-end; }
+      .modal-overlay .modal-dialog footer a:first-child,
+      .modal-overlay .modal-dialog footer button:first-child {
+        margin-right: 16px; }
+      .modal-overlay .modal-dialog footer a,
+      .modal-overlay .modal-dialog footer button {
+        margin-bottom: 0; }
 
-.modal-dialog {
-  background: #ffffff;
-  width: 95%;
-  position: relative;
-  flex-flow: column nowrap;
-  display: flex;
-  cursor: default;
-  margin: 16px auto;
-  border-radius: 4px;
-  border: 1px solid transparent; }
-  @media screen and (min-width: 576px) and (min-height: 576px) {
-    .modal-dialog {
-      width: 450px;
-      margin: 40px auto; } }
-  .modal-dialog header {
-    display: flex;
-    align-items: center; }
-    .modal-dialog header h1,
-    .modal-dialog header h2,
-    .modal-dialog header h3,
-    .modal-dialog header h4,
-    .modal-dialog header h5,
-    .modal-dialog header h6 {
-      font-size: 20px;
-      display: inline-flex;
-      margin-bottom: 0; }
-  .modal-dialog header > button[data-close],
-  .modal-dialog header > a[data-close] {
-    margin-left: auto;
-    font-size: 32px;
-    text-decoration: none;
-    padding: 0 8px; }
-  .modal-dialog header,
-  .modal-dialog section,
-  .modal-dialog footer {
-    padding: 16px; }
-  .modal-dialog header,
-  .modal-dialog section {
-    border-bottom: 1px solid #dedede; }
-  .modal-dialog footer {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: flex-end; }
-    .modal-dialog footer a:first-child,
-    .modal-dialog footer button:first-child {
-      margin-right: 16px; }
-    .modal-dialog footer a,
-    .modal-dialog footer button {
-      margin-bottom: 0; }
+.no-scroll {
+  overflow: hidden !important; }
 
 .accordion {
   border: 2px solid #dedede;
