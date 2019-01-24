@@ -8,7 +8,7 @@ Head over to the [download page](/docs/overview/download) to get Undernet's asse
 
 ## About Undernet
 
-Undernet was created with the goal of simplifying the developer experience, by writing less CSS and giving an easy JavaScript API for using common interactive UI patterns.
+Undernet was created with the goal of simplifying the development experience by allowing the developer to write less CSS, as well as giving an easy JavaScript API for using common interactive UI patterns.
 
 Undernet can both be a prototyping tool or the basis for your web app.
 
@@ -16,8 +16,8 @@ Undernet can both be a prototyping tool or the basis for your web app.
 
 - **Configuration:** The framework comes with a configuration file that you can update with your intended brand attributes, including colors, typography, grid, forms, and more.
 - **Semantics:** If markup is required, it's logical and written with accessibility in mind.
-- **Modularity:** Can act independent from your core stylesheet; the framework is specifically designed to be scoped and controlled as an alternative for existing projects.
-- **Agility:** Worka s fast or methodical as you need to use the framework; installation options range from CDN to full pipeline control.
+- **Modularity:** Undernet can act independently from your core stylesheet and is specifically designed to be scoped and controlled as an alternative for existing projects.
+- **Agility:** Work as fast or methodical as you need. Installation options range from CDN to full pipeline control.
 
 ### Support
 
