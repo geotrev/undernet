@@ -1,3 +1,7 @@
+// If $scope is not defined, the original locations of these helpers are...
+// --> no-scroll: components/_modal.scss
+// --> using-keyboard: helpers/_classes.scss
+
 @if $scope != "" {
   @include no-scroll;
   @include using-keyboard;

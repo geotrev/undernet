@@ -1,3 +1,10 @@
+// Scroll stopper modifier - only included if $scope is left empty. 
+// If $scope is defined, no-scroll is included via `_scope-overrides.scss`
+
+@if $scope == "" {
+  @include no-scroll;
+}
+
 .modal-overlay {
   display: block;
   background: $modal-overlay-color;
@@ -97,10 +104,4 @@
       }
     }
   }
-}
-
-// stop scrolling on html/body elements
-
-@if $scope == "" {
-  @include no-scroll;
 }

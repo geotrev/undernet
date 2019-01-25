@@ -1,4 +1,11 @@
-// typography modifiers
+// Keyboard focus modifier - only included if $scope is left empty. 
+// If $scope is defined, using-keyboard is included via `_scope-overrides.scss`
+
+@if $scope == "" {
+  @include using-keyboard;
+}
+
+// Typography modifiers
 
 .has-sans-font {
   font-family: $global-font-sans !important;
@@ -34,7 +41,7 @@
   }
 }
 
-// visibility class modifiers – by breakpoint.
+// Visibility class modifiers – by breakpoint.
 
 @each $breakpoint in $breakpoints {
   $break-name: nth($breakpoint, 1);
@@ -57,7 +64,7 @@
   } // end @if
 } // end @each
 
-// flex property modifiers
+// Flex property modifiers
 
 .is-flex-row {
   flex-direction: row !important;
@@ -128,7 +135,7 @@
   flex-shrink: 0 !important;
 }
 
-// spacing
+// Spacing
 
 .has-no-margin {
   margin: 0 !important;
@@ -205,7 +212,7 @@
   }
 }
 
-// lists
+// Lists
 
 .is-unstyled-list {
   list-style-type: none !important;
@@ -244,10 +251,4 @@
   position: static;
   white-space: normal;
   width: auto;
-}
-
-// .using-keyboard is added to <body> if the FocusOutline JS helper is enabled
-
-@if $scope == "" {
-  @include using-keyboard;
 }
