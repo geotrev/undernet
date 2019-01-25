@@ -1,6 +1,6 @@
 # Branding
 
-Customizing Undernet your CSS requires using the partial scss files that define all elements and components.
+Customizing your Undernet CSS requires using the partial scss files that define all elements and components.
 
 To get a sense of what you have the easiest control over, reference the `_config.scss` file which includes core variables for all elements, utilities, and interactive components.
 
