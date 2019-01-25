@@ -59,6 +59,7 @@ Only import the below **one time** in your application!
 @import "path/to/new_config";
 /* remove reset below if you are scoping */
 @import "~undernet/scss/elements/reset";
+/* Scope is defined in the original config, and can be overriden using your new config */
 /* .#{$scope} { */
 @import "~undernet/scss/helpers/classes";
 @import "~undernet/scss/elements/grid";
@@ -70,15 +71,7 @@ Only import the below **one time** in your application!
 @import "~undernet/scss/components/accordion";
 @import "~undernet/scss/components/dropdown";
 /* } */
-/*
- * required $scope check for no-scroll;
- * if scopes are enabled, you need .no-scroll outside of it.
-**/
-@if $scope != "" {
-  .no-scroll {
-    overflow: hidden;
-  }
-}
+@import "~undernet/scss/helpers/scope-overrides"
 ```
 
 Finally, import `undernet.scss` in your global stylesheet.
