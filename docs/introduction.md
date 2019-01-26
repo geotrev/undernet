@@ -4,13 +4,13 @@ Thanks for using Undernet! Hit the ground running in your next project with this
 
 Undernet is extremely light, carrying no external dependencies, with a fully module-based interface through [npm](https://www.npmjs.org/package/undernet).
 
-Head over to the [download page](/docs/overview/download) to get Undernet's assets, or see other options for [including it in your pipeline](/docs/overview/javascript).
+Head over to the [download page](/docs/overview/download) to get Undernet's static assets, or see the [JavaScript](/docs/overview/javascript) and [branding](/docs/overview/branding) pages for more advanced pipeline integration.
 
 ## About Undernet
 
 Undernet was created with the goal of simplifying the development experience by allowing the developer to write less CSS, as well as giving an easy JavaScript API for using common interactive UI patterns.
 
-Undernet can both be a prototyping tool or the basis for your web app.
+Undernet can both be a prototyping tool or the basis for your web app. You can easily pick and choose which elements and components to include, reducing the size of the overall bundle.
 
 ### Core Principles
 
@@ -32,7 +32,7 @@ Undernet's CSS and JavaScript will work in recent versions of these browsers:
 
 ## Contribute
 
-Undernet is completely open source!
+Undernet is completely [open source](https://en.wikipedia.org/wiki/Free_and_open-source_software)!
 
 Contribute on [Github](https://www.github.com/geotrev/undernet/issues) if you have questions or a want to file a bug report. Be sure to [read about contributing](https://github.com/geotrev/undernet/blob/master/CONTRIBUTING.md) before filing a bug or pull request.
 
