@@ -52,4 +52,5 @@ import Undernet from "undernet"
 import { Modal } from "undernet"
 ```
 
+<hr />
 <p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/download.md">Edit this page on Github!</a></p>

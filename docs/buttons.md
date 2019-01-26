@@ -101,4 +101,5 @@ Also Add styles for your regular anchor links.
 <a href="#">Just a link!</a>
 ```
 
+<hr />
 <p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/buttons.md">Edit this page on Github!</a></p>

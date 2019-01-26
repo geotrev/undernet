@@ -43,11 +43,11 @@
       z-index: $dropdown-menu-index-in-modal;
     }
 
-    &.is-aligned-right {
-      right: 0;
-    }
-
     @include breakpoint-up(small) {
+      &.is-aligned-right {
+        right: 0;
+      }
+
       &.is-drop-up {
         bottom: 100%;
         margin-bottom: $global-space;

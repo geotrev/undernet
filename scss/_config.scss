@@ -39,7 +39,6 @@ $global-font-weight-bold: bold !default;
 $global-font-style-normal: normal !default;
 $global-font-style-italic: italic !default;
 $global-line-height: 1.5 !default;
-
 $global-ease: cubic-bezier(0.12, 0.72, 0.58, 1.03) !default;
 $global-transition: $global-ease 0.2s !default;
 
@@ -93,6 +92,9 @@ $spacing-increments: (
   "3": $global-space * 1.5,
   "4": $global-space * 2
 ) !default;
+
+$hr-border: 1px solid $gray900;
+$hr-margin: 2.5rem 0;
 
 $modal-index: 2000 !default;
 $dropdown-menu-index: 1999 !default;
