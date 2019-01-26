@@ -61,4 +61,5 @@ All browsers have their own default outline style, but in general contrast of th
 
 To see it in action, try hitting tab while on this website. Your focus indicator should be a blue outline on elements!
 
+<hr />
 <p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/accessibility.md">Edit this page on Github!</a></p>

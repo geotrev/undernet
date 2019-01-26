@@ -81,3 +81,16 @@
     display: none !important;
   }
 }
+
+@mixin no-scroll {
+  .no-scroll {
+    overflow: hidden !important;
+  }
+}
+
+@mixin using-keyboard {
+  .using-keyboard
+    *:not([type="text"]):not([type="email"]):not([type="password"]):not([type="search"]):not([type="url"]):not(textarea):not(select):focus {
+    outline: $global-outline-using-keyboard !important;
+  }
+}

@@ -7,11 +7,11 @@ Grab whichever source code best suits your project. Learn how to link your scrip
 The quickest way to use Undernet is to link the bundled js and minified css using a CDN, such as [jsdelivr](https://jsdelivr.com).
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/undernet@3.3.0/dist/undernet.min.css" integrity="sha256-rSP+oTi0ozjHkyKYgy41nbEuXiBK25CRWENyhliWKhk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/undernet@3.3.1/dist/undernet.min.css" integrity="sha256-yW2LJwDa6O42Ju5e4hQPuK7LRNNehGEj0V2fJva9p6U=" crossorigin="anonymous">
 ```
 
 ```html
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/undernet@3.3.0/dist/undernet.bundle.min.js" integrity="sha256-+aurCHBM0/HnamMhhZlyMjyKfXBRix7saYR394GsFK4=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/undernet@3.3.1/dist/undernet.bundle.min.js" integrity="sha256-l/DDgqUXfm5Aa/1Sz140kv40FMWxOl1+7e16kaLJqBg=" crossorigin="anonymous"></script>
 <script type="text/javascript">
   document.addEventListener('DOMContentLoaded', Undernet.start())
 </script>
@@ -52,4 +52,5 @@ import Undernet from "undernet"
 import { Modal } from "undernet"
 ```
 
+<hr />
 <p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/download.md">Edit this page on Github!</a></p>

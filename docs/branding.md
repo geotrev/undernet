@@ -1,6 +1,6 @@
 # Branding
 
-Customizing Undernet your CSS requires using the partial scss files that define all elements and components.
+Customizing your Undernet CSS requires using the partial scss files that define all elements and components.
 
 To get a sense of what you have the easiest control over, reference the `_config.scss` file which includes core variables for all elements, utilities, and interactive components.
 
@@ -59,6 +59,7 @@ Only import the below **one time** in your application!
 @import "path/to/new_config";
 /* remove reset below if you are scoping */
 @import "~undernet/scss/elements/reset";
+/* Scope is defined in the original config, and can be overriden using your new config */
 /* .#{$scope} { */
 @import "~undernet/scss/helpers/classes";
 @import "~undernet/scss/elements/grid";
@@ -70,15 +71,7 @@ Only import the below **one time** in your application!
 @import "~undernet/scss/components/accordion";
 @import "~undernet/scss/components/dropdown";
 /* } */
-/*
- * required $scope check for no-scroll;
- * if scopes are enabled, you need .no-scroll outside of it.
-**/
-@if $scope != "" {
-  .no-scroll {
-    overflow: hidden;
-  }
-}
+@import "~undernet/scss/helpers/scope-overrides"
 ```
 
 Finally, import `undernet.scss` in your global stylesheet.
@@ -95,4 +88,5 @@ Finally, import `undernet.scss` in your global stylesheet.
 
 With that, you should be good to go!
 
+<hr />
 <p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/branding.md">Edit this page on Github!</a></p>

@@ -56,12 +56,6 @@ textarea {
   -webkit-tap-highlight-color: transparent;
 }
 
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
-}
-
 img,
 embed,
 iframe,
@@ -95,6 +89,18 @@ body {
   padding: 0;
   box-sizing: border-box;
   line-height: $global-line-height;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+hr {
+  margin: $hr-margin;
+  border-width: 0;
+  border-top: $hr-border;
 }
 
 html,

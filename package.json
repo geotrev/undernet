@@ -1,6 +1,6 @@
 {
   "name": "undernet",
-  "version": "3.3.0",
+  "version": "3.3.1",
   "homepage": "https://undernet.io",
   "description": "A modular, configuration-first front-end framework. No strings.",
   "author": "George Treviranus",
@@ -128,6 +128,6 @@
     "url": "git+https://github.com/geotrev/undernet.git"
   },
   "bugs": {
-    "url" : "https://github.com/geotrev/undernet/issues"
+    "url": "https://github.com/geotrev/undernet/issues"
   }
 }

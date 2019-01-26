@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /*!
 * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
-* Undernet v3.3.0 (https://undernet.io)
+* Undernet v3.3.1 (https://undernet.io)
 * Copyright 2017-2019 George Treviranus
 */
 html,
@@ -57,11 +57,6 @@ select,
 textarea {
   -webkit-tap-highlight-color: transparent; }
 
-*,
-*:before,
-*:after {
-  box-sizing: inherit; }
-
 img,
 embed,
 iframe,
@@ -92,9 +87,23 @@ body {
   box-sizing: border-box;
   line-height: 1.5; }
 
+*,
+*:before,
+*:after {
+  box-sizing: inherit; }
+
+hr {
+  margin: 2.5rem 0;
+  border-width: 0;
+  border-top: 1px solid #dedede; }
+
 html *:focus,
 body *:focus {
   outline: none; }
+
+.using-keyboard
+*:not([type="text"]):not([type="email"]):not([type="password"]):not([type="search"]):not([type="url"]):not(textarea):not(select):focus {
+  outline: 2px solid #3e46af !important; }
 
 .has-sans-font {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif !important; }
@@ -515,10 +524,6 @@ body *:focus {
   position: static;
   white-space: normal;
   width: auto; }
-
-.using-keyboard
-*:not([type="text"]):not([type="email"]):not([type="password"]):not([type="search"]):not([type="url"]):not(textarea):not(select):focus {
-  outline: 2px solid #3e46af !important; }
 
 .grid::before,
 .grid::after,
@@ -2037,6 +2042,11 @@ textarea {
 .dropdown {
   position: relative;
   display: inline-block; }
+  .dropdown[data-visible="true"] .dropdown-menu {
+    opacity: 1;
+    pointer-events: auto; }
+    .dropdown[data-visible="true"] .dropdown-menu [data-close] {
+      display: flex; }
   .dropdown [data-target] {
     display: inline-flex;
     align-items: center; }
@@ -2060,9 +2070,9 @@ textarea {
     z-index: 1999; }
     .modal-dialog .dropdown .dropdown-menu {
       z-index: 2001; }
-    .dropdown .dropdown-menu.is-aligned-right {
-      right: 0; }
     @media screen and (min-width: 576px) {
+      .dropdown .dropdown-menu.is-aligned-right {
+        right: 0; }
       .dropdown .dropdown-menu.is-drop-up {
         bottom: 100%;
         margin-bottom: 16px; }
@@ -2100,11 +2110,6 @@ textarea {
         margin: 0;
         padding: 12px;
         color: #888; }
-  .dropdown[data-visible="true"] .dropdown-menu {
-    opacity: 1;
-    pointer-events: auto; }
-    .dropdown[data-visible="true"] .dropdown-menu [data-close] {
-      display: flex; }
 
 .no-scroll {
   overflow: hidden !important; }
@@ -2134,56 +2139,55 @@ textarea {
     align-items: center;
     justify-content: center;
     flex-flow: row nowrap; }
-
-.modal-dialog {
-  background: #ffffff;
-  width: 95%;
-  position: relative;
-  flex-flow: column nowrap;
-  display: flex;
-  cursor: default;
-  margin: 16px auto;
-  border-radius: 4px;
-  border: 1px solid transparent; }
-  @media screen and (min-width: 576px) and (min-height: 576px) {
-    .modal-dialog {
-      width: 450px;
-      margin: 40px auto; } }
-  .modal-dialog header {
+  .modal-overlay .modal-dialog {
+    background: #ffffff;
+    width: 95%;
+    position: relative;
+    flex-flow: column nowrap;
     display: flex;
-    align-items: center; }
-    .modal-dialog header h1,
-    .modal-dialog header h2,
-    .modal-dialog header h3,
-    .modal-dialog header h4,
-    .modal-dialog header h5,
-    .modal-dialog header h6 {
-      font-size: 20px;
-      display: inline-flex;
-      margin-bottom: 0; }
-  .modal-dialog header > button[data-close],
-  .modal-dialog header > a[data-close] {
-    margin-left: auto;
-    font-size: 32px;
-    text-decoration: none;
-    padding: 0 8px; }
-  .modal-dialog header,
-  .modal-dialog section,
-  .modal-dialog footer {
-    padding: 16px; }
-  .modal-dialog header,
-  .modal-dialog section {
-    border-bottom: 1px solid #dedede; }
-  .modal-dialog footer {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: flex-end; }
-    .modal-dialog footer a:first-child,
-    .modal-dialog footer button:first-child {
-      margin-right: 16px; }
-    .modal-dialog footer a,
-    .modal-dialog footer button {
-      margin-bottom: 0; }
+    cursor: default;
+    margin: 16px auto;
+    border-radius: 4px;
+    border: 1px solid transparent; }
+    @media screen and (min-width: 576px) and (min-height: 576px) {
+      .modal-overlay .modal-dialog {
+        width: 450px;
+        margin: 40px auto; } }
+    .modal-overlay .modal-dialog header {
+      display: flex;
+      align-items: center; }
+      .modal-overlay .modal-dialog header h1,
+      .modal-overlay .modal-dialog header h2,
+      .modal-overlay .modal-dialog header h3,
+      .modal-overlay .modal-dialog header h4,
+      .modal-overlay .modal-dialog header h5,
+      .modal-overlay .modal-dialog header h6 {
+        font-size: 20px;
+        display: inline-flex;
+        margin-bottom: 0; }
+    .modal-overlay .modal-dialog header > button[data-close],
+    .modal-overlay .modal-dialog header > a[data-close] {
+      margin-left: auto;
+      font-size: 32px;
+      text-decoration: none;
+      padding: 0 8px; }
+    .modal-overlay .modal-dialog header,
+    .modal-overlay .modal-dialog section,
+    .modal-overlay .modal-dialog footer {
+      padding: 16px; }
+    .modal-overlay .modal-dialog header,
+    .modal-overlay .modal-dialog section {
+      border-bottom: 1px solid #dedede; }
+    .modal-overlay .modal-dialog footer {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: flex-end; }
+      .modal-overlay .modal-dialog footer a:first-child,
+      .modal-overlay .modal-dialog footer button:first-child {
+        margin-right: 16px; }
+      .modal-overlay .modal-dialog footer a,
+      .modal-overlay .modal-dialog footer button {
+        margin-bottom: 0; }
 
 .accordion {
   border: 2px solid #dedede;
