@@ -1,4 +1,4 @@
-// Keyboard focus modifier - only included if $scope is left empty. 
+// Keyboard focus modifier - only included if $scope is left empty.
 // If $scope is defined, using-keyboard is included via `_scope-overrides.scss`
 
 @if $scope == "" {
