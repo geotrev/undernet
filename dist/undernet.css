@@ -92,17 +92,11 @@ body {
 *:after {
   box-sizing: inherit; }
 
-hr {
-  margin: 2.5rem 0;
-  border-width: 0;
-  border-top: 1px solid #dedede; }
-
 html *:focus,
 body *:focus {
   outline: none; }
 
-.using-keyboard
-*:not([type="text"]):not([type="email"]):not([type="password"]):not([type="search"]):not([type="url"]):not(textarea):not(select):focus {
+.using-keyboard *:not([type="text"]):not([type="email"]):not([type="password"]):not([type="search"]):not([type="url"]):not(textarea):not(select):focus {
   outline: 2px solid #3e46af !important; }
 
 .has-sans-font {
@@ -323,32 +317,32 @@ body *:focus {
 .has-no-margin {
   margin: 0 !important; }
 
-.has-no-margin-right {
-  margin-right: 0 !important; }
+.has-no-padding {
+  padding: 0 !important; }
 
-.has-no-margin-top {
-  margin-top: 0 !important; }
-
-.has-no-margin-bottom {
-  margin-bottom: 0 !important; }
+.has-no-padding-left {
+  padding-left: 0 !important; }
 
 .has-no-margin-left {
   margin-left: 0 !important; }
 
-.has-no-padding {
-  padding: 0 !important; }
-
 .has-no-padding-right {
   padding-right: 0 !important; }
+
+.has-no-margin-right {
+  margin-right: 0 !important; }
 
 .has-no-padding-top {
   padding-top: 0 !important; }
 
+.has-no-margin-top {
+  margin-top: 0 !important; }
+
 .has-no-padding-bottom {
   padding-bottom: 0 !important; }
 
-.has-no-padding-left {
-  padding-left: 0 !important; }
+.has-no-margin-bottom {
+  margin-bottom: 0 !important; }
 
 .has-padding {
   padding: 16px !important; }
@@ -504,7 +498,7 @@ body *:focus {
   list-style-type: none !important;
   padding-left: 0 !important; }
 
-.is-visually-hidden {
+.is-visually-hidden, .is-visually-hidden-focusable {
   border: 0;
   clip: rect(0 0 0 0);
   height: 1px;
@@ -515,8 +509,7 @@ body *:focus {
   white-space: nowrap;
   width: 1px; }
 
-.is-visually-hidden-focusable:active,
-.is-visually-hidden-focusable:focus {
+.is-visually-hidden-focusable:active, .is-visually-hidden-focusable:focus {
   clip: auto;
   height: auto;
   margin: 0;
@@ -1282,6 +1275,15 @@ small,
 .small {
   font-weight: inherit;
   font-size: 75%; }
+
+u,
+.underline {
+  text-decoration: underline; }
+
+hr {
+  margin: 2.5rem 0;
+  border-width: 0;
+  border-top: 1px solid #dedede; }
 
 a {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;

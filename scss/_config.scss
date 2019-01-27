@@ -61,7 +61,7 @@ $status-palette: (
   "notice": steelblue
 ) !default;
 
-// used for text and bg color utilities in helpers/_classes.scss
+// Used for text and bg color utilities in helpers/_classes.scss
 $full-palette: map-merge(
   (
     "primary-color": $primary-color,
@@ -140,7 +140,7 @@ $column-order-classes: true !default;
 // 3. Typography
 // -------------
 
-// NOTE: You can treat these map as css proper, but in `key: value` format.
+// NOTE: You can treat this map as CSS proper, but in `key: value` format.
 // Add more breakpoints from `$breakpoints` to increase font scaling fidelity.
 $type-header-sizes: (
   "xsmall": (
@@ -223,7 +223,7 @@ $type-header-sizes: (
   )
 ) !default;
 
-// NOTE: You can treat these map as css proper, but in `key: value` format.
+// NOTE: You can treat this map as CSS proper, but in `key: value` format.
 $type-header-styles: (
   "h1": (
     "color": $gray200,
@@ -305,7 +305,7 @@ $list-item-padding: 8px 0 !default;
 // 4. Buttons
 // ----------
 
-// NOTE: You can treat these map as css proper, but in `key: value` format.
+// NOTE: You can treat this map as CSS proper, but in `key: value` format.
 $button-sizes: (
   "small": (
     "padding": 8px 14px,
@@ -340,7 +340,7 @@ $button-decoration: none !default;
 
 // Default button styling.
 
-// NOTE: You can treat these map as css proper, but in `key: value` format.
+// NOTE: You can treat this map as CSS proper, but in `key: value` format.
 $button-base: (
   "default": (
     "background": $white,
@@ -369,7 +369,7 @@ $button-base: (
 
 // Branded & specialized button styling
 
-// NOTE: You can treat this map as css proper, but in `key: value` format.
+// NOTE: You can treat this map as CSS proper, but in `key: value` format.
 $button-types: (
   "primary": (
     "default": (
