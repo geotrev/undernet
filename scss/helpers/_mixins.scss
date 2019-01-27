@@ -27,10 +27,10 @@
     }
 
     @if $column-order-classes == true {
+      // order-1 = -12
+      // order-2 = -11
+      // etc...
       .#{$size}-order-#{$i} {
-        // order-1 = -12
-        // order-2 = -11
-        // etc...
         order: $i - 1 - $columns;
       }
     }
@@ -72,11 +72,9 @@
   .is-flex-#{$size} {
     display: flex !important;
   }
-
   .is-block-#{$size} {
     display: block !important;
   }
-
   .is-hidden-#{$size} {
     display: none !important;
   }
