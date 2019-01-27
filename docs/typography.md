@@ -68,11 +68,14 @@ function() {
 
 Use inline text tags as well:
 
-<p><em>'em' tag</em>, for adding emphasis</p>
-<p><strong>'strong' tag</strong>, for adding importance</p>
-<p><code>'code' tag</code>, for showing one-line code snippets</p>
-<p><small>'small' tag</small>, for making text a little bit smaller</p>
-<p><mark>'mark' tag</mark>, for highlighting content</p>
+<ul>
+  <li><em>'em' tag</em>, for adding emphasis</li>
+  <li><strong>'strong' tag</strong>, for adding importance</li>
+  <li><code>'code' tag</code>, for showing one-line code snippets</li>
+  <li><small>'small' tag</small>, for making text a little bit smaller</li>
+  <li><mark>'mark' tag</mark>, for highlighting content</li>
+  <li><u>'u' tag</u>, for differentiating emphasis</li>
+</ul>
 
 ```html
 <em>'em' tag</em>, for adding emphasis
@@ -80,6 +83,7 @@ Use inline text tags as well:
 <code>'code' tag</code>, for showing one-line code snippets
 <small>'small' tag</small>, for making text a little bit smaller
 <mark>'mark' tag</mark>, for highlighting content
+<u>'u' tag</u>, for differentiating emphasis
 ```
 
 ## Lists
@@ -95,6 +99,17 @@ Ordered and unordered lists can be styled as well. You can change the bullet sty
       <li>Unordered item</li>
     </ul>
   </div>
+</div>
+
+```html
+<ul>
+  <li>Unordered item</li>
+  <li>Unordered item</li>
+  <li>Unordered item</li>
+</ul>
+```
+
+<div class="row">
   <div class="xsmall-12 medium-6 columns">
     <p><strong>Ordered List</strong></p>
     <ol>
@@ -106,11 +121,6 @@ Ordered and unordered lists can be styled as well. You can change the bullet sty
 </div>
 
 ```html
-<ul>
-  <li>Unordered item</li>
-  <li>Unordered item</li>
-  <li>Unordered item</li>
-</ul>
 <ol>
   <li>Item #1</li>
   <li>Item #2</li>

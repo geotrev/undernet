@@ -93,9 +93,6 @@ $spacing-increments: (
   "4": $global-space * 2
 ) !default;
 
-$hr-border: 1px solid $gray900;
-$hr-margin: 2.5rem 0;
-
 $modal-index: 2000 !default;
 $dropdown-menu-index: 1999 !default;
 $dropdown-menu-index-in-modal: 2001 !default;
@@ -263,11 +260,11 @@ $type-header-styles: (
 $type-header-line-height: 1.3 !default;
 
 $type-p-color: $gray200 !default;
-$type-p-font-size: 16px !default;
+$type-p-font-size: $global-font-size !default;
 $type-p-font-style: normal !default;
 $type-p-font-weight: normal !default;
 $type-p-line-height: $global-line-height !default;
-$type-p-margin-bottom: 16px !default;
+$type-p-margin-bottom: $global-font-size !default;
 
 $type-code-font: $global-monospace !default;
 $type-code-font-size: 1em !default;
@@ -292,13 +289,18 @@ $type-mark-padding: 0 !default;
 $type-mark-color: $gray200 !default;
 $type-mark-background: status(warning) !default;
 
+$underline-text-decoration: underline;
+
+$hr-border: 1px solid $gray900;
+$hr-margin: 2.5rem 0;
+
+$ul-list-style: disc !default;
+$ol-list-style: decimal !default;
 $list-padding: 0 0 $global-space 22px !default;
 $list-margin: 0 !default;
 $list-font: $global-font-sans !default;
 $list-item-margin: 0 !default;
 $list-item-padding: 8px 0 !default;
-$ul-list-style: disc !default;
-$ol-list-style: decimal !default;
 
 // 4. Buttons
 // ----------
@@ -311,10 +313,10 @@ $button-sizes: (
   ),
   "medium": (
     "padding": 12px 18px,
-    "font-size": 16px
+    "font-size": $global-font-size
   ),
   "large": (
-    "padding": 16px 22px,
+    "padding": $global-space 22px,
     "font-size": 20px
   ),
   "huge": (
@@ -623,7 +625,7 @@ $input-disabled-resize: none !default;
 
 // Radio and Checkbox
 
-$input-check-label-padding: 0 0 16px 0 !default;
+$input-check-label-padding: 0 0 $global-space 0 !default;
 $input-check-padding: 0 !default;
 $input-check-margin: 0 12px 0 0 !default;
 
@@ -660,7 +662,7 @@ $modal-container-padding: $global-space !default;
 $modal-container-width: 450px !default;
 $modal-container-width-small: 95% !default;
 $modal-container-margin: 40px auto !default;
-$modal-container-margin-small: 16px auto !default;
+$modal-container-margin-small: $global-space auto !default;
 
 $modal-header-font-size: 20px !default;
 $modal-header-border: 1px solid $gray900 !default;
