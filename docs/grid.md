@@ -294,11 +294,11 @@ Create a grid that always takes up the full width and height of your device/brow
 
 You should really only ever need a single row within a full screen grid. From there, you can create as many columns as you need to continue creating more complex layouts.
 
-By default, a row will be vertically centered. To make the row top-aligned, add modifier classes: `is-aligned-top` and `has-content-top` to push content to the top of the container.
+By default, a row will be vertically centered. To make the row top-aligned, add modifier classes: `is-aligned-flex-start` and `has-content-flex-start` to push content to the top of the container.
 
 ```html
 <div class="fullscreen grid">
-  <div class="row is-aligned-top has-content-top">
+  <div class="row is-aligned-flex-start has-content-flex-start">
     <div class="column">
       <p>I’m at the top.</p>
     </div>
@@ -306,11 +306,11 @@ By default, a row will be vertically centered. To make the row top-aligned, add 
 </div>
 ```
 
-... or align bottom.
+... or to the bottom.
 
 ```html
 <div class="fullscreen grid">
-  <div class="row is-aligned-bottom has-content-bottom">
+  <div class="row is-aligned-flex-end has-content-flex-end">
     <div class="column">
       <p>I’m at the bottom.</p>
     </div>
