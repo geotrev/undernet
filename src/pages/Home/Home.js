@@ -4,6 +4,7 @@ import Prism from "prismjs"
 import Markdown from "react-markdown"
 import Loadable from "react-loadable"
 import ChevronRight from "react-feather/dist/icons/chevron-right"
+import Lottie from "react-lottie"
 
 import ScrollUpOnMount from "helpers/ScrollUpOnMount"
 import { downloadPath, introductionPath } from "routes"
@@ -12,10 +13,11 @@ import "./styles.scss"
 import pkg from "../../../package.json"
 import installNpm from "./install-npm.md"
 import installAssets from "./install-assets.md"
-import tinySvg from "assets/images/tiny.svg"
-import modSvg from "assets/images/modular.svg"
-import configSvg from "assets/images/configurable.svg"
-import a11ySvg from "assets/images/accessible.svg"
+
+import tinyData from "./tiny.json"
+import modularData from "./modular.json"
+import configurableData from "./configurable.json"
+import a11yData from "./a11y.json"
 
 const StatusBadges = Loadable({
   loader: () => import("./Badges"),
@@ -33,28 +35,48 @@ export default class Home extends Component {
 
   PERK_COLUMNS = [
     {
-      src: tinySvg,
+      animationData: {
+        loop: true,
+        autoplay: true,
+        animationData: tinyData,
+        rendererSettings: { preserveAspectRatio: 'xMidYMid slice'}
+      },
       title: "Tiny",
       subtitle:
         "CSS and JS under 12kb minified + gzipped; you can be assured performance isn’t an issue.",
     },
     {
-      src: modSvg,
+      animationData: {
+        loop: true,
+        autoplay: true,
+        animationData: modularData,
+        rendererSettings: { preserveAspectRatio: 'xMidYMid slice'},
+      },
       title: "Modular",
       subtitle:
         "Include only the pieces you need, or even namespace the components for existing projects.",
     },
     {
-      src: configSvg,
+      animationData: {
+        loop: true,
+        autoplay: true,
+        animationData: configurableData,
+        rendererSettings: { preserveAspectRatio: 'xMidYMid slice'},
+      },
       title: "Configurable",
       subtitle:
         "Built for a great developer experience, you can customize and extend the library with ease.",
     },
     {
-      src: a11ySvg,
+      animationData: {
+        loop: true,
+        autoplay: true,
+        animationData: a11yData,
+        rendererSettings: { preserveAspectRatio: 'xMidYMid slice'},
+      },
       title: "Accessible",
       subtitle:
-        "Undernet is designed with WAI-ARIA guidelines in mind to ensure your project is accessible.",
+        "Interactive components are designed with WAI-ARIA guidelines in mind to ensure your HTML is accessible.",
     },
   ]
 
@@ -62,12 +84,12 @@ export default class Home extends Component {
     return this.PERK_COLUMNS.map(column => {
       return (
         <li className="large-3 small-6 xsmall-12 columns has-center-text" key={column.title}>
-          <img
-            className="home-icon"
-            src={column.src}
-            role="presentation"
-            alt=""
-            aria-hidden="true"
+          <Lottie
+            options={column.animationData}
+            height={120}
+            width={120}
+            isStopped={false}
+            isPaused={false}/>
           />
           <h2 className="h6 has-white-text">{column.title}</h2>
           <p className="has-white-text">{column.subtitle}</p>
