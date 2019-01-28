@@ -260,25 +260,25 @@ body *:focus {
 .is-justified-center {
   justify-content: center !important; }
 
-.is-justified-end {
+.is-justified-flex-end {
   justify-content: flex-end !important; }
 
-.is-justified-start {
+.is-justified-flex-start {
   justify-content: flex-start !important; }
 
-.is-justified-around {
+.is-justified-space-around {
   justify-content: space-around !important; }
 
-.is-justified-between {
+.is-justified-space-between {
   justify-content: space-between !important; }
 
 .is-aligned-center {
   align-items: center !important; }
 
-.is-aligned-end {
+.is-aligned-flex-end {
   align-items: flex-end !important; }
 
-.is-aligned-start {
+.is-aligned-flex-start {
   align-items: flex-start !important; }
 
 .is-aligned-stretch {
@@ -287,16 +287,16 @@ body *:focus {
 .has-content-center {
   align-content: center !important; }
 
-.has-content-end {
+.has-content-flex-end {
   align-content: flex-end !important; }
 
-.has-content-start {
+.has-content-flex-start {
   align-content: flex-start !important; }
 
-.has-content-around {
+.has-content-space-around {
   align-content: space-around !important; }
 
-.has-content-between {
+.has-content-space-between {
   align-content: space-between !important; }
 
 .has-content-stretch {

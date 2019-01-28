@@ -14,14 +14,10 @@
   font-family: $global-font-serif !important;
 }
 
-.has-center-text {
-  text-align: center !important;
-}
-.has-left-text {
-  text-align: left !important;
-}
-.has-right-text {
-  text-align: right !important;
+@each $property in center, left, right {
+  .has-#{$property}-text {
+    text-align: $property !important; 
+  }
 }
 
 .is-bold {
@@ -65,62 +61,39 @@
   } // end @if
 } // end @each
 
-// Flex property modifiers
+// `flex-direction` modifiers
 
-.is-flex-row {
-  flex-direction: row !important;
-}
-.is-flex-column {
-  flex-direction: column !important;
-}
-
-.is-justified-center {
-  justify-content: center !important;
-}
-.is-justified-end {
-  justify-content: flex-end !important;
-}
-.is-justified-start {
-  justify-content: flex-start !important;
-}
-.is-justified-around {
-  justify-content: space-around !important;
-}
-.is-justified-between {
-  justify-content: space-between !important;
+@each $property in row, column {
+  .is-flex-#{$property} {
+    flex-direction: $property !important;
+  }
 }
 
-.is-aligned-center {
-  align-items: center !important;
-}
-.is-aligned-end {
-  align-items: flex-end !important;
-}
-.is-aligned-start {
-  align-items: flex-start !important;
-}
-.is-aligned-stretch {
-  align-items: stretch !important;
+// `justify-content` modifiers
+
+@each $property in center, flex-end, flex-start, space-around, space-between {
+  .is-justified-#{$property} {
+    justify-content: $property !important;
+  }
 }
 
-.has-content-center {
-  align-content: center !important;
+// `align-items` modifiers
+
+@each $property in center, flex-end, flex-start, stretch {
+  .is-aligned-#{$property} {
+    align-items: $property !important;
+  }
 }
-.has-content-end {
-  align-content: flex-end !important;
+
+// `align-content` modifiers
+
+@each $property in center, flex-end, flex-start, space-around, space-between, stretch {
+  .has-content-#{$property} {
+    align-content: $property !important;
+  }
 }
-.has-content-start {
-  align-content: flex-start !important;
-}
-.has-content-around {
-  align-content: space-around !important;
-}
-.has-content-between {
-  align-content: space-between !important;
-}
-.has-content-stretch {
-  align-content: stretch !important;
-}
+
+// `flex-grow` and `flex-shrink` modifiers
 
 .can-grow {
   flex-grow: 1 !important;
