@@ -5,7 +5,7 @@ import a11yData from "./a11y.json"
 
 export default [
   {
-    animationData: {
+    data: {
       loop: true,
       autoplay: true,
       animationData: tinyData,
@@ -16,7 +16,7 @@ export default [
       "CSS and JS under 12kb minified + gzipped; you can be assured performance isn’t an issue.",
   },
   {
-    animationData: {
+    data: {
       loop: true,
       autoplay: true,
       animationData: modularData,
@@ -27,7 +27,7 @@ export default [
       "Include only the pieces you need, or even namespace the components for existing projects.",
   },
   {
-    animationData: {
+    data: {
       loop: true,
       autoplay: true,
       animationData: configurableData,
@@ -38,7 +38,7 @@ export default [
       "Built for a great developer experience, you can customize and extend the library with ease.",
   },
   {
-    animationData: {
+    data: {
       loop: true,
       autoplay: true,
       animationData: a11yData,

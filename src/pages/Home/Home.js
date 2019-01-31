@@ -35,7 +35,7 @@ export default class Home extends Component {
       return (
         <li className="large-3 small-6 xsmall-12 columns has-center-text" key={animation.title}>
           <Lottie
-            options={animation.animationData}
+            options={animation.data}
             height={120}
             width={120}
             isStopped={false}
