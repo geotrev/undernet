@@ -6,7 +6,7 @@ import a11yData from "./a11y.json"
 export default [
   {
     data: {
-      loop: true,
+      loop: false,
       autoplay: true,
       animationData: tinyData,
       rendererSettings: { preserveAspectRatio: 'xMidYMid slice' }
@@ -17,7 +17,7 @@ export default [
   },
   {
     data: {
-      loop: true,
+      loop: false,
       autoplay: true,
       animationData: modularData,
       rendererSettings: { preserveAspectRatio: 'xMidYMid slice' },
@@ -28,7 +28,7 @@ export default [
   },
   {
     data: {
-      loop: true,
+      loop: false,
       autoplay: true,
       animationData: configurableData,
       rendererSettings: { preserveAspectRatio: 'xMidYMid slice' },
@@ -39,7 +39,7 @@ export default [
   },
   {
     data: {
-      loop: true,
+      loop: false,
       autoplay: true,
       animationData: a11yData,
       rendererSettings: { preserveAspectRatio: 'xMidYMid slice' },

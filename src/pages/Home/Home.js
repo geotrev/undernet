@@ -26,19 +26,46 @@ export default class Home extends Component {
     super()
   }
 
+  state = {
+    Tiny: false,
+    Modular: false,
+    Configurable: false,
+    Accessible: false,
+  }
+
   componentDidMount() {
     Prism.highlightAll()
+  }
+
+  handleIconMouseOver(icon) {
+    this.setState({
+      [icon]: true
+    })
+  }
+
+  handleIconMouseOut(icon) {
+    this.setState({
+      [icon]: false
+    })
   }
 
   renderAnimations() {
     return animations.map(animation => {
       return (
-        <li className="large-3 small-6 xsmall-12 columns has-center-text" key={animation.title}>
+        <li 
+          className="large-3 small-6 xsmall-12 columns has-center-text" 
+          key={animation.title} 
+          onMouseEnter={this.handleIconMouseOver.bind(this, animation.title)}
+          onMouseLeave={this.handleIconMouseOut.bind(this, animation.title)}
+        >
           <Lottie
+            isClickToPauseDisabled={true}
+            ariaRole="none"
+            title={animation.title}
             options={animation.data}
             height={120}
             width={120}
-            isStopped={false}
+            isStopped={!this.state[animation.title]}
             isPaused={false}
           />
           <h2 className="h6 has-white-text">{animation.title}</h2>
@@ -49,6 +76,8 @@ export default class Home extends Component {
   }
 
   render() {
+    const { tiny, modular, configurable, a11y } = animations
+
     return (
       <div id="home">
         <ScrollUpOnMount />
@@ -85,7 +114,9 @@ export default class Home extends Component {
           <div className="row has-no-padding">
             <div className="column has-no-padding">
               <div className="wide grid">
-                <ul className="row is-unstyled-list has-no-padding">{this.renderAnimations()}</ul>
+                <ul className="row is-unstyled-list has-no-padding">
+                  {this.renderAnimations()}
+                </ul>
               </div>
             </div>
           </div>
