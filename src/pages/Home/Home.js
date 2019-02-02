@@ -76,8 +76,6 @@ export default class Home extends Component {
   }
 
   render() {
-    const { tiny, modular, configurable, a11y } = animations
-
     return (
       <div id="home">
         <ScrollUpOnMount />

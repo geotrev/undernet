@@ -5,8 +5,7 @@ import throttle from "lodash/throttle"
 import { NavLink } from "react-router-dom"
 import Menu from "react-feather/dist/icons/menu"
 import ChevronRight from "react-feather/dist/icons/chevron-right"
-import Undernet from "undernet"
-const path = require("path")
+import { Accordions } from "undernet"
 
 import Button from "components/Button"
 import "./styles.scss"
@@ -17,16 +16,12 @@ const MENU_COLLAPSE_BREAKPOINT = 1199
 export default class SideNav extends Component {
   constructor(props) {
     super(props)
-
-    this.state = {
-      menuIsOpen: null,
-      currentWindowWidth: null,
-    }
-
-    this.handleMenuVisibility = this.handleMenuVisibility.bind(this)
     this.handleCurrentWidth = throttle(this.handleCurrentWidth.bind(this), 50)
-    this.handleClick = this.handleClick.bind(this)
-    this.handleCollapseClick = this.handleCollapseClick.bind(this)
+  }
+
+  state = {
+    menuIsOpen: null,
+    currentWindowWidth: null,
   }
 
   static propTypes = {
@@ -56,40 +51,40 @@ export default class SideNav extends Component {
     const menuIsOpen = this.state.currentWindowWidth > MENU_COLLAPSE_BREAKPOINT
     this.setState({ menuIsOpen })
 
-    Undernet.Accordions.start()
+    Accordions.start()
   }
 
   componentDidUpdate() {
-    Undernet.Accordions.stop()
-    Undernet.Accordions.start()
+    Accordions.stop()
+    Accordions.start()
   }
 
   componentWillUnmount() {
     window.removeEventListener("resize", this.handleCurrentWidth)
     window.removeEventListener("resize", this.handleMenuVisibility)
-    Undernet.Accordions.stop()
+    Accordions.stop()
   }
 
-  handleCollapseClick() {
+  handleCollapseClick = () => {
     if (this.state.currentWindowWidth <= MENU_COLLAPSE_BREAKPOINT) {
       this.setState({ menuIsOpen: false })
     }
   }
 
-  handleCurrentWidth() {
+  handleCurrentWidth = () => {
     this.setState({
       currentWindowWidth: window.innerWidth,
     })
   }
 
-  handleMenuVisibility() {
+  handleMenuVisibility = () => {
     if (this.state.currentWindowWidth > MENU_COLLAPSE_BREAKPOINT) {
       this.setState({ menuIsOpen: true })
     }
   }
 
-  handleClick(e) {
-    e.preventDefault()
+  handleClick = event => {
+    event.preventDefault()
     this.setState({ menuIsOpen: !this.state.menuIsOpen })
   }
 
