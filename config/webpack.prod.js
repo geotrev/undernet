@@ -28,30 +28,17 @@ module.exports = merge(common, {
     new CleanWebpackPlugin(["../build"], {
       root: path.resolve(__dirname),
       verbose: true,
-
-      // external is required because this config is not in the root directory.
       allowExternal: true,
     }),
-
-    // minify styles
     new OptimizeCSSAssetsPlugin({
       cssProcessorPluginOptions: {
-        preset: [
-          "default",
-          {
-            discardComments: { removeAll: true },
-          },
-        ],
+        preset: ["default", { discardComments: { removeAll: true } }],
       },
     }),
-
-    // create gzip assets
     new CompressionPlugin({
       test: /\.(js|css)$/,
       algorithm: "gzip",
     }),
-
-    // copy app manifest + browserconfig from public/ to build/
     new CopyWebpackPlugin([
       {
         from: "public/manifest.json",
