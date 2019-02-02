@@ -3,8 +3,8 @@ import { Link } from "react-router-dom"
 import Prism from "prismjs"
 import Markdown from "react-markdown"
 import Loadable from "react-loadable"
+import lottie from "lottie-web"
 import ChevronRight from "react-feather/dist/icons/chevron-right"
-import Lottie from "react-lottie"
 
 import ScrollUpOnMount from "helpers/ScrollUpOnMount"
 import { downloadPath, introductionPath } from "routes"
@@ -27,47 +27,54 @@ export default class Home extends Component {
   }
 
   state = {
-    Tiny: false,
-    Modular: false,
-    Configurable: false,
-    Accessible: false,
+    tiny: null,
+    modular: null,
+    configurable: null,
+    accessible: null,
   }
 
   componentDidMount() {
     Prism.highlightAll()
+
+    let animations = {}
+
+    Object.keys(this.state).forEach(animation => {
+      const loadedAnimation = lottie.loadAnimation({
+        container: document.getElementById(`animated-${animation}`),
+        renderer: "svg",
+        loop: false,
+        autoplay: true,
+        path: `assets/${animation}.json`,
+        name: animation,
+      })
+
+      animations[animation] = loadedAnimation
+    })
+
+    this.setState({ ...animations })
   }
 
-  handleIconMouseOver(icon) {
-    this.setState({
-      [icon]: true
-    })
+  handleMouseEnter(animation) {
+    this.state[animation].play()
   }
 
-  handleIconMouseOut(icon) {
-    this.setState({
-      [icon]: false
-    })
+  handleMouseLeave(animation) {
+    this.state[animation].stop()
   }
 
   renderAnimations() {
     return animations.map(animation => {
+      const animationName = animation.title.toLowerCase()
+      const animationEvent = this.state[animationName]
+
       return (
         <li 
-          className="large-3 small-6 xsmall-12 columns has-center-text" 
+          className="large-3 small-6 xsmall-12 columns has-center-text has-no-padding-bottom" 
           key={animation.title} 
-          onMouseEnter={this.handleIconMouseOver.bind(this, animation.title)}
-          onMouseLeave={this.handleIconMouseOut.bind(this, animation.title)}
+          onMouseEnter={animationEvent ? this.handleMouseEnter.bind(this, animationEvent.name) : null}
+          onMouseLeave={animationEvent ? this.handleMouseLeave.bind(this, animationEvent.name) : null}
         >
-          <Lottie
-            isClickToPauseDisabled={true}
-            ariaRole="none"
-            title={animation.title}
-            options={animation.data}
-            height={120}
-            width={120}
-            isStopped={!this.state[animation.title]}
-            isPaused={false}
-          />
+          <div className="animated-icon" id={`animated-${animationName}`} />
           <h2 className="h6 has-white-text">{animation.title}</h2>
           <p className="has-white-text">{animation.subtitle}</p>
         </li>

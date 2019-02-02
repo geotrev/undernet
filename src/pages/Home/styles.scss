@@ -52,14 +52,9 @@
   .animations {
     background-color: $brand-dark-blue;
 
-    .home-icon {
-      height: 50px;
-      width: 50px;
-      margin-bottom: 16px;
-
-      @include breakpoint-down(large) {
-        margin-top: 24px;
-      }
+    .animated-icon {
+      width: 150px;
+      margin: 0 auto;
     }
 
     p {
