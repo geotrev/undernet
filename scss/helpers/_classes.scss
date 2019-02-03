@@ -16,7 +16,7 @@
 
 @each $property in center, left, right {
   .has-#{$property}-text {
-    text-align: $property !important; 
+    text-align: $property !important;
   }
 }
 
