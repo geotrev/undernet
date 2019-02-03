@@ -35,19 +35,23 @@ export default class Home extends Component {
   ANIMATION_COPY = [
     {
       title: "Tiny",
-      subtitle: "CSS and JS under 12kb minified + gzipped; you can be assured performance isn’t an issue.",
+      subtitle:
+        "CSS and JS under 12kb minified + gzipped; you can be assured performance isn’t an issue.",
     },
     {
       title: "Modular",
-      subtitle: "Include only the pieces you need, or even namespace the components for existing projects.",
+      subtitle:
+        "Include only the pieces you need, or even namespace the components for existing projects.",
     },
     {
       title: "Configurable",
-      subtitle: "Built for a great developer experience, you can customize and extend the library with ease.",
+      subtitle:
+        "Built for a great developer experience, you can customize and extend the library with ease.",
     },
     {
       title: "Accessible",
-      subtitle: "Interactive components are designed with WAI-ARIA guidelines in mind to ensure your HTML is accessible.",
+      subtitle:
+        "Interactive components are designed with WAI-ARIA guidelines in mind to ensure your HTML is accessible.",
     },
   ]
 
@@ -88,11 +92,15 @@ export default class Home extends Component {
       const animationEvent = this.state[animationName]
 
       return (
-        <li 
-          className="large-3 small-6 xsmall-12 columns has-center-text has-no-padding-bottom" 
-          key={animation.title} 
-          onMouseEnter={animationEvent ? this.handleMouseEnter.bind(this, animationEvent.name) : null}
-          onMouseLeave={animationEvent ? this.handleMouseLeave.bind(this, animationEvent.name) : null}
+        <li
+          className="large-3 small-6 xsmall-12 columns has-center-text has-no-padding-bottom"
+          key={animation.title}
+          onMouseEnter={
+            animationEvent ? this.handleMouseEnter.bind(this, animationEvent.name) : () => null
+          }
+          onMouseLeave={
+            animationEvent ? this.handleMouseLeave.bind(this, animationEvent.name) : () => null
+          }
         >
           <div className="animated-icon" id={`animated-${animationName}`} />
           <h2 className="h6 has-white-text">{animation.title}</h2>
@@ -139,9 +147,7 @@ export default class Home extends Component {
           <div className="row has-no-padding">
             <div className="column has-no-padding">
               <div className="wide grid">
-                <ul className="row is-unstyled-list has-no-padding">
-                  {this.renderAnimations()}
-                </ul>
+                <ul className="row is-unstyled-list has-no-padding">{this.renderAnimations()}</ul>
               </div>
             </div>
           </div>
