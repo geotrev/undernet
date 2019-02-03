@@ -15,6 +15,7 @@ module.exports = {
   resolve: {
     extensions: [".js", ".jsx"],
     alias: {
+      projectRoot: path.resolve(__dirname),
       routes: path.resolve(__dirname, "src/routes"),
       components: path.resolve(__dirname, "src/components/"),
       helpers: path.resolve(__dirname, "src/helpers/"),
@@ -49,7 +50,7 @@ module.exports = {
         use: [
           {
             loader: "file-loader",
-            options: { name: "[name].[ext]", outputPath: "assets/" },
+            options: { name: "[name].[ext]", outputPath: "build/assets/" },
           },
         ],
       },

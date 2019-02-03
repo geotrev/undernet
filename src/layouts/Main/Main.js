@@ -1,12 +1,10 @@
 import React, { Component, Fragment } from "react"
 import { Route } from "react-router-dom"
-import Loadable from "react-loadable"
-import Undernet from "undernet"
+import { Utils } from "undernet"
 
 import { rootPath, docsPath } from "routes"
 import GlobalNav from "components/GlobalNav"
 import Footer from "components/Footer"
-import LoadingSpinner from "components/LoadingSpinner"
 import Home from "pages/Home"
 import Docs from "pages/Docs"
 
@@ -18,7 +16,7 @@ export default class Main extends Component {
   }
 
   componentDidMount() {
-    Undernet.Utils.enableFocusOutline()
+    Utils.enableFocusOutline()
   }
 
   render() {

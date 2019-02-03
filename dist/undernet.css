@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /*!
 * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
-* Undernet v3.3.1 (https://undernet.io)
+* Undernet v3.3.2 (https://undernet.io)
 * Copyright 2017-2019 George Treviranus
 */
 html,
@@ -92,17 +92,11 @@ body {
 *:after {
   box-sizing: inherit; }
 
-hr {
-  margin: 2.5rem 0;
-  border-width: 0;
-  border-top: 1px solid #dedede; }
-
 html *:focus,
 body *:focus {
   outline: none; }
 
-.using-keyboard
-*:not([type="text"]):not([type="email"]):not([type="password"]):not([type="search"]):not([type="url"]):not(textarea):not(select):focus {
+.using-keyboard *:not([type="text"]):not([type="email"]):not([type="password"]):not([type="search"]):not([type="url"]):not(textarea):not(select):focus {
   outline: 2px solid #3e46af !important; }
 
 .has-sans-font {
@@ -266,25 +260,25 @@ body *:focus {
 .is-justified-center {
   justify-content: center !important; }
 
-.is-justified-end {
+.is-justified-flex-end {
   justify-content: flex-end !important; }
 
-.is-justified-start {
+.is-justified-flex-start {
   justify-content: flex-start !important; }
 
-.is-justified-around {
+.is-justified-space-around {
   justify-content: space-around !important; }
 
-.is-justified-between {
+.is-justified-space-between {
   justify-content: space-between !important; }
 
 .is-aligned-center {
   align-items: center !important; }
 
-.is-aligned-end {
+.is-aligned-flex-end {
   align-items: flex-end !important; }
 
-.is-aligned-start {
+.is-aligned-flex-start {
   align-items: flex-start !important; }
 
 .is-aligned-stretch {
@@ -293,16 +287,16 @@ body *:focus {
 .has-content-center {
   align-content: center !important; }
 
-.has-content-end {
+.has-content-flex-end {
   align-content: flex-end !important; }
 
-.has-content-start {
+.has-content-flex-start {
   align-content: flex-start !important; }
 
-.has-content-around {
+.has-content-space-around {
   align-content: space-around !important; }
 
-.has-content-between {
+.has-content-space-between {
   align-content: space-between !important; }
 
 .has-content-stretch {
@@ -323,32 +317,32 @@ body *:focus {
 .has-no-margin {
   margin: 0 !important; }
 
-.has-no-margin-right {
-  margin-right: 0 !important; }
+.has-no-padding {
+  padding: 0 !important; }
 
-.has-no-margin-top {
-  margin-top: 0 !important; }
-
-.has-no-margin-bottom {
-  margin-bottom: 0 !important; }
+.has-no-padding-left {
+  padding-left: 0 !important; }
 
 .has-no-margin-left {
   margin-left: 0 !important; }
 
-.has-no-padding {
-  padding: 0 !important; }
-
 .has-no-padding-right {
   padding-right: 0 !important; }
+
+.has-no-margin-right {
+  margin-right: 0 !important; }
 
 .has-no-padding-top {
   padding-top: 0 !important; }
 
+.has-no-margin-top {
+  margin-top: 0 !important; }
+
 .has-no-padding-bottom {
   padding-bottom: 0 !important; }
 
-.has-no-padding-left {
-  padding-left: 0 !important; }
+.has-no-margin-bottom {
+  margin-bottom: 0 !important; }
 
 .has-padding {
   padding: 16px !important; }
@@ -504,7 +498,7 @@ body *:focus {
   list-style-type: none !important;
   padding-left: 0 !important; }
 
-.is-visually-hidden {
+.is-visually-hidden, .is-visually-hidden-focusable {
   border: 0;
   clip: rect(0 0 0 0);
   height: 1px;
@@ -515,8 +509,7 @@ body *:focus {
   white-space: nowrap;
   width: 1px; }
 
-.is-visually-hidden-focusable:active,
-.is-visually-hidden-focusable:focus {
+.is-visually-hidden-focusable:active, .is-visually-hidden-focusable:focus {
   clip: auto;
   height: auto;
   margin: 0;
@@ -1282,6 +1275,15 @@ small,
 .small {
   font-weight: inherit;
   font-size: 75%; }
+
+u,
+.underline {
+  text-decoration: underline; }
+
+hr {
+  margin: 2.5rem 0;
+  border-width: 0;
+  border-top: 1px solid #dedede; }
 
 a {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;

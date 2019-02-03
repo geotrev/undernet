@@ -28,7 +28,6 @@ ol {
 ul {
   list-style-type: $ul-list-style;
 }
-
 ol {
   list-style-type: $ol-list-style;
 }
@@ -88,6 +87,7 @@ tt,
   padding: $type-code-padding;
   color: $type-code-color;
 }
+
 pre,
 .pre {
   padding: $type-pre-padding;
@@ -127,4 +127,15 @@ small,
 .small {
   font-weight: $type-small-font-weight;
   font-size: $type-small-font-size;
+}
+
+u,
+.underline {
+  text-decoration: $underline-text-decoration;
+}
+
+hr {
+  margin: $hr-margin;
+  border-width: 0;
+  border-top: $hr-border;
 }

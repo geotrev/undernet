@@ -16,38 +16,25 @@ function getDisabledStatus(disabled, href) {
   }
 }
 
-export default function Button({
-  href,
-  disabled,
-  type,
-  id,
-  tabIndex,
-  onClick,
-  onBlur,
-  onFocus,
-  className,
-  dataParent,
-  dataTarget,
-  role,
-  children,
-}) {
-  const Tag = getTag(href)
+export default function Button(props) {
+  const Tag = getTag(props.href)
+  
   return (
     <Tag
-      data-parent={dataParent}
-      data-target={dataTarget}
-      disabled={getDisabledStatus(disabled, href)}
-      className={className}
-      onFocus={onFocus}
-      onBlur={onBlur}
-      onClick={onClick}
-      href={href}
-      type={getType(href, type)}
-      tabIndex={tabIndex}
-      id={id}
-      role={role}
+      data-parent={props.dataParent}
+      data-target={props.dataTarget}
+      disabled={getDisabledStatus(props.disabled, props.href)}
+      className={props.className}
+      onFocus={props.onFocus}
+      onBlur={props.onBlur}
+      onClick={props.onClick}
+      href={props.href}
+      type={getType(props.href, props.type)}
+      tabIndex={props.tabIndex}
+      id={props.id}
+      role={props.role}
     >
-      {children}
+      {props.children}
     </Tag>
   )
 }

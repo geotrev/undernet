@@ -5,7 +5,7 @@
   @include using-keyboard;
 }
 
-// Typography modifiers
+// Typography style modifiers
 
 .has-sans-font {
   font-family: $global-font-sans !important;
@@ -14,14 +14,10 @@
   font-family: $global-font-serif !important;
 }
 
-.has-center-text {
-  text-align: center !important;
-}
-.has-left-text {
-  text-align: left !important;
-}
-.has-right-text {
-  text-align: right !important;
+@each $property in center, left, right {
+  .has-#{$property}-text {
+    text-align: $property !important;
+  }
 }
 
 .is-bold {
@@ -31,23 +27,24 @@
   font-style: $global-font-style-italic !important;
 }
 
+// Color modifier for text and backgrounds
+
 @each $name, $color in $full-palette {
   .has-#{$name}-text {
     color: $color !important;
   }
-
   .has-#{$name}-bg {
     background-color: $color !important;
   }
 }
 
-// Visibility class modifiers – by breakpoint.
+// Visibility modifiers by breakpoint
 
-@each $breakpoint in $breakpoints {
-  $break-name: nth($breakpoint, 1);
-  $smallest-break-name: nth(nth($breakpoints, 1), 1);
+@each $size, $value in $breakpoints {
+  $breakpoint-index: index($breakpoints, ($size $value));
 
-  @if $break-name == $smallest-break-name {
+  // If the index is on the first item in $breakpoints
+  @if $breakpoint-index == 1 {
     .is-flex {
       display: flex !important;
     }
@@ -58,68 +55,45 @@
       display: none !important;
     }
   } @else {
-    @include breakpoint-up($break-name) {
-      @include visibility($break-name);
+    @include breakpoint-up($size) {
+      @include visibility($size);
     } // end @include
   } // end @if
 } // end @each
 
-// Flex property modifiers
+// `flex-direction` modifiers
 
-.is-flex-row {
-  flex-direction: row !important;
-}
-.is-flex-column {
-  flex-direction: column !important;
-}
-
-.is-justified-center {
-  justify-content: center !important;
-}
-.is-justified-end {
-  justify-content: flex-end !important;
-}
-.is-justified-start {
-  justify-content: flex-start !important;
-}
-.is-justified-around {
-  justify-content: space-around !important;
-}
-.is-justified-between {
-  justify-content: space-between !important;
+@each $property in row, column {
+  .is-flex-#{$property} {
+    flex-direction: $property !important;
+  }
 }
 
-.is-aligned-center {
-  align-items: center !important;
-}
-.is-aligned-end {
-  align-items: flex-end !important;
-}
-.is-aligned-start {
-  align-items: flex-start !important;
-}
-.is-aligned-stretch {
-  align-items: stretch !important;
+// `justify-content` modifiers
+
+@each $property in center, flex-end, flex-start, space-around, space-between {
+  .is-justified-#{$property} {
+    justify-content: $property !important;
+  }
 }
 
-.has-content-center {
-  align-content: center !important;
+// `align-items` modifiers
+
+@each $property in center, flex-end, flex-start, stretch {
+  .is-aligned-#{$property} {
+    align-items: $property !important;
+  }
 }
-.has-content-end {
-  align-content: flex-end !important;
+
+// `align-content` modifiers
+
+@each $property in center, flex-end, flex-start, space-around, space-between, stretch {
+  .has-content-#{$property} {
+    align-content: $property !important;
+  }
 }
-.has-content-start {
-  align-content: flex-start !important;
-}
-.has-content-around {
-  align-content: space-around !important;
-}
-.has-content-between {
-  align-content: space-between !important;
-}
-.has-content-stretch {
-  align-content: stretch !important;
-}
+
+// `flex-grow` and `flex-shrink` modifiers
 
 .can-grow {
   flex-grow: 1 !important;
@@ -127,7 +101,6 @@
 .can-shrink {
   flex-shrink: 1 !important;
 }
-
 .wont-grow {
   flex-grow: 0 !important;
 }
@@ -135,47 +108,27 @@
   flex-shrink: 0 !important;
 }
 
-// Spacing
+// Spacing modifier removes from all sides
 
 .has-no-margin {
   margin: 0 !important;
 }
-
-.has-no-margin-right {
-  margin-right: 0 !important;
-}
-
-.has-no-margin-top {
-  margin-top: 0 !important;
-}
-
-.has-no-margin-bottom {
-  margin-bottom: 0 !important;
-}
-
-.has-no-margin-left {
-  margin-left: 0 !important;
-}
-
 .has-no-padding {
   padding: 0 !important;
 }
 
-.has-no-padding-right {
-  padding-right: 0 !important;
+// Spacing modifier removes from a single side only
+
+@each $side in left, right, top, bottom {
+  .has-no-padding-#{$side} {
+    padding-#{$side}: 0 !important;
+  }
+  .has-no-margin-#{$side} {
+    margin-#{$side}: 0 !important;
+  }
 }
 
-.has-no-padding-top {
-  padding-top: 0 !important;
-}
-
-.has-no-padding-bottom {
-  padding-bottom: 0 !important;
-}
-
-.has-no-padding-left {
-  padding-left: 0 !important;
-}
+// Spacing modifiers on all sides
 
 .has-padding {
   padding: $global-space !important;
@@ -183,6 +136,8 @@
 .has-margin {
   margin: $global-space !important;
 }
+
+// Spacing modifier on a single side only
 
 @each $side in left, right, top, bottom {
   .has-padding-#{$side} {
@@ -194,6 +149,7 @@
 }
 
 @each $size, $value in $spacing-increments {
+  // Spacing modifier on all sides, for each spacing increment
   .has-padding-#{$size} {
     padding: $value !important;
   }
@@ -201,18 +157,18 @@
     margin: $value !important;
   }
 
+  // Spacing modifier on single side only, for each spacing increment
   @each $side in left, right, top, bottom {
     .has-margin-#{$side}-#{$size} {
       margin-#{$side}: $value !important;
     }
-
     .has-padding-#{$side}-#{$size} {
       padding-#{$side}: $value !important;
     }
   }
 }
 
-// Lists
+// List style modifier
 
 .is-unstyled-list {
   list-style-type: none !important;
@@ -242,13 +198,17 @@
 // @link https://github.com/h5bp/html5-boilerplate/blob/master/dist/css/main.css
 // @link https://www.drupal.org/node/897638
 
-.is-visually-hidden-focusable:active,
-.is-visually-hidden-focusable:focus {
-  clip: auto;
-  height: auto;
-  margin: 0;
-  overflow: visible;
-  position: static;
-  white-space: normal;
-  width: auto;
+.is-visually-hidden-focusable {
+  @extend .is-visually-hidden;
+
+  &:active,
+  &:focus {
+    clip: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    position: static;
+    white-space: normal;
+    width: auto;
+  }
 }

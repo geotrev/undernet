@@ -29,8 +29,8 @@ To manually apply a `justify-content` property to an element's horizontal positi
 
 <div class="row">
   <div class="large-3 small-6 xsmall-12 columns">
-    <p><code>.is-justified-start</code></p>
-    <div class="static-box is-flex filler-bg is-justified-start">
+    <p><code>.is-justified-flex-start</code></p>
+    <div class="static-box is-flex filler-bg is-justified-flex-start">
       <div class="filler has-padding has-margin-1 can-shrink"></div>
     </div>
   </div>
@@ -41,21 +41,21 @@ To manually apply a `justify-content` property to an element's horizontal positi
     </div>
   </div>
   <div class="large-3 small-6 xsmall-12 columns">
-    <p><code>.is-justified-end</code></p>
-    <div class="static-box is-flex filler-bg is-justified-end">
+    <p><code>.is-justified-flex-end</code></p>
+    <div class="static-box is-flex filler-bg is-justified-flex-end">
       <div class="filler has-padding has-margin-1 can-shrink"></div>
     </div>
   </div>
   <div class="large-3 small-6 xsmall-12 columns">
-    <p><code>.is-justified-around</code></p>
-    <div class="static-box is-flex filler-bg is-justified-around">
+    <p><code>.is-justified-space-around</code></p>
+    <div class="static-box is-flex filler-bg is-justified-space-around">
       <div class="filler has-padding has-margin-1 can-shrink"></div>
       <div class="filler has-padding has-margin-1 can-shrink"></div>
     </div>
   </div>
   <div class="large-3 small-6 xsmall-12 columns">
-    <p><code>.is-justified-between</code></p>
-    <div class="static-box is-flex filler-bg is-justified-between">
+    <p><code>.is-justified-space-between</code></p>
+    <div class="static-box is-flex filler-bg is-justified-space-between">
       <div class="filler has-padding has-margin-1 can-shrink"></div>
       <div class="filler has-padding has-margin-1 can-shrink"></div>
     </div>
@@ -70,8 +70,8 @@ To manually apply `align-items` or `align-content` properties to an element for 
 
 <div class="row">
   <div class="large-3 small-6 xsmall-12 columns">
-    <p><code>.is-aligned-start</code></p>
-    <div class="static-height is-flex filler-bg is-aligned-start">
+    <p><code>.is-aligned-flex-start</code></p>
+    <div class="static-height is-flex filler-bg is-aligned-flex-start">
       <div class="filler has-padding has-margin-1 can-shrink"></div>
     </div>
   </div>
@@ -82,8 +82,8 @@ To manually apply `align-items` or `align-content` properties to an element for 
     </div>
   </div>
   <div class="large-3 small-6 xsmall-12 columns">
-    <p><code>.is-aligned-end</code></p>
-    <div class="static-height is-flex filler-bg is-aligned-end">
+    <p><code>.is-aligned-flex-end</code></p>
+    <div class="static-height is-flex filler-bg is-aligned-flex-end">
       <div class="filler has-padding has-margin-1 can-shrink"></div>
     </div>
   </div>
@@ -99,8 +99,8 @@ To manually apply `align-items` or `align-content` properties to an element for 
 
 <div class="row">
   <div class="large-3 small-6 xsmall-12 columns">
-    <p><code>.has-content-start</code></p>
-    <div class="static-height row filler-bg has-content-start">
+    <p><code>.has-content-flex-start</code></p>
+    <div class="static-height row filler-bg has-content-flex-start">
       <div class="filler xsmall-12 columns has-padding has-margin-1 can-shrink has-no-margin-left has-no-margin-right"></div>
       <div class="filler xsmall-12 columns has-padding has-margin-1 can-shrink has-no-margin-left has-no-margin-right"></div>
     </div>
@@ -113,22 +113,22 @@ To manually apply `align-items` or `align-content` properties to an element for 
     </div>
   </div>
   <div class="large-3 small-6 xsmall-12 columns">
-    <p><code>.has-content-end</code></p>
-    <div class="static-height row filler-bg has-content-end">
+    <p><code>.has-content-flex-end</code></p>
+    <div class="static-height row filler-bg has-content-flex-end">
       <div class="filler xsmall-12 columns has-padding has-margin-1 can-shrink has-no-margin-left has-no-margin-right"></div>
       <div class="filler xsmall-12 columns has-padding has-margin-1 can-shrink has-no-margin-left has-no-margin-right"></div>
     </div>
   </div>
   <div class="large-3 small-6 xsmall-12 columns">
-    <p><code>.has-content-around</code></p>
-    <div class="static-height row filler-bg has-content-around">
+    <p><code>.has-content-space-around</code></p>
+    <div class="static-height row filler-bg has-content-space-around">
       <div class="filler xsmall-12 columns has-padding has-margin-1 can-shrink has-no-margin-left has-no-margin-right"></div>
       <div class="filler xsmall-12 columns has-padding has-margin-1 can-shrink has-no-margin-left has-no-margin-right"></div>
     </div>
   </div>
   <div class="large-3 small-6 xsmall-12 columns">
-    <p><code>.has-content-between</code></p>
-    <div class="static-height row filler-bg has-content-between">
+    <p><code>.has-content-space-between</code></p>
+    <div class="static-height row filler-bg has-content-space-between">
       <div class="filler xsmall-12 columns has-padding has-margin-1 can-shrink has-no-margin-left has-no-margin-right"></div>
       <div class="filler xsmall-12 columns has-padding has-margin-1 can-shrink has-no-margin-left has-no-margin-right"></div>
     </div>

@@ -1,10 +1,10 @@
 # Introduction
 
-Thanks for using Undernet! Hit the ground running in your next project with this fully modular, highly configurable front-end framework.
+Thanks for using Undernet! Hit the ground running in your next web project with this fully modular, highly configurable set of base CSS styles and JavaScript modules for interactive components.
 
 Undernet is extremely light, carrying no external dependencies, with a fully module-based interface through [npm](https://www.npmjs.org/package/undernet).
 
-Head over to the [download page](/docs/overview/download) to get Undernet's static assets, or see the [JavaScript](/docs/overview/javascript) and [branding](/docs/overview/branding) pages for more advanced pipeline integration.
+Head over to the [download page](/docs/overview/download) to get Undernet's static assets, or see the [JavaScript](/docs/overview/javascript) and [Branding](/docs/overview/branding) pages for more advanced pipeline integration options.
 
 ## About Undernet
 

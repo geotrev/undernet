@@ -31,6 +31,7 @@ global.navigator = {
 function noop() {
   return null
 }
+
 require.extensions[".md"] = noop
 require.extensions[".scss"] = noop
 require.extensions[".css"] = noop

@@ -3,19 +3,17 @@ import { Link } from "react-router-dom"
 import Prism from "prismjs"
 import Markdown from "react-markdown"
 import Loadable from "react-loadable"
+import lottie from "lottie-web"
 import ChevronRight from "react-feather/dist/icons/chevron-right"
 
 import ScrollUpOnMount from "helpers/ScrollUpOnMount"
 import { downloadPath, introductionPath } from "routes"
-import "./styles.scss"
 
-import pkg from "../../../package.json"
+import pkg from "projectRoot/package.json"
 import installNpm from "./install-npm.md"
 import installAssets from "./install-assets.md"
-import tinySvg from "assets/images/tiny.svg"
-import modSvg from "assets/images/modular.svg"
-import configSvg from "assets/images/configurable.svg"
-import a11ySvg from "assets/images/accessible.svg"
+
+import "./styles.scss"
 
 const StatusBadges = Loadable({
   loader: () => import("./Badges"),
@@ -27,50 +25,92 @@ export default class Home extends Component {
     super()
   }
 
-  componentDidMount() {
-    Prism.highlightAll()
+  state = {
+    tiny: null,
+    modular: null,
+    configurable: null,
+    accessible: null,
   }
 
-  PERK_COLUMNS = [
+  ANIMATION_DATA = [
     {
-      src: tinySvg,
       title: "Tiny",
       subtitle:
         "CSS and JS under 12kb minified + gzipped; you can be assured performance isn’t an issue.",
     },
     {
-      src: modSvg,
       title: "Modular",
       subtitle:
         "Include only the pieces you need, or even namespace the components for existing projects.",
     },
     {
-      src: configSvg,
       title: "Configurable",
       subtitle:
         "Built for a great developer experience, you can customize and extend the library with ease.",
     },
     {
-      src: a11ySvg,
       title: "Accessible",
       subtitle:
-        "Undernet is designed with WAI-ARIA guidelines in mind to ensure your project is accessible.",
+        "Interactive components are designed with WAI-ARIA guidelines in mind to ensure your HTML is accessible.",
     },
   ]
 
-  renderPerkColumns() {
-    return this.PERK_COLUMNS.map(column => {
+  componentDidMount() {
+    Prism.highlightAll()
+
+    let animations = {}
+
+    this.ANIMATION_DATA.forEach(animation => {
+      const name = animation.title.toLowerCase()
+
+      const loadedAnimation = lottie.loadAnimation({
+        container: document.getElementById(`animated-${name}`),
+        renderer: "svg",
+        loop: false,
+        autoplay: false,
+        path: `assets/${name}.json`,
+        name: name,
+      })
+
+      animations[name] = loadedAnimation
+    })
+
+    // play animations after 1.5 seconds,
+    // otherwise page load kills first 1/3-2/3 of play time
+    window.setTimeout(() => {
+      Object.keys(animations).forEach(animation => animations[animation].play())
+    }, 2000)
+
+    this.setState({ ...animations })
+  }
+
+  // handleMouseEnter(animation) {
+  //   return animation ? this.state[animation.name].play() : () => null
+  // }
+
+  // handleMouseLeave(animation) {
+  //   return animation ? this.state[animation.name].stop() : () => null
+  // }
+
+  renderAnimatedIcon(name) {
+    return <div className="animated-icon" id={`animated-${name}`} />
+  }
+
+  renderAnimations() {
+    return this.ANIMATION_DATA.map(animation => {
+      const animationName = animation.title.toLowerCase()
+      // const animationEvent = this.state[animationName]
+
       return (
-        <li className="large-3 small-6 xsmall-12 columns has-center-text" key={column.title}>
-          <img
-            className="home-icon"
-            src={column.src}
-            role="presentation"
-            alt=""
-            aria-hidden="true"
-          />
-          <h2 className="h6 has-white-text">{column.title}</h2>
-          <p className="has-white-text">{column.subtitle}</p>
+        <li
+          className="large-3 small-6 xsmall-12 columns has-center-text has-no-padding-bottom"
+          key={animation.title}
+          /* onMouseEnter={this.handleMouseEnter.bind(this, animationEvent)} */
+          /* onMouseLeave={this.handleMouseLeave.bind(this, animationEvent)} */
+        >
+          {this.renderAnimatedIcon(animationName)}
+          <h2 className="h6 has-white-text">{animation.title}</h2>
+          <p className="has-white-text">{animation.subtitle}</p>
         </li>
       )
     })
@@ -89,13 +129,13 @@ export default class Home extends Component {
 
             <div className="xsmall-12 columns has-center-text">
               <Link to={downloadPath} className="medium button has-feather">
-                Download <ChevronRight size={20} />
+                Download <ChevronRight size={20} role="presentation" focusable="false" />
               </Link>
               <Link
                 to={introductionPath}
                 className="primary medium button has-gradient has-feather"
               >
-                Learn More <ChevronRight size={20} />
+                Learn More <ChevronRight size={20} role="presentation" focusable="false" />
               </Link>
             </div>
 
@@ -109,11 +149,11 @@ export default class Home extends Component {
           </div>
         </div>
 
-        <div className="medium-section fluid grid perks">
+        <div className="medium-section fluid grid animations">
           <div className="row has-no-padding">
             <div className="column has-no-padding">
               <div className="wide grid">
-                <ul className="row is-unstyled-list has-no-padding">{this.renderPerkColumns()}</ul>
+                <ul className="row is-unstyled-list has-no-padding">{this.renderAnimations()}</ul>
               </div>
             </div>
           </div>
@@ -136,7 +176,7 @@ export default class Home extends Component {
                 to={introductionPath}
                 className="primary medium button has-gradient has-feather"
               >
-                Learn More <ChevronRight size={20} />
+                Learn More <ChevronRight size={20} role="presentation" focusable="false" />
               </Link>
             </div>
           </div>
