@@ -32,7 +32,7 @@ export default class Home extends Component {
     accessible: null,
   }
 
-  ANIMATION_COPY = [
+  ANIMATION_DATA = [
     {
       title: "Tiny",
       subtitle:
@@ -58,51 +58,57 @@ export default class Home extends Component {
   componentDidMount() {
     Prism.highlightAll()
 
-    // TODO: move this to a HOC and render in this.renderAnimations directly
-
     let animations = {}
 
-    Object.keys(this.state).forEach(animation => {
+    this.ANIMATION_DATA.forEach(animation => {
+      const name = animation.title.toLowerCase()
+
       const loadedAnimation = lottie.loadAnimation({
-        container: document.getElementById(`animated-${animation}`),
+        container: document.getElementById(`animated-${name}`),
         renderer: "svg",
         loop: false,
-        autoplay: true,
-        path: `assets/${animation}.json`,
-        name: animation,
+        autoplay: false,
+        path: `assets/${name}.json`,
+        name: name,
       })
 
-      animations[animation] = loadedAnimation
+      animations[name] = loadedAnimation
     })
+
+    // play animations after 1.5 seconds,
+    // otherwise page load kills first 1/3-2/3 of play time
+    window.setTimeout(() => {
+      Object.keys(animations).forEach(animation => animations[animation].play())
+    }, 2000)
 
     this.setState({ ...animations })
   }
 
-  handleMouseEnter(animation) {
-    this.state[animation].play()
-  }
+  // handleMouseEnter(animation) {
+  //   return animation ? this.state[animation.name].play() : () => null
+  // }
 
-  handleMouseLeave(animation) {
-    this.state[animation].stop()
+  // handleMouseLeave(animation) {
+  //   return animation ? this.state[animation.name].stop() : () => null
+  // }
+
+  renderAnimatedIcon(name) {
+    return <div className="animated-icon" id={`animated-${name}`} />
   }
 
   renderAnimations() {
-    return this.ANIMATION_COPY.map(animation => {
+    return this.ANIMATION_DATA.map(animation => {
       const animationName = animation.title.toLowerCase()
-      const animationEvent = this.state[animationName]
+      // const animationEvent = this.state[animationName]
 
       return (
         <li
           className="large-3 small-6 xsmall-12 columns has-center-text has-no-padding-bottom"
           key={animation.title}
-          onMouseEnter={
-            animationEvent ? this.handleMouseEnter.bind(this, animationEvent.name) : () => null
-          }
-          onMouseLeave={
-            animationEvent ? this.handleMouseLeave.bind(this, animationEvent.name) : () => null
-          }
+          /* onMouseEnter={this.handleMouseEnter.bind(this, animationEvent)} */
+          /* onMouseLeave={this.handleMouseLeave.bind(this, animationEvent)} */
         >
-          <div className="animated-icon" id={`animated-${animationName}`} />
+          {this.renderAnimatedIcon(animationName)}
           <h2 className="h6 has-white-text">{animation.title}</h2>
           <p className="has-white-text">{animation.subtitle}</p>
         </li>
