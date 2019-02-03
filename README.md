@@ -50,7 +50,7 @@ First fork the project on Github. Then set up locally.
 ```sh
 $ git clone git@github.com:USER_NAME/undernet.git
 $ cd undernet/
-$ npm install && npm link
+$ npm install
 ```
 
 The site is both a demo and marketing tool. It is built with my own webpack setup called [Pulsar](https://github.com/geotrev/pulsar). It's basically just Webpack + React, so don't panic. :)
@@ -70,13 +70,13 @@ $ npm run build
 ### Run tests with istanbuljs/nyc coverage stats (for the site only)
 
 ```sh
-$ npm run test
+$ npm run site:test
 ```
 
 ### Load tests on file save (also for the site)
 
 ```sh
-$ npm run test:w
+$ npm run site:test:watch
 ```
 
 ### Building the framework
@@ -88,7 +88,7 @@ The build environment works only for macOS at the moment.
 If you've already run `npm install`, these commands should Just Work™.
 
 ```sh
-$ npm run build:development
+$ npm run build:dist
 ```
 
 The script processes the SCSS and JS, then compiles the output to a `dist/` folder.
@@ -106,7 +106,7 @@ $ npm run js:watch
 To run a release build, run the following command, where `VERSION` is the semver value incremented from `package.json`:
 
 ```sh
-$ npm run update-version -- --tag=VERSION && npm run build:release
+$ npm run update-version -- --tag=VERSION && npm run build:dist:release
 ```
 
 These will do three things:
