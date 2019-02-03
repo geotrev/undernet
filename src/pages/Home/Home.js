@@ -9,7 +9,6 @@ import ChevronRight from "react-feather/dist/icons/chevron-right"
 import ScrollUpOnMount from "helpers/ScrollUpOnMount"
 import { downloadPath, introductionPath } from "routes"
 
-import animations from "./animations"
 import pkg from "projectRoot/package.json"
 import installNpm from "./install-npm.md"
 import installAssets from "./install-assets.md"
@@ -33,8 +32,29 @@ export default class Home extends Component {
     accessible: null,
   }
 
+  ANIMATION_COPY = [
+    {
+      title: "Tiny",
+      subtitle: "CSS and JS under 12kb minified + gzipped; you can be assured performance isn’t an issue.",
+    },
+    {
+      title: "Modular",
+      subtitle: "Include only the pieces you need, or even namespace the components for existing projects.",
+    },
+    {
+      title: "Configurable",
+      subtitle: "Built for a great developer experience, you can customize and extend the library with ease.",
+    },
+    {
+      title: "Accessible",
+      subtitle: "Interactive components are designed with WAI-ARIA guidelines in mind to ensure your HTML is accessible.",
+    },
+  ]
+
   componentDidMount() {
     Prism.highlightAll()
+
+    // TODO: move this to a HOC and render in this.renderAnimations directly
 
     let animations = {}
 
@@ -63,7 +83,7 @@ export default class Home extends Component {
   }
 
   renderAnimations() {
-    return animations.map(animation => {
+    return this.ANIMATION_COPY.map(animation => {
       const animationName = animation.title.toLowerCase()
       const animationEvent = this.state[animationName]
 
