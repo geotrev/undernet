@@ -17,43 +17,38 @@ export default class Home extends Component {
     super()
   }
 
-  // state = {
-  //   tiny: null,
-  //   modular: null,
-  //   configurable: null,
-  //   accessible: null,
-  // }
-
   ANIMATION_DATA = [
     {
       title: "Tiny",
       subtitle:
         "CSS and JS under 12kb minified + gzipped; you can be assured performance isn’t an issue.",
+      animation: null
     },
     {
       title: "Modular",
       subtitle:
         "Include only the pieces you need, or even namespace the components for existing projects.",
+      animation: null
     },
     {
       title: "Configurable",
       subtitle:
         "Built for a great developer experience, you can customize and extend the library with ease.",
+      animation: null
     },
     {
       title: "Accessible",
       subtitle:
         "Interactive components are designed with WAI-ARIA guidelines in mind to ensure your HTML is accessible.",
+      animation: null
     },
   ]
 
   componentDidMount() {
     Prism.highlightAll()
 
-    let animations = {}
-
-    this.ANIMATION_DATA.forEach(animation => {
-      const name = animation.title.toLowerCase()
+    this.ANIMATION_DATA.forEach(data => {
+      const name = data.title.toLowerCase()
 
       const loadedAnimation = lottie.loadAnimation({
         container: document.getElementById(`animated-${name}`),
@@ -64,25 +59,17 @@ export default class Home extends Component {
         name: name,
       })
 
-      animations[name] = loadedAnimation
+      data.animation = loadedAnimation
     })
 
-    // play animations after 1.5 seconds,
-    // otherwise page load kills first 1/3-2/3 of play time
     window.setTimeout(() => {
-      Object.keys(animations).forEach(animation => animations[animation].play())
-    }, 2000)
-
-    // this.setState({ ...animations })
+      this.ANIMATION_DATA.forEach(data => data.animation.play())
+    }, 1500)
   }
 
-  // handleMouseEnter(animation) {
-  //   return animation ? this.state[animation.name].play() : () => null
-  // }
-
-  // handleMouseLeave(animation) {
-  //   return animation ? this.state[animation.name].stop() : () => null
-  // }
+  componentWillUnmount() {
+    this.ANIMATION_DATA.forEach(data => data.animation.destroy())
+  }
 
   renderAnimatedIcon(name) {
     return <div className="animated-icon" id={`animated-${name}`} />
