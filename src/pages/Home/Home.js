@@ -1,8 +1,6 @@
 import React, { Component } from "react"
 import { Link } from "react-router-dom"
 import Prism from "prismjs"
-import Markdown from "react-markdown"
-import Loadable from "react-loadable"
 import lottie from "lottie-web"
 import ChevronRight from "react-feather/dist/icons/chevron-right"
 
@@ -10,27 +8,21 @@ import ScrollUpOnMount from "helpers/ScrollUpOnMount"
 import { downloadPath, introductionPath } from "routes"
 
 import pkg from "projectRoot/package.json"
-import installNpm from "./install-npm.md"
-import installAssets from "./install-assets.md"
+import { StatusBadges, InstallNpm, InstallAssets } from "./markdownContent"
 
 import "./styles.scss"
-
-const StatusBadges = Loadable({
-  loader: () => import("./Badges"),
-  loading: () => <span className="is-visually-hidden">Loading badges</span>,
-})
 
 export default class Home extends Component {
   constructor() {
     super()
   }
 
-  state = {
-    tiny: null,
-    modular: null,
-    configurable: null,
-    accessible: null,
-  }
+  // state = {
+  //   tiny: null,
+  //   modular: null,
+  //   configurable: null,
+  //   accessible: null,
+  // }
 
   ANIMATION_DATA = [
     {
@@ -81,7 +73,7 @@ export default class Home extends Component {
       Object.keys(animations).forEach(animation => animations[animation].play())
     }, 2000)
 
-    this.setState({ ...animations })
+    // this.setState({ ...animations })
   }
 
   // handleMouseEnter(animation) {
@@ -164,11 +156,11 @@ export default class Home extends Component {
             <div className="xsmall-12 columns has-center-text">
               <h2 className="h6">Painless Setup</h2>
               <p>Install with npm:</p>
-              <Markdown source={installNpm} escapeHtml={false} />
+              <InstallAssets />
             </div>
             <div className="xsmall-12 columns has-center-text">
               <p>Or simply link to minified assets:</p>
-              <Markdown source={installAssets} escapeHtml={false} />
+              <InstallNpm />
             </div>
             <div className="xsmall-12 columns has-center-text">
               <p>See how Undernet can improve your developer experience!</p>
