@@ -1,4 +1,6 @@
-export const PageNotFound = () => {
+import React from "react"
+
+const PageNotFound = () => {
   return (
     <div className="has-padding-4 has-center-text">
       <h1>Sorry, that page doesn't exist. :(</h1>
@@ -8,3 +10,5 @@ export const PageNotFound = () => {
     </div>
   )
 }
+
+export default PageNotFound
