@@ -78,14 +78,11 @@ export default class Home extends Component {
   renderAnimations() {
     return this.ANIMATION_DATA.map(animation => {
       const animationName = animation.title.toLowerCase()
-      // const animationEvent = this.state[animationName]
 
       return (
         <li
           className="large-3 small-6 xsmall-12 columns has-center-text has-no-padding-bottom"
           key={animation.title}
-          /* onMouseEnter={this.handleMouseEnter.bind(this, animationEvent)} */
-          /* onMouseLeave={this.handleMouseLeave.bind(this, animationEvent)} */
         >
           {this.renderAnimatedIcon(animationName)}
           <h2 className="h6 has-white-text">{animation.title}</h2>

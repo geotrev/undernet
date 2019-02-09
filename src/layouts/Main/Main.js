@@ -1,10 +1,11 @@
 import React, { Component, Fragment } from "react"
-import { Route } from "react-router-dom"
+import { Switch, Route } from "react-router-dom"
 import { Utils } from "undernet"
 
 import { rootPath, docsPath } from "routes"
 import GlobalNav from "components/GlobalNav"
 import Footer from "components/Footer"
+import PageNotFound from "components/PageNotFound"
 import Home from "pages/Home"
 import Docs from "pages/Docs"
 
@@ -26,8 +27,11 @@ export default class Main extends Component {
           <GlobalNav />
         </header>
         <main>
-          <Route exact path={rootPath} component={Home} />
-          <Route path={docsPath} component={Docs} />
+          <Switch>
+            <Route exact path={rootPath} component={Home} />
+            <Route path={docsPath} component={Docs} />
+            <Route component={PageNotFound} />
+          </Switch>
         </main>
         <footer>
           <Footer />
