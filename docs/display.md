@@ -1,5 +1,3 @@
-# Display
-
 Change an element's `display` property on the fly with these utility classes.
 
 ```html

@@ -1,5 +1,3 @@
-# Accessibility</h1>
-
 Undernet's interactive components are built with the specific intention of being accessible to assistive technologies. To that end, Undernet tries to handle much of those complexities "under the hood" so developers don't need to worry about adding them manually.
 
 ## Screen Readers

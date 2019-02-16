@@ -1,5 +1,3 @@
-# Branding
-
 Customizing your Undernet CSS requires using the partial scss files that define all elements and components.
 
 To get a sense of what you have the easiest control over, reference the `_config.scss` file which includes core variables for all elements, utilities, and interactive components.
@@ -71,7 +69,7 @@ Only import the below **one time** in your application!
 @import "~undernet/scss/components/accordion";
 @import "~undernet/scss/components/dropdown";
 /* } */
-@import "~undernet/scss/helpers/scope-overrides"
+@import "~undernet/scss/helpers/scope-overrides";
 ```
 
 Finally, import `undernet.scss` in your global stylesheet.

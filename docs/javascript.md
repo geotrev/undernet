@@ -1,5 +1,3 @@
-# JavaScript
-
 Using Undernet's JS requires knowing its API. Luckily it's very simple!
 
 1. You can `start` and `stop` all of Undernet's components in a single call. E.g., `Undernet.start()`
@@ -20,7 +18,7 @@ Just like in the [Introduction](/docs/overview/introduction) article, the fastes
     ...
     <script type="text/javascript" src="path/to/undernet.bundle.min.js"></script>
     <script type="text/javascript">
-      document.addEventListener('DOMContentLoaded', Undernet.start())
+      document.addEventListener("DOMContentLoaded", Undernet.start())
     </script>
   </body>
 </html>

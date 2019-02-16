@@ -23,10 +23,13 @@ export default class Main extends Component {
   render() {
     return (
       <Fragment>
+        <a className="is-visually-hidden" href="#site-main">
+          Skip to main content
+        </a>
         <header>
           <GlobalNav />
         </header>
-        <main>
+        <main id="site-main">
           <Switch>
             <Route exact path={rootPath} component={Home} />
             <Route path={docsPath} component={Docs} />
@@ -35,6 +38,9 @@ export default class Main extends Component {
         </main>
         <footer>
           <Footer />
+          <a className="is-visually-hidden" href="#__main__">
+            Return to top of page
+          </a>
         </footer>
       </Fragment>
     )

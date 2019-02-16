@@ -1,5 +1,3 @@
-# Dropdowns
-
 Use a dropdown to put multiple options or items in a single menu. Although they aren't always the most intuitive design pattern, they can be useful when space is limited.
 
 ## Basic Dropdown
@@ -17,7 +15,9 @@ Check out this example dropdown:
 
 ```html
 <div data-dropdown="dropdown1" class="dropdown">
-  <button id="dropdown-button" data-parent="dropdown1" data-target="new-dropdown">Open Dropdown</button>
+  <button id="dropdown-button" data-parent="dropdown1" data-target="new-dropdown">
+    Open Dropdown
+  </button>
   <ul id="new-dropdown" class="dropdown-menu">
     <li><a href="#">Item 1</a></li>
     <li><a href="#">Item 2</a></li>
@@ -55,7 +55,7 @@ You can use any button style with a dropdown. Just add the appropriate class to 
 
 ## Alignment
 
-Dropdowns align to the left of their respective button by default, but you can let it align from the right using `is-aligned-right` on the dropdown menu. Note that this only works for viewports above a specific width, as defined using the variable $dropdown-menu-direction-breakpoint (sorry mobile viewers).
+Dropdowns align to the left of their respective button by default, but you can let it align from the right using `is-aligned-right` on the dropdown menu. Note that this only works for viewports above a specific width, as defined using the variable \$dropdown-menu-direction-breakpoint (sorry mobile viewers).
 
 <div data-dropdown="dropdown5" class="dropdown">
   <button id="dropdown-button5" data-parent="dropdown5" data-target="new-dropdown5">Open Dropdown</button>
@@ -68,7 +68,9 @@ Dropdowns align to the left of their respective button by default, but you can l
 
 ```html
 <div data-dropdown="dropdown5" class="dropdown">
-  <button id="dropdown-button5" data-parent="dropdown5" data-target="new-dropdown5">Open Right-Aligned Dropdown</button>
+  <button id="dropdown-button5" data-parent="dropdown5" data-target="new-dropdown5">
+    Open Right-Aligned Dropdown
+  </button>
   <ul id="new-dropdown5" class="dropdown-menu is-aligned-right">
     <li><h6 class="dropdown-header">Aligned right!</h6></li>
     <li><a href="#">Item 1</a></li>
@@ -107,7 +109,9 @@ Using a few custom classes, you can specify where the menu pops open relative to
 ```html
 <!-- menu drops up -->
 <div data-dropdown="dropdown9" class="dropdown">
-  <button id="dropdown-button9" data-parent="dropdown9" data-target="new-dropdown9">Open Dropdown</button>
+  <button id="dropdown-button9" data-parent="dropdown9" data-target="new-dropdown9">
+    Open Dropdown
+  </button>
   <ul id="new-dropdown9" class="dropdown-menu is-drop-up">
     <li><a href="#">Item 1</a></li>
     <li><a href="#">Item 2</a></li>
@@ -131,10 +135,15 @@ Add an `<hr/>` to a dropdown list item to create a visual separator between butt
 
 ```html
 <div data-dropdown="dropdown6" class="dropdown">
-  <button id="dropdown-button6" data-parent="dropdown6" data-target="new-dropdown6">Open Dropdown</button>
+  <button id="dropdown-button6" data-parent="dropdown6" data-target="new-dropdown6">
+    Open Dropdown
+  </button>
   <ul id="new-dropdown6" class="dropdown-menu">
     <li><a href="#">Item 1</a></li>
-    <li><a href="#">Item 2</a><hr /></li>
+    <li>
+      <a href="#">Item 2</a>
+      <hr />
+    </li>
     <li><a href="#">Item 3</a></li>
   </ul>
 </div>
@@ -161,7 +170,9 @@ You can add any level of header to a dropdown menu.
 
 ```html
 <div data-dropdown="dropdown7" class="dropdown">
-  <button id="dropdown-button7" data-parent="dropdown7" data-target="new-dropdown7">Open Dropdown</button>
+  <button id="dropdown-button7" data-parent="dropdown7" data-target="new-dropdown7">
+    Open Dropdown
+  </button>
   <ul id="new-dropdown7" class="dropdown-menu">
     <li><h3 class="dropdown-header">Menu Header (h3)</h3></li>
     <li><a href="#">Item 1</a></li>
@@ -189,7 +200,9 @@ Paragraph text will wrap like it does everywhere else. Use spacing utilities to 
 
 ```html
 <div data-dropdown="dropdown8" class="dropdown">
-  <button id="dropdown-button8" data-parent="dropdown8" data-target="new-dropdown8">Open Dropdown</button>
+  <button id="dropdown-button8" data-parent="dropdown8" data-target="new-dropdown8">
+    Open Dropdown
+  </button>
   <ul id="new-dropdown8" class="dropdown-menu">
     <li class="has-padding-2 has-gray800-text">
       Would you like to receive newsletters from Cool Company, Inc?
@@ -211,7 +224,7 @@ Two main pieces are required: an API call and correct HTML markup.
 The dropdown container has both the button and the menu.
 
 ```html
-<div data-dropdown="dropdown1" class="dropdown"> ... </div>
+<div data-dropdown="dropdown1" class="dropdown">...</div>
 ```
 
 - `data-dropdown`: an attribute containing a unique id for the dropdown container.
@@ -222,7 +235,9 @@ The button needs a few key attributes as well.
 
 ```html
 <div data-dropdown="dropdown1" class="dropdown">
-  <button id="dropdown-button" data-parent="dropdown1" data-target="new-dropdown">Open Dropdown</button>
+  <button id="dropdown-button" data-parent="dropdown1" data-target="new-dropdown">
+    Open Dropdown
+  </button>
   ...
 </div>
 ```

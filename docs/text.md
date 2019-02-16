@@ -1,5 +1,3 @@
-# Text
-
 When you need to add custom font styles in specific places, rely on these utility classes to handle it.
 
 ## Font Family

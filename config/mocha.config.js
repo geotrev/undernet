@@ -18,7 +18,7 @@ global.chai = chai
 global.spy = chai.spy()
 
 const { JSDOM } = require("jsdom")
-const dom = new JSDOM("<!doctype html><html><body></body></html>")
+const dom = new JSDOM("<!doctype html><html><head></head><body></body></html>")
 const { window } = dom
 
 global.window = window
