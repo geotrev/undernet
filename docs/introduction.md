@@ -1,5 +1,3 @@
-# Introduction
-
 Thanks for using Undernet! Hit the ground running in your next web project with this fully modular, highly configurable set of base CSS styles and JavaScript modules for interactive components.
 
 Undernet is extremely light, carrying no external dependencies, with a fully module-based interface through [npm](https://www.npmjs.org/package/undernet).

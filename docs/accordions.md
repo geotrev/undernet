@@ -1,5 +1,3 @@
-# Accordions
-
 Use an accordion to hide and show content in a collapsable fashion.
 
 ## Basic Accordion
@@ -59,8 +57,8 @@ Check out this example accordion:
     </h5>
     <div class="accordion-content" id="content-1">
       <p class="has-margin">
-        Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
-        ipsum ut voluptate.
+        Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna ipsum ut
+        voluptate.
       </p>
     </div>
   </div>
@@ -72,8 +70,8 @@ Check out this example accordion:
     </h5>
     <div class="accordion-content" id="content-2">
       <p class="has-margin">
-        Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
-        ipsum ut voluptate.
+        Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna ipsum ut
+        voluptate.
       </p>
     </div>
   </div>
@@ -85,8 +83,8 @@ Check out this example accordion:
     </h5>
     <div class="accordion-content" id="content-3">
       <p class="has-margin">
-        Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
-        ipsum ut voluptate.
+        Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna ipsum ut
+        voluptate.
       </p>
     </div>
   </div>
@@ -161,7 +159,9 @@ When making an accordion, there are two major considerations in its structure: t
   ...
   <div class="accordion-row" data-visible="true" data-accordion-row="content-1">
     <h5 id="button-1">
-      <button data-parent="accordion-1" class="accordion-button" data-target="content-1">...</button>
+      <button data-parent="accordion-1" class="accordion-button" data-target="content-1">
+        ...
+      </button>
     </h5>
     <div class="accordion-content" id="content-1">
       <p class="has-margin">...</p>

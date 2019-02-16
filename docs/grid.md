@@ -1,5 +1,3 @@
-# Grid
-
 Undernet uses a flex grid that behaves largely like other CSS grids: using rows with nested columns, and spacing/positioning modifiers to enable more complex layouts.
 
 The grid is mobile first, so any [breakpoint classes](#breakpoint-classes) and modifiers take effect from the breakpoint value and wider (ie, `medium` is `768px` and wider).

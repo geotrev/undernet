@@ -5,7 +5,8 @@ import lottie from "lottie-web"
 import ChevronRight from "react-feather/dist/icons/chevron-right"
 
 import ScrollUpOnMount from "helpers/ScrollUpOnMount"
-import SetTitle from "components/SetTitle"
+import SetMeta from "components/SetMeta"
+import PageHeader from "components/PageHeader"
 import { downloadPath, introductionPath } from "routes"
 
 import pkg from "projectRoot/package.json"
@@ -102,7 +103,7 @@ export default class Home extends Component {
          * Title is set here _and_ in public/index.html...
          * Doing so prevents title changes on other pages from persisting if a visitor return to the home page.
          */}
-        <SetTitle
+        <SetMeta
           title="A modular, configuration-first front-end framework. No strings."
           description="Undernet is a highly customizable web framework for building websites."
         />
@@ -110,7 +111,7 @@ export default class Home extends Component {
         <div className="medium-section fluid grid hero">
           <div className="row">
             <div className="xsmall-12 columns has-center-text">
-              <h1 className="h3">{pkg.description}</h1>
+              <PageHeader className="h3">{pkg.description}</PageHeader>
             </div>
 
             <div className="xsmall-12 columns has-center-text">

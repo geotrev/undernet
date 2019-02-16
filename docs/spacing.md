@@ -1,5 +1,3 @@
-# Spacing
-
 Undernet has reductive and additive spacing utility classes.
 
 ## Additive

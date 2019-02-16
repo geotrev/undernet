@@ -1,15 +1,17 @@
 import React, { Fragment } from "react"
 import Article from "components/Article"
-import SetTitle from "components/SetTitle"
+import PageHeader from "components/PageHeader"
+import SetMeta from "components/SetMeta"
 import OffsetOrderMd from "docs/offset-order.md"
 
 const OffsetOrder = () => {
   return (
     <Fragment>
-      <SetTitle
+      <SetMeta
         title="Offsets & Ordering"
         description="Change the grid and re-order content using offset and flex order class helpers."
       />
+      <PageHeader>Offset & Order</PageHeader>
       <Article>{OffsetOrderMd}</Article>
     </Fragment>
   )

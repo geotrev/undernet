@@ -1,5 +1,3 @@
-# Modals
-
 Use modals to focus the user experience on a critical task or set of information. Modals have simple base styling, with the contents using a subjective markup structure.
 
 ## Basic Modal
