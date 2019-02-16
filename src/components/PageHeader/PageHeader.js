@@ -1,5 +1,6 @@
 import React, { createRef, Component } from "react"
 import { withLastLocation } from "react-router-last-location"
+import PropTypes from "prop-types"
 
 class PageHeader extends Component {
   constructor(props) {
@@ -7,7 +8,13 @@ class PageHeader extends Component {
     this.headerRef = createRef()
   }
 
+  static propTypes = {
+    children: PropTypes.node.isRequired,
+    className: PropTypes.string,
+  }
+
   componentDidMount() {
+    // Don't handle focus on the h1 because there is no history yet.
     if (!this.props.lastLocation) return
 
     this.headerRef.current.focus()
@@ -15,12 +22,9 @@ class PageHeader extends Component {
   }
 
   handleHeaderBlur = () => {
+    // Restore default tabindex value once the user has taken focus away from the h1.
     this.headerRef.current.removeAttribute("tabindex")
     this.headerRef.current.removeEventListener("blur", this.handleHeaderBlur)
-  }
-
-  pageHistoryExists() {
-    return window.history.length > 1
   }
 
   render() {
