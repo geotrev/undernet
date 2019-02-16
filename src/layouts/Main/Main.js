@@ -16,39 +16,16 @@ export default class Main extends Component {
     super()
   }
 
-  state = {
-    mounted: false,
-  }
-
   componentDidMount() {
     Utils.enableFocusOutline()
-    this.setState({ mounted: true })
-  }
-
-  renderSkipLink() {
-    if (!this.state.mounted) return
-
-    return (
-      <a className="is-visually-hidden" href="#site-main">
-        Skip to main content
-      </a>
-    )
-  }
-
-  renderTopLink() {
-    if (!this.state.mounted) return
-
-    return (
-      <a className="is-visually-hidden" href="#__main__">
-        Return to top of page
-      </a>
-    )
   }
 
   render() {
     return (
       <Fragment>
-        {this.renderSkipLink()}
+        <a className="is-visually-hidden" href="#site-main">
+          Skip to main content
+        </a>
         <header>
           <GlobalNav />
         </header>
@@ -61,8 +38,10 @@ export default class Main extends Component {
         </main>
         <footer>
           <Footer />
+          <a className="is-visually-hidden" href="#__main__">
+            Return to top of page
+          </a>
         </footer>
-        {this.renderTopLink()}
       </Fragment>
     )
   }
