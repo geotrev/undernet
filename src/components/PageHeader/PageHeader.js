@@ -1,15 +1,14 @@
 import React, { createRef, Component } from "react"
+import { withLastLocation } from "react-router-last-location"
 
-// Limitations of this component: can't detect if the user is entering the site via bookmark or url bar directly.
-
-export default class PageHeader extends Component {
+class PageHeader extends Component {
   constructor(props) {
     super(props)
     this.headerRef = createRef()
   }
 
   componentDidMount() {
-    if (!this.pageHistoryExists() || document.referrer) return
+    if (!this.props.lastLocation) return
 
     this.headerRef.current.focus()
     this.headerRef.current.addEventListener("blur", this.handleHeaderBlur)
@@ -27,7 +26,7 @@ export default class PageHeader extends Component {
   render() {
     return (
       <h1
-        tabIndex={this.pageHistoryExists() && !document.referrer ? "-1" : null}
+        tabIndex={this.props.lastLocation ? "-1" : null}
         ref={this.headerRef}
         className={this.props.className}
       >
@@ -36,3 +35,5 @@ export default class PageHeader extends Component {
     )
   }
 }
+
+export default withLastLocation(PageHeader)
