@@ -1,5 +1,3 @@
-# Typography
-
 Typography in Undernet makes up for a large chunk of the customization options. Headers and many of the individual paragraph and inline text tags are modifiable.
 
 Undernet also comes with each text style in class form, so if you need a header styled as a paragraph, you can simply use the `paragraph` class.
@@ -46,7 +44,9 @@ Paragraphs use the default font size, with a margin bottom. All text (like what 
 
 ```html
 <p>
-  Paragraphs use the default font size, with a margin bottom. All text (like what you're reading now) uses paragraph style as the default. Just a regular old paragraph. I debated using a lorem ipsum generator here, but I think typing out coherent thoughts is on the upswing.
+  Paragraphs use the default font size, with a margin bottom. All text (like what you're reading
+  now) uses paragraph style as the default. Just a regular old paragraph. I debated using a lorem
+  ipsum generator here, but I think typing out coherent thoughts is on the upswing.
 </p>
 ```
 
@@ -78,12 +78,12 @@ Use inline text tags as well:
 </ul>
 
 ```html
-<em>'em' tag</em>, for adding emphasis
+<em>'em' tag</em>, for adding emphasis 
 <strong>'strong' tag</strong>, for adding importance
-<code>'code' tag</code>, for showing one-line code snippets
+<code>'code' tag</code>, for showing one-line code snippets 
 <small>'small' tag</small>, for making text a little bit smaller
-<mark>'mark' tag</mark>, for highlighting content
-<u>'u' tag</u>, for differentiating emphasis
+<mark>'mark' tag</mark>, for highlighting content 
+<u>'u' tag</u>, for adding emphasis
 ```
 
 ## Lists

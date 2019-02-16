@@ -1,13 +1,16 @@
 import "@babel/polyfill"
 import React from "react"
 import ReactDOM from "react-dom"
-import Main from "./layouts/Main"
-
 import { BrowserRouter as Router } from "react-router-dom"
+import { LastLocationProvider } from "react-router-last-location"
+
+import Main from "./layouts/Main"
 
 ReactDOM.render(
   <Router>
-    <Main />
+    <LastLocationProvider>
+      <Main />
+    </LastLocationProvider>
   </Router>,
   document.getElementById("__main__"),
 )

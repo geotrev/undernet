@@ -1,5 +1,3 @@
-# Buttons
-
 The button element in Undernet is unique in similar fashion to the typography. All states are controllable via the scss maps, [`$button-base`](/docs/elements/buttons#base-button) and [`$button-types`](/docs/elements/buttons#custom-button-types). You can also customize button sizes via [`$button-sizes`](/docs/elements/buttons#button-sizes).
 
 These maps output their keys and values as css properties. This means you can add any `property: value` normally found in CSS into these maps.

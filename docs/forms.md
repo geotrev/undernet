@@ -1,5 +1,3 @@
-# Forms
-
 Forms are a critical part of a user's experience on the web. Undernet helps forms to look the same across browsers and devices.
 
 ## Text Fields and Areas
@@ -113,7 +111,8 @@ Use the fieldset tag to group form elements together. It should sit inside a for
       </div>
       <div class="column has-no-padding-bottom">
         <label for="fieldset-check" class="has-check">
-          <input id="fieldset-check" type="checkbox" /> Send me occasional marketing and product updates.
+          <input id="fieldset-check" type="checkbox" /> Send me occasional marketing and product
+          updates.
         </label>
         <input class="primary button" type="submit" value="Send Me the Goods!" />
       </div>

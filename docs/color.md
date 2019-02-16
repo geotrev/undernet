@@ -1,5 +1,3 @@
-# Color
-
 Applying colored text or a background from your palette is easy with these utilities.
 
 ## Text

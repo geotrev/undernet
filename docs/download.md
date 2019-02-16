@@ -1,5 +1,3 @@
-# Download
-
 Grab whichever source code best suits your project. Learn how to link your scripts and styles in the [Branding](/docs/overview/branding) and [JavaScript](/docs/overview/javascript) articles for the below assets.
 
 ## CDN
@@ -7,13 +5,23 @@ Grab whichever source code best suits your project. Learn how to link your scrip
 The quickest way to use Undernet is to link the bundled js and minified css using a CDN, such as [jsdelivr](https://jsdelivr.com).
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/undernet@3.3.2/dist/undernet.min.css" integrity="sha256-3xBLTfslkfVSAzKuxOQpU1mjEtSbD6Jc+FZuO97iM6k=" crossorigin="anonymous">
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/undernet@3.3.2/dist/undernet.min.css"
+  integrity="sha256-3xBLTfslkfVSAzKuxOQpU1mjEtSbD6Jc+FZuO97iM6k="
+  crossorigin="anonymous"
+/>
 ```
 
 ```html
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/undernet@3.3.2/dist/undernet.bundle.min.js" integrity="sha256-pFMklwGp0PrCDmyY5sSe6+X6yZFU3SVbU6fAJmCmgZ0=" crossorigin="anonymous"></script>
+<script
+  type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/undernet@3.3.2/dist/undernet.bundle.min.js"
+  integrity="sha256-pFMklwGp0PrCDmyY5sSe6+X6yZFU3SVbU6fAJmCmgZ0="
+  crossorigin="anonymous"
+></script>
 <script type="text/javascript">
-  document.addEventListener('DOMContentLoaded', Undernet.start())
+  document.addEventListener("DOMContentLoaded", Undernet.start())
 </script>
 ```
 

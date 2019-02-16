@@ -1,5 +1,3 @@
-# Order / Offset
-
 For layouts or content that need to move across the grid, you can look to offset and order utility classes to achieve this effect.
 
 ## Flex Order
