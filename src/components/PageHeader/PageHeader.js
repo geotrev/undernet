@@ -1,8 +1,6 @@
 import React, { createRef, Component } from "react"
 
-// Limitations:
-// - If the user has navigated from a different website, the h1 will be focused, foiling the pageHistoryExists() check
-// -
+// Limitations of this component: can't detect if the user is entering the site via bookmark or url bar directly.
 
 export default class PageHeader extends Component {
   constructor(props) {
@@ -11,7 +9,7 @@ export default class PageHeader extends Component {
   }
 
   componentDidMount() {
-    if (!this.pageHistoryExists()) return
+    if (!this.pageHistoryExists() || document.referrer) return
 
     this.headerRef.current.focus()
     this.headerRef.current.addEventListener("blur", this.handleHeaderBlur)
@@ -29,7 +27,7 @@ export default class PageHeader extends Component {
   render() {
     return (
       <h1
-        tabIndex={this.pageHistoryExists() ? "-1" : null}
+        tabIndex={this.pageHistoryExists() && !document.referrer ? "-1" : null}
         ref={this.headerRef}
         className={this.props.className}
       >
