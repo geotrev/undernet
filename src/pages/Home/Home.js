@@ -5,6 +5,7 @@ import lottie from "lottie-web"
 import ChevronRight from "react-feather/dist/icons/chevron-right"
 
 import ScrollUpOnMount from "helpers/ScrollUpOnMount"
+import SetTitle from "components/SetTitle"
 import { downloadPath, introductionPath } from "routes"
 
 import pkg from "projectRoot/package.json"
@@ -22,25 +23,25 @@ export default class Home extends Component {
       title: "Tiny",
       subtitle:
         "CSS and JS under 12kb minified + gzipped; you can be assured performance isn’t an issue.",
-      animation: null
+      animation: null,
     },
     {
       title: "Modular",
       subtitle:
         "Include only the pieces you need, or even namespace the components for existing projects.",
-      animation: null
+      animation: null,
     },
     {
       title: "Configurable",
       subtitle:
         "Built for a great developer experience, you can customize and extend the library with ease.",
-      animation: null
+      animation: null,
     },
     {
       title: "Accessible",
       subtitle:
         "Interactive components are designed with WAI-ARIA guidelines in mind to ensure your HTML is accessible.",
-      animation: null
+      animation: null,
     },
   ]
 
@@ -96,6 +97,15 @@ export default class Home extends Component {
     return (
       <div id="home">
         <ScrollUpOnMount />
+
+        {/*
+         * Title is set here _and_ in public/index.html...
+         * Doing so prevents title changes on other pages from persisting if a visitor return to the home page.
+         */}
+        <SetTitle
+          title="A modular, configuration-first front-end framework. No strings."
+          description="Undernet is a highly customizable web framework for building websites."
+        />
 
         <div className="medium-section fluid grid hero">
           <div className="row">
