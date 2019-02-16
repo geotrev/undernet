@@ -78,10 +78,13 @@ Use inline text tags as well:
 </ul>
 
 ```html
-<em>'em' tag</em>, for adding emphasis <strong>'strong' tag</strong>, for adding importance
-<code>'code' tag</code>, for showing one-line code snippets <small>'small' tag</small>, for making
-text a little bit smaller <mark>'mark' tag</mark>, for highlighting content <u>'u' tag</u>, for
-differentiating emphasis
+<em>'em' tag</em>, for adding emphasis 
+<strong>'strong' tag</strong>, for adding importance
+<code>'code' tag</code>, for showing one-line code snippets 
+<small>'small' tag</small>, for making
+text a little bit smaller 
+<mark>'mark' tag</mark>, for highlighting content 
+<u>'u' tag</u>, for adding emphasis
 ```
 
 ## Lists
