@@ -8,32 +8,29 @@ class PageHeader extends Component {
     this.headerRef = createRef()
   }
 
+  state = { tabIndex: null }
+
   static propTypes = {
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
   }
 
   componentDidMount() {
-    // Don't handle focus on the h1 because there is no history yet.
-    if (!this.props.lastLocation) return
-
-    this.headerRef.current.focus()
-    this.headerRef.current.addEventListener("blur", this.handleHeaderBlur)
+    this.setState({ tabIndex: this.props.lastLocation ? "-1" : null }, () => {
+      if (!this.props.lastLocation) return
+      this.headerRef.current.focus()
+      this.headerRef.current.addEventListener("blur", this.handleHeaderBlur)
+    })
   }
 
   handleHeaderBlur = () => {
-    // Restore default tabindex value once the user has taken focus away from the h1.
-    this.headerRef.current.removeAttribute("tabindex")
     this.headerRef.current.removeEventListener("blur", this.handleHeaderBlur)
+    this.setState({ tabIndex: null })
   }
 
   render() {
     return (
-      <h1
-        tabIndex={this.props.lastLocation ? "-1" : null}
-        ref={this.headerRef}
-        className={this.props.className}
-      >
+      <h1 tabIndex={this.state.tabIndex} ref={this.headerRef} className={this.props.className}>
         {this.props.children}
       </h1>
     )
