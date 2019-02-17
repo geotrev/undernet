@@ -16,8 +16,9 @@ class PageHeader extends Component {
   }
 
   componentDidMount() {
-    this.setState({ tabIndex: this.props.lastLocation ? "-1" : null }, () => {
-      if (!this.props.lastLocation) return
+    if (!this.props.lastLocation) return
+
+    this.setState({ tabIndex: "-1" }, () => {
       this.headerRef.current.focus()
       this.headerRef.current.addEventListener("blur", this.handleHeaderBlur)
     })
