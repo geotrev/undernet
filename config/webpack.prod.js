@@ -55,12 +55,6 @@ module.exports = merge(common, {
         to: "assets/[name].[ext]",
         cache: true,
       },
-      {
-        from: "public/_redirects",
-        to: "_redirects",
-        toType: "file",
-        cache: true,
-      },
     ]),
   ],
   mode: "production",
