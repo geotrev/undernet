@@ -32,9 +32,9 @@ export default class SideNav extends Component {
           PropTypes.shape({
             name: PropTypes.string,
             url: PropTypes.string,
-          }),
+          })
         ),
-      }),
+      })
     ).isRequired,
     navListClasses: PropTypes.string,
   }

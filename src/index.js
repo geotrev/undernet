@@ -12,5 +12,5 @@ ReactDOM.render(
       <Main />
     </LastLocationProvider>
   </Router>,
-  document.getElementById("__main__"),
+  document.getElementById("__main__")
 )

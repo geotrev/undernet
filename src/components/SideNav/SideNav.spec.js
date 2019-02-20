@@ -16,7 +16,7 @@ function SideNavComponent() {
   return mount(
     <Router>
       <SideNav navItems={navItems} />
-    </Router>,
+    </Router>
   )
 }
 

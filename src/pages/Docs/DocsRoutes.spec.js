@@ -5,7 +5,7 @@ function routes() {
   return mount(
     <Router>
       <DocsRoutes />
-    </Router>,
+    </Router>
   )
 }
 

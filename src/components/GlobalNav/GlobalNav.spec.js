@@ -5,7 +5,7 @@ function NavComponent() {
   return mount(
     <Router>
       <GlobalNav />
-    </Router>,
+    </Router>
   )
 }
 
