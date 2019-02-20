@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react"
+import React, { Component, Fragment, createRef } from "react"
 import { Switch, Route } from "react-router-dom"
 import { Utils } from "undernet"
 
@@ -16,20 +16,54 @@ export default class Main extends Component {
     super()
   }
 
+  state = {
+    headerTabIndex: null,
+    contentTabIndex: null,
+  }
+
+  headerRef = createRef()
+  contentRef = createRef()
+
   componentDidMount() {
     Utils.enableFocusOutline()
+  }
+
+  handleTopClick = event => {
+    event.preventDefault()
+    this.setState({ headerTabIndex: "-1" }, () => {
+      this.headerRef.current.focus()
+      this.headerRef.current.addEventListener("blur", this.handleHeaderBlur)
+    })
+  }
+
+  handleContentClick = event => {
+    event.preventDefault()
+    this.setState({ contentTabIndex: "-1" }, () => {
+      this.contentRef.current.focus()
+      this.contentRef.current.addEventListener("blur", this.handleContentBlur)
+    })
+  }
+
+  handleHeaderBlur = () => {
+    this.headerRef.current.removeEventListener("blur", this.handleHeaderBlur)
+    this.setState({ headerTabIndex: null })
+  }
+
+  handleContentBlur = () => {
+    this.contentRef.current.removeEventListener("blur", this.handleContentBlur)
+    this.setState({ contentTabIndex: null })
   }
 
   render() {
     return (
       <Fragment>
-        <a className="is-visually-hidden" href="#site-main">
+        <a className="is-visually-hidden" href="#" onClick={this.handleContentClick}>
           Skip to main content
         </a>
-        <header>
+        <header ref={this.headerRef} tabIndex={this.state.headerTabIndex}>
           <GlobalNav />
         </header>
-        <main id="site-main">
+        <main ref={this.contentRef} tabIndex={this.state.contentTabIndex}>
           <Switch>
             <Route exact path={rootPath} component={Home} />
             <Route path={docsPath} component={Docs} />
@@ -38,7 +72,7 @@ export default class Main extends Component {
         </main>
         <footer>
           <Footer />
-          <a className="is-visually-hidden" href="#__main__">
+          <a className="is-visually-hidden" href="#" onClick={this.handleTopClick}>
             Return to top of page
           </a>
         </footer>
