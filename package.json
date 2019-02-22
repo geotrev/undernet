@@ -12,7 +12,7 @@
   "sass": "scss/undernet.scss",
   "style": "dist/undernet.css",
   "scripts": {
-    "watch": "npm run js:build && webpack-dev-server --config config/webpack.dev.js --progress --open",
+    "watch": "BABEL_ENV=development npm run js:build && webpack-dev-server --config config/webpack.dev.js --progress --open",
     "build": "BABEL_ENV=production webpack --config config/webpack.prod.js --progress",
     "test": "npm run site:test && npm run js:test",
     "site:test": "BABEL_ENV=test mocha -r @babel/register -r config/mocha.config.js --recursive src/**/*.spec.js",

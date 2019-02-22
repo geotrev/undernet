@@ -7,19 +7,19 @@ function presets(dist) {
 }
 
 function plugins(options) {
-  let result = ["@babel/plugin-proposal-class-properties"]
+  let plugins = ["@babel/plugin-proposal-class-properties"]
 
   if (!options.dist) {
-    result.push("@babel/plugin-syntax-dynamic-import", [
+    plugins.push("@babel/plugin-syntax-dynamic-import", [
       "babel-plugin-webpack-aliases",
       { config: "config/webpack.dev.js" },
     ])
 
-    if (options.test) result.push("dynamic-import-node")
-    if (options.dev || options.prod) result.push("emotion")
+    if (options.test) plugins.push("dynamic-import-node")
+    if (options.dev || options.prod) plugins.push("emotion")
   }
 
-  return result
+  return plugins
 }
 
 module.exports = {
