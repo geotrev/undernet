@@ -27,7 +27,7 @@ describe("<Button />", () => {
     const wrapper = mount(
       <Button href="#" disabled>
         Test
-      </Button>,
+      </Button>
     )
     expect(console.warn).to.have.been.called()
   })

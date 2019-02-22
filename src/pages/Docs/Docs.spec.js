@@ -14,7 +14,7 @@ describe("<Docs />", () => {
     const wrapper = mount(
       <Router>
         <Docs />
-      </Router>,
+      </Router>
     )
     expect(wrapper)
       .to.have.exactly(1)
@@ -25,7 +25,7 @@ describe("<Docs />", () => {
     const wrapper = mount(
       <Router>
         <Docs />
-      </Router>,
+      </Router>
     )
     expect(wrapper)
       .to.have.exactly(1)

@@ -16,7 +16,7 @@ describe("<PageNotFound />", () => {
 
   it("renders paragraph text", () => {
     expect(wrapper.find("p")).to.have.text(
-      "Use the links up in the navigation bar to find your way around the site!",
+      "Use the links up in the navigation bar to find your way around the site!"
     )
   })
 })

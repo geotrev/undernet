@@ -7,7 +7,7 @@ describe("<Home />", () => {
     wrapper = shallow(
       <Router>
         <Home />
-      </Router>,
+      </Router>
     )
   })
 

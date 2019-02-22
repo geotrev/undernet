@@ -7,7 +7,7 @@ describe("<PageHeader />", () => {
     wrapper = mount(
       <Router>
         <PageHeader>{"Test Header"}</PageHeader>
-      </Router>,
+      </Router>
     )
   })
 
@@ -23,7 +23,7 @@ describe("<PageHeader />", () => {
     wrapper = mount(
       <Router>
         <PageHeader className="test">{"Test Header"}</PageHeader>
-      </Router>,
+      </Router>
     )
     expect(wrapper).to.have.className("test")
   })

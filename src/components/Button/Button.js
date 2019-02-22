@@ -18,7 +18,7 @@ function getDisabledStatus(disabled, href) {
 
 export default function Button(props) {
   const Tag = getTag(props.href)
-  
+
   return (
     <Tag
       data-parent={props.dataParent}
