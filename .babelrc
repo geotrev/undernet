@@ -1,0 +1,20 @@
+{
+  "env": {
+    "dist": {
+      "presets": ["@babel/preset-env"]
+    },
+    "site": {
+      "presets": [
+        ["@babel/preset-env", { "useBuiltIns": "entry" }],
+        "@babel/preset-react"
+      ],
+      "plugins": [
+        "@babel/plugin-proposal-class-properties",
+        "@babel/plugin-syntax-dynamic-import",
+        "dynamic-import-node",
+        "emotion",
+        ["babel-plugin-webpack-aliases", { "config": "config/webpack.dev.js" }]
+      ],
+    },
+  },
+}

@@ -44,6 +44,6 @@ console.log(`
 #========================================#
 
 -> New content hashes created! They're used in docs/download.md.
-   - CSS: ${newCssHash.slice(1, -1)}
-   - JS: ${newJsHash.slice(1, -1)}
+   - CSS: ${newCssHash}
+   - JS: ${newJsHash}
 `)
