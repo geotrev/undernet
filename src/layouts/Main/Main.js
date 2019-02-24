@@ -16,11 +16,6 @@ export default class Main extends Component {
     super()
   }
 
-  state = {
-    headerTabIndex: null,
-    contentTabIndex: null,
-  }
-
   headerRef = createRef()
   contentRef = createRef()
 
@@ -28,30 +23,32 @@ export default class Main extends Component {
     Utils.enableFocusOutline()
   }
 
+  // NOTE: These click events directly modify the tabindex of the elements, instead of relying on
+  //       state. This is to prevent component remounts - since that would force focus to
+  //       return to the header of the page via <PageHeader /> used for the doc pages.
+
   handleTopClick = event => {
     event.preventDefault()
-    this.setState({ headerTabIndex: "-1" }, () => {
-      this.headerRef.current.focus()
-      this.headerRef.current.addEventListener("blur", this.handleHeaderBlur)
-    })
+    this.headerRef.current.setAttribute("tabindex", "-1")
+    this.headerRef.current.focus()
+    this.headerRef.current.addEventListener("blur", this.handleHeaderBlur)
   }
 
   handleContentClick = event => {
     event.preventDefault()
-    this.setState({ contentTabIndex: "-1" }, () => {
-      this.contentRef.current.focus()
-      this.contentRef.current.addEventListener("blur", this.handleContentBlur)
-    })
+    this.contentRef.current.setAttribute("tabindex", "-1")
+    this.contentRef.current.focus()
+    this.contentRef.current.addEventListener("blur", this.handleContentBlur)
   }
 
   handleHeaderBlur = () => {
     this.headerRef.current.removeEventListener("blur", this.handleHeaderBlur)
-    this.setState({ headerTabIndex: null })
+    this.headerRef.current.removeAttribute("tabindex")
   }
 
   handleContentBlur = () => {
     this.contentRef.current.removeEventListener("blur", this.handleContentBlur)
-    this.setState({ contentTabIndex: null })
+    this.contentRef.current.removeAttribute("tabindex")
   }
 
   render() {
@@ -60,10 +57,10 @@ export default class Main extends Component {
         <a className="is-visually-hidden" href="#" onClick={this.handleContentClick}>
           Skip to main content
         </a>
-        <header ref={this.headerRef} tabIndex={this.state.headerTabIndex}>
+        <header ref={this.headerRef}>
           <GlobalNav />
         </header>
-        <main ref={this.contentRef} tabIndex={this.state.contentTabIndex}>
+        <main ref={this.contentRef}>
           <Switch>
             <Route exact path={rootPath} component={Home} />
             <Route path={docsPath} component={Docs} />
