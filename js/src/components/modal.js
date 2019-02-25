@@ -132,18 +132,22 @@ export default class Modal extends Utils {
     this._activeModalSelector = `${this._activeModalOverlayAttr} ${this._modalContainerAttr}`
     this._activeModal = document.querySelector(this._activeModalSelector)
     this._activeModalCloseButtons = this.getElements(
-      `${this._activeModalOverlayAttr} [${Selectors.DATA_CLOSE}]`,
+      `${this._activeModalOverlayAttr} [${Selectors.DATA_CLOSE}]`
     )
 
+    // allow focusable elements to be focused
     this.getFocusableElements(this._activeModalSelector).forEach(element => {
       element.setAttribute(Selectors.TABINDEX, "0")
     })
 
+    // capture focus, stop scrolling, and toggle attributes for visibility
     this._handleScrollStop()
     this.captureFocus(this._activeModalSelector)
     this._activeModalOverlay.setAttribute(Selectors.ARIA_HIDDEN, "false")
-    this._activeModal.setAttribute(Selectors.TABINDEX, "-1")
     this._activeModalOverlay.setAttribute(Selectors.DATA_VISIBLE, "true")
+
+    // focus the modal
+    this._activeModal.setAttribute(Selectors.TABINDEX, "-1")
     this._activeModal.focus()
 
     // offset slight scroll caused by this._activeModal.focus()
@@ -180,7 +184,7 @@ export default class Modal extends Utils {
 
   /**
    * Turn off event listeners and reset focus to last selected DOM node (button)
-   * @param {Object} event - Event (keydown or click)
+   * @param {Object} event - The event object
    */
   _handleClose(event) {
     event.preventDefault()
@@ -205,7 +209,7 @@ export default class Modal extends Utils {
 
   /**
    * Handles click event on the modal background to close it.
-   * @param {Object} event - Event (keydown)
+   * @param {Object} event - The event object
    */
   _handleOverlayClick(event) {
     if (event.target === this._activeModalOverlay) {
@@ -215,7 +219,7 @@ export default class Modal extends Utils {
 
   /**
    * Handles escape key event to close the current modal
-   * @param {Object} event - Event (keydown)
+   * @param {Object} event - The event object
    */
   _handleEscapeKeyPress(event) {
     if (event.which === KeyCodes.ESCAPE) {
