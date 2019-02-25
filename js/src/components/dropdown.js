@@ -83,7 +83,7 @@ export default class Dropdown extends Utils {
   start() {
     this._dropdowns = this.getElements(`${this._dropdownContainerAttr}`)
     this._dropdownButtons = this.getElements(
-      `${this._dropdownContainerAttr} > ${this._dropdownTargetAttr}`,
+      `${this._dropdownContainerAttr} > ${this._dropdownTargetAttr}`
     )
 
     if (this._dropdowns.length) {
@@ -114,7 +114,7 @@ export default class Dropdown extends Utils {
    * @param {Number} key - The key code that called _render()
    */
   _render(event, key) {
-    if (!key) event.preventDefault()
+    event.preventDefault()
     event.stopPropagation()
 
     if (this._activeDropdownButton) {
@@ -145,11 +145,11 @@ export default class Dropdown extends Utils {
     this._activeDropdownMenuId = this._activeDropdownButton.getAttribute(Selectors.DATA_TARGET)
     this._activeDropdownMenu = document.getElementById(this._activeDropdownMenuId)
 
-    // dropdown button
+    // toggle attributes on dropdown button, indicating a visible dropdown is present
     this._activeDropdownButton.setAttribute(Selectors.ARIA_EXPANDED, "true")
     this._activeDropdown.setAttribute(Selectors.DATA_VISIBLE, "true")
 
-    // reset button event listener to close the menu, instead of open it
+    // trade button event listener to close the menu, instead of open it
     this._activeDropdownButton.removeEventListener(Events.CLICK, this._render)
     this._activeDropdownButton.addEventListener(Events.CLICK, this._handleClose)
 
@@ -240,6 +240,8 @@ export default class Dropdown extends Utils {
     if (this._allowFocusReturn) {
       this._handleReturnFocus()
     }
+
+    this._activeDropdownButton = null
   }
 
   /**

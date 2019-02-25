@@ -148,9 +148,9 @@ var Modal = function (_Utils) {
 
       this._activeModalOverlay.setAttribute(Selectors.ARIA_HIDDEN, "false");
 
-      this._activeModal.setAttribute(Selectors.TABINDEX, "-1");
-
       this._activeModalOverlay.setAttribute(Selectors.DATA_VISIBLE, "true");
+
+      this._activeModal.setAttribute(Selectors.TABINDEX, "-1");
 
       this._activeModal.focus();
 
