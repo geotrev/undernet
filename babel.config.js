@@ -1,7 +1,4 @@
-const basePresets = [
-  ["@babel/preset-env", { useBuiltIns: "entry" }], 
-  "@babel/preset-react"
-]
+const basePresets = [["@babel/preset-env", { useBuiltIns: "entry" }], "@babel/preset-react"]
 
 const basePlugins = [
   "@babel/plugin-proposal-class-properties",
@@ -19,8 +16,8 @@ const test = {
   plugins: [
     ...basePlugins,
     "dynamic-import-node",
-    ["babel-plugin-webpack-aliases", { config: "config/webpack.dev.js" }]
-  ]
+    ["babel-plugin-webpack-aliases", { config: "config/webpack.dev.js" }],
+  ],
 }
 
 const dist = {
