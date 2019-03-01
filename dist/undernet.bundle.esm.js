@@ -1,6 +1,6 @@
 /*!
   * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
-  * Undernet v3.3.2 (https://undernet.io)
+  * Undernet v3.3.3 (https://undernet.io)
   * Copyright 2017-2019 George Treviranus
   */
 const KeyCodes = {
@@ -112,7 +112,7 @@ class Utils {
    */
   getFocusableElements(container) {
     const focusables = Selectors.FOCUSABLE_TAGS.map(
-      element => `${container} ${element}${Selectors.NOT_VISUALLY_HIDDEN}`,
+      element => `${container} ${element}${Selectors.NOT_VISUALLY_HIDDEN}`
     ).join(", ");
 
     return this.getElements(focusables)
@@ -352,18 +352,22 @@ class Modal extends Utils {
     this._activeModalSelector = `${this._activeModalOverlayAttr} ${this._modalContainerAttr}`;
     this._activeModal = document.querySelector(this._activeModalSelector);
     this._activeModalCloseButtons = this.getElements(
-      `${this._activeModalOverlayAttr} [${Selectors$1.DATA_CLOSE}]`,
+      `${this._activeModalOverlayAttr} [${Selectors$1.DATA_CLOSE}]`
     );
 
+    // allow focusable elements to be focused
     this.getFocusableElements(this._activeModalSelector).forEach(element => {
       element.setAttribute(Selectors$1.TABINDEX, "0");
     });
 
+    // capture focus, stop scrolling, and toggle attributes for visibility
     this._handleScrollStop();
     this.captureFocus(this._activeModalSelector);
     this._activeModalOverlay.setAttribute(Selectors$1.ARIA_HIDDEN, "false");
-    this._activeModal.setAttribute(Selectors$1.TABINDEX, "-1");
     this._activeModalOverlay.setAttribute(Selectors$1.DATA_VISIBLE, "true");
+
+    // focus the modal
+    this._activeModal.setAttribute(Selectors$1.TABINDEX, "-1");
     this._activeModal.focus();
 
     // offset slight scroll caused by this._activeModal.focus()
@@ -400,7 +404,7 @@ class Modal extends Utils {
 
   /**
    * Turn off event listeners and reset focus to last selected DOM node (button)
-   * @param {Object} event - Event (keydown or click)
+   * @param {Object} event - The event object
    */
   _handleClose(event) {
     event.preventDefault();
@@ -425,7 +429,7 @@ class Modal extends Utils {
 
   /**
    * Handles click event on the modal background to close it.
-   * @param {Object} event - Event (keydown)
+   * @param {Object} event - The event object
    */
   _handleOverlayClick(event) {
     if (event.target === this._activeModalOverlay) {
@@ -435,7 +439,7 @@ class Modal extends Utils {
 
   /**
    * Handles escape key event to close the current modal
-   * @param {Object} event - Event (keydown)
+   * @param {Object} event - The event object
    */
   _handleEscapeKeyPress(event) {
     if (event.which === KeyCodes$1.ESCAPE) {
@@ -543,7 +547,7 @@ class Accordion extends Utils {
    */
   start() {
     const accordionButtonSelector = this._getPossibleAccordionButtonAttrs(
-      `[${Selectors$2.DATA_ACCORDION}]`,
+      `[${Selectors$2.DATA_ACCORDION}]`
     );
     this._accordionButtons = this.getElements(accordionButtonSelector);
 
@@ -626,7 +630,7 @@ class Accordion extends Utils {
   _getPossibleAccordionButtonAttrs(attr) {
     return this._headerLevels
       .map(
-        num => `${attr} > [${Selectors$2.DATA_ACCORDION_ROW}] > h${num} [${Selectors$2.DATA_TARGET}]`,
+        num => `${attr} > [${Selectors$2.DATA_ACCORDION_ROW}] > h${num} [${Selectors$2.DATA_TARGET}]`
       )
       .join(", ")
   }
@@ -830,7 +834,7 @@ class Dropdown extends Utils {
   start() {
     this._dropdowns = this.getElements(`${this._dropdownContainerAttr}`);
     this._dropdownButtons = this.getElements(
-      `${this._dropdownContainerAttr} > ${this._dropdownTargetAttr}`,
+      `${this._dropdownContainerAttr} > ${this._dropdownTargetAttr}`
     );
 
     if (this._dropdowns.length) {
@@ -861,7 +865,7 @@ class Dropdown extends Utils {
    * @param {Number} key - The key code that called _render()
    */
   _render(event, key) {
-    if (!key) event.preventDefault();
+    event.preventDefault();
     event.stopPropagation();
 
     if (this._activeDropdownButton) {
@@ -892,11 +896,11 @@ class Dropdown extends Utils {
     this._activeDropdownMenuId = this._activeDropdownButton.getAttribute(Selectors$3.DATA_TARGET);
     this._activeDropdownMenu = document.getElementById(this._activeDropdownMenuId);
 
-    // dropdown button
+    // toggle attributes on dropdown button, indicating a visible dropdown is present
     this._activeDropdownButton.setAttribute(Selectors$3.ARIA_EXPANDED, "true");
     this._activeDropdown.setAttribute(Selectors$3.DATA_VISIBLE, "true");
 
-    // reset button event listener to close the menu, instead of open it
+    // trade button event listener to close the menu, instead of open it
     this._activeDropdownButton.removeEventListener(Events$3.CLICK, this._render);
     this._activeDropdownButton.addEventListener(Events$3.CLICK, this._handleClose);
 
@@ -987,6 +991,8 @@ class Dropdown extends Utils {
     if (this._allowFocusReturn) {
       this._handleReturnFocus();
     }
+
+    this._activeDropdownButton = null;
   }
 
   /**

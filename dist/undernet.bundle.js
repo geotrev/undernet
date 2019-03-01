@@ -1,6 +1,6 @@
 /*!
   * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
-  * Undernet v3.3.2 (https://undernet.io)
+  * Undernet v3.3.3 (https://undernet.io)
   * Copyright 2017-2019 George Treviranus
   */
 (function (global, factory) {
@@ -378,9 +378,9 @@
 
         this._activeModalOverlay.setAttribute(Selectors$1.ARIA_HIDDEN, "false");
 
-        this._activeModal.setAttribute(Selectors$1.TABINDEX, "-1");
-
         this._activeModalOverlay.setAttribute(Selectors$1.DATA_VISIBLE, "true");
+
+        this._activeModal.setAttribute(Selectors$1.TABINDEX, "-1");
 
         this._activeModal.focus();
 
@@ -837,7 +837,7 @@
       value: function _render(event, key) {
         var _this4 = this;
 
-        if (!key) event.preventDefault();
+        event.preventDefault();
         event.stopPropagation();
 
         if (this._activeDropdownButton) {
@@ -950,6 +950,8 @@
         if (this._allowFocusReturn) {
           this._handleReturnFocus();
         }
+
+        this._activeDropdownButton = null;
       }
     }, {
       key: "_handleEscapeKeyPress",

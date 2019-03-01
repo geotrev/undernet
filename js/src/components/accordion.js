@@ -75,7 +75,7 @@ export default class Accordion extends Utils {
    */
   start() {
     const accordionButtonSelector = this._getPossibleAccordionButtonAttrs(
-      `[${Selectors.DATA_ACCORDION}]`,
+      `[${Selectors.DATA_ACCORDION}]`
     )
     this._accordionButtons = this.getElements(accordionButtonSelector)
 
@@ -158,7 +158,7 @@ export default class Accordion extends Utils {
   _getPossibleAccordionButtonAttrs(attr) {
     return this._headerLevels
       .map(
-        num => `${attr} > [${Selectors.DATA_ACCORDION_ROW}] > h${num} [${Selectors.DATA_TARGET}]`,
+        num => `${attr} > [${Selectors.DATA_ACCORDION_ROW}] > h${num} [${Selectors.DATA_TARGET}]`
       )
       .join(", ")
   }
