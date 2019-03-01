@@ -109,7 +109,7 @@ export default class Utils {
    */
   getFocusableElements(container) {
     const focusables = Selectors.FOCUSABLE_TAGS.map(
-      element => `${container} ${element}${Selectors.NOT_VISUALLY_HIDDEN}`,
+      element => `${container} ${element}${Selectors.NOT_VISUALLY_HIDDEN}`
     ).join(", ")
 
     return this.getElements(focusables)
