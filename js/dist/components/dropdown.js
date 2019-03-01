@@ -125,7 +125,7 @@ var Dropdown = function (_Utils) {
     value: function _render(event, key) {
       var _this4 = this;
 
-      if (!key) event.preventDefault();
+      event.preventDefault();
       event.stopPropagation();
 
       if (this._activeDropdownButton) {
@@ -238,6 +238,8 @@ var Dropdown = function (_Utils) {
       if (this._allowFocusReturn) {
         this._handleReturnFocus();
       }
+
+      this._activeDropdownButton = null;
     }
   }, {
     key: "_handleEscapeKeyPress",
