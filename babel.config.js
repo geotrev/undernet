@@ -17,6 +17,7 @@ const site = {
 const test = {
   presets: basePresets,
   plugins: [
+    ...basePlugins,
     "dynamic-import-node",
     ["babel-plugin-webpack-aliases", { config: "config/webpack.dev.js" }]
   ]
