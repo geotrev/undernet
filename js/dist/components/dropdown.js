@@ -48,7 +48,8 @@ var Selectors = {
 };
 var Events = {
   KEYDOWN: "keydown",
-  CLICK: "click"
+  CLICK: "click",
+  TOUCHSTART: "touchstart"
 };
 var Messages = {
   NO_PARENT_ERROR: "Could not find dropdown button's [data-parent] attribute.",
@@ -163,6 +164,7 @@ var Dropdown = function (_Utils) {
 
       document.addEventListener(Events.KEYDOWN, this._handleEscapeKeyPress);
       document.addEventListener(Events.CLICK, this._handleOffMenuClick);
+      document.addEventListener(Events.TOUCHSTART, this._handleOffMenuClick);
       this._activeDropdownLinks = this._getDropdownLinks(this._activeDropdownAttr);
       this.firstDropdownLink = this._activeDropdownLinks[0];
       this.lastDropdownLink = this._activeDropdownLinks[this._activeDropdownLinks.length - 1];
@@ -234,6 +236,7 @@ var Dropdown = function (_Utils) {
 
       document.removeEventListener(Events.KEYDOWN, this._handleEscapeKeyPress);
       document.removeEventListener(Events.CLICK, this._handleOffMenuClick);
+      document.removeEventListener(Events.TOUCHSTART, this._handleOffMenuClick);
 
       if (this._allowFocusReturn) {
         this._handleReturnFocus();
