@@ -1,6 +1,6 @@
 /*!
   * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
-  * Undernet v3.3.3 (https://undernet.io)
+  * Undernet v3.3.4 (https://undernet.io)
   * Copyright 2017-2019 George Treviranus
   */
 (function (global, factory) {
@@ -296,10 +296,10 @@
       _classCallCheck(this, Modal);
 
       _this = _possibleConstructorReturn(this, _getPrototypeOf(Modal).call(this));
-      _this._render = _this._render.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-      _this._handleClose = _this._handleClose.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-      _this._handleOverlayClick = _this._handleOverlayClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-      _this._handleEscapeKeyPress = _this._handleEscapeKeyPress.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+      _this._render = _this._render.bind(_assertThisInitialized(_this));
+      _this._handleClose = _this._handleClose.bind(_assertThisInitialized(_this));
+      _this._handleOverlayClick = _this._handleOverlayClick.bind(_assertThisInitialized(_this));
+      _this._handleEscapeKeyPress = _this._handleEscapeKeyPress.bind(_assertThisInitialized(_this));
       _this._modals = [];
       _this._modalButtons = [];
       _this._activeModalButton = {};
@@ -529,7 +529,7 @@
       _classCallCheck(this, Accordion);
 
       _this = _possibleConstructorReturn(this, _getPrototypeOf(Accordion).call(this));
-      _this._render = _this._render.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+      _this._render = _this._render.bind(_assertThisInitialized(_this));
       _this._accordionButtons = [];
       _this._accordionContentsAttr = "";
       _this._accordionContents = [];
@@ -781,13 +781,13 @@
       _classCallCheck(this, Dropdown);
 
       _this = _possibleConstructorReturn(this, _getPrototypeOf(Dropdown).call(this));
-      _this._render = _this._render.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-      _this._handleFirstTabClose = _this._handleFirstTabClose.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-      _this._handleLastTabClose = _this._handleLastTabClose.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-      _this._renderWithKeys = _this._renderWithKeys.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-      _this._handleClose = _this._handleClose.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-      _this._handleEscapeKeyPress = _this._handleEscapeKeyPress.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-      _this._handleOffMenuClick = _this._handleOffMenuClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+      _this._render = _this._render.bind(_assertThisInitialized(_this));
+      _this._handleFirstTabClose = _this._handleFirstTabClose.bind(_assertThisInitialized(_this));
+      _this._handleLastTabClose = _this._handleLastTabClose.bind(_assertThisInitialized(_this));
+      _this._renderWithKeys = _this._renderWithKeys.bind(_assertThisInitialized(_this));
+      _this._handleClose = _this._handleClose.bind(_assertThisInitialized(_this));
+      _this._handleEscapeKeyPress = _this._handleEscapeKeyPress.bind(_assertThisInitialized(_this));
+      _this._handleOffMenuClick = _this._handleOffMenuClick.bind(_assertThisInitialized(_this));
       _this._activeDropdownButton = null;
       _this._activeDropdown = null;
       _this._activeDropdownMenu = null;
