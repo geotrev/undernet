@@ -1,6 +1,6 @@
 /*!
   * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
-  * Undernet v3.3.4 (https://undernet.io)
+  * Undernet v3.3.5 (https://undernet.io)
   * Copyright 2017-2019 George Treviranus
   */
 const KeyCodes = {
@@ -780,6 +780,7 @@ const Selectors$3 = {
 const Events$3 = {
   KEYDOWN: "keydown",
   CLICK: "click",
+  TOUCHSTART: "touchstart",
 };
 
 const Messages$2 = {
@@ -906,6 +907,7 @@ class Dropdown extends Utils {
 
     document.addEventListener(Events$3.KEYDOWN, this._handleEscapeKeyPress);
     document.addEventListener(Events$3.CLICK, this._handleOffMenuClick);
+    document.addEventListener(Events$3.TOUCHSTART, this._handleOffMenuClick);
 
     this._activeDropdownLinks = this._getDropdownLinks(this._activeDropdownAttr);
 
@@ -987,6 +989,7 @@ class Dropdown extends Utils {
 
     document.removeEventListener(Events$3.KEYDOWN, this._handleEscapeKeyPress);
     document.removeEventListener(Events$3.CLICK, this._handleOffMenuClick);
+    document.removeEventListener(Events$3.TOUCHSTART, this._handleOffMenuClick);
 
     if (this._allowFocusReturn) {
       this._handleReturnFocus();

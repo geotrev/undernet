@@ -1,6 +1,6 @@
 /*!
   * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
-  * Undernet v3.3.4 (https://undernet.io)
+  * Undernet v3.3.5 (https://undernet.io)
   * Copyright 2017-2019 George Treviranus
   */
 (function (global, factory) {
@@ -760,7 +760,8 @@
   };
   var Events$3 = {
     KEYDOWN: "keydown",
-    CLICK: "click"
+    CLICK: "click",
+    TOUCHSTART: "touchstart"
   };
   var Messages$2 = {
     NO_PARENT_ERROR: "Could not find dropdown button's [data-parent] attribute.",
@@ -875,6 +876,7 @@
 
         document.addEventListener(Events$3.KEYDOWN, this._handleEscapeKeyPress);
         document.addEventListener(Events$3.CLICK, this._handleOffMenuClick);
+        document.addEventListener(Events$3.TOUCHSTART, this._handleOffMenuClick);
         this._activeDropdownLinks = this._getDropdownLinks(this._activeDropdownAttr);
         this.firstDropdownLink = this._activeDropdownLinks[0];
         this.lastDropdownLink = this._activeDropdownLinks[this._activeDropdownLinks.length - 1];
@@ -946,6 +948,7 @@
 
         document.removeEventListener(Events$3.KEYDOWN, this._handleEscapeKeyPress);
         document.removeEventListener(Events$3.CLICK, this._handleOffMenuClick);
+        document.removeEventListener(Events$3.TOUCHSTART, this._handleOffMenuClick);
 
         if (this._allowFocusReturn) {
           this._handleReturnFocus();
