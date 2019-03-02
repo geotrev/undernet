@@ -95,7 +95,7 @@ export default class SideNav extends Component {
   }
 
   getMenuClasses() {
-    return classNames("row side-nav-menu accordion", {
+    return classNames("row side-nav-menu accordion has-padding-3", {
       "is-hidden": !this.state.menuIsOpen,
     })
   }
