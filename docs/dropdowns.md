@@ -55,7 +55,7 @@ You can use any button style with a dropdown. Just add the appropriate class to 
 
 ## Alignment
 
-Dropdowns align to the left of their respective button by default, but you can let it align from the right using `is-aligned-right` on the dropdown menu. Note that this only works for viewports above a specific width, as defined using the variable \$dropdown-menu-direction-breakpoint (sorry mobile viewers).
+Dropdowns align to the left of their respective button by default, but you can let it align from the right using `is-aligned-right` on the dropdown menu. Note that this only works for viewports above a specific width, as defined using the variable `$dropdown-menu-direction-breakpoint` (sorry mobile viewers).
 
 <div data-dropdown="dropdown5" class="dropdown">
   <button id="dropdown-button5" data-parent="dropdown5" data-target="new-dropdown5">Open Dropdown</button>

@@ -2,7 +2,7 @@
 npm-error.log*
 
 /.circleci/
-/.nyc_output/
+/.sass-cache/
 /build/
 /config/
 /dist/undernet.css.zip
@@ -13,11 +13,8 @@ npm-error.log*
 /public/
 /src/
 
-.ruby-version
 .sass-cache
 .prettierrc
-.app.json
 babel.config.js
-Procfile
-server.js
+netlify.toml
 webpack.common.js

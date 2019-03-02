@@ -67,7 +67,7 @@ $ npm run watch
 $ npm run build
 ```
 
-### Run tests with istanbuljs/nyc coverage stats (for the site only)
+### Run Mocha tests
 
 ```sh
 $ npm run site:test
