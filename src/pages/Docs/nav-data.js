@@ -19,7 +19,7 @@ import {
   spacingPath,
 } from "routes"
 
-export const ITEMS = [
+export const NAV_DATA = [
   {
     header: "Overview",
     links: [
