@@ -4,27 +4,7 @@ import Loadable from "react-loadable"
 import { Link } from "react-router-dom"
 import ChevronRight from "react-feather/dist/icons/chevron-right"
 
-import {
-  introductionPath,
-  downloadPath,
-  brandingPath,
-  javascriptPath,
-  accessibilityPath,
-  gridPath,
-  typographyPath,
-  buttonsPath,
-  formsPath,
-  modalsPath,
-  accordionsPath,
-  dropdownsPath,
-  alignmentPath,
-  offsetOrderPath,
-  textPath,
-  displayPath,
-  colorPath,
-  spacingPath,
-} from "routes"
-
+import * as routes from "routes"
 import Article from "components/Article"
 import LoadingSpinner from "components/LoadingSpinner"
 
@@ -38,24 +18,24 @@ function getRoute(name) {
 export default function DocsRoutes() {
   return (
     <Fragment>
-      <Route exact path={introductionPath} component={getRoute("introduction")} />
-      <Route exact path={downloadPath} component={getRoute("download")} />
-      <Route exact path={brandingPath} component={getRoute("branding")} />
-      <Route exact path={javascriptPath} component={getRoute("javascript")} />
-      <Route exact path={accessibilityPath} component={getRoute("accessibility")} />
-      <Route exact path={gridPath} component={getRoute("grid")} />
-      <Route exact path={typographyPath} component={getRoute("typography")} />
-      <Route exact path={buttonsPath} component={getRoute("buttons")} />
-      <Route exact path={formsPath} component={getRoute("forms")} />
-      <Route exact path={modalsPath} component={getRoute("modals")} />
-      <Route exact path={accordionsPath} component={getRoute("accordions")} />
-      <Route exact path={dropdownsPath} component={getRoute("dropdowns")} />
-      <Route exact path={alignmentPath} component={getRoute("alignment")} />
-      <Route exact path={offsetOrderPath} component={getRoute("offset-order")} />
-      <Route exact path={textPath} component={getRoute("text")} />
-      <Route exact path={displayPath} component={getRoute("display")} />
-      <Route exact path={colorPath} component={getRoute("color")} />
-      <Route exact path={spacingPath} component={getRoute("spacing")} />
+      <Route exact path={routes.introductionPath} component={getRoute("introduction")} />
+      <Route exact path={routes.downloadPath} component={getRoute("download")} />
+      <Route exact path={routes.brandingPath} component={getRoute("branding")} />
+      <Route exact path={routes.javascriptPath} component={getRoute("javascript")} />
+      <Route exact path={routes.accessibilityPath} component={getRoute("accessibility")} />
+      <Route exact path={routes.gridPath} component={getRoute("grid")} />
+      <Route exact path={routes.typographyPath} component={getRoute("typography")} />
+      <Route exact path={routes.buttonsPath} component={getRoute("buttons")} />
+      <Route exact path={routes.formsPath} component={getRoute("forms")} />
+      <Route exact path={routes.modalsPath} component={getRoute("modals")} />
+      <Route exact path={routes.accordionsPath} component={getRoute("accordions")} />
+      <Route exact path={routes.dropdownsPath} component={getRoute("dropdowns")} />
+      <Route exact path={routes.alignmentPath} component={getRoute("alignment")} />
+      <Route exact path={routes.offsetOrderPath} component={getRoute("offset-order")} />
+      <Route exact path={routes.textPath} component={getRoute("text")} />
+      <Route exact path={routes.displayPath} component={getRoute("display")} />
+      <Route exact path={routes.colorPath} component={getRoute("color")} />
+      <Route exact path={routes.spacingPath} component={getRoute("spacing")} />
     </Fragment>
   )
 }
