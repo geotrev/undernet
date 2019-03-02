@@ -21,11 +21,11 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 var KeyCodes = {
   ESCAPE: 27
@@ -66,10 +66,10 @@ var Modal = function (_Utils) {
     _classCallCheck(this, Modal);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Modal).call(this));
-    _this._render = _this._render.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this._handleClose = _this._handleClose.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this._handleOverlayClick = _this._handleOverlayClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this._handleEscapeKeyPress = _this._handleEscapeKeyPress.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this._render = _this._render.bind(_assertThisInitialized(_this));
+    _this._handleClose = _this._handleClose.bind(_assertThisInitialized(_this));
+    _this._handleOverlayClick = _this._handleOverlayClick.bind(_assertThisInitialized(_this));
+    _this._handleEscapeKeyPress = _this._handleEscapeKeyPress.bind(_assertThisInitialized(_this));
     _this._modals = [];
     _this._modalButtons = [];
     _this._activeModalButton = {};
