@@ -7,8 +7,8 @@ The quickest way to use Undernet is to link the bundled js and minified css usin
 ```html
 <link
   rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/undernet@3.3.5/dist/undernet.min.css"
-  integrity="sha256-IbUjf+wuZO1BrliSYy1OEnendYPyYPI+4eOaBV1X9Hk="
+  href="https://cdn.jsdelivr.net/npm/undernet@3.3.6/dist/undernet.min.css"
+  integrity="sha256-MfZidGi9Czd0hJlwqgtkKqUK3V3c8JHcNlQWdvvJB14="
   crossorigin="anonymous"
 />
 ```
@@ -16,8 +16,8 @@ The quickest way to use Undernet is to link the bundled js and minified css usin
 ```html
 <script
   type="text/javascript"
-  src="https://cdn.jsdelivr.net/npm/undernet@3.3.5/dist/undernet.bundle.min.js"
-  integrity="sha256-xKZkSL9WRR+3858G/mkLDjcGmJYPJ3Wffw5WlsnUnJc="
+  src="https://cdn.jsdelivr.net/npm/undernet@3.3.6/dist/undernet.bundle.min.js"
+  integrity="sha256-n+cx0/S51XFNEDcom2AOhF8YVZKwJP0ySBbe1NX1gXc="
   crossorigin="anonymous"
 ></script>
 <script type="text/javascript">
