@@ -1,5 +1,3 @@
-"use strict"
-
 import _Modals from "./components/modal"
 import _Accordion from "./components/accordion"
 import _Dropdown from "./components/dropdown"
