@@ -1,5 +1,3 @@
-"use strict"
-
 import Utils from "../utils"
 
 const KeyCodes = {
@@ -29,7 +27,7 @@ const Selectors = {
 const Events = {
   KEYDOWN: "keydown",
   CLICK: "click",
-  TOUCHSTART: "touchstart",
+  TOUCHEND: "touchend",
 }
 
 const Messages = {
@@ -156,7 +154,7 @@ export default class Dropdown extends Utils {
 
     document.addEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
     document.addEventListener(Events.CLICK, this._handleOffMenuClick)
-    document.addEventListener(Events.TOUCHSTART, this._handleOffMenuClick)
+    document.addEventListener(Events.TOUCHEND, this._handleOffMenuClick)
 
     this._activeDropdownLinks = this._getDropdownLinks(this._activeDropdownAttr)
 
@@ -238,7 +236,7 @@ export default class Dropdown extends Utils {
 
     document.removeEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
     document.removeEventListener(Events.CLICK, this._handleOffMenuClick)
-    document.removeEventListener(Events.TOUCHSTART, this._handleOffMenuClick)
+    document.removeEventListener(Events.TOUCHEND, this._handleOffMenuClick)
 
     if (this._allowFocusReturn) {
       this._handleReturnFocus()
