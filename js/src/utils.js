@@ -1,5 +1,3 @@
-"use strict"
-
 const KeyCodes = {
   SHIFT: 16,
   TAB: 9,
