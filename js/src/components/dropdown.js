@@ -27,7 +27,7 @@ const Selectors = {
 const Events = {
   KEYDOWN: "keydown",
   CLICK: "click",
-  TOUCHEND: "touchend",
+  // TOUCHEND: "touchend",
 }
 
 const Messages = {
@@ -44,6 +44,8 @@ const Messages = {
 export default class Dropdown extends Utils {
   constructor() {
     super()
+
+    this._iosMobile = /(iphone|ipod)/i.test(navigator.userAgent)
 
     // events
     this._render = this._render.bind(this)
@@ -80,8 +82,8 @@ export default class Dropdown extends Utils {
    * Begin listening to dropdowns for events.
    */
   start() {
-    this._dropdowns = this.getElements(`${this._dropdownContainerAttr}`)
-    this._dropdownButtons = this.getElements(
+    this._dropdowns = document.querySelectorAll(`${this._dropdownContainerAttr}`)
+    this._dropdownButtons = document.querySelectorAll(
       `${this._dropdownContainerAttr} > ${this._dropdownTargetAttr}`
     )
 
@@ -154,7 +156,11 @@ export default class Dropdown extends Utils {
 
     document.addEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
     document.addEventListener(Events.CLICK, this._handleOffMenuClick)
-    document.addEventListener(Events.TOUCHEND, this._handleOffMenuClick)
+
+    // make click events work on mobile iOS
+    if (this._iosMobile) {
+      document.body.style.cursor = "pointer"
+    }
 
     this._activeDropdownLinks = this._getDropdownLinks(this._activeDropdownAttr)
 
@@ -235,8 +241,12 @@ export default class Dropdown extends Utils {
     this._activeDropdownButton.addEventListener(Events.CLICK, this._render)
 
     document.removeEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
+
+    if (this._iosMobile) {
+      document.body.style.cursor = "auto"
+    }
+
     document.removeEventListener(Events.CLICK, this._handleOffMenuClick)
-    document.removeEventListener(Events.TOUCHEND, this._handleOffMenuClick)
 
     if (this._allowFocusReturn) {
       this._handleReturnFocus()
@@ -280,7 +290,7 @@ export default class Dropdown extends Utils {
    * @return {String} - Selector for possible menu item links.
    */
   _getDropdownLinks(attr) {
-    return this.getElements(`${attr} > ul > li > a, ${attr} > ul > li > button`)
+    return document.querySelectorAll(`${attr} > ul > li > a, ${attr} > ul > li > button`)
   }
 
   /**
@@ -304,7 +314,7 @@ export default class Dropdown extends Utils {
     dropdownButton.setAttribute(Selectors.ARIA_EXPANDED, "false")
     dropdownMenu.setAttribute(Selectors.ARIA_LABELLEDBY, dropdownButton.id)
 
-    const dropdownMenuItems = this.getElements(dropdownMenuItemsAttr)
+    const dropdownMenuItems = document.querySelectorAll(dropdownMenuItemsAttr)
     dropdownMenuItems.forEach(item => item.setAttribute(Selectors.ROLE, "none"))
 
     this._getDropdownLinks(dropdownIdAttr).forEach(link => {

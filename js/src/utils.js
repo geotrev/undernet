@@ -17,6 +17,19 @@ const Events = {
 }
 
 /**
+ * Creates a string of element selector patterns using common elements.
+ * @param {String} container - The enclosing container's class, attribute, etc.
+ * @return {String}
+ */
+export const getFocusableElements = container => {
+  const focusables = Selectors.FOCUSABLE_TAGS.map(
+    element => `${container} ${element}${Selectors.NOT_VISUALLY_HIDDEN}`
+  ).join(", ")
+
+  return document.querySelectorAll(focusables)
+}
+
+/**
  * Utility methods for DOM traversal and focus trapping.
  * @module Utils
  */
@@ -45,7 +58,7 @@ export default class Utils {
    */
   captureFocus(container, options) {
     this._focusContainerSelector = container
-    this._focusableChildren = this.getFocusableElements(this._focusContainerSelector)
+    this._focusableChildren = getFocusableElements(this._focusContainerSelector)
     this._focusableFirstChild = this._focusableChildren[0]
     this._focusableLastChild = this._focusableChildren[this._focusableChildren.length - 1]
 
@@ -87,30 +100,6 @@ export default class Utils {
     } else {
       document.removeEventListener(Events.CLICK, this._listenForClick)
     }
-  }
-
-  /**
-   * Because IE does not recognize NodeList.forEach(),
-   * we use a cross-browser solution for returning an array of DOM nodes every time.
-   * @param {String} element - A DOM node's class, attribute, etc., to search the document.
-   * @return {Array}
-   */
-  getElements(element) {
-    const nodeList = document.querySelectorAll(element)
-    return Array.apply(null, nodeList)
-  }
-
-  /**
-   * Creates a string of element selector patterns using common elements.
-   * @param {String} container - The enclosing container's class, attribute, etc.
-   * @return {String}
-   */
-  getFocusableElements(container) {
-    const focusables = Selectors.FOCUSABLE_TAGS.map(
-      element => `${container} ${element}${Selectors.NOT_VISUALLY_HIDDEN}`
-    ).join(", ")
-
-    return this.getElements(focusables)
   }
 
   // private

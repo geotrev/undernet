@@ -93,6 +93,10 @@ $spacing-increments: (
   "4": $global-space * 2
 ) !default;
 
+// Arrow used for overlay elements, e.g. dropdowns and tooltips
+$arrow-size: 7px;
+
+// z-index values for overlay elements, e.g. dropdowns and modals.
 $modal-index: 2000 !default;
 $dropdown-menu-index: 1999 !default;
 $dropdown-menu-index-in-modal: 2001 !default;
@@ -698,16 +702,25 @@ $accordion-content-background: $white !default;
 // 8. Dropdowns
 // ------------
 
+$dropdown-arrows-enabled: true;
+$dropdown-border-color: $gray900 !default;
+
+$dropdown-arrow-offset: 12px;
+$dropdown-arrow-fill-color: $white;
+$dropdown-arrow-border-color: $dropdown-border-color;
+
 $dropdown-button-arrow: "\25bc" !default;
 $dropdown-button-arrow-padding: 0 0 0 8px !default;
 $dropdown-button-arrow-font-size: 12px !default;
+
+$dropdown-menu-direction-breakpoint: medium;
 
 $dropdown-menu-transition: opacity $global-transition !default;
 $dropdown-menu-padding: 8px 0 !default;
 $dropdown-menu-border-radius: $global-border-radius !default;
 $dropdown-menu-background-color: $white !default;
 $dropdown-menu-width: 200px !default;
-$dropdown-menu-border: 1px solid $gray900 !default;
+$dropdown-menu-border: 1px solid $dropdown-border-color !default;
 
 $dropdown-menu-button-padding: 8px 12px !default;
 $dropdown-menu-button-text-color: $gray400 !default;

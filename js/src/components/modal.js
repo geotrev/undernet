@@ -1,4 +1,4 @@
-import Utils from "../utils"
+import Utils, { getFocusableElements } from "../utils"
 
 const KeyCodes = {
   ESCAPE: 27,
@@ -75,10 +75,10 @@ export default class Modal extends Utils {
    * Begin listening to elements with [data-modal-button]
    */
   start() {
-    this._modals = this.getElements(this._modalContainerAttr)
-    this._modalButtons = this.getElements(`[${Selectors.DATA_MODAL_BUTTON}]`)
+    this._modals = document.querySelectorAll(this._modalContainerAttr)
+    this._modalButtons = document.querySelectorAll(`[${Selectors.DATA_MODAL_BUTTON}]`)
 
-    this.getFocusableElements(this._modalContainerAttr).forEach(element => {
+    getFocusableElements(this._modalContainerAttr).forEach(element => {
       element.setAttribute(Selectors.TABINDEX, "-1")
     })
 
@@ -129,12 +129,12 @@ export default class Modal extends Utils {
 
     this._activeModalSelector = `${this._activeModalOverlayAttr} ${this._modalContainerAttr}`
     this._activeModal = document.querySelector(this._activeModalSelector)
-    this._activeModalCloseButtons = this.getElements(
+    this._activeModalCloseButtons = document.querySelectorAll(
       `${this._activeModalOverlayAttr} [${Selectors.DATA_CLOSE}]`
     )
 
     // allow focusable elements to be focused
-    this.getFocusableElements(this._activeModalSelector).forEach(element => {
+    getFocusableElements(this._activeModalSelector).forEach(element => {
       element.setAttribute(Selectors.TABINDEX, "0")
     })
 
@@ -193,7 +193,7 @@ export default class Modal extends Utils {
     this._activeModalOverlay.setAttribute(Selectors.ARIA_HIDDEN, "true")
     this._activeModal.removeAttribute(Selectors.TABINDEX)
 
-    this.getFocusableElements(this._activeModalSelector).forEach(element => {
+    getFocusableElements(this._activeModalSelector).forEach(element => {
       element.setAttribute(Selectors.TABINDEX, "-1")
     })
 

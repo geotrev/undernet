@@ -5,9 +5,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _utils = _interopRequireDefault(require("../utils"));
+var _utils = _interopRequireWildcard(require("../utils"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -96,7 +96,7 @@ var Accordion = function (_Utils) {
 
       var accordionButtonSelector = this._getPossibleAccordionButtonAttrs("[".concat(Selectors.DATA_ACCORDION, "]"));
 
-      this._accordionButtons = this.getElements(accordionButtonSelector);
+      this._accordionButtons = document.querySelectorAll(accordionButtonSelector);
 
       if (this._accordionButtons.length) {
         this._accordionButtons.forEach(function (button) {
@@ -114,6 +114,38 @@ var Accordion = function (_Utils) {
       this._accordionButtons.forEach(function (button) {
         button.removeEventListener(Events.CLICK, _this3._render);
       });
+    }
+  }, {
+    key: "_render",
+    value: function _render(event) {
+      event.preventDefault();
+      this._activeButton = event.target;
+      this._activeAccordionRowId = this._activeButton.getAttribute(Selectors.DATA_TARGET);
+      this._activeRowAttr = this._getAccordionRowAttr(this._activeAccordionRowId);
+      this._activeRow = document.querySelector(this._activeRowAttr);
+
+      if (!this._activeButton.getAttribute(Selectors.DATA_PARENT)) {
+        return console.error(Messages.NO_PARENT_ERROR(this._activeAccordionRowId));
+      }
+
+      this._activeContainerId = this._activeButton.getAttribute(Selectors.DATA_PARENT);
+      this._activeContainerAttr = "[".concat(Selectors.DATA_ACCORDION, "='").concat(this._activeContainerId, "']");
+
+      if (!document.querySelector(this._activeContainerAttr)) {
+        return console.error(Messages.NO_ACCORDION_ERROR(this._activeContainerId));
+      }
+
+      this._activeContainer = document.querySelector(this._activeContainerAttr);
+      this._activeContent = document.getElementById(this._activeAccordionRowId);
+
+      var accordionButtonState = this._activeRow.getAttribute(Selectors.DATA_VISIBLE);
+
+      this._activeButtonExpandState = accordionButtonState === "true" ? "false" : "true";
+      this._activeContentHiddenState = this._activeButtonExpandState === "false" ? "true" : "false";
+
+      this._closeAllIfToggleable();
+
+      this._toggleSelectedAccordion();
     }
   }, {
     key: "_setupAccordion",
@@ -136,13 +168,13 @@ var Accordion = function (_Utils) {
 
       var buttonHeaderAttr = this._getPossibleAccordionHeaderAttrs(accordionRowAttr);
 
-      var buttonHeader = this.getElements(buttonHeaderAttr)[0];
+      var buttonHeader = document.querySelectorAll(buttonHeaderAttr)[0];
 
       if (!buttonHeader || !buttonHeader.id) {
         console.error(Messages.NO_HEADER_ID_ERROR(buttonId));
       }
 
-      var buttonContentChildren = this.getFocusableElements("#".concat(buttonContent.id));
+      var buttonContentChildren = (0, _utils.getFocusableElements)("#".concat(buttonContent.id));
       button.setAttribute(Selectors.ARIA_CONTROLS, buttonId);
       buttonContent.setAttribute(Selectors.ARIA_LABELLEDBY, buttonHeader.id);
 
@@ -187,54 +219,22 @@ var Accordion = function (_Utils) {
       return "[".concat(Selectors.DATA_ACCORDION_ROW, "='").concat(id, "']");
     }
   }, {
-    key: "_render",
-    value: function _render(event) {
-      event.preventDefault();
-      this._activeButton = event.target;
-      this._activeAccordionRowId = this._activeButton.getAttribute(Selectors.DATA_TARGET);
-      this._activeRowAttr = this._getAccordionRowAttr(this._activeAccordionRowId);
-      this._activeRow = document.querySelector(this._activeRowAttr);
-
-      if (!this._activeButton.getAttribute(Selectors.DATA_PARENT)) {
-        return console.error(Messages.NO_PARENT_ERROR(this._activeAccordionRowId));
-      }
-
-      this._activeContainerId = this._activeButton.getAttribute(Selectors.DATA_PARENT);
-      this._activeContainerAttr = "[".concat(Selectors.DATA_ACCORDION, "='").concat(this._activeContainerId, "']");
-
-      if (!document.querySelector(this._activeContainerAttr)) {
-        return console.error(Messages.NO_ACCORDION_ERROR(this._activeContainerId));
-      }
-
-      this._activeContainer = document.querySelector(this._activeContainerAttr);
-      this._activeContent = document.getElementById(this._activeAccordionRowId);
-
-      var accordionButtonState = this._activeRow.getAttribute(Selectors.DATA_VISIBLE);
-
-      this._activeButtonExpandState = accordionButtonState === "true" ? "false" : "true";
-      this._activeContentHiddenState = this._activeButtonExpandState === "false" ? "true" : "false";
-
-      this._closeAllIfToggleable();
-
-      this._toggleSelectedAccordion();
-    }
-  }, {
     key: "_closeAllIfToggleable",
     value: function _closeAllIfToggleable() {
       var _this4 = this;
 
       if (this._activeContainer.hasAttribute(Selectors.DATA_TOGGLE_MULTIPLE)) return;
       var allContentAttr = "".concat(this._activeContainerAttr, " [").concat(Selectors.ARIA_HIDDEN, "]");
-      var allRows = this.getElements("".concat(this._activeContainerAttr, " [").concat(Selectors.DATA_VISIBLE, "]"));
-      var allContent = this.getElements(allContentAttr);
+      var allRows = document.querySelectorAll("".concat(this._activeContainerAttr, " [").concat(Selectors.DATA_VISIBLE, "]"));
+      var allContent = document.querySelectorAll(allContentAttr);
 
       var accordionButtonSelector = this._getPossibleAccordionButtonAttrs(this._activeContainerAttr);
 
-      var allButtons = this.getElements(accordionButtonSelector);
+      var allButtons = document.querySelectorAll(accordionButtonSelector);
       allContent.forEach(function (content) {
         if (content !== _this4._activeContent) content.style.maxHeight = null;
       });
-      this.getFocusableElements(allContentAttr).forEach(function (element) {
+      (0, _utils.getFocusableElements)(allContentAttr).forEach(function (element) {
         element.setAttribute(Selectors.TABINDEX, "-1");
       });
 
@@ -256,7 +256,7 @@ var Accordion = function (_Utils) {
       this._activeContent.setAttribute(Selectors.ARIA_HIDDEN, this._activeContentHiddenState);
 
       var activeContentBlock = "#".concat(this._activeAccordionRowId);
-      this.getFocusableElements(activeContentBlock).forEach(function (element) {
+      (0, _utils.getFocusableElements)(activeContentBlock).forEach(function (element) {
         var value = _this5._activeButtonExpandState === "true" ? "0" : "-1";
         element.setAttribute(Selectors.TABINDEX, value);
       });

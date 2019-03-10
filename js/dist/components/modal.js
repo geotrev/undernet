@@ -5,9 +5,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _utils = _interopRequireDefault(require("../utils"));
+var _utils = _interopRequireWildcard(require("../utils"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -88,9 +88,9 @@ var Modal = function (_Utils) {
     value: function start() {
       var _this2 = this;
 
-      this._modals = this.getElements(this._modalContainerAttr);
-      this._modalButtons = this.getElements("[".concat(Selectors.DATA_MODAL_BUTTON, "]"));
-      this.getFocusableElements(this._modalContainerAttr).forEach(function (element) {
+      this._modals = document.querySelectorAll(this._modalContainerAttr);
+      this._modalButtons = document.querySelectorAll("[".concat(Selectors.DATA_MODAL_BUTTON, "]"));
+      (0, _utils.getFocusableElements)(this._modalContainerAttr).forEach(function (element) {
         element.setAttribute(Selectors.TABINDEX, "-1");
       });
 
@@ -137,8 +137,8 @@ var Modal = function (_Utils) {
       this._activeModalOverlay = document.querySelector(this._activeModalOverlayAttr);
       this._activeModalSelector = "".concat(this._activeModalOverlayAttr, " ").concat(this._modalContainerAttr);
       this._activeModal = document.querySelector(this._activeModalSelector);
-      this._activeModalCloseButtons = this.getElements("".concat(this._activeModalOverlayAttr, " [").concat(Selectors.DATA_CLOSE, "]"));
-      this.getFocusableElements(this._activeModalSelector).forEach(function (element) {
+      this._activeModalCloseButtons = document.querySelectorAll("".concat(this._activeModalOverlayAttr, " [").concat(Selectors.DATA_CLOSE, "]"));
+      (0, _utils.getFocusableElements)(this._activeModalSelector).forEach(function (element) {
         element.setAttribute(Selectors.TABINDEX, "0");
       });
 
@@ -205,7 +205,7 @@ var Modal = function (_Utils) {
 
       this._activeModal.removeAttribute(Selectors.TABINDEX);
 
-      this.getFocusableElements(this._activeModalSelector).forEach(function (element) {
+      (0, _utils.getFocusableElements)(this._activeModalSelector).forEach(function (element) {
         element.setAttribute(Selectors.TABINDEX, "-1");
       });
       document.removeEventListener(Events.KEYDOWN, this._handleEscapeKeyPress);

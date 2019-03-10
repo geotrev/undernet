@@ -48,8 +48,7 @@ var Selectors = {
 };
 var Events = {
   KEYDOWN: "keydown",
-  CLICK: "click",
-  TOUCHEND: "touchend"
+  CLICK: "click"
 };
 var Messages = {
   NO_PARENT_ERROR: "Could not find dropdown button's [data-parent] attribute.",
@@ -70,6 +69,7 @@ var Dropdown = function (_Utils) {
     _classCallCheck(this, Dropdown);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Dropdown).call(this));
+    _this._iosMobile = /(iphone|ipod)/i.test(navigator.userAgent);
     _this._render = _this._render.bind(_assertThisInitialized(_this));
     _this._handleFirstTabClose = _this._handleFirstTabClose.bind(_assertThisInitialized(_this));
     _this._handleLastTabClose = _this._handleLastTabClose.bind(_assertThisInitialized(_this));
@@ -97,8 +97,8 @@ var Dropdown = function (_Utils) {
     value: function start() {
       var _this2 = this;
 
-      this._dropdowns = this.getElements("".concat(this._dropdownContainerAttr));
-      this._dropdownButtons = this.getElements("".concat(this._dropdownContainerAttr, " > ").concat(this._dropdownTargetAttr));
+      this._dropdowns = document.querySelectorAll("".concat(this._dropdownContainerAttr));
+      this._dropdownButtons = document.querySelectorAll("".concat(this._dropdownContainerAttr, " > ").concat(this._dropdownTargetAttr));
 
       if (this._dropdowns.length) {
         this._dropdowns.forEach(function (dropdown) {
@@ -164,7 +164,11 @@ var Dropdown = function (_Utils) {
 
       document.addEventListener(Events.KEYDOWN, this._handleEscapeKeyPress);
       document.addEventListener(Events.CLICK, this._handleOffMenuClick);
-      document.addEventListener(Events.TOUCHEND, this._handleOffMenuClick);
+
+      if (this._iosMobile) {
+        document.body.style.cursor = "pointer";
+      }
+
       this._activeDropdownLinks = this._getDropdownLinks(this._activeDropdownAttr);
       this.firstDropdownLink = this._activeDropdownLinks[0];
       this.lastDropdownLink = this._activeDropdownLinks[this._activeDropdownLinks.length - 1];
@@ -235,8 +239,12 @@ var Dropdown = function (_Utils) {
       this._activeDropdownButton.addEventListener(Events.CLICK, this._render);
 
       document.removeEventListener(Events.KEYDOWN, this._handleEscapeKeyPress);
+
+      if (this._iosMobile) {
+        document.body.style.cursor = "auto";
+      }
+
       document.removeEventListener(Events.CLICK, this._handleOffMenuClick);
-      document.removeEventListener(Events.TOUCHEND, this._handleOffMenuClick);
 
       if (this._allowFocusReturn) {
         this._handleReturnFocus();
@@ -270,7 +278,7 @@ var Dropdown = function (_Utils) {
   }, {
     key: "_getDropdownLinks",
     value: function _getDropdownLinks(attr) {
-      return this.getElements("".concat(attr, " > ul > li > a, ").concat(attr, " > ul > li > button"));
+      return document.querySelectorAll("".concat(attr, " > ul > li > a, ").concat(attr, " > ul > li > button"));
     }
   }, {
     key: "_setupDropdown",
@@ -289,7 +297,7 @@ var Dropdown = function (_Utils) {
       dropdownButton.setAttribute(Selectors.ARIA_HASPOPUP, "true");
       dropdownButton.setAttribute(Selectors.ARIA_EXPANDED, "false");
       dropdownMenu.setAttribute(Selectors.ARIA_LABELLEDBY, dropdownButton.id);
-      var dropdownMenuItems = this.getElements(dropdownMenuItemsAttr);
+      var dropdownMenuItems = document.querySelectorAll(dropdownMenuItemsAttr);
       dropdownMenuItems.forEach(function (item) {
         return item.setAttribute(Selectors.ROLE, "none");
       });
