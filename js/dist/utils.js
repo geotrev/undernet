@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.default = exports.getFocusableElements = void 0;
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -27,6 +27,15 @@ var Events = {
   CLICK: "click"
 };
 
+var getFocusableElements = function getFocusableElements(container) {
+  var focusables = Selectors.FOCUSABLE_TAGS.map(function (element) {
+    return "".concat(container, " ").concat(element).concat(Selectors.NOT_VISUALLY_HIDDEN);
+  }).join(", ");
+  return document.querySelectorAll(focusables);
+};
+
+exports.getFocusableElements = getFocusableElements;
+
 var Utils = function () {
   function Utils() {
     _classCallCheck(this, Utils);
@@ -47,7 +56,7 @@ var Utils = function () {
     key: "captureFocus",
     value: function captureFocus(container, options) {
       this._focusContainerSelector = container;
-      this._focusableChildren = this.getFocusableElements(this._focusContainerSelector);
+      this._focusableChildren = getFocusableElements(this._focusContainerSelector);
       this._focusableFirstChild = this._focusableChildren[0];
       this._focusableLastChild = this._focusableChildren[this._focusableChildren.length - 1];
 
@@ -83,20 +92,6 @@ var Utils = function () {
       } else {
         document.removeEventListener(Events.CLICK, this._listenForClick);
       }
-    }
-  }, {
-    key: "getElements",
-    value: function getElements(element) {
-      var nodeList = document.querySelectorAll(element);
-      return Array.apply(null, nodeList);
-    }
-  }, {
-    key: "getFocusableElements",
-    value: function getFocusableElements(container) {
-      var focusables = Selectors.FOCUSABLE_TAGS.map(function (element) {
-        return "".concat(container, " ").concat(element).concat(Selectors.NOT_VISUALLY_HIDDEN);
-      }).join(", ");
-      return this.getElements(focusables);
     }
   }, {
     key: "_listenForKeyboard",

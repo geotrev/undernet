@@ -68,6 +68,100 @@
   }
 }
 
+// These values calculate a consistent arrow fill (inner) and arrow border (outer),
+// given any value of $arrow-size from _config.scss
+$arrow-fill-position: $arrow-size * -2;
+$arrow-border-position: $arrow-size * -2 - 1px;
+
+@mixin arrow-base {
+  content: "";
+  border-bottom: $arrow-size solid transparent;
+  border-top: $arrow-size solid transparent;
+  border-left: $arrow-size solid transparent;
+  border-right: $arrow-size solid transparent;
+  position: absolute;
+}
+
+@mixin up-arrow($edge-offset, $fill-color, $border-color) {
+  &::after {
+    @include arrow-base;
+    border-bottom: $arrow-size solid $fill-color;
+    top: $arrow-fill-position;
+    left: $edge-offset;
+    right: auto;
+    bottom: auto;
+  }
+
+  &::before {
+    @include arrow-base;
+    border-bottom: $arrow-size solid $border-color;
+    top: $arrow-border-position;
+    left: $edge-offset;
+    right: auto;
+    bottom: auto;
+  }
+}
+
+@mixin down-arrow($edge-offset, $fill-color, $border-color) {
+  &::after {
+    @include arrow-base;
+    border-top: $arrow-size solid $fill-color;
+    bottom: $arrow-fill-position;
+    left: $edge-offset;
+    top: auto;
+    right: auto;
+  }
+
+  &::before {
+    @include arrow-base;
+    border-top: $arrow-size solid $border-color;
+    bottom: $arrow-border-position;
+    left: $edge-offset;
+    top: auto;
+    right: auto;
+  }
+}
+
+@mixin right-arrow($edge-offset, $fill-color, $border-color) {
+  &::after {
+    @include arrow-base;
+    border-left: $arrow-size solid $fill-color;
+    right: $arrow-fill-position;
+    top: $edge-offset;
+    left: auto;
+    bottom: auto;
+  }
+
+  &::before {
+    @include arrow-base;
+    border-left: $arrow-size solid $border-color;
+    right: $arrow-border-position;
+    top: $edge-offset;
+    left: auto;
+    bottom: auto;
+  }
+}
+
+@mixin left-arrow($edge-offset, $fill-color, $border-color) {
+  &::after {
+    @include arrow-base;
+    border-right: $arrow-size solid $fill-color;
+    left: $arrow-fill-position;
+    top: $edge-offset;
+    bottom: auto;
+    right: auto;
+  }
+
+  &::before {
+    @include arrow-base;
+    border-right: $arrow-size solid $border-color;
+    left: $arrow-border-position;
+    top: $edge-offset;
+    bottom: auto;
+    right: auto;
+  }
+}
+
 @mixin visibility($size) {
   .is-flex-#{$size} {
     display: flex !important;
