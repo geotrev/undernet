@@ -27,7 +27,6 @@ const Selectors = {
 const Events = {
   KEYDOWN: "keydown",
   CLICK: "click",
-  // TOUCHEND: "touchend",
 }
 
 const Messages = {

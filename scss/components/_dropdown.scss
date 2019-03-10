@@ -45,8 +45,11 @@
 
     &:not(.has-no-arrow) {
       @if $dropdown-arrows-enabled {
-        @include up-arrow-inner($dropdown-arrow-offset, $dropdown-arrow-fill-color);
-        @include up-arrow-outer($dropdown-arrow-offset, $dropdown-arrow-border-color);
+        @include up-arrow(
+          $dropdown-arrow-offset,
+          $dropdown-arrow-fill-color,
+          $dropdown-arrow-border-color
+        );
       }
     }
 
@@ -57,8 +60,11 @@
 
         &:not(.has-no-arrow) {
           @if $dropdown-arrows-enabled {
-            @include down-arrow-inner($dropdown-arrow-offset, $dropdown-arrow-fill-color);
-            @include down-arrow-outer($dropdown-arrow-offset, $dropdown-arrow-border-color);
+            @include down-arrow(
+              $dropdown-arrow-offset,
+              $dropdown-arrow-fill-color,
+              $dropdown-arrow-border-color
+            );
           }
         }
       }
@@ -70,8 +76,11 @@
 
         &:not(.has-no-arrow) {
           @if $dropdown-arrows-enabled {
-            @include right-arrow-inner($dropdown-arrow-offset, $dropdown-arrow-fill-color);
-            @include right-arrow-outer($dropdown-arrow-offset, $dropdown-arrow-border-color);
+            @include right-arrow(
+              $dropdown-arrow-offset,
+              $dropdown-arrow-fill-color,
+              $dropdown-arrow-border-color
+            );
           }
         }
       }
@@ -83,8 +92,11 @@
 
         &:not(.has-no-arrow) {
           @if $dropdown-arrows-enabled {
-            @include left-arrow-inner($dropdown-arrow-offset, $dropdown-arrow-fill-color);
-            @include left-arrow-outer($dropdown-arrow-offset, $dropdown-arrow-border-color);
+            @include left-arrow(
+              $dropdown-arrow-offset,
+              $dropdown-arrow-fill-color,
+              $dropdown-arrow-border-color
+            );
           }
         }
       }
