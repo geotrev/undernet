@@ -364,7 +364,7 @@ $button-base: (
     "text-decoration": none
   ),
   "focus": (
-    "background": $white,
+    "background": lighten($gray900, 10%),
     "color": $gray200,
     "border-color": $gray600,
     "text-decoration": none
@@ -392,7 +392,7 @@ $button-types: (
       "border-color": transparent
     ),
     "focus": (
-      "background": $primary-color,
+      "background": darken($primary-color, 2%),
       "color": $white,
       "border-color": transparent
     )
@@ -415,8 +415,8 @@ $button-types: (
     ),
     "focus": (
       "background": transparent,
-      "color": $primary-color,
-      "border-color": $primary-color
+      "color": darken($primary-color, 2%),
+      "border-color": darken($primary-color, 2%)
     )
   ),
   "tertiary": (
@@ -436,7 +436,7 @@ $button-types: (
       "border-color": transparent
     ),
     "focus": (
-      "background": rgba($gray900, 0.2),
+      "background": rgba($gray900, 0.3),
       "color": $primary-color,
       "border-color": transparent
     )
@@ -458,7 +458,7 @@ $button-types: (
       "border-color": transparent
     ),
     "focus": (
-      "background": $white,
+      "background": $gray900,
       "color": $gray200,
       "border-color": transparent
     )
@@ -482,7 +482,7 @@ $button-types: (
     "focus": (
       "background": transparent,
       "color": $white,
-      "border-color": $white
+      "border-color": darken($gray900, 2%)
     )
   ),
   "warning": (
@@ -502,7 +502,7 @@ $button-types: (
       "border-color": transparent
     ),
     "focus": (
-      "background": status(warning),
+      "background": darken(status(warning), 2%),
       "color": $black,
       "border-color": transparent
     )
@@ -524,7 +524,7 @@ $button-types: (
       "border-color": transparent
     ),
     "focus": (
-      "background": status(success),
+      "background": darken(status(success), 2%),
       "color": $white,
       "border-color": transparent
     )
@@ -546,7 +546,7 @@ $button-types: (
       "border-color": transparent
     ),
     "focus": (
-      "background": status(destroy),
+      "background": darken(status(destroy), 2%),
       "color": $white,
       "border-color": transparent
     )
@@ -568,7 +568,7 @@ $button-types: (
       "border-color": transparent
     ),
     "focus": (
-      "background": status(notice),
+      "background": darken(status(notice), 2%),
       "color": $white,
       "border-color": transparent
     )

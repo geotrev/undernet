@@ -363,10 +363,11 @@ A few classes will add the styling necessary of hide/show, and add menu position
 
 - `dropdown`: the container class providing inline and relative positioning of the component.
 - `dropdown-menu`: the menu class that provides positioning relative to the button.
-- `is-aligned-right`: a helper class that aligns the dropdown to the right (default is left).
-- `is-drop-up`: a helper class that positions the dropdown upward when open
-- `is-drop-left`: a helper class that positions the dropdown left when open
-- `is-drop-right`: a helper class that positions the dropdown right when open
+- `is-aligned-right`: a helper class that aligns the menu to the right of the dropdown button.
+- `is-aligned-bottom`: a helper class that aligns the menu to the bottom of the dropdown button.
+- `is-drop-up`: a helper class that positions the menu upward when open.
+- `is-drop-left`: a helper class that positions the menu left when open.
+- `is-drop-right`: a helper class that positions the menu right when open.
 
 ### API
 
