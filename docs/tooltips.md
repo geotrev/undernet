@@ -4,7 +4,7 @@ Use tooltips to convey simple information with a hover or click action.
 
 Check out this example tooltip:
 
-<span data-tooltip="new-tooltip">
+<span data-tooltip="new-tooltip" data-visible="false">
   <a href="#" data-target="new-tooltip" class="tooltip-trigger">Hover me!</a>
   <div id="new-tooltip" class="tooltip" data-parent="new-tooltip">
     <p>This is a tooltip. It can hold text-based content.<p>
