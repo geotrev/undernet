@@ -4,10 +4,6 @@ Use tooltips to convey simple information with a hover or click action.
 
 Check out this example tooltip:
 
-- `data-visible` on container
-- `aria-describedby` on `data-target` using tooltip `id`
-- adds `cursor: pointer` css property to body when open
-
 <span data-tooltip="new-tooltip">
   <a href="#" data-target="new-tooltip" class="tooltip-trigger">Hover me!</a>
   <div id="new-tooltip" class="tooltip" data-parent="new-tooltip">
