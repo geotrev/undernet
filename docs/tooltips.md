@@ -1,13 +1,13 @@
-Use tooltips to convey simple information with a hover or click action.
+Use tooltips to convey simple information with a hover or click action. It can be used on any element.
 
 ## Basic Tooltip
 
 Check out this example tooltip:
 
 <span data-tooltip="new-tooltip" data-visible="false">
-  <a href="#" data-target="new-tooltip" class="tooltip-trigger">Hover me!</a>
-  <div id="new-tooltip" class="tooltip" data-parent="new-tooltip">
-    <p>This is a tooltip. It can hold text-based content.<p>
+  <a href="#" data-target="new-tooltip" class="tooltip-button">Hover me!</a>
+  <div id="new-tooltip" class="tooltip-box">
+    <div>This is a tooltip. It can hold text-based content.</div>
   </div>
 </span>
 
@@ -23,7 +23,7 @@ Tooltips can be used with any element. Even traditionally non-hoverable elements
 
 ## Direction
 
-Have the tooltip appear from the left, right, or bottom position by adding `is-pop-left`, `is-pop-right`, or `is-pop-down`, respectively.
+Have the tooltip appear from the left, right, or bottom position by adding `is-drop-left`, `is-drop-right`, or `is-drop-down`, respectively.
 
 ## Requirements
 
