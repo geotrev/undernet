@@ -93,6 +93,10 @@ $spacing-increments: (
   "4": $global-space * 2
 ) !default;
 
+// Arrow used for overlay elements, e.g. dropdowns and tooltips
+$arrow-size: 7px;
+
+// z-index values for overlay elements, e.g. dropdowns and modals.
 $modal-index: 2000 !default;
 $dropdown-menu-index: 1999 !default;
 $dropdown-menu-index-in-modal: 2001 !default;
@@ -360,7 +364,7 @@ $button-base: (
     "text-decoration": none
   ),
   "focus": (
-    "background": $white,
+    "background": lighten($gray900, 10%),
     "color": $gray200,
     "border-color": $gray600,
     "text-decoration": none
@@ -388,7 +392,7 @@ $button-types: (
       "border-color": transparent
     ),
     "focus": (
-      "background": $primary-color,
+      "background": darken($primary-color, 2%),
       "color": $white,
       "border-color": transparent
     )
@@ -411,8 +415,8 @@ $button-types: (
     ),
     "focus": (
       "background": transparent,
-      "color": $primary-color,
-      "border-color": $primary-color
+      "color": darken($primary-color, 2%),
+      "border-color": darken($primary-color, 2%)
     )
   ),
   "tertiary": (
@@ -432,7 +436,7 @@ $button-types: (
       "border-color": transparent
     ),
     "focus": (
-      "background": rgba($gray900, 0.2),
+      "background": rgba($gray900, 0.3),
       "color": $primary-color,
       "border-color": transparent
     )
@@ -454,7 +458,7 @@ $button-types: (
       "border-color": transparent
     ),
     "focus": (
-      "background": $white,
+      "background": $gray900,
       "color": $gray200,
       "border-color": transparent
     )
@@ -478,7 +482,7 @@ $button-types: (
     "focus": (
       "background": transparent,
       "color": $white,
-      "border-color": $white
+      "border-color": darken($gray900, 2%)
     )
   ),
   "warning": (
@@ -498,7 +502,7 @@ $button-types: (
       "border-color": transparent
     ),
     "focus": (
-      "background": status(warning),
+      "background": darken(status(warning), 2%),
       "color": $black,
       "border-color": transparent
     )
@@ -520,7 +524,7 @@ $button-types: (
       "border-color": transparent
     ),
     "focus": (
-      "background": status(success),
+      "background": darken(status(success), 2%),
       "color": $white,
       "border-color": transparent
     )
@@ -542,7 +546,7 @@ $button-types: (
       "border-color": transparent
     ),
     "focus": (
-      "background": status(destroy),
+      "background": darken(status(destroy), 2%),
       "color": $white,
       "border-color": transparent
     )
@@ -564,7 +568,7 @@ $button-types: (
       "border-color": transparent
     ),
     "focus": (
-      "background": status(notice),
+      "background": darken(status(notice), 2%),
       "color": $white,
       "border-color": transparent
     )
@@ -698,16 +702,25 @@ $accordion-content-background: $white !default;
 // 8. Dropdowns
 // ------------
 
+$dropdown-arrows-enabled: true;
+$dropdown-border-color: $gray900 !default;
+
+$dropdown-arrow-offset: 12px;
+$dropdown-arrow-fill-color: $white;
+$dropdown-arrow-border-color: $dropdown-border-color;
+
 $dropdown-button-arrow: "\25bc" !default;
 $dropdown-button-arrow-padding: 0 0 0 8px !default;
 $dropdown-button-arrow-font-size: 12px !default;
+
+$dropdown-menu-direction-breakpoint: medium;
 
 $dropdown-menu-transition: opacity $global-transition !default;
 $dropdown-menu-padding: 8px 0 !default;
 $dropdown-menu-border-radius: $global-border-radius !default;
 $dropdown-menu-background-color: $white !default;
 $dropdown-menu-width: 200px !default;
-$dropdown-menu-border: 1px solid $gray900 !default;
+$dropdown-menu-border: 1px solid $dropdown-border-color !default;
 
 $dropdown-menu-button-padding: 8px 12px !default;
 $dropdown-menu-button-text-color: $gray400 !default;

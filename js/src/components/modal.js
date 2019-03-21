@@ -1,4 +1,4 @@
-import Utils from "../utils"
+import Utils, { getFocusableElements } from "../utils"
 
 const KeyCodes = {
   ESCAPE: 27,
@@ -45,6 +45,8 @@ export default class Modal extends Utils {
   constructor() {
     super()
 
+    this._iosMobile = /(iphone|ipod)/i.test(navigator.userAgent)
+
     // events
     this._render = this._render.bind(this)
     this._handleClose = this._handleClose.bind(this)
@@ -75,10 +77,10 @@ export default class Modal extends Utils {
    * Begin listening to elements with [data-modal-button]
    */
   start() {
-    this._modals = this.getElements(this._modalContainerAttr)
-    this._modalButtons = this.getElements(`[${Selectors.DATA_MODAL_BUTTON}]`)
+    this._modals = document.querySelectorAll(this._modalContainerAttr)
+    this._modalButtons = document.querySelectorAll(`[${Selectors.DATA_MODAL_BUTTON}]`)
 
-    this.getFocusableElements(this._modalContainerAttr).forEach(element => {
+    getFocusableElements(this._modalContainerAttr).forEach(element => {
       element.setAttribute(Selectors.TABINDEX, "-1")
     })
 
@@ -129,12 +131,12 @@ export default class Modal extends Utils {
 
     this._activeModalSelector = `${this._activeModalOverlayAttr} ${this._modalContainerAttr}`
     this._activeModal = document.querySelector(this._activeModalSelector)
-    this._activeModalCloseButtons = this.getElements(
+    this._activeModalCloseButtons = document.querySelectorAll(
       `${this._activeModalOverlayAttr} [${Selectors.DATA_CLOSE}]`
     )
 
     // allow focusable elements to be focused
-    this.getFocusableElements(this._activeModalSelector).forEach(element => {
+    getFocusableElements(this._activeModalSelector).forEach(element => {
       element.setAttribute(Selectors.TABINDEX, "0")
     })
 
@@ -150,6 +152,11 @@ export default class Modal extends Utils {
 
     // offset slight scroll caused by this._activeModal.focus()
     this._activeModalOverlay.scrollTop = 0
+
+    // on ios devices, let the modal close on overlay click
+    if (this._iosMobile) {
+      this._activeModalOverlay.style.cursor = "pointer"
+    }
 
     // begin listening to events
     document.addEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
@@ -193,9 +200,13 @@ export default class Modal extends Utils {
     this._activeModalOverlay.setAttribute(Selectors.ARIA_HIDDEN, "true")
     this._activeModal.removeAttribute(Selectors.TABINDEX)
 
-    this.getFocusableElements(this._activeModalSelector).forEach(element => {
+    getFocusableElements(this._activeModalSelector).forEach(element => {
       element.setAttribute(Selectors.TABINDEX, "-1")
     })
+
+    if (this._iosMobile) {
+      this._activeModalOverlay.style.cursor = "auto"
+    }
 
     // stop listening to events
     document.removeEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
