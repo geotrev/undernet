@@ -45,6 +45,8 @@ export default class Modal extends Utils {
   constructor() {
     super()
 
+    this._iosMobile = /(iphone|ipod)/i.test(navigator.userAgent)
+
     // events
     this._render = this._render.bind(this)
     this._handleClose = this._handleClose.bind(this)
@@ -151,6 +153,11 @@ export default class Modal extends Utils {
     // offset slight scroll caused by this._activeModal.focus()
     this._activeModalOverlay.scrollTop = 0
 
+    // on ios devices, let the modal close on overlay click
+    if (this._iosMobile) {
+      this._activeModalOverlay.style.cursor = "pointer"
+    }
+
     // begin listening to events
     document.addEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
     document.addEventListener(Events.CLICK, this._handleOverlayClick)
@@ -196,6 +203,10 @@ export default class Modal extends Utils {
     getFocusableElements(this._activeModalSelector).forEach(element => {
       element.setAttribute(Selectors.TABINDEX, "-1")
     })
+
+    if (this._iosMobile) {
+      this._activeModalOverlay.style.cursor = "auto"
+    }
 
     // stop listening to events
     document.removeEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
