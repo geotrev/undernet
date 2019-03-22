@@ -5,11 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = exports.Utils = exports.Dropdowns = exports.Accordions = exports.Modals = void 0;
 
-var _modal = _interopRequireDefault(require("./components/modal"));
+var _modal = _interopRequireDefault(require("./modal"));
 
-var _accordion = _interopRequireDefault(require("./components/accordion"));
+var _accordion = _interopRequireDefault(require("./accordion"));
 
-var _dropdown = _interopRequireDefault(require("./components/dropdown"));
+var _dropdown = _interopRequireDefault(require("./dropdown"));
 
 var _utils = _interopRequireDefault(require("./utils"));
 

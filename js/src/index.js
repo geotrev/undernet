@@ -1,6 +1,6 @@
-import _Modals from "./components/modal"
-import _Accordion from "./components/accordion"
-import _Dropdown from "./components/dropdown"
+import _Modals from "./modal"
+import _Accordion from "./accordion"
+import _Dropdown from "./dropdown"
 import _Utils from "./utils"
 
 export const Modals = new _Modals()

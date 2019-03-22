@@ -1,4 +1,4 @@
-import Utils, { getFocusableElements } from "../utils"
+import Utils, { getFocusableElements } from "./utils"
 
 const KeyCodes = {
   ESCAPE: 27,
