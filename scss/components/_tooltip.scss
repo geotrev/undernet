@@ -13,8 +13,7 @@
   opacity: 0;
   transition: opacity $global-transition;
   pointer-events: none;
-  min-width: 150px;
-  max-width: 250px;
+  width: 200px;
   text-align: center;
   border: 1px solid $gray100;
   z-index: $tooltip-index;
@@ -22,7 +21,7 @@
   font-size: 14px;
   margin: 0 0 $global-space;
   bottom: 100%;
-  // `left` should be set in javascript --> half the width of the tooltip trigger
+  left: 0; // Overriden in javascript. This is a fallback.
 
   .modal-dialog & {
     z-index: $tooltip-index-in-modal;
@@ -40,7 +39,7 @@
         left: 100%;
         margin: 0 0 0 $global-space;
         bottom: auto;
-        top: 0; // should be set in javascript --> half the height of the tooltip trigger
+        top: 0; // Overriden in javascript. This is a fallback.
       
         @include left-arrow(
           calc(50% - #{$arrow-size}),
@@ -53,7 +52,7 @@
         right: 100%;
         margin: 0 $global-space 0 0;
         bottom: auto;
-        top: 0; // should be set in javascript --> half the height of the tooltip trigger
+        top: 0; // Overriden in javascript. This is a fallback.
       
         @include right-arrow(
           calc(50% - #{$arrow-size}),
@@ -66,7 +65,7 @@
         top: 100%;
         margin: 0;
         bottom: auto;
-        // `left` should be set in javascript --> half the width of the tooltip trigger
+        left: 0; // Overriden in javascript. This is a fallback.
       
         @include up-arrow(
           calc(50% - #{$arrow-size}),

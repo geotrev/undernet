@@ -1,13 +1,11 @@
 const KeyCodes = {}
 const Selectors = {}
 const Events = {}
-const Messages = {}
+const Messages = {
+  // no tooltip id, can't create tooltip
+}
 
-/* Begin tracking:
-    - Error events
-    - left and top offsets for tooltips depending on detected class names
-    - needs data-tooltip={id} (wrapper) and data-parent={id} (tooltip-box)
-*/
+
 
 /**
  * Tooltip component class.
@@ -18,6 +16,49 @@ export default class Tooltip {
 
   // public
 
-  start() {}
-  stop() {}
+  start() {
+    document.querySelectorAll("[data-tooltip]").forEach(instance => {
+      const id = instance.getAttribute("data-tooltip")
+      const trigger = instance.querySelector(`[data-parent="${id}"]`)
+      const tooltip = document.getElementById(id)
+      this._setupTooltip(trigger, tooltip, id)
+    })
+  }
+
+  // private
+
+  _setupTooltip(trigger, tooltip, id) {
+    trigger.setAttribute("aria-describedby", id)
+    tooltip.setAttribute("role", "tooltip")
+
+    if (this._isLeftOrRight(tooltip)) {
+      this._alignTooltip(trigger, tooltip, "height")
+    } else {
+      this._alignTooltip(trigger, tooltip, "width")
+    }
+  }
+
+  _getComputedLength(element, property) {
+    return parseInt(window.getComputedStyle(element)[property].slice(0, -2))
+  }
+
+  _isLeftOrRight(tooltip) {
+    return tooltip.classList.contains("is-drop-left") || tooltip.classList.contains("is-drop-right")
+  }
+
+  _alignTooltip(trigger, tooltip, property) {
+    const triggerLength = this._getComputedLength(trigger, property)
+    const tooltipLength = this._getComputedLength(tooltip, property)
+    const triggerIsLongest = triggerLength > tooltipLength
+
+    const offset = triggerIsLongest 
+      ? ((triggerLength - tooltipLength) / 2) 
+      : ((tooltipLength - triggerLength) / -2)
+
+    if (property === "height")
+      tooltip.style.top = `${offset}px`
+    else {
+      tooltip.style.left = `${offset}px`
+    }
+  }
 }

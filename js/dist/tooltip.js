@@ -23,10 +23,52 @@ var Tooltip = function () {
 
   _createClass(Tooltip, [{
     key: "start",
-    value: function start() {}
+    value: function start() {
+      var _this = this;
+
+      document.querySelectorAll("[data-tooltip]").forEach(function (instance) {
+        var id = instance.getAttribute("data-tooltip");
+        var trigger = instance.querySelector("[data-parent=\"".concat(id, "\"]"));
+        var tooltip = document.getElementById(id);
+
+        _this._setupTooltip(trigger, tooltip, id);
+      });
+    }
   }, {
-    key: "stop",
-    value: function stop() {}
+    key: "_setupTooltip",
+    value: function _setupTooltip(trigger, tooltip, id) {
+      trigger.setAttribute("aria-describedby", id);
+      tooltip.setAttribute("role", "tooltip");
+
+      if (this._isLeftOrRight(tooltip)) {
+        this._alignTooltip(trigger, tooltip, "height");
+      } else {
+        this._alignTooltip(trigger, tooltip, "width");
+      }
+    }
+  }, {
+    key: "_getComputedLength",
+    value: function _getComputedLength(element, property) {
+      return parseInt(window.getComputedStyle(element)[property].slice(0, -2));
+    }
+  }, {
+    key: "_isLeftOrRight",
+    value: function _isLeftOrRight(tooltip) {
+      return tooltip.classList.contains("is-drop-left") || tooltip.classList.contains("is-drop-right");
+    }
+  }, {
+    key: "_alignTooltip",
+    value: function _alignTooltip(trigger, tooltip, property) {
+      var triggerLength = this._getComputedLength(trigger, property);
+
+      var tooltipLength = this._getComputedLength(tooltip, property);
+
+      var triggerIsLongest = triggerLength > tooltipLength;
+      var offset = triggerIsLongest ? (triggerLength - tooltipLength) / 2 : (tooltipLength - triggerLength) / -2;
+      if (property === "height") tooltip.style.top = "".concat(offset, "px");else {
+        tooltip.style.left = "".concat(offset, "px");
+      }
+    }
   }]);
 
   return Tooltip;

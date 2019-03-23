@@ -47,7 +47,6 @@ Undernet.stop = function () {
   Undernet.Modals.stop();
   Undernet.Accordions.stop();
   Undernet.Dropdowns.stop();
-  Undernet.Tooltips.stop();
   Undernet.Utils.disableFocusOutline();
 };
 

@@ -37,7 +37,6 @@ Undernet.stop = () => {
   Undernet.Modals.stop()
   Undernet.Accordions.stop()
   Undernet.Dropdowns.stop()
-  Undernet.Tooltips.stop()
 
   // Utils
   Undernet.Utils.disableFocusOutline()
