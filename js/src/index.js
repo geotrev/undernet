@@ -1,13 +1,14 @@
-import _Modals from "./modal"
 import _Accordion from "./accordion"
 import _Dropdown from "./dropdown"
+import _Modals from "./modal"
+import _Tooltips from "./tooltip"
 import _Utils from "./utils"
-import _Tooltips from "./tooltips"
 
-export const Modals = new _Modals()
 export const Accordions = new _Accordion()
 export const Dropdowns = new _Dropdown()
+export const Modals = new _Modals()
 export const Tooltips = new _Tooltips()
+export const Utils = new _Utils()
 
 const Undernet = {
   // Components

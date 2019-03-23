@@ -3,28 +3,30 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = exports.Tooltips = exports.Dropdowns = exports.Accordions = exports.Modals = void 0;
-
-var _modal = _interopRequireDefault(require("./modal"));
+exports.default = exports.Utils = exports.Tooltips = exports.Modals = exports.Dropdowns = exports.Accordions = void 0;
 
 var _accordion = _interopRequireDefault(require("./accordion"));
 
 var _dropdown = _interopRequireDefault(require("./dropdown"));
 
-var _utils = _interopRequireDefault(require("./utils"));
+var _modal = _interopRequireDefault(require("./modal"));
 
-var _tooltips = _interopRequireDefault(require("./tooltips"));
+var _tooltip = _interopRequireDefault(require("./tooltip"));
+
+var _utils = _interopRequireDefault(require("./utils"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Modals = new _modal.default();
-exports.Modals = Modals;
 var Accordions = new _accordion.default();
 exports.Accordions = Accordions;
 var Dropdowns = new _dropdown.default();
 exports.Dropdowns = Dropdowns;
-var Tooltips = new _tooltips.default();
+var Modals = new _modal.default();
+exports.Modals = Modals;
+var Tooltips = new _tooltip.default();
 exports.Tooltips = Tooltips;
+var Utils = new _utils.default();
+exports.Utils = Utils;
 var Undernet = {
   Modals: Modals,
   Accordions: Accordions,
