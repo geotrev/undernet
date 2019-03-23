@@ -5,7 +5,7 @@ Use tooltips to convey simple information with a hover or click action. It can b
 Check out this example tooltip:
 
 <span class="tooltip">
-  <button class="tooltip-button" aria-describedby="new-tooltip">Hover me!</button>
+  <button class="tooltip-trigger" aria-describedby="new-tooltip">Hover me!</button>
   <div class="tooltip-box" role="tooltip" id="new-tooltip">
     This is a tooltip. It can hold text-based content.
   </div>
@@ -18,7 +18,7 @@ If you don't want to include the little arrow pointing toward your tooltip trigg
 Alternatively, you can force the arrow to hide using the `has-no-arrow` class on the `tooltip` element.
 
 <span class="tooltip">
-  <button class="tooltip-button" aria-describedby="new-tooltip2">Hover me!</button> 
+  <button class="tooltip-trigger" aria-describedby="new-tooltip2">Hover me!</button> 
   <div class="tooltip-box has-no-arrow" role="tooltip" id="new-tooltip2">
     This is a tooltip. It can hold text-based content.
   </div>
@@ -29,7 +29,7 @@ Alternatively, you can force the arrow to hide using the `has-no-arrow` class on
 Tooltips can be used with any element. Even traditionally non-hoverable elements, such as `div`s.
 
 <span class="tooltip">
-  <span tabindex="0" class="tooltip-button has-gray900-bg has-padding-2" aria-describedby="new-tooltip3">Hover me!</span> 
+  <span tabindex="0" class="tooltip-trigger has-gray900-bg has-padding-2" aria-describedby="new-tooltip3">Hover me!</span> 
   <div class="tooltip-box" role="tooltip" id="new-tooltip3">
     This is a tooltip. It can hold text-based content.
   </div>
@@ -42,21 +42,21 @@ Tooltips can be used with any element. Even traditionally non-hoverable elements
 Have the tooltip appear from the left, right, or bottom position by adding `is-drop-left`, `is-drop-right`, or `is-drop-down`, respectively.
 
 <span class="tooltip">
-  <button class="tooltip-button" aria-describedby="new-tooltip4">Hover me!</button> 
+  <button class="tooltip-trigger" aria-describedby="new-tooltip4">Hover me!</button> 
   <div class="tooltip-box is-drop-left" role="tooltip" id="new-tooltip4">
     This is a tooltip. It can hold text-based content.
   </div>
 </span>
 
 <span class="tooltip">
-  <button class="tooltip-button" aria-describedby="new-tooltip5">Hover me!</button> 
+  <button class="tooltip-trigger" aria-describedby="new-tooltip5">Hover me!</button> 
   <div class="tooltip-box is-drop-right" role="tooltip" id="new-tooltip5">
     This is a tooltip. It can hold text-based content.
   </div>
 </span>
 
 <span class="tooltip">
-  <button class="tooltip-button" aria-describedby="new-tooltip6">Hover me!</button> 
+  <button class="tooltip-trigger" aria-describedby="new-tooltip6">Hover me!</button> 
   <div class="tooltip-box is-drop-down" role="tooltip" id="new-tooltip6">
     This is a tooltip. It can hold text-based content.
   </div>
@@ -64,13 +64,13 @@ Have the tooltip appear from the left, right, or bottom position by adding `is-d
 
 ## Requirements
 
-Tooltips don't require JavaScript. All you need is the correct HTML structure.
+Two main pieces are required: an API call and correct HTML markup.
 
 ### HTML
 
 #### Trigger Classes
 
-- `tooltip-button`: Used to identify the tooltip container. Doesn't apply styling.
+- `tooltip-trigger`: Used to identify the tooltip container. Doesn't apply styling.
 
 #### Accessibility
 
@@ -79,11 +79,25 @@ A few key attributes are needed for tooltips to be accessible. These help assist
 - `role`: Defines the element. It should equal `tooltip`.
 - `aria-describedby`: Describes which element is the tooltip. It should equal the `id` of your tooltip. 
 
-[See WAI-ARIA documentation](https://www.w3.org/TR/wai-aria-practices-1.1/examples/menu-button/menu-button-links.html) on best-practices for the menu button UI pattern.
+[See WAI-ARIA documentation](https://www.w3.org/TR/wai-aria-practices/#tooltip) on best-practices for the tooltip widget UI pattern.
 
 #### Styling Classes
 
+- `tooltip`: Wrapper class that adds assists with positioning the tooltip to its trigger.
 - `tooltip-box`: Adds tooltip styling.
+
+### API
+
+Call one of the following scripts from Undernet's JavaScript (not both!). This should happen _only once_ on page load/component mount/etc.
+
+```js
+Undernet.start()
+```
+
+```js
+Undernet.Tooltips.start()
+```
+
 
 <hr />
 <p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/dropdowns.md">Edit this page on Github!</a></p>

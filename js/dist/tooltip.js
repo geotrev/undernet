@@ -1,8 +1,9 @@
 "use strict";
 
-var _utils = _interopRequireDefault(require("../utils"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -26,14 +27,10 @@ var Tooltip = function () {
   }, {
     key: "stop",
     value: function stop() {}
-  }, {
-    key: "_render",
-    value: function _render() {}
-  }, {
-    key: "_setupTooltips",
-    value: function _setupTooltips() {}
   }]);
 
   return Tooltip;
 }();
+
+exports.default = Tooltip;
 //# sourceMappingURL=tooltip.js.map

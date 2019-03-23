@@ -27,6 +27,12 @@ Object.defineProperty(exports, "Dropdowns", {
     return _index.Dropdowns;
   }
 });
+Object.defineProperty(exports, "Tooltips", {
+  enumerable: true,
+  get: function get() {
+    return _index.Tooltips;
+  }
+});
 Object.defineProperty(exports, "Utils", {
   enumerable: true,
   get: function get() {
