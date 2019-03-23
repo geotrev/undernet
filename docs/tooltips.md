@@ -4,12 +4,10 @@ Use tooltips to convey simple information with a hover or click action. It can b
 
 Check out this example tooltip:
 
-<span role="tooltip">
-  <button aria-describedby="new-tooltip" class="tooltip-button">Hover me!</button>
-  <div id="new-tooltip" class="tooltip-box">
-    This is a tooltip. It can hold text-based content.
-  </div>
-</span>
+<button class="tooltip-button" aria-describedby="new-tooltip">Hover me!</button>
+<div class="tooltip-box" role="tooltip" id="new-tooltip">
+  This is a tooltip. It can hold text-based content.
+</div>
 
 ## Disable Tooltip Arrow
 
@@ -17,44 +15,38 @@ If you don't want to include the little arrow pointing toward your tooltip trigg
 
 Alternatively, you can force the arrow to hide using the `has-no-arrow` class on the `tooltip` element.
 
-<span role="tooltip">
-  <button aria-describedby="new-tooltip" class="tooltip-button">Hover me!</button>
-  <div id="new-tooltip" class="tooltip-box has-no-arrow">
-    This is a tooltip. It can hold text-based content.
-  </div>
-</span>
+<button class="tooltip-button" aria-describedby="new-tooltip">Hover me!</button>
+<div class="tooltip-box has-no-arrow" role="tooltip" id="new-tooltip">
+  This is a tooltip. It can hold text-based content.
+</div>
 
 ## Use Custom Elements
 
 Tooltips can be used with any element. Even traditionally non-hoverable elements.
 
-<span role="tooltip">
-  <span aria-describedby="new-tooltip" class="tooltip-button has-padding-2 has-gray900-bg"d>Hover me! (this is a normal div)</span>
-  <div id="new-tooltip" class="tooltip-box">
-    This is a tooltip. It can hold text-based content.
-  </div>
-</span>
+<div class="tooltip-button" aria-describedby="new-tooltip">Hover me!</div>
+<div class="tooltip-box" role="tooltip" id="new-tooltip">
+  This is a tooltip. It can hold text-based content.
+</div>
+
+*CAUTION: If you go this route, you need to ensure the element behaves functionally the same as a button element, to ensure its focus is handled correctly.*
 
 ## Direction
 
 Have the tooltip appear from the left, right, or bottom position by adding `is-drop-left`, `is-drop-right`, or `is-drop-down`, respectively.
 
-<span role="tooltip">
-  <button aria-describedby="new-tooltip" class="tooltip-button">Hover me!</button>
-  <div id="new-tooltip" class="tooltip-box is-drop-left">
-    This is a tooltip. It can hold text-based content.
-  </div>
-</span><span role="tooltip">
-  <button aria-describedby="new-tooltip" class="tooltip-button">Hover me!</button>
-  <div id="new-tooltip" class="tooltip-box is-drop-right">
-    This is a tooltip. It can hold text-based content.
-  </div>
-</span><span role="tooltip">
-  <button aria-describedby="new-tooltip" class="tooltip-button">Hover me!</button>
-  <div id="new-tooltip" class="tooltip-box is-drop-down">
-    This is a tooltip. It can hold text-based content.
-  </div>
-</span>
+<button class="tooltip-button" aria-describedby="new-tooltip">Hover me!</button>
+<div class="tooltip-box is-drop-left" role="tooltip" id="new-tooltip">
+  This is a tooltip. It can hold text-based content.
+</div>
+<button class="tooltip-button" aria-describedby="new-tooltip">Hover me!</button>
+<div class="tooltip-box is-drop-right" role="tooltip" id="new-tooltip">
+  This is a tooltip. It can hold text-based content.
+</div>
+<button class="tooltip-button" aria-describedby="new-tooltip">Hover me!</button>
+<div class="tooltip-box is-drop-down" role="tooltip" id="new-tooltip">
+  This is a tooltip. It can hold text-based content.
+</div>
 
 ## Requirements
 
