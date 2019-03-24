@@ -1,10 +1,14 @@
+// TODO: Add style vars to config
+
+// NOTE: Do I need a click handler for mobile if a :focus state is applied below?
+
 .tooltip {
   position: relative;
   display: inline-block;
 }
 
 .tooltip-box {
-  padding: $global-space / 2;
+  padding: 4px 8px;
   border-radius: $global-border-radius;
   background: $gray100;
   margin: 0;
@@ -13,75 +17,63 @@
   opacity: 0;
   transition: opacity $global-transition;
   pointer-events: none;
-  width: 200px;
+  word-wrap: break-word;
+  white-space: nowrap;
   text-align: center;
   border: 1px solid $gray100;
   z-index: $tooltip-index;
   color: $white;
   font-size: 14px;
   margin: 0 0 $global-space;
-  bottom: 100%;
-  left: 0; // Overriden in javascript. This is a fallback.
 
   .modal-dialog & {
     z-index: $tooltip-index-in-modal;
   }
 
   @if $dropdown-arrows-enabled {
-    @include down-arrow(
-      calc(50% - #{$arrow-size}),
-      $gray100,
-      $gray100
-    );
+    bottom: 100%;
+    left: 0; // Overriden in javascript. This is a fallback.
 
-    @include breakpoint-up($dropdown-menu-direction-breakpoint) {
-      &.is-drop-right {
-        left: 100%;
-        margin: 0 0 0 $global-space;
-        bottom: auto;
-        top: 0; // Overriden in javascript. This is a fallback.
-      
-        @include left-arrow(
-          calc(50% - #{$arrow-size}),
-          $gray100,
-          $gray100
-        );
-      }
+    @include down-arrow(calc(50% - #{$arrow-size}), $gray100, $gray100);
 
-      &.is-drop-left {
-        right: 100%;
-        margin: 0 $global-space 0 0;
-        bottom: auto;
-        top: 0; // Overriden in javascript. This is a fallback.
-      
-        @include right-arrow(
-          calc(50% - #{$arrow-size}),
-          $gray100,
-          $gray100
-        );
-      }
+    &.is-drop-right {
+      left: 100%;
+      margin: 0 0 0 $global-space;
+      bottom: auto;
+      top: 0; // Overriden in javascript. This is a fallback.
 
-      &.is-drop-down {
-        top: 100%;
-        margin: 0;
-        bottom: auto;
-        left: 0; // Overriden in javascript. This is a fallback.
-      
-        @include up-arrow(
-          calc(50% - #{$arrow-size}),
-          $gray100,
-          $gray100
-        );
-      }
+      @include left-arrow(calc(50% - #{$arrow-size}), $gray100, $gray100);
+    }
+
+    &.is-drop-left {
+      right: 100%;
+      margin: 0 $global-space 0 0;
+      bottom: auto;
+      left: auto;
+      top: 0; // Overriden in javascript. This is a fallback.
+
+      @include right-arrow(calc(50% - #{$arrow-size}), $gray100, $gray100);
+    }
+
+    &.is-drop-down {
+      top: 100%;
+      margin: 0;
+      bottom: auto;
+      left: 0; // Overriden in javascript. This is a fallback.
+
+      @include up-arrow(calc(50% - #{$arrow-size}), $gray100, $gray100);
     }
   }
 }
 
 .tooltip-trigger {
   display: inline-block;
+  cursor: pointer;
 
-  &:hover {
-    + .tooltip-box {
+  &:hover,
+  &:focus {
+    + .tooltip-box,
+    + .tooltip-box[data-visible="true"] {
       opacity: 1;
       pointer-events: auto;
     }

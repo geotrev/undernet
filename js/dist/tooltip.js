@@ -19,6 +19,17 @@ var Messages = {};
 var Tooltip = function () {
   function Tooltip() {
     _classCallCheck(this, Tooltip);
+
+    this._isTouchDevice = typeof document.documentElement !== "undefined";
+    this._iosMobile = /(iphone|ipod)/i.test(navigator.userAgent);
+    this._render = this._render.bind(this);
+    this._handleClose = this._handleClose.bind(this);
+    this._handleOffTooltipTouch = this._handleOffTooltipTouch.bind(this);
+    this._allTooltipTriggers = [];
+    this._activeTrigger = {};
+    this._activeTooltipId = "";
+    this._activeTooltip = {};
+    this._tooltipIsActive = false;
   }
 
   _createClass(Tooltip, [{
@@ -26,19 +37,89 @@ var Tooltip = function () {
     value: function start() {
       var _this = this;
 
-      document.querySelectorAll("[data-tooltip]").forEach(function (instance) {
-        var id = instance.getAttribute("data-tooltip");
-        var trigger = instance.querySelector("[data-parent=\"".concat(id, "\"]"));
+      this._allTooltipTriggers = document.querySelectorAll("[data-tooltip]");
+
+      this._allTooltipTriggers.forEach(function (element) {
+        var id = element.getAttribute("data-tooltip");
+        var trigger = element.querySelector("[data-target=\"".concat(id, "\"]"));
         var tooltip = document.getElementById(id);
 
         _this._setupTooltip(trigger, tooltip, id);
       });
     }
   }, {
+    key: "stop",
+    value: function stop() {
+      var _this2 = this;
+
+      if (this._isTouchDevice) {
+        this._allTooltipTriggers.forEach(function (element) {
+          element.removeEventListener("click", _this2._render);
+        });
+      }
+    }
+  }, {
+    key: "_render",
+    value: function _render(event) {
+      event.preventDefault();
+
+      if (this._tooltipIsActive) {
+        this._handleClose(event);
+      }
+
+      this._activeTrigger = event.target;
+      this._activeTooltipId = this._activeTrigger.getAttribute("data-target");
+      this._activeTooltip = document.getElementById(this._activeTooltipId);
+
+      this._activeTooltip.setAttribute("data-visible", "true");
+
+      this._activeTooltip.removeEventListener("click", this._render);
+
+      this._activeTooltip.addEventListener("click", this._handleClose);
+
+      document.addEventListener("click", this._handleOffTooltipTouch);
+
+      if (this._iosMobile) {
+        document.body.style.cursor = "pointer";
+      }
+    }
+  }, {
+    key: "_handleClose",
+    value: function _handleClose(event) {
+      event.preventDefault();
+
+      this._activeTooltip.setAttribute("data-visible", "false");
+
+      this._activeTooltip.removeEventListener("click", this._handleClose);
+
+      this._activeTooltip.addEventListener("click", this._render);
+
+      document.removeEventListener("click", this._handleOffTooltipTouch);
+
+      if (this._iosMobile) {
+        document.body.style.cursor = "auto";
+      }
+
+      this._activeTrigger = null;
+      this._activeTooltip = null;
+      this._tooltipIsActive = false;
+    }
+  }, {
+    key: "_handleOffTooltipTouch",
+    value: function _handleOffTooltipTouch(event) {
+      if (event.target !== this._activeTrigger) {
+        this._handleClose(event);
+      }
+    }
+  }, {
     key: "_setupTooltip",
     value: function _setupTooltip(trigger, tooltip, id) {
       trigger.setAttribute("aria-describedby", id);
       tooltip.setAttribute("role", "tooltip");
+
+      if (this._isTouchDevice) {
+        trigger.addEventListener("click", this._render);
+      }
 
       if (this._isLeftOrRight(tooltip)) {
         this._alignTooltip(trigger, tooltip, "height");
@@ -54,7 +135,8 @@ var Tooltip = function () {
   }, {
     key: "_isLeftOrRight",
     value: function _isLeftOrRight(tooltip) {
-      return tooltip.classList.contains("is-drop-left") || tooltip.classList.contains("is-drop-right");
+      var classes = tooltip.classList;
+      return classes.contains("is-drop-left") || classes.contains("is-drop-right");
     }
   }, {
     key: "_alignTooltip",

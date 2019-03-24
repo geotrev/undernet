@@ -54,7 +54,7 @@
         &.is-drop-up {
           bottom: 100%;
           margin-bottom: $global-space;
-          
+
           @include down-arrow(
             $dropdown-arrow-offset,
             $dropdown-arrow-fill-color,
@@ -78,7 +78,7 @@
           left: 100%;
           margin-left: $global-space;
           top: 0;
-        
+
           @include left-arrow(
             $dropdown-arrow-offset,
             $dropdown-arrow-fill-color,
