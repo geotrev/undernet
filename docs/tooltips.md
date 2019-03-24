@@ -29,7 +29,7 @@ The tooltip itself is just a div, so you can add any HTML you would normally use
 Tooltips will always automatically align to the middle of whichever element you are calling them on.
 
 <span class="tooltip" data-tooltip="new-tooltip7">
-  <button class="tooltip-trigger" data-target="new-tooltip7">Short Button</button>
+  <button class="tooltip-trigger" data-target="new-tooltip7">Short</button>
   <div class="tooltip-box" id="new-tooltip7">
     This is a tooltip.
   </div>
@@ -132,10 +132,6 @@ Two main pieces are required: an API call and correct HTML markup.
 
 - `id`: A unique id to represent the tooltip itself. Your tooltip `id` value should match the container's `data-tooltip` and trigger's `data-target` attributes.
 
-#### Trigger Classes
-
-- `tooltip-trigger`: Used to identify the tooltip container. Doesn't apply styling.
-
 #### Accessibility
 
 A few key attributes are added for you when the tooltip is instantiated. These help assistive technologies know how to treat and navigate through the component.
@@ -148,6 +144,7 @@ A few key attributes are added for you when the tooltip is instantiated. These h
 #### Styling Classes
 
 - `tooltip`: Wrapper class that adds assists with positioning the tooltip to its trigger.
+- `tooltip-trigger`: Adds hover/focus handling for the tooltip.
 - `tooltip-box`: Adds tooltip styling. Special responsive styling is added with this too.
 
 ### API

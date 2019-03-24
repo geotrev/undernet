@@ -20,16 +20,10 @@ var Tooltip = function () {
   function Tooltip() {
     _classCallCheck(this, Tooltip);
 
-    this._isTouchDevice = typeof document.documentElement !== "undefined";
-    this._iosMobile = /(iphone|ipod)/i.test(navigator.userAgent);
+    this._iosMobile = /(iphone|ipod|ipad)/i.test(navigator.userAgent);
     this._render = this._render.bind(this);
     this._handleClose = this._handleClose.bind(this);
-    this._handleOffTooltipTouch = this._handleOffTooltipTouch.bind(this);
     this._allTooltipTriggers = [];
-    this._activeTrigger = {};
-    this._activeTooltipId = "";
-    this._activeTooltip = {};
-    this._tooltipIsActive = false;
   }
 
   _createClass(Tooltip, [{
@@ -52,7 +46,7 @@ var Tooltip = function () {
     value: function stop() {
       var _this2 = this;
 
-      if (this._isTouchDevice) {
+      if (this._iosMobile) {
         this._allTooltipTriggers.forEach(function (element) {
           element.removeEventListener("click", _this2._render);
         });
@@ -62,54 +56,15 @@ var Tooltip = function () {
     key: "_render",
     value: function _render(event) {
       event.preventDefault();
-
-      if (this._tooltipIsActive) {
-        this._handleClose(event);
-      }
-
-      this._activeTrigger = event.target;
-      this._activeTooltipId = this._activeTrigger.getAttribute("data-target");
-      this._activeTooltip = document.getElementById(this._activeTooltipId);
-
-      this._activeTooltip.setAttribute("data-visible", "true");
-
-      this._activeTooltip.removeEventListener("click", this._render);
-
-      this._activeTooltip.addEventListener("click", this._handleClose);
-
-      document.addEventListener("click", this._handleOffTooltipTouch);
-
-      if (this._iosMobile) {
-        document.body.style.cursor = "pointer";
-      }
+      document.body.style.cursor = "pointer";
+      document.body.addEventListener("click", this._handleClose);
     }
   }, {
     key: "_handleClose",
     value: function _handleClose(event) {
       event.preventDefault();
-
-      this._activeTooltip.setAttribute("data-visible", "false");
-
-      this._activeTooltip.removeEventListener("click", this._handleClose);
-
-      this._activeTooltip.addEventListener("click", this._render);
-
-      document.removeEventListener("click", this._handleOffTooltipTouch);
-
-      if (this._iosMobile) {
-        document.body.style.cursor = "auto";
-      }
-
-      this._activeTrigger = null;
-      this._activeTooltip = null;
-      this._tooltipIsActive = false;
-    }
-  }, {
-    key: "_handleOffTooltipTouch",
-    value: function _handleOffTooltipTouch(event) {
-      if (event.target !== this._activeTrigger) {
-        this._handleClose(event);
-      }
+      document.body.style.cursor = "auto";
+      document.body.removeEventListener("click", this._handleClose);
     }
   }, {
     key: "_setupTooltip",
@@ -117,7 +72,7 @@ var Tooltip = function () {
       trigger.setAttribute("aria-describedby", id);
       tooltip.setAttribute("role", "tooltip");
 
-      if (this._isTouchDevice) {
+      if (this._iosMobile) {
         trigger.addEventListener("click", this._render);
       }
 
@@ -147,7 +102,10 @@ var Tooltip = function () {
 
       var triggerIsLongest = triggerLength > tooltipLength;
       var offset = triggerIsLongest ? (triggerLength - tooltipLength) / 2 : (tooltipLength - triggerLength) / -2;
-      if (property === "height") tooltip.style.top = "".concat(offset, "px");else {
+
+      if (property === "height") {
+        tooltip.style.top = "".concat(offset, "px");
+      } else {
         tooltip.style.left = "".concat(offset, "px");
       }
     }

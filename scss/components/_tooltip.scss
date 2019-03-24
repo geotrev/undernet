@@ -72,8 +72,7 @@
 
   &:hover,
   &:focus {
-    + .tooltip-box,
-    + .tooltip-box[data-visible="true"] {
+    + .tooltip-box {
       opacity: 1;
       pointer-events: auto;
     }

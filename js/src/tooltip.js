@@ -14,21 +14,14 @@ const Messages = {
  */
 export default class Tooltip {
   constructor() {
-    // this._isTouchPlatform = /(silk|android|pixel|iphone|ipod)/i.test(navigator.userAgent)
-    this._isTouchDevice = /(iphone|ipod|ipad|android|iemobile|windows)/i.test(navigator.userAgent)
     this._iosMobile = /(iphone|ipod|ipad)/i.test(navigator.userAgent)
 
     // events
     this._render = this._render.bind(this)
     this._handleClose = this._handleClose.bind(this)
-    this._handleOffTooltipTouch = this._handleOffTooltipTouch.bind(this)
 
     // active tooltip (touch devices only)
     this._allTooltipTriggers = []
-    this._activeTrigger = {}
-    this._activeTooltipId = ""
-    this._activeTooltip = {}
-    this._tooltipIsActive = false
   }
 
   // public
@@ -45,7 +38,7 @@ export default class Tooltip {
   }
 
   stop() {
-    if (this._isTouchDevice) {
+    if (this._iosMobile) {
       this._allTooltipTriggers.forEach(element => {
         element.removeEventListener("click", this._render)
       })
@@ -56,53 +49,21 @@ export default class Tooltip {
 
   _render(event) {
     event.preventDefault()
-
-    if (this._tooltipIsActive) {
-      this._handleClose(event)
-    }
-
-    this._activeTrigger = event.target
-    this._activeTooltipId = this._activeTrigger.getAttribute("data-target")
-    this._activeTooltip = document.getElementById(this._activeTooltipId)
-    this._activeTooltip.setAttribute("data-visible", "true")
-
-    this._activeTooltip.removeEventListener("click", this._render)
-    this._activeTooltip.addEventListener("click", this._handleClose)
-    document.addEventListener("click", this._handleOffTooltipTouch)
-
-    if (this._iosMobile) {
-      document.body.style.cursor = "pointer"
-    }
+    document.body.style.cursor = "pointer"
+    document.body.addEventListener("click", this._handleClose)
   }
 
   _handleClose(event) {
     event.preventDefault()
-
-    this._activeTooltip.setAttribute("data-visible", "false")
-    this._activeTooltip.removeEventListener("click", this._handleClose)
-    this._activeTooltip.addEventListener("click", this._render)
-    document.removeEventListener("click", this._handleOffTooltipTouch)
-
-    if (this._iosMobile) {
-      document.body.style.cursor = "auto"
-    }
-
-    this._activeTrigger = null
-    this._activeTooltip = null
-    this._tooltipIsActive = false
-  }
-
-  _handleOffTooltipTouch(event) {
-    if (event.target !== this._activeTrigger) {
-      this._handleClose(event)
-    }
+    document.body.style.cursor = "auto"
+    document.body.removeEventListener("click", this._handleClose)
   }
 
   _setupTooltip(trigger, tooltip, id) {
     trigger.setAttribute("aria-describedby", id)
     tooltip.setAttribute("role", "tooltip")
 
-    if (this._isTouchDevice) {
+    if (this._iosMobile) {
       trigger.addEventListener("click", this._render)
     }
 
