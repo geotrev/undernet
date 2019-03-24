@@ -96,17 +96,10 @@ var Utils = function () {
   }, {
     key: "_listenForKeyboard",
     value: function _listenForKeyboard(event) {
-      var tabKey = event.which === KeyCodes.TAB;
-      var shiftKey = event.which === KeyCodes.SHIFT || event.shiftKey;
-      var arrowUp = event.which === KeyCodes.ARROW_UP;
-      var arrowDown = event.which === KeyCodes.ARROW_DOWN;
-
-      if (tabKey || shiftKey || arrowUp || arrowDown) {
-        document.body.classList.add(Selectors.KEYBOARD_CLASS);
-        document.removeEventListener(Events.KEYDOWN, this._listenForKeyboard);
-        document.addEventListener(Events.CLICK, this._listenForClick);
-        this._listeningForKeydown = false;
-      }
+      document.body.classList.add(Selectors.KEYBOARD_CLASS);
+      document.removeEventListener(Events.KEYDOWN, this._listenForKeyboard);
+      document.addEventListener(Events.CLICK, this._listenForClick);
+      this._listeningForKeydown = false;
     }
   }, {
     key: "_listenForClick",

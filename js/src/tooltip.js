@@ -17,8 +17,8 @@ export default class Tooltip {
     this._iosMobile = /(iphone|ipod|ipad)/i.test(navigator.userAgent)
 
     // events
-    this._render = this._render.bind(this)
-    this._handleClose = this._handleClose.bind(this)
+    this._setCursorPointer = this._setCursorPointer.bind(this)
+    this._setCursorAuto = this._setCursorAuto.bind(this)
 
     // active tooltip (touch devices only)
     this._allTooltipTriggers = []
@@ -40,23 +40,24 @@ export default class Tooltip {
   stop() {
     if (this._iosMobile) {
       this._allTooltipTriggers.forEach(element => {
-        element.removeEventListener("click", this._render)
+        element.removeEventListener("click", this._setCursorPointer)
       })
     }
   }
 
   // private
 
-  _render(event) {
+  _setCursorPointer(event) {
     event.preventDefault()
+    event.stopPropagation()
+    document.body.addEventListener("click", this._setCursorAuto)
     document.body.style.cursor = "pointer"
-    document.body.addEventListener("click", this._handleClose)
   }
 
-  _handleClose(event) {
+  _setCursorAuto(event) {
     event.preventDefault()
+    document.body.removeEventListener("click", this._setCursorAuto)
     document.body.style.cursor = "auto"
-    document.body.removeEventListener("click", this._handleClose)
   }
 
   _setupTooltip(trigger, tooltip, id) {
@@ -64,7 +65,7 @@ export default class Tooltip {
     tooltip.setAttribute("role", "tooltip")
 
     if (this._iosMobile) {
-      trigger.addEventListener("click", this._render)
+      trigger.addEventListener("click", this._setCursorPointer)
     }
 
     if (this._isLeftOrRight(tooltip)) {

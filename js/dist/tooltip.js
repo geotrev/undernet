@@ -21,8 +21,8 @@ var Tooltip = function () {
     _classCallCheck(this, Tooltip);
 
     this._iosMobile = /(iphone|ipod|ipad)/i.test(navigator.userAgent);
-    this._render = this._render.bind(this);
-    this._handleClose = this._handleClose.bind(this);
+    this._setCursorPointer = this._setCursorPointer.bind(this);
+    this._setCursorAuto = this._setCursorAuto.bind(this);
     this._allTooltipTriggers = [];
   }
 
@@ -48,23 +48,24 @@ var Tooltip = function () {
 
       if (this._iosMobile) {
         this._allTooltipTriggers.forEach(function (element) {
-          element.removeEventListener("click", _this2._render);
+          element.removeEventListener("click", _this2._setCursorPointer);
         });
       }
     }
   }, {
-    key: "_render",
-    value: function _render(event) {
+    key: "_setCursorPointer",
+    value: function _setCursorPointer(event) {
       event.preventDefault();
+      event.stopPropagation();
+      document.body.addEventListener("click", this._setCursorAuto);
       document.body.style.cursor = "pointer";
-      document.body.addEventListener("click", this._handleClose);
     }
   }, {
-    key: "_handleClose",
-    value: function _handleClose(event) {
+    key: "_setCursorAuto",
+    value: function _setCursorAuto(event) {
       event.preventDefault();
+      document.body.removeEventListener("click", this._setCursorAuto);
       document.body.style.cursor = "auto";
-      document.body.removeEventListener("click", this._handleClose);
     }
   }, {
     key: "_setupTooltip",
@@ -73,7 +74,7 @@ var Tooltip = function () {
       tooltip.setAttribute("role", "tooltip");
 
       if (this._iosMobile) {
-        trigger.addEventListener("click", this._render);
+        trigger.addEventListener("click", this._setCursorPointer);
       }
 
       if (this._isLeftOrRight(tooltip)) {
