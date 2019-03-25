@@ -1,4 +1,4 @@
-import Utils from "./utils"
+import Utils, { iOSMobile } from "./utils"
 
 const KeyCodes = {
   TAB: 9,
@@ -43,9 +43,6 @@ const Messages = {
 export default class Dropdown extends Utils {
   constructor() {
     super()
-
-    this._iosMobile = /(iphone|ipod)/i.test(navigator.userAgent)
-
     // events
     this._render = this._render.bind(this)
     this._handleFirstTabClose = this._handleFirstTabClose.bind(this)
@@ -157,7 +154,7 @@ export default class Dropdown extends Utils {
     document.addEventListener(Events.CLICK, this._handleOffMenuClick)
 
     // make click events work on mobile iOS
-    if (this._iosMobile) {
+    if (iOSMobile) {
       document.body.style.cursor = "pointer"
     }
 
@@ -241,7 +238,7 @@ export default class Dropdown extends Utils {
 
     document.removeEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
 
-    if (this._iosMobile) {
+    if (iOSMobile) {
       document.body.style.cursor = "auto"
     }
 

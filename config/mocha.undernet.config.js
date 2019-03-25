@@ -9,6 +9,7 @@ const dom = new JSDOM("<!doctype html><html><head></head><body></body></html>")
 const { window } = dom
 global.window = window
 global.document = window.document
+global.navigator = { userAgent: "node" }
 
 /**
  * Create and fire a keyboard event.

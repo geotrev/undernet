@@ -1,11 +1,22 @@
-// TODO: Fill out KeyCodes, Selectors, Events, and Messages
 // TODO: Add tests
 
-const KeyCodes = {}
-const Selectors = {}
-const Events = {}
+import { iOSMobile } from "./utils"
+
+const Selectors = {
+  DATA_TOOLTIP: "data-tooltip",
+  DATA_TARGET: "data-target",
+  ROLE: "role",
+  ARIA_DESCRIBEDBY: "aria-describedby",
+  DROP_LEFT_CLASS: "is-drop-left",
+  DROP_RIGHT_CLASS: "is-drop-right",
+}
+
+const Events = {
+  CLICK: "click",
+}
+
 const Messages = {
-  // no tooltip id, can't create tooltip
+  NO_ID_ERROR: "Could not find an tooltip trigger associated with your element. Make sure your `data-tooltip` and `data-target` attributes have matching values.",
 }
 
 /**
@@ -14,8 +25,6 @@ const Messages = {
  */
 export default class Tooltip {
   constructor() {
-    this._iosMobile = /(iphone|ipod|ipad)/i.test(navigator.userAgent)
-
     // events
     this._setCursorPointer = this._setCursorPointer.bind(this)
     this._setCursorAuto = this._setCursorAuto.bind(this)
@@ -27,62 +36,32 @@ export default class Tooltip {
   // public
 
   start() {
-    this._allTooltipTriggers = document.querySelectorAll("[data-tooltip]")
+    this._allTooltipTriggers = document.querySelectorAll(`[${Selectors.DATA_TOOLTIP}]`)
 
     this._allTooltipTriggers.forEach(element => {
-      const id = element.getAttribute("data-tooltip")
-      const trigger = element.querySelector(`[data-target="${id}"]`)
+      const id = element.getAttribute(Selectors.DATA_TOOLTIP)
+
+      let trigger
+      if (!element.querySelector(this._getTargetAttr(id))) {
+        return console.error(Messages.NO_ID_ERROR)
+      } else {
+        trigger = element.querySelector(this._getTargetAttr(id))
+      }
+
       const tooltip = document.getElementById(id)
       this._setupTooltip(trigger, tooltip, id)
     })
   }
 
   stop() {
-    if (this._iosMobile) {
+    if (iOSMobile) {
       this._allTooltipTriggers.forEach(element => {
-        element.removeEventListener("click", this._setCursorPointer)
+        element.removeEventListener(Events.CLICK, this._setCursorPointer)
       })
     }
   }
 
   // private
-
-  _setCursorPointer(event) {
-    event.preventDefault()
-    event.stopPropagation()
-    document.body.addEventListener("click", this._setCursorAuto)
-    document.body.style.cursor = "pointer"
-  }
-
-  _setCursorAuto(event) {
-    event.preventDefault()
-    document.body.removeEventListener("click", this._setCursorAuto)
-    document.body.style.cursor = "auto"
-  }
-
-  _setupTooltip(trigger, tooltip, id) {
-    trigger.setAttribute("aria-describedby", id)
-    tooltip.setAttribute("role", "tooltip")
-
-    if (this._iosMobile) {
-      trigger.addEventListener("click", this._setCursorPointer)
-    }
-
-    if (this._isLeftOrRight(tooltip)) {
-      this._alignTooltip(trigger, tooltip, "height")
-    } else {
-      this._alignTooltip(trigger, tooltip, "width")
-    }
-  }
-
-  _getComputedLength(element, property) {
-    return parseInt(window.getComputedStyle(element)[property].slice(0, -2))
-  }
-
-  _isLeftOrRight(tooltip) {
-    const classes = tooltip.classList
-    return classes.contains("is-drop-left") || classes.contains("is-drop-right")
-  }
 
   _alignTooltip(trigger, tooltip, property) {
     const triggerLength = this._getComputedLength(trigger, property)
@@ -98,5 +77,46 @@ export default class Tooltip {
     } else {
       tooltip.style.left = `${offset}px`
     }
+  }
+
+  _setCursorPointer(event) {
+    event.preventDefault()
+    event.stopPropagation()
+    document.body.addEventListener(Events.CLICK, this._setCursorAuto)
+    document.body.style.cursor = "pointer"
+  }
+
+  _setCursorAuto(event) {
+    event.preventDefault()
+    document.body.removeEventListener(Events.CLICK, this._setCursorAuto)
+    document.body.style.cursor = "auto"
+  }
+
+  _setupTooltip(trigger, tooltip, id) {
+    trigger.setAttribute(Selectors.ARIA_DESCRIBEDBY, id)
+    tooltip.setAttribute(Selectors.ROLE, "tooltip")
+
+    if (iOSMobile) {
+      trigger.addEventListener(Events.CLICK, this._setCursorPointer)
+    }
+
+    if (this._isLeftOrRight(tooltip)) {
+      this._alignTooltip(trigger, tooltip, "height")
+    } else {
+      this._alignTooltip(trigger, tooltip, "width")
+    }
+  }
+
+  _getTargetAttr(id) {
+    return `[${Selectors.DATA_TARGET}="${id}"]`
+  }
+
+  _getComputedLength(element, property) {
+    return parseInt(window.getComputedStyle(element)[property].slice(0, -2))
+  }
+
+  _isLeftOrRight(tooltip) {
+    const classes = tooltip.classList
+    return classes.contains(Selectors.DROP_LEFT_CLASS) || classes.contains(Selectors.DROP_RIGHT_CLASS)
   }
 }

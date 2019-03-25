@@ -29,6 +29,8 @@ export const getFocusableElements = container => {
   return document.querySelectorAll(focusables)
 }
 
+export const iOSMobile = /(iphone|ipod|ipad)/i.test(navigator.userAgent)
+
 /**
  * Utility methods for DOM traversal and focus trapping.
  * @module Utils

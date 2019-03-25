@@ -1,4 +1,4 @@
-import Utils, { getFocusableElements } from "./utils"
+import Utils, { iOSMobile, getFocusableElements } from "./utils"
 
 const KeyCodes = {
   ESCAPE: 27,
@@ -44,8 +44,6 @@ const Messages = {
 export default class Modal extends Utils {
   constructor() {
     super()
-
-    this._iosMobile = /(iphone|ipod)/i.test(navigator.userAgent)
 
     // events
     this._render = this._render.bind(this)
@@ -154,7 +152,7 @@ export default class Modal extends Utils {
     this._activeModalOverlay.scrollTop = 0
 
     // on ios devices, let the modal close on overlay click
-    if (this._iosMobile) {
+    if (iOSMobile) {
       this._activeModalOverlay.style.cursor = "pointer"
     }
 
@@ -204,7 +202,7 @@ export default class Modal extends Utils {
       element.setAttribute(Selectors.TABINDEX, "-1")
     })
 
-    if (this._iosMobile) {
+    if (iOSMobile) {
       this._activeModalOverlay.style.cursor = "auto"
     }
 

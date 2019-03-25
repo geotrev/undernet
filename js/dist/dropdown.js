@@ -69,7 +69,6 @@ var Dropdown = function (_Utils) {
     _classCallCheck(this, Dropdown);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Dropdown).call(this));
-    _this._iosMobile = /(iphone|ipod)/i.test(navigator.userAgent);
     _this._render = _this._render.bind(_assertThisInitialized(_this));
     _this._handleFirstTabClose = _this._handleFirstTabClose.bind(_assertThisInitialized(_this));
     _this._handleLastTabClose = _this._handleLastTabClose.bind(_assertThisInitialized(_this));
@@ -165,7 +164,7 @@ var Dropdown = function (_Utils) {
       document.addEventListener(Events.KEYDOWN, this._handleEscapeKeyPress);
       document.addEventListener(Events.CLICK, this._handleOffMenuClick);
 
-      if (this._iosMobile) {
+      if (iOSMobile) {
         document.body.style.cursor = "pointer";
       }
 
@@ -240,7 +239,7 @@ var Dropdown = function (_Utils) {
 
       document.removeEventListener(Events.KEYDOWN, this._handleEscapeKeyPress);
 
-      if (this._iosMobile) {
+      if (iOSMobile) {
         document.body.style.cursor = "auto";
       }
 

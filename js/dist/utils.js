@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = exports.getFocusableElements = void 0;
+exports.default = exports.iOSMobile = exports.getFocusableElements = void 0;
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -35,6 +35,8 @@ var getFocusableElements = function getFocusableElements(container) {
 };
 
 exports.getFocusableElements = getFocusableElements;
+var iOSMobile = /(iphone|ipod|ipad)/i.test(navigator.userAgent);
+exports.iOSMobile = iOSMobile;
 
 var Utils = function () {
   function Utils() {
