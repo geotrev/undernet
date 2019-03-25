@@ -1,7 +1,5 @@
 // TODO: Add style vars to config
 
-// NOTE: Do I need a click handler for mobile if a :focus state is applied below?
-
 .tooltip {
   position: relative;
   display: inline-block;
@@ -30,7 +28,7 @@
     z-index: $tooltip-index-in-modal;
   }
 
-  @if $dropdown-arrows-enabled {
+  @if $tooltip-arrows-enabled {
     bottom: 100%;
     left: 0; // Overriden in javascript. This is a fallback.
 

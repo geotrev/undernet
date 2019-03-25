@@ -87,22 +87,18 @@ Because `disabled` elements aren't focusable, you will need to instead place any
 
 Have the tooltip appear from the left, right, or bottom position by adding `is-drop-left`, `is-drop-right`, or `is-drop-down`, respectively.
 
-<span class="tooltip" data-tooltip="new-tooltip4">
-  <button class="tooltip-trigger" data-target="new-tooltip4">Tooltip Button</button>
-  <div class="tooltip-box is-drop-left" id="new-tooltip4">
-    Left tooltip.
-  </div>
-</span>
-
 <span class="tooltip" data-tooltip="new-tooltip5">
-  <button class="tooltip-trigger" data-target="new-tooltip5">Tooltip Button</button>
+  <button class="tooltip-trigger" data-target="new-tooltip5">Drop Right</button>
   <div class="tooltip-box is-drop-right" id="new-tooltip5">
     Right tooltip.
   </div>
-</span>
-
-<span class="tooltip" data-tooltip="new-tooltip6">
-  <button class="tooltip-trigger" data-target="new-tooltip6">Tooltip Button</button>
+</span> <span class="tooltip" data-tooltip="new-tooltip4">
+  <button class="tooltip-trigger" data-target="new-tooltip4">Drop Left</button>
+  <div class="tooltip-box is-drop-left" id="new-tooltip4">
+    Left tooltip.
+  </div>
+</span> <span class="tooltip" data-tooltip="new-tooltip6">
+  <button class="tooltip-trigger" data-target="new-tooltip6">Drop Down</button>
   <div class="tooltip-box is-drop-down" id="new-tooltip6">
     Bottom tooltip.
   </div>
