@@ -5,6 +5,11 @@
   display: inline-block;
 }
 
+.tooltip-trigger {
+  display: inline-block;
+  cursor: pointer;
+}
+
 .tooltip-box {
   padding: 4px 8px;
   border-radius: $global-border-radius;
@@ -23,6 +28,11 @@
   color: $white;
   font-size: 14px;
   margin: 0 0 $global-space;
+
+  &[data-visible="true"] {
+    opacity: 1;
+    pointer-events: auto;
+  }
 
   .modal-dialog & {
     z-index: $tooltip-index-in-modal;
@@ -60,19 +70,6 @@
       left: 0; // Overriden in javascript. This is a fallback.
 
       @include up-arrow(calc(50% - #{$arrow-size}), $gray100, $gray100);
-    }
-  }
-}
-
-.tooltip-trigger {
-  display: inline-block;
-  cursor: pointer;
-
-  &:hover,
-  &:focus {
-    + .tooltip-box {
-      opacity: 1;
-      pointer-events: auto;
     }
   }
 }

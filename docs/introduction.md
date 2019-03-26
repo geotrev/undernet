@@ -25,6 +25,7 @@ Undernet's CSS and JavaScript will work in recent versions of these browsers:
 - Firefox ✓
 - Safari ✓
 - Opera ✓
+- IE 11 ✓
 - MS Edge ✓
 
 ## Contribute

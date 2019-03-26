@@ -13,8 +13,12 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+var KeyCodes = {
+  ESCAPE: 27
+};
 var Selectors = {
   DATA_TOOLTIP: "data-tooltip",
+  DATA_VISIBLE: "data-visible",
   DATA_TARGET: "data-target",
   ROLE: "role",
   ARIA_DESCRIBEDBY: "aria-describedby",
@@ -22,7 +26,12 @@ var Selectors = {
   DROP_RIGHT_CLASS: "is-drop-right"
 };
 var Events = {
-  CLICK: "click"
+  CLICK: "click",
+  MOUSEENTER: "onmouseenter",
+  MOUSELEAVE: "onmouseleave",
+  FOCUS: "focus",
+  BLUR: "blur",
+  KEYDOWN: "keydown"
 };
 var Messages = {
   NO_ID_ERROR: "Could not find an tooltip trigger associated with your element. Make sure your `data-tooltip` and `data-target` attributes have matching values."
@@ -32,6 +41,9 @@ var Tooltip = function () {
   function Tooltip() {
     _classCallCheck(this, Tooltip);
 
+    this._render = this._render.bind(this);
+    this._handleClose = this._handleClose.bind(this);
+    this._handleEscapeKeyPress = this._handleEscapeKeyPress.bind(this);
     this._setCursorPointer = this._setCursorPointer.bind(this);
     this._setCursorAuto = this._setCursorAuto.bind(this);
     this._allTooltipTriggers = [];
@@ -71,19 +83,97 @@ var Tooltip = function () {
       }
     }
   }, {
-    key: "_alignTooltip",
-    value: function _alignTooltip(trigger, tooltip, property) {
-      var triggerLength = this._getComputedLength(trigger, property);
+    key: "_render",
+    value: function _render(event) {
+      event.preventDefault();
 
-      var tooltipLength = this._getComputedLength(tooltip, property);
+      if (this._activeTooltip) {
+        this._handleClose(event);
+      }
+
+      this._activeTrigger = event.target;
+      this._activeTooltipId = trigger.getAttribute(Selectors.DATA_TARGET);
+      this._activeTooltip = document.getElementById(tooltipId);
+
+      if (this._isLeftOrRight()) {
+        this._alignTooltip("height");
+      } else {
+        this._alignTooltip("width");
+      }
+
+      this._showTooltip();
+
+      this._listenForClose();
+    }
+  }, {
+    key: "_handleClose",
+    value: function _handleClose(event) {
+      event.preventDefault();
+
+      this._hideTooltip();
+
+      this._activeTrigger = null;
+      this._activeTooltipId = null;
+      this._activeTooltip = null;
+
+      this._listenForOpen();
+    }
+  }, {
+    key: "_handleEscapeKeyPress",
+    value: function _handleEscapeKeyPress(event) {
+      event.preventDefault();
+      if (event.which === Events.ESCAPE) this._handleClose(event);
+    }
+  }, {
+    key: "_showTooltip",
+    value: function _showTooltip() {
+      this._activeTooltip.setAttribute(Selectors.DATA_VISIBLE, "true");
+    }
+  }, {
+    key: "_hideTooltip",
+    value: function _hideTooltip() {
+      this._activeTooltip.setAttribute(Selectors.DATA_VISIBLE, "false");
+    }
+  }, {
+    key: "_listenForClose",
+    value: function _listenForClose() {
+      this._activeTrigger.removeEventListener(Events.MOUSEENTER, this._render);
+
+      this._activeTrigger.removeEventListener(Events.FOCUS, this._render);
+
+      document.addEventListener(Events.KEYDOWN, this._handleEscapeKeyPress);
+
+      this._activeTrigger.addEventListener(Events.MOUSELEAVE, this._handleClose);
+
+      this._activeTrigger.addEventListener(Events.BLUR, this._handleClose);
+    }
+  }, {
+    key: "_listenForOpen",
+    value: function _listenForOpen() {
+      this._activeTrigger.removeEventListener(Events.MOUSELEAVE, this._render);
+
+      this._activeTrigger.removeEventListener(Events.BLUR, this._render);
+
+      document.removeEventListener(Events.KEYDOWN, this._handleEscapeKeyPress);
+
+      this._activeTrigger.addEventListener(Events.MOUSEENTER, this._handleClose);
+
+      this._activeTrigger.addEventListener(Events.FOCUS, this._handleClose);
+    }
+  }, {
+    key: "_alignTooltip",
+    value: function _alignTooltip(property) {
+      var triggerLength = this._getComputedLength(this._activeTrigger, property);
+
+      var tooltipLength = this._getComputedLength(this._activeTooltip, property);
 
       var triggerIsLongest = triggerLength > tooltipLength;
       var offset = triggerIsLongest ? (triggerLength - tooltipLength) / 2 : (tooltipLength - triggerLength) / -2;
 
       if (property === "height") {
-        tooltip.style.top = "".concat(offset, "px");
+        this._activeTooltip.style.top = "".concat(offset, "px");
       } else {
-        tooltip.style.left = "".concat(offset, "px");
+        this._activeTooltip.style.left = "".concat(offset, "px");
       }
     }
   }, {
@@ -95,27 +185,12 @@ var Tooltip = function () {
       document.body.style.cursor = "pointer";
     }
   }, {
-    key: "_setCursorAuto",
-    value: function _setCursorAuto(event) {
-      event.preventDefault();
-      document.body.removeEventListener(Events.CLICK, this._setCursorAuto);
-      document.body.style.cursor = "auto";
-    }
-  }, {
     key: "_setupTooltip",
     value: function _setupTooltip(trigger, tooltip, id) {
       trigger.setAttribute(Selectors.ARIA_DESCRIBEDBY, id);
       tooltip.setAttribute(Selectors.ROLE, "tooltip");
-
-      if (_utils.iOSMobile) {
-        trigger.addEventListener(Events.CLICK, this._setCursorPointer);
-      }
-
-      if (this._isLeftOrRight(tooltip)) {
-        this._alignTooltip(trigger, tooltip, "height");
-      } else {
-        this._alignTooltip(trigger, tooltip, "width");
-      }
+      trigger.addEventListener(Events.MOUSEENTER, this._render);
+      trigger.addEventListener(Events.FOCUS, this._render);
     }
   }, {
     key: "_getTargetAttr",
@@ -129,8 +204,8 @@ var Tooltip = function () {
     }
   }, {
     key: "_isLeftOrRight",
-    value: function _isLeftOrRight(tooltip) {
-      var classes = tooltip.classList;
+    value: function _isLeftOrRight() {
+      var classes = this._activeTooltip.classList;
       return classes.contains(Selectors.DROP_LEFT_CLASS) || classes.contains(Selectors.DROP_RIGHT_CLASS);
     }
   }]);
