@@ -30,8 +30,7 @@ var Events = {
   MOUSEOVER: "mouseover",
   MOUSEOUT: "mouseout",
   FOCUS: "focus",
-  BLUR: "blur",
-  KEYDOWN: "keydown"
+  BLUR: "blur"
 };
 var Messages = {
   NO_ID_ERROR: "Could not find your tooltip's id.",
@@ -49,7 +48,8 @@ var Tooltip = function () {
 
     this._render = this._render.bind(this);
     this._handleClose = this._handleClose.bind(this);
-    this._handleEscapeKeyPress = this._handleEscapeKeyPress.bind(this);
+    this._activeTrigger = null;
+    this._activeTooltip = null;
     this._allTooltipTriggers = [];
   }
 
@@ -84,8 +84,10 @@ var Tooltip = function () {
       }
 
       this._activeTrigger = event.target;
-      this._activeTooltipId = this._activeTrigger.getAttribute(Selectors.DATA_TARGET);
-      this._activeTooltip = document.getElementById(this._activeTooltipId);
+
+      var tooltipId = this._activeTrigger.getAttribute(Selectors.DATA_TARGET);
+
+      this._activeTooltip = document.getElementById(tooltipId);
 
       if (this._isLeftOrRight()) {
         this._alignTooltip("height");
@@ -105,13 +107,7 @@ var Tooltip = function () {
       this._listenForOpen();
 
       this._activeTrigger = null;
-      this._activeTooltipId = null;
       this._activeTooltip = null;
-    }
-  }, {
-    key: "_handleEscapeKeyPress",
-    value: function _handleEscapeKeyPress(event) {
-      if (event.which === Events.ESCAPE) this._handleClose(event);
     }
   }, {
     key: "_showTooltip",
@@ -130,11 +126,13 @@ var Tooltip = function () {
 
       this._activeTrigger.removeEventListener(Events.FOCUS, this._render);
 
-      document.addEventListener(Events.KEYDOWN, this._handleEscapeKeyPress);
-
       this._activeTrigger.addEventListener(Events.MOUSEOUT, this._handleClose);
 
       this._activeTrigger.addEventListener(Events.BLUR, this._handleClose);
+
+      if (_utils.iOSMobile) {
+        document.body.style.cursor = "pointer";
+      }
     }
   }, {
     key: "_listenForOpen",
@@ -143,11 +141,13 @@ var Tooltip = function () {
 
       this._activeTrigger.removeEventListener(Events.BLUR, this._handleClose);
 
-      document.removeEventListener(Events.KEYDOWN, this._handleEscapeKeyPress);
-
       this._activeTrigger.addEventListener(Events.MOUSEOVER, this._render);
 
       this._activeTrigger.addEventListener(Events.FOCUS, this._render);
+
+      if (_utils.iOSMobile) {
+        document.body.style.cursor = "auto";
+      }
     }
   }, {
     key: "_alignTooltip",

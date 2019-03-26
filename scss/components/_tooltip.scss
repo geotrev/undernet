@@ -31,7 +31,7 @@
   z-index: $tooltip-index;
   color: $white;
   font-size: 14px;
-  margin: 0 0 $global-space;
+  margin: 0 0 $arrow-size;
 
   &[data-visible="true"] {
     opacity: 1;
@@ -50,7 +50,7 @@
 
     &.is-drop-right {
       left: 100%;
-      margin: 0 0 0 $global-space;
+      margin: 0 0 0 $arrow-size;
       bottom: auto;
       top: 0; // Overriden in javascript. This is a fallback.
 
@@ -59,7 +59,7 @@
 
     &.is-drop-left {
       right: 100%;
-      margin: 0 $global-space 0 0;
+      margin: 0 $arrow-size 0 0;
       bottom: auto;
       left: auto;
       top: 0; // Overriden in javascript. This is a fallback.
