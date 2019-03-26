@@ -144,9 +144,9 @@ export default class Tooltip {
   }
 
   _setupTooltip(instance) {
-    let id = instance.getAttribute(Selectors.DATA_TOOLTIP)
-    let trigger = instance.querySelector(this._getTrigger(id))
-    let tooltip = document.getElementById(id)
+    const id = instance.getAttribute(Selectors.DATA_TOOLTIP)
+    const trigger = instance.querySelector(this._getTrigger(id))
+    const tooltip = document.getElementById(id)
 
     if (!id) {
       return console.error(Messages.NO_ID_ERROR)
