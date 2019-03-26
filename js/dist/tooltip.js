@@ -27,14 +27,20 @@ var Selectors = {
 };
 var Events = {
   CLICK: "click",
-  MOUSEENTER: "onmouseenter",
-  MOUSELEAVE: "onmouseleave",
+  MOUSEOVER: "mouseover",
+  MOUSEOUT: "mouseout",
   FOCUS: "focus",
   BLUR: "blur",
   KEYDOWN: "keydown"
 };
 var Messages = {
-  NO_ID_ERROR: "Could not find an tooltip trigger associated with your element. Make sure your `data-tooltip` and `data-target` attributes have matching values."
+  NO_ID_ERROR: "Could not find your tooltip's id.",
+  NO_TRIGGER_ERROR: function NO_TRIGGER_ERROR(id) {
+    return "Could not find a tooltip trigger with id of ".concat(id, ".");
+  },
+  NO_TOOLTIP_ERROR: function NO_TOOLTIP_ERROR(id) {
+    return "Could not find a tooltip with id of ".concat(id, ".");
+  }
 };
 
 var Tooltip = function () {
@@ -44,8 +50,6 @@ var Tooltip = function () {
     this._render = this._render.bind(this);
     this._handleClose = this._handleClose.bind(this);
     this._handleEscapeKeyPress = this._handleEscapeKeyPress.bind(this);
-    this._setCursorPointer = this._setCursorPointer.bind(this);
-    this._setCursorAuto = this._setCursorAuto.bind(this);
     this._allTooltipTriggers = [];
   }
 
@@ -56,19 +60,8 @@ var Tooltip = function () {
 
       this._allTooltipTriggers = document.querySelectorAll("[".concat(Selectors.DATA_TOOLTIP, "]"));
 
-      this._allTooltipTriggers.forEach(function (element) {
-        var id = element.getAttribute(Selectors.DATA_TOOLTIP);
-        var trigger;
-
-        if (!element.querySelector(_this._getTargetAttr(id))) {
-          return console.error(Messages.NO_ID_ERROR);
-        } else {
-          trigger = element.querySelector(_this._getTargetAttr(id));
-        }
-
-        var tooltip = document.getElementById(id);
-
-        _this._setupTooltip(trigger, tooltip, id);
+      this._allTooltipTriggers.forEach(function (instance) {
+        _this._setupTooltip(instance);
       });
     }
   }, {
@@ -76,24 +69,23 @@ var Tooltip = function () {
     value: function stop() {
       var _this2 = this;
 
-      if (_utils.iOSMobile) {
-        this._allTooltipTriggers.forEach(function (element) {
-          element.removeEventListener(Events.CLICK, _this2._setCursorPointer);
-        });
-      }
+      this._allTooltipTriggers.forEach(function (element) {
+        var id = element.getAttribute(Selectors.DATA_TOOLTIP);
+        var trigger = element.querySelector(_this2._getTrigger(id));
+        element.removeEventListener(Events.MOUSEOVER, _this2._render);
+        element.removeEventListener(Events.FOCUS, _this2._render);
+      });
     }
   }, {
     key: "_render",
     value: function _render(event) {
-      event.preventDefault();
-
       if (this._activeTooltip) {
         this._handleClose(event);
       }
 
       this._activeTrigger = event.target;
-      this._activeTooltipId = trigger.getAttribute(Selectors.DATA_TARGET);
-      this._activeTooltip = document.getElementById(tooltipId);
+      this._activeTooltipId = this._activeTrigger.getAttribute(Selectors.DATA_TARGET);
+      this._activeTooltip = document.getElementById(this._activeTooltipId);
 
       if (this._isLeftOrRight()) {
         this._alignTooltip("height");
@@ -108,20 +100,17 @@ var Tooltip = function () {
   }, {
     key: "_handleClose",
     value: function _handleClose(event) {
-      event.preventDefault();
-
       this._hideTooltip();
+
+      this._listenForOpen();
 
       this._activeTrigger = null;
       this._activeTooltipId = null;
       this._activeTooltip = null;
-
-      this._listenForOpen();
     }
   }, {
     key: "_handleEscapeKeyPress",
     value: function _handleEscapeKeyPress(event) {
-      event.preventDefault();
       if (event.which === Events.ESCAPE) this._handleClose(event);
     }
   }, {
@@ -137,28 +126,28 @@ var Tooltip = function () {
   }, {
     key: "_listenForClose",
     value: function _listenForClose() {
-      this._activeTrigger.removeEventListener(Events.MOUSEENTER, this._render);
+      this._activeTrigger.removeEventListener(Events.MOUSEOVER, this._render);
 
       this._activeTrigger.removeEventListener(Events.FOCUS, this._render);
 
       document.addEventListener(Events.KEYDOWN, this._handleEscapeKeyPress);
 
-      this._activeTrigger.addEventListener(Events.MOUSELEAVE, this._handleClose);
+      this._activeTrigger.addEventListener(Events.MOUSEOUT, this._handleClose);
 
       this._activeTrigger.addEventListener(Events.BLUR, this._handleClose);
     }
   }, {
     key: "_listenForOpen",
     value: function _listenForOpen() {
-      this._activeTrigger.removeEventListener(Events.MOUSELEAVE, this._render);
+      this._activeTrigger.removeEventListener(Events.MOUSEOUT, this._handleClose);
 
-      this._activeTrigger.removeEventListener(Events.BLUR, this._render);
+      this._activeTrigger.removeEventListener(Events.BLUR, this._handleClose);
 
       document.removeEventListener(Events.KEYDOWN, this._handleEscapeKeyPress);
 
-      this._activeTrigger.addEventListener(Events.MOUSEENTER, this._handleClose);
+      this._activeTrigger.addEventListener(Events.MOUSEOVER, this._render);
 
-      this._activeTrigger.addEventListener(Events.FOCUS, this._handleClose);
+      this._activeTrigger.addEventListener(Events.FOCUS, this._render);
     }
   }, {
     key: "_alignTooltip",
@@ -177,24 +166,32 @@ var Tooltip = function () {
       }
     }
   }, {
-    key: "_setCursorPointer",
-    value: function _setCursorPointer(event) {
-      event.preventDefault();
-      event.stopPropagation();
-      document.body.addEventListener(Events.CLICK, this._setCursorAuto);
-      document.body.style.cursor = "pointer";
-    }
-  }, {
     key: "_setupTooltip",
-    value: function _setupTooltip(trigger, tooltip, id) {
+    value: function _setupTooltip(instance) {
+      var id = instance.getAttribute(Selectors.DATA_TOOLTIP);
+      var trigger = instance.querySelector(this._getTrigger(id));
+      var tooltip = document.getElementById(id);
+
+      if (!id) {
+        return console.error(Messages.NO_ID_ERROR);
+      }
+
+      if (!trigger) {
+        return console.error(Messages.NO_TRIGGER_ERROR(id));
+      }
+
+      if (!tooltip) {
+        return console.error(Messages.NO_TOOLTIP_ERROR(id));
+      }
+
       trigger.setAttribute(Selectors.ARIA_DESCRIBEDBY, id);
       tooltip.setAttribute(Selectors.ROLE, "tooltip");
-      trigger.addEventListener(Events.MOUSEENTER, this._render);
+      trigger.addEventListener(Events.MOUSEOVER, this._render);
       trigger.addEventListener(Events.FOCUS, this._render);
     }
   }, {
-    key: "_getTargetAttr",
-    value: function _getTargetAttr(id) {
+    key: "_getTrigger",
+    value: function _getTrigger(id) {
       return "[".concat(Selectors.DATA_TARGET, "=\"").concat(id, "\"]");
     }
   }, {

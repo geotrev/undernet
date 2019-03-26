@@ -8,6 +8,10 @@
 .tooltip-trigger {
   display: inline-block;
   cursor: pointer;
+
+  > *:disabled, > .disabled {
+    pointer-events: none;
+  }
 }
 
 .tooltip-box {
