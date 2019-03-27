@@ -1924,8 +1924,6 @@ textarea:disabled,
 textarea.disabled,
 button:disabled,
 button.disabled,
-a:disabled,
-a.disabled,
 .button:disabled,
 .button.disabled {
   background: #dedede !important;
@@ -1973,8 +1971,6 @@ a.disabled,
   textarea.disabled:hover,
   button:disabled:hover,
   button.disabled:hover,
-  a:disabled:hover,
-  a.disabled:hover,
   .button:disabled:hover,
   .button.disabled:hover {
     background: #dedede !important;
@@ -2071,7 +2067,7 @@ textarea {
     border: 1px solid #dedede;
     z-index: 1999; }
     .modal-dialog .dropdown .dropdown-menu {
-      z-index: 2001; }
+      z-index: 2002; }
     .dropdown .dropdown-menu:not(.has-no-arrow)::after {
       content: "";
       border-bottom: 7px solid transparent;
@@ -2080,7 +2076,7 @@ textarea {
       border-right: 7px solid transparent;
       position: absolute;
       border-bottom: 7px solid #ffffff;
-      top: -14px;
+      top: -13px;
       left: 12px;
       right: auto;
       bottom: auto; }
@@ -2092,7 +2088,7 @@ textarea {
       border-right: 7px solid transparent;
       position: absolute;
       border-bottom: 7px solid #dedede;
-      top: -15px;
+      top: -14.5px;
       left: 12px;
       right: auto;
       bottom: auto; }
@@ -2108,7 +2104,7 @@ textarea {
           border-right: 7px solid transparent;
           position: absolute;
           border-top: 7px solid #ffffff;
-          bottom: -14px;
+          bottom: -13px;
           left: 12px;
           top: auto;
           right: auto; }
@@ -2120,7 +2116,7 @@ textarea {
           border-right: 7px solid transparent;
           position: absolute;
           border-top: 7px solid #dedede;
-          bottom: -15px;
+          bottom: -14.5px;
           left: 12px;
           top: auto;
           right: auto; }
@@ -2136,7 +2132,7 @@ textarea {
           border-right: 7px solid transparent;
           position: absolute;
           border-left: 7px solid #ffffff;
-          right: -14px;
+          right: -13px;
           top: 12px;
           left: auto;
           bottom: auto; }
@@ -2148,7 +2144,7 @@ textarea {
           border-right: 7px solid transparent;
           position: absolute;
           border-left: 7px solid #dedede;
-          right: -15px;
+          right: -14.5px;
           top: 12px;
           left: auto;
           bottom: auto; }
@@ -2164,7 +2160,7 @@ textarea {
           border-right: 7px solid transparent;
           position: absolute;
           border-right: 7px solid #ffffff;
-          left: -14px;
+          left: -13px;
           top: 12px;
           bottom: auto;
           right: auto; }
@@ -2176,25 +2172,25 @@ textarea {
           border-right: 7px solid transparent;
           position: absolute;
           border-right: 7px solid #dedede;
-          left: -15px;
+          left: -14.5px;
           top: 12px;
           bottom: auto;
           right: auto; }
       .dropdown .dropdown-menu.is-aligned-right {
         right: 0; }
-        .dropdown .dropdown-menu.is-aligned-right:not(.has-no-arrow)::after {
+        .dropdown .dropdown-menu.is-aligned-right::after {
           left: auto;
           right: 12px; }
-        .dropdown .dropdown-menu.is-aligned-right:not(.has-no-arrow)::before {
+        .dropdown .dropdown-menu.is-aligned-right::before {
           left: auto;
           right: 12px; }
       .dropdown .dropdown-menu.is-aligned-bottom {
         top: auto;
         bottom: 16px; }
-        .dropdown .dropdown-menu.is-aligned-bottom:not(.has-no-arrow)::after {
+        .dropdown .dropdown-menu.is-aligned-bottom::after {
           top: auto;
           bottom: 12px; }
-        .dropdown .dropdown-menu.is-aligned-bottom:not(.has-no-arrow)::before {
+        .dropdown .dropdown-menu.is-aligned-bottom::before {
           top: auto;
           bottom: 12px; } }
     .dropdown .dropdown-menu li {
@@ -2345,5 +2341,152 @@ textarea {
     background: #ffffff;
     transition: max-height 0.5s cubic-bezier(0.12, 0.72, 0.58, 1.03);
     border-bottom: 2px solid #dedede; }
+
+.tooltip {
+  position: relative;
+  display: inline-block; }
+
+.tooltip-trigger {
+  display: inline-block;
+  cursor: pointer; }
+  .tooltip-trigger > *:disabled, .tooltip-trigger > .disabled {
+    pointer-events: none; }
+
+.tooltip-box {
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid #111;
+  background: #111;
+  position: absolute;
+  display: block;
+  opacity: 0;
+  transition: opacity cubic-bezier(0.12, 0.72, 0.58, 1.03) 0.2s;
+  pointer-events: none;
+  word-wrap: break-word;
+  white-space: nowrap;
+  text-align: center;
+  z-index: 1998;
+  color: #ffffff;
+  font-size: 14px;
+  margin: 0 0 7px;
+  bottom: 100%;
+  left: 0; }
+  .tooltip-box[data-visible="true"] {
+    opacity: 1;
+    pointer-events: auto; }
+  .modal-dialog .tooltip-box {
+    z-index: 2001; }
+  .tooltip-box:not(.has-no-arrow)::after {
+    content: "";
+    border-bottom: 7px solid transparent;
+    border-top: 7px solid transparent;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    position: absolute;
+    border-top: 7px solid #111;
+    bottom: -13px;
+    left: calc(50% - 7px);
+    top: auto;
+    right: auto; }
+  .tooltip-box:not(.has-no-arrow)::before {
+    content: "";
+    border-bottom: 7px solid transparent;
+    border-top: 7px solid transparent;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    position: absolute;
+    border-top: 7px solid #111;
+    bottom: -14.5px;
+    left: calc(50% - 7px);
+    top: auto;
+    right: auto; }
+  .tooltip-box.is-drop-right {
+    left: 100%;
+    margin: 0 0 0 7px;
+    bottom: auto;
+    top: 0; }
+    .tooltip-box.is-drop-right:not(.has-no-arrow)::after {
+      content: "";
+      border-bottom: 7px solid transparent;
+      border-top: 7px solid transparent;
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+      position: absolute;
+      border-right: 7px solid #111;
+      left: -13px;
+      top: calc(50% - 7px);
+      bottom: auto;
+      right: auto; }
+    .tooltip-box.is-drop-right:not(.has-no-arrow)::before {
+      content: "";
+      border-bottom: 7px solid transparent;
+      border-top: 7px solid transparent;
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+      position: absolute;
+      border-right: 7px solid #111;
+      left: -14.5px;
+      top: calc(50% - 7px);
+      bottom: auto;
+      right: auto; }
+  .tooltip-box.is-drop-left {
+    right: 100%;
+    margin: 0 7px 0 0;
+    bottom: auto;
+    left: auto;
+    top: 0; }
+    .tooltip-box.is-drop-left:not(.has-no-arrow)::after {
+      content: "";
+      border-bottom: 7px solid transparent;
+      border-top: 7px solid transparent;
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+      position: absolute;
+      border-left: 7px solid #111;
+      right: -13px;
+      top: calc(50% - 7px);
+      left: auto;
+      bottom: auto; }
+    .tooltip-box.is-drop-left:not(.has-no-arrow)::before {
+      content: "";
+      border-bottom: 7px solid transparent;
+      border-top: 7px solid transparent;
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+      position: absolute;
+      border-left: 7px solid #111;
+      right: -14.5px;
+      top: calc(50% - 7px);
+      left: auto;
+      bottom: auto; }
+  .tooltip-box.is-drop-down {
+    top: 100%;
+    margin: -7px 0 0 0;
+    bottom: auto;
+    left: 0; }
+    .tooltip-box.is-drop-down:not(.has-no-arrow)::after {
+      content: "";
+      border-bottom: 7px solid transparent;
+      border-top: 7px solid transparent;
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+      position: absolute;
+      border-bottom: 7px solid #111;
+      top: -13px;
+      left: calc(50% - 7px);
+      right: auto;
+      bottom: auto; }
+    .tooltip-box.is-drop-down:not(.has-no-arrow)::before {
+      content: "";
+      border-bottom: 7px solid transparent;
+      border-top: 7px solid transparent;
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+      position: absolute;
+      border-bottom: 7px solid #111;
+      top: -14.5px;
+      left: calc(50% - 7px);
+      right: auto;
+      bottom: auto; }
 
 /*# sourceMappingURL=undernet.css.map */

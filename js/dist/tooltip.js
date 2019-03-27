@@ -30,7 +30,8 @@ var Events = {
   MOUSEOVER: "mouseover",
   MOUSEOUT: "mouseout",
   FOCUS: "focus",
-  BLUR: "blur"
+  BLUR: "blur",
+  KEYDOWN: "keydown"
 };
 var Messages = {
   NO_ID_ERROR: "Could not find your tooltip's id.",
@@ -48,9 +49,10 @@ var Tooltip = function () {
 
     this._render = this._render.bind(this);
     this._handleClose = this._handleClose.bind(this);
+    this._handleEscapeKeyPress = this._handleEscapeKeyPress.bind(this);
     this._activeTrigger = null;
     this._activeTooltip = null;
-    this._allTooltipTriggers = [];
+    this._allTooltips = [];
   }
 
   _createClass(Tooltip, [{
@@ -58,9 +60,9 @@ var Tooltip = function () {
     value: function start() {
       var _this = this;
 
-      this._allTooltipTriggers = document.querySelectorAll("[".concat(Selectors.DATA_TOOLTIP, "]"));
+      this._allTooltips = document.querySelectorAll("[".concat(Selectors.DATA_TOOLTIP, "]"));
 
-      this._allTooltipTriggers.forEach(function (instance) {
+      this._allTooltips.forEach(function (instance) {
         _this._setupTooltip(instance);
       });
     }
@@ -69,20 +71,16 @@ var Tooltip = function () {
     value: function stop() {
       var _this2 = this;
 
-      this._allTooltipTriggers.forEach(function (element) {
-        var id = element.getAttribute(Selectors.DATA_TOOLTIP);
-        var trigger = element.querySelector(_this2._getTrigger(id));
-        element.removeEventListener(Events.MOUSEOVER, _this2._render);
-        element.removeEventListener(Events.FOCUS, _this2._render);
+      this._allTooltips.forEach(function (instance) {
+        var id = instance.getAttribute(Selectors.DATA_TOOLTIP);
+        var trigger = instance.querySelector(_this2._getTrigger(id));
+        instance.removeEventListener(Events.MOUSEOVER, _this2._render);
+        instance.removeEventListener(Events.FOCUS, _this2._render);
       });
     }
   }, {
     key: "_render",
     value: function _render(event) {
-      if (this._activeTooltip) {
-        this._handleClose(event);
-      }
-
       this._activeTrigger = event.target;
 
       var tooltipId = this._activeTrigger.getAttribute(Selectors.DATA_TARGET);
@@ -101,7 +99,7 @@ var Tooltip = function () {
     }
   }, {
     key: "_handleClose",
-    value: function _handleClose(event) {
+    value: function _handleClose() {
       this._hideTooltip();
 
       this._listenForOpen();
@@ -130,8 +128,17 @@ var Tooltip = function () {
 
       this._activeTrigger.addEventListener(Events.BLUR, this._handleClose);
 
+      document.addEventListener(Events.KEYDOWN, this._handleEscapeKeyPress);
+
       if (_utils.iOSMobile) {
         document.body.style.cursor = "pointer";
+      }
+    }
+  }, {
+    key: "_handleEscapeKeyPress",
+    value: function _handleEscapeKeyPress(event) {
+      if (event.which === KeyCodes.ESCAPE) {
+        this._handleClose();
       }
     }
   }, {
@@ -144,6 +151,8 @@ var Tooltip = function () {
       this._activeTrigger.addEventListener(Events.MOUSEOVER, this._render);
 
       this._activeTrigger.addEventListener(Events.FOCUS, this._render);
+
+      document.removeEventListener(Events.KEYDOWN, this._handleEscapeKeyPress);
 
       if (_utils.iOSMobile) {
         document.body.style.cursor = "auto";

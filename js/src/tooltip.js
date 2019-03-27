@@ -22,6 +22,7 @@ const Events = {
   MOUSEOUT: "mouseout",
   FOCUS: "focus",
   BLUR: "blur",
+  KEYDOWN: "keydown",
 }
 
 const Messages = {
@@ -39,46 +40,46 @@ export default class Tooltip {
     // events
     this._render = this._render.bind(this)
     this._handleClose = this._handleClose.bind(this)
+    this._handleEscapeKeyPress = this._handleEscapeKeyPress.bind(this)
 
     // active tooltip
     this._activeTrigger = null
     this._activeTooltip = null
 
     // all tooltips
-    this._allTooltipTriggers = []
+    this._allTooltips = []
   }
 
   // public
 
   start() {
-    this._allTooltipTriggers = document.querySelectorAll(`[${Selectors.DATA_TOOLTIP}]`)
+    this._allTooltips = document.querySelectorAll(`[${Selectors.DATA_TOOLTIP}]`)
 
-    this._allTooltipTriggers.forEach(instance => {
+    this._allTooltips.forEach(instance => {
       this._setupTooltip(instance)
     })
   }
 
   stop() {
-    this._allTooltipTriggers.forEach(element => {
-      const id = element.getAttribute(Selectors.DATA_TOOLTIP)
-      const trigger = element.querySelector(this._getTrigger(id))
+    this._allTooltips.forEach(instance => {
+      const id = instance.getAttribute(Selectors.DATA_TOOLTIP)
+      const trigger = instance.querySelector(this._getTrigger(id))
 
-      element.removeEventListener(Events.MOUSEOVER, this._render)
-      element.removeEventListener(Events.FOCUS, this._render)
+      instance.removeEventListener(Events.MOUSEOVER, this._render)
+      instance.removeEventListener(Events.FOCUS, this._render)
     })
   }
 
   // private
 
   _render(event) {
-    if (this._activeTooltip) {
-      this._handleClose(event)
-    }
-
     this._activeTrigger = event.target
     const tooltipId = this._activeTrigger.getAttribute(Selectors.DATA_TARGET)
     this._activeTooltip = document.getElementById(tooltipId)
     
+    // align tooltip to its trigger
+    // -> if the trigger is on the left or right side, use height
+    // -> else use width
     if (this._isLeftOrRight()) {
       this._alignTooltip("height")
     } else {
@@ -89,7 +90,7 @@ export default class Tooltip {
     this._listenForClose()
   }
 
-  _handleClose(event) {
+  _handleClose() {
     this._hideTooltip()
     this._listenForOpen()
 
@@ -110,9 +111,16 @@ export default class Tooltip {
     this._activeTrigger.removeEventListener(Events.FOCUS, this._render)
     this._activeTrigger.addEventListener(Events.MOUSEOUT, this._handleClose)
     this._activeTrigger.addEventListener(Events.BLUR, this._handleClose)
+    document.addEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
 
     if (iOSMobile) {
       document.body.style.cursor = "pointer"
+    }
+  }
+
+  _handleEscapeKeyPress(event) {
+    if (event.which === KeyCodes.ESCAPE) {
+      this._handleClose()
     }
   }
 
@@ -121,6 +129,7 @@ export default class Tooltip {
     this._activeTrigger.removeEventListener(Events.BLUR, this._handleClose)
     this._activeTrigger.addEventListener(Events.MOUSEOVER, this._render)
     this._activeTrigger.addEventListener(Events.FOCUS, this._render)
+    document.removeEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
 
     if (iOSMobile) {
       document.body.style.cursor = "auto"

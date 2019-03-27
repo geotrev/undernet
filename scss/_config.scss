@@ -18,6 +18,7 @@
 // 6. Modals
 // 7. Accordions
 // 8. Dropdowns
+// 9. Tooltips
 // ------------------
 
 // ******************
@@ -740,3 +741,14 @@ $dropdown-menu-header-color: $gray800 !default;
 // -----------
 
 $tooltip-arrows-enabled: true !default;
+
+$tooltip-padding: 4px 8px;
+$tooltip-margin: 0 0 $arrow-size;
+
+$tooltip-transition: opacity $global-transition;
+
+$tooltip-font-size: 14px;
+$tooltip-border-radius: $global-border-radius;
+$tooltip-border: 1px solid $gray100;
+$tooltip-color: $white;
+$tooltip-background: $gray100;
