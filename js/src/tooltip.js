@@ -65,8 +65,8 @@ export default class Tooltip {
       const id = instance.getAttribute(Selectors.DATA_TOOLTIP)
       const trigger = instance.querySelector(this._getTrigger(id))
 
-      instance.removeEventListener(Events.MOUSEOVER, this._render)
-      instance.removeEventListener(Events.FOCUS, this._render)
+      trigger.removeEventListener(Events.MOUSEOVER, this._render)
+      trigger.removeEventListener(Events.FOCUS, this._render)
     })
   }
 

@@ -9,7 +9,6 @@ const dom = `
       <li><a href="#">Item 3</a></li>
     </ul>
   </div>
-
   <div data-dropdown="dropdown2" class="dropdown">
     <button id="dropdown-button2" data-parent="dropdown2" data-target="new-dropdown2">Open Dropdown 2</button>
     <ul id="new-dropdown2" class="dropdown-menu">

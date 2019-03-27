@@ -27,3 +27,13 @@ global.window.simulateKeyPress = (which, shiftKey = false, node = null) => {
 
   return node ? node.dispatchEvent(event) : document.dispatchEvent(event)
 }
+
+global.window.simulateMouseEvent = (name, node = null, bubbles = false, cancelable = false) => {
+  const event = new MouseEvent(name, {
+    bubbles: bubbles || true,
+    cancelable: cancelable || true,
+    relatedTarget: window
+  })
+
+  return node ? node.dispatchEvent(event) : document.dispatchEvent(event)
+}

@@ -74,8 +74,8 @@ var Tooltip = function () {
       this._allTooltips.forEach(function (instance) {
         var id = instance.getAttribute(Selectors.DATA_TOOLTIP);
         var trigger = instance.querySelector(_this2._getTrigger(id));
-        instance.removeEventListener(Events.MOUSEOVER, _this2._render);
-        instance.removeEventListener(Events.FOCUS, _this2._render);
+        trigger.removeEventListener(Events.MOUSEOVER, _this2._render);
+        trigger.removeEventListener(Events.FOCUS, _this2._render);
       });
     }
   }, {
