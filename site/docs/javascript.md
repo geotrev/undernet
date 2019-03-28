@@ -1,8 +1,24 @@
 Using Undernet's JS requires knowing its API. Luckily it's very simple!
 
-1. You can `start` and `stop` all of Undernet's components in a single call. E.g., `Undernet.start()`
-2. Contain initialization by only calling `start` and `stop` on a single component. E.g., `Undernet.Modals.start()`
-3. Do the same as #2 but with named imports for proper tree shaking. E.g., `Modals.start()`
+1. Undernet's scripts can be enabled using a one line `start()` method, enabling all of its components.
+
+```js
+Undernet.start()
+```
+
+2. The scripts can conversely be stopped by using the `stop()` method.
+
+```js
+Undernet.stop()
+```
+
+3. If you're using Webpack and are importing components, you can `start()` or `stop()` the component in a similar fashion. 
+
+```js
+Modals.start()
+// or...
+Modals.stop()
+```
 
 ## Compiled Assets
 
@@ -24,7 +40,7 @@ Just like in the [Introduction](/docs/overview/introduction) article, the fastes
 </html>
 ```
 
-## Using NPM
+## Using NPM & Webpack
 
 Easily import with npm.
 
@@ -44,12 +60,16 @@ Undernet.Modals.start()
 
 ### Customizing Component Imports
 
-You may not want to include _every single_ component in your project. For example, let's say you only need the [Modal](/docs/components/modals) component. Import the component directly as a named import.
+You may not want to include _every single_ component in your project. For example, let's say you only need the [Tooltip](/docs/components/tooltips) component. 
+
+To that end, `import` the component directly as a named import.
 
 ```js
 import { Modals } from "undernet"
 Modals.start()
 ```
+
+Undernet is a fully modular package in this way, enabling [tree shaking](https://webpack.js.org/guides/tree-shaking/).
 
 <hr />
 <p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/javascript.md">Edit this page on Github!</a></p>

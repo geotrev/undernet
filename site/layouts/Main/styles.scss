@@ -1,27 +1,30 @@
 @import "../../global";
-@import "../../../scss/elements/reset";
 
-// $scope: "undernet";
+@charset "UTF-8";
+@import "../../../scss/utilities/reset";
 
 // .#{$scope} {
-@import "../../../scss/helpers/classes";
-@import "../../../scss/elements/grid";
+@import "../../../scss/utilities/classes";
+
+@import "../../../scss/layout/grid";
+
 @import "../../../scss/elements/typography";
-@import "../../../scss/elements/link";
 @import "../../../scss/elements/button";
 @import "../../../scss/elements/form";
 
+@import "../../../scss/components/dropdown";
 @import "../../../scss/components/modal";
 @import "../../../scss/components/accordion";
-@import "../../../scss/components/dropdown";
 @import "../../../scss/components/tooltip";
 // }
 
-@import "../../../scss/helpers/scope-overrides";
+@import "../../../scss/utilities/scope-overrides";
+
+// Layout styles:
 
 main {
   display: block;
-  @import "./prism";
+  @import "prism";
 }
 
 .has-feather {

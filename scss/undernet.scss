@@ -5,18 +5,19 @@
 */
 @charset "UTF-8";
 
-@import "helpers/functions";
+@import "utilities/functions";
 @import "config";
-@import "helpers/mixins";
+@import "utilities/mixins";
 
-// remove globals if you are scoping!
-@import "elements/reset";
+// remove this reset if you are scoping!
+@import "utilities/reset";
 
 // .#{$scope} {
-@import "helpers/classes";
-@import "elements/grid";
+@import "utilities/classes";
+
+@import "layout/grid";
+
 @import "elements/typography";
-@import "elements/link";
 @import "elements/button";
 @import "elements/form";
 
@@ -26,4 +27,4 @@
 @import "components/tooltip";
 // }
 
-@import "helpers/scope-overrides";
+@import "utilities/scope-overrides";

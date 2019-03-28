@@ -8,7 +8,7 @@ const Hashes = require("jshashes")
 
 const distJsFilePath = path.resolve(__dirname, "../dist/undernet.bundle.min.js")
 const distCssFilePath = path.resolve(__dirname, "../dist/undernet.min.css")
-const downloadArticleFilePath = path.resolve(__dirname, "../docs/download.md")
+const downloadArticleFilePath = path.resolve(__dirname, "../site/docs/download.md")
 const readFormat = "utf-8"
 
 // update hashes in docs/download.md
@@ -39,11 +39,11 @@ function getNewIntroductionArticle() {
   return downloadArticleFile.replace(currentJsHash, newJsHash).replace(currentCssHash, newCssHash)
 }
 
-fs.writeFileSync("docs/download.md", getNewIntroductionArticle(), readFormat)
+fs.writeFileSync("site/docs/download.md", getNewIntroductionArticle(), readFormat)
 console.log(`
 #========================================#
 
--> New content hashes created! They're used in docs/download.md.
+-> New content hashes created! They're used in site/docs/download.md.
    - CSS: ${newCssHash}
    - JS: ${newJsHash}
 `)

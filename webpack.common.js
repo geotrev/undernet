@@ -4,7 +4,7 @@ const path = require("path")
 
 module.exports = {
   entry: {
-    main: path.resolve(__dirname, "src/index.js"),
+    main: path.resolve(__dirname, "site/index.js"),
   },
   output: {
     filename: "[name].[chunkhash].js",
@@ -16,12 +16,12 @@ module.exports = {
     extensions: [".js", ".jsx"],
     alias: {
       projectRoot: path.resolve(__dirname),
-      routes: path.resolve(__dirname, "src/routes"),
-      components: path.resolve(__dirname, "src/components/"),
-      helpers: path.resolve(__dirname, "src/helpers/"),
-      pages: path.resolve(__dirname, "src/pages/"),
-      assets: path.resolve(__dirname, "src/assets/"),
-      docs: path.resolve(__dirname, "docs/"),
+      routes: path.resolve(__dirname, "site/routes"),
+      components: path.resolve(__dirname, "site/components/"),
+      helpers: path.resolve(__dirname, "site/helpers/"),
+      pages: path.resolve(__dirname, "site/pages/"),
+      assets: path.resolve(__dirname, "site/assets/"),
+      docs: path.resolve(__dirname, "site/docs/"),
       undernet: path.resolve(__dirname, "js/dist/index"),
     },
   },
