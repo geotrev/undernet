@@ -15,6 +15,7 @@ export const formsPath = "/docs/elements/forms"
 export const modalsPath = "/docs/components/modals"
 export const accordionsPath = "/docs/components/accordions"
 export const dropdownsPath = "/docs/components/dropdowns"
+export const tooltipsPath = "/docs/components/tooltips"
 
 export const alignmentPath = "/docs/utilities/alignment"
 export const offsetOrderPath = "/docs/utilities/offset-order"

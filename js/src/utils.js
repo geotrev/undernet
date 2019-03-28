@@ -29,6 +29,8 @@ export const getFocusableElements = container => {
   return document.querySelectorAll(focusables)
 }
 
+export const iOSMobile = /(iphone|ipod|ipad)/i.test(navigator.userAgent)
+
 /**
  * Utility methods for DOM traversal and focus trapping.
  * @module Utils
@@ -111,17 +113,10 @@ export default class Utils {
    * @param {Object} event - Event (keypress).
    */
   _listenForKeyboard(event) {
-    const tabKey = event.which === KeyCodes.TAB
-    const shiftKey = event.which === KeyCodes.SHIFT || event.shiftKey
-    const arrowUp = event.which === KeyCodes.ARROW_UP
-    const arrowDown = event.which === KeyCodes.ARROW_DOWN
-
-    if (tabKey || shiftKey || arrowUp || arrowDown) {
-      document.body.classList.add(Selectors.KEYBOARD_CLASS)
-      document.removeEventListener(Events.KEYDOWN, this._listenForKeyboard)
-      document.addEventListener(Events.CLICK, this._listenForClick)
-      this._listeningForKeydown = false
-    }
+    document.body.classList.add(Selectors.KEYBOARD_CLASS)
+    document.removeEventListener(Events.KEYDOWN, this._listenForKeyboard)
+    document.addEventListener(Events.CLICK, this._listenForClick)
+    this._listeningForKeydown = false
   }
 
   /**

@@ -11,6 +11,7 @@ import {
   modalsPath,
   accordionsPath,
   dropdownsPath,
+  tooltipsPath,
   alignmentPath,
   offsetOrderPath,
   textPath,
@@ -45,6 +46,7 @@ export const NAV_DATA = [
       { name: "Modals", url: modalsPath },
       { name: "Accordions", url: accordionsPath },
       { name: "Dropdowns", url: dropdownsPath },
+      { name: "Tooltips", url: tooltipsPath },
     ],
   },
   {

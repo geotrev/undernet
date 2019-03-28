@@ -5,9 +5,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _utils = _interopRequireDefault(require("../utils"));
+var _utils = _interopRequireWildcard(require("./utils"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -69,7 +69,6 @@ var Dropdown = function (_Utils) {
     _classCallCheck(this, Dropdown);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Dropdown).call(this));
-    _this._iosMobile = /(iphone|ipod)/i.test(navigator.userAgent);
     _this._render = _this._render.bind(_assertThisInitialized(_this));
     _this._handleFirstTabClose = _this._handleFirstTabClose.bind(_assertThisInitialized(_this));
     _this._handleLastTabClose = _this._handleLastTabClose.bind(_assertThisInitialized(_this));
@@ -165,7 +164,7 @@ var Dropdown = function (_Utils) {
       document.addEventListener(Events.KEYDOWN, this._handleEscapeKeyPress);
       document.addEventListener(Events.CLICK, this._handleOffMenuClick);
 
-      if (this._iosMobile) {
+      if (_utils.iOSMobile) {
         document.body.style.cursor = "pointer";
       }
 
@@ -240,7 +239,7 @@ var Dropdown = function (_Utils) {
 
       document.removeEventListener(Events.KEYDOWN, this._handleEscapeKeyPress);
 
-      if (this._iosMobile) {
+      if (_utils.iOSMobile) {
         document.body.style.cursor = "auto";
       }
 

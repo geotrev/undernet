@@ -30,6 +30,7 @@ export default function DocsRoutes() {
       <Route exact path={routes.modalsPath} component={getRoute("modals")} />
       <Route exact path={routes.accordionsPath} component={getRoute("accordions")} />
       <Route exact path={routes.dropdownsPath} component={getRoute("dropdowns")} />
+      <Route exact path={routes.tooltipsPath} component={getRoute("tooltips")} />
       <Route exact path={routes.alignmentPath} component={getRoute("alignment")} />
       <Route exact path={routes.offsetOrderPath} component={getRoute("offset-order")} />
       <Route exact path={routes.textPath} component={getRoute("text")} />

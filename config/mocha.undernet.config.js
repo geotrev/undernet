@@ -9,6 +9,7 @@ const dom = new JSDOM("<!doctype html><html><head></head><body></body></html>")
 const { window } = dom
 global.window = window
 global.document = window.document
+global.navigator = { userAgent: "node" }
 
 /**
  * Create and fire a keyboard event.
@@ -22,6 +23,16 @@ global.window.simulateKeyPress = (which, shiftKey = false, node = null) => {
     shiftKey,
     keyCode: which,
     bubbles: true,
+  })
+
+  return node ? node.dispatchEvent(event) : document.dispatchEvent(event)
+}
+
+global.window.simulateMouseEvent = (name, node = null, bubbles = false, cancelable = false) => {
+  const event = new MouseEvent(name, {
+    bubbles: bubbles || true,
+    cancelable: cancelable || true,
+    relatedTarget: window
   })
 
   return node ? node.dispatchEvent(event) : document.dispatchEvent(event)

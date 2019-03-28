@@ -30,7 +30,7 @@ Check out this example dropdown:
 
 If you don't want to include the little arrow pointing toward your dropdown button, you can flip it off using the variable `$dropdown-arrows-enabled`. It is set to `true` by default.
 
-Alternatively, you can force the arrow to hide using `has-no-arrow` class on the `dropdown-menu` element
+Alternatively, you can force the arrow to hide using the `has-no-arrow` class on the `dropdown-menu` element
 
 <div data-dropdown="dropdown20" class="dropdown">
   <button id="dropdown-button20" data-parent="dropdown20" data-target="new-dropdown20">Open Dropdown</button>

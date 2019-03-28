@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _utils = _interopRequireWildcard(require("../utils"));
+var _utils = _interopRequireWildcard(require("./utils"));
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
@@ -66,7 +66,6 @@ var Modal = function (_Utils) {
     _classCallCheck(this, Modal);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Modal).call(this));
-    _this._iosMobile = /(iphone|ipod)/i.test(navigator.userAgent);
     _this._render = _this._render.bind(_assertThisInitialized(_this));
     _this._handleClose = _this._handleClose.bind(_assertThisInitialized(_this));
     _this._handleOverlayClick = _this._handleOverlayClick.bind(_assertThisInitialized(_this));
@@ -157,7 +156,7 @@ var Modal = function (_Utils) {
 
       this._activeModalOverlay.scrollTop = 0;
 
-      if (this._iosMobile) {
+      if (_utils.iOSMobile) {
         this._activeModalOverlay.style.cursor = "pointer";
       }
 
@@ -215,7 +214,7 @@ var Modal = function (_Utils) {
         element.setAttribute(Selectors.TABINDEX, "-1");
       });
 
-      if (this._iosMobile) {
+      if (_utils.iOSMobile) {
         this._activeModalOverlay.style.cursor = "auto";
       }
 
