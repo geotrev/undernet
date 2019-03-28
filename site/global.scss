@@ -1,4 +1,4 @@
-@import "../scss/helpers/functions";
+@import "../scss/utilities/functions";
 
 // Put overrides here.
 // Avoid selectors as they will be repeated with every include of this file.
@@ -16,5 +16,8 @@ $brand-dark-blue: #191b34;
   }
 }
 
+// For testing:
+// $scope: "undernet";
+
 @import "../scss/config";
-@import "../scss/helpers/mixins";
+@import "../scss/utilities/mixins";

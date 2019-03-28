@@ -59,26 +59,27 @@ Use the fieldset tag to group form elements together. It should sit inside a for
     <legend>Sign Up For Our Newsletter</legend>
     <div class="row">
       <div class="xsmall-12 medium-6 columns has-no-padding-bottom">
-        <label>
+        <label for="fieldset-email">
           Email
-          <input type="email" value="" placeholder="person@example.com" />
+          <input id="fieldset-email" type="email" value="" placeholder="person@example.com" />
         </label>
       </div>
       <div class="xsmall-12 medium-6 columns has-no-padding-bottom">
-        <label>
+        <label for="fieldset-name">
           Name
-          <input type="text" value="" placeholder="Dr. Thomas Light" />
+          <input id="fieldset-name" type="text" value="" placeholder="Dr. Thomas Light" />
         </label>
       </div>
       <div class="xsmall-12 columns has-no-padding-bottom">
-        <label for="fieldset-textarea-2">
+        <label for="fieldset-textarea-3">
           Tell us about yourself:
-          <textarea id="fieldset-textarea-2" placeholder="I'm a big fan of..."></textarea>
+          <textarea id="fieldset-textarea-3" placeholder="I'm a big fan of..."></textarea>
         </label>
       </div>
       <div class="column has-no-padding-bottom">
         <label for="fieldset-check" class="has-check">
-          <input id="fieldset-check" type="checkbox" /> Send me occasional marketing and product updates.
+          <input id="fieldset-check" type="checkbox" /> Send me occasional marketing and product
+          updates.
         </label>
         <input class="primary button" type="submit" value="Send Me the Goods!" />
       </div>

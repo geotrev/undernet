@@ -32,32 +32,37 @@ export const NAV_DATA = [
     ],
   },
   {
+    header: "Layout",
+    links: [
+      { name: "Flex Grid", url: gridPath },
+      { name: "Alignment", url: alignmentPath },
+      { name: "Offset / Order", url: offsetOrderPath },
+      { name: "Spacing", url: spacingPath },
+    ],
+  },
+  {
     header: "Elements",
     links: [
-      { name: "Grid", url: gridPath },
-      { name: "Typography", url: typographyPath },
       { name: "Buttons", url: buttonsPath },
       { name: "Forms", url: formsPath },
+      { name: "Typography", url: typographyPath },
     ],
   },
   {
     header: "Components",
     links: [
-      { name: "Modals", url: modalsPath },
       { name: "Accordions", url: accordionsPath },
       { name: "Dropdowns", url: dropdownsPath },
+      { name: "Modals", url: modalsPath },
       { name: "Tooltips", url: tooltipsPath },
     ],
   },
   {
     header: "Utilities",
     links: [
-      { name: "Alignment", url: alignmentPath },
-      { name: "Offset / Order", url: offsetOrderPath },
-      { name: "Text", url: textPath },
-      { name: "Display", url: displayPath },
       { name: "Color", url: colorPath },
-      { name: "Spacing", url: spacingPath },
+      { name: "Display", url: displayPath },
+      { name: "Text", url: textPath },
     ],
   },
 ]

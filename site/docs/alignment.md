@@ -1,4 +1,4 @@
-Included in the CSS are a few dozen utility classes for arranging content. They can be used with or without the [flex grid](/docs/elements/grid). As such, these classes are `flex` modifiers and depend on the element also having an attribute of `display: flex;`.
+Included in the CSS are a few dozen utility classes for arranging content. They can be used with or without the [flex grid](/docs/layout/grid). As such, these classes are `flex` modifiers and depend on the element also having an attribute of `display: flex;`.
 
 ## Rows & Columns
 
