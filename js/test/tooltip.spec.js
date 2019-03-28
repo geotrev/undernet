@@ -107,7 +107,7 @@ describe("Tooltips", function() {
       expect(tooltip2.getAttribute("data-visible")).to.equal("true")
     })
 
-    it("hides previous tooltip if mouse moves over another tooltip", function() {
+    it("hides tooltip on mouseout event", function() {
       window.simulateMouseEvent("mouseover", trigger1, true, true)
       expect(tooltip1.getAttribute("data-visible")).to.equal("true")
       window.simulateMouseEvent("mouseout", trigger1, true, true)

@@ -1,10 +1,10 @@
 // This is the starting DOM.
 // It is assigned to document.body.innerHTML before each test suite.
 const dom = `
-  <button href="#" data-modal-button data-target="new-modal">Open modal</button>
+  <button href="#" data-modal-button="new-modal">Open modal</button>
 
-  <div className="modal-overlay" data-modal-id="new-modal">
-    <div className="modal-dialog" data-parent="new-modal" aria-labelledby="header-id" data-modal>
+  <div className="modal-overlay" data-modal="new-modal">
+    <div className="modal-dialog" data-parent="new-modal" aria-labelledby="header-id">
       <header>
         <h2 className="h6 has-no-margin-top" id="header-id">
           Modal Header
@@ -38,8 +38,8 @@ describe("Modals", function() {
     before(function() {
       document.body.innerHTML = dom
       Undernet.Modals.start()
-      modalDialog = document.querySelector("[data-modal]")
-      modalOverlay = document.querySelector("[data-modal-id]")
+      modalDialog = document.querySelector("[data-parent]")
+      modalOverlay = document.querySelector("[data-modal]")
     })
 
     it(`has no [tabindex] on modal dialog`, function() {
@@ -85,8 +85,8 @@ describe("Modals", function() {
       Undernet.Modals.start()
       Undernet.Modals.stop()
       button = document.querySelector("[data-modal-button]")
-      modalOverlay = document.querySelector("[data-modal-id]")
-      modalDialog = document.querySelector("[data-modal]")
+      modalOverlay = document.querySelector("[data-modal]")
+      modalDialog = document.querySelector("[data-parent]")
       button.click()
     })
 
@@ -108,8 +108,8 @@ describe("Modals", function() {
       document.body.innerHTML = dom
       Undernet.Modals.start()
       button = document.querySelector("[data-modal-button]")
-      modalDialog = document.querySelector("[data-modal]")
-      modalOverlay = document.querySelector("[data-modal-id]")
+      modalDialog = document.querySelector("[data-parent]")
+      modalOverlay = document.querySelector("[data-modal]")
       button.click()
     })
 
@@ -132,7 +132,7 @@ describe("Modals", function() {
       })
     })
 
-    it("sets focus to [data-modal]", function() {
+    it("sets focus to [data-parent]", function() {
       expect(document.activeElement).to.equal(modalDialog)
     })
   })
@@ -148,8 +148,8 @@ describe("Modals", function() {
       Undernet.Modals.start()
       openButton = document.querySelector("[data-modal-button]")
       closeButton = document.querySelector("[data-close]")
-      modalOverlay = document.querySelector("[data-modal-id]")
-      modalDialog = document.querySelector("[data-modal]")
+      modalOverlay = document.querySelector("[data-modal]")
+      modalDialog = document.querySelector("[data-parent]")
       openButton.click()
       closeButton.click()
     })
@@ -186,7 +186,7 @@ describe("Modals", function() {
       document.body.innerHTML = dom
       Undernet.Modals.start()
       button = document.querySelector("[data-modal-button]")
-      modalOverlay = document.querySelector("[data-modal-id]")
+      modalOverlay = document.querySelector("[data-modal]")
       button.click()
       modalOverlay.click()
     })
@@ -204,7 +204,7 @@ describe("Modals", function() {
       document.body.innerHTML = dom
       Undernet.Modals.start()
       button = document.querySelector("[data-modal-button]")
-      modalOverlay = document.querySelector("[data-modal-id]")
+      modalOverlay = document.querySelector("[data-modal]")
     })
 
     it(`sets [data-visible='false'] on modal overlay`, function() {
