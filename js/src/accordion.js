@@ -1,4 +1,4 @@
-import Utils, { getFocusableElements } from "./utils"
+import Utils, { getFocusableElements, nodeListToArray } from "./utils"
 
 const Selectors = {
   // unique
@@ -75,7 +75,7 @@ export default class Accordion extends Utils {
     const accordionButtonSelector = this._getPossibleAccordionButtonAttrs(
       `[${Selectors.DATA_ACCORDION}]`
     )
-    this._accordionButtons = document.querySelectorAll(accordionButtonSelector)
+    this._accordionButtons = nodeListToArray(accordionButtonSelector)
 
     if (this._accordionButtons.length) {
       this._accordionButtons.forEach(button => {
@@ -108,19 +108,19 @@ export default class Accordion extends Utils {
 
     this._activeRowAttr = this._getAccordionRowAttr(this._activeAccordionRowId)
     this._activeRow = document.querySelector(this._activeRowAttr)
+    this._activeContainerId = this._activeButton.getAttribute(Selectors.DATA_PARENT)
 
-    if (!this._activeButton.getAttribute(Selectors.DATA_PARENT)) {
+    if (!this._activeContainerId) {
       return console.error(Messages.NO_PARENT_ERROR(this._activeAccordionRowId))
     }
 
-    this._activeContainerId = this._activeButton.getAttribute(Selectors.DATA_PARENT)
     this._activeContainerAttr = `[${Selectors.DATA_ACCORDION}='${this._activeContainerId}']`
+    this._activeContainer = document.querySelector(this._activeContainerAttr)
 
-    if (!document.querySelector(this._activeContainerAttr)) {
+    if (!this._activeContainer) {
       return console.error(Messages.NO_ACCORDION_ERROR(this._activeContainerId))
     }
 
-    this._activeContainer = document.querySelector(this._activeContainerAttr)
     this._activeContent = document.getElementById(this._activeAccordionRowId)
 
     const accordionButtonState = this._activeRow.getAttribute(Selectors.DATA_VISIBLE)
@@ -130,6 +130,9 @@ export default class Accordion extends Utils {
 
     this._closeAllIfToggleable()
     this._toggleSelectedAccordion()
+
+    this._activeContainerId = null
+    this._activeContainer = null
   }
 
   /**
@@ -138,21 +141,21 @@ export default class Accordion extends Utils {
    */
   _setupAccordion(button) {
     const buttonId = button.getAttribute(Selectors.DATA_TARGET)
-
-    if (!document.getElementById(buttonId)) {
+    const buttonContent = document.getElementById(buttonId)
+    
+    if (!buttonContent) {
       return console.error(Messages.NO_CONTENT_ERROR(buttonId))
     }
 
-    const buttonContent = document.getElementById(buttonId)
     const accordionRowAttr = this._getAccordionRowAttr(buttonId)
-
-    if (!document.querySelector(accordionRowAttr)) {
+    const accordionRow = document.querySelector(accordionRowAttr)
+    
+    if (!accordionRow) {
       return console.error(Messages.NO_ROW_ERROR(buttonId))
     }
 
-    const accordionRow = document.querySelector(accordionRowAttr)
     const buttonHeaderAttr = this._getPossibleAccordionHeaderAttrs(accordionRowAttr)
-    const buttonHeader = document.querySelectorAll(buttonHeaderAttr)[0]
+    const buttonHeader = nodeListToArray(buttonHeaderAttr)[0]
 
     if (!buttonHeader || !buttonHeader.id) {
       console.error(Messages.NO_HEADER_ID_ERROR(buttonId))
@@ -163,11 +166,12 @@ export default class Accordion extends Utils {
     button.setAttribute(Selectors.ARIA_CONTROLS, buttonId)
     buttonContent.setAttribute(Selectors.ARIA_LABELLEDBY, buttonHeader.id)
 
-    if (!accordionRow.getAttribute(Selectors.DATA_VISIBLE)) {
+    const contentShouldExpand = accordionRow.getAttribute(Selectors.DATA_VISIBLE)
+    
+    if (!contentShouldExpand) {
       return console.error(Messages.NO_VISIBLE_ERROR(buttonId))
     }
 
-    const contentShouldExpand = accordionRow.getAttribute(Selectors.DATA_VISIBLE)
     if (contentShouldExpand === "true") {
       buttonContent.style.maxHeight = `${buttonContent.scrollHeight}px`
       button.setAttribute(Selectors.ARIA_EXPANDED, "true")
@@ -223,13 +227,13 @@ export default class Accordion extends Utils {
     if (this._activeContainer.hasAttribute(Selectors.DATA_TOGGLE_MULTIPLE)) return
 
     const allContentAttr = `${this._activeContainerAttr} [${Selectors.ARIA_HIDDEN}]`
-    const allRows = document.querySelectorAll(
+    const allRows = nodeListToArray(
       `${this._activeContainerAttr} [${Selectors.DATA_VISIBLE}]`
     )
-    const allContent = document.querySelectorAll(allContentAttr)
+    const allContent = nodeListToArray(allContentAttr)
 
     const accordionButtonSelector = this._getPossibleAccordionButtonAttrs(this._activeContainerAttr)
-    const allButtons = document.querySelectorAll(accordionButtonSelector)
+    const allButtons = nodeListToArray(accordionButtonSelector)
 
     allContent.forEach(content => {
       if (content !== this._activeContent) content.style.maxHeight = null

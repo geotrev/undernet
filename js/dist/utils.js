@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = exports.iOSMobile = exports.getFocusableElements = void 0;
+exports.default = exports.iOSMobile = exports.getFocusableElements = exports.nodeListToArray = void 0;
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -27,11 +27,17 @@ var Events = {
   CLICK: "click"
 };
 
+var nodeListToArray = function nodeListToArray(nodeList) {
+  return Array.apply(null, document.querySelectorAll(nodeList));
+};
+
+exports.nodeListToArray = nodeListToArray;
+
 var getFocusableElements = function getFocusableElements(container) {
   var focusables = Selectors.FOCUSABLE_TAGS.map(function (element) {
     return "".concat(container, " ").concat(element).concat(Selectors.NOT_VISUALLY_HIDDEN);
   }).join(", ");
-  return document.querySelectorAll(focusables);
+  return nodeListToArray(focusables);
 };
 
 exports.getFocusableElements = getFocusableElements;

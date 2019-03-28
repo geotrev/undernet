@@ -96,8 +96,8 @@ var Dropdown = function (_Utils) {
     value: function start() {
       var _this2 = this;
 
-      this._dropdowns = document.querySelectorAll("".concat(this._dropdownContainerAttr));
-      this._dropdownButtons = document.querySelectorAll("".concat(this._dropdownContainerAttr, " > ").concat(this._dropdownTargetAttr));
+      this._dropdowns = (0, _utils.nodeListToArray)("".concat(this._dropdownContainerAttr));
+      this._dropdownButtons = (0, _utils.nodeListToArray)("".concat(this._dropdownContainerAttr, " > ").concat(this._dropdownTargetAttr));
 
       if (this._dropdowns.length) {
         this._dropdowns.forEach(function (dropdown) {
@@ -137,19 +137,19 @@ var Dropdown = function (_Utils) {
       }
 
       this._activeDropdownButton = event.target;
+      this._activeDropdownId = this._activeDropdownButton.getAttribute(Selectors.DATA_PARENT);
 
-      if (!this._activeDropdownButton.getAttribute(Selectors.DATA_PARENT)) {
+      if (!this._activeDropdownId) {
         return console.error(Messages.NO_PARENT_ERROR);
       }
 
-      this._activeDropdownId = this._activeDropdownButton.getAttribute(Selectors.DATA_PARENT);
       this._activeDropdownAttr = "[".concat(Selectors.DATA_DROPDOWN, "=\"").concat(this._activeDropdownId, "\"]");
+      this._activeDropdown = document.querySelector(this._activeDropdownAttr);
 
-      if (!document.querySelector(this._activeDropdownAttr)) {
+      if (!this._activeDropdown) {
         return console.error(Messages.NO_DROPDOWN_ERROR(this._activeDropdownAttr));
       }
 
-      this._activeDropdown = document.querySelector(this._activeDropdownAttr);
       this._activeDropdownMenuId = this._activeDropdownButton.getAttribute(Selectors.DATA_TARGET);
       this._activeDropdownMenu = document.getElementById(this._activeDropdownMenuId);
 
@@ -250,6 +250,8 @@ var Dropdown = function (_Utils) {
       }
 
       this._activeDropdownButton = null;
+      this._activeDropdownId = null;
+      this._activeDropdown = null;
     }
   }, {
     key: "_handleEscapeKeyPress",
@@ -277,31 +279,33 @@ var Dropdown = function (_Utils) {
   }, {
     key: "_getDropdownLinks",
     value: function _getDropdownLinks(attr) {
-      return document.querySelectorAll("".concat(attr, " > ul > li > a, ").concat(attr, " > ul > li > button"));
+      return (0, _utils.nodeListToArray)("".concat(attr, " > ul > li > a, ").concat(attr, " > ul > li > button"));
     }
   }, {
     key: "_setupDropdown",
     value: function _setupDropdown(dropdown) {
       var dropdownId = dropdown.getAttribute(Selectors.DATA_DROPDOWN);
-      var dropdownIdAttr = "[".concat(Selectors.DATA_DROPDOWN, "=\"").concat(dropdownId, "\"]");
-      var dropdownMenuItemsAttr = "".concat(dropdownIdAttr, " > ul > li");
+      var dropdownAttr = "[".concat(Selectors.DATA_DROPDOWN, "=\"").concat(dropdownId, "\"]");
+      var dropdownMenuItemsAttr = "".concat(dropdownAttr, " > ul > li");
+      var dropdownMenu = document.querySelector("".concat(dropdownAttr, " > ul"));
 
-      if (!document.querySelector("".concat(dropdownIdAttr, " > ul"))) {
-        return console.error(Messages.NO_MENU_ERROR(dropdownIdAttr));
+      if (!dropdownMenu) {
+        return console.error(Messages.NO_MENU_ERROR(dropdownAttr));
       }
 
-      var dropdownMenu = document.querySelector("".concat(dropdownIdAttr, " > ul"));
-      var dropdownButton = document.querySelector("".concat(dropdownIdAttr, " > ").concat(this._dropdownTargetAttr));
+      var dropdownButton = document.querySelector("".concat(dropdownAttr, " > ").concat(this._dropdownTargetAttr));
       dropdownButton.setAttribute(Selectors.ARIA_CONTROLS, dropdownMenu.id);
       dropdownButton.setAttribute(Selectors.ARIA_HASPOPUP, "true");
       dropdownButton.setAttribute(Selectors.ARIA_EXPANDED, "false");
       dropdownMenu.setAttribute(Selectors.ARIA_LABELLEDBY, dropdownButton.id);
-      var dropdownMenuItems = document.querySelectorAll(dropdownMenuItemsAttr);
-      dropdownMenuItems.forEach(function (item) {
+      var dropdownMenuListItems = (0, _utils.nodeListToArray)(dropdownMenuItemsAttr);
+      dropdownMenuListItems.forEach(function (item) {
         return item.setAttribute(Selectors.ROLE, "none");
       });
 
-      this._getDropdownLinks(dropdownIdAttr).forEach(function (link) {
+      var dropdownMenuButtons = this._getDropdownLinks(dropdownAttr);
+
+      dropdownMenuButtons.forEach(function (link) {
         link.setAttribute(Selectors.ROLE, "menuitem");
         link.setAttribute(Selectors.TABINDEX, "-1");
       });

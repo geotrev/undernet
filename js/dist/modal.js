@@ -32,11 +32,9 @@ var KeyCodes = {
 };
 var Selectors = {
   DATA_MODAL: "data-modal",
-  DATA_MODAL_ID: "data-modal-id",
   DATA_MODAL_BUTTON: "data-modal-button",
   DATA_VISIBLE: "data-visible",
   DATA_CLOSE: "data-close",
-  DATA_TARGET: "data-target",
   DATA_PARENT: "data-parent",
   ARIA_HIDDEN: "aria-hidden",
   ARIA_MODAL: "aria-modal",
@@ -50,10 +48,10 @@ var Events = {
   RESIZE: "resize"
 };
 var Messages = {
-  NO_TARGET_ERROR: "Could not find [data-target] attribute associated with a [data-modal-button] element.",
-  NO_PARENT_ERROR: "Could not find [data-parent] attribute associated with a [data-modal] element.",
-  NO_ID_ERROR: function NO_ID_ERROR(id) {
-    return "Could not find [data-modal-id='".concat(id, "'] associated with a [data-modal] element.");
+  NO_BUTTON_ID_ERROR: "Could not find an id on your [data-modal-button] element. Modal can't be opened.",
+  NO_MODAL_ID_ERROR: "Could not detect an id on your [data-modal] element. Please add a value matching a button's [data-modal-button] attribute.",
+  NO_MODAL_ERROR: function NO_MODAL_ERROR(id) {
+    return "Could not find a [data-parent='".concat(id, "'] attribute within your [data-modal='").concat(id, "'] element.");
   }
 };
 
@@ -88,15 +86,15 @@ var Modal = function (_Utils) {
     value: function start() {
       var _this2 = this;
 
-      this._modals = document.querySelectorAll(this._modalContainerAttr);
-      this._modalButtons = document.querySelectorAll("[".concat(Selectors.DATA_MODAL_BUTTON, "]"));
+      this._modals = (0, _utils.nodeListToArray)(this._modalContainerAttr);
+      this._modalButtons = (0, _utils.nodeListToArray)("[".concat(Selectors.DATA_MODAL_BUTTON, "]"));
       (0, _utils.getFocusableElements)(this._modalContainerAttr).forEach(function (element) {
         element.setAttribute(Selectors.TABINDEX, "-1");
       });
 
       if (this._modals.length) {
-        this._modals.forEach(function (modal) {
-          _this2._setupModal(modal);
+        this._modals.forEach(function (instance) {
+          _this2._setupModal(instance);
         });
       }
 
@@ -122,22 +120,16 @@ var Modal = function (_Utils) {
 
       event.preventDefault();
       this._activeModalButton = event.target;
+      this._activeModalId = this._activeModalButton.getAttribute(Selectors.DATA_MODAL_BUTTON);
 
-      if (!this._activeModalButton.getAttribute(Selectors.DATA_TARGET)) {
-        return console.error(Messages.NO_TARGET_ERROR);
+      if (!this._activeModalId) {
+        return console.error(Messages.NO_BUTTON_ID_ERROR);
       }
 
-      this._activeModalId = this._activeModalButton.getAttribute(Selectors.DATA_TARGET);
-      this._activeModalOverlayAttr = "[".concat(Selectors.DATA_MODAL_ID, "=\"").concat(this._activeModalId, "\"]");
-
-      if (!document.querySelector(this._activeModalOverlayAttr)) {
-        return console.error(Messages.NO_ID_ERROR(this._activeModalId));
-      }
-
-      this._activeModalOverlay = document.querySelector(this._activeModalOverlayAttr);
-      this._activeModalSelector = "".concat(this._activeModalOverlayAttr, " ").concat(this._modalContainerAttr);
-      this._activeModal = document.querySelector(this._activeModalSelector);
-      this._activeModalCloseButtons = document.querySelectorAll("".concat(this._activeModalOverlayAttr, " [").concat(Selectors.DATA_CLOSE, "]"));
+      this._activeModalOverlay = document.querySelector("[".concat(Selectors.DATA_MODAL, "=\"").concat(this._activeModalId, "\"]"));
+      this._activeModalSelector = "[".concat(Selectors.DATA_PARENT, "='").concat(this._activeModalId, "']");
+      this._activeModal = this._activeModalOverlay.querySelector(this._activeModalSelector);
+      this._activeModalCloseButtons = (0, _utils.nodeListToArray)("".concat(this._activeModalSelector, " [").concat(Selectors.DATA_CLOSE, "]"));
       (0, _utils.getFocusableElements)(this._activeModalSelector).forEach(function (element) {
         element.setAttribute(Selectors.TABINDEX, "0");
       });
@@ -169,23 +161,20 @@ var Modal = function (_Utils) {
     }
   }, {
     key: "_setupModal",
-    value: function _setupModal(modal) {
-      var modalId;
+    value: function _setupModal(instance) {
+      var modalId = instance.getAttribute(Selectors.DATA_MODAL);
 
-      if (!modal.getAttribute(Selectors.DATA_PARENT)) {
-        return console.error(Messages.NO_PARENT_ERROR);
-      } else {
-        modalId = modal.getAttribute(Selectors.DATA_PARENT);
+      if (!modalId) {
+        return console.error(Messages.NO_MODAL_ID_ERROR);
       }
 
-      var modalWrapper;
+      var modal = instance.querySelector("[".concat(Selectors.DATA_PARENT, "='").concat(modalId, "']"));
 
-      if (!document.querySelector("[".concat(Selectors.DATA_MODAL_ID, "='").concat(modalId, "']"))) {
-        return console.error(Messages.NO_ID_ERROR(modalId));
-      } else {
-        modalWrapper = document.querySelector("[".concat(Selectors.DATA_MODAL_ID, "='").concat(modalId, "']"));
+      if (!modal) {
+        return console.error(Messages.NO_MODAL_ERROR(modalId));
       }
 
+      var modalWrapper = document.querySelector("[".concat(Selectors.DATA_MODAL, "='").concat(modalId, "']"));
       modalWrapper.setAttribute(Selectors.ARIA_HIDDEN, "true");
       modalWrapper.setAttribute(Selectors.DATA_VISIBLE, "false");
       modal.setAttribute(Selectors.ARIA_MODAL, "true");
@@ -224,6 +213,8 @@ var Modal = function (_Utils) {
       this._activeModalCloseButtons.forEach(function (button) {
         button.removeEventListener(Events.CLICK, _this5._handleClose);
       });
+
+      this._activeModalId = null;
     }
   }, {
     key: "_handleOverlayClick",
@@ -252,13 +243,13 @@ var Modal = function (_Utils) {
     key: "_handleScrollRestore",
     value: function _handleScrollRestore() {
       document.body.classList.remove(Selectors.NO_SCROLL);
-      document.querySelector("html").classList.remove(Selectors.NO_SCROLL);
+      document.documentElement.classList.remove(Selectors.NO_SCROLL);
     }
   }, {
     key: "_handleScrollStop",
     value: function _handleScrollStop() {
       document.body.classList.add(Selectors.NO_SCROLL);
-      document.querySelector("html").classList.add(Selectors.NO_SCROLL);
+      document.documentElement.classList.add(Selectors.NO_SCROLL);
     }
   }]);
 

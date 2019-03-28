@@ -21,14 +21,27 @@ const Events = {
  * @param {String} container - The enclosing container's class, attribute, etc.
  * @return {String}
  */
+export const nodeListToArray = nodeList => {
+  return Array.apply(null, document.querySelectorAll(nodeList))
+}
+
+/**
+ * Creates a string of element selector patterns using common elements.
+ * @param {String} container - The enclosing container's class, attribute, etc.
+ * @return {Array}
+ */
 export const getFocusableElements = container => {
   const focusables = Selectors.FOCUSABLE_TAGS.map(
     element => `${container} ${element}${Selectors.NOT_VISUALLY_HIDDEN}`
   ).join(", ")
 
-  return document.querySelectorAll(focusables)
+  return nodeListToArray(focusables)
 }
 
+/**
+ * Detects if the browser being used is on an iphone, ipad, or ipod.
+ * @return {Boolean}
+ */
 export const iOSMobile = /(iphone|ipod|ipad)/i.test(navigator.userAgent)
 
 /**

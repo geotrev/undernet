@@ -1,4 +1,4 @@
-import Utils, { iOSMobile } from "./utils"
+import Utils, { iOSMobile, nodeListToArray } from "./utils"
 
 const KeyCodes = {
   TAB: 9,
@@ -78,8 +78,8 @@ export default class Dropdown extends Utils {
    * Begin listening to dropdowns for events.
    */
   start() {
-    this._dropdowns = document.querySelectorAll(`${this._dropdownContainerAttr}`)
-    this._dropdownButtons = document.querySelectorAll(
+    this._dropdowns = nodeListToArray(`${this._dropdownContainerAttr}`)
+    this._dropdownButtons = nodeListToArray(
       `${this._dropdownContainerAttr} > ${this._dropdownTargetAttr}`
     )
 
@@ -122,21 +122,20 @@ export default class Dropdown extends Utils {
 
     // dropdown button / trigger
     this._activeDropdownButton = event.target
+    this._activeDropdownId = this._activeDropdownButton.getAttribute(Selectors.DATA_PARENT)
 
-    if (!this._activeDropdownButton.getAttribute(Selectors.DATA_PARENT)) {
+    if (!this._activeDropdownId) {
       return console.error(Messages.NO_PARENT_ERROR)
     }
 
-    this._activeDropdownId = this._activeDropdownButton.getAttribute(Selectors.DATA_PARENT)
 
     // dropdown container
     this._activeDropdownAttr = `[${Selectors.DATA_DROPDOWN}="${this._activeDropdownId}"]`
+    this._activeDropdown = document.querySelector(this._activeDropdownAttr)
 
-    if (!document.querySelector(this._activeDropdownAttr)) {
+    if (!this._activeDropdown) {
       return console.error(Messages.NO_DROPDOWN_ERROR(this._activeDropdownAttr))
     }
-
-    this._activeDropdown = document.querySelector(this._activeDropdownAttr)
 
     // dropdown menu
     this._activeDropdownMenuId = this._activeDropdownButton.getAttribute(Selectors.DATA_TARGET)
@@ -249,6 +248,8 @@ export default class Dropdown extends Utils {
     }
 
     this._activeDropdownButton = null
+    this._activeDropdownId = null
+    this._activeDropdown = null
   }
 
   /**
@@ -286,7 +287,7 @@ export default class Dropdown extends Utils {
    * @return {String} - Selector for possible menu item links.
    */
   _getDropdownLinks(attr) {
-    return document.querySelectorAll(`${attr} > ul > li > a, ${attr} > ul > li > button`)
+    return nodeListToArray(`${attr} > ul > li > a, ${attr} > ul > li > button`)
   }
 
   /**
@@ -295,25 +296,37 @@ export default class Dropdown extends Utils {
    */
   _setupDropdown(dropdown) {
     const dropdownId = dropdown.getAttribute(Selectors.DATA_DROPDOWN)
-    const dropdownIdAttr = `[${Selectors.DATA_DROPDOWN}="${dropdownId}"]`
-    const dropdownMenuItemsAttr = `${dropdownIdAttr} > ul > li`
 
-    if (!document.querySelector(`${dropdownIdAttr} > ul`)) {
-      return console.error(Messages.NO_MENU_ERROR(dropdownIdAttr))
+    // no id error
+
+    const dropdownAttr = `[${Selectors.DATA_DROPDOWN}="${dropdownId}"]`
+    const dropdownMenuItemsAttr = `${dropdownAttr} > ul > li`
+    const dropdownMenu = document.querySelector(`${dropdownAttr} > ul`)
+
+    // no ul error
+
+    if (!dropdownMenu) {
+      return console.error(Messages.NO_MENU_ERROR(dropdownAttr))
     }
 
-    const dropdownMenu = document.querySelector(`${dropdownIdAttr} > ul`)
-    const dropdownButton = document.querySelector(`${dropdownIdAttr} > ${this._dropdownTargetAttr}`)
+    const dropdownButton = document.querySelector(`${dropdownAttr} > ${this._dropdownTargetAttr}`)
 
     dropdownButton.setAttribute(Selectors.ARIA_CONTROLS, dropdownMenu.id)
     dropdownButton.setAttribute(Selectors.ARIA_HASPOPUP, "true")
     dropdownButton.setAttribute(Selectors.ARIA_EXPANDED, "false")
     dropdownMenu.setAttribute(Selectors.ARIA_LABELLEDBY, dropdownButton.id)
 
-    const dropdownMenuItems = document.querySelectorAll(dropdownMenuItemsAttr)
-    dropdownMenuItems.forEach(item => item.setAttribute(Selectors.ROLE, "none"))
+    const dropdownMenuListItems = nodeListToArray(dropdownMenuItemsAttr)
 
-    this._getDropdownLinks(dropdownIdAttr).forEach(link => {
+    // no menu items error
+
+    dropdownMenuListItems.forEach(item => item.setAttribute(Selectors.ROLE, "none"))
+
+    const dropdownMenuButtons = this._getDropdownLinks(dropdownAttr)
+
+    // no menu buttons error
+
+    dropdownMenuButtons.forEach(link => {
       link.setAttribute(Selectors.ROLE, "menuitem")
       link.setAttribute(Selectors.TABINDEX, "-1")
     })

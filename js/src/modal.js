@@ -1,4 +1,4 @@
-import Utils, { iOSMobile, getFocusableElements } from "./utils"
+import Utils, { iOSMobile, getFocusableElements, nodeListToArray } from "./utils"
 
 const KeyCodes = {
   ESCAPE: 27,
@@ -7,12 +7,10 @@ const KeyCodes = {
 const Selectors = {
   // unique
   DATA_MODAL: "data-modal",
-  DATA_MODAL_ID: "data-modal-id",
   DATA_MODAL_BUTTON: "data-modal-button",
   // common
   DATA_VISIBLE: "data-visible",
   DATA_CLOSE: "data-close",
-  DATA_TARGET: "data-target",
   DATA_PARENT: "data-parent",
   // accessibility
   ARIA_HIDDEN: "aria-hidden",
@@ -30,10 +28,9 @@ const Events = {
 }
 
 const Messages = {
-  NO_TARGET_ERROR: `Could not find [data-target] attribute associated with a [data-modal-button] element.`,
-  NO_PARENT_ERROR: `Could not find [data-parent] attribute associated with a [data-modal] element.`,
-  NO_ID_ERROR: id =>
-    `Could not find [data-modal-id='${id}'] associated with a [data-modal] element.`,
+  NO_BUTTON_ID_ERROR: "Could not find an id on your [data-modal-button] element. Modal can't be opened.",
+  NO_MODAL_ID_ERROR: "Could not detect an id on your [data-modal] element. Please add a value matching a button's [data-modal-button] attribute.",
+  NO_MODAL_ERROR: id => `Could not find a [data-parent='${id}'] attribute within your [data-modal='${id}'] element.`
 }
 
 /**
@@ -71,20 +68,20 @@ export default class Modal extends Utils {
   // public
 
   /**
-   * Add accessible attributes to modal containers
+   * Add accessible attributes to modals.
    * Begin listening to elements with [data-modal-button]
    */
   start() {
-    this._modals = document.querySelectorAll(this._modalContainerAttr)
-    this._modalButtons = document.querySelectorAll(`[${Selectors.DATA_MODAL_BUTTON}]`)
+    this._modals = nodeListToArray(this._modalContainerAttr)
+    this._modalButtons = nodeListToArray(`[${Selectors.DATA_MODAL_BUTTON}]`)
 
     getFocusableElements(this._modalContainerAttr).forEach(element => {
       element.setAttribute(Selectors.TABINDEX, "-1")
     })
 
     if (this._modals.length) {
-      this._modals.forEach(modal => {
-        this._setupModal(modal)
+      this._modals.forEach(instance => {
+        this._setupModal(instance)
       })
     }
 
@@ -113,25 +110,16 @@ export default class Modal extends Utils {
   _render(event) {
     event.preventDefault()
     this._activeModalButton = event.target
+    this._activeModalId = this._activeModalButton.getAttribute(Selectors.DATA_MODAL_BUTTON)
 
-    if (!this._activeModalButton.getAttribute(Selectors.DATA_TARGET)) {
-      return console.error(Messages.NO_TARGET_ERROR)
+    if (!this._activeModalId) {
+      return console.error(Messages.NO_BUTTON_ID_ERROR)
     }
 
-    this._activeModalId = this._activeModalButton.getAttribute(Selectors.DATA_TARGET)
-    this._activeModalOverlayAttr = `[${Selectors.DATA_MODAL_ID}="${this._activeModalId}"]`
-
-    if (!document.querySelector(this._activeModalOverlayAttr)) {
-      return console.error(Messages.NO_ID_ERROR(this._activeModalId))
-    }
-
-    this._activeModalOverlay = document.querySelector(this._activeModalOverlayAttr)
-
-    this._activeModalSelector = `${this._activeModalOverlayAttr} ${this._modalContainerAttr}`
-    this._activeModal = document.querySelector(this._activeModalSelector)
-    this._activeModalCloseButtons = document.querySelectorAll(
-      `${this._activeModalOverlayAttr} [${Selectors.DATA_CLOSE}]`
-    )
+    this._activeModalOverlay = document.querySelector(`[${Selectors.DATA_MODAL}="${this._activeModalId}"]`)
+    this._activeModalSelector = `[${Selectors.DATA_PARENT}='${this._activeModalId}']`
+    this._activeModal = this._activeModalOverlay.querySelector(this._activeModalSelector)
+    this._activeModalCloseButtons = nodeListToArray(`${this._activeModalSelector} [${Selectors.DATA_CLOSE}]`)
 
     // allow focusable elements to be focused
     getFocusableElements(this._activeModalSelector).forEach(element => {
@@ -164,20 +152,20 @@ export default class Modal extends Utils {
     })
   }
 
-  _setupModal(modal) {
-    let modalId
-    if (!modal.getAttribute(Selectors.DATA_PARENT)) {
-      return console.error(Messages.NO_PARENT_ERROR)
-    } else {
-      modalId = modal.getAttribute(Selectors.DATA_PARENT)
+  _setupModal(instance) {
+    const modalId = instance.getAttribute(Selectors.DATA_MODAL)
+    
+    if (!modalId) {
+      return console.error(Messages.NO_MODAL_ID_ERROR)
+    } 
+
+    const modal = instance.querySelector(`[${Selectors.DATA_PARENT}='${modalId}']`)
+
+    if (!modal) {
+      return console.error(Messages.NO_MODAL_ERROR(modalId))
     }
 
-    let modalWrapper
-    if (!document.querySelector(`[${Selectors.DATA_MODAL_ID}='${modalId}']`)) {
-      return console.error(Messages.NO_ID_ERROR(modalId))
-    } else {
-      modalWrapper = document.querySelector(`[${Selectors.DATA_MODAL_ID}='${modalId}']`)
-    }
+    const modalWrapper = document.querySelector(`[${Selectors.DATA_MODAL}='${modalId}']`)
 
     modalWrapper.setAttribute(Selectors.ARIA_HIDDEN, "true")
     modalWrapper.setAttribute(Selectors.DATA_VISIBLE, "false")
@@ -212,6 +200,8 @@ export default class Modal extends Utils {
     this._activeModalCloseButtons.forEach(button => {
       button.removeEventListener(Events.CLICK, this._handleClose)
     })
+
+    this._activeModalId = null
   }
 
   /**
@@ -249,7 +239,7 @@ export default class Modal extends Utils {
    */
   _handleScrollRestore() {
     document.body.classList.remove(Selectors.NO_SCROLL)
-    document.querySelector("html").classList.remove(Selectors.NO_SCROLL)
+    document.documentElement.classList.remove(Selectors.NO_SCROLL)
   }
 
   /**
@@ -257,6 +247,6 @@ export default class Modal extends Utils {
    */
   _handleScrollStop() {
     document.body.classList.add(Selectors.NO_SCROLL)
-    document.querySelector("html").classList.add(Selectors.NO_SCROLL)
+    document.documentElement.classList.add(Selectors.NO_SCROLL)
   }
 }
