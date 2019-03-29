@@ -68,10 +68,18 @@
   }
 }
 
+// this mixin is used for arrow CSS below and in scss/components/_dropdown.scss
+@mixin if-has-arrow {
+  &:not(.has-no-arrow) {
+    @content;
+  }
+}
+
 // These values calculate a consistent arrow fill (inner) and arrow border (outer),
 // given any value of $arrow-size from _config.scss
-$arrow-fill-position: $arrow-size * -2 + 1px;
-$arrow-border-position: $arrow-size * -2 - 0.5px;
+// partial pixel values are used to prevent some browsers from clipping the edge
+$arrow-fill-position: $arrow-size * -2 + 0.5px;
+$arrow-border-position: $arrow-size * -2 - 1px;
 
 @mixin arrow-base {
   content: "";
@@ -83,7 +91,7 @@ $arrow-border-position: $arrow-size * -2 - 0.5px;
 }
 
 @mixin up-arrow($edge-offset, $fill-color, $border-color) {
-  &:not(.has-no-arrow) {
+  @include if-has-arrow {
     &::after {
       @include arrow-base;
       border-bottom: $arrow-size solid $fill-color;
@@ -105,7 +113,7 @@ $arrow-border-position: $arrow-size * -2 - 0.5px;
 }
 
 @mixin down-arrow($edge-offset, $fill-color, $border-color) {
-  &:not(.has-no-arrow) {
+  @include if-has-arrow {
     &::after {
       @include arrow-base;
       border-top: $arrow-size solid $fill-color;
@@ -127,7 +135,7 @@ $arrow-border-position: $arrow-size * -2 - 0.5px;
 }
 
 @mixin right-arrow($edge-offset, $fill-color, $border-color) {
-  &:not(.has-no-arrow) {
+  @include if-has-arrow {
     &::after {
       @include arrow-base;
       border-left: $arrow-size solid $fill-color;
@@ -149,7 +157,7 @@ $arrow-border-position: $arrow-size * -2 - 0.5px;
 }
 
 @mixin left-arrow($edge-offset, $fill-color, $border-color) {
-  &:not(.has-no-arrow) {
+  @include if-has-arrow {
     &::after {
       @include arrow-base;
       border-right: $arrow-size solid $fill-color;

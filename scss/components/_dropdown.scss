@@ -89,14 +89,16 @@
         &.is-aligned-right {
           right: 0;
 
-          &::after {
-            left: auto;
-            right: $dropdown-arrow-offset;
-          }
+          @include if-has-arrow {
+            &::after {
+              left: auto;
+              right: $dropdown-arrow-offset;
+            }
 
-          &::before {
-            left: auto;
-            right: $dropdown-arrow-offset;
+            &::before {
+              left: auto;
+              right: $dropdown-arrow-offset;
+            }
           }
         }
 
@@ -104,14 +106,16 @@
           top: auto;
           bottom: $global-space;
 
-          &::after {
-            top: auto;
-            bottom: $dropdown-arrow-offset;
-          }
+          @include if-has-arrow {
+            &::after {
+              top: auto;
+              bottom: $dropdown-arrow-offset;
+            }
 
-          &::before {
-            top: auto;
-            bottom: $dropdown-arrow-offset;
+            &::before {
+              top: auto;
+              bottom: $dropdown-arrow-offset;
+            }
           }
         }
       }
