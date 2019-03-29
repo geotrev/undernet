@@ -742,13 +742,13 @@ $dropdown-menu-header-color: $gray800 !default;
 
 $tooltip-arrows-enabled: true !default;
 
-$tooltip-padding: 4px 8px;
-$tooltip-margin: 0 0 $arrow-size;
+$tooltip-padding: 4px 8px !default;
+$tooltip-margin: 0 0 $arrow-size !default;
 
-$tooltip-transition: opacity $global-transition;
+$tooltip-transition: opacity $global-transition !default;
 
-$tooltip-font-size: 14px;
-$tooltip-border-radius: $global-border-radius;
-$tooltip-border: 1px solid $gray100;
-$tooltip-color: $white;
-$tooltip-background: $gray100;
+$tooltip-font-size: 14px !default;
+$tooltip-border-radius: $global-border-radius !default;
+$tooltip-border: 1px solid $gray100 !default;
+$tooltip-color: $white !default;
+$tooltip-background: $gray100 !default;
