@@ -1,0 +1,23 @@
+@import "../scss/utilities/functions";
+
+// Put overrides here.
+// Avoid selectors as they will be repeated with every include of this file.
+
+$brand-dark-blue: #191b34;
+
+@mixin colored-link($color: null) {
+  color: $color;
+  opacity: 0.8;
+
+  &:focus,
+  &:active,
+  &:hover {
+    opacity: 1;
+  }
+}
+
+// For testing:
+// $scope: "undernet";
+
+@import "../scss/config";
+@import "../scss/utilities/mixins";

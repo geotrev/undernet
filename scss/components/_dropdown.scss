@@ -43,97 +43,75 @@
       z-index: $dropdown-menu-index-in-modal;
     }
 
-    &:not(.has-no-arrow) {
-      @if $dropdown-arrows-enabled {
-        @include up-arrow(
-          $dropdown-arrow-offset,
-          $dropdown-arrow-fill-color,
-          $dropdown-arrow-border-color
-        );
-      }
-    }
+    @if $dropdown-arrows-enabled {
+      @include up-arrow(
+        $dropdown-arrow-offset,
+        $dropdown-arrow-fill-color,
+        $dropdown-arrow-border-color
+      );
 
-    @include breakpoint-up($dropdown-menu-direction-breakpoint) {
-      &.is-drop-up {
-        bottom: 100%;
-        margin-bottom: $global-space;
+      @include breakpoint-up($dropdown-menu-direction-breakpoint) {
+        &.is-drop-up {
+          bottom: 100%;
+          margin-bottom: $global-space;
 
-        &:not(.has-no-arrow) {
-          @if $dropdown-arrows-enabled {
-            @include down-arrow(
-              $dropdown-arrow-offset,
-              $dropdown-arrow-fill-color,
-              $dropdown-arrow-border-color
-            );
+          @include down-arrow(
+            $dropdown-arrow-offset,
+            $dropdown-arrow-fill-color,
+            $dropdown-arrow-border-color
+          );
+        }
+
+        &.is-drop-left {
+          right: 100%;
+          margin-right: $global-space;
+          top: 0;
+
+          @include right-arrow(
+            $dropdown-arrow-offset,
+            $dropdown-arrow-fill-color,
+            $dropdown-arrow-border-color
+          );
+        }
+
+        &.is-drop-right {
+          left: 100%;
+          margin-left: $global-space;
+          top: 0;
+
+          @include left-arrow(
+            $dropdown-arrow-offset,
+            $dropdown-arrow-fill-color,
+            $dropdown-arrow-border-color
+          );
+        }
+
+        &.is-aligned-right {
+          right: 0;
+
+          &::after {
+            left: auto;
+            right: $dropdown-arrow-offset;
+          }
+
+          &::before {
+            left: auto;
+            right: $dropdown-arrow-offset;
           }
         }
-      }
 
-      &.is-drop-left {
-        right: 100%;
-        margin-right: $global-space;
-        top: 0;
+        &.is-aligned-bottom {
+          top: auto;
+          bottom: $global-space;
 
-        &:not(.has-no-arrow) {
-          @if $dropdown-arrows-enabled {
-            @include right-arrow(
-              $dropdown-arrow-offset,
-              $dropdown-arrow-fill-color,
-              $dropdown-arrow-border-color
-            );
+          &::after {
+            top: auto;
+            bottom: $dropdown-arrow-offset;
           }
-        }
-      }
 
-      &.is-drop-right {
-        left: 100%;
-        margin-left: $global-space;
-        top: 0;
-
-        &:not(.has-no-arrow) {
-          @if $dropdown-arrows-enabled {
-            @include left-arrow(
-              $dropdown-arrow-offset,
-              $dropdown-arrow-fill-color,
-              $dropdown-arrow-border-color
-            );
-          }
-        }
-      }
-
-      &.is-aligned-right {
-        right: 0;
-
-        &:not(.has-no-arrow) {
-          @if $dropdown-arrows-enabled {
-            &::after {
-              left: auto;
-              right: $dropdown-arrow-offset;
-            }
-
-            &::before {
-              left: auto;
-              right: $dropdown-arrow-offset;
-            }
-          }
-        }
-      }
-
-      &.is-aligned-bottom {
-        top: auto;
-        bottom: $global-space;
-
-        &:not(.has-no-arrow) {
-          @if $dropdown-arrows-enabled {
-            &::after {
-              top: auto;
-              bottom: $dropdown-arrow-offset;
-            }
-
-            &::before {
-              top: auto;
-              bottom: $dropdown-arrow-offset;
-            }
+          &::before {
+            top: auto;
+            bottom: $dropdown-arrow-offset;
           }
         }
       }

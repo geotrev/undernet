@@ -1,0 +1,37 @@
+@import "../../global";
+
+@charset "UTF-8";
+@import "../../../scss/utilities/reset";
+
+// .#{$scope} {
+@import "../../../scss/utilities/classes";
+
+@import "../../../scss/layout/grid";
+
+@import "../../../scss/elements/typography";
+@import "../../../scss/elements/button";
+@import "../../../scss/elements/form";
+
+@import "../../../scss/components/dropdown";
+@import "../../../scss/components/modal";
+@import "../../../scss/components/accordion";
+@import "../../../scss/components/tooltip";
+// }
+
+@import "../../../scss/utilities/scope-overrides";
+
+// Layout styles:
+
+main {
+  display: block;
+  @import "prism";
+}
+
+.has-feather {
+  display: inline-flex;
+  align-items: center;
+
+  svg {
+    margin-left: 5px;
+  }
+}

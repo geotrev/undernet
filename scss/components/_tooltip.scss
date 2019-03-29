@@ -1,0 +1,77 @@
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip-trigger {
+  display: inline-block;
+  cursor: pointer;
+
+  > *:disabled,
+  > .disabled {
+    pointer-events: none;
+  }
+}
+
+.tooltip-box {
+  padding: $tooltip-padding;
+  border-radius: $global-border-radius;
+  border: $tooltip-border;
+  background: $gray100;
+  position: absolute;
+  display: block;
+  opacity: 0;
+  transition: $tooltip-transition;
+  pointer-events: none;
+  word-wrap: break-word;
+  white-space: nowrap;
+  text-align: center;
+  z-index: $tooltip-index;
+  color: $tooltip-color;
+  font-size: $tooltip-font-size;
+  margin: $tooltip-margin;
+
+  &[data-visible="true"] {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .modal-dialog & {
+    z-index: $tooltip-index-in-modal;
+  }
+
+  @if $tooltip-arrows-enabled {
+    bottom: 100%;
+    left: 0; // Overriden in javascript. This is a fallback.
+
+    @include down-arrow(calc(50% - #{$arrow-size}), $gray100, $gray100);
+
+    &.is-drop-right {
+      left: 100%;
+      margin: 0 0 0 $arrow-size;
+      bottom: auto;
+      top: 0; // Overriden in javascript. This is a fallback.
+
+      @include left-arrow(calc(50% - #{$arrow-size}), $gray100, $gray100);
+    }
+
+    &.is-drop-left {
+      right: 100%;
+      margin: 0 $arrow-size 0 0;
+      bottom: auto;
+      left: auto;
+      top: 0; // Overriden in javascript. This is a fallback.
+
+      @include right-arrow(calc(50% - #{$arrow-size}), $gray100, $gray100);
+    }
+
+    &.is-drop-down {
+      top: 100%;
+      margin: -$arrow-size 0 0 0;
+      bottom: auto;
+      left: 0; // Overriden in javascript. This is a fallback.
+
+      @include up-arrow(calc(50% - #{$arrow-size}), $gray100, $gray100);
+    }
+  }
+}

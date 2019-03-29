@@ -21,13 +21,28 @@ const Events = {
  * @param {String} container - The enclosing container's class, attribute, etc.
  * @return {String}
  */
+export const nodeListToArray = nodeList => {
+  return Array.apply(null, document.querySelectorAll(nodeList))
+}
+
+/**
+ * Creates a string of element selector patterns using common elements.
+ * @param {String} container - The enclosing container's class, attribute, etc.
+ * @return {Array}
+ */
 export const getFocusableElements = container => {
   const focusables = Selectors.FOCUSABLE_TAGS.map(
     element => `${container} ${element}${Selectors.NOT_VISUALLY_HIDDEN}`
   ).join(", ")
 
-  return document.querySelectorAll(focusables)
+  return nodeListToArray(focusables)
 }
+
+/**
+ * Detects if the browser being used is on an iphone, ipad, or ipod.
+ * @return {Boolean}
+ */
+export const iOSMobile = /(iphone|ipod|ipad)/i.test(navigator.userAgent)
 
 /**
  * Utility methods for DOM traversal and focus trapping.
@@ -111,17 +126,10 @@ export default class Utils {
    * @param {Object} event - Event (keypress).
    */
   _listenForKeyboard(event) {
-    const tabKey = event.which === KeyCodes.TAB
-    const shiftKey = event.which === KeyCodes.SHIFT || event.shiftKey
-    const arrowUp = event.which === KeyCodes.ARROW_UP
-    const arrowDown = event.which === KeyCodes.ARROW_DOWN
-
-    if (tabKey || shiftKey || arrowUp || arrowDown) {
-      document.body.classList.add(Selectors.KEYBOARD_CLASS)
-      document.removeEventListener(Events.KEYDOWN, this._listenForKeyboard)
-      document.addEventListener(Events.CLICK, this._listenForClick)
-      this._listeningForKeydown = false
-    }
+    document.body.classList.add(Selectors.KEYBOARD_CLASS)
+    document.removeEventListener(Events.KEYDOWN, this._listenForKeyboard)
+    document.addEventListener(Events.CLICK, this._listenForClick)
+    this._listeningForKeydown = false
   }
 
   /**

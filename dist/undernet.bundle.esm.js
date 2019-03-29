@@ -1,6 +1,6 @@
 /*!
   * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
-  * Undernet v3.3.7 (https://undernet.io)
+  * Undernet v4.0.0 (https://undernet.io)
   * Copyright 2017-2019 George Treviranus
   */
 const KeyCodes = {
@@ -26,13 +26,28 @@ const Events = {
  * @param {String} container - The enclosing container's class, attribute, etc.
  * @return {String}
  */
+const nodeListToArray = nodeList => {
+  return Array.apply(null, document.querySelectorAll(nodeList))
+};
+
+/**
+ * Creates a string of element selector patterns using common elements.
+ * @param {String} container - The enclosing container's class, attribute, etc.
+ * @return {Array}
+ */
 const getFocusableElements = container => {
   const focusables = Selectors.FOCUSABLE_TAGS.map(
     element => `${container} ${element}${Selectors.NOT_VISUALLY_HIDDEN}`
   ).join(", ");
 
-  return document.querySelectorAll(focusables)
+  return nodeListToArray(focusables)
 };
+
+/**
+ * Detects if the browser being used is on an iphone, ipad, or ipod.
+ * @return {Boolean}
+ */
+const iOSMobile = /(iphone|ipod|ipad)/i.test(navigator.userAgent);
 
 /**
  * Utility methods for DOM traversal and focus trapping.
@@ -116,17 +131,10 @@ class Utils {
    * @param {Object} event - Event (keypress).
    */
   _listenForKeyboard(event) {
-    const tabKey = event.which === KeyCodes.TAB;
-    const shiftKey = event.which === KeyCodes.SHIFT || event.shiftKey;
-    const arrowUp = event.which === KeyCodes.ARROW_UP;
-    const arrowDown = event.which === KeyCodes.ARROW_DOWN;
-
-    if (tabKey || shiftKey || arrowUp || arrowDown) {
-      document.body.classList.add(Selectors.KEYBOARD_CLASS);
-      document.removeEventListener(Events.KEYDOWN, this._listenForKeyboard);
-      document.addEventListener(Events.CLICK, this._listenForClick);
-      this._listeningForKeydown = false;
-    }
+    document.body.classList.add(Selectors.KEYBOARD_CLASS);
+    document.removeEventListener(Events.KEYDOWN, this._listenForKeyboard);
+    document.addEventListener(Events.CLICK, this._listenForClick);
+    this._listeningForKeydown = false;
   }
 
   /**
@@ -211,270 +219,7 @@ class Utils {
   }
 }
 
-const KeyCodes$1 = {
-  ESCAPE: 27,
-};
-
 const Selectors$1 = {
-  // unique
-  DATA_MODAL: "data-modal",
-  DATA_MODAL_ID: "data-modal-id",
-  DATA_MODAL_BUTTON: "data-modal-button",
-  // common
-  DATA_VISIBLE: "data-visible",
-  DATA_CLOSE: "data-close",
-  DATA_TARGET: "data-target",
-  DATA_PARENT: "data-parent",
-  // accessibility
-  ARIA_HIDDEN: "aria-hidden",
-  ARIA_MODAL: "aria-modal",
-  ROLE: "role",
-  TABINDEX: "tabindex",
-  // classes
-  NO_SCROLL: "no-scroll",
-};
-
-const Events$1 = {
-  KEYDOWN: "keydown",
-  CLICK: "click",
-  RESIZE: "resize",
-};
-
-const Messages = {
-  NO_TARGET_ERROR: `Could not find [data-target] attribute associated with a [data-modal-button] element.`,
-  NO_PARENT_ERROR: `Could not find [data-parent] attribute associated with a [data-modal] element.`,
-  NO_ID_ERROR: id =>
-    `Could not find [data-modal-id='${id}'] associated with a [data-modal] element.`,
-};
-
-/**
- * Modal component class.
- * @module Modal
- * @requires Utils
- */
-class Modal extends Utils {
-  constructor() {
-    super();
-
-    this._iosMobile = /(iphone|ipod)/i.test(navigator.userAgent);
-
-    // events
-    this._render = this._render.bind(this);
-    this._handleClose = this._handleClose.bind(this);
-    this._handleOverlayClick = this._handleOverlayClick.bind(this);
-    this._handleEscapeKeyPress = this._handleEscapeKeyPress.bind(this);
-
-    // all modals
-    this._modals = [];
-    this._modalButtons = [];
-
-    // active modal
-    this._activeModalButton = {};
-    this._activeModalOverlay = {};
-    this._activeModal = {};
-    this._activeModalId = "";
-    this._activeModalOverlayAttr = "";
-    this._activeModalSelector = "";
-    this._activeModalCloseButtons = [];
-
-    // attribute helpers
-    this._modalContainerAttr = `[${Selectors$1.DATA_MODAL}]`;
-  }
-
-  // public
-
-  /**
-   * Add accessible attributes to modal containers
-   * Begin listening to elements with [data-modal-button]
-   */
-  start() {
-    this._modals = document.querySelectorAll(this._modalContainerAttr);
-    this._modalButtons = document.querySelectorAll(`[${Selectors$1.DATA_MODAL_BUTTON}]`);
-
-    getFocusableElements(this._modalContainerAttr).forEach(element => {
-      element.setAttribute(Selectors$1.TABINDEX, "-1");
-    });
-
-    if (this._modals.length) {
-      this._modals.forEach(modal => {
-        this._setupModal(modal);
-      });
-    }
-
-    if (this._modalButtons.length) {
-      this._modalButtons.forEach(button => {
-        button.addEventListener(Events$1.CLICK, this._render);
-      });
-    }
-  }
-
-  /**
-   * Stop listening to modal buttons
-   */
-  stop() {
-    this._modalButtons.forEach(button => {
-      button.removeEventListener(Events$1.CLICK, this._render);
-    });
-  }
-
-  // private
-
-  /**
-   * Find a button through event.target, then render the corresponding modal attribute via matching target id
-   * @param {Object} event - The event object
-   */
-  _render(event) {
-    event.preventDefault();
-    this._activeModalButton = event.target;
-
-    if (!this._activeModalButton.getAttribute(Selectors$1.DATA_TARGET)) {
-      return console.error(Messages.NO_TARGET_ERROR)
-    }
-
-    this._activeModalId = this._activeModalButton.getAttribute(Selectors$1.DATA_TARGET);
-    this._activeModalOverlayAttr = `[${Selectors$1.DATA_MODAL_ID}="${this._activeModalId}"]`;
-
-    if (!document.querySelector(this._activeModalOverlayAttr)) {
-      return console.error(Messages.NO_ID_ERROR(this._activeModalId))
-    }
-
-    this._activeModalOverlay = document.querySelector(this._activeModalOverlayAttr);
-
-    this._activeModalSelector = `${this._activeModalOverlayAttr} ${this._modalContainerAttr}`;
-    this._activeModal = document.querySelector(this._activeModalSelector);
-    this._activeModalCloseButtons = document.querySelectorAll(
-      `${this._activeModalOverlayAttr} [${Selectors$1.DATA_CLOSE}]`
-    );
-
-    // allow focusable elements to be focused
-    getFocusableElements(this._activeModalSelector).forEach(element => {
-      element.setAttribute(Selectors$1.TABINDEX, "0");
-    });
-
-    // capture focus, stop scrolling, and toggle attributes for visibility
-    this._handleScrollStop();
-    this.captureFocus(this._activeModalSelector);
-    this._activeModalOverlay.setAttribute(Selectors$1.ARIA_HIDDEN, "false");
-    this._activeModalOverlay.setAttribute(Selectors$1.DATA_VISIBLE, "true");
-
-    // focus the modal
-    this._activeModal.setAttribute(Selectors$1.TABINDEX, "-1");
-    this._activeModal.focus();
-
-    // offset slight scroll caused by this._activeModal.focus()
-    this._activeModalOverlay.scrollTop = 0;
-
-    // on ios devices, let the modal close on overlay click
-    if (this._iosMobile) {
-      this._activeModalOverlay.style.cursor = "pointer";
-    }
-
-    // begin listening to events
-    document.addEventListener(Events$1.KEYDOWN, this._handleEscapeKeyPress);
-    document.addEventListener(Events$1.CLICK, this._handleOverlayClick);
-    this._activeModalCloseButtons.forEach(button => {
-      button.addEventListener(Events$1.CLICK, this._handleClose);
-    });
-  }
-
-  _setupModal(modal) {
-    let modalId;
-    if (!modal.getAttribute(Selectors$1.DATA_PARENT)) {
-      return console.error(Messages.NO_PARENT_ERROR)
-    } else {
-      modalId = modal.getAttribute(Selectors$1.DATA_PARENT);
-    }
-
-    let modalWrapper;
-    if (!document.querySelector(`[${Selectors$1.DATA_MODAL_ID}='${modalId}']`)) {
-      return console.error(Messages.NO_ID_ERROR(modalId))
-    } else {
-      modalWrapper = document.querySelector(`[${Selectors$1.DATA_MODAL_ID}='${modalId}']`);
-    }
-
-    modalWrapper.setAttribute(Selectors$1.ARIA_HIDDEN, "true");
-    modalWrapper.setAttribute(Selectors$1.DATA_VISIBLE, "false");
-    modal.setAttribute(Selectors$1.ARIA_MODAL, "true");
-    modal.setAttribute(Selectors$1.ROLE, "dialog");
-  }
-
-  /**
-   * Turn off event listeners and reset focus to last selected DOM node (button)
-   * @param {Object} event - The event object
-   */
-  _handleClose(event) {
-    event.preventDefault();
-    this._activeModalOverlay.setAttribute(Selectors$1.DATA_VISIBLE, "false");
-    this._handleReturnFocus();
-    this._handleScrollRestore();
-    this.releaseFocus();
-    this._activeModalOverlay.setAttribute(Selectors$1.ARIA_HIDDEN, "true");
-    this._activeModal.removeAttribute(Selectors$1.TABINDEX);
-
-    getFocusableElements(this._activeModalSelector).forEach(element => {
-      element.setAttribute(Selectors$1.TABINDEX, "-1");
-    });
-
-    if (this._iosMobile) {
-      this._activeModalOverlay.style.cursor = "auto";
-    }
-
-    // stop listening to events
-    document.removeEventListener(Events$1.KEYDOWN, this._handleEscapeKeyPress);
-    document.removeEventListener(Events$1.CLICK, this._handleOverlayClick);
-    this._activeModalCloseButtons.forEach(button => {
-      button.removeEventListener(Events$1.CLICK, this._handleClose);
-    });
-  }
-
-  /**
-   * Handles click event on the modal background to close it.
-   * @param {Object} event - The event object
-   */
-  _handleOverlayClick(event) {
-    if (event.target === this._activeModalOverlay) {
-      this._handleClose(event);
-    }
-  }
-
-  /**
-   * Handles escape key event to close the current modal
-   * @param {Object} event - The event object
-   */
-  _handleEscapeKeyPress(event) {
-    if (event.which === KeyCodes$1.ESCAPE) {
-      this._handleClose(event);
-    }
-  }
-
-  /**
-   * Returns focus to the last focused element before the modal was called.
-   * @param {Object} button - The current modal's corresponding button.
-   */
-  _handleReturnFocus() {
-    this._activeModalButton.setAttribute(Selectors$1.TABINDEX, "-1");
-    this._activeModalButton.focus();
-    this._activeModalButton.removeAttribute(Selectors$1.TABINDEX);
-  }
-
-  /**
-   * Restores scroll behavior to <html> and <body>
-   */
-  _handleScrollRestore() {
-    document.body.classList.remove(Selectors$1.NO_SCROLL);
-    document.querySelector("html").classList.remove(Selectors$1.NO_SCROLL);
-  }
-
-  /**
-   * Prevents scroll behavior on <html> and <body>
-   */
-  _handleScrollStop() {
-    document.body.classList.add(Selectors$1.NO_SCROLL);
-    document.querySelector("html").classList.add(Selectors$1.NO_SCROLL);
-  }
-}
-
-const Selectors$2 = {
   // unique
   DATA_ACCORDION: "data-accordion",
   DATA_ACCORDION_ROW: "data-accordion-row",
@@ -491,12 +236,12 @@ const Selectors$2 = {
   TABINDEX: "tabindex",
 };
 
-const Events$2 = {
+const Events$1 = {
   CLICK: "click",
   KEYDOWN: "keydown",
 };
 
-const Messages$1 = {
+const Messages = {
   NO_VISIBLE_ERROR: id =>
     `Could not find parent with [data-visible] attribute associated with [data-target='${id}'].`,
   NO_ROW_ERROR: id => `Could not find [data-accordion-row] associated with ${id}.`,
@@ -542,29 +287,28 @@ class Accordion extends Utils {
   // public
 
   /**
-   * Sets up accordion components and listens to buttons for events.
-   * Begin listening to [data-accordion-button] elements
+   * Begin listening to accordions.
    */
   start() {
     const accordionButtonSelector = this._getPossibleAccordionButtonAttrs(
-      `[${Selectors$2.DATA_ACCORDION}]`
+      `[${Selectors$1.DATA_ACCORDION}]`
     );
-    this._accordionButtons = document.querySelectorAll(accordionButtonSelector);
+    this._accordionButtons = nodeListToArray(accordionButtonSelector);
 
     if (this._accordionButtons.length) {
       this._accordionButtons.forEach(button => {
         this._setupAccordion(button);
-        button.addEventListener(Events$2.CLICK, this._render);
+        button.addEventListener(Events$1.CLICK, this._render);
       });
     }
   }
 
   /**
-   * Stop listening to accordion button events.
+   * Stop listening to accordions.
    */
   stop() {
     this._accordionButtons.forEach(button => {
-      button.removeEventListener(Events$2.CLICK, this._render);
+      button.removeEventListener(Events$1.CLICK, this._render);
     });
   }
 
@@ -578,32 +322,35 @@ class Accordion extends Utils {
     event.preventDefault();
 
     this._activeButton = event.target;
-    this._activeAccordionRowId = this._activeButton.getAttribute(Selectors$2.DATA_TARGET);
+    this._activeAccordionRowId = this._activeButton.getAttribute(Selectors$1.DATA_TARGET);
 
     this._activeRowAttr = this._getAccordionRowAttr(this._activeAccordionRowId);
     this._activeRow = document.querySelector(this._activeRowAttr);
+    this._activeContainerId = this._activeButton.getAttribute(Selectors$1.DATA_PARENT);
 
-    if (!this._activeButton.getAttribute(Selectors$2.DATA_PARENT)) {
-      return console.error(Messages$1.NO_PARENT_ERROR(this._activeAccordionRowId))
+    if (!this._activeContainerId) {
+      return console.error(Messages.NO_PARENT_ERROR(this._activeAccordionRowId))
     }
 
-    this._activeContainerId = this._activeButton.getAttribute(Selectors$2.DATA_PARENT);
-    this._activeContainerAttr = `[${Selectors$2.DATA_ACCORDION}='${this._activeContainerId}']`;
-
-    if (!document.querySelector(this._activeContainerAttr)) {
-      return console.error(Messages$1.NO_ACCORDION_ERROR(this._activeContainerId))
-    }
-
+    this._activeContainerAttr = `[${Selectors$1.DATA_ACCORDION}='${this._activeContainerId}']`;
     this._activeContainer = document.querySelector(this._activeContainerAttr);
+
+    if (!this._activeContainer) {
+      return console.error(Messages.NO_ACCORDION_ERROR(this._activeContainerId))
+    }
+
     this._activeContent = document.getElementById(this._activeAccordionRowId);
 
-    const accordionButtonState = this._activeRow.getAttribute(Selectors$2.DATA_VISIBLE);
+    const accordionButtonState = this._activeRow.getAttribute(Selectors$1.DATA_VISIBLE);
 
     this._activeButtonExpandState = accordionButtonState === "true" ? "false" : "true";
     this._activeContentHiddenState = this._activeButtonExpandState === "false" ? "true" : "false";
 
     this._closeAllIfToggleable();
     this._toggleSelectedAccordion();
+
+    this._activeContainerId = null;
+    this._activeContainer = null;
   }
 
   /**
@@ -611,49 +358,50 @@ class Accordion extends Utils {
    * @param {Element} button - A button element that triggers an accordion.
    */
   _setupAccordion(button) {
-    const buttonId = button.getAttribute(Selectors$2.DATA_TARGET);
-
-    if (!document.getElementById(buttonId)) {
-      return console.error(Messages$1.NO_CONTENT_ERROR(buttonId))
-    }
-
+    const buttonId = button.getAttribute(Selectors$1.DATA_TARGET);
     const buttonContent = document.getElementById(buttonId);
-    const accordionRowAttr = this._getAccordionRowAttr(buttonId);
 
-    if (!document.querySelector(accordionRowAttr)) {
-      return console.error(Messages$1.NO_ROW_ERROR(buttonId))
+    if (!buttonContent) {
+      return console.error(Messages.NO_CONTENT_ERROR(buttonId))
     }
 
+    const accordionRowAttr = this._getAccordionRowAttr(buttonId);
     const accordionRow = document.querySelector(accordionRowAttr);
+
+    if (!accordionRow) {
+      return console.error(Messages.NO_ROW_ERROR(buttonId))
+    }
+
     const buttonHeaderAttr = this._getPossibleAccordionHeaderAttrs(accordionRowAttr);
-    const buttonHeader = document.querySelectorAll(buttonHeaderAttr)[0];
+    const buttonHeader = nodeListToArray(buttonHeaderAttr)[0];
 
     if (!buttonHeader || !buttonHeader.id) {
-      console.error(Messages$1.NO_HEADER_ID_ERROR(buttonId));
+      console.error(Messages.NO_HEADER_ID_ERROR(buttonId));
     }
 
     const buttonContentChildren = getFocusableElements(`#${buttonContent.id}`);
 
-    button.setAttribute(Selectors$2.ARIA_CONTROLS, buttonId);
-    buttonContent.setAttribute(Selectors$2.ARIA_LABELLEDBY, buttonHeader.id);
+    button.setAttribute(Selectors$1.ARIA_CONTROLS, buttonId);
+    buttonContent.setAttribute(Selectors$1.ARIA_LABELLEDBY, buttonHeader.id);
 
-    if (!accordionRow.getAttribute(Selectors$2.DATA_VISIBLE)) {
-      return console.error(Messages$1.NO_VISIBLE_ERROR(buttonId))
+    const contentShouldExpand = accordionRow.getAttribute(Selectors$1.DATA_VISIBLE);
+
+    if (!contentShouldExpand) {
+      return console.error(Messages.NO_VISIBLE_ERROR(buttonId))
     }
 
-    const contentShouldExpand = accordionRow.getAttribute(Selectors$2.DATA_VISIBLE);
     if (contentShouldExpand === "true") {
       buttonContent.style.maxHeight = `${buttonContent.scrollHeight}px`;
-      button.setAttribute(Selectors$2.ARIA_EXPANDED, "true");
-      buttonContent.setAttribute(Selectors$2.ARIA_HIDDEN, "false");
+      button.setAttribute(Selectors$1.ARIA_EXPANDED, "true");
+      buttonContent.setAttribute(Selectors$1.ARIA_HIDDEN, "false");
       buttonContentChildren.forEach(element => {
-        element.setAttribute(Selectors$2.TABINDEX, "0");
+        element.setAttribute(Selectors$1.TABINDEX, "0");
       });
     } else {
-      button.setAttribute(Selectors$2.ARIA_EXPANDED, "false");
-      buttonContent.setAttribute(Selectors$2.ARIA_HIDDEN, "true");
+      button.setAttribute(Selectors$1.ARIA_EXPANDED, "false");
+      buttonContent.setAttribute(Selectors$1.ARIA_HIDDEN, "true");
       buttonContentChildren.forEach(element => {
-        element.setAttribute(Selectors$2.TABINDEX, "-1");
+        element.setAttribute(Selectors$1.TABINDEX, "-1");
       });
     }
   }
@@ -666,7 +414,7 @@ class Accordion extends Utils {
   _getPossibleAccordionButtonAttrs(attr) {
     return this._headerLevels
       .map(
-        num => `${attr} > [${Selectors$2.DATA_ACCORDION_ROW}] > h${num} [${Selectors$2.DATA_TARGET}]`
+        num => `${attr} > [${Selectors$1.DATA_ACCORDION_ROW}] > h${num} [${Selectors$1.DATA_TARGET}]`
       )
       .join(", ")
   }
@@ -686,7 +434,7 @@ class Accordion extends Utils {
    * @return {String} - A unique accordion row selector
    */
   _getAccordionRowAttr(id) {
-    return `[${Selectors$2.DATA_ACCORDION_ROW}='${id}']`
+    return `[${Selectors$1.DATA_ACCORDION_ROW}='${id}']`
   }
 
   /**
@@ -694,42 +442,40 @@ class Accordion extends Utils {
    * This ensures the selected one can be closed if it's already open.
    */
   _closeAllIfToggleable() {
-    if (this._activeContainer.hasAttribute(Selectors$2.DATA_TOGGLE_MULTIPLE)) return
+    if (this._activeContainer.hasAttribute(Selectors$1.DATA_TOGGLE_MULTIPLE)) return
 
-    const allContentAttr = `${this._activeContainerAttr} [${Selectors$2.ARIA_HIDDEN}]`;
-    const allRows = document.querySelectorAll(
-      `${this._activeContainerAttr} [${Selectors$2.DATA_VISIBLE}]`
-    );
-    const allContent = document.querySelectorAll(allContentAttr);
+    const allContentAttr = `${this._activeContainerAttr} [${Selectors$1.ARIA_HIDDEN}]`;
+    const allRows = nodeListToArray(`${this._activeContainerAttr} [${Selectors$1.DATA_VISIBLE}]`);
+    const allContent = nodeListToArray(allContentAttr);
 
     const accordionButtonSelector = this._getPossibleAccordionButtonAttrs(this._activeContainerAttr);
-    const allButtons = document.querySelectorAll(accordionButtonSelector);
+    const allButtons = nodeListToArray(accordionButtonSelector);
 
     allContent.forEach(content => {
       if (content !== this._activeContent) content.style.maxHeight = null;
     });
 
     getFocusableElements(allContentAttr).forEach(element => {
-      element.setAttribute(Selectors$2.TABINDEX, "-1");
+      element.setAttribute(Selectors$1.TABINDEX, "-1");
     });
 
-    this._toggleAttributeInCollection(allRows, Selectors$2.DATA_VISIBLE, "true", "false");
-    this._toggleAttributeInCollection(allButtons, Selectors$2.ARIA_EXPANDED, "true", "false");
-    this._toggleAttributeInCollection(allContent, Selectors$2.ARIA_HIDDEN, "false", "true");
+    this._toggleAttributeInCollection(allRows, Selectors$1.DATA_VISIBLE, "true", "false");
+    this._toggleAttributeInCollection(allButtons, Selectors$1.ARIA_EXPANDED, "true", "false");
+    this._toggleAttributeInCollection(allContent, Selectors$1.ARIA_HIDDEN, "false", "true");
   }
 
   /**
    * Toggle the currently selected accordion button's content.
    */
   _toggleSelectedAccordion() {
-    this._activeRow.setAttribute(Selectors$2.DATA_VISIBLE, this._activeButtonExpandState);
-    this._activeButton.setAttribute(Selectors$2.ARIA_EXPANDED, this._activeButtonExpandState);
-    this._activeContent.setAttribute(Selectors$2.ARIA_HIDDEN, this._activeContentHiddenState);
+    this._activeRow.setAttribute(Selectors$1.DATA_VISIBLE, this._activeButtonExpandState);
+    this._activeButton.setAttribute(Selectors$1.ARIA_EXPANDED, this._activeButtonExpandState);
+    this._activeContent.setAttribute(Selectors$1.ARIA_HIDDEN, this._activeContentHiddenState);
 
     const activeContentBlock = `#${this._activeAccordionRowId}`;
     getFocusableElements(activeContentBlock).forEach(element => {
       const value = this._activeButtonExpandState === "true" ? "0" : "-1";
-      element.setAttribute(Selectors$2.TABINDEX, value);
+      element.setAttribute(Selectors$1.TABINDEX, value);
     });
 
     if (this._activeContent.style.maxHeight) {
@@ -755,7 +501,7 @@ class Accordion extends Utils {
   }
 }
 
-const KeyCodes$2 = {
+const KeyCodes$1 = {
   TAB: 9,
   SHIFT: 16,
   ESCAPE: 27,
@@ -763,7 +509,7 @@ const KeyCodes$2 = {
   ARROW_DOWN: 40,
 };
 
-const Selectors$3 = {
+const Selectors$2 = {
   // unique
   DATA_DROPDOWN: "data-dropdown",
   // common
@@ -779,12 +525,12 @@ const Selectors$3 = {
   ROLE: "role",
 };
 
-const Events$3 = {
+const Events$2 = {
   KEYDOWN: "keydown",
   CLICK: "click",
 };
 
-const Messages$2 = {
+const Messages$1 = {
   NO_PARENT_ERROR: `Could not find dropdown button's [data-parent] attribute.`,
   NO_DROPDOWN_ERROR: attr => `Could not find dropdown container associated with ${attr}.`,
   NO_MENU_ERROR: attr => `Could not find menu associated with ${attr}.`,
@@ -798,9 +544,6 @@ const Messages$2 = {
 class Dropdown extends Utils {
   constructor() {
     super();
-
-    this._iosMobile = /(iphone|ipod)/i.test(navigator.userAgent);
-
     // events
     this._render = this._render.bind(this);
     this._handleFirstTabClose = this._handleFirstTabClose.bind(this);
@@ -825,19 +568,18 @@ class Dropdown extends Utils {
     this._dropdowns = [];
 
     // dropdown element selectors
-    this._dropdownContainerAttr = `[${Selectors$3.DATA_DROPDOWN}]`;
-    this._dropdownTargetAttr = `[${Selectors$3.DATA_TARGET}]`;
+    this._dropdownContainerAttr = `[${Selectors$2.DATA_DROPDOWN}]`;
+    this._dropdownTargetAttr = `[${Selectors$2.DATA_TARGET}]`;
   }
 
   // public
 
   /**
-   * Find and set up dropdown buttons and menus.
-   * Begin listening to dropdowns for events.
+   * Begin listening to dropdowns.
    */
   start() {
-    this._dropdowns = document.querySelectorAll(`${this._dropdownContainerAttr}`);
-    this._dropdownButtons = document.querySelectorAll(
+    this._dropdowns = nodeListToArray(`${this._dropdownContainerAttr}`);
+    this._dropdownButtons = nodeListToArray(
       `${this._dropdownContainerAttr} > ${this._dropdownTargetAttr}`
     );
 
@@ -846,18 +588,18 @@ class Dropdown extends Utils {
     }
 
     this._dropdownButtons.forEach(button => {
-      button.addEventListener(Events$3.CLICK, this._render);
-      button.addEventListener(Events$3.KEYDOWN, this._renderWithKeys);
+      button.addEventListener(Events$2.CLICK, this._render);
+      button.addEventListener(Events$2.KEYDOWN, this._renderWithKeys);
     });
   }
 
   /**
-   * Stop listening for dropdown events.
+   * Stop listening to dropdowns.
    */
   stop() {
     this._dropdownButtons.forEach(button => {
-      button.removeEventListener(Events$3.CLICK, this._render);
-      button.removeEventListener(Events$3.KEYDOWN, this._renderWithKeys);
+      button.removeEventListener(Events$2.CLICK, this._render);
+      button.removeEventListener(Events$2.KEYDOWN, this._renderWithKeys);
     });
   }
 
@@ -880,39 +622,37 @@ class Dropdown extends Utils {
 
     // dropdown button / trigger
     this._activeDropdownButton = event.target;
+    this._activeDropdownId = this._activeDropdownButton.getAttribute(Selectors$2.DATA_PARENT);
 
-    if (!this._activeDropdownButton.getAttribute(Selectors$3.DATA_PARENT)) {
-      return console.error(Messages$2.NO_PARENT_ERROR)
+    if (!this._activeDropdownId) {
+      return console.error(Messages$1.NO_PARENT_ERROR)
     }
-
-    this._activeDropdownId = this._activeDropdownButton.getAttribute(Selectors$3.DATA_PARENT);
 
     // dropdown container
-    this._activeDropdownAttr = `[${Selectors$3.DATA_DROPDOWN}="${this._activeDropdownId}"]`;
-
-    if (!document.querySelector(this._activeDropdownAttr)) {
-      return console.error(Messages$2.NO_DROPDOWN_ERROR(this._activeDropdownAttr))
-    }
-
+    this._activeDropdownAttr = `[${Selectors$2.DATA_DROPDOWN}="${this._activeDropdownId}"]`;
     this._activeDropdown = document.querySelector(this._activeDropdownAttr);
 
+    if (!this._activeDropdown) {
+      return console.error(Messages$1.NO_DROPDOWN_ERROR(this._activeDropdownAttr))
+    }
+
     // dropdown menu
-    this._activeDropdownMenuId = this._activeDropdownButton.getAttribute(Selectors$3.DATA_TARGET);
+    this._activeDropdownMenuId = this._activeDropdownButton.getAttribute(Selectors$2.DATA_TARGET);
     this._activeDropdownMenu = document.getElementById(this._activeDropdownMenuId);
 
     // toggle attributes on dropdown button, indicating a visible dropdown is present
-    this._activeDropdownButton.setAttribute(Selectors$3.ARIA_EXPANDED, "true");
-    this._activeDropdown.setAttribute(Selectors$3.DATA_VISIBLE, "true");
+    this._activeDropdownButton.setAttribute(Selectors$2.ARIA_EXPANDED, "true");
+    this._activeDropdown.setAttribute(Selectors$2.DATA_VISIBLE, "true");
 
     // trade button event listener to close the menu, instead of open it
-    this._activeDropdownButton.removeEventListener(Events$3.CLICK, this._render);
-    this._activeDropdownButton.addEventListener(Events$3.CLICK, this._handleClose);
+    this._activeDropdownButton.removeEventListener(Events$2.CLICK, this._render);
+    this._activeDropdownButton.addEventListener(Events$2.CLICK, this._handleClose);
 
-    document.addEventListener(Events$3.KEYDOWN, this._handleEscapeKeyPress);
-    document.addEventListener(Events$3.CLICK, this._handleOffMenuClick);
+    document.addEventListener(Events$2.KEYDOWN, this._handleEscapeKeyPress);
+    document.addEventListener(Events$2.CLICK, this._handleOffMenuClick);
 
     // make click events work on mobile iOS
-    if (this._iosMobile) {
+    if (iOSMobile) {
       document.body.style.cursor = "pointer";
     }
 
@@ -921,18 +661,18 @@ class Dropdown extends Utils {
     this.firstDropdownLink = this._activeDropdownLinks[0];
     this.lastDropdownLink = this._activeDropdownLinks[this._activeDropdownLinks.length - 1];
 
-    this.firstDropdownLink.addEventListener(Events$3.KEYDOWN, this._handleFirstTabClose);
-    this.lastDropdownLink.addEventListener(Events$3.KEYDOWN, this._handleLastTabClose);
+    this.firstDropdownLink.addEventListener(Events$2.KEYDOWN, this._handleFirstTabClose);
+    this.lastDropdownLink.addEventListener(Events$2.KEYDOWN, this._handleLastTabClose);
 
-    if (key && key === KeyCodes$2.ARROW_UP) {
+    if (key && key === KeyCodes$1.ARROW_UP) {
       this.lastDropdownLink.focus();
     } else {
       this.firstDropdownLink.focus();
     }
 
     this._activeDropdownLinks.forEach(link => {
-      link.setAttribute(Selectors$3.TABINDEX, "0");
-      link.addEventListener(Events$3.CLICK, this._handleClose);
+      link.setAttribute(Selectors$2.TABINDEX, "0");
+      link.addEventListener(Events$2.CLICK, this._handleClose);
     });
 
     this.captureFocus(`${this._activeDropdownAttr} > ul`, { useArrows: true });
@@ -943,8 +683,8 @@ class Dropdown extends Utils {
    * @param {Object} event - The event object
    */
   _handleFirstTabClose(event) {
-    const shiftKey = event.which === KeyCodes$2.SHIFT || event.shiftKey;
-    const tabKey = event.which === KeyCodes$2.TAB;
+    const shiftKey = event.which === KeyCodes$1.SHIFT || event.shiftKey;
+    const tabKey = event.which === KeyCodes$1.TAB;
 
     if (shiftKey && tabKey) {
       this._handleClose(event);
@@ -956,8 +696,8 @@ class Dropdown extends Utils {
    * @param {Object} event - The event object
    */
   _handleLastTabClose(event) {
-    const shiftKey = event.which === KeyCodes$2.SHIFT || event.shiftKey;
-    const tabKey = event.which === KeyCodes$2.TAB;
+    const shiftKey = event.which === KeyCodes$1.SHIFT || event.shiftKey;
+    const tabKey = event.which === KeyCodes$1.TAB;
 
     if (tabKey && !shiftKey) {
       this._handleClose(event);
@@ -969,7 +709,7 @@ class Dropdown extends Utils {
    * @param {Object} event - The event object
    */
   _renderWithKeys(event) {
-    if (event.which === KeyCodes$2.ARROW_UP || event.which === KeyCodes$2.ARROW_DOWN) {
+    if (event.which === KeyCodes$1.ARROW_UP || event.which === KeyCodes$1.ARROW_DOWN) {
       this._render(event, event.which);
     }
   }
@@ -983,30 +723,32 @@ class Dropdown extends Utils {
 
     this.releaseFocus();
 
-    this._activeDropdownButton.setAttribute(Selectors$3.ARIA_EXPANDED, "false");
-    this._activeDropdown.setAttribute(Selectors$3.DATA_VISIBLE, "false");
+    this._activeDropdownButton.setAttribute(Selectors$2.ARIA_EXPANDED, "false");
+    this._activeDropdown.setAttribute(Selectors$2.DATA_VISIBLE, "false");
 
     this._activeDropdownLinks.forEach(link => {
-      link.setAttribute(Selectors$3.TABINDEX, "-1");
-      link.removeEventListener(Events$3.CLICK, this._handleClose);
+      link.setAttribute(Selectors$2.TABINDEX, "-1");
+      link.removeEventListener(Events$2.CLICK, this._handleClose);
     });
 
-    this._activeDropdownButton.removeEventListener(Events$3.CLICK, this._handleClose);
-    this._activeDropdownButton.addEventListener(Events$3.CLICK, this._render);
+    this._activeDropdownButton.removeEventListener(Events$2.CLICK, this._handleClose);
+    this._activeDropdownButton.addEventListener(Events$2.CLICK, this._render);
 
-    document.removeEventListener(Events$3.KEYDOWN, this._handleEscapeKeyPress);
+    document.removeEventListener(Events$2.KEYDOWN, this._handleEscapeKeyPress);
 
-    if (this._iosMobile) {
+    if (iOSMobile) {
       document.body.style.cursor = "auto";
     }
 
-    document.removeEventListener(Events$3.CLICK, this._handleOffMenuClick);
+    document.removeEventListener(Events$2.CLICK, this._handleOffMenuClick);
 
     if (this._allowFocusReturn) {
       this._handleReturnFocus();
     }
 
     this._activeDropdownButton = null;
+    this._activeDropdownId = null;
+    this._activeDropdown = null;
   }
 
   /**
@@ -1014,7 +756,7 @@ class Dropdown extends Utils {
    * @param {Object} event - The event object
    */
   _handleEscapeKeyPress(event) {
-    if (event.which === KeyCodes$2.ESCAPE) {
+    if (event.which === KeyCodes$1.ESCAPE) {
       this._handleClose(event);
     }
   }
@@ -1033,9 +775,9 @@ class Dropdown extends Utils {
    * Puts focus on a the active dropdown button.
    */
   _handleReturnFocus() {
-    this._activeDropdownButton.setAttribute(Selectors$3.TAB_INDEX, "-1");
+    this._activeDropdownButton.setAttribute(Selectors$2.TAB_INDEX, "-1");
     this._activeDropdownButton.focus();
-    this._activeDropdownButton.removeAttribute(Selectors$3.TAB_INDEX);
+    this._activeDropdownButton.removeAttribute(Selectors$2.TAB_INDEX);
   }
 
   /**
@@ -1044,7 +786,7 @@ class Dropdown extends Utils {
    * @return {String} - Selector for possible menu item links.
    */
   _getDropdownLinks(attr) {
-    return document.querySelectorAll(`${attr} > ul > li > a, ${attr} > ul > li > button`)
+    return nodeListToArray(`${attr} > ul > li > a, ${attr} > ul > li > button`)
   }
 
   /**
@@ -1052,35 +794,546 @@ class Dropdown extends Utils {
    * @param {Element} dropdown - A dropdown element.
    */
   _setupDropdown(dropdown) {
-    const dropdownId = dropdown.getAttribute(Selectors$3.DATA_DROPDOWN);
-    const dropdownIdAttr = `[${Selectors$3.DATA_DROPDOWN}="${dropdownId}"]`;
-    const dropdownMenuItemsAttr = `${dropdownIdAttr} > ul > li`;
+    const dropdownId = dropdown.getAttribute(Selectors$2.DATA_DROPDOWN);
 
-    if (!document.querySelector(`${dropdownIdAttr} > ul`)) {
-      return console.error(Messages$2.NO_MENU_ERROR(dropdownIdAttr))
+    // no id error
+
+    const dropdownAttr = `[${Selectors$2.DATA_DROPDOWN}="${dropdownId}"]`;
+    const dropdownMenuItemsAttr = `${dropdownAttr} > ul > li`;
+    const dropdownMenu = document.querySelector(`${dropdownAttr} > ul`);
+
+    // no ul error
+
+    if (!dropdownMenu) {
+      return console.error(Messages$1.NO_MENU_ERROR(dropdownAttr))
     }
 
-    const dropdownMenu = document.querySelector(`${dropdownIdAttr} > ul`);
-    const dropdownButton = document.querySelector(`${dropdownIdAttr} > ${this._dropdownTargetAttr}`);
+    const dropdownButton = document.querySelector(`${dropdownAttr} > ${this._dropdownTargetAttr}`);
 
-    dropdownButton.setAttribute(Selectors$3.ARIA_CONTROLS, dropdownMenu.id);
-    dropdownButton.setAttribute(Selectors$3.ARIA_HASPOPUP, "true");
-    dropdownButton.setAttribute(Selectors$3.ARIA_EXPANDED, "false");
-    dropdownMenu.setAttribute(Selectors$3.ARIA_LABELLEDBY, dropdownButton.id);
+    dropdownButton.setAttribute(Selectors$2.ARIA_CONTROLS, dropdownMenu.id);
+    dropdownButton.setAttribute(Selectors$2.ARIA_HASPOPUP, "true");
+    dropdownButton.setAttribute(Selectors$2.ARIA_EXPANDED, "false");
+    dropdownMenu.setAttribute(Selectors$2.ARIA_LABELLEDBY, dropdownButton.id);
 
-    const dropdownMenuItems = document.querySelectorAll(dropdownMenuItemsAttr);
-    dropdownMenuItems.forEach(item => item.setAttribute(Selectors$3.ROLE, "none"));
+    const dropdownMenuListItems = nodeListToArray(dropdownMenuItemsAttr);
 
-    this._getDropdownLinks(dropdownIdAttr).forEach(link => {
-      link.setAttribute(Selectors$3.ROLE, "menuitem");
-      link.setAttribute(Selectors$3.TABINDEX, "-1");
+    // no menu items error
+
+    dropdownMenuListItems.forEach(item => item.setAttribute(Selectors$2.ROLE, "none"));
+
+    const dropdownMenuButtons = this._getDropdownLinks(dropdownAttr);
+
+    // no menu buttons error
+
+    dropdownMenuButtons.forEach(link => {
+      link.setAttribute(Selectors$2.ROLE, "menuitem");
+      link.setAttribute(Selectors$2.TABINDEX, "-1");
     });
   }
 }
 
-const Modals = new Modal();
+const KeyCodes$2 = {
+  ESCAPE: 27,
+};
+
+const Selectors$3 = {
+  // unique
+  DATA_MODAL: "data-modal",
+  DATA_MODAL_BUTTON: "data-modal-button",
+  // common
+  DATA_VISIBLE: "data-visible",
+  DATA_CLOSE: "data-close",
+  DATA_PARENT: "data-parent",
+  // accessibility
+  ARIA_HIDDEN: "aria-hidden",
+  ARIA_MODAL: "aria-modal",
+  ROLE: "role",
+  TABINDEX: "tabindex",
+  // classes
+  NO_SCROLL: "no-scroll",
+};
+
+const Events$3 = {
+  KEYDOWN: "keydown",
+  CLICK: "click",
+  RESIZE: "resize",
+};
+
+const Messages$2 = {
+  NO_BUTTON_ID_ERROR:
+    "Could not find an id on your [data-modal-button] element. Modal can't be opened.",
+  NO_MODAL_ID_ERROR:
+    "Could not detect an id on your [data-modal] element. Please add a value matching a button's [data-modal-button] attribute.",
+  NO_MODAL_ERROR: id =>
+    `Could not find a [data-parent='${id}'] attribute within your [data-modal='${id}'] element.`,
+};
+
+/**
+ * Modal component class.
+ * @module Modal
+ * @requires Utils
+ */
+class Modal extends Utils {
+  constructor() {
+    super();
+
+    // events
+    this._render = this._render.bind(this);
+    this._handleClose = this._handleClose.bind(this);
+    this._handleOverlayClick = this._handleOverlayClick.bind(this);
+    this._handleEscapeKeyPress = this._handleEscapeKeyPress.bind(this);
+
+    // all modals
+    this._modals = [];
+    this._modalButtons = [];
+
+    // active modal
+    this._activeModalButton = {};
+    this._activeModalOverlay = {};
+    this._activeModal = {};
+    this._activeModalId = "";
+    this._activeModalOverlayAttr = "";
+    this._activeModalSelector = "";
+    this._activeModalCloseButtons = [];
+
+    // attribute helpers
+    this._modalContainerAttr = `[${Selectors$3.DATA_MODAL}]`;
+  }
+
+  // public
+
+  /**
+   * Begin listening to modals.
+   */
+  start() {
+    this._modals = nodeListToArray(this._modalContainerAttr);
+    this._modalButtons = nodeListToArray(`[${Selectors$3.DATA_MODAL_BUTTON}]`);
+
+    getFocusableElements(this._modalContainerAttr).forEach(element => {
+      element.setAttribute(Selectors$3.TABINDEX, "-1");
+    });
+
+    if (this._modals.length) {
+      this._modals.forEach(instance => {
+        this._setupModal(instance);
+      });
+    }
+
+    if (this._modalButtons.length) {
+      this._modalButtons.forEach(button => {
+        button.addEventListener(Events$3.CLICK, this._render);
+      });
+    }
+  }
+
+  /**
+   * Stop listening to modals
+   */
+  stop() {
+    this._modalButtons.forEach(button => {
+      button.removeEventListener(Events$3.CLICK, this._render);
+    });
+  }
+
+  // private
+
+  /**
+   * Find a button through event.target, then render the corresponding modal attribute via matching target id
+   * @param {Object} event - The event object
+   */
+  _render(event) {
+    event.preventDefault();
+    this._activeModalButton = event.target;
+    this._activeModalId = this._activeModalButton.getAttribute(Selectors$3.DATA_MODAL_BUTTON);
+
+    if (!this._activeModalId) {
+      return console.error(Messages$2.NO_BUTTON_ID_ERROR)
+    }
+
+    this._activeModalOverlay = document.querySelector(
+      `[${Selectors$3.DATA_MODAL}="${this._activeModalId}"]`
+    );
+    this._activeModalSelector = `[${Selectors$3.DATA_PARENT}='${this._activeModalId}']`;
+    this._activeModal = this._activeModalOverlay.querySelector(this._activeModalSelector);
+    this._activeModalCloseButtons = nodeListToArray(
+      `${this._activeModalSelector} [${Selectors$3.DATA_CLOSE}]`
+    );
+
+    getFocusableElements(this._activeModalSelector).forEach(element => {
+      element.setAttribute(Selectors$3.TABINDEX, "0");
+    });
+
+    this._handleScrollStop();
+    this.captureFocus(this._activeModalSelector);
+    this._activeModalOverlay.setAttribute(Selectors$3.ARIA_HIDDEN, "false");
+    this._activeModalOverlay.setAttribute(Selectors$3.DATA_VISIBLE, "true");
+
+    this._activeModal.setAttribute(Selectors$3.TABINDEX, "-1");
+    this._activeModal.focus();
+
+    this._activeModalOverlay.scrollTop = 0;
+
+    if (iOSMobile) {
+      this._activeModalOverlay.style.cursor = "pointer";
+    }
+
+    // begin listening to events
+    document.addEventListener(Events$3.KEYDOWN, this._handleEscapeKeyPress);
+    document.addEventListener(Events$3.CLICK, this._handleOverlayClick);
+    this._activeModalCloseButtons.forEach(button => {
+      button.addEventListener(Events$3.CLICK, this._handleClose);
+    });
+  }
+
+  /**
+   * Setup a modal instance.
+   * @param {Object} instance - The modal element
+   */
+  _setupModal(instance) {
+    const modalId = instance.getAttribute(Selectors$3.DATA_MODAL);
+
+    if (!modalId) {
+      return console.error(Messages$2.NO_MODAL_ID_ERROR)
+    }
+
+    const modal = instance.querySelector(`[${Selectors$3.DATA_PARENT}='${modalId}']`);
+
+    if (!modal) {
+      return console.error(Messages$2.NO_MODAL_ERROR(modalId))
+    }
+
+    const modalWrapper = document.querySelector(`[${Selectors$3.DATA_MODAL}='${modalId}']`);
+
+    modalWrapper.setAttribute(Selectors$3.ARIA_HIDDEN, "true");
+    modalWrapper.setAttribute(Selectors$3.DATA_VISIBLE, "false");
+    modal.setAttribute(Selectors$3.ARIA_MODAL, "true");
+    modal.setAttribute(Selectors$3.ROLE, "dialog");
+  }
+
+  /**
+   * Turn off event listeners and reset focus to last selected DOM node (button)
+   * @param {Object} event - The event object
+   */
+  _handleClose(event) {
+    event.preventDefault();
+    this._activeModalOverlay.setAttribute(Selectors$3.DATA_VISIBLE, "false");
+    this._handleReturnFocus();
+    this._handleScrollRestore();
+    this.releaseFocus();
+    this._activeModalOverlay.setAttribute(Selectors$3.ARIA_HIDDEN, "true");
+    this._activeModal.removeAttribute(Selectors$3.TABINDEX);
+
+    getFocusableElements(this._activeModalSelector).forEach(element => {
+      element.setAttribute(Selectors$3.TABINDEX, "-1");
+    });
+
+    if (iOSMobile) {
+      this._activeModalOverlay.style.cursor = "auto";
+    }
+
+    // stop listening to events
+    document.removeEventListener(Events$3.KEYDOWN, this._handleEscapeKeyPress);
+    document.removeEventListener(Events$3.CLICK, this._handleOverlayClick);
+    this._activeModalCloseButtons.forEach(button => {
+      button.removeEventListener(Events$3.CLICK, this._handleClose);
+    });
+
+    this._activeModalId = null;
+  }
+
+  /**
+   * Handles click event on the modal background to close it.
+   * @param {Object} event - The event object
+   */
+  _handleOverlayClick(event) {
+    if (event.target === this._activeModalOverlay) {
+      this._handleClose(event);
+    }
+  }
+
+  /**
+   * Handles escape key event to close the current modal
+   * @param {Object} event - The event object
+   */
+  _handleEscapeKeyPress(event) {
+    if (event.which === KeyCodes$2.ESCAPE) {
+      this._handleClose(event);
+    }
+  }
+
+  /**
+   * Returns focus to the last focused element before the modal was called.
+   * @param {Object} button - The current modal's corresponding button.
+   */
+  _handleReturnFocus() {
+    this._activeModalButton.setAttribute(Selectors$3.TABINDEX, "-1");
+    this._activeModalButton.focus();
+    this._activeModalButton.removeAttribute(Selectors$3.TABINDEX);
+  }
+
+  /**
+   * Restores scroll behavior to <html> and <body>
+   */
+  _handleScrollRestore() {
+    document.body.classList.remove(Selectors$3.NO_SCROLL);
+    document.documentElement.classList.remove(Selectors$3.NO_SCROLL);
+  }
+
+  /**
+   * Prevents scroll behavior on <html> and <body>
+   */
+  _handleScrollStop() {
+    document.body.classList.add(Selectors$3.NO_SCROLL);
+    document.documentElement.classList.add(Selectors$3.NO_SCROLL);
+  }
+}
+
+const KeyCodes$3 = {
+  ESCAPE: 27,
+};
+
+const Selectors$4 = {
+  DATA_TOOLTIP: "data-tooltip",
+  DATA_VISIBLE: "data-visible",
+  DATA_TARGET: "data-target",
+  ROLE: "role",
+  ARIA_DESCRIBEDBY: "aria-describedby",
+  DROP_LEFT_CLASS: "is-drop-left",
+  DROP_RIGHT_CLASS: "is-drop-right",
+};
+
+const Events$4 = {
+  CLICK: "click",
+  MOUSEOVER: "mouseover",
+  MOUSEOUT: "mouseout",
+  FOCUS: "focus",
+  BLUR: "blur",
+  KEYDOWN: "keydown",
+};
+
+const Messages$3 = {
+  NO_ID_ERROR: "Could not find your tooltip's id.",
+  NO_TRIGGER_ERROR: id => `Could not find a tooltip trigger with id of ${id}.`,
+  NO_TOOLTIP_ERROR: id => `Could not find a tooltip with id of ${id}.`,
+};
+
+/**
+ * Tooltip component class.
+ * @module Tooltip
+ */
+class Tooltip {
+  constructor() {
+    // events
+    this._render = this._render.bind(this);
+    this._handleClose = this._handleClose.bind(this);
+    this._handleEscapeKeyPress = this._handleEscapeKeyPress.bind(this);
+
+    // active tooltip
+    this._activeTrigger = null;
+    this._activeTooltip = null;
+
+    // all tooltips
+    this._allTooltips = [];
+  }
+
+  // public
+
+  /**
+   * Begin listening to tooltips.
+   */
+  start() {
+    this._allTooltips = document.querySelectorAll(`[${Selectors$4.DATA_TOOLTIP}]`);
+
+    this._allTooltips.forEach(instance => {
+      this._setupTooltip(instance);
+    });
+  }
+
+  /**
+   * Stop listening to tooltips.
+   */
+  stop() {
+    this._allTooltips.forEach(instance => {
+      const id = instance.getAttribute(Selectors$4.DATA_TOOLTIP);
+      const trigger = instance.querySelector(this._getTrigger(id));
+
+      trigger.removeEventListener(Events$4.MOUSEOVER, this._render);
+      trigger.removeEventListener(Events$4.FOCUS, this._render);
+    });
+  }
+
+  // private
+
+  /**
+   * Render a tooltip.
+   * @param {Object} event - The event object
+   */
+  _render(event) {
+    this._activeTrigger = event.target;
+    const tooltipId = this._activeTrigger.getAttribute(Selectors$4.DATA_TARGET);
+    this._activeTooltip = document.getElementById(tooltipId);
+
+    // align tooltip to its trigger
+    // -> if the trigger is on the left or right side, use height
+    // -> else use width
+    if (this._isLeftOrRight()) {
+      this._alignTooltip("height");
+    } else {
+      this._alignTooltip("width");
+    }
+
+    this._showTooltip();
+    this._listenForClose();
+  }
+
+  /**
+   * Close a tooltip.
+   */
+  _handleClose() {
+    this._hideTooltip();
+    this._listenForOpen();
+
+    this._activeTrigger = null;
+    this._activeTooltip = null;
+  }
+
+  /**
+   * Add data-visible attribute to currently active tooltip.
+   */
+  _showTooltip() {
+    this._activeTooltip.setAttribute(Selectors$4.DATA_VISIBLE, "true");
+  }
+
+  /**
+   * Remove data-visible attribute from currently active tooltip.
+   */
+  _hideTooltip() {
+    this._activeTooltip.setAttribute(Selectors$4.DATA_VISIBLE, "false");
+  }
+
+  /**
+   * Stop listening for render events, and start listening to close events.
+   */
+  _listenForClose() {
+    this._activeTrigger.removeEventListener(Events$4.MOUSEOVER, this._render);
+    this._activeTrigger.removeEventListener(Events$4.FOCUS, this._render);
+    this._activeTrigger.addEventListener(Events$4.MOUSEOUT, this._handleClose);
+    this._activeTrigger.addEventListener(Events$4.BLUR, this._handleClose);
+    document.addEventListener(Events$4.KEYDOWN, this._handleEscapeKeyPress);
+
+    if (iOSMobile) {
+      document.body.style.cursor = "pointer";
+    }
+  }
+
+  /**
+   * Close a tooltip with the escape key.
+   * @param {Object} event - The event object
+   */
+  _handleEscapeKeyPress(event) {
+    if (event.which === KeyCodes$3.ESCAPE) {
+      this._handleClose();
+    }
+  }
+
+  /**
+   * Stop listening to close events, start listening for render events.
+   */
+  _listenForOpen() {
+    this._activeTrigger.removeEventListener(Events$4.MOUSEOUT, this._handleClose);
+    this._activeTrigger.removeEventListener(Events$4.BLUR, this._handleClose);
+    this._activeTrigger.addEventListener(Events$4.MOUSEOVER, this._render);
+    this._activeTrigger.addEventListener(Events$4.FOCUS, this._render);
+    document.removeEventListener(Events$4.KEYDOWN, this._handleEscapeKeyPress);
+
+    if (iOSMobile) {
+      document.body.style.cursor = "auto";
+    }
+  }
+
+  /**
+   * Aligns a tooltip vertically or horizontally.
+   * @param {String} property - String specifying "height" or "width"
+   */
+  _alignTooltip(property) {
+    const triggerLength = this._getComputedLength(this._activeTrigger, property);
+    const tooltipLength = this._getComputedLength(this._activeTooltip, property);
+    const triggerIsLongest = triggerLength > tooltipLength;
+
+    const offset = triggerIsLongest
+      ? (triggerLength - tooltipLength) / 2
+      : (tooltipLength - triggerLength) / -2;
+
+    if (property === "height") {
+      this._activeTooltip.style.top = `${offset}px`;
+    } else {
+      this._activeTooltip.style.left = `${offset}px`;
+    }
+  }
+
+  /**
+   * Setup a tooltip and trigger with appropriate event listeners and attributes.
+   * @param {Object} instance - A tooltip instance
+   */
+  _setupTooltip(instance) {
+    const id = instance.getAttribute(Selectors$4.DATA_TOOLTIP);
+    const trigger = instance.querySelector(this._getTrigger(id));
+    const tooltip = document.getElementById(id);
+
+    if (!id) {
+      return console.error(Messages$3.NO_ID_ERROR)
+    }
+
+    if (!trigger) {
+      return console.error(Messages$3.NO_TRIGGER_ERROR(id))
+    }
+
+    if (!tooltip) {
+      return console.error(Messages$3.NO_TOOLTIP_ERROR(id))
+    }
+
+    trigger.setAttribute(Selectors$4.ARIA_DESCRIBEDBY, id);
+    tooltip.setAttribute(Selectors$4.ROLE, "tooltip");
+
+    trigger.addEventListener(Events$4.MOUSEOVER, this._render);
+    trigger.addEventListener(Events$4.FOCUS, this._render);
+  }
+
+  /**
+   * Get an attribute selector string.
+   * @param {String} id - A unique tooltip id
+   * @return {String}
+   */
+  _getTrigger(id) {
+    return `[${Selectors$4.DATA_TARGET}="${id}"]`
+  }
+
+  /**
+   * Render a tooltip.
+   * @param {Object} element - A tooltip element
+   * @param {String} property - The "height" or "width" property.
+   * @return {Number}
+   */
+  _getComputedLength(element, property) {
+    return parseInt(window.getComputedStyle(element)[property].slice(0, -2))
+  }
+
+  /**
+   * Determine if a tooltip is rendering on the left or right.
+   * @return {Boolean}
+   */
+  _isLeftOrRight() {
+    const classes = this._activeTooltip.classList;
+    return (
+      classes.contains(Selectors$4.DROP_LEFT_CLASS) || classes.contains(Selectors$4.DROP_RIGHT_CLASS)
+    )
+  }
+}
+
 const Accordions = new Accordion();
 const Dropdowns = new Dropdown();
+const Modals = new Modal();
+const Tooltips = new Tooltip();
 const Utils$1 = new Utils();
 
 const Undernet = {
@@ -1088,6 +1341,7 @@ const Undernet = {
   Modals,
   Accordions,
   Dropdowns,
+  Tooltips,
 
   // Utils
   Utils: Utils$1,
@@ -1098,6 +1352,7 @@ Undernet.start = () => {
   Undernet.Modals.start();
   Undernet.Accordions.start();
   Undernet.Dropdowns.start();
+  Undernet.Tooltips.start();
 
   // Utils
   Undernet.Utils.enableFocusOutline();
@@ -1114,4 +1369,4 @@ Undernet.stop = () => {
 };
 
 export default Undernet;
-export { Modals, Accordions, Dropdowns, Utils$1 as Utils };
+export { Accordions, Dropdowns, Modals, Tooltips, Utils$1 as Utils };
