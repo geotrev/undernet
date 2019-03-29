@@ -74,8 +74,7 @@ export default class Dropdown extends Utils {
   // public
 
   /**
-   * Find and set up dropdown buttons and menus.
-   * Begin listening to dropdowns for events.
+   * Begin listening to dropdowns.
    */
   start() {
     this._dropdowns = nodeListToArray(`${this._dropdownContainerAttr}`)
@@ -94,7 +93,7 @@ export default class Dropdown extends Utils {
   }
 
   /**
-   * Stop listening for dropdown events.
+   * Stop listening to dropdowns.
    */
   stop() {
     this._dropdownButtons.forEach(button => {

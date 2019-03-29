@@ -68,8 +68,7 @@ export default class Modal extends Utils {
   // public
 
   /**
-   * Add accessible attributes to modals.
-   * Begin listening to elements with [data-modal-button]
+   * Begin listening to modals.
    */
   start() {
     this._modals = nodeListToArray(this._modalContainerAttr)
@@ -93,7 +92,7 @@ export default class Modal extends Utils {
   }
 
   /**
-   * Stop listening to modal buttons
+   * Stop listening to modals
    */
   stop() {
     this._modalButtons.forEach(button => {
@@ -121,25 +120,20 @@ export default class Modal extends Utils {
     this._activeModal = this._activeModalOverlay.querySelector(this._activeModalSelector)
     this._activeModalCloseButtons = nodeListToArray(`${this._activeModalSelector} [${Selectors.DATA_CLOSE}]`)
 
-    // allow focusable elements to be focused
     getFocusableElements(this._activeModalSelector).forEach(element => {
       element.setAttribute(Selectors.TABINDEX, "0")
     })
 
-    // capture focus, stop scrolling, and toggle attributes for visibility
     this._handleScrollStop()
     this.captureFocus(this._activeModalSelector)
     this._activeModalOverlay.setAttribute(Selectors.ARIA_HIDDEN, "false")
     this._activeModalOverlay.setAttribute(Selectors.DATA_VISIBLE, "true")
 
-    // focus the modal
     this._activeModal.setAttribute(Selectors.TABINDEX, "-1")
     this._activeModal.focus()
 
-    // offset slight scroll caused by this._activeModal.focus()
     this._activeModalOverlay.scrollTop = 0
 
-    // on ios devices, let the modal close on overlay click
     if (iOSMobile) {
       this._activeModalOverlay.style.cursor = "pointer"
     }
@@ -152,6 +146,10 @@ export default class Modal extends Utils {
     })
   }
 
+  /**
+   * Setup a modal instance.
+   * @param {Object} instance - The modal element
+   */
   _setupModal(instance) {
     const modalId = instance.getAttribute(Selectors.DATA_MODAL)
     

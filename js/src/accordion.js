@@ -68,8 +68,7 @@ export default class Accordion extends Utils {
   // public
 
   /**
-   * Sets up accordion components and listens to buttons for events.
-   * Begin listening to [data-accordion-button] elements
+   * Begin listening to accordions.
    */
   start() {
     const accordionButtonSelector = this._getPossibleAccordionButtonAttrs(
@@ -86,7 +85,7 @@ export default class Accordion extends Utils {
   }
 
   /**
-   * Stop listening to accordion button events.
+   * Stop listening to accordions.
    */
   stop() {
     this._accordionButtons.forEach(button => {
