@@ -141,14 +141,14 @@ export default class Accordion extends Utils {
   _setupAccordion(button) {
     const buttonId = button.getAttribute(Selectors.DATA_TARGET)
     const buttonContent = document.getElementById(buttonId)
-    
+
     if (!buttonContent) {
       return console.error(Messages.NO_CONTENT_ERROR(buttonId))
     }
 
     const accordionRowAttr = this._getAccordionRowAttr(buttonId)
     const accordionRow = document.querySelector(accordionRowAttr)
-    
+
     if (!accordionRow) {
       return console.error(Messages.NO_ROW_ERROR(buttonId))
     }
@@ -166,7 +166,7 @@ export default class Accordion extends Utils {
     buttonContent.setAttribute(Selectors.ARIA_LABELLEDBY, buttonHeader.id)
 
     const contentShouldExpand = accordionRow.getAttribute(Selectors.DATA_VISIBLE)
-    
+
     if (!contentShouldExpand) {
       return console.error(Messages.NO_VISIBLE_ERROR(buttonId))
     }
@@ -226,9 +226,7 @@ export default class Accordion extends Utils {
     if (this._activeContainer.hasAttribute(Selectors.DATA_TOGGLE_MULTIPLE)) return
 
     const allContentAttr = `${this._activeContainerAttr} [${Selectors.ARIA_HIDDEN}]`
-    const allRows = nodeListToArray(
-      `${this._activeContainerAttr} [${Selectors.DATA_VISIBLE}]`
-    )
+    const allRows = nodeListToArray(`${this._activeContainerAttr} [${Selectors.DATA_VISIBLE}]`)
     const allContent = nodeListToArray(allContentAttr)
 
     const accordionButtonSelector = this._getPossibleAccordionButtonAttrs(this._activeContainerAttr)

@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /*!
 * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
-* Undernet v3.3.7 (https://undernet.io)
+* Undernet v4.0.0 (https://undernet.io)
 * Copyright 2017-2019 George Treviranus
 */
 html,
@@ -2349,7 +2349,8 @@ textarea {
 .tooltip-trigger {
   display: inline-block;
   cursor: pointer; }
-  .tooltip-trigger > *:disabled, .tooltip-trigger > .disabled {
+  .tooltip-trigger > *:disabled,
+  .tooltip-trigger > .disabled {
     pointer-events: none; }
 
 .tooltip-box {

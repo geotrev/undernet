@@ -7,7 +7,8 @@
   display: inline-block;
   cursor: pointer;
 
-  > *:disabled, > .disabled {
+  > *:disabled,
+  > .disabled {
     pointer-events: none;
   }
 }

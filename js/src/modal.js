@@ -28,9 +28,12 @@ const Events = {
 }
 
 const Messages = {
-  NO_BUTTON_ID_ERROR: "Could not find an id on your [data-modal-button] element. Modal can't be opened.",
-  NO_MODAL_ID_ERROR: "Could not detect an id on your [data-modal] element. Please add a value matching a button's [data-modal-button] attribute.",
-  NO_MODAL_ERROR: id => `Could not find a [data-parent='${id}'] attribute within your [data-modal='${id}'] element.`
+  NO_BUTTON_ID_ERROR:
+    "Could not find an id on your [data-modal-button] element. Modal can't be opened.",
+  NO_MODAL_ID_ERROR:
+    "Could not detect an id on your [data-modal] element. Please add a value matching a button's [data-modal-button] attribute.",
+  NO_MODAL_ERROR: id =>
+    `Could not find a [data-parent='${id}'] attribute within your [data-modal='${id}'] element.`,
 }
 
 /**
@@ -115,10 +118,14 @@ export default class Modal extends Utils {
       return console.error(Messages.NO_BUTTON_ID_ERROR)
     }
 
-    this._activeModalOverlay = document.querySelector(`[${Selectors.DATA_MODAL}="${this._activeModalId}"]`)
+    this._activeModalOverlay = document.querySelector(
+      `[${Selectors.DATA_MODAL}="${this._activeModalId}"]`
+    )
     this._activeModalSelector = `[${Selectors.DATA_PARENT}='${this._activeModalId}']`
     this._activeModal = this._activeModalOverlay.querySelector(this._activeModalSelector)
-    this._activeModalCloseButtons = nodeListToArray(`${this._activeModalSelector} [${Selectors.DATA_CLOSE}]`)
+    this._activeModalCloseButtons = nodeListToArray(
+      `${this._activeModalSelector} [${Selectors.DATA_CLOSE}]`
+    )
 
     getFocusableElements(this._activeModalSelector).forEach(element => {
       element.setAttribute(Selectors.TABINDEX, "0")
@@ -152,10 +159,10 @@ export default class Modal extends Utils {
    */
   _setupModal(instance) {
     const modalId = instance.getAttribute(Selectors.DATA_MODAL)
-    
+
     if (!modalId) {
       return console.error(Messages.NO_MODAL_ID_ERROR)
-    } 
+    }
 
     const modal = instance.querySelector(`[${Selectors.DATA_PARENT}='${modalId}']`)
 

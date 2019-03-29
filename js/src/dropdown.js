@@ -127,7 +127,6 @@ export default class Dropdown extends Utils {
       return console.error(Messages.NO_PARENT_ERROR)
     }
 
-
     // dropdown container
     this._activeDropdownAttr = `[${Selectors.DATA_DROPDOWN}="${this._activeDropdownId}"]`
     this._activeDropdown = document.querySelector(this._activeDropdownAttr)

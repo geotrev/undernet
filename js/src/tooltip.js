@@ -26,7 +26,7 @@ const Events = {
 const Messages = {
   NO_ID_ERROR: "Could not find your tooltip's id.",
   NO_TRIGGER_ERROR: id => `Could not find a tooltip trigger with id of ${id}.`,
-  NO_TOOLTIP_ERROR: id => `Could not find a tooltip with id of ${id}.`
+  NO_TOOLTIP_ERROR: id => `Could not find a tooltip with id of ${id}.`,
 }
 
 /**
@@ -84,7 +84,7 @@ export default class Tooltip {
     this._activeTrigger = event.target
     const tooltipId = this._activeTrigger.getAttribute(Selectors.DATA_TARGET)
     this._activeTooltip = document.getElementById(tooltipId)
-    
+
     // align tooltip to its trigger
     // -> if the trigger is on the left or right side, use height
     // -> else use width
@@ -139,7 +139,7 @@ export default class Tooltip {
   }
 
   /**
-   * Close a tooltip with the escape key. 
+   * Close a tooltip with the escape key.
    * @param {Object} event - The event object
    */
   _handleEscapeKeyPress(event) {
@@ -236,6 +236,8 @@ export default class Tooltip {
    */
   _isLeftOrRight() {
     const classes = this._activeTooltip.classList
-    return classes.contains(Selectors.DROP_LEFT_CLASS) || classes.contains(Selectors.DROP_RIGHT_CLASS)
+    return (
+      classes.contains(Selectors.DROP_LEFT_CLASS) || classes.contains(Selectors.DROP_RIGHT_CLASS)
+    )
   }
 }
