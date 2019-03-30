@@ -18,15 +18,34 @@ global.chai = chai
 global.spy = chai.spy()
 
 const { JSDOM } = require("jsdom")
-const dom = new JSDOM("<!doctype html><html><head></head><body></body></html>")
-const { window } = dom
+const jsdom = new JSDOM("<!doctype html><html><body></body></html>")
+const { window } = jsdom
+
+function copyProps(src, target) {
+  Object.defineProperties(target, {
+    ...Object.getOwnPropertyDescriptors(src),
+    ...Object.getOwnPropertyDescriptors(target),
+  })
+}
 
 global.window = window
 global.document = window.document
-global.window.scrollTo = chai.spy()
+
 global.navigator = {
   userAgent: "node.js",
 }
+
+global.requestAnimationFrame = function(callback) {
+  return setTimeout(callback, 0)
+}
+
+global.cancelAnimationFrame = function(id) {
+  clearTimeout(id)
+}
+
+copyProps(window, global)
+
+global.window.scrollTo = chai.spy()
 
 function noop() {
   return null
