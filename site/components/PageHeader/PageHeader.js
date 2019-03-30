@@ -13,6 +13,7 @@ class PageHeader extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
+    lastLocation: PropTypes.object,
   }
 
   componentDidMount() {
