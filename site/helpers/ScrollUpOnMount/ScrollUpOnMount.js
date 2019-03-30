@@ -1,7 +1,7 @@
-import React, { Component } from "react"
+import React from "react"
 
-export default class ScrollUpOnMount extends Component {
-  componentDidMount(prevProps) {
+export default class ScrollUpOnMount extends React.Component {
+  componentDidMount() {
     window.scrollTo(0, 0)
   }
 

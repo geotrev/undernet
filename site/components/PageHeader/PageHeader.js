@@ -1,8 +1,8 @@
-import React, { createRef, Component } from "react"
+import React, { createRef } from "react"
 import { withLastLocation } from "react-router-last-location"
 import PropTypes from "prop-types"
 
-class PageHeader extends Component {
+class PageHeader extends React.Component {
   constructor(props) {
     super(props)
     this.headerRef = createRef()

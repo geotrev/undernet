@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React from "react"
 import Markdown from "react-markdown"
 import Prism from "prismjs"
 import Undernet from "undernet"
@@ -8,7 +8,7 @@ import PropTypes from "prop-types"
 import ScrollUpOnMount from "helpers/ScrollUpOnMount"
 import "./styles.scss"
 
-export default class Article extends Component {
+export default class Article extends React.Component {
   constructor() {
     super()
     this.state = {

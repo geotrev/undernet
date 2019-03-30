@@ -1,3 +1,4 @@
+import React from "react"
 import SetMeta from "./SetMeta"
 import { Helmet } from "react-helmet"
 

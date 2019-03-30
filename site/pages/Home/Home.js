@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React from "react"
 import { Link } from "react-router-dom"
 import Prism from "prismjs"
 import lottie from "lottie-web"
@@ -14,7 +14,7 @@ import { StatusBadges, InstallNpm, InstallAssets } from "./markdownContent"
 
 import "./styles.scss"
 
-export default class Home extends Component {
+export default class Home extends React.Component {
   constructor() {
     super()
   }
