@@ -10,6 +10,9 @@ module.exports = {
   globals: {
     Atomics: "readonly",
     SharedArrayBuffer: "readonly",
+    Undernet: "writable",
+    should: "readonly",
+    expect: "readonly",
   },
   parserOptions: {
     ecmaFeatures: {
@@ -24,11 +27,5 @@ module.exports = {
     "linebreak-style": ["error", "unix"],
     quotes: ["error", "double"],
     semi: ["error", "never"],
-    "no-unused-vars": [
-      "error",
-      {
-        varsIgnorePattern: "should|expect",
-      },
-    ],
   },
 }
