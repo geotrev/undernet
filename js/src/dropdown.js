@@ -30,7 +30,7 @@ const Events = {
 }
 
 const Messages = {
-  NO_PARENT_ERROR: `Could not find dropdown button's [data-parent] attribute.`,
+  NO_PARENT_ERROR: "Could not find dropdown button's [data-parent] attribute.",
   NO_DROPDOWN_ERROR: attr => `Could not find dropdown container associated with ${attr}.`,
   NO_MENU_ERROR: attr => `Could not find menu associated with ${attr}.`,
 }
@@ -124,6 +124,7 @@ export default class Dropdown extends Utils {
     this._activeDropdownId = this._activeDropdownButton.getAttribute(Selectors.DATA_PARENT)
 
     if (!this._activeDropdownId) {
+      // eslint-disable-next-line no-console
       return console.error(Messages.NO_PARENT_ERROR)
     }
 
@@ -132,6 +133,7 @@ export default class Dropdown extends Utils {
     this._activeDropdown = document.querySelector(this._activeDropdownAttr)
 
     if (!this._activeDropdown) {
+      // eslint-disable-next-line no-console
       return console.error(Messages.NO_DROPDOWN_ERROR(this._activeDropdownAttr))
     }
 
@@ -301,9 +303,8 @@ export default class Dropdown extends Utils {
     const dropdownMenuItemsAttr = `${dropdownAttr} > ul > li`
     const dropdownMenu = document.querySelector(`${dropdownAttr} > ul`)
 
-    // no ul error
-
     if (!dropdownMenu) {
+      // eslint-disable-next-line no-console
       return console.error(Messages.NO_MENU_ERROR(dropdownAttr))
     }
 

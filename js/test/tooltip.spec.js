@@ -16,8 +16,8 @@ const dom = `
 `
 
 describe("Tooltips", function() {
-  const tooltipId1 = 'new-tooltip'
-  const tooltipId2 = 'new-tooltip10'
+  const tooltipId1 = "new-tooltip"
+  const tooltipId2 = "new-tooltip10"
 
   describe("API start", function() {
     let trigger

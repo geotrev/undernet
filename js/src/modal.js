@@ -115,6 +115,7 @@ export default class Modal extends Utils {
     this._activeModalId = this._activeModalButton.getAttribute(Selectors.DATA_MODAL_BUTTON)
 
     if (!this._activeModalId) {
+      // eslint-disable-next-line no-console
       return console.error(Messages.NO_BUTTON_ID_ERROR)
     }
 
@@ -161,12 +162,14 @@ export default class Modal extends Utils {
     const modalId = instance.getAttribute(Selectors.DATA_MODAL)
 
     if (!modalId) {
+      // eslint-disable-next-line no-console
       return console.error(Messages.NO_MODAL_ID_ERROR)
     }
 
     const modal = instance.querySelector(`[${Selectors.DATA_PARENT}='${modalId}']`)
 
     if (!modal) {
+      // eslint-disable-next-line no-console
       return console.error(Messages.NO_MODAL_ERROR(modalId))
     }
 

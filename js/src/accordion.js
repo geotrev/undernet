@@ -110,6 +110,7 @@ export default class Accordion extends Utils {
     this._activeContainerId = this._activeButton.getAttribute(Selectors.DATA_PARENT)
 
     if (!this._activeContainerId) {
+      // eslint-disable-next-line no-console
       return console.error(Messages.NO_PARENT_ERROR(this._activeAccordionRowId))
     }
 
@@ -117,6 +118,7 @@ export default class Accordion extends Utils {
     this._activeContainer = document.querySelector(this._activeContainerAttr)
 
     if (!this._activeContainer) {
+      // eslint-disable-next-line no-console
       return console.error(Messages.NO_ACCORDION_ERROR(this._activeContainerId))
     }
 
@@ -143,6 +145,7 @@ export default class Accordion extends Utils {
     const buttonContent = document.getElementById(buttonId)
 
     if (!buttonContent) {
+      // eslint-disable-next-line no-console
       return console.error(Messages.NO_CONTENT_ERROR(buttonId))
     }
 
@@ -150,6 +153,7 @@ export default class Accordion extends Utils {
     const accordionRow = document.querySelector(accordionRowAttr)
 
     if (!accordionRow) {
+      // eslint-disable-next-line no-console
       return console.error(Messages.NO_ROW_ERROR(buttonId))
     }
 
@@ -157,6 +161,7 @@ export default class Accordion extends Utils {
     const buttonHeader = nodeListToArray(buttonHeaderAttr)[0]
 
     if (!buttonHeader || !buttonHeader.id) {
+      // eslint-disable-next-line no-console
       console.error(Messages.NO_HEADER_ID_ERROR(buttonId))
     }
 
@@ -168,6 +173,7 @@ export default class Accordion extends Utils {
     const contentShouldExpand = accordionRow.getAttribute(Selectors.DATA_VISIBLE)
 
     if (!contentShouldExpand) {
+      // eslint-disable-next-line no-console
       return console.error(Messages.NO_VISIBLE_ERROR(buttonId))
     }
 
