@@ -124,7 +124,6 @@ export default class Dropdown extends Utils {
     this._activeDropdownId = this._activeDropdownButton.getAttribute(Selectors.DATA_PARENT)
 
     if (!this._activeDropdownId) {
-      // eslint-disable-next-line no-console
       return console.error(Messages.NO_PARENT_ERROR)
     }
 
@@ -133,7 +132,6 @@ export default class Dropdown extends Utils {
     this._activeDropdown = document.querySelector(this._activeDropdownAttr)
 
     if (!this._activeDropdown) {
-      // eslint-disable-next-line no-console
       return console.error(Messages.NO_DROPDOWN_ERROR(this._activeDropdownAttr))
     }
 
@@ -304,7 +302,6 @@ export default class Dropdown extends Utils {
     const dropdownMenu = document.querySelector(`${dropdownAttr} > ul`)
 
     if (!dropdownMenu) {
-      // eslint-disable-next-line no-console
       return console.error(Messages.NO_MENU_ERROR(dropdownAttr))
     }
 

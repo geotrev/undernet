@@ -193,17 +193,14 @@ export default class Tooltip {
     const tooltip = document.getElementById(id)
 
     if (!id) {
-      // eslint-disable-next-line no-console
       return console.error(Messages.NO_ID_ERROR)
     }
 
     if (!trigger) {
-      // eslint-disable-next-line no-console
       return console.error(Messages.NO_TRIGGER_ERROR(id))
     }
 
     if (!tooltip) {
-      // eslint-disable-next-line no-console
       return console.error(Messages.NO_TOOLTIP_ERROR(id))
     }
 
