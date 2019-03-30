@@ -1,10 +1,10 @@
+import React from "react"
 import Button from "./Button"
 
 describe("<Button />", () => {
   it("renders", () => {
     const wrapper = shallow(<Button>Test</Button>)
     expect(wrapper).to.exist
-    expect(wrapper).to.have.length(1)
   })
 
   it("renders with button tag by default", () => {
@@ -24,7 +24,7 @@ describe("<Button />", () => {
 
   it("calls console.warn if link button has disabled attribute", () => {
     console.warn = chai.spy()
-    const wrapper = mount(
+    mount(
       <Button href="#" disabled>
         Test
       </Button>
@@ -32,8 +32,8 @@ describe("<Button />", () => {
     expect(console.warn).to.have.been.called()
   })
 
-  it('renders a "submit" button if [type="submit"]', () => {
+  it("renders a 'submit' button if [type='submit']", () => {
     const wrapper = shallow(<Button type="submit">Test</Button>)
-    expect(wrapper).to.have.descendants('[type="submit"]')
+    expect(wrapper).to.have.descendants("[type='submit']")
   })
 })
