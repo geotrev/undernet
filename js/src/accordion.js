@@ -157,7 +157,7 @@ export default class Accordion extends Utils {
     const buttonHeader = nodeListToArray(buttonHeaderAttr)[0]
 
     if (!buttonHeader || !buttonHeader.id) {
-      console.error(Messages.NO_HEADER_ID_ERROR(buttonId))
+      return console.error(Messages.NO_HEADER_ID_ERROR(buttonId))
     }
 
     const buttonContentChildren = getFocusableElements(`#${buttonContent.id}`)

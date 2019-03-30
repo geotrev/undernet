@@ -46,13 +46,11 @@ const dom = `
 
 describe("Accordions", function() {
   describe("API start", function() {
-    let rows
     let buttons
     let contents
 
     before(function() {
       document.body.innerHTML = dom
-      rows = document.querySelectorAll("[data-accordion-row]")
       buttons = document.querySelectorAll("[data-accordion-row] [data-target]")
       contents = document.querySelectorAll(".accordion-content")
       Undernet.Accordions.start()
@@ -110,7 +108,7 @@ describe("Accordions", function() {
       const children1 = contents[1].querySelectorAll("a")
       const children2 = contents[2].querySelectorAll("a")
       children1.forEach(child => expect(child.getAttribute("tabindex")).to.equal("-1"))
-      children1.forEach(child => expect(child.getAttribute("tabindex")).to.equal("-1"))
+      children2.forEach(child => expect(child.getAttribute("tabindex")).to.equal("-1"))
     })
   })
 

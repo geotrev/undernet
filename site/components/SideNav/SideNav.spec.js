@@ -1,5 +1,6 @@
+import React from "react"
 import SideNav from "./SideNav"
-import { BrowserRouter as Router, NavLink, Link } from "react-router-dom"
+import { BrowserRouter as Router, NavLink } from "react-router-dom"
 
 const navItems = [
   {

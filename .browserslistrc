@@ -1,8 +1,8 @@
-edge >= 14
+edge >= 15
 firefox >= 52
 chrome >= 49
 safari >= 10
 android >= 4.4
 ios >= 9
-ie 11
+ie >= 11
 not op_mini all

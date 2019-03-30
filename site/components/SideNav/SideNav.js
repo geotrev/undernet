@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react"
+import React, { Fragment } from "react"
 import PropTypes from "prop-types"
 import classNames from "classnames"
 import throttle from "lodash/throttle"
@@ -13,15 +13,15 @@ import "./styles.scss"
 const pkg = require("../../../package.json")
 const MENU_COLLAPSE_BREAKPOINT = 1199
 
-export default class SideNav extends Component {
+export default class SideNav extends React.Component {
   constructor(props) {
     super(props)
     this.handleCurrentWidth = throttle(this.handleCurrentWidth.bind(this), 50)
   }
 
   state = {
-    menuIsOpen: null,
-    currentWindowWidth: null,
+    menuIsOpen: window.innerWidth > MENU_COLLAPSE_BREAKPOINT ? true : false,
+    currentWindowWidth: window.innerWidth,
   }
 
   static propTypes = {
@@ -37,11 +37,6 @@ export default class SideNav extends Component {
       })
     ).isRequired,
     navListClasses: PropTypes.string,
-  }
-
-  componentWillMount() {
-    this.handleCurrentWidth()
-    this.handleMenuVisibility()
   }
 
   componentDidMount() {
@@ -112,7 +107,7 @@ export default class SideNav extends Component {
     return isActive
   }
 
-  renderAccordionChildLink(item, index) {
+  renderAccordionChildLink(item) {
     return (
       <li key={item.name} role="none">
         <NavLink

@@ -103,7 +103,7 @@ var Utils = function () {
     }
   }, {
     key: "_listenForKeyboard",
-    value: function _listenForKeyboard(event) {
+    value: function _listenForKeyboard() {
       document.body.classList.add(Selectors.KEYBOARD_CLASS);
       document.removeEventListener(Events.KEYDOWN, this._listenForKeyboard);
       document.addEventListener(Events.CLICK, this._listenForClick);
@@ -111,7 +111,7 @@ var Utils = function () {
     }
   }, {
     key: "_listenForClick",
-    value: function _listenForClick(event) {
+    value: function _listenForClick() {
       document.body.classList.remove(Selectors.KEYBOARD_CLASS);
       document.removeEventListener(Events.CLICK, this._listenForClick);
       document.addEventListener(Events.KEYDOWN, this._listenForKeyboard);
@@ -129,11 +129,11 @@ var Utils = function () {
       var hasShift = shiftKey && tabKey;
       var noShift = !shiftKey && tabKey;
 
-      if (shiftKey && tabKey && (firstActive || containerActive)) {
+      if (hasShift && (firstActive || containerActive)) {
         event.preventDefault();
 
         this._focusableLastChild.focus();
-      } else if (!shiftKey && tabKey && lastActive) {
+      } else if (noShift && lastActive) {
         event.preventDefault();
 
         this._focusableFirstChild.focus();

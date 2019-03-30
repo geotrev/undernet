@@ -1,4 +1,7 @@
-const basePresets = [["@babel/preset-env", { useBuiltIns: "entry" }], "@babel/preset-react"]
+const basePresets = [
+  ["@babel/preset-env", { useBuiltIns: "entry", corejs: 3 }],
+  "@babel/preset-react",
+]
 
 const basePlugins = [
   "@babel/plugin-proposal-class-properties",

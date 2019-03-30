@@ -21,6 +21,7 @@ function createNewHash(str) {
 
 // regex pattern to detect base 64 encoded string.
 // https://stackoverflow.com/a/31245864
+// eslint-disable-next-line no-useless-escape
 const reb64 = /\"sha256-([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}|[A-Za-z0-9+/]{2})=\"/g
 
 // retrieve existing hashes

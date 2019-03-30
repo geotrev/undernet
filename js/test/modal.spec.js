@@ -42,19 +42,19 @@ describe("Modals", function() {
       modalOverlay = document.querySelector("[data-modal]")
     })
 
-    it(`has no [tabindex] on modal dialog`, function() {
+    it("has no [tabindex] on modal dialog", function() {
       expect(modalDialog.getAttribute("tabindex")).to.equal(null)
     })
 
-    it(`sets [data-visible='false'] on modal overlay`, function() {
+    it("sets [data-visible='false'] on modal overlay", function() {
       expect(modalOverlay.getAttribute("data-visible")).to.equal("false")
     })
 
-    it(`sets [aria-hidden='true'] on modal overlay`, function() {
+    it("sets [aria-hidden='true'] on modal overlay", function() {
       expect(modalOverlay.getAttribute("aria-hidden")).to.equal("true")
     })
 
-    it(`sets [tabindex='-1'] on each focusable element`, function() {
+    it("sets [tabindex='-1'] on each focusable element", function() {
       const focusableElements = modalDialog.querySelectorAll("a")
       focusableElements.forEach(el => {
         expect(el.getAttribute("tabindex")).to.equal("-1")
@@ -90,11 +90,11 @@ describe("Modals", function() {
       button.click()
     })
 
-    it(`has [data-visible='false'] on modal overlay`, function() {
+    it("has [data-visible='false'] on modal overlay", function() {
       expect(modalOverlay.getAttribute("data-visible")).to.equal("false")
     })
 
-    it(`does not set [tabindex] on modal dialog`, function() {
+    it("does not set [tabindex] on modal dialog", function() {
       expect(modalDialog.getAttribute("tabindex")).to.equal(null)
     })
   })
@@ -113,19 +113,19 @@ describe("Modals", function() {
       button.click()
     })
 
-    it(`sets [tabindex='-1'] on modal dialog`, function() {
+    it("sets [tabindex='-1'] on modal dialog", function() {
       expect(modalDialog.getAttribute("tabindex")).to.equal("-1")
     })
 
-    it(`sets [data-visible='true'] on modal overlay`, function() {
+    it("sets [data-visible='true'] on modal overlay", function() {
       expect(modalOverlay.getAttribute("data-visible")).to.equal("true")
     })
 
-    it(`sets [aria-hidden='false'] on modal overlay`, function() {
+    it("sets [aria-hidden='false'] on modal overlay", function() {
       expect(modalOverlay.getAttribute("aria-hidden")).to.equal("false")
     })
 
-    it(`sets [tabindex='0'] on each focusable element`, function() {
+    it("sets [tabindex='0'] on each focusable element", function() {
       const focusableElements = modalDialog.querySelectorAll("a")
       focusableElements.forEach(el => {
         expect(el.getAttribute("tabindex")).to.equal("0")
@@ -154,19 +154,19 @@ describe("Modals", function() {
       closeButton.click()
     })
 
-    it(`sets [data-visible='false'] on modal overlay`, function() {
+    it("sets [data-visible='false'] on modal overlay", function() {
       expect(modalOverlay.getAttribute("data-visible")).to.equal("false")
     })
 
-    it(`removes [tabindex] on modal dialog`, function() {
+    it("removes [tabindex] on modal dialog", function() {
       expect(modalDialog.getAttribute("tabindex")).to.equal(null)
     })
 
-    it(`sets [aria-hidden='true'] on modal overlay`, function() {
+    it("sets [aria-hidden='true'] on modal overlay", function() {
       expect(modalOverlay.getAttribute("aria-hidden")).to.equal("true")
     })
 
-    it(`sets [tabindex='-1'] on each focusable element`, function() {
+    it("sets [tabindex='-1'] on each focusable element", function() {
       const focusableElements = modalDialog.querySelectorAll("a")
       focusableElements.forEach(el => {
         expect(el.getAttribute("tabindex")).to.equal("-1")
@@ -191,7 +191,7 @@ describe("Modals", function() {
       modalOverlay.click()
     })
 
-    it(`sets [data-visible='false'] on modal overlay`, function() {
+    it("sets [data-visible='false'] on modal overlay", function() {
       expect(modalOverlay.getAttribute("data-visible")).to.equal("false")
     })
   })
@@ -207,7 +207,7 @@ describe("Modals", function() {
       modalOverlay = document.querySelector("[data-modal]")
     })
 
-    it(`sets [data-visible='false'] on modal overlay`, function() {
+    it("sets [data-visible='false'] on modal overlay", function() {
       button.click()
       window.simulateKeyPress(27)
       expect(modalOverlay.getAttribute("data-visible")).to.equal("false")

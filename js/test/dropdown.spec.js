@@ -210,7 +210,6 @@ describe("Dropdowns", function() {
   describe("#handleEscapeKeyPress -> Escape Key Press", function() {
     let button
     let dropdownWrapper
-    let focusableElements
 
     before(function() {
       document.body.innerHTML = dom
@@ -229,13 +228,11 @@ describe("Dropdowns", function() {
   describe("#handleOffMenuClick -> Non-Dropdown Close Click", function() {
     let button
     let dropdownWrapper
-    let focusableElements
 
     before(function() {
       document.body.innerHTML = dom
       button = document.querySelector("#dropdown-button")
       dropdownWrapper = document.querySelector("[data-dropdown='dropdown1']")
-      focusableElements = document.querySelectorAll("#new-dropdown a")
       Undernet.Dropdowns.start()
       button.click()
       document.body.click()
@@ -248,13 +245,10 @@ describe("Dropdowns", function() {
 
   describe("#handleReturnFocus -> Dropdown Close Click", function() {
     let button
-    let dropdownWrapper
-    let focusableElements
 
     before(function() {
       document.body.innerHTML = dom
       button = document.querySelector("#dropdown-button")
-      dropdownWrapper = document.querySelector("[data-dropdown='dropdown1']")
       Undernet.Dropdowns.start()
       button.click()
       window.simulateKeyPress(27)
