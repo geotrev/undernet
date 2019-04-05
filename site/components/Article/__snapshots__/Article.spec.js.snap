@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Article /> matches snapshot 1`] = `
+<Article>
+  <article
+    className="article-wrapper has-no-padding column fadeIn"
+  >
+    <ScrollUpOnMount />
+    <ReactMarkdown
+      astPlugins={Array []}
+      escapeHtml={false}
+      plugins={Array []}
+      rawSourcePos={false}
+      renderers={Object {}}
+      skipHtml={false}
+      source="# Test header 
+ So neat"
+      sourcePos={false}
+      transformLinkUri={[Function]}
+    >
+      <Root
+        key="root-1-1"
+      >
+        <Heading
+          key="heading-1-1"
+          level={1}
+        >
+          <h1>
+            <TextRenderer
+              key="text-1-3"
+              nodeKey="text-1-3"
+              value="Test header"
+            >
+              Test header
+            </TextRenderer>
+          </h1>
+        </Heading>
+        <p
+          key="paragraph-2-1"
+        >
+          <TextRenderer
+            key="text-2-1"
+            nodeKey="text-2-1"
+            value=" So neat"
+          >
+             So neat
+          </TextRenderer>
+        </p>
+      </Root>
+    </ReactMarkdown>
+  </article>
+</Article>
+`;
