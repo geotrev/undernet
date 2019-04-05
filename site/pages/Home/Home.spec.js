@@ -1,19 +1,28 @@
 import React from "react"
-import Home from "./Home"
 import { BrowserRouter as Router } from "react-router-dom"
+import Home from "./Home"
+
+jest.mock("lottie-web", () =>
+  jest.fn().mockImplementation(() => {
+    return {
+      loadAnimation: jest.fn(),
+      play: jest.fn(),
+      destroy: jest.fn(),
+    }
+  })
+)
 
 describe("<Home />", () => {
   let wrapper
   beforeEach(() => {
-    wrapper = shallow(
+    wrapper = mount(
       <Router>
         <Home />
       </Router>
     )
   })
 
-  it("renders", () => {
-    expect(wrapper).to.exist
-    expect(wrapper).to.have.length(1)
+  it("matches snapshot", () => {
+    expect(wrapper).toMatchSnapshot()
   })
 })
