@@ -156,7 +156,8 @@
       "enzyme-to-json/serializer"
     ],
     "testMatch": [
-      "<rootDir>/site/**/*.spec.js"
+      "<rootDir>/site/**/*.spec.js",
+      "<rootDir>/js/**/*.spec.js"
     ],
     "testURL": "http://localhost/",
     "transform": {
