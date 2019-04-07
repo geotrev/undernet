@@ -135,7 +135,7 @@
     "restoreMocks": true,
     "moduleNameMapper": {
       "\\.(css|scss)$": "<rootDir>/config/__mocks__/emptyMock.js",
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)$": "<rootDir>/config/__mocks__/emptyMock.js",
+      "\\.(jpg|jpeg|png|gif|md|eot|otf|webp|svg|ttf|woff|woff2)$": "<rootDir>/config/__mocks__/emptyMock.js",
       "^projectRoot/(.*?)$": "<rootDir>/$1",
       "^routes/(.*?)$": "<rootDir>/site/routes/$1",
       "^components/(.*?)$": "<rootDir>/site/components/$1",

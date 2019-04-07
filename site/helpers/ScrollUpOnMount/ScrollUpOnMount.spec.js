@@ -1,6 +1,8 @@
 import React from "react"
 import ScrollUpOnMount from "./ScrollUpOnMount"
 
+global.scrollTo = jest.fn()
+
 describe("<ScrollUpOnMount />", () => {
   it("matches snapshot", () => {
     const wrapper = mount(<ScrollUpOnMount />)

@@ -1,7 +1,8 @@
+import React from "react"
 import DocsRoutes from "./DocsRoutes"
 import { BrowserRouter as Router } from "react-router-dom"
 
-function routes() {
+function mountRoutes() {
   return mount(
     <Router>
       <DocsRoutes />
@@ -10,9 +11,8 @@ function routes() {
 }
 
 describe("<DocsRoutes />", () => {
-  it("renders", () => {
-    const wrapper = routes()
-    expect(wrapper).to.exist
-    expect(wrapper).to.have.length(1)
+  it("matches snapshot", () => {
+    const wrapper = mountRoutes()
+    expect(wrapper).toMatchSnapshot()
   })
 })
