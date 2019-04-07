@@ -1,10 +1,17 @@
-import Undernet from "../js/src/index"
-global.Undernet = Undernet
+import Enzyme, { shallow, render, mount } from "enzyme"
+import Adapter from "enzyme-adapter-react-16"
 
-import { expect } from "chai"
-global.expect = expect
+Enzyme.configure({ adapter: new Adapter() })
 
-require("jsdom-global")()
+global.shallow = shallow
+global.render = render
+global.mount = mount
+
+// Create a simple component instance with jest.mock()
+// jest.mock("./path/to/Component", () => simpleMock("Component"))
+global.simpleMock = mockName => {
+  return eval(`const ${mockName} = props => props.children || null; ${mockName}`)
+}
 
 /**
  * Create and fire a keyboard event.

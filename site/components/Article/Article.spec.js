@@ -1,22 +1,20 @@
 import React from "react"
 import Article from "./Article"
 
-describe("<Article></Article>", () => {
+global.scrollTo = jest.fn()
+
+describe("<Article />", () => {
   let wrapper
-  before(() => {
+  beforeEach(() => {
     const md = "# Test header \n So neat"
     wrapper = mount(<Article>{md}</Article>)
   })
 
-  it("renders", () => {
-    expect(wrapper).to.exist
+  it("matches snapshot", () => {
+    expect(wrapper).toMatchSnapshot()
   })
 
-  it("renders an <h1>", () => {
-    expect(wrapper).to.have.descendants("h1")
-  })
-
-  it("renders a <p>", () => {
-    expect(wrapper).to.have.descendants("p")
+  it("calls window.scrollTo when mounted", () => {
+    expect(window.scrollTo).toHaveBeenCalledWith(0, 0)
   })
 })

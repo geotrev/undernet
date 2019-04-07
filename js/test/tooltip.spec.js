@@ -1,3 +1,5 @@
+import Undernet from "../src/index"
+
 // This is the starting DOM.
 // It is assigned to document.body.innerHTML before each test suite.
 const dom = `
@@ -23,7 +25,7 @@ describe("Tooltips", function() {
     let trigger
     let tooltip
 
-    before(function() {
+    beforeAll(function() {
       document.body.innerHTML = dom
       trigger = document.querySelector(`[data-target='${tooltipId1}']`)
       tooltip = document.getElementById(tooltipId1)
@@ -31,11 +33,11 @@ describe("Tooltips", function() {
     })
 
     it("sets [aria-describedby] on tooltip trigger", function() {
-      expect(trigger.getAttribute("aria-describedby")).to.equal(tooltipId1)
+      expect(trigger.getAttribute("aria-describedby")).toEqual(tooltipId1)
     })
 
     it("sets [role] on tooltip", function() {
-      expect(tooltip.getAttribute("role")).to.equal("tooltip")
+      expect(tooltip.getAttribute("role")).toEqual("tooltip")
     })
   })
 
@@ -43,7 +45,7 @@ describe("Tooltips", function() {
     let trigger
     let tooltip
 
-    before(function() {
+    beforeAll(function() {
       document.body.innerHTML = dom
       trigger = document.querySelector(`[data-target='${tooltipId1}']`)
       tooltip = document.getElementById(tooltipId1)
@@ -53,12 +55,12 @@ describe("Tooltips", function() {
 
     it("does not set [data-visible='true'] on tooltip when trigger is focused", function() {
       trigger.focus()
-      expect(tooltip.getAttribute("data-visible")).to.equal(null)
+      expect(tooltip.getAttribute("data-visible")).toEqual(null)
     })
 
     it("does not set [data-visible='true'] on tooltip when mouse moves over trigger", function() {
       window.simulateMouseEvent("mouseover", trigger, true, true)
-      expect(tooltip.getAttribute("data-visible")).to.equal(null)
+      expect(tooltip.getAttribute("data-visible")).toEqual(null)
     })
   })
 
@@ -66,7 +68,7 @@ describe("Tooltips", function() {
     let trigger
     let tooltip
 
-    before(function() {
+    beforeAll(function() {
       document.body.innerHTML = dom
       trigger = document.querySelector(`[data-target='${tooltipId1}']`)
       tooltip = document.getElementById(tooltipId1)
@@ -75,12 +77,12 @@ describe("Tooltips", function() {
 
     it("sets [data-visible='true'] on tooltip when trigger is focused", function() {
       trigger.focus()
-      expect(tooltip.getAttribute("data-visible")).to.equal("true")
+      expect(tooltip.getAttribute("data-visible")).toEqual("true")
     })
 
     it("sets [data-visible='true'] on tooltip when mouse moves over trigger", function() {
       window.simulateMouseEvent("mouseover", trigger, true, true)
-      expect(tooltip.getAttribute("data-visible")).to.equal("true")
+      expect(tooltip.getAttribute("data-visible")).toEqual("true")
     })
   })
 
@@ -90,7 +92,7 @@ describe("Tooltips", function() {
     let tooltip1
     let tooltip2
 
-    before(function() {
+    beforeAll(function() {
       document.body.innerHTML
       trigger1 = document.querySelector(`[data-target='${tooltipId1}']`)
       trigger2 = document.querySelector(`[data-target='${tooltipId2}']`)
@@ -101,17 +103,17 @@ describe("Tooltips", function() {
 
     it("hides previous tooltip if another is focused", function() {
       trigger1.focus()
-      expect(tooltip1.getAttribute("data-visible")).to.equal("true")
+      expect(tooltip1.getAttribute("data-visible")).toEqual("true")
       trigger2.focus()
-      expect(tooltip1.getAttribute("data-visible")).to.equal("false")
-      expect(tooltip2.getAttribute("data-visible")).to.equal("true")
+      expect(tooltip1.getAttribute("data-visible")).toEqual("false")
+      expect(tooltip2.getAttribute("data-visible")).toEqual("true")
     })
 
     it("hides tooltip on mouseout event", function() {
       window.simulateMouseEvent("mouseover", trigger1, true, true)
-      expect(tooltip1.getAttribute("data-visible")).to.equal("true")
+      expect(tooltip1.getAttribute("data-visible")).toEqual("true")
       window.simulateMouseEvent("mouseout", trigger1, true, true)
-      expect(tooltip1.getAttribute("data-visible")).to.equal("false")
+      expect(tooltip1.getAttribute("data-visible")).toEqual("false")
     })
   })
 

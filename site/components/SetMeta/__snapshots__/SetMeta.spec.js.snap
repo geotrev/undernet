@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SetMeta /> matches snapshot 1`] = `
+<SetMeta
+  description="Test description"
+  title="Test title"
+>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+    titleTemplate="Undernet – %s"
+  >
+    <SideEffect(NullComponent)
+      defer={true}
+      encodeSpecialCharacters={true}
+      link={
+        Array [
+          Object {
+            "href": "http://localhost/",
+            "rel": "canonical",
+          },
+        ]
+      }
+      meta={
+        Array [
+          Object {
+            "content": "Test description",
+            "name": "description",
+          },
+        ]
+      }
+      title="Test title"
+      titleAttributes={
+        Object {
+          "itemprop": "name",
+          "lang": "en",
+        }
+      }
+      titleTemplate="Undernet – %s"
+    >
+      <NullComponent
+        defer={true}
+        encodeSpecialCharacters={true}
+        link={
+          Array [
+            Object {
+              "href": "http://localhost/",
+              "rel": "canonical",
+            },
+          ]
+        }
+        meta={
+          Array [
+            Object {
+              "content": "Test description",
+              "name": "description",
+            },
+          ]
+        }
+        title="Test title"
+        titleAttributes={
+          Object {
+            "itemprop": "name",
+            "lang": "en",
+          }
+        }
+        titleTemplate="Undernet – %s"
+      />
+    </SideEffect(NullComponent)>
+  </HelmetWrapper>
+</SetMeta>
+`;

@@ -1,3 +1,5 @@
+import Undernet from "../src/index"
+
 // This is the starting DOM.
 // It is assigned to document.body.innerHTML before each test suite.
 const dom = `
@@ -49,7 +51,7 @@ describe("Accordions", function() {
     let buttons
     let contents
 
-    before(function() {
+    beforeAll(function() {
       document.body.innerHTML = dom
       buttons = document.querySelectorAll("[data-accordion-row] [data-target]")
       contents = document.querySelectorAll(".accordion-content")
@@ -59,56 +61,56 @@ describe("Accordions", function() {
     it("sets unique [aria-labelledby] on each accordion content matching its button's header id", function() {
       contents.forEach(content => {
         const header = content.previousElementSibling
-        expect(content.getAttribute("aria-labelledby")).to.equal(header.id)
+        expect(content.getAttribute("aria-labelledby")).toEqual(header.id)
       })
     })
 
     it("sets [aria-controls] with matching value to each accordion content id", function() {
       buttons.forEach(button => {
         const content = button.parentNode.nextElementSibling
-        expect(button.getAttribute("aria-controls")).to.equal(content.id)
+        expect(button.getAttribute("aria-controls")).toEqual(content.id)
       })
     })
 
     it("sets [aria-hidden='false'] on each accordion content when [data-visible='true']", function() {
-      expect(contents[0].getAttribute("aria-hidden")).to.equal("false")
+      expect(contents[0].getAttribute("aria-hidden")).toEqual("false")
     })
 
     it("sets [aria-hidden='true'] on each accordion content when [data-visible='false']", function() {
-      expect(contents[1].getAttribute("aria-hidden")).to.equal("true")
-      expect(contents[2].getAttribute("aria-hidden")).to.equal("true")
+      expect(contents[1].getAttribute("aria-hidden")).toEqual("true")
+      expect(contents[2].getAttribute("aria-hidden")).toEqual("true")
     })
 
     it("sets [aria-expanded='true'] on each accordion button when [data-visible='true']", function() {
-      expect(buttons[0].getAttribute("aria-expanded")).to.equal("true")
+      expect(buttons[0].getAttribute("aria-expanded")).toEqual("true")
     })
 
     it("sets [aria-expanded='false'] on each accordion button when [data-visible='false']", function() {
-      expect(buttons[1].getAttribute("aria-expanded")).to.equal("false")
-      expect(buttons[2].getAttribute("aria-expanded")).to.equal("false")
+      expect(buttons[1].getAttribute("aria-expanded")).toEqual("false")
+      expect(buttons[2].getAttribute("aria-expanded")).toEqual("false")
     })
 
     it("sets max-height on each accordion content when [data-visible='true']", function() {
-      expect(contents[0].style.maxHeight).to.have.string("px")
+      expect(contents[0].style.maxHeight).toMatch(/px/)
     })
 
     it("does not set max-height on each accordion content when [data-visible='false']", function() {
-      expect(contents[1].style.maxHeight).to.equal("")
-      expect(contents[2].style.maxHeight).to.equal("")
+      expect(contents[1].style.maxHeight).toEqual("")
+      expect(contents[2].style.maxHeight).toEqual("")
     })
 
     it("sets [tabindex='0'] on each focusable child within accordion content when [data-visible='true']", function() {
       const children = contents[0].querySelectorAll("a")
       children.forEach(child => {
-        expect(child.getAttribute("tabindex")).to.equal("0")
+        expect(child.getAttribute("tabindex")).toEqual("0")
       })
     })
 
     it("sets [tabindex='-1'] on each focusable child within accordion content when [data-visible='false']", function() {
       const children1 = contents[1].querySelectorAll("a")
       const children2 = contents[2].querySelectorAll("a")
-      children1.forEach(child => expect(child.getAttribute("tabindex")).to.equal("-1"))
-      children2.forEach(child => expect(child.getAttribute("tabindex")).to.equal("-1"))
+      children1.forEach(child => expect(child.getAttribute("tabindex")).toEqual("-1"))
+      children2.forEach(child => expect(child.getAttribute("tabindex")).toEqual("-1"))
     })
   })
 
@@ -116,7 +118,7 @@ describe("Accordions", function() {
     let buttons
     let contents
 
-    before(function() {
+    beforeAll(function() {
       document.body.innerHTML = dom
       buttons = document.querySelectorAll("[data-accordion-row] [data-target]")
       contents = document.querySelectorAll(".accordion-content")
@@ -125,11 +127,11 @@ describe("Accordions", function() {
     })
 
     it("does not set [aria-hidden='false'] on accordion content on button click", function() {
-      expect(contents[2].getAttribute("aria-hidden")).to.equal("true")
+      expect(contents[2].getAttribute("aria-hidden")).toEqual("true")
     })
 
     it("does not set [aria-expanded='true'] on accordion button on click", function() {
-      expect(buttons[2].getAttribute("aria-expanded")).to.equal("false")
+      expect(buttons[2].getAttribute("aria-expanded")).toEqual("false")
     })
   })
 
@@ -138,7 +140,7 @@ describe("Accordions", function() {
       let buttons
       let contents
 
-      before(function() {
+      beforeAll(function() {
         document.body.innerHTML = dom
         buttons = document.querySelectorAll("[data-accordion-row] [data-target]")
         contents = document.querySelectorAll(".accordion-content")
@@ -147,11 +149,11 @@ describe("Accordions", function() {
       })
 
       it("sets [aria-hidden='true'] on accordion content", function() {
-        expect(contents[0].getAttribute("aria-hidden")).to.equal("true")
+        expect(contents[0].getAttribute("aria-hidden")).toEqual("true")
       })
 
       it("sets [aria-expanded='false'] on accordion", function() {
-        expect(buttons[0].getAttribute("aria-expanded")).to.equal("false")
+        expect(buttons[0].getAttribute("aria-expanded")).toEqual("false")
       })
     })
 
@@ -159,7 +161,7 @@ describe("Accordions", function() {
       let buttons
       let contents
 
-      before(function() {
+      beforeAll(function() {
         document.body.innerHTML = dom
         buttons = document.querySelectorAll("[data-accordion-row] [data-target]")
         contents = document.querySelectorAll(".accordion-content")
@@ -168,11 +170,11 @@ describe("Accordions", function() {
       })
 
       it("sets [aria-hidden='false'] on accordion content", function() {
-        expect(contents[2].getAttribute("aria-hidden")).to.equal("false")
+        expect(contents[2].getAttribute("aria-hidden")).toEqual("false")
       })
 
       it("sets [aria-expanded='true'] on accordion", function() {
-        expect(buttons[2].getAttribute("aria-expanded")).to.equal("true")
+        expect(buttons[2].getAttribute("aria-expanded")).toEqual("true")
       })
     })
   })
@@ -181,7 +183,7 @@ describe("Accordions", function() {
     let buttons
     let contents
 
-    before(function() {
+    beforeAll(function() {
       document.body.innerHTML = dom
       document
         .querySelector("[data-accordion='accordion-1']")
@@ -193,19 +195,19 @@ describe("Accordions", function() {
     })
 
     it("has [aria-hidden='false'] on accordion content", function() {
-      expect(contents[0].getAttribute("aria-hidden")).to.equal("false")
+      expect(contents[0].getAttribute("aria-hidden")).toEqual("false")
     })
 
     it("has [aria-expanded='true'] on accordion button", function() {
-      expect(buttons[0].getAttribute("aria-expanded")).to.equal("true")
+      expect(buttons[0].getAttribute("aria-expanded")).toEqual("true")
     })
 
     it("sets [aria-hidden='false'] on accordion content", function() {
-      expect(contents[2].getAttribute("aria-hidden")).to.equal("false")
+      expect(contents[2].getAttribute("aria-hidden")).toEqual("false")
     })
 
     it("sets [aria-expanded='true'] on accordion button", function() {
-      expect(buttons[2].getAttribute("aria-expanded")).to.equal("true")
+      expect(buttons[2].getAttribute("aria-expanded")).toEqual("true")
     })
   })
 
