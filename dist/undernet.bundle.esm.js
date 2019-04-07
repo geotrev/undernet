@@ -1,6 +1,6 @@
 /*!
   * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
-  * Undernet v4.0.1 (https://undernet.io)
+  * Undernet v4.1.0 (https://undernet.io)
   * Copyright 2017-2019 George Treviranus
   */
 const KeyCodes = {
@@ -23,8 +23,8 @@ const Events = {
 
 /**
  * Creates a string of element selector patterns using common elements.
- * @param {String} container - The enclosing container's class, attribute, etc.
- * @return {String}
+ * @param {String} nodeList - the node to be queried.
+ * @return {Array}
  */
 const nodeListToArray = nodeList => {
   return Array.apply(null, document.querySelectorAll(nodeList))
@@ -32,7 +32,7 @@ const nodeListToArray = nodeList => {
 
 /**
  * Creates a string of element selector patterns using common elements.
- * @param {String} container - The enclosing container's class, attribute, etc.
+ * @param {String} container - The container selector.
  * @return {Array}
  */
 const getFocusableElements = container => {
@@ -128,9 +128,8 @@ class Utils {
    * When a key is pressed, detect if it's tab or shift keys and enable
    * focus outlines on currently focused element(s). Then, remove keydown listener
    * and add click listener on _listenForClick().
-   * @param {Object} event - Event (keypress).
    */
-  _listenForKeyboard(event) {
+  _listenForKeyboard() {
     document.body.classList.add(Selectors.KEYBOARD_CLASS);
     document.removeEventListener(Events.KEYDOWN, this._listenForKeyboard);
     document.addEventListener(Events.CLICK, this._listenForClick);
@@ -139,9 +138,8 @@ class Utils {
 
   /**
    * On click, remove Selectors.KEYBOARD_CLASS and re-add keydown listener.
-   * @param {Object} event - Event (keypress).
    */
-  _listenForClick(event) {
+  _listenForClick() {
     document.body.classList.remove(Selectors.KEYBOARD_CLASS);
     document.removeEventListener(Events.CLICK, this._listenForClick);
     document.addEventListener(Events.KEYDOWN, this._listenForKeyboard);
@@ -159,11 +157,13 @@ class Utils {
     const lastActive = document.activeElement === this._focusableLastChild;
     const tabKey = event.which === KeyCodes.TAB;
     const shiftKey = event.which === KeyCodes.SHIFT || event.shiftKey;
+    const hasShift = shiftKey && tabKey;
+    const noShift = !shiftKey && tabKey;
 
-    if (shiftKey && tabKey && (firstActive || containerActive)) {
+    if (hasShift && (firstActive || containerActive)) {
       event.preventDefault();
       this._focusableLastChild.focus();
-    } else if (!shiftKey && tabKey && lastActive) {
+    } else if (noShift && lastActive) {
       event.preventDefault();
       this._focusableFirstChild.focus();
     }
@@ -376,7 +376,7 @@ class Accordion extends Utils {
     const buttonHeader = nodeListToArray(buttonHeaderAttr)[0];
 
     if (!buttonHeader || !buttonHeader.id) {
-      console.error(Messages.NO_HEADER_ID_ERROR(buttonId));
+      return console.error(Messages.NO_HEADER_ID_ERROR(buttonId))
     }
 
     const buttonContentChildren = getFocusableElements(`#${buttonContent.id}`);
@@ -531,7 +531,7 @@ const Events$2 = {
 };
 
 const Messages$1 = {
-  NO_PARENT_ERROR: `Could not find dropdown button's [data-parent] attribute.`,
+  NO_PARENT_ERROR: "Could not find dropdown button's [data-parent] attribute.",
   NO_DROPDOWN_ERROR: attr => `Could not find dropdown container associated with ${attr}.`,
   NO_MENU_ERROR: attr => `Could not find menu associated with ${attr}.`,
 };
@@ -801,8 +801,6 @@ class Dropdown extends Utils {
     const dropdownAttr = `[${Selectors$2.DATA_DROPDOWN}="${dropdownId}"]`;
     const dropdownMenuItemsAttr = `${dropdownAttr} > ul > li`;
     const dropdownMenu = document.querySelector(`${dropdownAttr} > ul`);
-
-    // no ul error
 
     if (!dropdownMenu) {
       return console.error(Messages$1.NO_MENU_ERROR(dropdownAttr))
