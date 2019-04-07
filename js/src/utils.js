@@ -18,8 +18,8 @@ const Events = {
 
 /**
  * Creates a string of element selector patterns using common elements.
- * @param {String} container - The enclosing container's class, attribute, etc.
- * @return {String}
+ * @param {String} nodeList - the node to be queried.
+ * @return {Array}
  */
 export const nodeListToArray = nodeList => {
   return Array.apply(null, document.querySelectorAll(nodeList))
@@ -27,7 +27,7 @@ export const nodeListToArray = nodeList => {
 
 /**
  * Creates a string of element selector patterns using common elements.
- * @param {String} container - The enclosing container's class, attribute, etc.
+ * @param {String} container - The container selector.
  * @return {Array}
  */
 export const getFocusableElements = container => {
@@ -123,9 +123,8 @@ export default class Utils {
    * When a key is pressed, detect if it's tab or shift keys and enable
    * focus outlines on currently focused element(s). Then, remove keydown listener
    * and add click listener on _listenForClick().
-   * @param {Object} event - Event (keypress).
    */
-  _listenForKeyboard(event) {
+  _listenForKeyboard() {
     document.body.classList.add(Selectors.KEYBOARD_CLASS)
     document.removeEventListener(Events.KEYDOWN, this._listenForKeyboard)
     document.addEventListener(Events.CLICK, this._listenForClick)
@@ -134,9 +133,8 @@ export default class Utils {
 
   /**
    * On click, remove Selectors.KEYBOARD_CLASS and re-add keydown listener.
-   * @param {Object} event - Event (keypress).
    */
-  _listenForClick(event) {
+  _listenForClick() {
     document.body.classList.remove(Selectors.KEYBOARD_CLASS)
     document.removeEventListener(Events.CLICK, this._listenForClick)
     document.addEventListener(Events.KEYDOWN, this._listenForKeyboard)
@@ -157,10 +155,10 @@ export default class Utils {
     const hasShift = shiftKey && tabKey
     const noShift = !shiftKey && tabKey
 
-    if (shiftKey && tabKey && (firstActive || containerActive)) {
+    if (hasShift && (firstActive || containerActive)) {
       event.preventDefault()
       this._focusableLastChild.focus()
-    } else if (!shiftKey && tabKey && lastActive) {
+    } else if (noShift && lastActive) {
       event.preventDefault()
       this._focusableFirstChild.focus()
     }

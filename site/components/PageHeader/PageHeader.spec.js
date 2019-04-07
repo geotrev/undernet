@@ -1,22 +1,26 @@
+import React from "react"
 import PageHeader from "./PageHeader"
+import { LastLocationProvider } from "react-router-last-location"
 import { BrowserRouter as Router } from "react-router-dom"
 
 describe("<PageHeader />", () => {
   let wrapper
-  before(() => {
+  beforeEach(() => {
     wrapper = mount(
       <Router>
-        <PageHeader>{"Test Header"}</PageHeader>
+        <LastLocationProvider>
+          <PageHeader>{"Test Header"}</PageHeader>
+        </LastLocationProvider>
       </Router>
     )
   })
 
-  it("renders", () => {
-    expect(wrapper).to.exist
+  it("matches snapshot", () => {
+    expect(wrapper).toMatchSnapshot()
   })
 
   it("can receive children prop", () => {
-    expect(wrapper).to.have.text("Test Header")
+    expect(wrapper.find("h1").text()).toEqual("Test Header")
   })
 
   it("can recieve className prop", () => {
@@ -25,6 +29,6 @@ describe("<PageHeader />", () => {
         <PageHeader className="test">{"Test Header"}</PageHeader>
       </Router>
     )
-    expect(wrapper).to.have.className("test")
+    expect(wrapper.find("h1").prop("className")).toMatch(/test/)
   })
 })

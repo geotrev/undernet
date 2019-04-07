@@ -1,0 +1,126 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<DocsRoutes /> matches snapshot 1`] = `
+<BrowserRouter>
+  <Router
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "createHref": [Function],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "/",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+  >
+    <DocsRoutes>
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/docs/overview/introduction"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/docs/overview/download"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/docs/overview/branding"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/docs/overview/javascript"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/docs/overview/accessibility"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/docs/elements/grid"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/docs/elements/typography"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/docs/elements/buttons"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/docs/elements/forms"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/docs/components/modals"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/docs/components/accordions"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/docs/components/dropdowns"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/docs/components/tooltips"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/docs/utilities/alignment"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/docs/utilities/offset-order"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/docs/utilities/text"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/docs/utilities/display"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/docs/utilities/color"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/docs/utilities/spacing"
+      />
+    </DocsRoutes>
+  </Router>
+</BrowserRouter>
+`;

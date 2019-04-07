@@ -1,4 +1,4 @@
-import React, { Component, Fragment, createRef } from "react"
+import React, { Fragment, createRef } from "react"
 import { Switch, Route } from "react-router-dom"
 import { Utils } from "undernet"
 
@@ -11,7 +11,7 @@ import Docs from "pages/Docs"
 
 import "./styles.scss"
 
-export default class Main extends Component {
+export default class Main extends React.Component {
   constructor() {
     super()
   }

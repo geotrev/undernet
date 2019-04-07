@@ -1,6 +1,6 @@
 /*!
   * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
-  * Undernet v4.0.1 (https://undernet.io)
+  * Undernet v4.1.0 (https://undernet.io)
   * Copyright 2017-2019 George Treviranus
   */
 (function (global, factory) {
@@ -163,7 +163,7 @@
       }
     }, {
       key: "_listenForKeyboard",
-      value: function _listenForKeyboard(event) {
+      value: function _listenForKeyboard() {
         document.body.classList.add(Selectors.KEYBOARD_CLASS);
         document.removeEventListener(Events.KEYDOWN, this._listenForKeyboard);
         document.addEventListener(Events.CLICK, this._listenForClick);
@@ -171,7 +171,7 @@
       }
     }, {
       key: "_listenForClick",
-      value: function _listenForClick(event) {
+      value: function _listenForClick() {
         document.body.classList.remove(Selectors.KEYBOARD_CLASS);
         document.removeEventListener(Events.CLICK, this._listenForClick);
         document.addEventListener(Events.KEYDOWN, this._listenForKeyboard);
@@ -186,12 +186,14 @@
         var lastActive = document.activeElement === this._focusableLastChild;
         var tabKey = event.which === KeyCodes.TAB;
         var shiftKey = event.which === KeyCodes.SHIFT || event.shiftKey;
+        var hasShift = shiftKey && tabKey;
+        var noShift = !shiftKey && tabKey;
 
-        if (shiftKey && tabKey && (firstActive || containerActive)) {
+        if (hasShift && (firstActive || containerActive)) {
           event.preventDefault();
 
           this._focusableLastChild.focus();
-        } else if (!shiftKey && tabKey && lastActive) {
+        } else if (noShift && lastActive) {
           event.preventDefault();
 
           this._focusableFirstChild.focus();
@@ -392,7 +394,7 @@
         var buttonHeader = nodeListToArray(buttonHeaderAttr)[0];
 
         if (!buttonHeader || !buttonHeader.id) {
-          console.error(Messages.NO_HEADER_ID_ERROR(buttonId));
+          return console.error(Messages.NO_HEADER_ID_ERROR(buttonId));
         }
 
         var buttonContentChildren = getFocusableElements("#".concat(buttonContent.id));
@@ -1254,11 +1256,11 @@
 
   window.Undernet = Undernet;
 
-  exports.Undernet = Undernet;
-  exports.Modals = Modals;
   exports.Accordions = Accordions;
   exports.Dropdowns = Dropdowns;
+  exports.Modals = Modals;
   exports.Tooltips = Tooltips;
+  exports.Undernet = Undernet;
   exports.Utils = Utils$1;
 
   Object.defineProperty(exports, '__esModule', { value: true });

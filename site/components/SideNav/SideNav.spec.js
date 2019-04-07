@@ -1,5 +1,6 @@
+import React from "react"
 import SideNav from "./SideNav"
-import { BrowserRouter as Router, NavLink, Link } from "react-router-dom"
+import { BrowserRouter as Router, NavLink } from "react-router-dom"
 
 const navItems = [
   {
@@ -20,24 +21,18 @@ function SideNavComponent() {
   )
 }
 
-describe("<SideNav />", () => {
-  it("renders", () => {
+describe.only("<SideNav />", () => {
+  it("matches snapshot", () => {
     const wrapper = SideNavComponent()
-    expect(wrapper).to.exist
-    expect(wrapper).to.have.length(1)
+    expect(wrapper).toMatchSnapshot()
   })
 
-  it("contains NavLinks", () => {
-    const wrapper = SideNavComponent()
-    expect(wrapper).to.have.descendants(NavLink)
-  })
-
-  it("is collapsable/expandable with .docs-nav-expand", () => {
+  it("is collapsable/expandable with expand button", () => {
     const wrapper = SideNavComponent()
     const button = wrapper.find(".side-nav-expand a")
     button.simulate("click")
-    expect(wrapper).to.not.have.descendants(".is-hidden")
+    expect(wrapper.find(".is-hidden")).toHaveLength(0)
     button.simulate("click")
-    expect(wrapper).to.have.descendants(".is-hidden")
+    expect(wrapper.find(".is-hidden")).toHaveLength(1)
   })
 })

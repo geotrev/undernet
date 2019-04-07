@@ -30,7 +30,7 @@ const Events = {
 }
 
 const Messages = {
-  NO_PARENT_ERROR: `Could not find dropdown button's [data-parent] attribute.`,
+  NO_PARENT_ERROR: "Could not find dropdown button's [data-parent] attribute.",
   NO_DROPDOWN_ERROR: attr => `Could not find dropdown container associated with ${attr}.`,
   NO_MENU_ERROR: attr => `Could not find menu associated with ${attr}.`,
 }
@@ -300,8 +300,6 @@ export default class Dropdown extends Utils {
     const dropdownAttr = `[${Selectors.DATA_DROPDOWN}="${dropdownId}"]`
     const dropdownMenuItemsAttr = `${dropdownAttr} > ul > li`
     const dropdownMenu = document.querySelector(`${dropdownAttr} > ul`)
-
-    // no ul error
 
     if (!dropdownMenu) {
       return console.error(Messages.NO_MENU_ERROR(dropdownAttr))

@@ -1,9 +1,9 @@
+import React from "react"
 import Footer from "./Footer"
 
 describe("<Footer />", () => {
   it("renders", () => {
-    const wrapper = shallow(<Footer />)
-    expect(wrapper).to.have.length(1)
-    expect(wrapper).to.exist
+    const wrapper = mount(<Footer />)
+    expect(wrapper).toMatchSnapshot()
   })
 })

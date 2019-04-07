@@ -173,7 +173,7 @@ var Accordion = function (_Utils) {
       var buttonHeader = (0, _utils.nodeListToArray)(buttonHeaderAttr)[0];
 
       if (!buttonHeader || !buttonHeader.id) {
-        console.error(Messages.NO_HEADER_ID_ERROR(buttonId));
+        return console.error(Messages.NO_HEADER_ID_ERROR(buttonId));
       }
 
       var buttonContentChildren = (0, _utils.getFocusableElements)("#".concat(buttonContent.id));

@@ -78,8 +78,8 @@
 // These values calculate a consistent arrow fill (inner) and arrow border (outer),
 // given any value of $arrow-size from _config.scss
 // partial pixel values are used to prevent some browsers from clipping the edge
-$arrow-fill-position: $arrow-size * -2 + 0.5px;
-$arrow-border-position: $arrow-size * -2 - 1px;
+$arrow-fill-position: $arrow-size * -2 + 1.5px;
+$arrow-border-position: $arrow-size * -2;
 
 @mixin arrow-base {
   content: "";
