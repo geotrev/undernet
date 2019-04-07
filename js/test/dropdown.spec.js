@@ -19,40 +19,40 @@ const dom = `
   </div>
 `
 
-describe("Dropdowns", function() {
-  describe("API start", function() {
+describe("Dropdowns", () => {
+  describe("API start", () => {
     let button
     let menu
 
-    beforeAll(function() {
+    beforeAll(() => {
       document.body.innerHTML = dom
       button = document.querySelector("#dropdown-button")
       menu = document.querySelector("#new-dropdown")
       Undernet.Dropdowns.start()
     })
 
-    it("sets [aria-controls] on button equal to menu id", function() {
+    it("sets [aria-controls] on button equal to menu id", () => {
       expect(button.getAttribute("aria-controls")).toEqual(menu.id)
     })
 
-    it("sets [aria-haspopup='true'] on button", function() {
+    it("sets [aria-haspopup='true'] on button", () => {
       expect(button.getAttribute("aria-haspopup")).toEqual("true")
     })
 
-    it("sets [aria-expanded='false'] on button", function() {
+    it("sets [aria-expanded='false'] on button", () => {
       expect(button.getAttribute("aria-expanded")).toEqual("false")
     })
 
-    it("sets [aria-labelledby] on menu equal to button id", function() {
+    it("sets [aria-labelledby] on menu equal to button id", () => {
       expect(menu.getAttribute("aria-labelledby")).toEqual(button.id)
     })
   })
 
-  describe("API stop -> Dropdown Button Click", function() {
+  describe("API stop -> Dropdown Button Click", () => {
     let button
     let dropdownWrapper
 
-    beforeAll(function() {
+    beforeAll(() => {
       document.body.innerHTML = dom
       button = document.querySelector("#dropdown-button")
       dropdownWrapper = document.querySelector("[data-dropdown='dropdown1']")
@@ -61,21 +61,21 @@ describe("Dropdowns", function() {
       button.click()
     })
 
-    it("sets [aria-expanded='false'] on button", function() {
+    it("sets [aria-expanded='false'] on button", () => {
       expect(button.getAttribute("aria-expanded")).toEqual("false")
     })
 
-    it("does not set [data-visible] on dropdown wrapper", function() {
+    it("does not set [data-visible] on dropdown wrapper", () => {
       expect(dropdownWrapper.getAttribute("data-visible")).toEqual(null)
     })
   })
 
-  describe("#render -> Dropdown Button Click", function() {
+  describe("#render -> Dropdown Button Click", () => {
     let button
     let dropdownWrapper
     let focusableElements
 
-    beforeAll(function() {
+    beforeAll(() => {
       document.body.innerHTML = dom
       button = document.querySelector("#dropdown-button")
       dropdownWrapper = document.querySelector("[data-dropdown='dropdown1']")
@@ -84,33 +84,33 @@ describe("Dropdowns", function() {
       button.click()
     })
 
-    it("sets [aria-expanded='true'] on button", function() {
+    it("sets [aria-expanded='true'] on button", () => {
       expect(button.getAttribute("aria-expanded")).toEqual("true")
     })
 
-    it("sets [data-visible='true'] on dropdown wrapper", function() {
+    it("sets [data-visible='true'] on dropdown wrapper", () => {
       expect(dropdownWrapper.getAttribute("data-visible")).toEqual("true")
     })
 
-    it("sets [tabindex='0'] on each dropdown menu link", function() {
+    it("sets [tabindex='0'] on each dropdown menu link", () => {
       focusableElements.forEach(item => {
         expect(item.getAttribute("tabindex")).toEqual("0")
       })
     })
 
-    it("sets focus to the first dropdown link", function() {
+    it("sets focus to the first dropdown link", () => {
       expect(document.activeElement).toEqual(focusableElements[0])
     })
   })
 
-  describe("#renderWithKeys -> Arrow Down or Up Key Press", function() {
+  describe("#renderWithKeys -> Arrow Down or Up Key Press", () => {
     let button
     let dropdownWrapper
     let focusableElements
     let firstDropdownItem
     let lastDropdownItem
 
-    beforeEach(function() {
+    beforeEach(() => {
       document.body.innerHTML = dom
 
       button = document.getElementById("dropdown-button")
@@ -123,34 +123,34 @@ describe("Dropdowns", function() {
       Undernet.Dropdowns.start()
     })
 
-    it("sets [data-visible='true'] on dropdown wrapper", function() {
-      window.simulateKeyPress(40, false, button)
+    it("sets [data-visible='true'] on dropdown wrapper", () => {
+      global.simulateKeyPress(40, false, button)
       expect(dropdownWrapper.getAttribute("data-visible")).toEqual("true")
     })
 
-    it("sets [data-visible='true'] on dropdown wrapper", function() {
-      window.simulateKeyPress(38, false, button)
+    it("sets [data-visible='true'] on dropdown wrapper", () => {
+      global.simulateKeyPress(38, false, button)
       expect(dropdownWrapper.getAttribute("data-visible")).toEqual("true")
     })
 
-    it("sets focus to first item in dropdown menu when arrow down key is pressed", function() {
-      window.simulateKeyPress(40, false, button)
+    it("sets focus to first item in dropdown menu when arrow down key is pressed", () => {
+      global.simulateKeyPress(40, false, button)
       expect(document.activeElement).toEqual(firstDropdownItem)
     })
 
-    it("sets focus to first item in dropdown menu when arrow down key is pressed", function() {
-      window.simulateKeyPress(38, false, button)
+    it("sets focus to first item in dropdown menu when arrow down key is pressed", () => {
+      global.simulateKeyPress(38, false, button)
       expect(document.activeElement).toEqual(lastDropdownItem)
     })
   })
 
-  describe("#handleFirstTabClose & #handleLastTabClose", function() {
+  describe("#handleFirstTabClose & #handleLastTabClose", () => {
     let button
     let dropdownWrapper
     let firstDropdownItem
     let lastDropdownItem
 
-    beforeEach(function() {
+    beforeEach(() => {
       document.body.innerHTML = dom
 
       button = document.getElementById("dropdown-button")
@@ -162,23 +162,23 @@ describe("Dropdowns", function() {
       button.click()
     })
 
-    it("sets [data-vislble='false'] on dropdown wrapper if shift + tab key is pressed in open menu", function() {
-      window.simulateKeyPress(9, true, firstDropdownItem)
+    it("sets [data-vislble='false'] on dropdown wrapper if shift + tab key is pressed in open menu", () => {
+      global.simulateKeyPress(9, true, firstDropdownItem)
       expect(dropdownWrapper.getAttribute("data-visible")).toEqual("false")
     })
 
-    it("sets [data-visible='false'] on dropdown wrapper if tab key is pressed in open menu", function() {
-      window.simulateKeyPress(9, false, lastDropdownItem)
+    it("sets [data-visible='false'] on dropdown wrapper if tab key is pressed in open menu", () => {
+      global.simulateKeyPress(9, false, lastDropdownItem)
       expect(dropdownWrapper.getAttribute("data-visible")).toEqual("false")
     })
   })
 
-  describe("#handleClose -> Dropdown Menu Link Click", function() {
+  describe("#handleClose -> Dropdown Menu Link Click", () => {
     let button
     let dropdownWrapper
     let focusableElements
 
-    beforeAll(function() {
+    beforeAll(() => {
       document.body.innerHTML = dom
 
       button = document.getElementById("dropdown-button")
@@ -190,48 +190,48 @@ describe("Dropdowns", function() {
       focusableElements[0].click()
     })
 
-    it("sets [data-visible='false'] on dropdown wrapper", function() {
+    it("sets [data-visible='false'] on dropdown wrapper", () => {
       expect(dropdownWrapper.getAttribute("data-visible")).toEqual("false")
     })
 
-    it("sets [aria-expanded='false'] on dropdown button", function() {
+    it("sets [aria-expanded='false'] on dropdown button", () => {
       expect(button.getAttribute("aria-expanded")).toEqual("false")
     })
 
-    it("sets [tabindex='-1'] on each dropdown menu link", function() {
+    it("sets [tabindex='-1'] on each dropdown menu link", () => {
       focusableElements.forEach(item => {
         expect(item.getAttribute("tabindex")).toEqual("-1")
       })
     })
 
-    it("sets focus back to dropdown button", function() {
+    it("sets focus back to dropdown button", () => {
       expect(document.activeElement).toEqual(button)
     })
   })
 
-  describe("#handleEscapeKeyPress -> Escape Key Press", function() {
+  describe("#handleEscapeKeyPress -> Escape Key Press", () => {
     let button
     let dropdownWrapper
 
-    beforeAll(function() {
+    beforeAll(() => {
       document.body.innerHTML = dom
       button = document.querySelector("#dropdown-button")
       dropdownWrapper = document.querySelector("[data-dropdown='dropdown1']")
       Undernet.Dropdowns.start()
       button.click()
-      window.simulateKeyPress(27)
+      global.simulateKeyPress(27)
     })
 
-    it("sets [data-visible='false'] on dropdown wrapper", function() {
+    it("sets [data-visible='false'] on dropdown wrapper", () => {
       expect(dropdownWrapper.getAttribute("data-visible")).toEqual("false")
     })
   })
 
-  describe("#handleOffMenuClick -> Non-Dropdown Close Click", function() {
+  describe("#handleOffMenuClick -> Non-Dropdown Close Click", () => {
     let button
     let dropdownWrapper
 
-    beforeAll(function() {
+    beforeAll(() => {
       document.body.innerHTML = dom
       button = document.querySelector("#dropdown-button")
       dropdownWrapper = document.querySelector("[data-dropdown='dropdown1']")
@@ -240,34 +240,34 @@ describe("Dropdowns", function() {
       document.body.click()
     })
 
-    it("sets [data-visible='false'] on dropdown wrapper", function() {
+    it("sets [data-visible='false'] on dropdown wrapper", () => {
       expect(dropdownWrapper.getAttribute("data-visible")).toEqual("false")
     })
   })
 
-  describe("#handleReturnFocus -> Dropdown Close Click", function() {
+  describe("#handleReturnFocus -> Dropdown Close Click", () => {
     let button
 
-    beforeAll(function() {
+    beforeAll(() => {
       document.body.innerHTML = dom
       button = document.querySelector("#dropdown-button")
       Undernet.Dropdowns.start()
       button.click()
-      window.simulateKeyPress(27)
+      global.simulateKeyPress(27)
     })
 
-    it("sets focus to dropdown button after dropdown menu is closed", function() {
+    it("sets focus to dropdown button after dropdown menu is closed", () => {
       expect(document.activeElement).toEqual(button)
     })
   })
 
-  describe("Multiple Dropdowns", function() {
+  describe("Multiple Dropdowns", () => {
     let button1
     let button2
     let dropdownWrapper1
     let dropdownWrapper2
 
-    beforeAll(function() {
+    beforeAll(() => {
       document.body.innerHTML = dom
       button1 = document.querySelector("#dropdown-button")
       button2 = document.querySelector("#dropdown-button2")
@@ -276,7 +276,7 @@ describe("Dropdowns", function() {
       Undernet.Dropdowns.start()
     })
 
-    it("closes first dropdown if second dropdown is clicked", function() {
+    it("closes first dropdown if second dropdown is clicked", () => {
       button1.click()
       expect(dropdownWrapper1.getAttribute("data-visible")).toEqual("true")
       expect(dropdownWrapper2.getAttribute("data-visible")).toEqual(null)
@@ -285,7 +285,7 @@ describe("Dropdowns", function() {
       expect(dropdownWrapper2.getAttribute("data-visible")).toEqual("true")
     })
 
-    it("sets focus to first dropdown item of second dropdown", function() {
+    it("sets focus to first dropdown item of second dropdown", () => {
       const dropdown2Focusables = dropdownWrapper2.querySelectorAll("a")
       button1.click()
       button2.click()
@@ -293,5 +293,5 @@ describe("Dropdowns", function() {
     })
   })
 
-  describe("Errors", function() {})
+  describe("Errors", () => {})
 })

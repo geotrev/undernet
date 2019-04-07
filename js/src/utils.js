@@ -18,8 +18,8 @@ const Events = {
 
 /**
  * Creates a string of element selector patterns using common elements.
- * @param {String} container - The enclosing container's class, attribute, etc.
- * @return {String}
+ * @param {String} nodeList - the node to be queried.
+ * @return {Array}
  */
 export const nodeListToArray = nodeList => {
   return Array.apply(null, document.querySelectorAll(nodeList))
@@ -27,7 +27,7 @@ export const nodeListToArray = nodeList => {
 
 /**
  * Creates a string of element selector patterns using common elements.
- * @param {String} container - The enclosing container's class, attribute, etc.
+ * @param {String} container - The container selector.
  * @return {Array}
  */
 export const getFocusableElements = container => {

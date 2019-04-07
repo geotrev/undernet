@@ -46,67 +46,67 @@ const dom = `
   </div>
 `
 
-describe("Accordions", function() {
-  describe("API start", function() {
+describe("Accordions", () => {
+  describe("API start", () => {
     let buttons
     let contents
 
-    beforeAll(function() {
+    beforeAll(() => {
       document.body.innerHTML = dom
       buttons = document.querySelectorAll("[data-accordion-row] [data-target]")
       contents = document.querySelectorAll(".accordion-content")
       Undernet.Accordions.start()
     })
 
-    it("sets unique [aria-labelledby] on each accordion content matching its button's header id", function() {
+    it("sets unique [aria-labelledby] on each accordion content matching its button's header id", () => {
       contents.forEach(content => {
         const header = content.previousElementSibling
         expect(content.getAttribute("aria-labelledby")).toEqual(header.id)
       })
     })
 
-    it("sets [aria-controls] with matching value to each accordion content id", function() {
+    it("sets [aria-controls] with matching value to each accordion content id", () => {
       buttons.forEach(button => {
         const content = button.parentNode.nextElementSibling
         expect(button.getAttribute("aria-controls")).toEqual(content.id)
       })
     })
 
-    it("sets [aria-hidden='false'] on each accordion content when [data-visible='true']", function() {
+    it("sets [aria-hidden='false'] on each accordion content when [data-visible='true']", () => {
       expect(contents[0].getAttribute("aria-hidden")).toEqual("false")
     })
 
-    it("sets [aria-hidden='true'] on each accordion content when [data-visible='false']", function() {
+    it("sets [aria-hidden='true'] on each accordion content when [data-visible='false']", () => {
       expect(contents[1].getAttribute("aria-hidden")).toEqual("true")
       expect(contents[2].getAttribute("aria-hidden")).toEqual("true")
     })
 
-    it("sets [aria-expanded='true'] on each accordion button when [data-visible='true']", function() {
+    it("sets [aria-expanded='true'] on each accordion button when [data-visible='true']", () => {
       expect(buttons[0].getAttribute("aria-expanded")).toEqual("true")
     })
 
-    it("sets [aria-expanded='false'] on each accordion button when [data-visible='false']", function() {
+    it("sets [aria-expanded='false'] on each accordion button when [data-visible='false']", () => {
       expect(buttons[1].getAttribute("aria-expanded")).toEqual("false")
       expect(buttons[2].getAttribute("aria-expanded")).toEqual("false")
     })
 
-    it("sets max-height on each accordion content when [data-visible='true']", function() {
+    it("sets max-height on each accordion content when [data-visible='true']", () => {
       expect(contents[0].style.maxHeight).toMatch(/px/)
     })
 
-    it("does not set max-height on each accordion content when [data-visible='false']", function() {
+    it("does not set max-height on each accordion content when [data-visible='false']", () => {
       expect(contents[1].style.maxHeight).toEqual("")
       expect(contents[2].style.maxHeight).toEqual("")
     })
 
-    it("sets [tabindex='0'] on each focusable child within accordion content when [data-visible='true']", function() {
+    it("sets [tabindex='0'] on each focusable child within accordion content when [data-visible='true']", () => {
       const children = contents[0].querySelectorAll("a")
       children.forEach(child => {
         expect(child.getAttribute("tabindex")).toEqual("0")
       })
     })
 
-    it("sets [tabindex='-1'] on each focusable child within accordion content when [data-visible='false']", function() {
+    it("sets [tabindex='-1'] on each focusable child within accordion content when [data-visible='false']", () => {
       const children1 = contents[1].querySelectorAll("a")
       const children2 = contents[2].querySelectorAll("a")
       children1.forEach(child => expect(child.getAttribute("tabindex")).toEqual("-1"))
@@ -114,11 +114,11 @@ describe("Accordions", function() {
     })
   })
 
-  describe("API stop -> Accordion Button Click", function() {
+  describe("API stop -> Accordion Button Click", () => {
     let buttons
     let contents
 
-    beforeAll(function() {
+    beforeAll(() => {
       document.body.innerHTML = dom
       buttons = document.querySelectorAll("[data-accordion-row] [data-target]")
       contents = document.querySelectorAll(".accordion-content")
@@ -126,21 +126,21 @@ describe("Accordions", function() {
       Undernet.Accordions.stop()
     })
 
-    it("does not set [aria-hidden='false'] on accordion content on button click", function() {
+    it("does not set [aria-hidden='false'] on accordion content on button click", () => {
       expect(contents[2].getAttribute("aria-hidden")).toEqual("true")
     })
 
-    it("does not set [aria-expanded='true'] on accordion button on click", function() {
+    it("does not set [aria-expanded='true'] on accordion button on click", () => {
       expect(buttons[2].getAttribute("aria-expanded")).toEqual("false")
     })
   })
 
-  describe("#render -> Accordion Button Click", function() {
-    describe("Button content is expanded", function() {
+  describe("#render -> Accordion Button Click", () => {
+    describe("Button content is expanded", () => {
       let buttons
       let contents
 
-      beforeAll(function() {
+      beforeAll(() => {
         document.body.innerHTML = dom
         buttons = document.querySelectorAll("[data-accordion-row] [data-target]")
         contents = document.querySelectorAll(".accordion-content")
@@ -148,20 +148,20 @@ describe("Accordions", function() {
         buttons[0].click()
       })
 
-      it("sets [aria-hidden='true'] on accordion content", function() {
+      it("sets [aria-hidden='true'] on accordion content", () => {
         expect(contents[0].getAttribute("aria-hidden")).toEqual("true")
       })
 
-      it("sets [aria-expanded='false'] on accordion", function() {
+      it("sets [aria-expanded='false'] on accordion", () => {
         expect(buttons[0].getAttribute("aria-expanded")).toEqual("false")
       })
     })
 
-    describe("Button content is hidden", function() {
+    describe("Button content is hidden", () => {
       let buttons
       let contents
 
-      beforeAll(function() {
+      beforeAll(() => {
         document.body.innerHTML = dom
         buttons = document.querySelectorAll("[data-accordion-row] [data-target]")
         contents = document.querySelectorAll(".accordion-content")
@@ -169,21 +169,21 @@ describe("Accordions", function() {
         buttons[2].click()
       })
 
-      it("sets [aria-hidden='false'] on accordion content", function() {
+      it("sets [aria-hidden='false'] on accordion content", () => {
         expect(contents[2].getAttribute("aria-hidden")).toEqual("false")
       })
 
-      it("sets [aria-expanded='true'] on accordion", function() {
+      it("sets [aria-expanded='true'] on accordion", () => {
         expect(buttons[2].getAttribute("aria-expanded")).toEqual("true")
       })
     })
   })
 
-  describe("Toggle Multiple -> Accordion Button Click", function() {
+  describe("Toggle Multiple -> Accordion Button Click", () => {
     let buttons
     let contents
 
-    beforeAll(function() {
+    beforeAll(() => {
       document.body.innerHTML = dom
       document
         .querySelector("[data-accordion='accordion-1']")
@@ -194,22 +194,22 @@ describe("Accordions", function() {
       buttons[2].click()
     })
 
-    it("has [aria-hidden='false'] on accordion content", function() {
+    it("has [aria-hidden='false'] on accordion content", () => {
       expect(contents[0].getAttribute("aria-hidden")).toEqual("false")
     })
 
-    it("has [aria-expanded='true'] on accordion button", function() {
+    it("has [aria-expanded='true'] on accordion button", () => {
       expect(buttons[0].getAttribute("aria-expanded")).toEqual("true")
     })
 
-    it("sets [aria-hidden='false'] on accordion content", function() {
+    it("sets [aria-hidden='false'] on accordion content", () => {
       expect(contents[2].getAttribute("aria-hidden")).toEqual("false")
     })
 
-    it("sets [aria-expanded='true'] on accordion button", function() {
+    it("sets [aria-expanded='true'] on accordion button", () => {
       expect(buttons[2].getAttribute("aria-expanded")).toEqual("true")
     })
   })
 
-  describe("Errors", function() {})
+  describe("Errors", () => {})
 })
