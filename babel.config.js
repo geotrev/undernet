@@ -10,6 +10,7 @@ module.exports = api => {
   const dist = api.env("dist")
 
   if (test) {
+    presets = ["@babel/preset-react", ["@babel/preset-env", { targets: { node: "current" } }]]
     plugins = [
       ...plugins,
       "dynamic-import-node",
