@@ -1,36 +1,25 @@
-const basePresets = [
-  ["@babel/preset-env", { useBuiltIns: "entry", corejs: 3 }],
-  "@babel/preset-react",
-]
+let presets = [["@babel/preset-env", { useBuiltIns: "entry", corejs: 3 }], "@babel/preset-react"]
 
-const basePlugins = [
+let plugins = [
   "@babel/plugin-proposal-class-properties",
   "@babel/plugin-syntax-dynamic-import",
   "emotion",
 ]
 
-const site = {
-  presets: basePresets,
-  plugins: basePlugins,
-}
+module.exports = api => {
+  const test = api.env("test")
+  const dist = api.env("dist")
 
-const test = {
-  presets: basePresets,
-  plugins: [
-    ...basePlugins,
-    "dynamic-import-node",
-    ["babel-plugin-webpack-aliases", { config: "config/webpack.dev.js" }],
-  ],
-}
+  if (test) {
+    plugins = [
+      ...plugins,
+      "dynamic-import-node",
+      ["babel-plugin-webpack-aliases", { config: "config/webpack.dev.js" }],
+    ]
+  } else if (dist) {
+    presets = ["@babel/preset-env"]
+    plugins = []
+  }
 
-const dist = {
-  presets: ["@babel/preset-env"],
-}
-
-module.exports = {
-  env: {
-    site,
-    test,
-    dist,
-  },
+  return { plugins, presets }
 }

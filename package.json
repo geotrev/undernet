@@ -12,8 +12,8 @@
   "sass": "scss/undernet.scss",
   "style": "dist/undernet.css",
   "scripts": {
-    "watch": "npm run js:build && BABEL_ENV=site webpack-dev-server --config config/webpack.dev.js --progress --open",
-    "build": "BABEL_ENV=site webpack --config config/webpack.prod.js --progress",
+    "watch": "npm run js:build && webpack-dev-server --config config/webpack.dev.js --progress --open",
+    "build": "webpack --config config/webpack.prod.js --progress",
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "prettier --write 'site/**/*.js' && prettier --write 'site/**/*.scss'",
