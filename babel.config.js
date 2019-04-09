@@ -1,5 +1,4 @@
-let presets = [["@babel/preset-env", { useBuiltIns: "entry", corejs: 3 }], "@babel/preset-react"]
-
+let presets = ["@babel/preset-env", "@babel/preset-react"]
 let plugins = [
   "@babel/plugin-proposal-class-properties",
   "@babel/plugin-syntax-dynamic-import",
