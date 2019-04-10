@@ -1,5 +1,6 @@
 const ERROR = "error"
 const READONLY = "readonly"
+const OFF = "off"
 
 module.exports = {
   env: {
@@ -20,8 +21,14 @@ module.exports = {
       configFile: "babel.config.js",
     },
   },
-  extends: ["plugin:react/recommended", "prettier", "prettier/react", "prettier/babel", "jsx-a11y"],
-  plugins: ["react"],
+  extends: [
+    "plugin:react/recommended",
+    "prettier",
+    "prettier/react",
+    "prettier/babel",
+    "plugin:jsx-a11y/recommended",
+  ],
+  plugins: ["react", "jsx-a11y"],
   globals: {
     Atomics: READONLY,
     SharedArrayBuffer: READONLY,
@@ -37,6 +44,7 @@ module.exports = {
     chai: READONLY,
   },
   rules: {
+    // errors
     "for-direction": ERROR,
     "getter-return": ERROR,
     "no-async-promise-executor": ERROR,
@@ -65,10 +73,35 @@ module.exports = {
     "use-isnan": ERROR,
     "require-atomic-updates": ERROR,
 
-    // code style and formatting
-    indent: [ERROR, 2],
-    quotes: [ERROR, "double"],
-    semi: [ERROR, "never"],
-    "no-console": 0,
+    // best practices
+    "accessor-pairs": ERROR,
+    "array-callback-return": ERROR,
+    "block-scoped-var": ERROR,
+    "class-methods-use-this": OFF,
+    complexity: OFF,
+    "consistent-return": OFF,
+    curly: OFF,
+    "default-case": ERROR,
+    "dot-location": OFF,
+    "dot-notation": ERROR,
+    eqeqeq: ERROR,
+    "guard-for-in": ERROR,
+    "max-classes-per-file": ERROR,
+    "no-alert": OFF,
+    "no-caller": ERROR,
+    "no-case-declarations": ERROR,
+    "no-div-regex": ERROR,
+    "no-else-return": ERROR,
+    "no-empty-function": OFF,
+    "no-empty-pattern": ERROR,
+    "no-eq-null": ERROR,
+    "no-eval": ERROR,
+    "no-extend-native": ERROR,
+    "no-extra-bind": ERROR,
+    "no-extra-label": OFF,
+    "no-fallthrough": ERROR,
+    "no-floating-decimal": ERROR,
+    "no-global-assign": ERROR,
+    "no-console": OFF,
   },
 }
