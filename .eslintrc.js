@@ -1,3 +1,5 @@
+const path = require("path")
+
 const ERROR = "error"
 const READONLY = "readonly"
 const OFF = "off"
@@ -42,6 +44,26 @@ module.exports = {
     mount: READONLY,
     shallow: READONLY,
     chai: READONLY,
+  },
+  settings: {
+    "import/resolver": {
+      node: {
+        extensions: [".js"],
+        paths: [
+          path.resolve(__dirname, "site"),
+          path.resolve(__dirname, "js/src"),
+          path.resolve(__dirname, "scripts"),
+        ],
+        moduleDirectory: [path.resolve(__dirname, "node_modules")],
+      },
+      webpack: {
+        config: path.resolve(__dirname, "webpack.common.js"),
+      },
+    },
+    "import/ignore": [".(scss|less|css|md)$"],
+    react: {
+      version: "detect",
+    },
   },
   rules: {
     // errors
@@ -102,6 +124,88 @@ module.exports = {
     "no-fallthrough": ERROR,
     "no-floating-decimal": ERROR,
     "no-global-assign": ERROR,
+    "no-implicit-coercion": ERROR,
+    "no-implicit-globals": ERROR,
+    "no-implied-eval": ERROR,
+    "no-invalid-this": ERROR,
+    "no-iterator": ERROR,
+    "no-labels": ERROR,
+    "no-lone-blocks": ERROR,
+    "no-loop-func": ERROR,
+    "no-magic-numbers": OFF,
+    "no-multi-spaces": ERROR,
+    "no-multi-str": ERROR,
+    "no-new": ERROR,
+    "no-new-func": ERROR,
+    "no-new-wrappers": ERROR,
+    "no-octal": ERROR,
+    "no-octal-escape": ERROR,
+    "no-param-reassign": ERROR,
+    "no-proto": ERROR,
+    "no-redeclare": OFF,
+    "no-restricted-properties": OFF, // if undernet's api changes, this should become relevant
+    "no-return-assign": ERROR,
+    "no-return-await": ERROR,
+    "no-script-url": ERROR,
+    "no-self-assign": ERROR,
+    "no-self-compare": ERROR,
+    "no-sequences": ERROR,
+    "no-throw-literal": ERROR,
+    "no-unmodified-loop-condition": ERROR,
+    "no-unused-expressions": ERROR,
+    "no-unused-labels": OFF,
+    "no-useless-call": ERROR,
+    "no-useless-catch": ERROR,
+    "no-useless-concat": ERROR,
+    "no-useless-escape": ERROR,
+    "no-useless-return": ERROR,
+    "no-void": ERROR,
+    "no-warning-comments": ERROR,
+    "no-with": ERROR,
+    "prefer-named-capture-group": OFF,
+    "prefer-promise-reject-errors": ERROR,
+    radix: OFF,
+    "require-await": ERROR,
+    "require-unicode-regexp": OFF,
+    "vars-on-top": ERROR,
+    "wrap-iife": ERROR,
+    yoda: [ERROR, "never", { exceptRange: true }],
+
+    // variables
+    "init-delcarations": OFF,
+    "no-delete-var": ERROR,
+    "no-label-var": OFF,
+    "no-restricted-globals": OFF,
+    "no-shadow": ERROR,
+    "no-shadow-restricted-names": ERROR,
+    "no-undef": ERROR,
+    "no-undef-init": ERROR,
+    "no-undefined": OFF,
+    "no-unused-vars": ERROR,
+    "no-use-before-define": ERROR,
+
+    // stylistic
+    "no-mixed-spaces-and-tabs": ERROR,
+
+    // es6
+    "arrow-parens": OFF,
+    "arrow-spacing": ERROR,
+    "constructor-super": ERROR,
+    "no-class-assign": ERROR,
+    "no-const-assign": ERROR,
+    "no-dupe-class-members": ERROR,
+    "no-duplicate-imports": ERROR,
+    "no-new-symbol": ERROR,
+    "no-this-before-super": ERROR,
+    "no-useless-constructor": ERROR,
+    "no-useless-rename": ERROR,
+    "no-var": ERROR,
+    "object-shorthand": [ERROR, "always"],
+    "prefer-const": ERROR,
+    "prefer-spread": ERROR,
+    "prefer-template": ERROR,
+    "require-yield": ERROR,
+
     "no-console": OFF,
   },
 }

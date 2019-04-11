@@ -22,7 +22,7 @@ const Events = {
  * @return {Array}
  */
 export const nodeListToArray = nodeList => {
-  return Array.apply(null, document.querySelectorAll(nodeList))
+  return [...document.querySelectorAll(nodeList)]
 }
 
 /**
