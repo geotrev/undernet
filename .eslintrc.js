@@ -127,7 +127,7 @@ module.exports = {
     "no-implicit-coercion": ERROR,
     "no-implicit-globals": ERROR,
     "no-implied-eval": ERROR,
-    "no-invalid-this": ERROR,
+    "no-invalid-this": OFF, // throws errors on class properties using fat arrow syntax
     "no-iterator": ERROR,
     "no-labels": ERROR,
     "no-lone-blocks": ERROR,

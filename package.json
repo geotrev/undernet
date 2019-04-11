@@ -160,7 +160,7 @@
     ],
     "testURL": "http://localhost/",
     "transform": {
-      "^.+\\.jsx?$": "babel-jest"
+      "^.+\\.js$": "babel-jest"
     },
     "unmockedModulePathPatterns": [
       "node_modules/react/",
