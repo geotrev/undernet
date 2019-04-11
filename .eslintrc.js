@@ -23,7 +23,7 @@ module.exports = {
       configFile: "babel.config.js",
     },
   },
-  extends: ["prettier", "prettier/react", "prettier/babel", "plugin:jsx-a11y/recommended"],
+  extends: ["prettier", "prettier/react", "prettier/babel", "plugin:jsx-a11y/strict"],
   plugins: ["react", "jsx-a11y"],
   globals: {
     Atomics: READONLY,
