@@ -1,4 +1,4 @@
-let presets = [["@babel/preset-env", { useBuiltIns: "entry", corejs: 3 }], "@babel/preset-react"]
+let presets = ["@babel/preset-env", "@babel/preset-react"]
 let plugins = [
   "@babel/plugin-proposal-class-properties",
   "@babel/plugin-syntax-dynamic-import",
@@ -10,10 +10,7 @@ module.exports = api => {
   const dist = api.env("dist")
 
   if (test) {
-    presets = [
-      "@babel/preset-react",
-      ["@babel/preset-env", { useBuiltIns: "entry", corejs: 3, targets: { node: "current" } }],
-    ]
+    presets = ["@babel/preset-react", ["@babel/preset-env", { targets: { node: "current" } }]]
     plugins = [
       ...plugins,
       "dynamic-import-node",

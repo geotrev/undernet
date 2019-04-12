@@ -1,14 +1,15 @@
-import "core-js/stable"
-import "regenerator-runtime/runtime"
+import "./polyfillLoader"
+
+console.log("polyfill loaded?")
 
 import React from "react"
-import ReactDOM from "react-dom"
+import { render } from "react-dom"
 import { BrowserRouter as Router } from "react-router-dom"
 import { LastLocationProvider } from "react-router-last-location"
 
 import Main from "./layouts/Main"
 
-ReactDOM.render(
+render(
   <Router>
     <LastLocationProvider>
       <Main />
