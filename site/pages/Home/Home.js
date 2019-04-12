@@ -15,10 +15,6 @@ import { StatusBadges, InstallNpm, InstallAssets } from "./markdownContent"
 import "./styles.scss"
 
 export default class Home extends React.Component {
-  constructor() {
-    super()
-  }
-
   ANIMATION_DATA = [
     {
       title: "Tiny",
@@ -58,7 +54,7 @@ export default class Home extends React.Component {
         loop: false,
         autoplay: false,
         path: `assets/${name}.json`,
-        name: name,
+        name,
       })
 
       data.animation = loadedAnimation

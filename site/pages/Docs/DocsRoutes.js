@@ -1,11 +1,8 @@
 import React, { Fragment } from "react"
 import { Route } from "react-router-dom"
 import Loadable from "react-loadable"
-import { Link } from "react-router-dom"
-import ChevronRight from "react-feather/dist/icons/chevron-right"
 
 import * as routes from "routes"
-import Article from "components/Article"
 import LoadingSpinner from "components/LoadingSpinner"
 
 function getRoute(name) {

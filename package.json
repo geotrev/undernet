@@ -16,14 +16,14 @@
     "build": "webpack --config config/webpack.prod.js --progress",
     "test": "jest",
     "test:watch": "jest --watch",
-    "lint": "prettier --write 'site/**/*.js' && prettier --write 'site/**/*.scss'",
-    "build:dist": "npm run build:lint && npm run js:build && npm run js:rollup && npm run css:build && npm run css:minify",
-    "build:dist:release": "npm run clean && npm run build:lint && npm run scss:prepublish && npm run css:prepublish && npm run js:prepublish && npm run create-hashes",
-    "build:lint": "npm run js:lint && npm run scss:lint",
+    "lint": "eslint . --ext .js -c ./.eslintrc.js --ignore-path .eslintignore; exit 0",
+    "build:dist": "npm run build:prettify && npm run js:build && npm run js:rollup && npm run css:build && npm run css:minify",
+    "build:dist:release": "npm run clean && npm run build:prettify && npm run scss:prepublish && npm run css:prepublish && npm run js:prepublish && npm run create-hashes",
+    "build:prettify": "npm run js:prettify && npm run scss:prettify",
     "clean": "rm -rf dist/ && mkdir dist/",
     "js:build": "BABEL_ENV=dist babel js/src/ -d js/dist/ --no-comments -s",
     "js:watch": "BABEL_ENV=dist babel js/src/ --watch -d js/dist/ --no-comments -s",
-    "js:lint": "prettier --write 'js/src/**/*.js'",
+    "js:prettify": "prettier --write 'js/src/**/*.js'",
     "js:rollup": "BABEL_ENV=dist rollup -c config/rollup.config.js",
     "js:modules:zip": "cd js/dist/ && zip -r ../../dist/undernet.modules.js.zip .",
     "js:zip": "cd dist/ && zip -r undernet.js.zip . -x *.css *.zip *.css.map",
@@ -32,7 +32,7 @@
     "css:build": "node-sass --source-map true scss/undernet.scss dist/undernet.css",
     "css:package": "npm run css:build && npm run css:minify",
     "css:prepublish": "npm run css:package && cd dist/ && zip -r undernet.css.zip . -x *.js *.zip *.js.map",
-    "scss:lint": "prettier --write 'scss/**/*.scss'",
+    "scss:prettify": "prettier --write 'scss/**/*.scss'",
     "scss:prepublish": "cd scss/ && zip -r ../dist/undernet.scss.zip .",
     "update-version": "node scripts/update-version.js",
     "create-hashes": "node scripts/create-hashes.js"
@@ -160,7 +160,7 @@
     ],
     "testURL": "http://localhost/",
     "transform": {
-      "^.+\\.jsx?$": "babel-jest"
+      "^.+\\.js$": "babel-jest"
     },
     "unmockedModulePathPatterns": [
       "node_modules/react/",
