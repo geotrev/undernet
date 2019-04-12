@@ -1,6 +1,6 @@
 /*!
   * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
-  * Undernet v4.1.0 (https://undernet.io)
+  * Undernet v4.1.1 (https://undernet.io)
   * Copyright 2017-2019 George Treviranus
   */
 const KeyCodes = {
@@ -27,7 +27,7 @@ const Events = {
  * @return {Array}
  */
 const nodeListToArray = nodeList => {
-  return Array.apply(null, document.querySelectorAll(nodeList))
+  return [...document.querySelectorAll(nodeList)]
 };
 
 /**
