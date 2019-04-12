@@ -5,5 +5,5 @@ npm-error.log*
 /build/
 /node_modules/
 
-.ruby-version
 .sass-cache
+.eslint-output

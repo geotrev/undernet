@@ -1,6 +1,6 @@
 /*!
   * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
-  * Undernet v4.1.0 (https://undernet.io)
+  * Undernet v4.1.1 (https://undernet.io)
   * Copyright 2017-2019 George Treviranus
   */
 (function (global, factory) {
@@ -78,6 +78,26 @@
     return _assertThisInitialized(self);
   }
 
+  function _toConsumableArray(arr) {
+    return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();
+  }
+
+  function _arrayWithoutHoles(arr) {
+    if (Array.isArray(arr)) {
+      for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
+
+      return arr2;
+    }
+  }
+
+  function _iterableToArray(iter) {
+    if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
+  }
+
+  function _nonIterableSpread() {
+    throw new TypeError("Invalid attempt to spread non-iterable instance");
+  }
+
   var KeyCodes = {
     SHIFT: 16,
     TAB: 9,
@@ -94,7 +114,7 @@
     CLICK: "click"
   };
   var nodeListToArray = function nodeListToArray(nodeList) {
-    return Array.apply(null, document.querySelectorAll(nodeList));
+    return _toConsumableArray(document.querySelectorAll(nodeList));
   };
   var getFocusableElements = function getFocusableElements(container) {
     var focusables = Selectors.FOCUSABLE_TAGS.map(function (element) {

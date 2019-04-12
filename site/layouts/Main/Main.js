@@ -12,10 +12,6 @@ import Docs from "pages/Docs"
 import "./styles.scss"
 
 export default class Main extends React.Component {
-  constructor() {
-    super()
-  }
-
   headerRef = createRef()
   contentRef = createRef()
 
@@ -54,9 +50,9 @@ export default class Main extends React.Component {
   render() {
     return (
       <Fragment>
-        <a className="is-visually-hidden" href="#" onClick={this.handleContentClick}>
+        <button className="is-visually-hidden" onClick={this.handleContentClick}>
           Skip to main content
-        </a>
+        </button>
         <header ref={this.headerRef}>
           <GlobalNav />
         </header>
@@ -69,9 +65,9 @@ export default class Main extends React.Component {
         </main>
         <footer>
           <Footer />
-          <a className="is-visually-hidden" href="#" onClick={this.handleTopClick}>
+          <button className="is-visually-hidden" onClick={this.handleTopClick}>
             Return to top of page
-          </a>
+          </button>
         </footer>
       </Fragment>
     )

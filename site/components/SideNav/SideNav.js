@@ -126,17 +126,17 @@ export default class SideNav extends React.Component {
   renderAccordionRow(section, index, listItems) {
     return (
       <Fragment key={section.header}>
-        <h4 id={"nav-acc-button" + index} className="paragraph">
+        <h4 id={`nav-acc-button${index}`} className="paragraph">
           <Button
             dataParent="side-nav-accordion"
             className="accordion-button"
-            dataTarget={"nav-acc-content" + index}
+            dataTarget={`nav-acc-content${index}`}
             role="listitem"
           >
             {section.header}
           </Button>
         </h4>
-        <ul className="accordion-content" id={"nav-acc-content" + index}>
+        <ul className="accordion-content" id={`nav-acc-content${index}`}>
           {listItems}
         </ul>
       </Fragment>
@@ -145,16 +145,16 @@ export default class SideNav extends React.Component {
 
   renderNavAccordion() {
     return this.props.navItems.map((section, i) => {
-      let listItems = section.links.map((item, j) => {
+      const listItems = section.links.map((item, j) => {
         return this.renderAccordionChildLink(item, j)
       })
 
       return (
         <div
           data-visible={this.accordionIsActive(section.links) ? "true" : "false"}
-          data-accordion-row={"nav-acc-content" + i}
+          data-accordion-row={`nav-acc-content${i}`}
           className={classNames("accordion-row", this.props.navListClasses)}
-          key={i}
+          key={section.links[0].url}
         >
           {this.renderAccordionRow(section, i, listItems)}
         </div>

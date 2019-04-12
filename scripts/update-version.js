@@ -6,7 +6,7 @@ const args = require("yargs").argv
 
 // set up for operations
 
-const newUndernetVersion = args["tag"]
+const newUndernetVersion = args.tag
 
 const packageFilePath = path.resolve(__dirname, "../package.json")
 const pkg = require(packageFilePath)

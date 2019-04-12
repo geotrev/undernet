@@ -93,7 +93,7 @@ describe("Tooltips", () => {
     let tooltip2
 
     beforeAll(() => {
-      document.body.innerHTML
+      document.body.innerHTML = dom
       trigger1 = document.querySelector(`[data-target='${tooltipId1}']`)
       trigger2 = document.querySelector(`[data-target='${tooltipId2}']`)
       tooltip1 = document.getElementById(tooltipId1)

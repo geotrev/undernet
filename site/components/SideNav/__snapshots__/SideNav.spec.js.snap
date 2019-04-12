@@ -130,7 +130,7 @@ exports[`<SideNav /> matches snapshot 1`] = `
               className="accordion-row"
               data-accordion-row="nav-acc-content0"
               data-visible="false"
-              key="0"
+              key="#"
             >
               <h4
                 className="paragraph"
