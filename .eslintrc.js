@@ -25,10 +25,10 @@ module.exports = {
   },
   extends: [
     "plugin:react/recommended",
+    "plugin:jsx-a11y/strict",
     "prettier",
     "prettier/react",
     "prettier/babel",
-    "plugin:jsx-a11y/strict",
   ],
   plugins: ["react", "jsx-a11y"],
   globals: {
@@ -39,11 +39,9 @@ module.exports = {
     Undernet: "writable",
 
     // tests
-    should: READONLY,
-    expect: READONLY,
     mount: READONLY,
+    render: READONLY,
     shallow: READONLY,
-    chai: READONLY,
   },
   settings: {
     "import/resolver": {

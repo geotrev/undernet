@@ -1,15 +1,12 @@
-import React from "react"
-import { render } from "react-dom"
-import { BrowserRouter as Router } from "react-router-dom"
-import { LastLocationProvider } from "react-router-last-location"
+import "core-js/features/promise"
 
-import Main from "./layouts/Main"
+const polyfills = []
+const modernBrowser = "fetch" in window && "assign" in Object
 
-render(
-  <Router>
-    <LastLocationProvider>
-      <Main />
-    </LastLocationProvider>
-  </Router>,
-  document.getElementById("__main__")
-)
+if (!modernBrowser) {
+  polyfills.push(import(/* webpackChunkName: "polyfill" */ "core-js/stable"))
+}
+
+Promise.all(polyfills)
+  .then(() => import(/* webpackChunkName: "app" */ "./app"))
+  .catch(error => console.error("Uh oh! Polyfills couldn't load!", error))
