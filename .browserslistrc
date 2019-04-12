@@ -1,5 +1,7 @@
 last 1 major version
 >= 1%
+not dead
+not op_mini all
 edge >= 15
 firefox >= 52
 chrome >= 49
