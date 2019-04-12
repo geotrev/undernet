@@ -223,7 +223,7 @@ exports[`<Docs /> renders 1`] = `
                     className="accordion-row xsmall-12 columns has-no-padding"
                     data-accordion-row="nav-acc-content0"
                     data-visible="false"
-                    key="0"
+                    key="/docs/overview/introduction"
                   >
                     <h4
                       className="paragraph"
@@ -561,7 +561,7 @@ exports[`<Docs /> renders 1`] = `
                     className="accordion-row xsmall-12 columns has-no-padding"
                     data-accordion-row="nav-acc-content1"
                     data-visible="false"
-                    key="1"
+                    key="/docs/elements/grid"
                   >
                     <h4
                       className="paragraph"
@@ -838,7 +838,7 @@ exports[`<Docs /> renders 1`] = `
                     className="accordion-row xsmall-12 columns has-no-padding"
                     data-accordion-row="nav-acc-content2"
                     data-visible="false"
-                    key="2"
+                    key="/docs/elements/buttons"
                   >
                     <h4
                       className="paragraph"
@@ -1054,7 +1054,7 @@ exports[`<Docs /> renders 1`] = `
                     className="accordion-row xsmall-12 columns has-no-padding"
                     data-accordion-row="nav-acc-content3"
                     data-visible="false"
-                    key="3"
+                    key="/docs/components/accordions"
                   >
                     <h4
                       className="paragraph"
@@ -1331,7 +1331,7 @@ exports[`<Docs /> renders 1`] = `
                     className="accordion-row xsmall-12 columns has-no-padding"
                     data-accordion-row="nav-acc-content4"
                     data-visible="false"
-                    key="4"
+                    key="/docs/utilities/color"
                   >
                     <h4
                       className="paragraph"

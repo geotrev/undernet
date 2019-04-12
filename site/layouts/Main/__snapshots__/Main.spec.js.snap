@@ -25,13 +25,12 @@ exports[`<Main /> matches snapshot 1`] = `
     }
   >
     <Main>
-      <a
+      <button
         className="is-visually-hidden"
-        href="#"
         onClick={[Function]}
       >
         Skip to main content
-      </a>
+      </button>
       <header>
         <GlobalNav>
           <nav
@@ -322,13 +321,12 @@ exports[`<Main /> matches snapshot 1`] = `
             </div>
           </div>
         </Footer>
-        <a
+        <button
           className="is-visually-hidden"
-          href="#"
           onClick={[Function]}
         >
           Return to top of page
-        </a>
+        </button>
       </footer>
     </Main>
   </Router>
