@@ -4,13 +4,10 @@ const path = require("path")
 
 module.exports = {
   entry: {
-    polyfill: path.resolve(__dirname, "site/polyfill.js"),
     main: path.resolve(__dirname, "site/index.js"),
   },
   output: {
-    filename: data => {
-      return data.chunk.name === "polyfill" ? "[name].js" : "[name].[chunkhash].js"
-    },
+    filename: "[name].[chunkhash].js",
     chunkFilename: "[name].[chunkhash].js",
     path: path.resolve(__dirname, "build"),
     publicPath: "/",
@@ -66,7 +63,6 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "public/index.html"),
-      excludeChunks: ["polyfill"],
     }),
     new MiniCssExtractPlugin({
       filename: "[name].[chunkhash].css",

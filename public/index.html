@@ -41,20 +41,8 @@
     <meta name="msapplication-TileColor" content="#ffffff" />
     <meta name="msapplication-TileImage" content="/assets/ms-icon-144x144.png" />
     <meta name="theme-color" content="#D15DED" />
-
-    <script>
-      var modernBrowser = "fetch" in window && "assign" in Object
-
-      if (!modernBrowser) {
-        var scriptElement = document.createElement("script")
-
-        scriptElement.async = false
-        scriptElement.src = "/polyfill.js"
-        scriptElement.type = "text/javascript"
-        document.head.appendChild(scriptElement)
-      }
-    </script>
   </head>
+
   <body>
     <div id="__main__"></div>
     <noscript>You need to enable JavaScript to view this website. :(</noscript>
