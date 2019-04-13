@@ -7,8 +7,8 @@ const KeyCodes = {
 const Selectors = {
   // unique
   DATA_MODAL: "data-modal",
-  DATA_MODAL_BUTTON: "data-modal-button",
   // common
+  DATA_TARGET: "data-target",
   DATA_VISIBLE: "data-visible",
   DATA_CLOSE: "data-close",
   DATA_PARENT: "data-parent",
@@ -75,7 +75,6 @@ export default class Modal extends Utils {
    */
   start() {
     this._modals = nodeListToArray(this._modalContainerAttr)
-    this._modalButtons = nodeListToArray(`[${Selectors.DATA_MODAL_BUTTON}]`)
 
     getFocusableElements(this._modalContainerAttr).forEach(element => {
       element.setAttribute(Selectors.TABINDEX, "-1")
@@ -84,11 +83,8 @@ export default class Modal extends Utils {
     if (this._modals.length) {
       this._modals.forEach(instance => {
         this._setupModal(instance)
-      })
-    }
-
-    if (this._modalButtons.length) {
-      this._modalButtons.forEach(button => {
+        const id = instance.getAttribute(Selectors.DATA_MODAL)
+        const button = document.querySelector(`[${Selectors.DATA_TARGET}='${id}']`)
         button.addEventListener(Events.CLICK, this._render)
       })
     }
@@ -98,7 +94,9 @@ export default class Modal extends Utils {
    * Stop listening to modals
    */
   stop() {
-    this._modalButtons.forEach(button => {
+    this._modals.forEach(instance => {
+      const id = instance.getAttribute(Selectors.DATA_MODAL)
+      const button = document.querySelector(`[${Selectors.DATA_TARGET}='${id}']`)
       button.removeEventListener(Events.CLICK, this._render)
     })
   }
@@ -112,7 +110,7 @@ export default class Modal extends Utils {
   _render(event) {
     event.preventDefault()
     this._activeModalButton = event.target
-    this._activeModalId = this._activeModalButton.getAttribute(Selectors.DATA_MODAL_BUTTON)
+    this._activeModalId = this._activeModalButton.getAttribute(Selectors.DATA_TARGET)
 
     if (!this._activeModalId) {
       return console.error(Messages.NO_BUTTON_ID_ERROR)
@@ -121,8 +119,14 @@ export default class Modal extends Utils {
     this._activeModalOverlay = document.querySelector(
       `[${Selectors.DATA_MODAL}="${this._activeModalId}"]`
     )
+
+    // no modal overlay error
+
     this._activeModalSelector = `[${Selectors.DATA_PARENT}='${this._activeModalId}']`
     this._activeModal = this._activeModalOverlay.querySelector(this._activeModalSelector)
+
+    // no modal error
+
     this._activeModalCloseButtons = nodeListToArray(
       `${this._activeModalSelector} [${Selectors.DATA_CLOSE}]`
     )

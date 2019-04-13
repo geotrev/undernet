@@ -4,7 +4,7 @@ Use modals to focus the user experience on a critical task or set of information
 
 Check out this example modal:
 
-<button href="#" data-modal-button="new-modal">Open modal</button>
+<button data-target="new-modal">Open modal</button>
 
 <div class="modal-overlay" data-modal="new-modal">
   <div class="modal-dialog" data-parent="new-modal" aria-labelledby="header-id">
@@ -31,7 +31,7 @@ Check out this example modal:
 </div>
 
 ```html
-<button href="#" data-modal-button="new-modal">Open modal</button>
+<button data-target="new-modal">Open modal</button>
 ```
 
 ```html
@@ -67,7 +67,7 @@ You can have custom contents as well (hence subjective markup). Meaning the head
 
 The modal will be able to handle long-content with ease, turning the overlay into a scrollable area.
 
-<button href="#" data-modal-button="new-modal-3">Open modal</button>
+<button data-target="new-modal-3">Open modal</button>
 
 <div class="modal-overlay" data-modal="new-modal-3">
   <div class="modal-dialog" data-parent="new-modal-3" aria-labelledby="header-id">
@@ -97,7 +97,7 @@ The modal will be able to handle long-content with ease, turning the overlay int
 
 Adding the `is-centered` class onto the modal overlay will vertically center the modal dialog on the screen.
 
-<button href="#" data-modal-button="new-modal-2">Open centered modal</button>
+<button data-target="new-modal-2">Open centered modal</button>
 
 <div class="modal-overlay is-centered" data-modal="new-modal-2">
   <div class="modal-dialog" data-parent="new-modal-2" aria-labelledby="header-id-2">
@@ -107,7 +107,6 @@ Adding the `is-centered` class onto the modal overlay will vertically center the
       </h2>
       <a data-close href="#">
         <span aria-hidden="true">&times;</span>
-        <span class"is-visually-hidden">close modal</span>
       </a>
     </header>
     <section>
@@ -125,7 +124,7 @@ Adding the `is-centered` class onto the modal overlay will vertically center the
 </div>
 
 ```html
-<button href="#" data-modal-button="new-modal-2">Open centered modal</button>
+<button data-target="new-modal-2">Open centered modal</button>
 ```
 
 ```html
@@ -147,10 +146,10 @@ Two main pieces are required: an API call and correct HTML markup.
 For the modal button, it should have two main properties:
 
 ```html
-<button data-modal-button="new-modal">Press me</button>
+<button data-target="new-modal">Press me</button>
 ```
 
-- `data-modal-button`: an attribute containing a unique id pointing to the modal overlay's `data-modal-id` attribute.
+- `data-target`: an attribute containing a unique id pointing to the modal overlay's `data-modal-id` attribute.
 
 #### Modal Attributes
 
@@ -176,7 +175,7 @@ For the modal itself, you need a few more things.
 </div>
 ```
 
-- `data-modal`: an attribute matching your corresponding button's `data-modal-button` value. Add it to the modal overlay element. overlay.
+- `data-modal`: an attribute matching your corresponding button's `data-target` value. Add it to the modal overlay element. overlay.
 - `data-parent`: an attribute pointing to the modal wrapper. It should equal the value of the element with `data-modal`.
 - `data-close`: an attribute indicating a button or link will close the current modal dialog.
 
