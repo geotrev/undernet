@@ -37,7 +37,6 @@ exports[`<Nav /> matches snapshot 1`] = `
           >
             <Link
               className="logo"
-              replace={false}
               to="/"
             >
               <a
@@ -132,7 +131,6 @@ exports[`<Nav /> matches snapshot 1`] = `
               </li>
               <li>
                 <Link
-                  replace={false}
                   to="/docs/overview/introduction"
                 >
                   <a

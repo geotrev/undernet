@@ -163,7 +163,6 @@ exports[`<SideNav /> matches snapshot 1`] = `
                 >
                   <NavLink
                     activeClassName="active"
-                    aria-current="page"
                     className="side-nav-link-item has-black-text is-flex is-aligned-center"
                     onClick={[Function]}
                     role="listitem"
@@ -176,7 +175,6 @@ exports[`<SideNav /> matches snapshot 1`] = `
                         aria-current={null}
                         className="side-nav-link-item has-black-text is-flex is-aligned-center"
                         onClick={[Function]}
-                        replace={false}
                         role="listitem"
                         to="#"
                       >
@@ -224,7 +222,6 @@ exports[`<SideNav /> matches snapshot 1`] = `
                 >
                   <NavLink
                     activeClassName="active"
-                    aria-current="page"
                     className="side-nav-link-item has-black-text is-flex is-aligned-center"
                     onClick={[Function]}
                     role="listitem"
@@ -237,7 +234,6 @@ exports[`<SideNav /> matches snapshot 1`] = `
                         aria-current={null}
                         className="side-nav-link-item has-black-text is-flex is-aligned-center"
                         onClick={[Function]}
-                        replace={false}
                         role="listitem"
                         to="#"
                       >
@@ -285,7 +281,6 @@ exports[`<SideNav /> matches snapshot 1`] = `
                 >
                   <NavLink
                     activeClassName="active"
-                    aria-current="page"
                     className="side-nav-link-item has-black-text is-flex is-aligned-center"
                     onClick={[Function]}
                     role="listitem"
@@ -298,7 +293,6 @@ exports[`<SideNav /> matches snapshot 1`] = `
                         aria-current={null}
                         className="side-nav-link-item has-black-text is-flex is-aligned-center"
                         onClick={[Function]}
-                        replace={false}
                         role="listitem"
                         to="#"
                       >

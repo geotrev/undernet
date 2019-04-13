@@ -1,6 +1,7 @@
+const path = require("path")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
-const path = require("path")
+const CopyWebpackPlugin = require("copy-webpack-plugin")
 
 module.exports = {
   entry: {
@@ -67,5 +68,22 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: "[name].[chunkhash].css",
     }),
+    new CopyWebpackPlugin([
+      {
+        from: "public/manifest.json",
+        to: "manifest.json",
+        cache: true,
+      },
+      {
+        from: "public/browserconfig.xml",
+        to: "browserconfig.xml",
+        cache: true,
+      },
+      {
+        from: "public/static/**/*",
+        to: "assets/[name].[ext]",
+        cache: true,
+      },
+    ]),
   ],
 }
