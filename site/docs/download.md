@@ -34,7 +34,7 @@ Grab compiled assets if you need them statically.
 
 ## Uncompiled & Unminified
 
-Going this route allows for far more customization, but do so at your own risk. For the JavaScript in particular, you can exclude any unneeded component imports under the main `undernet.js` file.
+Going this route allows for far more customization. These should also grant better debugging during development.
 
 - SCSS: [Download](https://github.com/geotrev/undernet/raw/master/dist/undernet.scss.zip)
 - JS: [Download](https://github.com/geotrev/undernet/raw/master/dist/undernet.modules.js.zip)
