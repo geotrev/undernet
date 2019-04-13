@@ -16,7 +16,7 @@ What does Undernet include?
 ## Install via npm or yarn
 
 ```sh
-$ npm install -S undernet
+$ npm install -D undernet
 ```
 
 ```sh
