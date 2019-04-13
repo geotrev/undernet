@@ -3,7 +3,7 @@ import Undernet from "../src/index"
 // This is the starting DOM.
 // It is assigned to document.body.innerHTML before each test suite.
 const dom = `
-  <button href="#" data-modal-button="new-modal">Open modal</button>
+  <button data-target="new-modal">Open modal</button>
 
   <div className="modal-overlay" data-modal="new-modal">
     <div className="modal-dialog" data-parent="new-modal" aria-labelledby="header-id">
@@ -86,7 +86,7 @@ describe("Modals", () => {
       document.body.innerHTML = dom
       Undernet.Modals.start()
       Undernet.Modals.stop()
-      button = document.querySelector("[data-modal-button]")
+      button = document.querySelector("[data-target]")
       modalOverlay = document.querySelector("[data-modal]")
       modalDialog = document.querySelector("[data-parent]")
       button.click()
@@ -109,7 +109,7 @@ describe("Modals", () => {
     beforeAll(() => {
       document.body.innerHTML = dom
       Undernet.Modals.start()
-      button = document.querySelector("[data-modal-button]")
+      button = document.querySelector("[data-target]")
       modalDialog = document.querySelector("[data-parent]")
       modalOverlay = document.querySelector("[data-modal]")
       button.click()
@@ -148,7 +148,7 @@ describe("Modals", () => {
     beforeAll(() => {
       document.body.innerHTML = dom
       Undernet.Modals.start()
-      openButton = document.querySelector("[data-modal-button]")
+      openButton = document.querySelector("[data-target]")
       closeButton = document.querySelector("[data-close]")
       modalOverlay = document.querySelector("[data-modal]")
       modalDialog = document.querySelector("[data-parent]")
@@ -175,7 +175,7 @@ describe("Modals", () => {
       })
     })
 
-    it("sets focus to [data-modal-button]", () => {
+    it("sets focus to [data-target]", () => {
       expect(document.activeElement).toEqual(openButton)
     })
   })
@@ -187,7 +187,7 @@ describe("Modals", () => {
     beforeAll(() => {
       document.body.innerHTML = dom
       Undernet.Modals.start()
-      button = document.querySelector("[data-modal-button]")
+      button = document.querySelector("[data-target]")
       modalOverlay = document.querySelector("[data-modal]")
       button.click()
       modalOverlay.click()
@@ -205,7 +205,7 @@ describe("Modals", () => {
     beforeAll(() => {
       document.body.innerHTML = dom
       Undernet.Modals.start()
-      button = document.querySelector("[data-modal-button]")
+      button = document.querySelector("[data-target]")
       modalOverlay = document.querySelector("[data-modal]")
     })
 
@@ -223,13 +223,13 @@ describe("Modals", () => {
     beforeAll(() => {
       document.body.innerHTML = dom
       Undernet.Modals.start()
-      openButton = document.querySelector("[data-modal-button]")
+      openButton = document.querySelector("[data-target]")
       closeButton = document.querySelector("[data-close]")
       openButton.click()
       closeButton.click()
     })
 
-    it("sets focus back to [data-modal-button]", () => {
+    it("sets focus back to [data-target]", () => {
       expect(document.activeElement).toEqual(openButton)
     })
   })
@@ -241,7 +241,7 @@ describe("Modals", () => {
     beforeAll(() => {
       document.body.innerHTML = dom
       Undernet.Modals.start()
-      openButton = document.querySelector("[data-modal-button]")
+      openButton = document.querySelector("[data-target]")
       closeButton = document.querySelector("[data-close]")
       openButton.click()
       closeButton.click()
@@ -258,7 +258,7 @@ describe("Modals", () => {
     beforeAll(() => {
       document.body.innerHTML = dom
       Undernet.Modals.start()
-      button = document.querySelector("[data-modal-button]")
+      button = document.querySelector("[data-target]")
       button.click()
     })
 

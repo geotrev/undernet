@@ -32,7 +32,7 @@ var KeyCodes = {
 };
 var Selectors = {
   DATA_MODAL: "data-modal",
-  DATA_MODAL_BUTTON: "data-modal-button",
+  DATA_TARGET: "data-target",
   DATA_VISIBLE: "data-visible",
   DATA_CLOSE: "data-close",
   DATA_PARENT: "data-parent",
@@ -87,7 +87,6 @@ var Modal = function (_Utils) {
       var _this2 = this;
 
       this._modals = (0, _utils.nodeListToArray)(this._modalContainerAttr);
-      this._modalButtons = (0, _utils.nodeListToArray)("[".concat(Selectors.DATA_MODAL_BUTTON, "]"));
       (0, _utils.getFocusableElements)(this._modalContainerAttr).forEach(function (element) {
         element.setAttribute(Selectors.TABINDEX, "-1");
       });
@@ -95,11 +94,9 @@ var Modal = function (_Utils) {
       if (this._modals.length) {
         this._modals.forEach(function (instance) {
           _this2._setupModal(instance);
-        });
-      }
 
-      if (this._modalButtons.length) {
-        this._modalButtons.forEach(function (button) {
+          var id = instance.getAttribute(Selectors.DATA_MODAL);
+          var button = document.querySelector("[".concat(Selectors.DATA_TARGET, "='").concat(id, "']"));
           button.addEventListener(Events.CLICK, _this2._render);
         });
       }
@@ -109,7 +106,9 @@ var Modal = function (_Utils) {
     value: function stop() {
       var _this3 = this;
 
-      this._modalButtons.forEach(function (button) {
+      this._modals.forEach(function (instance) {
+        var id = instance.getAttribute(Selectors.DATA_MODAL);
+        var button = document.querySelector("[".concat(Selectors.DATA_TARGET, "='").concat(id, "']"));
         button.removeEventListener(Events.CLICK, _this3._render);
       });
     }
@@ -120,7 +119,7 @@ var Modal = function (_Utils) {
 
       event.preventDefault();
       this._activeModalButton = event.target;
-      this._activeModalId = this._activeModalButton.getAttribute(Selectors.DATA_MODAL_BUTTON);
+      this._activeModalId = this._activeModalButton.getAttribute(Selectors.DATA_TARGET);
 
       if (!this._activeModalId) {
         return console.error(Messages.NO_BUTTON_ID_ERROR);
