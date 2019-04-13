@@ -147,11 +147,11 @@ export default class Home extends React.Component {
             <div className="xsmall-12 columns has-center-text">
               <h2 className="h6">Painless Setup</h2>
               <p>Install with npm:</p>
-              <InstallAssets />
+              <InstallNpm />
             </div>
             <div className="xsmall-12 columns has-center-text">
               <p>Or simply link to minified assets:</p>
-              <InstallNpm />
+              <InstallAssets />
             </div>
             <div className="xsmall-12 columns has-center-text">
               <p>See how Undernet can improve your developer experience!</p>

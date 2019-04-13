@@ -1,6 +1,6 @@
 /*!
   * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
-  * Undernet v4.1.1 (https://undernet.io)
+  * Undernet v4.2.0 (https://undernet.io)
   * Copyright 2017-2019 George Treviranus
   */
 (function (global, factory) {
@@ -816,7 +816,7 @@
   };
   var Selectors$3 = {
     DATA_MODAL: "data-modal",
-    DATA_MODAL_BUTTON: "data-modal-button",
+    DATA_TARGET: "data-target",
     DATA_VISIBLE: "data-visible",
     DATA_CLOSE: "data-close",
     DATA_PARENT: "data-parent",
@@ -871,7 +871,6 @@
         var _this2 = this;
 
         this._modals = nodeListToArray(this._modalContainerAttr);
-        this._modalButtons = nodeListToArray("[".concat(Selectors$3.DATA_MODAL_BUTTON, "]"));
         getFocusableElements(this._modalContainerAttr).forEach(function (element) {
           element.setAttribute(Selectors$3.TABINDEX, "-1");
         });
@@ -879,11 +878,9 @@
         if (this._modals.length) {
           this._modals.forEach(function (instance) {
             _this2._setupModal(instance);
-          });
-        }
 
-        if (this._modalButtons.length) {
-          this._modalButtons.forEach(function (button) {
+            var id = instance.getAttribute(Selectors$3.DATA_MODAL);
+            var button = document.querySelector("[".concat(Selectors$3.DATA_TARGET, "='").concat(id, "']"));
             button.addEventListener(Events$3.CLICK, _this2._render);
           });
         }
@@ -893,7 +890,9 @@
       value: function stop() {
         var _this3 = this;
 
-        this._modalButtons.forEach(function (button) {
+        this._modals.forEach(function (instance) {
+          var id = instance.getAttribute(Selectors$3.DATA_MODAL);
+          var button = document.querySelector("[".concat(Selectors$3.DATA_TARGET, "='").concat(id, "']"));
           button.removeEventListener(Events$3.CLICK, _this3._render);
         });
       }
@@ -904,7 +903,7 @@
 
         event.preventDefault();
         this._activeModalButton = event.target;
-        this._activeModalId = this._activeModalButton.getAttribute(Selectors$3.DATA_MODAL_BUTTON);
+        this._activeModalId = this._activeModalButton.getAttribute(Selectors$3.DATA_TARGET);
 
         if (!this._activeModalId) {
           return console.error(Messages$2.NO_BUTTON_ID_ERROR);
