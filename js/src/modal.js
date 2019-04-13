@@ -120,12 +120,8 @@ export default class Modal extends Utils {
       `[${Selectors.DATA_MODAL}="${this._activeModalId}"]`
     )
 
-    // no modal overlay error
-
     this._activeModalSelector = `[${Selectors.DATA_PARENT}='${this._activeModalId}']`
     this._activeModal = this._activeModalOverlay.querySelector(this._activeModalSelector)
-
-    // no modal error
 
     this._activeModalCloseButtons = nodeListToArray(
       `${this._activeModalSelector} [${Selectors.DATA_CLOSE}]`

@@ -1,6 +1,6 @@
 /*!
   * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
-  * Undernet v4.1.1 (https://undernet.io)
+  * Undernet v4.2.0 (https://undernet.io)
   * Copyright 2017-2019 George Treviranus
   */
 const KeyCodes = {
@@ -837,8 +837,8 @@ const KeyCodes$2 = {
 const Selectors$3 = {
   // unique
   DATA_MODAL: "data-modal",
-  DATA_MODAL_BUTTON: "data-modal-button",
   // common
+  DATA_TARGET: "data-target",
   DATA_VISIBLE: "data-visible",
   DATA_CLOSE: "data-close",
   DATA_PARENT: "data-parent",
@@ -905,7 +905,6 @@ class Modal extends Utils {
    */
   start() {
     this._modals = nodeListToArray(this._modalContainerAttr);
-    this._modalButtons = nodeListToArray(`[${Selectors$3.DATA_MODAL_BUTTON}]`);
 
     getFocusableElements(this._modalContainerAttr).forEach(element => {
       element.setAttribute(Selectors$3.TABINDEX, "-1");
@@ -914,11 +913,8 @@ class Modal extends Utils {
     if (this._modals.length) {
       this._modals.forEach(instance => {
         this._setupModal(instance);
-      });
-    }
-
-    if (this._modalButtons.length) {
-      this._modalButtons.forEach(button => {
+        const id = instance.getAttribute(Selectors$3.DATA_MODAL);
+        const button = document.querySelector(`[${Selectors$3.DATA_TARGET}='${id}']`);
         button.addEventListener(Events$3.CLICK, this._render);
       });
     }
@@ -928,7 +924,9 @@ class Modal extends Utils {
    * Stop listening to modals
    */
   stop() {
-    this._modalButtons.forEach(button => {
+    this._modals.forEach(instance => {
+      const id = instance.getAttribute(Selectors$3.DATA_MODAL);
+      const button = document.querySelector(`[${Selectors$3.DATA_TARGET}='${id}']`);
       button.removeEventListener(Events$3.CLICK, this._render);
     });
   }
@@ -942,7 +940,7 @@ class Modal extends Utils {
   _render(event) {
     event.preventDefault();
     this._activeModalButton = event.target;
-    this._activeModalId = this._activeModalButton.getAttribute(Selectors$3.DATA_MODAL_BUTTON);
+    this._activeModalId = this._activeModalButton.getAttribute(Selectors$3.DATA_TARGET);
 
     if (!this._activeModalId) {
       return console.error(Messages$2.NO_BUTTON_ID_ERROR)
@@ -951,8 +949,10 @@ class Modal extends Utils {
     this._activeModalOverlay = document.querySelector(
       `[${Selectors$3.DATA_MODAL}="${this._activeModalId}"]`
     );
+
     this._activeModalSelector = `[${Selectors$3.DATA_PARENT}='${this._activeModalId}']`;
     this._activeModal = this._activeModalOverlay.querySelector(this._activeModalSelector);
+
     this._activeModalCloseButtons = nodeListToArray(
       `${this._activeModalSelector} [${Selectors$3.DATA_CLOSE}]`
     );
@@ -1091,11 +1091,15 @@ const KeyCodes$3 = {
 };
 
 const Selectors$4 = {
+  // unique
   DATA_TOOLTIP: "data-tooltip",
+  // common
   DATA_VISIBLE: "data-visible",
   DATA_TARGET: "data-target",
+  // accessibility
   ROLE: "role",
   ARIA_DESCRIBEDBY: "aria-describedby",
+  // classes
   DROP_LEFT_CLASS: "is-drop-left",
   DROP_RIGHT_CLASS: "is-drop-right",
 };

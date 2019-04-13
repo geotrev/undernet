@@ -5,11 +5,15 @@ const KeyCodes = {
 }
 
 const Selectors = {
+  // unique
   DATA_TOOLTIP: "data-tooltip",
+  // common
   DATA_VISIBLE: "data-visible",
   DATA_TARGET: "data-target",
+  // accessibility
   ROLE: "role",
   ARIA_DESCRIBEDBY: "aria-describedby",
+  // classes
   DROP_LEFT_CLASS: "is-drop-left",
   DROP_RIGHT_CLASS: "is-drop-right",
 }
