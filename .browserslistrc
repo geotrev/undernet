@@ -1,12 +1,10 @@
 last 1 major version
 >= 1%
 not dead
-not op_mini all
 edge >= 15
-firefox >= 52
-chrome >= 49
+firefox >= 54
+chrome >= 51
 safari >= 10
-android >= 4.4
 ios >= 9
 ie >= 11
-opera >= 30
+opera >= 38
