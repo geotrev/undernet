@@ -107,6 +107,7 @@ Adding the `is-centered` class onto the modal overlay will vertically center the
       </h2>
       <a data-close href="#">
         <span aria-hidden="true">&times;</span>
+        <span class"is-visually-hidden">close modal</span>
       </a>
     </header>
     <section>
@@ -128,8 +129,8 @@ Adding the `is-centered` class onto the modal overlay will vertically center the
 ```
 
 ```html
-<div class="modal-overlay is-centered" data-modal-id="new-modal-2">
-  <div class="modal-dialog" data-parent="new-modal-2" aria-labelledby="header-id-2" data-modal>
+<div class="modal-overlay is-centered" data-modal="new-modal-2">
+  <div class="modal-dialog" data-parent="new-modal-2" aria-labelledby="header-id-2">
     ...
   </div>
 </div>
@@ -156,8 +157,8 @@ For the modal button, it should have two main properties:
 For the modal itself, you need a few more things.
 
 ```html
-<div class="modal-overlay" data-modal-id="new-modal">
-  <div class="modal-dialog" data-parent="new-modal" aria-labelledby="header-id" data-modal>
+<div class="modal-overlay" data-modal="new-modal">
+  <div class="modal-dialog" data-parent="new-modal" aria-labelledby="header-id">
     <header>
       <h2 class="h6" id="header-id">...</h2>
       <a data-close href="#">
@@ -175,15 +176,16 @@ For the modal itself, you need a few more things.
 </div>
 ```
 
-- `data-modal-id`: an attribute matching your corresponding button's `data-target`. Add it to the modal overlay element.
-- `data-modal`: an attribute indicating the element is a modal dialog. It should be the immediate child of the modal overlay.
-- `data-parent`: an attribute pointing to the modal wrapper. It should equal the value of the element with `data-modal-id`.
-- `data-close`: an attribute indicating a button or link will close the modal dialog.
+- `data-modal`: an attribute matching your corresponding button's `data-modal-button` value. Add it to the modal overlay element. overlay.
+- `data-parent`: an attribute pointing to the modal wrapper. It should equal the value of the element with `data-modal`.
+- `data-close`: an attribute indicating a button or link will close the current modal dialog.
 
 #### Accessibility
 
+The below attributes you should add to elements yourself. They increase the content's accessibility for users with assistive technologies, such as screen readers.
+
 - `aria-hidden`: an attribute that should be attached to any icons (close or otherwise) in the modal. Screen readers are inconsistent with icons, so they should be hidden instead. When using an icon, make sure you have `is-visually-hidden` text describing the action.
-- `aria-labelledby`: an attribute to be attached to the modal dialog element. It should have a matching value to the header element's `id`.
+- `aria-labelledby`: an attribute to be attached to the `modal-dialog` element. It should have a matching value to the header element's `id`.
 
 [See WAI-ARIA documentation](https://www.w3.org/TR/wai-aria-practices-1.1/examples/dialog-modal/dialog.html) on best-practices for the dialog modal UI pattern.
 
