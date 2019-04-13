@@ -149,7 +149,7 @@ For the modal button, it should have two main properties:
 <button data-target="new-modal">Press me</button>
 ```
 
-- `data-target`: an attribute containing a unique id pointing to the modal overlay's `data-modal-id` attribute.
+- `data-target`: an attribute containing a unique id pointing to the modal overlay's `data-modal` attribute.
 
 #### Modal Attributes
 
