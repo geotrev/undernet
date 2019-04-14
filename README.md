@@ -62,22 +62,22 @@ The site is both a demo and marketing tool. It is built with my own webpack setu
 $ npm run watch
 ```
 
-### Make a production build
+### Make a production build (mostly for sanity checks)
 
 ```sh
 $ npm run build
 ```
 
-### Run Mocha tests
+### Run Jest tests (for site + framework)
 
 ```sh
-$ npm run site:test
+$ npm test
 ```
 
-### Load tests on file save (also for the site)
+### Load tests on file save
 
 ```sh
-$ npm run site:test:watch
+$ npm run test:watch
 ```
 
 ### Building the framework
@@ -110,7 +110,7 @@ To run a release build, run the following command, where `VERSION` is the semver
 $ npm run update-version -- --tag=VERSION && npm run build:dist:release
 ```
 
-These will do three things:
+This will do three things:
 
 1. Increment the project version across docs, package.json, and in `scss/undernet.scss`
 2. Build all assets to `dist/` with the new version.
