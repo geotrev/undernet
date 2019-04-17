@@ -35,11 +35,6 @@ const Messages = {
   NO_MENU_ERROR: attr => `Could not find menu associated with ${attr}.`,
 }
 
-/**
- * Dropdown component class.
- * @module Dropdown
- * @requires Utils
- */
 export default class Dropdown extends Utils {
   constructor() {
     super()
@@ -73,9 +68,6 @@ export default class Dropdown extends Utils {
 
   // public
 
-  /**
-   * Begin listening to dropdowns.
-   */
   start() {
     this._dropdowns = nodeListToArray(`${this._dropdownContainerAttr}`)
     this._dropdownButtons = nodeListToArray(
@@ -92,9 +84,6 @@ export default class Dropdown extends Utils {
     })
   }
 
-  /**
-   * Stop listening to dropdowns.
-   */
   stop() {
     this._dropdownButtons.forEach(button => {
       button.removeEventListener(Events.CLICK, this._render)
@@ -104,11 +93,6 @@ export default class Dropdown extends Utils {
 
   // private
 
-  /**
-   * Find a button through event.target, then render the corresponding modal attribute via matching target id
-   * @param {Object} event - The event object
-   * @param {Number} key - The key code that called _render()
-   */
   _render(event, key) {
     event.preventDefault()
     event.stopPropagation()
@@ -177,10 +161,6 @@ export default class Dropdown extends Utils {
     this.captureFocus(`${this._activeDropdownAttr} > ul`, { useArrows: true })
   }
 
-  /**
-   * Closes the dropdown if user uses shift and tab keys on the first dropdown element.
-   * @param {Object} event - The event object
-   */
   _handleFirstTabClose(event) {
     const shiftKey = event.which === KeyCodes.SHIFT || event.shiftKey
     const tabKey = event.which === KeyCodes.TAB
@@ -190,10 +170,6 @@ export default class Dropdown extends Utils {
     }
   }
 
-  /**
-   * Closes the dropdown if user uses tab key on the last dropdown element.
-   * @param {Object} event - The event object
-   */
   _handleLastTabClose(event) {
     const shiftKey = event.which === KeyCodes.SHIFT || event.shiftKey
     const tabKey = event.which === KeyCodes.TAB
@@ -203,20 +179,12 @@ export default class Dropdown extends Utils {
     }
   }
 
-  /**
-   * Renders dropdown if the user uses arrow up or down.
-   * @param {Object} event - The event object
-   */
   _renderWithKeys(event) {
     if (event.which === KeyCodes.ARROW_UP || event.which === KeyCodes.ARROW_DOWN) {
       this._render(event, event.which)
     }
   }
 
-  /**
-   * Closes currently open dropdown.
-   * @param {Object} event - The event object
-   */
   _handleClose(event) {
     event.preventDefault()
 
@@ -250,48 +218,28 @@ export default class Dropdown extends Utils {
     this._activeDropdown = null
   }
 
-  /**
-   * Use escape key to close dropdown.
-   * @param {Object} event - The event object
-   */
   _handleEscapeKeyPress(event) {
     if (event.which === KeyCodes.ESCAPE) {
       this._handleClose(event)
     }
   }
 
-  /**
-   * Closes dropdown
-   * @param {Object} event - The event object
-   */
   _handleOffMenuClick(event) {
     if (event.target !== this._activeDropdownButton && event.target !== this._activeDropdownMenu) {
       this._handleClose(event)
     }
   }
 
-  /**
-   * Puts focus on a the active dropdown button.
-   */
   _handleReturnFocus() {
     this._activeDropdownButton.setAttribute(Selectors.TAB_INDEX, "-1")
     this._activeDropdownButton.focus()
     this._activeDropdownButton.removeAttribute(Selectors.TAB_INDEX)
   }
 
-  /**
-   * Retrieve possible menu links or buttons as an array
-   * @param {String} attr - The unique attribute for a dropdown.
-   * @return {String} - Selector for possible menu item links.
-   */
   _getDropdownLinks(attr) {
     return nodeListToArray(`${attr} > ul > li > a, ${attr} > ul > li > button`)
   }
 
-  /**
-   * Add starting attributes to a dropdown.
-   * @param {Element} dropdown - A dropdown element.
-   */
   _setupDropdown(dropdown) {
     const dropdownId = dropdown.getAttribute(Selectors.DATA_DROPDOWN)
 

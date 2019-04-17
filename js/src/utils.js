@@ -16,20 +16,10 @@ const Events = {
   CLICK: "click",
 }
 
-/**
- * Creates a string of element selector patterns using common elements.
- * @param {String} nodeList - the node to be queried.
- * @return {Array}
- */
 export const nodeListToArray = nodeList => {
   return [...document.querySelectorAll(nodeList)]
 }
 
-/**
- * Creates a string of element selector patterns using common elements.
- * @param {String} container - The container selector.
- * @return {Array}
- */
 export const getFocusableElements = container => {
   const focusables = Selectors.FOCUSABLE_TAGS.map(
     element => `${container} ${element}${Selectors.NOT_VISUALLY_HIDDEN}`
@@ -38,16 +28,8 @@ export const getFocusableElements = container => {
   return nodeListToArray(focusables)
 }
 
-/**
- * Detects if the browser being used is on an iphone, ipad, or ipod.
- * @return {Boolean}
- */
 export const iOSMobile = /(iphone|ipod|ipad)/i.test(navigator.userAgent)
 
-/**
- * Utility methods for DOM traversal and focus trapping.
- * @module Utils
- */
 export default class Utils {
   constructor() {
     // events
@@ -56,6 +38,7 @@ export default class Utils {
     this._handleFocusTrapWithTab = this._handleFocusTrapWithTab.bind(this)
     this._handleFocusTrapWithArrows = this._handleFocusTrapWithArrows.bind(this)
 
+    // instance data
     this._focusContainerSelector = ""
     this._focusableChildren = []
     this._focusableFirstChild = {}
@@ -66,11 +49,6 @@ export default class Utils {
 
   // public
 
-  /**
-   * Listens to the first and last elements matched from this.getFocusableElements()
-   * @param {String} container - The container's class, attribute, etc.
-   * @param {Object} options - Optional has hof options.
-   */
   captureFocus(container, options) {
     this._focusContainerSelector = container
     this._focusableChildren = getFocusableElements(this._focusContainerSelector)
@@ -87,9 +65,6 @@ export default class Utils {
     }
   }
 
-  /**
-   * Stop trapping focus set in this.captureFocus()
-   */
   releaseFocus() {
     if (this._trapFocusWithArrows) {
       document.removeEventListener(Events.KEYDOWN, this._handleFocusTrapWithArrows)
@@ -99,16 +74,10 @@ export default class Utils {
     }
   }
 
-  /**
-   * Begin listening to _listenForKeyboard()
-   */
   enableFocusOutline() {
     document.addEventListener(Events.KEYDOWN, this._listenForKeyboard)
   }
 
-  /**
-   * Completely disable focus outline utility.
-   */
   disableFocusOutline() {
     if (this._listeningForKeydown) {
       document.removeEventListener(Events.KEYDOWN, this._listenForKeyboard)
@@ -119,11 +88,6 @@ export default class Utils {
 
   // private
 
-  /**
-   * When a key is pressed, detect if it's tab or shift keys and enable
-   * focus outlines on currently focused element(s). Then, remove keydown listener
-   * and add click listener on _listenForClick().
-   */
   _listenForKeyboard() {
     document.body.classList.add(Selectors.KEYBOARD_CLASS)
     document.removeEventListener(Events.KEYDOWN, this._listenForKeyboard)
@@ -131,9 +95,6 @@ export default class Utils {
     this._listeningForKeydown = false
   }
 
-  /**
-   * On click, remove Selectors.KEYBOARD_CLASS and re-add keydown listener.
-   */
   _listenForClick() {
     document.body.classList.remove(Selectors.KEYBOARD_CLASS)
     document.removeEventListener(Events.CLICK, this._listenForClick)
@@ -141,10 +102,6 @@ export default class Utils {
     this._listeningForKeydown = true
   }
 
-  /**
-   * Handles focus on first or last child in a container, using tab and tab+shift keys.
-   * @param {Object} event - Event (keypress)
-   */
   _handleFocusTrapWithTab(event) {
     const containerElement = document.querySelector(this._focusContainerSelector)
     const containerActive = document.activeElement === containerElement
@@ -164,10 +121,6 @@ export default class Utils {
     }
   }
 
-  /**
-   * Handles focus on the first, last, next, or previous child in a container, using up and down arrow keys.
-   * @param {Object} event - Event (keypress)
-   */
   _handleFocusTrapWithArrows(event) {
     const firstActive = document.activeElement === this._focusableFirstChild
     const lastActive = document.activeElement === this._focusableLastChild
@@ -189,9 +142,6 @@ export default class Utils {
     }
   }
 
-  /**
-   * Focus the next child in this._focusableChildren.
-   */
   _focusNextChild() {
     for (let i = 0; i < this._focusableChildren.length; i++) {
       if (this._focusableChildren[i] === document.activeElement) {
@@ -201,9 +151,6 @@ export default class Utils {
     }
   }
 
-  /**
-   * Focus the previous child in this._focusableChildren.
-   */
   _focusLastChild() {
     for (let i = 0; i < this._focusableChildren.length; i++) {
       if (this._focusableChildren[i] === document.activeElement) {

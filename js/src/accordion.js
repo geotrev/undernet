@@ -32,11 +32,6 @@ const Messages = {
     `Could not find accordion content block with [id] ${id} associated with [data-target='${id}'].`,
 }
 
-/**
- * Accordion component class.
- * @module Accordion
- * @requires Utils
- */
 export default class Accordion extends Utils {
   constructor() {
     super()
@@ -67,9 +62,6 @@ export default class Accordion extends Utils {
 
   // public
 
-  /**
-   * Begin listening to accordions.
-   */
   start() {
     const accordionButtonSelector = this._getPossibleAccordionButtonAttrs(
       `[${Selectors.DATA_ACCORDION}]`
@@ -84,9 +76,6 @@ export default class Accordion extends Utils {
     }
   }
 
-  /**
-   * Stop listening to accordions.
-   */
   stop() {
     this._accordionButtons.forEach(button => {
       button.removeEventListener(Events.CLICK, this._render)
@@ -95,10 +84,6 @@ export default class Accordion extends Utils {
 
   // private
 
-  /**
-   * Open accordion content associated with an accordion button.
-   * @param {Object} event - The event object
-   */
   _render(event) {
     event.preventDefault()
 
@@ -134,10 +119,6 @@ export default class Accordion extends Utils {
     this._activeContainer = null
   }
 
-  /**
-   * Add initial attributes to accordion elements.
-   * @param {Element} button - A button element that triggers an accordion.
-   */
   _setupAccordion(button) {
     const buttonId = button.getAttribute(Selectors.DATA_TARGET)
     const buttonContent = document.getElementById(buttonId)
@@ -187,11 +168,6 @@ export default class Accordion extends Utils {
     }
   }
 
-  /**
-   * Build a selector string to match possible accordion buttons
-   * @param {String} attr - A unique attribute
-   * @return {String} - String of possible button selectors
-   */
   _getPossibleAccordionButtonAttrs(attr) {
     return this._headerLevels
       .map(
@@ -200,28 +176,14 @@ export default class Accordion extends Utils {
       .join(", ")
   }
 
-  /**
-   * Build a selector string to match possible accordion headers
-   * @param {String} attr - A unique attribute
-   * @return {String} - String of possible header selectors
-   */
   _getPossibleAccordionHeaderAttrs(attr) {
     return this._headerLevels.map(num => `${attr} > h${num}`).join(", ")
   }
 
-  /**
-   * Build a unique accordion row attribute selector.
-   * @param {String} id - An id value associated with a given Selectors.DATA_TARGET
-   * @return {String} - A unique accordion row selector
-   */
   _getAccordionRowAttr(id) {
     return `[${Selectors.DATA_ACCORDION_ROW}='${id}']`
   }
 
-  /**
-   * If toggling multiple rows at once isn't enabled, close all rows except the selected one.
-   * This ensures the selected one can be closed if it's already open.
-   */
   _closeAllIfToggleable() {
     if (this._activeContainer.hasAttribute(Selectors.DATA_TOGGLE_MULTIPLE)) return
 
@@ -245,9 +207,6 @@ export default class Accordion extends Utils {
     this._toggleAttributeInCollection(allContent, Selectors.ARIA_HIDDEN, "false", "true")
   }
 
-  /**
-   * Toggle the currently selected accordion button's content.
-   */
   _toggleSelectedAccordion() {
     this._activeRow.setAttribute(Selectors.DATA_VISIBLE, this._activeButtonExpandState)
     this._activeButton.setAttribute(Selectors.ARIA_EXPANDED, this._activeButtonExpandState)
@@ -266,13 +225,6 @@ export default class Accordion extends Utils {
     }
   }
 
-  /**
-   * Toggles a single attribute of a series of elements.
-   * @param {Array} elements - An array of elements to be operated on.
-   * @param {String} attributeName - An attribute to be changed.
-   * @param {String} currentValue - The current value of attributeName
-   * @param {String} newValue - The new value of attributeName
-   */
   _toggleAttributeInCollection(elements, attributeName, currentValue, newValue) {
     elements.forEach(element => {
       if (element.hasAttribute(attributeName, currentValue)) {

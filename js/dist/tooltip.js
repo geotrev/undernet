@@ -206,7 +206,7 @@ var Tooltip = function () {
   }, {
     key: "_getComputedLength",
     value: function _getComputedLength(element, property) {
-      return parseInt(window.getComputedStyle(element)[property].slice(0, -2));
+      return Math.floor(element.getBoundingClientRect()[property]);
     }
   }, {
     key: "_isLeftOrRight",
