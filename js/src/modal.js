@@ -36,11 +36,6 @@ const Messages = {
     `Could not find a [data-parent='${id}'] attribute within your [data-modal='${id}'] element.`,
 }
 
-/**
- * Modal component class.
- * @module Modal
- * @requires Utils
- */
 export default class Modal extends Utils {
   constructor() {
     super()
@@ -63,6 +58,8 @@ export default class Modal extends Utils {
     this._activeModalOverlayAttr = ""
     this._activeModalSelector = ""
     this._activeModalCloseButtons = []
+    this._originalPagePaddingRight = ""
+    this._scrollbarOffset = 0
 
     // attribute helpers
     this._modalContainerAttr = `[${Selectors.DATA_MODAL}]`
@@ -70,9 +67,6 @@ export default class Modal extends Utils {
 
   // public
 
-  /**
-   * Begin listening to modals.
-   */
   start() {
     this._modals = nodeListToArray(this._modalContainerAttr)
 
@@ -90,9 +84,6 @@ export default class Modal extends Utils {
     }
   }
 
-  /**
-   * Stop listening to modals
-   */
   stop() {
     this._modals.forEach(instance => {
       const id = instance.getAttribute(Selectors.DATA_MODAL)
@@ -103,10 +94,6 @@ export default class Modal extends Utils {
 
   // private
 
-  /**
-   * Find a button through event.target, then render the corresponding modal attribute via matching target id
-   * @param {Object} event - The event object
-   */
   _render(event) {
     event.preventDefault()
     this._activeModalButton = event.target
@@ -131,6 +118,7 @@ export default class Modal extends Utils {
       element.setAttribute(Selectors.TABINDEX, "0")
     })
 
+    this._handleScrollbarOffset()
     this._handleScrollStop()
     this.captureFocus(this._activeModalSelector)
     this._activeModalOverlay.setAttribute(Selectors.ARIA_HIDDEN, "false")
@@ -153,10 +141,18 @@ export default class Modal extends Utils {
     })
   }
 
-  /**
-   * Setup a modal instance.
-   * @param {Object} instance - The modal element
-   */
+  _getScrollbarOffset() {
+    return window.innerWidth - document.body.getBoundingClientRect().right
+  }
+
+  _handleScrollbarOffset() {
+    if (!this._scrollbarIsVisible()) return
+
+    this._scrollbarOffset = this._getScrollbarOffset()
+    this._originalPagePaddingRight = document.body.style.paddingRight
+    document.body.style.paddingRight = `${this._scrollbarOffset}px`
+  }
+
   _setupModal(instance) {
     const modalId = instance.getAttribute(Selectors.DATA_MODAL)
 
@@ -178,10 +174,6 @@ export default class Modal extends Utils {
     modal.setAttribute(Selectors.ROLE, "dialog")
   }
 
-  /**
-   * Turn off event listeners and reset focus to last selected DOM node (button)
-   * @param {Object} event - The event object
-   */
   _handleClose(event) {
     event.preventDefault()
     this._activeModalOverlay.setAttribute(Selectors.DATA_VISIBLE, "false")
@@ -206,50 +198,53 @@ export default class Modal extends Utils {
       button.removeEventListener(Events.CLICK, this._handleClose)
     })
 
+    this._removeScrollbarOffset()
+
     this._activeModalId = null
   }
 
-  /**
-   * Handles click event on the modal background to close it.
-   * @param {Object} event - The event object
-   */
+  _scrollbarIsVisible() {
+    if (typeof window.innerWidth === "number") {
+      return window.innerWidth > document.body.getBoundingClientRect().right
+    }
+  }
+
+  _removeScrollbarOffset() {
+    const originalPadding = this._originalPagePaddingRight
+
+    this._activeModalOverlay.style.paddingLeft = `${this._scrollbarOffset}px`
+    setTimeout(() => (this._activeModalOverlay.style.paddingLeft = ""), 500)
+
+    if (originalPadding) {
+      document.body.style.paddingRight = `${originalPadding}px`
+    } else {
+      document.body.style.paddingRight = ""
+    }
+  }
+
   _handleOverlayClick(event) {
     if (event.target === this._activeModalOverlay) {
       this._handleClose(event)
     }
   }
 
-  /**
-   * Handles escape key event to close the current modal
-   * @param {Object} event - The event object
-   */
   _handleEscapeKeyPress(event) {
     if (event.which === KeyCodes.ESCAPE) {
       this._handleClose(event)
     }
   }
 
-  /**
-   * Returns focus to the last focused element before the modal was called.
-   * @param {Object} button - The current modal's corresponding button.
-   */
   _handleReturnFocus() {
     this._activeModalButton.setAttribute(Selectors.TABINDEX, "-1")
     this._activeModalButton.focus()
     this._activeModalButton.removeAttribute(Selectors.TABINDEX)
   }
 
-  /**
-   * Restores scroll behavior to <html> and <body>
-   */
   _handleScrollRestore() {
     document.body.classList.remove(Selectors.NO_SCROLL)
     document.documentElement.classList.remove(Selectors.NO_SCROLL)
   }
 
-  /**
-   * Prevents scroll behavior on <html> and <body>
-   */
   _handleScrollStop() {
     document.body.classList.add(Selectors.NO_SCROLL)
     document.documentElement.classList.add(Selectors.NO_SCROLL)

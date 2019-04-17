@@ -41,7 +41,7 @@ $global-font-style-normal: normal !default;
 $global-font-style-italic: italic !default;
 $global-line-height: 1.5 !default;
 $global-ease: cubic-bezier(0.12, 0.72, 0.58, 1.03) !default;
-$global-transition: $global-ease 0.2s !default;
+$global-transition: $global-ease 0.1s !default;
 
 $primary-color: #d15ded !default;
 $secondary-color: #3e46af !default;
@@ -660,7 +660,7 @@ $fieldset-legend-border-radius: $global-border-radius !default;
 // ---------
 
 $modal-overlay-color: rgba(0, 0, 0, 0.5) !default;
-$modal-transition-duration: 0.5s !default;
+$modal-transition-duration: 0.3s !default;
 $modal-transition-ease: $global-ease !default;
 
 $modal-container-background-color: $white !default;

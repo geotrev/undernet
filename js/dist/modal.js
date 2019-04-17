@@ -77,6 +77,8 @@ var Modal = function (_Utils) {
     _this._activeModalOverlayAttr = "";
     _this._activeModalSelector = "";
     _this._activeModalCloseButtons = [];
+    _this._originalPagePaddingRight = "";
+    _this._scrollbarOffset = 0;
     _this._modalContainerAttr = "[".concat(Selectors.DATA_MODAL, "]");
     return _this;
   }
@@ -133,6 +135,8 @@ var Modal = function (_Utils) {
         element.setAttribute(Selectors.TABINDEX, "0");
       });
 
+      this._handleScrollbarOffset();
+
       this._handleScrollStop();
 
       this.captureFocus(this._activeModalSelector);
@@ -157,6 +161,19 @@ var Modal = function (_Utils) {
       this._activeModalCloseButtons.forEach(function (button) {
         button.addEventListener(Events.CLICK, _this4._handleClose);
       });
+    }
+  }, {
+    key: "_getScrollbarOffset",
+    value: function _getScrollbarOffset() {
+      return window.innerWidth - document.body.getBoundingClientRect().right;
+    }
+  }, {
+    key: "_handleScrollbarOffset",
+    value: function _handleScrollbarOffset() {
+      if (!this._scrollbarIsVisible()) return;
+      this._scrollbarOffset = this._getScrollbarOffset();
+      this._originalPagePaddingRight = document.body.style.paddingRight;
+      document.body.style.paddingRight = "".concat(this._scrollbarOffset, "px");
     }
   }, {
     key: "_setupModal",
@@ -213,7 +230,33 @@ var Modal = function (_Utils) {
         button.removeEventListener(Events.CLICK, _this5._handleClose);
       });
 
+      this._removeScrollbarOffset();
+
       this._activeModalId = null;
+    }
+  }, {
+    key: "_scrollbarIsVisible",
+    value: function _scrollbarIsVisible() {
+      if (typeof window.innerWidth === "number") {
+        return window.innerWidth > document.body.getBoundingClientRect().right;
+      }
+    }
+  }, {
+    key: "_removeScrollbarOffset",
+    value: function _removeScrollbarOffset() {
+      var _this6 = this;
+
+      var originalPadding = this._originalPagePaddingRight;
+      this._activeModalOverlay.style.paddingLeft = "".concat(this._scrollbarOffset, "px");
+      setTimeout(function () {
+        return _this6._activeModalOverlay.style.paddingLeft = "";
+      }, 500);
+
+      if (originalPadding) {
+        document.body.style.paddingRight = "".concat(originalPadding, "px");
+      } else {
+        document.body.style.paddingRight = "";
+      }
     }
   }, {
     key: "_handleOverlayClick",

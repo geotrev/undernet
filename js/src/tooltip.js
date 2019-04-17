@@ -33,10 +33,6 @@ const Messages = {
   NO_TOOLTIP_ERROR: id => `Could not find a tooltip with id of ${id}.`,
 }
 
-/**
- * Tooltip component class.
- * @module Tooltip
- */
 export default class Tooltip {
   constructor() {
     // events
@@ -54,9 +50,6 @@ export default class Tooltip {
 
   // public
 
-  /**
-   * Begin listening to tooltips.
-   */
   start() {
     this._allTooltips = document.querySelectorAll(`[${Selectors.DATA_TOOLTIP}]`)
 
@@ -65,9 +58,6 @@ export default class Tooltip {
     })
   }
 
-  /**
-   * Stop listening to tooltips.
-   */
   stop() {
     this._allTooltips.forEach(instance => {
       const id = instance.getAttribute(Selectors.DATA_TOOLTIP)
@@ -80,10 +70,6 @@ export default class Tooltip {
 
   // private
 
-  /**
-   * Render a tooltip.
-   * @param {Object} event - The event object
-   */
   _render(event) {
     this._activeTrigger = event.target
     const tooltipId = this._activeTrigger.getAttribute(Selectors.DATA_TARGET)
@@ -102,9 +88,6 @@ export default class Tooltip {
     this._listenForClose()
   }
 
-  /**
-   * Close a tooltip.
-   */
   _handleClose() {
     this._hideTooltip()
     this._listenForOpen()
@@ -113,23 +96,14 @@ export default class Tooltip {
     this._activeTooltip = null
   }
 
-  /**
-   * Add data-visible attribute to currently active tooltip.
-   */
   _showTooltip() {
     this._activeTooltip.setAttribute(Selectors.DATA_VISIBLE, "true")
   }
 
-  /**
-   * Remove data-visible attribute from currently active tooltip.
-   */
   _hideTooltip() {
     this._activeTooltip.setAttribute(Selectors.DATA_VISIBLE, "false")
   }
 
-  /**
-   * Stop listening for render events, and start listening to close events.
-   */
   _listenForClose() {
     this._activeTrigger.removeEventListener(Events.MOUSEOVER, this._render)
     this._activeTrigger.removeEventListener(Events.FOCUS, this._render)
@@ -142,19 +116,12 @@ export default class Tooltip {
     }
   }
 
-  /**
-   * Close a tooltip with the escape key.
-   * @param {Object} event - The event object
-   */
   _handleEscapeKeyPress(event) {
     if (event.which === KeyCodes.ESCAPE) {
       this._handleClose()
     }
   }
 
-  /**
-   * Stop listening to close events, start listening for render events.
-   */
   _listenForOpen() {
     this._activeTrigger.removeEventListener(Events.MOUSEOUT, this._handleClose)
     this._activeTrigger.removeEventListener(Events.BLUR, this._handleClose)
@@ -167,10 +134,6 @@ export default class Tooltip {
     }
   }
 
-  /**
-   * Aligns a tooltip vertically or horizontally.
-   * @param {String} property - String specifying "height" or "width"
-   */
   _alignTooltip(property) {
     const triggerLength = this._getComputedLength(this._activeTrigger, property)
     const tooltipLength = this._getComputedLength(this._activeTooltip, property)
@@ -187,10 +150,6 @@ export default class Tooltip {
     }
   }
 
-  /**
-   * Setup a tooltip and trigger with appropriate event listeners and attributes.
-   * @param {Object} instance - A tooltip instance
-   */
   _setupTooltip(instance) {
     const id = instance.getAttribute(Selectors.DATA_TOOLTIP)
     const trigger = instance.querySelector(this._getTrigger(id))
@@ -215,29 +174,14 @@ export default class Tooltip {
     trigger.addEventListener(Events.FOCUS, this._render)
   }
 
-  /**
-   * Get an attribute selector string.
-   * @param {String} id - A unique tooltip id
-   * @return {String}
-   */
   _getTrigger(id) {
     return `[${Selectors.DATA_TARGET}="${id}"]`
   }
 
-  /**
-   * Render a tooltip.
-   * @param {Object} element - A tooltip element
-   * @param {String} property - The "height" or "width" property.
-   * @return {Number}
-   */
   _getComputedLength(element, property) {
-    return parseInt(window.getComputedStyle(element)[property].slice(0, -2))
+    return Math.floor(element.getBoundingClientRect()[property])
   }
 
-  /**
-   * Determine if a tooltip is rendering on the left or right.
-   * @return {Boolean}
-   */
   _isLeftOrRight() {
     const classes = this._activeTooltip.classList
     return (
