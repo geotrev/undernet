@@ -50,6 +50,30 @@ export default class Tooltip {
 
   // public
 
+  _setupTooltip(instance) {
+    const id = instance.getAttribute(Selectors.DATA_TOOLTIP)
+
+    if (!id) {
+      return console.error(Messages.NO_ID_ERROR)
+    }
+
+    const trigger = instance.querySelector(this._getTrigger(id))
+    const tooltip = instance.querySelector(`#${id}`)
+
+    if (!trigger) {
+      return console.error(Messages.NO_TRIGGER_ERROR(id))
+    }
+
+    if (!tooltip) {
+      return console.error(Messages.NO_TOOLTIP_ERROR(id))
+    }
+
+    trigger.setAttribute(Selectors.ARIA_DESCRIBEDBY, id)
+    tooltip.setAttribute(Selectors.ROLE, "tooltip")
+    trigger.addEventListener(Events.MOUSEOVER, this._render)
+    trigger.addEventListener(Events.FOCUS, this._render)
+  }
+
   start() {
     this._allTooltips = document.querySelectorAll(`[${Selectors.DATA_TOOLTIP}]`)
 
@@ -62,6 +86,10 @@ export default class Tooltip {
     this._allTooltips.forEach(instance => {
       const id = instance.getAttribute(Selectors.DATA_TOOLTIP)
       const trigger = instance.querySelector(this._getTrigger(id))
+
+      if (this._activeTooltip || this._activeTrigger) {
+        this._handleClose()
+      }
 
       trigger.removeEventListener(Events.MOUSEOVER, this._render)
       trigger.removeEventListener(Events.FOCUS, this._render)
@@ -148,30 +176,6 @@ export default class Tooltip {
     } else {
       this._activeTooltip.style.left = `${offset}px`
     }
-  }
-
-  _setupTooltip(instance) {
-    const id = instance.getAttribute(Selectors.DATA_TOOLTIP)
-    const trigger = instance.querySelector(this._getTrigger(id))
-    const tooltip = document.getElementById(id)
-
-    if (!id) {
-      return console.error(Messages.NO_ID_ERROR)
-    }
-
-    if (!trigger) {
-      return console.error(Messages.NO_TRIGGER_ERROR(id))
-    }
-
-    if (!tooltip) {
-      return console.error(Messages.NO_TOOLTIP_ERROR(id))
-    }
-
-    trigger.setAttribute(Selectors.ARIA_DESCRIBEDBY, id)
-    tooltip.setAttribute(Selectors.ROLE, "tooltip")
-
-    trigger.addEventListener(Events.MOUSEOVER, this._render)
-    trigger.addEventListener(Events.FOCUS, this._render)
   }
 
   _getTrigger(id) {
