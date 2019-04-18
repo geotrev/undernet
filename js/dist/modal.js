@@ -74,7 +74,6 @@ var Modal = function (_Utils) {
     _this._activeModalOverlay = {};
     _this._activeModal = {};
     _this._activeModalId = "";
-    _this._activeModalOverlayAttr = "";
     _this._activeModalSelector = "";
     _this._activeModalCloseButtons = [];
     _this._originalPagePaddingRight = "";
@@ -115,67 +114,6 @@ var Modal = function (_Utils) {
       });
     }
   }, {
-    key: "_render",
-    value: function _render(event) {
-      var _this4 = this;
-
-      event.preventDefault();
-      this._activeModalButton = event.target;
-      this._activeModalId = this._activeModalButton.getAttribute(Selectors.DATA_TARGET);
-
-      if (!this._activeModalId) {
-        return console.error(Messages.NO_BUTTON_ID_ERROR);
-      }
-
-      this._activeModalOverlay = document.querySelector("[".concat(Selectors.DATA_MODAL, "=\"").concat(this._activeModalId, "\"]"));
-      this._activeModalSelector = "[".concat(Selectors.DATA_PARENT, "='").concat(this._activeModalId, "']");
-      this._activeModal = this._activeModalOverlay.querySelector(this._activeModalSelector);
-      this._activeModalCloseButtons = (0, _utils.nodeListToArray)("".concat(this._activeModalSelector, " [").concat(Selectors.DATA_CLOSE, "]"));
-      (0, _utils.getFocusableElements)(this._activeModalSelector).forEach(function (element) {
-        element.setAttribute(Selectors.TABINDEX, "0");
-      });
-
-      this._handleScrollbarOffset();
-
-      this._handleScrollStop();
-
-      this.captureFocus(this._activeModalSelector);
-
-      this._activeModalOverlay.setAttribute(Selectors.ARIA_HIDDEN, "false");
-
-      this._activeModalOverlay.setAttribute(Selectors.DATA_VISIBLE, "true");
-
-      this._activeModal.setAttribute(Selectors.TABINDEX, "-1");
-
-      this._activeModal.focus();
-
-      this._activeModalOverlay.scrollTop = 0;
-
-      if (_utils.iOSMobile) {
-        this._activeModalOverlay.style.cursor = "pointer";
-      }
-
-      document.addEventListener(Events.KEYDOWN, this._handleEscapeKeyPress);
-      document.addEventListener(Events.CLICK, this._handleOverlayClick);
-
-      this._activeModalCloseButtons.forEach(function (button) {
-        button.addEventListener(Events.CLICK, _this4._handleClose);
-      });
-    }
-  }, {
-    key: "_getScrollbarOffset",
-    value: function _getScrollbarOffset() {
-      return window.innerWidth - document.body.getBoundingClientRect().right;
-    }
-  }, {
-    key: "_handleScrollbarOffset",
-    value: function _handleScrollbarOffset() {
-      if (!this._scrollbarIsVisible()) return;
-      this._scrollbarOffset = this._getScrollbarOffset();
-      this._originalPagePaddingRight = document.body.style.paddingRight;
-      document.body.style.paddingRight = "".concat(this._scrollbarOffset, "px");
-    }
-  }, {
     key: "_setupModal",
     value: function _setupModal(instance) {
       var modalId = instance.getAttribute(Selectors.DATA_MODAL);
@@ -197,42 +135,148 @@ var Modal = function (_Utils) {
       modal.setAttribute(Selectors.ROLE, "dialog");
     }
   }, {
+    key: "_render",
+    value: function _render(event) {
+      event.preventDefault();
+      this._activeModalButton = event.target;
+      this._activeModalId = this._activeModalButton.getAttribute(Selectors.DATA_TARGET);
+
+      if (!this._activeModalId) {
+        return console.error(Messages.NO_BUTTON_ID_ERROR);
+      }
+
+      this._setActiveModalOverlay();
+
+      this._setActiveModal();
+
+      this._enableFocusOnChildren();
+
+      this._handleScrollbarOffset();
+
+      this._handleScrollStop();
+
+      this.captureFocus(this._activeModalSelector);
+
+      this._setAttributes();
+
+      this._handleModalFocus();
+
+      this._activeModalOverlay.scrollTop = 0;
+      this._activeModalCloseButtons = (0, _utils.nodeListToArray)("".concat(this._activeModalSelector, " [").concat(Selectors.DATA_CLOSE, "]"));
+
+      this._startEvents();
+    }
+  }, {
     key: "_handleClose",
     value: function _handleClose(event) {
-      var _this5 = this;
-
       event.preventDefault();
 
-      this._activeModalOverlay.setAttribute(Selectors.DATA_VISIBLE, "false");
+      this._stopEvents();
 
       this._handleReturnFocus();
 
-      this._handleScrollRestore();
+      this._removeAttributes();
 
       this.releaseFocus();
+
+      this._handleScrollRestore();
+
+      this._removeScrollbarOffset();
+
+      this._disableFocusOnChildren();
+
+      if (_utils.iOSMobile) this._activeModalOverlay.style.cursor = "auto";
+      this._activeModalId = null;
+      this._activeModalButton = null;
+      this._activeModal = null;
+    }
+  }, {
+    key: "_setActiveModalOverlay",
+    value: function _setActiveModalOverlay() {
+      var activeModalOverlayAttr = "[".concat(Selectors.DATA_MODAL, "='").concat(this._activeModalId, "']");
+      this._activeModalOverlay = document.querySelector(activeModalOverlayAttr);
+    }
+  }, {
+    key: "_removeAttributes",
+    value: function _removeAttributes() {
+      this._activeModalOverlay.setAttribute(Selectors.DATA_VISIBLE, "false");
 
       this._activeModalOverlay.setAttribute(Selectors.ARIA_HIDDEN, "true");
 
       this._activeModal.removeAttribute(Selectors.TABINDEX);
-
+    }
+  }, {
+    key: "_disableFocusOnChildren",
+    value: function _disableFocusOnChildren() {
       (0, _utils.getFocusableElements)(this._activeModalSelector).forEach(function (element) {
         element.setAttribute(Selectors.TABINDEX, "-1");
       });
-
-      if (_utils.iOSMobile) {
-        this._activeModalOverlay.style.cursor = "auto";
-      }
+    }
+  }, {
+    key: "_stopEvents",
+    value: function _stopEvents() {
+      var _this4 = this;
 
       document.removeEventListener(Events.KEYDOWN, this._handleEscapeKeyPress);
       document.removeEventListener(Events.CLICK, this._handleOverlayClick);
 
       this._activeModalCloseButtons.forEach(function (button) {
-        button.removeEventListener(Events.CLICK, _this5._handleClose);
+        button.removeEventListener(Events.CLICK, _this4._handleClose);
       });
+    }
+  }, {
+    key: "_setActiveModal",
+    value: function _setActiveModal() {
+      this._activeModalSelector = "[".concat(Selectors.DATA_PARENT, "='").concat(this._activeModalId, "']");
+      this._activeModal = this._activeModalOverlay.querySelector(this._activeModalSelector);
+    }
+  }, {
+    key: "_setAttributes",
+    value: function _setAttributes() {
+      this._activeModalOverlay.setAttribute(Selectors.ARIA_HIDDEN, "false");
 
-      this._removeScrollbarOffset();
+      this._activeModalOverlay.setAttribute(Selectors.DATA_VISIBLE, "true");
 
-      this._activeModalId = null;
+      if (_utils.iOSMobile) this._activeModalOverlay.style.cursor = "pointer";
+    }
+  }, {
+    key: "_startEvents",
+    value: function _startEvents() {
+      var _this5 = this;
+
+      document.addEventListener(Events.KEYDOWN, this._handleEscapeKeyPress);
+      document.addEventListener(Events.CLICK, this._handleOverlayClick);
+
+      this._activeModalCloseButtons.forEach(function (button) {
+        button.addEventListener(Events.CLICK, _this5._handleClose);
+      });
+    }
+  }, {
+    key: "_handleModalFocus",
+    value: function _handleModalFocus() {
+      this._activeModal.setAttribute(Selectors.TABINDEX, "-1");
+
+      this._activeModal.focus();
+    }
+  }, {
+    key: "_enableFocusOnChildren",
+    value: function _enableFocusOnChildren() {
+      (0, _utils.getFocusableElements)(this._activeModalSelector).forEach(function (element) {
+        element.setAttribute(Selectors.TABINDEX, "0");
+      });
+    }
+  }, {
+    key: "_getScrollbarOffset",
+    value: function _getScrollbarOffset() {
+      return window.innerWidth - document.body.getBoundingClientRect().right;
+    }
+  }, {
+    key: "_handleScrollbarOffset",
+    value: function _handleScrollbarOffset() {
+      if (!this._scrollbarIsVisible()) return;
+      this._scrollbarOffset = this._getScrollbarOffset();
+      this._originalPagePaddingRight = document.body.style.paddingRight;
+      document.body.style.paddingRight = "".concat(this._scrollbarOffset, "px");
     }
   }, {
     key: "_scrollbarIsVisible",

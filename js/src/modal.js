@@ -55,7 +55,6 @@ export default class Modal extends Utils {
     this._activeModalOverlay = {}
     this._activeModal = {}
     this._activeModalId = ""
-    this._activeModalOverlayAttr = ""
     this._activeModalSelector = ""
     this._activeModalCloseButtons = []
     this._originalPagePaddingRight = ""
@@ -94,65 +93,6 @@ export default class Modal extends Utils {
 
   // private
 
-  _render(event) {
-    event.preventDefault()
-    this._activeModalButton = event.target
-    this._activeModalId = this._activeModalButton.getAttribute(Selectors.DATA_TARGET)
-
-    if (!this._activeModalId) {
-      return console.error(Messages.NO_BUTTON_ID_ERROR)
-    }
-
-    this._activeModalOverlay = document.querySelector(
-      `[${Selectors.DATA_MODAL}="${this._activeModalId}"]`
-    )
-
-    this._activeModalSelector = `[${Selectors.DATA_PARENT}='${this._activeModalId}']`
-    this._activeModal = this._activeModalOverlay.querySelector(this._activeModalSelector)
-
-    this._activeModalCloseButtons = nodeListToArray(
-      `${this._activeModalSelector} [${Selectors.DATA_CLOSE}]`
-    )
-
-    getFocusableElements(this._activeModalSelector).forEach(element => {
-      element.setAttribute(Selectors.TABINDEX, "0")
-    })
-
-    this._handleScrollbarOffset()
-    this._handleScrollStop()
-    this.captureFocus(this._activeModalSelector)
-    this._activeModalOverlay.setAttribute(Selectors.ARIA_HIDDEN, "false")
-    this._activeModalOverlay.setAttribute(Selectors.DATA_VISIBLE, "true")
-
-    this._activeModal.setAttribute(Selectors.TABINDEX, "-1")
-    this._activeModal.focus()
-
-    this._activeModalOverlay.scrollTop = 0
-
-    if (iOSMobile) {
-      this._activeModalOverlay.style.cursor = "pointer"
-    }
-
-    // begin listening to events
-    document.addEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
-    document.addEventListener(Events.CLICK, this._handleOverlayClick)
-    this._activeModalCloseButtons.forEach(button => {
-      button.addEventListener(Events.CLICK, this._handleClose)
-    })
-  }
-
-  _getScrollbarOffset() {
-    return window.innerWidth - document.body.getBoundingClientRect().right
-  }
-
-  _handleScrollbarOffset() {
-    if (!this._scrollbarIsVisible()) return
-
-    this._scrollbarOffset = this._getScrollbarOffset()
-    this._originalPagePaddingRight = document.body.style.paddingRight
-    document.body.style.paddingRight = `${this._scrollbarOffset}px`
-  }
-
   _setupModal(instance) {
     const modalId = instance.getAttribute(Selectors.DATA_MODAL)
 
@@ -174,33 +114,119 @@ export default class Modal extends Utils {
     modal.setAttribute(Selectors.ROLE, "dialog")
   }
 
+  _render(event) {
+    event.preventDefault()
+
+    this._activeModalButton = event.target
+    this._activeModalId = this._activeModalButton.getAttribute(Selectors.DATA_TARGET)
+
+    if (!this._activeModalId) {
+      return console.error(Messages.NO_BUTTON_ID_ERROR)
+    }
+
+    this._setActiveModalOverlay()
+    this._setActiveModal()
+    this._enableFocusOnChildren()
+    this._handleScrollbarOffset()
+    this._handleScrollStop()
+    this.captureFocus(this._activeModalSelector)
+    this._setAttributes()
+    this._handleModalFocus()
+    this._activeModalOverlay.scrollTop = 0
+
+    this._activeModalCloseButtons = nodeListToArray(
+      `${this._activeModalSelector} [${Selectors.DATA_CLOSE}]`
+    )
+
+    this._startEvents()
+  }
+
   _handleClose(event) {
     event.preventDefault()
-    this._activeModalOverlay.setAttribute(Selectors.DATA_VISIBLE, "false")
+
+    this._stopEvents()
     this._handleReturnFocus()
-    this._handleScrollRestore()
+    this._removeAttributes()
     this.releaseFocus()
+    this._handleScrollRestore()
+    this._removeScrollbarOffset()
+    this._disableFocusOnChildren()
+
+    if (iOSMobile) this._activeModalOverlay.style.cursor = "auto"
+
+    this._activeModalId = null
+    this._activeModalButton = null
+    this._activeModal = null
+  }
+
+  // below are the methods called in _render or _handleClose
+
+  _setActiveModalOverlay() {
+    const activeModalOverlayAttr = `[${Selectors.DATA_MODAL}='${this._activeModalId}']`
+    this._activeModalOverlay = document.querySelector(activeModalOverlayAttr)
+  }
+
+  _removeAttributes() {
+    this._activeModalOverlay.setAttribute(Selectors.DATA_VISIBLE, "false")
     this._activeModalOverlay.setAttribute(Selectors.ARIA_HIDDEN, "true")
     this._activeModal.removeAttribute(Selectors.TABINDEX)
+  }
 
+  _disableFocusOnChildren() {
     getFocusableElements(this._activeModalSelector).forEach(element => {
       element.setAttribute(Selectors.TABINDEX, "-1")
     })
+  }
 
-    if (iOSMobile) {
-      this._activeModalOverlay.style.cursor = "auto"
-    }
-
-    // stop listening to events
+  _stopEvents() {
     document.removeEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
     document.removeEventListener(Events.CLICK, this._handleOverlayClick)
     this._activeModalCloseButtons.forEach(button => {
       button.removeEventListener(Events.CLICK, this._handleClose)
     })
+  }
 
-    this._removeScrollbarOffset()
+  _setActiveModal() {
+    this._activeModalSelector = `[${Selectors.DATA_PARENT}='${this._activeModalId}']`
+    this._activeModal = this._activeModalOverlay.querySelector(this._activeModalSelector)
+  }
 
-    this._activeModalId = null
+  _setAttributes() {
+    this._activeModalOverlay.setAttribute(Selectors.ARIA_HIDDEN, "false")
+    this._activeModalOverlay.setAttribute(Selectors.DATA_VISIBLE, "true")
+    if (iOSMobile) this._activeModalOverlay.style.cursor = "pointer"
+  }
+
+  _startEvents() {
+    document.addEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
+    document.addEventListener(Events.CLICK, this._handleOverlayClick)
+
+    this._activeModalCloseButtons.forEach(button => {
+      button.addEventListener(Events.CLICK, this._handleClose)
+    })
+  }
+
+  _handleModalFocus() {
+    this._activeModal.setAttribute(Selectors.TABINDEX, "-1")
+    this._activeModal.focus()
+  }
+
+  _enableFocusOnChildren() {
+    getFocusableElements(this._activeModalSelector).forEach(element => {
+      element.setAttribute(Selectors.TABINDEX, "0")
+    })
+  }
+
+  _getScrollbarOffset() {
+    return window.innerWidth - document.body.getBoundingClientRect().right
+  }
+
+  _handleScrollbarOffset() {
+    if (!this._scrollbarIsVisible()) return
+
+    this._scrollbarOffset = this._getScrollbarOffset()
+    this._originalPagePaddingRight = document.body.style.paddingRight
+    document.body.style.paddingRight = `${this._scrollbarOffset}px`
   }
 
   _scrollbarIsVisible() {
