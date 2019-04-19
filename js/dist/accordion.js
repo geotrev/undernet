@@ -85,7 +85,7 @@ var Accordion = function (_Utils) {
     _this._activeContent = {};
     _this._activeButtonExpandState = "";
     _this._activeContentHiddenState = "";
-    _this._headerLevels = [1, 2, 3, 4, 5, 6];
+    _this._headerLevels = ["h1", "h2", "h3", "h4", "h5", "h6"];
     return _this;
   }
 
@@ -94,7 +94,7 @@ var Accordion = function (_Utils) {
     value: function start() {
       var _this2 = this;
 
-      var accordionButtonSelector = this._getPossibleAccordionButtonAttrs("[".concat(Selectors.DATA_ACCORDION, "]"));
+      var accordionButtonSelector = this._getPossibleAccordionButtonAttr("[".concat(Selectors.DATA_ACCORDION, "]"));
 
       this._accordionButtons = (0, _utils.nodeListToArray)(accordionButtonSelector);
 
@@ -116,41 +116,6 @@ var Accordion = function (_Utils) {
       });
     }
   }, {
-    key: "_render",
-    value: function _render(event) {
-      event.preventDefault();
-      this._activeButton = event.target;
-      this._activeAccordionRowId = this._activeButton.getAttribute(Selectors.DATA_TARGET);
-      this._activeRowAttr = this._getAccordionRowAttr(this._activeAccordionRowId);
-      this._activeRow = document.querySelector(this._activeRowAttr);
-      this._activeContainerId = this._activeButton.getAttribute(Selectors.DATA_PARENT);
-
-      if (!this._activeContainerId) {
-        return console.error(Messages.NO_PARENT_ERROR(this._activeAccordionRowId));
-      }
-
-      this._activeContainerAttr = "[".concat(Selectors.DATA_ACCORDION, "='").concat(this._activeContainerId, "']");
-      this._activeContainer = document.querySelector(this._activeContainerAttr);
-
-      if (!this._activeContainer) {
-        return console.error(Messages.NO_ACCORDION_ERROR(this._activeContainerId));
-      }
-
-      this._activeContent = document.getElementById(this._activeAccordionRowId);
-
-      var accordionButtonState = this._activeRow.getAttribute(Selectors.DATA_VISIBLE);
-
-      this._activeButtonExpandState = accordionButtonState === "true" ? "false" : "true";
-      this._activeContentHiddenState = this._activeButtonExpandState === "false" ? "true" : "false";
-
-      this._closeAllIfToggleable();
-
-      this._toggleSelectedAccordion();
-
-      this._activeContainerId = null;
-      this._activeContainer = null;
-    }
-  }, {
     key: "_setupAccordion",
     value: function _setupAccordion(button) {
       var buttonId = button.getAttribute(Selectors.DATA_TARGET);
@@ -168,9 +133,9 @@ var Accordion = function (_Utils) {
         return console.error(Messages.NO_ROW_ERROR(buttonId));
       }
 
-      var buttonHeaderAttr = this._getPossibleAccordionHeaderAttrs(accordionRowAttr);
+      var buttonHeaderAttr = this._getHeadersSelector(accordionRowAttr);
 
-      var buttonHeader = (0, _utils.nodeListToArray)(buttonHeaderAttr)[0];
+      var buttonHeader = accordionRow.querySelector(buttonHeaderAttr);
 
       if (!buttonHeader || !buttonHeader.id) {
         return console.error(Messages.NO_HEADER_ID_ERROR(buttonId));
@@ -201,18 +166,84 @@ var Accordion = function (_Utils) {
       }
     }
   }, {
-    key: "_getPossibleAccordionButtonAttrs",
-    value: function _getPossibleAccordionButtonAttrs(attr) {
-      return this._headerLevels.map(function (num) {
-        return "".concat(attr, " > [").concat(Selectors.DATA_ACCORDION_ROW, "] > h").concat(num, " [").concat(Selectors.DATA_TARGET, "]");
+    key: "_render",
+    value: function _render(event) {
+      event.preventDefault();
+      this._activeButton = event.target;
+
+      this._setIds();
+
+      this._setActiveRow();
+
+      if (!this._activeContainerId) {
+        return console.error(Messages.NO_PARENT_ERROR(this._activeAccordionRowId));
+      }
+
+      this._setActiveContainer();
+
+      if (!this._activeContainer) {
+        return console.error(Messages.NO_ACCORDION_ERROR(this._activeContainerId));
+      }
+
+      this._setActiveContent();
+
+      this._setVisibleState();
+
+      var canExpandMultiple = this._activeContainer.hasAttribute(Selectors.DATA_TOGGLE_MULTIPLE);
+
+      if (!canExpandMultiple) {
+        this._closeAllIfToggleable();
+      }
+
+      this._toggleSelectedAccordion();
+
+      this._activeRow = null;
+      this._activeButton = null;
+      this._activeContent = null;
+      this._activeContainer = null;
+    }
+  }, {
+    key: "_setActiveContent",
+    value: function _setActiveContent() {
+      this._activeContent = document.getElementById(this._activeAccordionRowId);
+    }
+  }, {
+    key: "_setVisibleState",
+    value: function _setVisibleState() {
+      var accordionButtonState = this._activeRow.getAttribute(Selectors.DATA_VISIBLE);
+
+      this._nextButtonExpandState = accordionButtonState === "true" ? "false" : "true";
+      this._nextContentHiddenState = this._nextButtonExpandState === "false" ? "true" : "false";
+    }
+  }, {
+    key: "_setIds",
+    value: function _setIds() {
+      this._activeContainerId = this._activeButton.getAttribute(Selectors.DATA_PARENT);
+      this._activeAccordionRowId = this._activeButton.getAttribute(Selectors.DATA_TARGET);
+    }
+  }, {
+    key: "_setActiveContainer",
+    value: function _setActiveContainer() {
+      this._activeContainerAttr = "[".concat(Selectors.DATA_ACCORDION, "='").concat(this._activeContainerId, "']");
+      this._activeContainer = document.querySelector(this._activeContainerAttr);
+    }
+  }, {
+    key: "_setActiveRow",
+    value: function _setActiveRow() {
+      this._activeRowAttr = this._getAccordionRowAttr(this._activeAccordionRowId);
+      this._activeRow = document.querySelector(this._activeRowAttr);
+    }
+  }, {
+    key: "_getPossibleAccordionButtonAttr",
+    value: function _getPossibleAccordionButtonAttr(attr) {
+      return this._headerLevels.map(function (header) {
+        return "".concat(attr, " > [").concat(Selectors.DATA_ACCORDION_ROW, "] > ").concat(header, " [").concat(Selectors.DATA_TARGET, "]");
       }).join(", ");
     }
   }, {
-    key: "_getPossibleAccordionHeaderAttrs",
-    value: function _getPossibleAccordionHeaderAttrs(attr) {
-      return this._headerLevels.map(function (num) {
-        return "".concat(attr, " > h").concat(num);
-      }).join(", ");
+    key: "_getHeadersSelector",
+    value: function _getHeadersSelector() {
+      return this._headerLevels.join(", ");
     }
   }, {
     key: "_getAccordionRowAttr",
@@ -224,41 +255,41 @@ var Accordion = function (_Utils) {
     value: function _closeAllIfToggleable() {
       var _this4 = this;
 
-      if (this._activeContainer.hasAttribute(Selectors.DATA_TOGGLE_MULTIPLE)) return;
-      var allContentAttr = "".concat(this._activeContainerAttr, " [").concat(Selectors.ARIA_HIDDEN, "]");
-      var allRows = (0, _utils.nodeListToArray)("".concat(this._activeContainerAttr, " [").concat(Selectors.DATA_VISIBLE, "]"));
-      var allContent = (0, _utils.nodeListToArray)(allContentAttr);
+      var allContentAttr = "".concat(this._activeContainerAttr, " > [").concat(Selectors.DATA_ACCORDION_ROW, "] > [").concat(Selectors.ARIA_HIDDEN, "]");
 
-      var accordionButtonSelector = this._getPossibleAccordionButtonAttrs(this._activeContainerAttr);
+      var accordionButtonSelector = this._getPossibleAccordionButtonAttr(this._activeContainerAttr);
 
       var allButtons = (0, _utils.nodeListToArray)(accordionButtonSelector);
-      allContent.forEach(function (content) {
-        if (content !== _this4._activeContent) content.style.maxHeight = null;
+      var allContent = (0, _utils.nodeListToArray)(allContentAttr);
+      var allRows = (0, _utils.nodeListToArray)("".concat(this._activeContainerAttr, " > [").concat(Selectors.DATA_ACCORDION_ROW, "]"));
+      allContent.filter(function (content) {
+        return content !== _this4._activeContent;
+      }).forEach(function (content) {
+        return content.style.maxHeight = null;
       });
       (0, _utils.getFocusableElements)(allContentAttr).forEach(function (element) {
         element.setAttribute(Selectors.TABINDEX, "-1");
       });
 
-      this._toggleAttributeInCollection(allRows, Selectors.DATA_VISIBLE, "true", "false");
+      this._toggleAttributeInCollection(allRows, Selectors.DATA_VISIBLE, "false");
 
-      this._toggleAttributeInCollection(allButtons, Selectors.ARIA_EXPANDED, "true", "false");
+      this._toggleAttributeInCollection(allButtons, Selectors.ARIA_EXPANDED, "false");
 
-      this._toggleAttributeInCollection(allContent, Selectors.ARIA_HIDDEN, "false", "true");
+      this._toggleAttributeInCollection(allContent, Selectors.ARIA_HIDDEN, "true");
     }
   }, {
     key: "_toggleSelectedAccordion",
     value: function _toggleSelectedAccordion() {
       var _this5 = this;
 
-      this._activeRow.setAttribute(Selectors.DATA_VISIBLE, this._activeButtonExpandState);
+      this._activeRow.setAttribute(Selectors.DATA_VISIBLE, this._nextButtonExpandState);
 
-      this._activeButton.setAttribute(Selectors.ARIA_EXPANDED, this._activeButtonExpandState);
+      this._activeButton.setAttribute(Selectors.ARIA_EXPANDED, this._nextButtonExpandState);
 
-      this._activeContent.setAttribute(Selectors.ARIA_HIDDEN, this._activeContentHiddenState);
+      this._activeContent.setAttribute(Selectors.ARIA_HIDDEN, this._nextContentHiddenState);
 
-      var activeContentBlock = "#".concat(this._activeAccordionRowId);
-      (0, _utils.getFocusableElements)(activeContentBlock).forEach(function (element) {
-        var value = _this5._activeButtonExpandState === "true" ? "0" : "-1";
+      (0, _utils.getFocusableElements)("#".concat(this._activeAccordionRowId)).forEach(function (element) {
+        var value = _this5._nextButtonExpandState === "true" ? "0" : "-1";
         element.setAttribute(Selectors.TABINDEX, value);
       });
 
@@ -270,11 +301,9 @@ var Accordion = function (_Utils) {
     }
   }, {
     key: "_toggleAttributeInCollection",
-    value: function _toggleAttributeInCollection(elements, attributeName, currentValue, newValue) {
+    value: function _toggleAttributeInCollection(elements, attributeName, newValue) {
       elements.forEach(function (element) {
-        if (element.hasAttribute(attributeName, currentValue)) {
-          element.setAttribute(attributeName, newValue);
-        }
+        return element.setAttribute(attributeName, newValue);
       });
     }
   }]);
