@@ -1,7 +1,5 @@
 import Undernet from "../src/index"
 
-// This is the starting DOM.
-// It is assigned to document.body.innerHTML before each test suite.
 const dom = `
   <div data-accordion="accordion-1" class="accordion">
     <div class="accordion-row" data-visible="true" data-accordion-row="content-1">

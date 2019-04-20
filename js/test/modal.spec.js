@@ -1,7 +1,5 @@
 import Undernet from "../src/index"
 
-// This is the starting DOM.
-// It is assigned to document.body.innerHTML before each test suite.
 const dom = `
   <button data-target="new-modal">Open modal</button>
 
@@ -29,8 +27,6 @@ const dom = `
     </div>
   </div>
 `
-
-// Begin modal tests.
 
 describe("Modals", () => {
   describe("API start", () => {
@@ -266,6 +262,68 @@ describe("Modals", () => {
       expect(document.body.className).toEqual("no-scroll")
     })
   })
+})
 
-  describe("Errors", () => {})
+const errorDom = (target, modal, parent) => `
+  <button data-target="${target}">Open modal</button>
+
+  <div className="modal-overlay" data-modal="${modal}">
+    <div className="modal-dialog" data-parent="${parent}" aria-labelledby="header-id">
+      <header>
+        <h2 className="h6 has-no-margin-top" id="header-id">
+          Modal Header
+        </h2>
+        <a data-close href="#">
+          <span aria-hidden="true">&times;</span>
+        </a>
+      </header>
+      <section>
+        <p>Some modal content here</p>
+      </section>
+      <footer>
+        <a className="button" data-close href="#">
+          Cancel
+        </a>
+        <a className="primary button" href="#">
+          OK
+        </a>
+      </footer>
+    </div>
+  </div>
+`
+
+describe("Modal Error Handling", () => {
+  it("calls Error if modal button isn't found", () => {
+    document.body.innerHTML = errorDom("", "new-modal", "new-modal")
+
+    try {
+      Undernet.Modals.start()
+    } catch (e) {
+      expect(e.message).toEqual("Could not find modal trigger with id new-modal.")
+    }
+  })
+
+  it("calls Error if [data-modal] attribute is empty", () => {
+    document.body.innerHTML = errorDom("new-modal", "", "new-modal")
+
+    try {
+      Undernet.Modals.start()
+    } catch (e) {
+      expect(e.message).toEqual(
+        "Could not detect an id on your [data-modal] element. Please add a value matching the modal trigger's [data-parent] attribute."
+      )
+    }
+  })
+
+  it("calls Error if [data-parent] attribute does not match its parent [data-modal]", () => {
+    document.body.innerHTML = errorDom("new-modal", "new-modal", "")
+
+    try {
+      Undernet.Modals.start()
+    } catch (e) {
+      expect(e.message).toEqual(
+        `Could not find a [data-parent='new-modal'] attribute within your [data-modal='new-modal'] element.`
+      )
+    }
+  })
 })

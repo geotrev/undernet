@@ -1,7 +1,5 @@
 import Undernet from "../src/index"
 
-// This is the starting DOM.
-// It is assigned to document.body.innerHTML before each test suite.
 const dom = `
   <div data-dropdown="dropdown1" class="dropdown">
     <button id="dropdown-button" data-parent="dropdown1" data-target="new-dropdown">Open Dropdown</button>

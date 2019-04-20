@@ -1,7 +1,4 @@
 import Undernet from "../src/index"
-
-// This is the starting DOM.
-// It is assigned to document.body.innerHTML before each test suite.
 const dom = `
   <span class="tooltip" data-tooltip="new-tooltip">
     <button class="tooltip-trigger" data-target="new-tooltip">Tooltip Button</button>
