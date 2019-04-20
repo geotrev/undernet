@@ -56,31 +56,6 @@ var Tooltip = function () {
   }
 
   _createClass(Tooltip, [{
-    key: "_setupTooltip",
-    value: function _setupTooltip(instance) {
-      var id = instance.getAttribute(Selectors.DATA_TOOLTIP);
-
-      if (!id) {
-        return console.error(Messages.NO_ID_ERROR);
-      }
-
-      var trigger = instance.querySelector(this._getTrigger(id));
-      var tooltip = instance.querySelector("#".concat(id));
-
-      if (!trigger) {
-        return console.error(Messages.NO_TRIGGER_ERROR(id));
-      }
-
-      if (!tooltip) {
-        return console.error(Messages.NO_TOOLTIP_ERROR(id));
-      }
-
-      trigger.setAttribute(Selectors.ARIA_DESCRIBEDBY, id);
-      tooltip.setAttribute(Selectors.ROLE, "tooltip");
-      trigger.addEventListener(Events.MOUSEOVER, this._render);
-      trigger.addEventListener(Events.FOCUS, this._render);
-    }
-  }, {
     key: "start",
     value: function start() {
       var _this = this;
@@ -107,6 +82,31 @@ var Tooltip = function () {
         trigger.removeEventListener(Events.MOUSEOVER, _this2._render);
         trigger.removeEventListener(Events.FOCUS, _this2._render);
       });
+    }
+  }, {
+    key: "_setupTooltip",
+    value: function _setupTooltip(instance) {
+      var id = instance.getAttribute(Selectors.DATA_TOOLTIP);
+
+      if (!id) {
+        throw new Error(Messages.NO_ID_ERROR);
+      }
+
+      var trigger = instance.querySelector(this._getTrigger(id));
+      var tooltip = instance.querySelector("#".concat(id));
+
+      if (!trigger) {
+        throw new Error(Messages.NO_TRIGGER_ERROR(id));
+      }
+
+      if (!tooltip) {
+        throw new Error(Messages.NO_TOOLTIP_ERROR(id));
+      }
+
+      trigger.setAttribute(Selectors.ARIA_DESCRIBEDBY, id);
+      tooltip.setAttribute(Selectors.ROLE, "tooltip");
+      trigger.addEventListener(Events.MOUSEOVER, this._render);
+      trigger.addEventListener(Events.FOCUS, this._render);
     }
   }, {
     key: "_render",

@@ -51,8 +51,11 @@ var Messages = {
   NO_ROW_ERROR: function NO_ROW_ERROR(id) {
     return "Could not find [data-accordion-row] associated with ".concat(id, ".");
   },
-  NO_HEADER_ID_ERROR: function NO_HEADER_ID_ERROR(id) {
-    return "Could not find header tag associated with [data-target='".concat(id, "'].");
+  NO_HEADER_ERROR: function NO_HEADER_ERROR(attr) {
+    return "Could not find header associated with ".concat(attr, ".");
+  },
+  NO_HEADER_ID_ERROR: function NO_HEADER_ID_ERROR(attr) {
+    return "Could not find an id on your header associated with ".concat(attr, ".");
   },
   NO_PARENT_ERROR: function NO_PARENT_ERROR(id) {
     return "Could not find [data-parent] associated with [data-target='".concat(id, "'].");
@@ -122,7 +125,7 @@ var Accordion = function (_Utils) {
       var buttonContent = document.getElementById(buttonId);
 
       if (!buttonContent) {
-        return console.error(Messages.NO_CONTENT_ERROR(buttonId));
+        throw new Error(Messages.NO_CONTENT_ERROR(buttonId));
       }
 
       var accordionRowAttr = this._getAccordionRowAttr(buttonId);
@@ -130,15 +133,19 @@ var Accordion = function (_Utils) {
       var accordionRow = document.querySelector(accordionRowAttr);
 
       if (!accordionRow) {
-        return console.error(Messages.NO_ROW_ERROR(buttonId));
+        throw new Error(Messages.NO_ROW_ERROR(buttonId));
       }
 
       var buttonHeaderAttr = this._getHeadersSelector(accordionRowAttr);
 
       var buttonHeader = accordionRow.querySelector(buttonHeaderAttr);
 
-      if (!buttonHeader || !buttonHeader.id) {
-        return console.error(Messages.NO_HEADER_ID_ERROR(buttonId));
+      if (!buttonHeader) {
+        throw new Error(Messages.NO_HEADER_ERROR(accordionRowAttr));
+      }
+
+      if (!buttonHeader.id) {
+        throw new Error(Messages.NO_HEADER_ID_ERROR(accordionRowAttr));
       }
 
       var buttonContentChildren = (0, _utils.getFocusableElements)("#".concat(buttonContent.id));
@@ -147,7 +154,7 @@ var Accordion = function (_Utils) {
       var contentShouldExpand = accordionRow.getAttribute(Selectors.DATA_VISIBLE);
 
       if (!contentShouldExpand) {
-        return console.error(Messages.NO_VISIBLE_ERROR(buttonId));
+        throw new Error(Messages.NO_VISIBLE_ERROR(buttonId));
       }
 
       if (contentShouldExpand === "true") {
@@ -176,13 +183,13 @@ var Accordion = function (_Utils) {
       this._setActiveRow();
 
       if (!this._activeContainerId) {
-        return console.error(Messages.NO_PARENT_ERROR(this._activeAccordionRowId));
+        throw new Error(Messages.NO_PARENT_ERROR(this._activeAccordionRowId));
       }
 
       this._setActiveContainer();
 
       if (!this._activeContainer) {
-        return console.error(Messages.NO_ACCORDION_ERROR(this._activeContainerId));
+        throw new Error(Messages.NO_ACCORDION_ERROR(this._activeContainerId));
       }
 
       this._setActiveContent();

@@ -26,7 +26,8 @@ const Messages = {
   NO_VISIBLE_ERROR: id =>
     `Could not find parent with [data-visible] attribute associated with [data-target='${id}'].`,
   NO_ROW_ERROR: id => `Could not find [data-accordion-row] associated with ${id}.`,
-  NO_HEADER_ID_ERROR: id => `Could not find header tag associated with [data-target='${id}'].`,
+  NO_HEADER_ERROR: attr => `Could not find header associated with ${attr}.`,
+  NO_HEADER_ID_ERROR: attr => `Could not find an id on your header associated with ${attr}.`,
   NO_PARENT_ERROR: id => `Could not find [data-parent] associated with [data-target='${id}'].`,
   NO_CONTENT_ERROR: id =>
     `Could not find accordion content block with [id] ${id} associated with [data-target='${id}'].`,
@@ -89,21 +90,25 @@ export default class Accordion extends Utils {
     const buttonContent = document.getElementById(buttonId)
 
     if (!buttonContent) {
-      return console.error(Messages.NO_CONTENT_ERROR(buttonId))
+      throw new Error(Messages.NO_CONTENT_ERROR(buttonId))
     }
 
     const accordionRowAttr = this._getAccordionRowAttr(buttonId)
     const accordionRow = document.querySelector(accordionRowAttr)
 
     if (!accordionRow) {
-      return console.error(Messages.NO_ROW_ERROR(buttonId))
+      throw new Error(Messages.NO_ROW_ERROR(buttonId))
     }
 
     const buttonHeaderAttr = this._getHeadersSelector(accordionRowAttr)
     const buttonHeader = accordionRow.querySelector(buttonHeaderAttr)
 
-    if (!buttonHeader || !buttonHeader.id) {
-      return console.error(Messages.NO_HEADER_ID_ERROR(buttonId))
+    if (!buttonHeader) {
+      throw new Error(Messages.NO_HEADER_ERROR(accordionRowAttr))
+    }
+
+    if (!buttonHeader.id) {
+      throw new Error(Messages.NO_HEADER_ID_ERROR(accordionRowAttr))
     }
 
     const buttonContentChildren = getFocusableElements(`#${buttonContent.id}`)
@@ -114,7 +119,7 @@ export default class Accordion extends Utils {
     const contentShouldExpand = accordionRow.getAttribute(Selectors.DATA_VISIBLE)
 
     if (!contentShouldExpand) {
-      return console.error(Messages.NO_VISIBLE_ERROR(buttonId))
+      throw new Error(Messages.NO_VISIBLE_ERROR(buttonId))
     }
 
     if (contentShouldExpand === "true") {
@@ -142,13 +147,13 @@ export default class Accordion extends Utils {
     this._setActiveRow()
 
     if (!this._activeContainerId) {
-      return console.error(Messages.NO_PARENT_ERROR(this._activeAccordionRowId))
+      throw new Error(Messages.NO_PARENT_ERROR(this._activeAccordionRowId))
     }
 
     this._setActiveContainer()
 
     if (!this._activeContainer) {
-      return console.error(Messages.NO_ACCORDION_ERROR(this._activeContainerId))
+      throw new Error(Messages.NO_ACCORDION_ERROR(this._activeContainerId))
     }
 
     this._setActiveContent()

@@ -48,6 +48,9 @@ var Events = {
   RESIZE: "resize"
 };
 var Messages = {
+  NO_BUTTON_ERROR: function NO_BUTTON_ERROR(id) {
+    return "Could not find modal button with id ".concat(id, ".");
+  },
   NO_BUTTON_ID_ERROR: "Could not find an id on your [data-modal-button] element. Modal can't be opened.",
   NO_MODAL_ID_ERROR: "Could not detect an id on your [data-modal] element. Please add a value matching a button's [data-modal-button] attribute.",
   NO_MODAL_ERROR: function NO_MODAL_ERROR(id) {
@@ -95,10 +98,6 @@ var Modal = function (_Utils) {
       if (this._modals.length) {
         this._modals.forEach(function (instance) {
           _this2._setupModal(instance);
-
-          var id = instance.getAttribute(Selectors.DATA_MODAL);
-          var button = document.querySelector("[".concat(Selectors.DATA_TARGET, "='").concat(id, "']"));
-          button.addEventListener(Events.CLICK, _this2._render);
         });
       }
     }
@@ -110,6 +109,11 @@ var Modal = function (_Utils) {
       this._modals.forEach(function (instance) {
         var id = instance.getAttribute(Selectors.DATA_MODAL);
         var button = document.querySelector("[".concat(Selectors.DATA_TARGET, "='").concat(id, "']"));
+
+        if (!button) {
+          throw new Error(Messages.NO_BUTTON_ERROR(id));
+        }
+
         button.removeEventListener(Events.CLICK, _this3._render);
       });
     }
@@ -119,13 +123,13 @@ var Modal = function (_Utils) {
       var modalId = instance.getAttribute(Selectors.DATA_MODAL);
 
       if (!modalId) {
-        return console.error(Messages.NO_MODAL_ID_ERROR);
+        throw new Error(Messages.NO_MODAL_ID_ERROR);
       }
 
       var modal = instance.querySelector("[".concat(Selectors.DATA_PARENT, "='").concat(modalId, "']"));
 
       if (!modal) {
-        return console.error(Messages.NO_MODAL_ERROR(modalId));
+        throw new Error(Messages.NO_MODAL_ERROR(modalId));
       }
 
       var modalWrapper = document.querySelector("[".concat(Selectors.DATA_MODAL, "='").concat(modalId, "']"));
@@ -133,17 +137,21 @@ var Modal = function (_Utils) {
       modalWrapper.setAttribute(Selectors.DATA_VISIBLE, "false");
       modal.setAttribute(Selectors.ARIA_MODAL, "true");
       modal.setAttribute(Selectors.ROLE, "dialog");
+      var modalButton = document.querySelector("[".concat(Selectors.DATA_TARGET, "='").concat(modalId, "']"));
+
+      if (!modalButton) {
+        throw new Error(Messages.NO_BUTTON_ERROR(modalId));
+      }
+
+      modalButton.addEventListener(Events.CLICK, this._render);
     }
   }, {
     key: "_render",
     value: function _render(event) {
       event.preventDefault();
       this._activeModalButton = event.target;
-      this._activeModalId = this._activeModalButton.getAttribute(Selectors.DATA_TARGET);
 
-      if (!this._activeModalId) {
-        return console.error(Messages.NO_BUTTON_ID_ERROR);
-      }
+      this._setActiveModalId();
 
       this._setActiveModalOverlay();
 
@@ -189,6 +197,11 @@ var Modal = function (_Utils) {
       this._activeModalId = null;
       this._activeModalButton = null;
       this._activeModal = null;
+    }
+  }, {
+    key: "_setActiveModalId",
+    value: function _setActiveModalId() {
+      this._activeModalId = this._activeModalButton.getAttribute(Selectors.DATA_TARGET);
     }
   }, {
     key: "_setActiveModalOverlay",

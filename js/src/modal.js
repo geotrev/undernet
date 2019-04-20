@@ -28,6 +28,7 @@ const Events = {
 }
 
 const Messages = {
+  NO_BUTTON_ERROR: id => `Could not find modal button with id ${id}.`,
   NO_BUTTON_ID_ERROR:
     "Could not find an id on your [data-modal-button] element. Modal can't be opened.",
   NO_MODAL_ID_ERROR:
@@ -76,9 +77,6 @@ export default class Modal extends Utils {
     if (this._modals.length) {
       this._modals.forEach(instance => {
         this._setupModal(instance)
-        const id = instance.getAttribute(Selectors.DATA_MODAL)
-        const button = document.querySelector(`[${Selectors.DATA_TARGET}='${id}']`)
-        button.addEventListener(Events.CLICK, this._render)
       })
     }
   }
@@ -87,6 +85,11 @@ export default class Modal extends Utils {
     this._modals.forEach(instance => {
       const id = instance.getAttribute(Selectors.DATA_MODAL)
       const button = document.querySelector(`[${Selectors.DATA_TARGET}='${id}']`)
+
+      if (!button) {
+        throw new Error(Messages.NO_BUTTON_ERROR(id))
+      }
+
       button.removeEventListener(Events.CLICK, this._render)
     })
   }
@@ -97,13 +100,13 @@ export default class Modal extends Utils {
     const modalId = instance.getAttribute(Selectors.DATA_MODAL)
 
     if (!modalId) {
-      return console.error(Messages.NO_MODAL_ID_ERROR)
+      throw new Error(Messages.NO_MODAL_ID_ERROR)
     }
 
     const modal = instance.querySelector(`[${Selectors.DATA_PARENT}='${modalId}']`)
 
     if (!modal) {
-      return console.error(Messages.NO_MODAL_ERROR(modalId))
+      throw new Error(Messages.NO_MODAL_ERROR(modalId))
     }
 
     const modalWrapper = document.querySelector(`[${Selectors.DATA_MODAL}='${modalId}']`)
@@ -112,18 +115,22 @@ export default class Modal extends Utils {
     modalWrapper.setAttribute(Selectors.DATA_VISIBLE, "false")
     modal.setAttribute(Selectors.ARIA_MODAL, "true")
     modal.setAttribute(Selectors.ROLE, "dialog")
+
+    const modalButton = document.querySelector(`[${Selectors.DATA_TARGET}='${modalId}']`)
+
+    if (!modalButton) {
+      throw new Error(Messages.NO_BUTTON_ERROR(modalId))
+    }
+
+    modalButton.addEventListener(Events.CLICK, this._render)
   }
 
   _render(event) {
     event.preventDefault()
 
     this._activeModalButton = event.target
-    this._activeModalId = this._activeModalButton.getAttribute(Selectors.DATA_TARGET)
 
-    if (!this._activeModalId) {
-      return console.error(Messages.NO_BUTTON_ID_ERROR)
-    }
-
+    this._setActiveModalId()
     this._setActiveModalOverlay()
     this._setActiveModal()
     this._enableFocusOnChildren()
@@ -159,7 +166,9 @@ export default class Modal extends Utils {
     this._activeModal = null
   }
 
-  // below are the methods called in _render or _handleClose
+  _setActiveModalId() {
+    this._activeModalId = this._activeModalButton.getAttribute(Selectors.DATA_TARGET)
+  }
 
   _setActiveModalOverlay() {
     const activeModalOverlayAttr = `[${Selectors.DATA_MODAL}='${this._activeModalId}']`

@@ -50,30 +50,6 @@ export default class Tooltip {
 
   // public
 
-  _setupTooltip(instance) {
-    const id = instance.getAttribute(Selectors.DATA_TOOLTIP)
-
-    if (!id) {
-      return console.error(Messages.NO_ID_ERROR)
-    }
-
-    const trigger = instance.querySelector(this._getTrigger(id))
-    const tooltip = instance.querySelector(`#${id}`)
-
-    if (!trigger) {
-      return console.error(Messages.NO_TRIGGER_ERROR(id))
-    }
-
-    if (!tooltip) {
-      return console.error(Messages.NO_TOOLTIP_ERROR(id))
-    }
-
-    trigger.setAttribute(Selectors.ARIA_DESCRIBEDBY, id)
-    tooltip.setAttribute(Selectors.ROLE, "tooltip")
-    trigger.addEventListener(Events.MOUSEOVER, this._render)
-    trigger.addEventListener(Events.FOCUS, this._render)
-  }
-
   start() {
     this._allTooltips = document.querySelectorAll(`[${Selectors.DATA_TOOLTIP}]`)
 
@@ -97,6 +73,30 @@ export default class Tooltip {
   }
 
   // private
+
+  _setupTooltip(instance) {
+    const id = instance.getAttribute(Selectors.DATA_TOOLTIP)
+
+    if (!id) {
+      throw new Error(Messages.NO_ID_ERROR)
+    }
+
+    const trigger = instance.querySelector(this._getTrigger(id))
+    const tooltip = instance.querySelector(`#${id}`)
+
+    if (!trigger) {
+      throw new Error(Messages.NO_TRIGGER_ERROR(id))
+    }
+
+    if (!tooltip) {
+      throw new Error(Messages.NO_TOOLTIP_ERROR(id))
+    }
+
+    trigger.setAttribute(Selectors.ARIA_DESCRIBEDBY, id)
+    tooltip.setAttribute(Selectors.ROLE, "tooltip")
+    trigger.addEventListener(Events.MOUSEOVER, this._render)
+    trigger.addEventListener(Events.FOCUS, this._render)
+  }
 
   _render(event) {
     this._activeTrigger = event.target
