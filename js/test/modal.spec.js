@@ -293,7 +293,7 @@ const errorDom = (target, modal, parent) => `
 `
 
 describe("Modal Error Handling", () => {
-  it("calls Error if modal button isn't found", () => {
+  it("throws error if modal button isn't found", () => {
     document.body.innerHTML = errorDom("", "new-modal", "new-modal")
 
     try {
@@ -303,7 +303,7 @@ describe("Modal Error Handling", () => {
     }
   })
 
-  it("calls Error if [data-modal] attribute is empty", () => {
+  it("throws error if [data-modal] attribute is empty", () => {
     document.body.innerHTML = errorDom("new-modal", "", "new-modal")
 
     try {
@@ -315,7 +315,7 @@ describe("Modal Error Handling", () => {
     }
   })
 
-  it("calls Error if [data-parent] attribute does not match its parent [data-modal]", () => {
+  it("throws error if [data-parent] attribute does not match its parent [data-modal]", () => {
     document.body.innerHTML = errorDom("new-modal", "new-modal", "")
 
     try {
