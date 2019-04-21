@@ -49,10 +49,9 @@ var Events = {
 };
 var Messages = {
   NO_BUTTON_ERROR: function NO_BUTTON_ERROR(id) {
-    return "Could not find modal button with id ".concat(id, ".");
+    return "Could not find modal trigger with id ".concat(id, ".");
   },
-  NO_BUTTON_ID_ERROR: "Could not find an id on your [data-modal-button] element. Modal can't be opened.",
-  NO_MODAL_ID_ERROR: "Could not detect an id on your [data-modal] element. Please add a value matching a button's [data-modal-button] attribute.",
+  NO_MODAL_ID_ERROR: "Could not detect an id on your [data-modal] element. Please add a value matching the modal trigger's [data-parent] attribute.",
   NO_MODAL_ERROR: function NO_MODAL_ERROR(id) {
     return "Could not find a [data-parent='".concat(id, "'] attribute within your [data-modal='").concat(id, "'] element.");
   }

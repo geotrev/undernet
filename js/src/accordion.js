@@ -24,13 +24,13 @@ const Events = {
 
 const Messages = {
   NO_VISIBLE_ERROR: id =>
-    `Could not find parent with [data-visible] attribute associated with [data-target='${id}'].`,
-  NO_ROW_ERROR: id => `Could not find [data-accordion-row] associated with ${id}.`,
-  NO_HEADER_ERROR: attr => `Could not find header associated with ${attr}.`,
+    `Could not find accordion row with [data-visible] attribute associated with [data-target='${id}'].`,
+  NO_ROW_ERROR: id => `Could not find [data-accordion-row] associated with [data-target='${id}'].`,
   NO_HEADER_ID_ERROR: attr => `Could not find an id on your header associated with ${attr}.`,
-  NO_PARENT_ERROR: id => `Could not find [data-parent] associated with [data-target='${id}'].`,
+  NO_ACCORDION_ID_ERROR: id =>
+    `Could not find [data-accordion] attribute associated with [data-target='${id}'].`,
   NO_CONTENT_ERROR: id =>
-    `Could not find accordion content block with [id] ${id} associated with [data-target='${id}'].`,
+    `Could not find accordion content block with id '${id}'; should match trigger with [data-target='${id}'].`,
 }
 
 export default class Accordion extends Utils {
@@ -58,13 +58,13 @@ export default class Accordion extends Utils {
     this._activeContentHiddenState = ""
 
     // other data
-    this._headerLevels = ["h1", "h2", "h3", "h4", "h5", "h6"]
+    this._headers = ["h1", "h2", "h3", "h4", "h5", "h6"]
   }
 
   // public
 
   start() {
-    const accordionButtonSelector = this._getPossibleAccordionButtonAttr(
+    const accordionButtonSelector = this._getAccordionButtonSelector(
       `[${Selectors.DATA_ACCORDION}]`
     )
     this._accordionButtons = nodeListToArray(accordionButtonSelector)
@@ -87,7 +87,12 @@ export default class Accordion extends Utils {
 
   _setupAccordion(button) {
     const buttonId = button.getAttribute(Selectors.DATA_TARGET)
+    const accordionId = button.getAttribute(Selectors.DATA_PARENT)
     const buttonContent = document.getElementById(buttonId)
+
+    if (!accordionId) {
+      throw new Error(Messages.NO_ACCORDION_ID_ERROR(buttonId))
+    }
 
     if (!buttonContent) {
       throw new Error(Messages.NO_CONTENT_ERROR(buttonId))
@@ -100,12 +105,8 @@ export default class Accordion extends Utils {
       throw new Error(Messages.NO_ROW_ERROR(buttonId))
     }
 
-    const buttonHeaderAttr = this._getHeadersSelector(accordionRowAttr)
-    const buttonHeader = accordionRow.querySelector(buttonHeaderAttr)
-
-    if (!buttonHeader) {
-      throw new Error(Messages.NO_HEADER_ERROR(accordionRowAttr))
-    }
+    const buttonHeaderSelector = this._headers.join(", ")
+    const buttonHeader = accordionRow.querySelector(buttonHeaderSelector)
 
     if (!buttonHeader.id) {
       throw new Error(Messages.NO_HEADER_ID_ERROR(accordionRowAttr))
@@ -145,25 +146,13 @@ export default class Accordion extends Utils {
 
     this._setIds()
     this._setActiveRow()
-
-    if (!this._activeContainerId) {
-      throw new Error(Messages.NO_PARENT_ERROR(this._activeAccordionRowId))
-    }
-
     this._setActiveContainer()
-
-    if (!this._activeContainer) {
-      throw new Error(Messages.NO_ACCORDION_ERROR(this._activeContainerId))
-    }
-
     this._setActiveContent()
     this._setVisibleState()
 
     const canExpandMultiple = this._activeContainer.hasAttribute(Selectors.DATA_TOGGLE_MULTIPLE)
 
-    if (!canExpandMultiple) {
-      this._closeAllIfToggleable()
-    }
+    if (!canExpandMultiple) this._closeAllIfToggleable()
 
     this._toggleSelectedAccordion()
 
@@ -198,16 +187,12 @@ export default class Accordion extends Utils {
     this._activeRow = document.querySelector(this._activeRowAttr)
   }
 
-  _getPossibleAccordionButtonAttr(attr) {
-    return this._headerLevels
+  _getAccordionButtonSelector(attr) {
+    return this._headers
       .map(header => {
         return `${attr} > [${Selectors.DATA_ACCORDION_ROW}] > ${header} [${Selectors.DATA_TARGET}]`
       })
       .join(", ")
-  }
-
-  _getHeadersSelector() {
-    return this._headerLevels.join(", ")
   }
 
   _getAccordionRowAttr(id) {
@@ -217,7 +202,7 @@ export default class Accordion extends Utils {
   _closeAllIfToggleable() {
     // prettier-ignore
     const allContentAttr = `${this._activeContainerAttr} > [${Selectors.DATA_ACCORDION_ROW}] > [${Selectors.ARIA_HIDDEN}]`
-    const accordionButtonSelector = this._getPossibleAccordionButtonAttr(this._activeContainerAttr)
+    const accordionButtonSelector = this._getAccordionButtonSelector(this._activeContainerAttr)
     const allButtons = nodeListToArray(accordionButtonSelector)
     const allContent = nodeListToArray(allContentAttr)
 

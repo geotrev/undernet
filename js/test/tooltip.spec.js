@@ -124,7 +124,7 @@ const errorDom = (target, tooltip, id) => `
   </span>
 `
 
-describe.only("Tooltip Error Handling", () => {
+describe("Tooltip Error Handling", () => {
   it("throws error if [data-tooltip] is empty", () => {
     document.body.innerHTML = errorDom("new-tooltip", "", "new-tooltip")
 

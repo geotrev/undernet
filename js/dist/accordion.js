@@ -46,10 +46,10 @@ var Events = {
 };
 var Messages = {
   NO_VISIBLE_ERROR: function NO_VISIBLE_ERROR(id) {
-    return "Could not find parent with [data-visible] attribute associated with [data-target='".concat(id, "'].");
+    return "Could not find accordion row with [data-visible] attribute associated with [data-target='".concat(id, "'].");
   },
   NO_ROW_ERROR: function NO_ROW_ERROR(id) {
-    return "Could not find [data-accordion-row] associated with ".concat(id, ".");
+    return "Could not find [data-accordion-row] associated with [data-target='".concat(id, "'].");
   },
   NO_HEADER_ERROR: function NO_HEADER_ERROR(attr) {
     return "Could not find header associated with ".concat(attr, ".");
@@ -88,7 +88,7 @@ var Accordion = function (_Utils) {
     _this._activeContent = {};
     _this._activeButtonExpandState = "";
     _this._activeContentHiddenState = "";
-    _this._headerLevels = ["h1", "h2", "h3", "h4", "h5", "h6"];
+    _this._headers = ["h1", "h2", "h3", "h4", "h5", "h6"];
     return _this;
   }
 
@@ -136,9 +136,9 @@ var Accordion = function (_Utils) {
         throw new Error(Messages.NO_ROW_ERROR(buttonId));
       }
 
-      var buttonHeaderAttr = this._getHeadersSelector(accordionRowAttr);
+      var buttonHeaderSelector = this._headers.join(", ");
 
-      var buttonHeader = accordionRow.querySelector(buttonHeaderAttr);
+      var buttonHeader = accordionRow.querySelector(buttonHeaderSelector);
 
       if (!buttonHeader) {
         throw new Error(Messages.NO_HEADER_ERROR(accordionRowAttr));
@@ -243,14 +243,9 @@ var Accordion = function (_Utils) {
   }, {
     key: "_getPossibleAccordionButtonAttr",
     value: function _getPossibleAccordionButtonAttr(attr) {
-      return this._headerLevels.map(function (header) {
+      return this._headers.map(function (header) {
         return "".concat(attr, " > [").concat(Selectors.DATA_ACCORDION_ROW, "] > ").concat(header, " [").concat(Selectors.DATA_TARGET, "]");
       }).join(", ");
-    }
-  }, {
-    key: "_getHeadersSelector",
-    value: function _getHeadersSelector() {
-      return this._headerLevels.join(", ");
     }
   }, {
     key: "_getAccordionRowAttr",
