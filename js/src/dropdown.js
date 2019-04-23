@@ -145,17 +145,16 @@ export default class Dropdown extends Utils {
   _render(event, key) {
     event.preventDefault()
     event.stopPropagation()
-
     this._handleOpenDropdown(event)
+
     this._activeDropdownButton = event.target
 
     this._setActiveDropdownId()
     this._setActiveDropdown()
-
     this._setActiveDropdownMenu()
     this._setVisibleState()
     this._listenToClose()
-    this._startEvents(key)
+    this._startEvents()
 
     if (key && key === KeyCodes.ARROW_UP) {
       this._lastDropdownLink.focus()
@@ -218,7 +217,7 @@ export default class Dropdown extends Utils {
     }
   }
 
-  _startEvents(key) {
+  _startEvents() {
     document.addEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
     document.addEventListener(Events.CLICK, this._handleOffMenuClick)
 
