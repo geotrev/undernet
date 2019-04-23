@@ -6,11 +6,11 @@ Check out this example accordion:
 
 <div data-accordion="accordion-1" class="accordion">
   <div class="accordion-row" data-visible="true" data-accordion-row="content-1">
-    <div id="button-1">
+    <h5 id="button-1">
       <button data-parent="accordion-1" class="accordion-button" data-target="content-1">
         Accordion Button 1
       </button>
-    </div>
+    </h5>
     <div class="accordion-content" id="content-1">
       <p class="has-margin">
         Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
