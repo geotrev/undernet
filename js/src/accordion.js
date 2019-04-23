@@ -70,24 +70,24 @@ export default class Accordion extends Utils {
     this._accordionButtons = nodeListToArray(accordionButtonSelector)
 
     if (this._accordionButtons.length) {
-      this._accordionButtons.forEach(button => {
-        this._setupAccordion(button)
-        button.addEventListener(Events.CLICK, this._render)
+      this._accordionButtons.forEach(instance => {
+        this._setup(instance)
+        instance.addEventListener(Events.CLICK, this._render)
       })
     }
   }
 
   stop() {
-    this._accordionButtons.forEach(button => {
-      button.removeEventListener(Events.CLICK, this._render)
+    this._accordionButtons.forEach(instance => {
+      instance.removeEventListener(Events.CLICK, this._render)
     })
   }
 
   // private
 
-  _setupAccordion(button) {
-    const buttonId = button.getAttribute(Selectors.DATA_TARGET)
-    const accordionId = button.getAttribute(Selectors.DATA_PARENT)
+  _setup(instance) {
+    const buttonId = instance.getAttribute(Selectors.DATA_TARGET)
+    const accordionId = instance.getAttribute(Selectors.DATA_PARENT)
     const buttonContent = document.getElementById(buttonId)
 
     if (!accordionId) {
@@ -114,7 +114,7 @@ export default class Accordion extends Utils {
 
     const buttonContentChildren = getFocusableElements(`#${buttonContent.id}`)
 
-    button.setAttribute(Selectors.ARIA_CONTROLS, buttonId)
+    instance.setAttribute(Selectors.ARIA_CONTROLS, buttonId)
     buttonContent.setAttribute(Selectors.ARIA_LABELLEDBY, buttonHeader.id)
 
     const contentShouldExpand = accordionRow.getAttribute(Selectors.DATA_VISIBLE)
@@ -125,13 +125,13 @@ export default class Accordion extends Utils {
 
     if (contentShouldExpand === "true") {
       buttonContent.style.maxHeight = `${buttonContent.scrollHeight}px`
-      button.setAttribute(Selectors.ARIA_EXPANDED, "true")
+      instance.setAttribute(Selectors.ARIA_EXPANDED, "true")
       buttonContent.setAttribute(Selectors.ARIA_HIDDEN, "false")
       buttonContentChildren.forEach(element => {
         element.setAttribute(Selectors.TABINDEX, "0")
       })
     } else {
-      button.setAttribute(Selectors.ARIA_EXPANDED, "false")
+      instance.setAttribute(Selectors.ARIA_EXPANDED, "false")
       buttonContent.setAttribute(Selectors.ARIA_HIDDEN, "true")
       buttonContentChildren.forEach(element => {
         element.setAttribute(Selectors.TABINDEX, "-1")

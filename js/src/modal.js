@@ -74,7 +74,7 @@ export default class Modal extends Utils {
 
     if (this._modals.length) {
       this._modals.forEach(instance => {
-        this._setupModal(instance)
+        this._setup(instance)
       })
     }
   }
@@ -94,7 +94,7 @@ export default class Modal extends Utils {
 
   // private
 
-  _setupModal(instance) {
+  _setup(instance) {
     const modalId = instance.getAttribute(Selectors.DATA_MODAL)
 
     if (!modalId) {

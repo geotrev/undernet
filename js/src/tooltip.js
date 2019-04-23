@@ -54,7 +54,7 @@ export default class Tooltip {
     this._allTooltips = document.querySelectorAll(`[${Selectors.DATA_TOOLTIP}]`)
 
     this._allTooltips.forEach(instance => {
-      this._setupTooltip(instance)
+      this._setup(instance)
     })
   }
 
@@ -74,7 +74,7 @@ export default class Tooltip {
 
   // private
 
-  _setupTooltip(instance) {
+  _setup(instance) {
     const id = instance.getAttribute(Selectors.DATA_TOOLTIP)
 
     if (!id) {

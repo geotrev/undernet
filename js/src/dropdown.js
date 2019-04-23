@@ -82,7 +82,7 @@ export default class Dropdown extends Utils {
     )
 
     if (this._dropdowns.length) {
-      this._dropdowns.forEach(instance => this._setupDropdown(instance))
+      this._dropdowns.forEach(instance => this._setup(instance))
     }
 
     this._dropdownButtons.forEach(button => {
@@ -100,7 +100,7 @@ export default class Dropdown extends Utils {
 
   // private
 
-  _setupDropdown(instance) {
+  _setup(instance) {
     const dropdownId = instance.getAttribute(Selectors.DATA_DROPDOWN)
 
     if (!dropdownId) {
