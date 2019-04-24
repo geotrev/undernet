@@ -290,6 +290,109 @@ describe("Dropdowns", () => {
       expect(document.activeElement).toEqual(dropdown2Focusables[0])
     })
   })
+})
 
-  describe("Errors", () => {})
+// prettier-ignore
+const errorDom = (
+  dropdown,
+  buttonId,
+  parent,
+  target,
+  menuId,
+  hasUl = true,
+  hasItems = true,
+  hasButtons = true
+) => `
+  <div data-dropdown="${dropdown}" class="dropdown">
+    <button id="${buttonId}" data-parent="${parent}" data-target="${target}">Open Dropdown 2</button>
+    ${hasUl &&
+      `<ul id="${menuId}" class="dropdown-menu">
+      ${hasItems &&
+        `<li>
+        ${hasButtons && `<a href="#">Item 1</a>` || ""}
+      </li>` || ""}
+    </ul>` || ""}
+  </div>
+`
+
+describe("Dropdown Error Handling", () => {
+  it("throws error if dropdown id can't be found", () => {
+    document.body.innerHTML = errorDom("", "button", "dropdown", "new-dropdown", "new-dropdown")
+
+    try {
+      Undernet.Dropdowns.start()
+    } catch (e) {
+      expect(e.message).toEqual(
+        "Could not setup dropdown. Make sure it has a valid [data-dropdown] attribute with a unique id as its value."
+      )
+    }
+  })
+
+  it("throws error if dropdown menu can't be found", () => {
+    document.body.innerHTML = errorDom(
+      "dropdown",
+      "button",
+      "dropdown",
+      "new-dropdown",
+      "new-dropdown",
+      false
+    )
+
+    try {
+      Undernet.Dropdowns.start()
+    } catch (e) {
+      expect(e.message).toEqual('Could not find menu associated with [data-dropdown="dropdown"].')
+    }
+  })
+
+  it("throws error if dropdown items can't be found", () => {
+    document.body.innerHTML = errorDom(
+      "dropdown",
+      "button",
+      "dropdown",
+      "new-dropdown",
+      "new-dropdown",
+      true,
+      false
+    )
+
+    try {
+      Undernet.Dropdowns.start()
+    } catch (e) {
+      expect(e.message).toEqual(
+        'Could not find any list items associated with [data-dropdown="dropdown"].'
+      )
+    }
+  })
+
+  it("throws error if dropdown buttons or links can't be found", () => {
+    document.body.innerHTML = errorDom(
+      "dropdown",
+      "button",
+      "dropdown",
+      "new-dropdown",
+      "new-dropdown",
+      true,
+      true,
+      false
+    )
+
+    try {
+      Undernet.Dropdowns.start()
+    } catch (e) {
+      expect(e.message).toEqual(
+        'Could not find any button or anchor elements associated with [data-dropdown="dropdown"].'
+      )
+    }
+  })
+
+  it("throws error if dropdown trigger's [data-target] attribute cant' be found", () => {
+    document.body.innerHTML = errorDom("dropdown", "button", "", "new-dropdown", "new-dropdown")
+
+    try {
+      Undernet.Dropdowns.start()
+    } catch (e) {
+      expect(e.message).toEqual("Could not find dropdown button's [data-parent] attribute.")
+    }
+  })
 })

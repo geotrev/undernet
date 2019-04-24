@@ -33,16 +33,16 @@ const Messages = {
   NO_DROPDOWN_ID_ERROR:
     "Could not setup dropdown. Make sure it has a valid [data-dropdown] attribute with a unique id as its value.",
   NO_MENU_ERROR: attr => `Could not find menu associated with ${attr}.`,
-  NO_DROPDOWN_ITEMS_ERROR: attr => `Could not find any list items associated with ${attr}`,
+  NO_DROPDOWN_ITEMS_ERROR: attr => `Could not find any list items associated with ${attr}.`,
   NO_DROPDOWN_BUTTONS_ERROR: attr =>
-    `Could not find any button or anchor elements associated with ${attr}`,
+    `Could not find any button or anchor elements associated with ${attr}.`,
   NO_PARENT_ERROR: "Could not find dropdown button's [data-parent] attribute.",
-  NO_DROPDOWN_ERROR: attr => `Could not find dropdown container associated with ${attr}.`,
 }
 
 export default class Dropdown extends Utils {
   constructor() {
     super()
+
     // events
     this._render = this._render.bind(this)
     this._handleFirstTabClose = this._handleFirstTabClose.bind(this)
@@ -108,8 +108,13 @@ export default class Dropdown extends Utils {
     }
 
     const dropdownAttr = `[${Selectors.DATA_DROPDOWN}="${dropdownId}"]`
-    const dropdownMenu = document.querySelector(`${dropdownAttr} > ul`)
     const dropdownButton = document.querySelector(`${dropdownAttr} > ${this._dropdownTargetAttr}`)
+
+    if (!dropdownButton.getAttribute(Selectors.DATA_PARENT)) {
+      throw new Error(Messages.NO_PARENT_ERROR)
+    }
+
+    const dropdownMenu = document.querySelector(`${dropdownAttr} > ul`)
 
     if (!dropdownMenu) {
       throw new Error(Messages.NO_MENU_ERROR(dropdownAttr))
@@ -132,7 +137,7 @@ export default class Dropdown extends Utils {
 
     const dropdownMenuButtons = this._getDropdownLinks(dropdownAttr)
 
-    if (!dropdownMenuButtons) {
+    if (!dropdownMenuButtons.length) {
       throw new Error(Messages.NO_DROPDOWN_BUTTONS_ERROR(dropdownAttr))
     }
 
@@ -211,10 +216,6 @@ export default class Dropdown extends Utils {
 
   _setActiveDropdownId() {
     this._activeDropdownId = this._activeDropdownButton.getAttribute(Selectors.DATA_PARENT)
-
-    if (!this._activeDropdownId) {
-      throw new Error(Messages.NO_PARENT_ERROR)
-    }
   }
 
   _startEvents() {
@@ -255,10 +256,6 @@ export default class Dropdown extends Utils {
   _setActiveDropdown() {
     this._activeDropdownAttr = `[${Selectors.DATA_DROPDOWN}="${this._activeDropdownId}"]`
     this._activeDropdown = document.querySelector(this._activeDropdownAttr)
-
-    if (!this._activeDropdown) {
-      throw new Error(Messages.NO_DROPDOWN_ERROR(this._activeDropdownAttr))
-    }
   }
 
   _handleOpenDropdown(event) {
