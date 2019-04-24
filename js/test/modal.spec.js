@@ -246,6 +246,10 @@ describe("Modals", () => {
     it("removes 'no-scroll' class from <body>", () => {
       expect(document.body.className).toEqual("")
     })
+
+    it("removes 'no-scroll' class from <html>", () => {
+      expect(document.documentElement.className).toEqual("")
+    })
   })
 
   describe("#handleScrollStop -> Modal Button Click", () => {
@@ -260,6 +264,10 @@ describe("Modals", () => {
 
     it("sets 'no-scroll' class to <body>", () => {
       expect(document.body.className).toEqual("no-scroll")
+    })
+
+    it("sets 'no-scroll' class to <html>", () => {
+      expect(document.documentElement.className).toEqual("no-scroll")
     })
   })
 })

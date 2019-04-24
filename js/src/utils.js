@@ -18,15 +18,30 @@ const Events = {
 
 export const dom = {
   attr: (element, attr, set) => {
-    if (set) {
+    if (set === false) {
+      return element.removeAttribute(attr)
+    }
+
+    if (typeof set === "string" || set === null) {
       return element.setAttribute(attr, set)
     }
 
     return element.getAttribute(attr)
   },
-  find: (selector, element) =>
-    element ? element.querySelector(selector) : document.querySelector(selector),
+
+  find: (selector, element = document) => element.querySelector(selector),
   findAll: selector => [...document.querySelectorAll(selector)],
+
+  css: (element, property, value) => {
+    if (typeof value === "undefined") {
+      return element.style[property]
+    }
+
+    element.style[property] = value
+  },
+
+  addClass: (element, ...cls) => element.classList.add(...cls),
+  removeClass: (element, ...cls) => element.classList.remove(...cls),
 }
 
 export const getFocusableElements = container => {
