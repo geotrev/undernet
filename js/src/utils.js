@@ -16,8 +16,17 @@ const Events = {
   CLICK: "click",
 }
 
-export const nodeListToArray = nodeList => {
-  return [...document.querySelectorAll(nodeList)]
+export const dom = {
+  attr: (element, attr, set) => {
+    if (set) {
+      return element.setAttribute(attr, set)
+    }
+
+    return element.getAttribute(attr)
+  },
+  find: (selector, element) =>
+    element ? element.querySelector(selector) : document.querySelector(selector),
+  findAll: selector => [...document.querySelectorAll(selector)],
 }
 
 export const getFocusableElements = container => {
@@ -25,7 +34,7 @@ export const getFocusableElements = container => {
     element => `${container} ${element}${Selectors.NOT_VISUALLY_HIDDEN}`
   ).join(", ")
 
-  return nodeListToArray(focusables)
+  return dom.findAll(focusables)
 }
 
 export const iOSMobile = /(iphone|ipod|ipad)/i.test(navigator.userAgent)
@@ -103,7 +112,7 @@ export default class Utils {
   }
 
   _handleFocusTrapWithTab(event) {
-    const containerElement = document.querySelector(this._focusContainerSelector)
+    const containerElement = dom.find(this._focusContainerSelector)
     const containerActive = document.activeElement === containerElement
     const firstActive = document.activeElement === this._focusableFirstChild
     const lastActive = document.activeElement === this._focusableLastChild

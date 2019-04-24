@@ -1,4 +1,4 @@
-import Utils, { iOSMobile, getFocusableElements, nodeListToArray } from "./utils"
+import Utils, { iOSMobile, getFocusableElements, dom } from "./utils"
 
 const KeyCodes = {
   ESCAPE: 27,
@@ -66,10 +66,10 @@ export default class Modal extends Utils {
   // public
 
   start() {
-    this._modals = nodeListToArray(this._modalContainerAttr)
+    this._modals = dom.findAll(this._modalContainerAttr)
 
     getFocusableElements(this._modalContainerAttr).forEach(element => {
-      element.setAttribute(Selectors.TABINDEX, "-1")
+      dom.attr(element, Selectors.TABINDEX, "-1")
     })
 
     if (this._modals.length) {
@@ -81,8 +81,8 @@ export default class Modal extends Utils {
 
   stop() {
     this._modals.forEach(instance => {
-      const id = instance.getAttribute(Selectors.DATA_MODAL)
-      const button = document.querySelector(`[${Selectors.DATA_TARGET}='${id}']`)
+      const id = dom.attr(instance, Selectors.DATA_MODAL)
+      const button = dom.find(`[${Selectors.DATA_TARGET}='${id}']`)
 
       if (!button) {
         throw new Error(Messages.NO_BUTTON_ERROR(id))
@@ -95,26 +95,26 @@ export default class Modal extends Utils {
   // private
 
   _setup(instance) {
-    const modalId = instance.getAttribute(Selectors.DATA_MODAL)
+    const modalId = dom.attr(instance, Selectors.DATA_MODAL)
 
     if (!modalId) {
       throw new Error(Messages.NO_MODAL_ID_ERROR)
     }
 
-    const modal = instance.querySelector(`[${Selectors.DATA_PARENT}='${modalId}']`)
+    const modal = dom.find(`[${Selectors.DATA_PARENT}='${modalId}']`, instance)
 
     if (!modal) {
       throw new Error(Messages.NO_MODAL_ERROR(modalId))
     }
 
-    const modalWrapper = document.querySelector(`[${Selectors.DATA_MODAL}='${modalId}']`)
+    const modalWrapper = dom.find(`[${Selectors.DATA_MODAL}='${modalId}']`)
 
-    modalWrapper.setAttribute(Selectors.ARIA_HIDDEN, "true")
-    modalWrapper.setAttribute(Selectors.DATA_VISIBLE, "false")
-    modal.setAttribute(Selectors.ARIA_MODAL, "true")
-    modal.setAttribute(Selectors.ROLE, "dialog")
+    dom.attr(modalWrapper, Selectors.ARIA_HIDDEN, "true")
+    dom.attr(modalWrapper, Selectors.DATA_VISIBLE, "false")
+    dom.attr(modal, Selectors.ARIA_MODAL, "true")
+    dom.attr(modal, Selectors.ROLE, "dialog")
 
-    const modalButton = document.querySelector(`[${Selectors.DATA_TARGET}='${modalId}']`)
+    const modalButton = dom.find(`[${Selectors.DATA_TARGET}='${modalId}']`)
 
     if (!modalButton) {
       throw new Error(Messages.NO_BUTTON_ERROR(modalId))
@@ -139,7 +139,7 @@ export default class Modal extends Utils {
     this._handleModalFocus()
     this._activeModalOverlay.scrollTop = 0
 
-    this._activeModalCloseButtons = nodeListToArray(
+    this._activeModalCloseButtons = dom.findAll(
       `${this._activeModalSelector} [${Selectors.DATA_CLOSE}]`
     )
 
@@ -170,7 +170,7 @@ export default class Modal extends Utils {
 
   _setActiveModalOverlay() {
     const activeModalOverlayAttr = `[${Selectors.DATA_MODAL}='${this._activeModalId}']`
-    this._activeModalOverlay = document.querySelector(activeModalOverlayAttr)
+    this._activeModalOverlay = dom.find(activeModalOverlayAttr)
   }
 
   _removeAttributes() {
