@@ -17,31 +17,39 @@ const Events = {
 }
 
 export const dom = {
-  attr: (element, attr, set) => {
-    if (set === false) {
+  attr: (element, attr, newValue) => {
+    if (newValue === false) {
       return element.removeAttribute(attr)
     }
 
-    if (typeof set === "string" || set === null) {
-      return element.setAttribute(attr, set)
+    if (typeof newValue === "string" || newValue === null) {
+      return element.setAttribute(attr, newValue)
     }
 
     return element.getAttribute(attr)
   },
 
-  find: (selector, element = document) => element.querySelector(selector),
-  findAll: selector => [...document.querySelectorAll(selector)],
+  find: (selector, parent = document) => parent.querySelector(selector),
+  findAll: (selector, parent = document) => [...parent.querySelectorAll(selector)],
 
   css: (element, property, value) => {
-    if (typeof value === "undefined") {
-      return element.style[property]
+    if (value) {
+      element.style[property] = value
+      return
     }
 
-    element.style[property] = value
+    return element.style[property]
   },
 
-  addClass: (element, ...cls) => element.classList.add(...cls),
-  removeClass: (element, ...cls) => element.classList.remove(...cls),
+  addClass: (element, ...classes) => element.classList.add(...classes),
+  removeClass: (element, ...classes) => element.classList.remove(...classes),
+  hasClass: (element, ...classes) => {
+    if (classes.length > 1) {
+      return classes.filter(cls => element.classList.contains(cls)).length > 1
+    }
+
+    return element.classList.contains(classes)
+  },
 }
 
 export const getFocusableElements = container => {

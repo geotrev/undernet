@@ -1,4 +1,4 @@
-import { iOSMobile } from "./utils"
+import { iOSMobile, dom } from "./utils"
 
 const KeyCodes = {
   ESCAPE: 27,
@@ -51,7 +51,7 @@ export default class Tooltip {
   // public
 
   start() {
-    this._allTooltips = document.querySelectorAll(`[${Selectors.DATA_TOOLTIP}]`)
+    this._allTooltips = dom.findAll(`[${Selectors.DATA_TOOLTIP}]`)
 
     this._allTooltips.forEach(instance => {
       this._setup(instance)
@@ -60,8 +60,8 @@ export default class Tooltip {
 
   stop() {
     this._allTooltips.forEach(instance => {
-      const id = instance.getAttribute(Selectors.DATA_TOOLTIP)
-      const trigger = instance.querySelector(this._getTrigger(id))
+      const id = dom.attr(instance, Selectors.DATA_TOOLTIP)
+      const trigger = dom.find(this._getTrigger(id), instance)
 
       if (this._activeTooltip || this._activeTrigger) {
         this._handleClose()
@@ -75,64 +75,62 @@ export default class Tooltip {
   // private
 
   _setup(instance) {
-    const id = instance.getAttribute(Selectors.DATA_TOOLTIP)
+    const tooltipId = dom.attr(instance, Selectors.DATA_TOOLTIP)
 
-    if (!id) {
+    if (!tooltipId) {
       throw new Error(Messages.NO_ID_ERROR)
     }
 
-    const trigger = instance.querySelector(this._getTrigger(id))
-    const tooltip = instance.querySelector(`#${id}`)
+    const trigger = dom.find(this._getTrigger(tooltipId), instance)
+    const tooltip = dom.find(`#${tooltipId}`, instance)
 
     if (!trigger) {
-      throw new Error(Messages.NO_TRIGGER_ERROR(id))
+      throw new Error(Messages.NO_TRIGGER_ERROR(tooltipId))
     }
 
     if (!tooltip) {
-      throw new Error(Messages.NO_TOOLTIP_ERROR(id))
+      throw new Error(Messages.NO_TOOLTIP_ERROR(tooltipId))
     }
 
-    trigger.setAttribute(Selectors.ARIA_DESCRIBEDBY, id)
-    tooltip.setAttribute(Selectors.ROLE, "tooltip")
+    dom.attr(trigger, Selectors.ARIA_DESCRIBEDBY, tooltipId)
+    dom.attr(tooltip, Selectors.ROLE, "tooltip")
     trigger.addEventListener(Events.MOUSEOVER, this._render)
     trigger.addEventListener(Events.FOCUS, this._render)
   }
 
   _render(event) {
     this._activeTrigger = event.target
+
     const tooltipId = this._activeTrigger.getAttribute(Selectors.DATA_TARGET)
     this._activeTooltip = document.getElementById(tooltipId)
 
-    // align tooltip to its trigger
-    // -> if the trigger is on the left or right side, use height
-    // -> else use width
     if (this._isLeftOrRight()) {
       this._alignTooltip("height")
     } else {
       this._alignTooltip("width")
     }
 
-    this._showTooltip()
-    this._listenForClose()
+    this._setVisibleState()
+    this._startCloseEvents()
   }
 
   _handleClose() {
-    this._hideTooltip()
-    this._listenForOpen()
+    this._setHideState()
+    this._startOpenEvents()
 
     this._activeTrigger = null
     this._activeTooltip = null
   }
 
-  _showTooltip() {
-    this._activeTooltip.setAttribute(Selectors.DATA_VISIBLE, "true")
+  _setVisibleState() {
+    dom.attr(this._activeTooltip, Selectors.DATA_VISIBLE, "true")
   }
 
-  _hideTooltip() {
-    this._activeTooltip.setAttribute(Selectors.DATA_VISIBLE, "false")
+  _setHideState() {
+    dom.attr(this._activeTooltip, Selectors.DATA_VISIBLE, "false")
   }
 
-  _listenForClose() {
+  _startCloseEvents() {
     this._activeTrigger.removeEventListener(Events.MOUSEOVER, this._render)
     this._activeTrigger.removeEventListener(Events.FOCUS, this._render)
     this._activeTrigger.addEventListener(Events.MOUSEOUT, this._handleClose)
@@ -140,7 +138,7 @@ export default class Tooltip {
     document.addEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
 
     if (iOSMobile) {
-      document.body.style.cursor = "pointer"
+      dom.css(document.body, "cursor", "pointer")
     }
   }
 
@@ -150,31 +148,29 @@ export default class Tooltip {
     }
   }
 
-  _listenForOpen() {
+  _startOpenEvents() {
     this._activeTrigger.removeEventListener(Events.MOUSEOUT, this._handleClose)
     this._activeTrigger.removeEventListener(Events.BLUR, this._handleClose)
     this._activeTrigger.addEventListener(Events.MOUSEOVER, this._render)
     this._activeTrigger.addEventListener(Events.FOCUS, this._render)
     document.removeEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
 
-    if (iOSMobile) {
-      document.body.style.cursor = "auto"
-    }
+    if (iOSMobile) dom.css(document.body, "cursor", "auto")
   }
 
   _alignTooltip(property) {
-    const triggerLength = this._getComputedLength(this._activeTrigger, property)
-    const tooltipLength = this._getComputedLength(this._activeTooltip, property)
-    const triggerIsLongest = triggerLength > tooltipLength
+    const triggerSize = this._getSize(this._activeTrigger, property)
+    const tooltipSize = this._getSize(this._activeTooltip, property)
+    const triggerIsBigger = triggerSize > tooltipSize
 
-    const offset = triggerIsLongest
-      ? (triggerLength - tooltipLength) / 2
-      : (tooltipLength - triggerLength) / -2
+    const offset = triggerIsBigger
+      ? (triggerSize - tooltipSize) / 2
+      : (tooltipSize - triggerSize) / -2
 
     if (property === "height") {
-      this._activeTooltip.style.top = `${offset}px`
+      dom.css(this._activeTooltip, "top", `${offset}px`)
     } else {
-      this._activeTooltip.style.left = `${offset}px`
+      dom.css(this._activeTooltip, "left", `${offset}px`)
     }
   }
 
@@ -182,14 +178,11 @@ export default class Tooltip {
     return `[${Selectors.DATA_TARGET}="${id}"]`
   }
 
-  _getComputedLength(element, property) {
+  _getSize(element, property) {
     return Math.floor(element.getBoundingClientRect()[property])
   }
 
   _isLeftOrRight() {
-    const classes = this._activeTooltip.classList
-    return (
-      classes.contains(Selectors.DROP_LEFT_CLASS) || classes.contains(Selectors.DROP_RIGHT_CLASS)
-    )
+    return dom.hasClass(this._activeTooltip, Selectors.DROP_LEFT_CLASS, Selectors.DROP_RIGHT_CLASS)
   }
 }
