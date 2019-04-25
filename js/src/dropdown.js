@@ -1,4 +1,4 @@
-import Utils, { iOSMobile, nodeListToArray } from "./utils"
+import Utils, { iOSMobile, dom } from "./utils"
 
 const KeyCodes = {
   TAB: 9,
@@ -76,8 +76,8 @@ export default class Dropdown extends Utils {
   // public
 
   start() {
-    this._dropdowns = nodeListToArray(`${this._dropdownContainerAttr}`)
-    this._dropdownButtons = nodeListToArray(
+    this._dropdowns = dom.findAll(`${this._dropdownContainerAttr}`)
+    this._dropdownButtons = dom.findAll(
       `${this._dropdownContainerAttr} > ${this._dropdownTargetAttr}`
     )
 
@@ -108,32 +108,32 @@ export default class Dropdown extends Utils {
     }
 
     const dropdownAttr = `[${Selectors.DATA_DROPDOWN}="${dropdownId}"]`
-    const dropdownButton = document.querySelector(`${dropdownAttr} > ${this._dropdownTargetAttr}`)
+    const dropdownButton = dom.find(`${dropdownAttr} > ${this._dropdownTargetAttr}`)
 
-    if (!dropdownButton.getAttribute(Selectors.DATA_PARENT)) {
+    if (!dom.attr(dropdownButton, Selectors.DATA_PARENT)) {
       throw new Error(Messages.NO_PARENT_ERROR)
     }
 
-    const dropdownMenu = document.querySelector(`${dropdownAttr} > ul`)
+    const dropdownMenu = dom.find(`${dropdownAttr} > ul`)
 
     if (!dropdownMenu) {
       throw new Error(Messages.NO_MENU_ERROR(dropdownAttr))
     }
 
-    dropdownMenu.setAttribute(Selectors.ARIA_LABELLEDBY, dropdownButton.id)
+    dom.attr(dropdownMenu, Selectors.ARIA_LABELLEDBY, dropdownButton.id)
 
-    dropdownButton.setAttribute(Selectors.ARIA_CONTROLS, dropdownMenu.id)
-    dropdownButton.setAttribute(Selectors.ARIA_HASPOPUP, "true")
-    dropdownButton.setAttribute(Selectors.ARIA_EXPANDED, "false")
+    dom.attr(dropdownButton, Selectors.ARIA_CONTROLS, dropdownMenu.id)
+    dom.attr(dropdownButton, Selectors.ARIA_HASPOPUP, "true")
+    dom.attr(dropdownButton, Selectors.ARIA_EXPANDED, "false")
 
     const dropdownMenuItemsAttr = `${dropdownAttr} > ul > li`
-    const dropdownMenuListItems = nodeListToArray(dropdownMenuItemsAttr)
+    const dropdownMenuListItems = dom.findAll(dropdownMenuItemsAttr)
 
     if (!dropdownMenuListItems.length) {
       throw new Error(Messages.NO_DROPDOWN_ITEMS_ERROR(dropdownAttr))
     }
 
-    dropdownMenuListItems.forEach(item => item.setAttribute(Selectors.ROLE, "none"))
+    dropdownMenuListItems.forEach(item => dom.attr(item, Selectors.ROLE, "none"))
 
     const dropdownMenuButtons = this._getDropdownLinks(dropdownAttr)
 
@@ -142,8 +142,8 @@ export default class Dropdown extends Utils {
     }
 
     dropdownMenuButtons.forEach(link => {
-      link.setAttribute(Selectors.ROLE, "menuitem")
-      link.setAttribute(Selectors.TABINDEX, "-1")
+      dom.attr(link, Selectors.ROLE, "menuitem")
+      dom.attr(link, Selectors.TABINDEX, "-1")
     })
   }
 
@@ -167,17 +167,13 @@ export default class Dropdown extends Utils {
       this._firstDropdownLink.focus()
     }
 
-    if (iOSMobile) {
-      document.body.style.cursor = "pointer"
-    }
+    if (iOSMobile) dom.css(document.body, "cursor", "pointer")
   }
 
   _handleClose(event) {
     event.preventDefault()
 
-    if (iOSMobile) {
-      document.body.style.cursor = "auto"
-    }
+    if (iOSMobile) dom.css(document.body, "cursor", "auto")
 
     this.releaseFocus()
     this._handleHideState()
@@ -200,11 +196,11 @@ export default class Dropdown extends Utils {
   }
 
   _handleHideState() {
-    this._activeDropdownButton.setAttribute(Selectors.ARIA_EXPANDED, "false")
-    this._activeDropdown.setAttribute(Selectors.DATA_VISIBLE, "false")
+    dom.attr(this._activeDropdownButton, Selectors.ARIA_EXPANDED, "false")
+    dom.attr(this._activeDropdown, Selectors.DATA_VISIBLE, "false")
 
     this._activeDropdownLinks.forEach(link => {
-      link.setAttribute(Selectors.TABINDEX, "-1")
+      dom.attr(link, Selectors.TABINDEX, "-1")
       link.removeEventListener(Events.CLICK, this._handleClose)
     })
   }
@@ -215,7 +211,7 @@ export default class Dropdown extends Utils {
   }
 
   _setActiveDropdownId() {
-    this._activeDropdownId = this._activeDropdownButton.getAttribute(Selectors.DATA_PARENT)
+    this._activeDropdownId = dom.attr(this._activeDropdownButton, Selectors.DATA_PARENT)
   }
 
   _startEvents() {
@@ -231,7 +227,7 @@ export default class Dropdown extends Utils {
     this._lastDropdownLink.addEventListener(Events.KEYDOWN, this._handleLastTabClose)
 
     this._activeDropdownLinks.forEach(link => {
-      link.setAttribute(Selectors.TABINDEX, "0")
+      link.attr(link, Selectors.TABINDEX, "0")
       link.addEventListener(Events.CLICK, this._handleClose)
     })
 
@@ -244,18 +240,18 @@ export default class Dropdown extends Utils {
   }
 
   _setVisibleState() {
-    this._activeDropdownButton.setAttribute(Selectors.ARIA_EXPANDED, "true")
-    this._activeDropdown.setAttribute(Selectors.DATA_VISIBLE, "true")
+    dom.attr(this._activeDropdownButton, Selectors.ARIA_EXPANDED, "true")
+    dom.attr(this._activeDropdown, Selectors.DATA_VISIBLE, "true")
   }
 
   _setActiveDropdownMenu() {
-    this._activeDropdownMenuId = this._activeDropdownButton.getAttribute(Selectors.DATA_TARGET)
-    this._activeDropdownMenu = document.getElementById(this._activeDropdownMenuId)
+    this._activeDropdownMenuId = dom.attr(this._activeDropdownButton, Selectors.DATA_TARGET)
+    this._activeDropdownMenu = dom.find(`#${this._activeDropdownMenuId}`)
   }
 
   _setActiveDropdown() {
     this._activeDropdownAttr = `[${Selectors.DATA_DROPDOWN}="${this._activeDropdownId}"]`
-    this._activeDropdown = document.querySelector(this._activeDropdownAttr)
+    this._activeDropdown = dom.find(this._activeDropdownAttr)
   }
 
   _handleOpenDropdown(event) {
@@ -303,12 +299,12 @@ export default class Dropdown extends Utils {
   }
 
   _handleReturnFocus() {
-    this._activeDropdownButton.setAttribute(Selectors.TAB_INDEX, "-1")
+    dom.attr(this._activeDropdownButton, Selectors.TAB_INDEX, "-1")
     this._activeDropdownButton.focus()
-    this._activeDropdownButton.removeAttribute(Selectors.TAB_INDEX)
+    dom.attr(this._activeDropdownButton, Selectors.TAB_INDEX, false)
   }
 
   _getDropdownLinks(attr) {
-    return nodeListToArray(`${attr} > ul > li > a, ${attr} > ul > li > button`)
+    return dom.findAll(`${attr} > ul > li > a, ${attr} > ul > li > button`)
   }
 }
