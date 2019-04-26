@@ -227,7 +227,7 @@ export default class Dropdown extends Utils {
     this._lastDropdownLink.addEventListener(Events.KEYDOWN, this._handleLastTabClose)
 
     this._activeDropdownLinks.forEach(link => {
-      link.attr(link, Selectors.TABINDEX, "0")
+      dom.attr(link, Selectors.TABINDEX, "0")
       link.addEventListener(Events.CLICK, this._handleClose)
     })
 

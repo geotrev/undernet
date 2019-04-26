@@ -56,15 +56,12 @@ var Messages = {
     return "Could not find menu associated with ".concat(attr, ".");
   },
   NO_DROPDOWN_ITEMS_ERROR: function NO_DROPDOWN_ITEMS_ERROR(attr) {
-    return "Could not find any list items associated with ".concat(attr);
+    return "Could not find any list items associated with ".concat(attr, ".");
   },
   NO_DROPDOWN_BUTTONS_ERROR: function NO_DROPDOWN_BUTTONS_ERROR(attr) {
-    return "Could not find any button or anchor elements associated with ".concat(attr);
+    return "Could not find any button or anchor elements associated with ".concat(attr, ".");
   },
-  NO_PARENT_ERROR: "Could not find dropdown button's [data-parent] attribute.",
-  NO_DROPDOWN_ERROR: function NO_DROPDOWN_ERROR(attr) {
-    return "Could not find dropdown container associated with ".concat(attr, ".");
-  }
+  NO_PARENT_ERROR: "Could not find dropdown button's [data-parent] attribute."
 };
 
 var Dropdown = function (_Utils) {
@@ -105,12 +102,12 @@ var Dropdown = function (_Utils) {
     value: function start() {
       var _this2 = this;
 
-      this._dropdowns = (0, _utils.nodeListToArray)("".concat(this._dropdownContainerAttr));
-      this._dropdownButtons = (0, _utils.nodeListToArray)("".concat(this._dropdownContainerAttr, " > ").concat(this._dropdownTargetAttr));
+      this._dropdowns = _utils.dom.findAll("".concat(this._dropdownContainerAttr));
+      this._dropdownButtons = _utils.dom.findAll("".concat(this._dropdownContainerAttr, " > ").concat(this._dropdownTargetAttr));
 
       if (this._dropdowns.length) {
         this._dropdowns.forEach(function (instance) {
-          return _this2._setupDropdown(instance);
+          return _this2._setup(instance);
         });
       }
 
@@ -130,8 +127,8 @@ var Dropdown = function (_Utils) {
       });
     }
   }, {
-    key: "_setupDropdown",
-    value: function _setupDropdown(instance) {
+    key: "_setup",
+    value: function _setup(instance) {
       var dropdownId = instance.getAttribute(Selectors.DATA_DROPDOWN);
 
       if (!dropdownId) {
@@ -139,37 +136,49 @@ var Dropdown = function (_Utils) {
       }
 
       var dropdownAttr = "[".concat(Selectors.DATA_DROPDOWN, "=\"").concat(dropdownId, "\"]");
-      var dropdownMenu = document.querySelector("".concat(dropdownAttr, " > ul"));
-      var dropdownButton = document.querySelector("".concat(dropdownAttr, " > ").concat(this._dropdownTargetAttr));
+
+      var dropdownButton = _utils.dom.find("".concat(dropdownAttr, " > ").concat(this._dropdownTargetAttr));
+
+      if (!_utils.dom.attr(dropdownButton, Selectors.DATA_PARENT)) {
+        throw new Error(Messages.NO_PARENT_ERROR);
+      }
+
+      var dropdownMenu = _utils.dom.find("".concat(dropdownAttr, " > ul"));
 
       if (!dropdownMenu) {
         throw new Error(Messages.NO_MENU_ERROR(dropdownAttr));
       }
 
-      dropdownMenu.setAttribute(Selectors.ARIA_LABELLEDBY, dropdownButton.id);
-      dropdownButton.setAttribute(Selectors.ARIA_CONTROLS, dropdownMenu.id);
-      dropdownButton.setAttribute(Selectors.ARIA_HASPOPUP, "true");
-      dropdownButton.setAttribute(Selectors.ARIA_EXPANDED, "false");
+      _utils.dom.attr(dropdownMenu, Selectors.ARIA_LABELLEDBY, dropdownButton.id);
+
+      _utils.dom.attr(dropdownButton, Selectors.ARIA_CONTROLS, dropdownMenu.id);
+
+      _utils.dom.attr(dropdownButton, Selectors.ARIA_HASPOPUP, "true");
+
+      _utils.dom.attr(dropdownButton, Selectors.ARIA_EXPANDED, "false");
+
       var dropdownMenuItemsAttr = "".concat(dropdownAttr, " > ul > li");
-      var dropdownMenuListItems = (0, _utils.nodeListToArray)(dropdownMenuItemsAttr);
+
+      var dropdownMenuListItems = _utils.dom.findAll(dropdownMenuItemsAttr);
 
       if (!dropdownMenuListItems.length) {
         throw new Error(Messages.NO_DROPDOWN_ITEMS_ERROR(dropdownAttr));
       }
 
       dropdownMenuListItems.forEach(function (item) {
-        return item.setAttribute(Selectors.ROLE, "none");
+        return _utils.dom.attr(item, Selectors.ROLE, "none");
       });
 
       var dropdownMenuButtons = this._getDropdownLinks(dropdownAttr);
 
-      if (!dropdownMenuButtons) {
+      if (!dropdownMenuButtons.length) {
         throw new Error(Messages.NO_DROPDOWN_BUTTONS_ERROR(dropdownAttr));
       }
 
       dropdownMenuButtons.forEach(function (link) {
-        link.setAttribute(Selectors.ROLE, "menuitem");
-        link.setAttribute(Selectors.TABINDEX, "-1");
+        _utils.dom.attr(link, Selectors.ROLE, "menuitem");
+
+        _utils.dom.attr(link, Selectors.TABINDEX, "-1");
       });
     }
   }, {
@@ -192,7 +201,7 @@ var Dropdown = function (_Utils) {
 
       this._listenToClose();
 
-      this._startEvents(key);
+      this._startEvents();
 
       if (key && key === KeyCodes.ARROW_UP) {
         this._lastDropdownLink.focus();
@@ -200,19 +209,13 @@ var Dropdown = function (_Utils) {
         this._firstDropdownLink.focus();
       }
 
-      if (_utils.iOSMobile) {
-        document.body.style.cursor = "pointer";
-      }
+      if (_utils.iOSMobile) _utils.dom.css(document.body, "cursor", "pointer");
     }
   }, {
     key: "_handleClose",
     value: function _handleClose(event) {
       event.preventDefault();
-
-      if (_utils.iOSMobile) {
-        document.body.style.cursor = "auto";
-      }
-
+      if (_utils.iOSMobile) _utils.dom.css(document.body, "cursor", "auto");
       this.releaseFocus();
 
       this._handleHideState();
@@ -241,12 +244,13 @@ var Dropdown = function (_Utils) {
     value: function _handleHideState() {
       var _this4 = this;
 
-      this._activeDropdownButton.setAttribute(Selectors.ARIA_EXPANDED, "false");
+      _utils.dom.attr(this._activeDropdownButton, Selectors.ARIA_EXPANDED, "false");
 
-      this._activeDropdown.setAttribute(Selectors.DATA_VISIBLE, "false");
+      _utils.dom.attr(this._activeDropdown, Selectors.DATA_VISIBLE, "false");
 
       this._activeDropdownLinks.forEach(function (link) {
-        link.setAttribute(Selectors.TABINDEX, "-1");
+        _utils.dom.attr(link, Selectors.TABINDEX, "-1");
+
         link.removeEventListener(Events.CLICK, _this4._handleClose);
       });
     }
@@ -259,15 +263,11 @@ var Dropdown = function (_Utils) {
   }, {
     key: "_setActiveDropdownId",
     value: function _setActiveDropdownId() {
-      this._activeDropdownId = this._activeDropdownButton.getAttribute(Selectors.DATA_PARENT);
-
-      if (!this._activeDropdownId) {
-        throw new Error(Messages.NO_PARENT_ERROR);
-      }
+      this._activeDropdownId = _utils.dom.attr(this._activeDropdownButton, Selectors.DATA_PARENT);
     }
   }, {
     key: "_startEvents",
-    value: function _startEvents(key) {
+    value: function _startEvents() {
       var _this5 = this;
 
       document.addEventListener(Events.KEYDOWN, this._handleEscapeKeyPress);
@@ -281,7 +281,8 @@ var Dropdown = function (_Utils) {
       this._lastDropdownLink.addEventListener(Events.KEYDOWN, this._handleLastTabClose);
 
       this._activeDropdownLinks.forEach(function (link) {
-        link.setAttribute(Selectors.TABINDEX, "0");
+        _utils.dom.attr(link, Selectors.TABINDEX, "0");
+
         link.addEventListener(Events.CLICK, _this5._handleClose);
       });
 
@@ -299,25 +300,21 @@ var Dropdown = function (_Utils) {
   }, {
     key: "_setVisibleState",
     value: function _setVisibleState() {
-      this._activeDropdownButton.setAttribute(Selectors.ARIA_EXPANDED, "true");
+      _utils.dom.attr(this._activeDropdownButton, Selectors.ARIA_EXPANDED, "true");
 
-      this._activeDropdown.setAttribute(Selectors.DATA_VISIBLE, "true");
+      _utils.dom.attr(this._activeDropdown, Selectors.DATA_VISIBLE, "true");
     }
   }, {
     key: "_setActiveDropdownMenu",
     value: function _setActiveDropdownMenu() {
-      this._activeDropdownMenuId = this._activeDropdownButton.getAttribute(Selectors.DATA_TARGET);
-      this._activeDropdownMenu = document.getElementById(this._activeDropdownMenuId);
+      this._activeDropdownMenuId = _utils.dom.attr(this._activeDropdownButton, Selectors.DATA_TARGET);
+      this._activeDropdownMenu = _utils.dom.find("#".concat(this._activeDropdownMenuId));
     }
   }, {
     key: "_setActiveDropdown",
     value: function _setActiveDropdown() {
       this._activeDropdownAttr = "[".concat(Selectors.DATA_DROPDOWN, "=\"").concat(this._activeDropdownId, "\"]");
-      this._activeDropdown = document.querySelector(this._activeDropdownAttr);
-
-      if (!this._activeDropdown) {
-        throw new Error(Messages.NO_DROPDOWN_ERROR(this._activeDropdownAttr));
-      }
+      this._activeDropdown = _utils.dom.find(this._activeDropdownAttr);
     }
   }, {
     key: "_handleOpenDropdown",
@@ -373,16 +370,16 @@ var Dropdown = function (_Utils) {
   }, {
     key: "_handleReturnFocus",
     value: function _handleReturnFocus() {
-      this._activeDropdownButton.setAttribute(Selectors.TAB_INDEX, "-1");
+      _utils.dom.attr(this._activeDropdownButton, Selectors.TAB_INDEX, "-1");
 
       this._activeDropdownButton.focus();
 
-      this._activeDropdownButton.removeAttribute(Selectors.TAB_INDEX);
+      _utils.dom.attr(this._activeDropdownButton, Selectors.TAB_INDEX, false);
     }
   }, {
     key: "_getDropdownLinks",
     value: function _getDropdownLinks(attr) {
-      return (0, _utils.nodeListToArray)("".concat(attr, " > ul > li > a, ").concat(attr, " > ul > li > button"));
+      return _utils.dom.findAll("".concat(attr, " > ul > li > a, ").concat(attr, " > ul > li > button"));
     }
   }]);
 

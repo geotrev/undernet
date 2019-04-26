@@ -28,12 +28,13 @@ export const dom = {
 
     return element.getAttribute(attr)
   },
+  hasAttr: (element, attr) => element.hasAttribute(attr),
 
   find: (selector, parent = document) => parent.querySelector(selector),
   findAll: (selector, parent = document) => [...parent.querySelectorAll(selector)],
 
   css: (element, property, value) => {
-    if (value) {
+    if (typeof value === "string" || value === null) {
       element.style[property] = value
       return
     }
@@ -44,11 +45,12 @@ export const dom = {
   addClass: (element, ...classes) => element.classList.add(...classes),
   removeClass: (element, ...classes) => element.classList.remove(...classes),
   hasClass: (element, ...classes) => {
-    if (classes.length > 1) {
-      return classes.filter(cls => element.classList.contains(cls)).length > 1
+    console.log(classes)
+    if (classes.length) {
+      return classes.filter(cls => element.classList.contains(cls)).length
     }
 
-    return element.classList.contains(classes)
+    return element.classList.contains(classes[0])
   },
 }
 

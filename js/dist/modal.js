@@ -89,14 +89,14 @@ var Modal = function (_Utils) {
     value: function start() {
       var _this2 = this;
 
-      this._modals = (0, _utils.nodeListToArray)(this._modalContainerAttr);
+      this._modals = _utils.dom.findAll(this._modalContainerAttr);
       (0, _utils.getFocusableElements)(this._modalContainerAttr).forEach(function (element) {
-        element.setAttribute(Selectors.TABINDEX, "-1");
+        _utils.dom.attr(element, Selectors.TABINDEX, "-1");
       });
 
       if (this._modals.length) {
         this._modals.forEach(function (instance) {
-          _this2._setupModal(instance);
+          _this2._setup(instance);
         });
       }
     }
@@ -106,8 +106,9 @@ var Modal = function (_Utils) {
       var _this3 = this;
 
       this._modals.forEach(function (instance) {
-        var id = instance.getAttribute(Selectors.DATA_MODAL);
-        var button = document.querySelector("[".concat(Selectors.DATA_TARGET, "='").concat(id, "']"));
+        var id = _utils.dom.attr(instance, Selectors.DATA_MODAL);
+
+        var button = _utils.dom.find("[".concat(Selectors.DATA_TARGET, "='").concat(id, "']"));
 
         if (!button) {
           throw new Error(Messages.NO_BUTTON_ERROR(id));
@@ -117,26 +118,31 @@ var Modal = function (_Utils) {
       });
     }
   }, {
-    key: "_setupModal",
-    value: function _setupModal(instance) {
-      var modalId = instance.getAttribute(Selectors.DATA_MODAL);
+    key: "_setup",
+    value: function _setup(instance) {
+      var modalId = _utils.dom.attr(instance, Selectors.DATA_MODAL);
 
       if (!modalId) {
         throw new Error(Messages.NO_MODAL_ID_ERROR);
       }
 
-      var modal = instance.querySelector("[".concat(Selectors.DATA_PARENT, "='").concat(modalId, "']"));
+      var modal = _utils.dom.find("[".concat(Selectors.DATA_PARENT, "='").concat(modalId, "']"), instance);
 
       if (!modal) {
         throw new Error(Messages.NO_MODAL_ERROR(modalId));
       }
 
-      var modalWrapper = document.querySelector("[".concat(Selectors.DATA_MODAL, "='").concat(modalId, "']"));
-      modalWrapper.setAttribute(Selectors.ARIA_HIDDEN, "true");
-      modalWrapper.setAttribute(Selectors.DATA_VISIBLE, "false");
-      modal.setAttribute(Selectors.ARIA_MODAL, "true");
-      modal.setAttribute(Selectors.ROLE, "dialog");
-      var modalButton = document.querySelector("[".concat(Selectors.DATA_TARGET, "='").concat(modalId, "']"));
+      var modalWrapper = _utils.dom.find("[".concat(Selectors.DATA_MODAL, "='").concat(modalId, "']"));
+
+      _utils.dom.attr(modalWrapper, Selectors.ARIA_HIDDEN, "true");
+
+      _utils.dom.attr(modalWrapper, Selectors.DATA_VISIBLE, "false");
+
+      _utils.dom.attr(modal, Selectors.ARIA_MODAL, "true");
+
+      _utils.dom.attr(modal, Selectors.ROLE, "dialog");
+
+      var modalButton = _utils.dom.find("[".concat(Selectors.DATA_TARGET, "='").concat(modalId, "']"));
 
       if (!modalButton) {
         throw new Error(Messages.NO_BUTTON_ERROR(modalId));
@@ -166,10 +172,11 @@ var Modal = function (_Utils) {
 
       this._setAttributes();
 
+      this._setCloseButtons();
+
       this._handleModalFocus();
 
       this._activeModalOverlay.scrollTop = 0;
-      this._activeModalCloseButtons = (0, _utils.nodeListToArray)("".concat(this._activeModalSelector, " [").concat(Selectors.DATA_CLOSE, "]"));
 
       this._startEvents();
     }
@@ -192,36 +199,40 @@ var Modal = function (_Utils) {
 
       this._disableFocusOnChildren();
 
-      if (_utils.iOSMobile) this._activeModalOverlay.style.cursor = "auto";
+      if (_utils.iOSMobile) _utils.dom.css(this._activeModalOverlay, "cursor", "auto");
       this._activeModalId = null;
       this._activeModalButton = null;
       this._activeModal = null;
     }
   }, {
+    key: "_setCloseButtons",
+    value: function _setCloseButtons() {
+      this._activeModalCloseButtons = _utils.dom.findAll("".concat(this._activeModalSelector, " [").concat(Selectors.DATA_CLOSE, "]"));
+    }
+  }, {
     key: "_setActiveModalId",
     value: function _setActiveModalId() {
-      this._activeModalId = this._activeModalButton.getAttribute(Selectors.DATA_TARGET);
+      this._activeModalId = _utils.dom.attr(this._activeModalButton, Selectors.DATA_TARGET);
     }
   }, {
     key: "_setActiveModalOverlay",
     value: function _setActiveModalOverlay() {
-      var activeModalOverlayAttr = "[".concat(Selectors.DATA_MODAL, "='").concat(this._activeModalId, "']");
-      this._activeModalOverlay = document.querySelector(activeModalOverlayAttr);
+      this._activeModalOverlay = _utils.dom.find("[".concat(Selectors.DATA_MODAL, "='").concat(this._activeModalId, "']"));
     }
   }, {
     key: "_removeAttributes",
     value: function _removeAttributes() {
-      this._activeModalOverlay.setAttribute(Selectors.DATA_VISIBLE, "false");
+      _utils.dom.attr(this._activeModalOverlay, Selectors.DATA_VISIBLE, "false");
 
-      this._activeModalOverlay.setAttribute(Selectors.ARIA_HIDDEN, "true");
+      _utils.dom.attr(this._activeModalOverlay, Selectors.ARIA_HIDDEN, "true");
 
-      this._activeModal.removeAttribute(Selectors.TABINDEX);
+      _utils.dom.attr(this._activeModal, Selectors.TABINDEX, false);
     }
   }, {
     key: "_disableFocusOnChildren",
     value: function _disableFocusOnChildren() {
       (0, _utils.getFocusableElements)(this._activeModalSelector).forEach(function (element) {
-        element.setAttribute(Selectors.TABINDEX, "-1");
+        _utils.dom.attr(element, Selectors.TABINDEX, "-1");
       });
     }
   }, {
@@ -240,16 +251,16 @@ var Modal = function (_Utils) {
     key: "_setActiveModal",
     value: function _setActiveModal() {
       this._activeModalSelector = "[".concat(Selectors.DATA_PARENT, "='").concat(this._activeModalId, "']");
-      this._activeModal = this._activeModalOverlay.querySelector(this._activeModalSelector);
+      this._activeModal = _utils.dom.find(this._activeModalSelector, this._activeModalOverlay);
     }
   }, {
     key: "_setAttributes",
     value: function _setAttributes() {
-      this._activeModalOverlay.setAttribute(Selectors.ARIA_HIDDEN, "false");
+      _utils.dom.attr(this._activeModalOverlay, Selectors.ARIA_HIDDEN, "false");
 
-      this._activeModalOverlay.setAttribute(Selectors.DATA_VISIBLE, "true");
+      _utils.dom.attr(this._activeModalOverlay, Selectors.DATA_VISIBLE, "true");
 
-      if (_utils.iOSMobile) this._activeModalOverlay.style.cursor = "pointer";
+      if (_utils.iOSMobile) _utils.dom.css(this._activeModalOverlay, "cursor", "pointer");
     }
   }, {
     key: "_startEvents",
@@ -266,7 +277,7 @@ var Modal = function (_Utils) {
   }, {
     key: "_handleModalFocus",
     value: function _handleModalFocus() {
-      this._activeModal.setAttribute(Selectors.TABINDEX, "-1");
+      _utils.dom.attr(this._activeModal, Selectors.TABINDEX, "-1");
 
       this._activeModal.focus();
     }
@@ -287,8 +298,9 @@ var Modal = function (_Utils) {
     value: function _handleScrollbarOffset() {
       if (!this._scrollbarIsVisible()) return;
       this._scrollbarOffset = this._getScrollbarOffset();
-      this._originalPagePaddingRight = document.body.style.paddingRight;
-      document.body.style.paddingRight = "".concat(this._scrollbarOffset, "px");
+      this._originalPagePaddingRight = _utils.dom.css(document.body, "paddingRight");
+
+      _utils.dom.css(document.body, "paddingRight", "".concat(this._scrollbarOffset, "px"));
     }
   }, {
     key: "_scrollbarIsVisible",
@@ -303,15 +315,17 @@ var Modal = function (_Utils) {
       var _this6 = this;
 
       var originalPadding = this._originalPagePaddingRight;
-      this._activeModalOverlay.style.paddingLeft = "".concat(this._scrollbarOffset, "px");
+
+      _utils.dom.css(this._activeModalOverlay, "paddingLeft", "".concat(this._scrollbarOffset, "px"));
+
       setTimeout(function () {
-        return _this6._activeModalOverlay.style.paddingLeft = "";
+        return _utils.dom.css(_this6._activeModalOverlay, "paddingLeft", "");
       }, 500);
 
       if (originalPadding) {
-        document.body.style.paddingRight = "".concat(originalPadding, "px");
+        _utils.dom.css(document.body, "paddingRight", "".concat(originalPadding, "px"));
       } else {
-        document.body.style.paddingRight = "";
+        _utils.dom.css(document.body, "paddingRight", "");
       }
     }
   }, {
@@ -331,23 +345,25 @@ var Modal = function (_Utils) {
   }, {
     key: "_handleReturnFocus",
     value: function _handleReturnFocus() {
-      this._activeModalButton.setAttribute(Selectors.TABINDEX, "-1");
+      _utils.dom.attr(this._activeModalButton, Selectors.TABINDEX, "-1");
 
       this._activeModalButton.focus();
 
-      this._activeModalButton.removeAttribute(Selectors.TABINDEX);
+      _utils.dom.attr(this._activeModalButton, Selectors.TABINDEX, false);
     }
   }, {
     key: "_handleScrollRestore",
     value: function _handleScrollRestore() {
-      document.body.classList.remove(Selectors.NO_SCROLL);
-      document.documentElement.classList.remove(Selectors.NO_SCROLL);
+      _utils.dom.removeClass(document.body, Selectors.NO_SCROLL);
+
+      _utils.dom.removeClass(document.documentElement, Selectors.NO_SCROLL);
     }
   }, {
     key: "_handleScrollStop",
     value: function _handleScrollStop() {
-      document.body.classList.add(Selectors.NO_SCROLL);
-      document.documentElement.classList.add(Selectors.NO_SCROLL);
+      _utils.dom.addClass(document.body, Selectors.NO_SCROLL);
+
+      _utils.dom.addClass(document.documentElement, Selectors.NO_SCROLL);
     }
   }]);
 

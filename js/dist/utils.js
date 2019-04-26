@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = exports.iOSMobile = exports.getFocusableElements = exports.nodeListToArray = void 0;
+exports.default = exports.iOSMobile = exports.getFocusableElements = exports.dom = void 0;
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -34,18 +34,78 @@ var Events = {
   KEYDOWN: "keydown",
   CLICK: "click"
 };
+var dom = {
+  attr: function attr(element, _attr, newValue) {
+    if (newValue === false) {
+      return element.removeAttribute(_attr);
+    }
 
-var nodeListToArray = function nodeListToArray(nodeList) {
-  return _toConsumableArray(document.querySelectorAll(nodeList));
+    if (typeof newValue === "string" || newValue === null) {
+      return element.setAttribute(_attr, newValue);
+    }
+
+    return element.getAttribute(_attr);
+  },
+  hasAttr: function hasAttr(element, attr) {
+    return element.hasAttribute(attr);
+  },
+  find: function find(selector) {
+    var parent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : document;
+    return parent.querySelector(selector);
+  },
+  findAll: function findAll(selector) {
+    var parent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : document;
+    return _toConsumableArray(parent.querySelectorAll(selector));
+  },
+  css: function css(element, property, value) {
+    if (typeof value === "string" || value === null) {
+      element.style[property] = value;
+      return;
+    }
+
+    return element.style[property];
+  },
+  addClass: function addClass(element) {
+    var _element$classList;
+
+    for (var _len = arguments.length, classes = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      classes[_key - 1] = arguments[_key];
+    }
+
+    return (_element$classList = element.classList).add.apply(_element$classList, classes);
+  },
+  removeClass: function removeClass(element) {
+    var _element$classList2;
+
+    for (var _len2 = arguments.length, classes = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+      classes[_key2 - 1] = arguments[_key2];
+    }
+
+    return (_element$classList2 = element.classList).remove.apply(_element$classList2, classes);
+  },
+  hasClass: function hasClass(element) {
+    for (var _len3 = arguments.length, classes = new Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {
+      classes[_key3 - 1] = arguments[_key3];
+    }
+
+    console.log(classes);
+
+    if (classes.length) {
+      return classes.filter(function (cls) {
+        return element.classList.contains(cls);
+      }).length;
+    }
+
+    return element.classList.contains(classes[0]);
+  }
 };
-
-exports.nodeListToArray = nodeListToArray;
+exports.dom = dom;
 
 var getFocusableElements = function getFocusableElements(container) {
   var focusables = Selectors.FOCUSABLE_TAGS.map(function (element) {
     return "".concat(container, " ").concat(element).concat(Selectors.NOT_VISUALLY_HIDDEN);
   }).join(", ");
-  return nodeListToArray(focusables);
+  return dom.findAll(focusables);
 };
 
 exports.getFocusableElements = getFocusableElements;
@@ -128,7 +188,7 @@ var Utils = function () {
   }, {
     key: "_handleFocusTrapWithTab",
     value: function _handleFocusTrapWithTab(event) {
-      var containerElement = document.querySelector(this._focusContainerSelector);
+      var containerElement = dom.find(this._focusContainerSelector);
       var containerActive = document.activeElement === containerElement;
       var firstActive = document.activeElement === this._focusableFirstChild;
       var lastActive = document.activeElement === this._focusableLastChild;
