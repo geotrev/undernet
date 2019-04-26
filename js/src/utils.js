@@ -6,9 +6,9 @@ const KeyCodes = {
 }
 
 const Selectors = {
-  NOT_VISUALLY_HIDDEN: ":not(.is-visually-hidden)",
   FOCUSABLE_TAGS: ["a", "button", "input", "object", "select", "textarea", "[tabindex]"],
   KEYBOARD_CLASS: "using-keyboard",
+  NOT_VISUALLY_HIDDEN_CLASS: ":not(.is-visually-hidden)",
 }
 
 const Events = {
@@ -54,7 +54,7 @@ export const dom = {
 
 export const getFocusableElements = container => {
   const focusables = Selectors.FOCUSABLE_TAGS.map(
-    element => `${container} ${element}${Selectors.NOT_VISUALLY_HIDDEN}`
+    element => `${container} ${element}${Selectors.NOT_VISUALLY_HIDDEN_CLASS}`
   ).join(", ")
 
   return dom.findAll(focusables)
