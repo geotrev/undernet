@@ -1,7 +1,5 @@
 import Undernet from "../src/index"
 
-// This is the starting DOM.
-// It is assigned to document.body.innerHTML before each test suite.
 const dom = `
   <button data-target="new-modal">Open modal</button>
 
@@ -29,8 +27,6 @@ const dom = `
     </div>
   </div>
 `
-
-// Begin modal tests.
 
 describe("Modals", () => {
   describe("API start", () => {
@@ -250,6 +246,10 @@ describe("Modals", () => {
     it("removes 'no-scroll' class from <body>", () => {
       expect(document.body.className).toEqual("")
     })
+
+    it("removes 'no-scroll' class from <html>", () => {
+      expect(document.documentElement.className).toEqual("")
+    })
   })
 
   describe("#handleScrollStop -> Modal Button Click", () => {
@@ -265,7 +265,73 @@ describe("Modals", () => {
     it("sets 'no-scroll' class to <body>", () => {
       expect(document.body.className).toEqual("no-scroll")
     })
+
+    it("sets 'no-scroll' class to <html>", () => {
+      expect(document.documentElement.className).toEqual("no-scroll")
+    })
+  })
+})
+
+const errorDom = (target, modal, parent) => `
+  <button data-target="${target}">Open modal</button>
+
+  <div className="modal-overlay" data-modal="${modal}">
+    <div className="modal-dialog" data-parent="${parent}" aria-labelledby="header-id">
+      <header>
+        <h2 className="h6 has-no-margin-top" id="header-id">
+          Modal Header
+        </h2>
+        <a data-close href="#">
+          <span aria-hidden="true">&times;</span>
+        </a>
+      </header>
+      <section>
+        <p>Some modal content here</p>
+      </section>
+      <footer>
+        <a className="button" data-close href="#">
+          Cancel
+        </a>
+        <a className="primary button" href="#">
+          OK
+        </a>
+      </footer>
+    </div>
+  </div>
+`
+
+describe("Modal Error Handling", () => {
+  it("throws error if modal button isn't found", () => {
+    document.body.innerHTML = errorDom("", "new-modal", "new-modal")
+
+    try {
+      Undernet.Modals.start()
+    } catch (e) {
+      expect(e.message).toEqual("Could not find modal trigger with id new-modal.")
+    }
   })
 
-  describe("Errors", () => {})
+  it("throws error if [data-modal] attribute is empty", () => {
+    document.body.innerHTML = errorDom("new-modal", "", "new-modal")
+
+    try {
+      Undernet.Modals.start()
+    } catch (e) {
+      expect(e.message).toEqual(
+        "Could not detect an id on your [data-modal] element. Please add a value matching the modal trigger's [data-parent] attribute."
+      )
+    }
+  })
+
+  it("throws error if [data-parent] attribute does not match its parent [data-modal]", () => {
+    document.body.innerHTML = errorDom("new-modal", "new-modal", "")
+
+    try {
+      Undernet.Modals.start()
+    } catch (e) {
+      expect(e.message).toEqual(
+        `Could not find a [data-parent='new-modal'] attribute within your [data-modal='new-modal'] element.`
+      )
+    }
+  })
 })

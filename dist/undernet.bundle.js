@@ -1,6 +1,6 @@
 /*!
   * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
-  * Undernet v4.2.0 (https://undernet.io)
+  * Undernet v4.3.0 (https://undernet.io)
   * Copyright 2017-2019 George Treviranus
   */
 (function (global, factory) {
@@ -105,22 +105,81 @@
     ARROW_DOWN: 40
   };
   var Selectors = {
-    NOT_VISUALLY_HIDDEN: ":not(.is-visually-hidden)",
     FOCUSABLE_TAGS: ["a", "button", "input", "object", "select", "textarea", "[tabindex]"],
-    KEYBOARD_CLASS: "using-keyboard"
+    KEYBOARD_CLASS: "using-keyboard",
+    NOT_VISUALLY_HIDDEN_CLASS: ":not(.is-visually-hidden)"
   };
   var Events = {
     KEYDOWN: "keydown",
     CLICK: "click"
   };
-  var nodeListToArray = function nodeListToArray(nodeList) {
-    return _toConsumableArray(document.querySelectorAll(nodeList));
+  var dom = {
+    attr: function attr(element, _attr, newValue) {
+      if (newValue === false) {
+        return element.removeAttribute(_attr);
+      }
+
+      if (typeof newValue === "string" || newValue === null) {
+        return element.setAttribute(_attr, newValue);
+      }
+
+      return element.getAttribute(_attr);
+    },
+    hasAttr: function hasAttr(element, attr) {
+      return element.hasAttribute(attr);
+    },
+    find: function find(selector) {
+      var parent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : document;
+      return parent.querySelector(selector);
+    },
+    findAll: function findAll(selector) {
+      var parent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : document;
+      return _toConsumableArray(parent.querySelectorAll(selector));
+    },
+    css: function css(element, property, value) {
+      if (typeof value === "string" || value === null) {
+        return element.style[property] = value;
+      }
+
+      return element.style[property];
+    },
+    addClass: function addClass(element) {
+      var _element$classList;
+
+      for (var _len = arguments.length, classes = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+        classes[_key - 1] = arguments[_key];
+      }
+
+      return (_element$classList = element.classList).add.apply(_element$classList, classes);
+    },
+    removeClass: function removeClass(element) {
+      var _element$classList2;
+
+      for (var _len2 = arguments.length, classes = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+        classes[_key2 - 1] = arguments[_key2];
+      }
+
+      return (_element$classList2 = element.classList).remove.apply(_element$classList2, classes);
+    },
+    hasClass: function hasClass(element) {
+      for (var _len3 = arguments.length, classes = new Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {
+        classes[_key3 - 1] = arguments[_key3];
+      }
+
+      if (classes.length) {
+        return classes.filter(function (cls) {
+          return element.classList.contains(cls);
+        }).length;
+      }
+
+      return element.classList.contains(classes[0]);
+    }
   };
   var getFocusableElements = function getFocusableElements(container) {
     var focusables = Selectors.FOCUSABLE_TAGS.map(function (element) {
-      return "".concat(container, " ").concat(element).concat(Selectors.NOT_VISUALLY_HIDDEN);
+      return "".concat(container, " ").concat(element).concat(Selectors.NOT_VISUALLY_HIDDEN_CLASS);
     }).join(", ");
-    return nodeListToArray(focusables);
+    return dom.findAll(focusables);
   };
   var iOSMobile = /(iphone|ipod|ipad)/i.test(navigator.userAgent);
 
@@ -200,7 +259,7 @@
     }, {
       key: "_handleFocusTrapWithTab",
       value: function _handleFocusTrapWithTab(event) {
-        var containerElement = document.querySelector(this._focusContainerSelector);
+        var containerElement = dom.find(this._focusContainerSelector);
         var containerActive = document.activeElement === containerElement;
         var firstActive = document.activeElement === this._focusableFirstChild;
         var lastActive = document.activeElement === this._focusableLastChild;
@@ -287,19 +346,19 @@
   };
   var Messages = {
     NO_VISIBLE_ERROR: function NO_VISIBLE_ERROR(id) {
-      return "Could not find parent with [data-visible] attribute associated with [data-target='".concat(id, "'].");
+      return "Could not find accordion row with [data-visible] attribute associated with [data-target='".concat(id, "'].");
     },
     NO_ROW_ERROR: function NO_ROW_ERROR(id) {
-      return "Could not find [data-accordion-row] associated with ".concat(id, ".");
+      return "Could not find [data-accordion-row] associated with [data-target='".concat(id, "'].");
     },
-    NO_HEADER_ID_ERROR: function NO_HEADER_ID_ERROR(id) {
-      return "Could not find header tag associated with [data-target='".concat(id, "'].");
+    NO_HEADER_ID_ERROR: function NO_HEADER_ID_ERROR(attr) {
+      return "Could not find an id on your header associated with ".concat(attr, ".");
     },
-    NO_PARENT_ERROR: function NO_PARENT_ERROR(id) {
-      return "Could not find [data-parent] associated with [data-target='".concat(id, "'].");
+    NO_ACCORDION_ID_ERROR: function NO_ACCORDION_ID_ERROR(id) {
+      return "Could not find [data-accordion] attribute associated with [data-target='".concat(id, "'].");
     },
     NO_CONTENT_ERROR: function NO_CONTENT_ERROR(id) {
-      return "Could not find accordion content block with [id] ".concat(id, " associated with [data-target='").concat(id, "'].");
+      return "Could not find accordion content block with id '".concat(id, "'; should match trigger with [data-target='").concat(id, "'].");
     }
   };
 
@@ -326,7 +385,7 @@
       _this._activeContent = {};
       _this._activeButtonExpandState = "";
       _this._activeContentHiddenState = "";
-      _this._headerLevels = [1, 2, 3, 4, 5, 6];
+      _this._headers = ["h1", "h2", "h3", "h4", "h5", "h6"];
       return _this;
     }
 
@@ -335,15 +394,15 @@
       value: function start() {
         var _this2 = this;
 
-        var accordionButtonSelector = this._getPossibleAccordionButtonAttrs("[".concat(Selectors$1.DATA_ACCORDION, "]"));
+        var accordionButtonSelector = this._getAccordionButtonSelector("[".concat(Selectors$1.DATA_ACCORDION, "]"));
 
-        this._accordionButtons = nodeListToArray(accordionButtonSelector);
+        this._accordionButtons = dom.findAll(accordionButtonSelector);
 
         if (this._accordionButtons.length) {
-          this._accordionButtons.forEach(function (button) {
-            _this2._setupAccordion(button);
+          this._accordionButtons.forEach(function (instance) {
+            _this2._setup(instance);
 
-            button.addEventListener(Events$1.CLICK, _this2._render);
+            instance.addEventListener(Events$1.CLICK, _this2._render);
           });
         }
       }
@@ -352,107 +411,126 @@
       value: function stop() {
         var _this3 = this;
 
-        this._accordionButtons.forEach(function (button) {
-          button.removeEventListener(Events$1.CLICK, _this3._render);
+        this._accordionButtons.forEach(function (instance) {
+          instance.removeEventListener(Events$1.CLICK, _this3._render);
         });
+      }
+    }, {
+      key: "_setup",
+      value: function _setup(instance) {
+        var buttonId = dom.attr(instance, Selectors$1.DATA_TARGET);
+        var accordionId = dom.attr(instance, Selectors$1.DATA_PARENT);
+        var buttonContent = dom.find("#".concat(buttonId));
+
+        if (!accordionId) {
+          throw new Error(Messages.NO_ACCORDION_ID_ERROR(buttonId));
+        }
+
+        if (!buttonContent) {
+          throw new Error(Messages.NO_CONTENT_ERROR(buttonId));
+        }
+
+        var accordionRowAttr = this._getAccordionRowAttr(buttonId);
+
+        var accordionRow = dom.find(accordionRowAttr);
+
+        if (!accordionRow) {
+          throw new Error(Messages.NO_ROW_ERROR(buttonId));
+        }
+
+        var buttonHeaderSelector = this._headers.join(", ");
+
+        var buttonHeader = dom.find(buttonHeaderSelector, accordionRow);
+
+        if (!buttonHeader.id) {
+          throw new Error(Messages.NO_HEADER_ID_ERROR(accordionRowAttr));
+        }
+
+        var buttonContentChildren = getFocusableElements("#".concat(buttonContent.id));
+        dom.attr(instance, Selectors$1.ARIA_CONTROLS, buttonId);
+        dom.attr(buttonContent, Selectors$1.ARIA_LABELLEDBY, buttonHeader.id);
+        var contentShouldExpand = dom.attr(accordionRow, Selectors$1.DATA_VISIBLE);
+
+        if (!contentShouldExpand) {
+          throw new Error(Messages.NO_VISIBLE_ERROR(buttonId));
+        }
+
+        if (contentShouldExpand === "true") {
+          dom.css(buttonContent, "maxHeight", "".concat(buttonContent.scrollHeight, "px"));
+          dom.attr(instance, Selectors$1.ARIA_EXPANDED, "true");
+          dom.attr(buttonContent, Selectors$1.ARIA_HIDDEN, "false");
+          buttonContentChildren.forEach(function (element) {
+            dom.attr(element, Selectors$1.TABINDEX, "0");
+          });
+        } else {
+          dom.attr(instance, Selectors$1.ARIA_EXPANDED, "false");
+          dom.attr(buttonContent, Selectors$1.ARIA_HIDDEN, "true");
+          buttonContentChildren.forEach(function (element) {
+            dom.attr(element, Selectors$1.TABINDEX, "-1");
+          });
+        }
       }
     }, {
       key: "_render",
       value: function _render(event) {
         event.preventDefault();
         this._activeButton = event.target;
-        this._activeAccordionRowId = this._activeButton.getAttribute(Selectors$1.DATA_TARGET);
-        this._activeRowAttr = this._getAccordionRowAttr(this._activeAccordionRowId);
-        this._activeRow = document.querySelector(this._activeRowAttr);
-        this._activeContainerId = this._activeButton.getAttribute(Selectors$1.DATA_PARENT);
 
-        if (!this._activeContainerId) {
-          return console.error(Messages.NO_PARENT_ERROR(this._activeAccordionRowId));
-        }
+        this._setIds();
 
-        this._activeContainerAttr = "[".concat(Selectors$1.DATA_ACCORDION, "='").concat(this._activeContainerId, "']");
-        this._activeContainer = document.querySelector(this._activeContainerAttr);
+        this._setActiveRow();
 
-        if (!this._activeContainer) {
-          return console.error(Messages.NO_ACCORDION_ERROR(this._activeContainerId));
-        }
+        this._setActiveContainer();
 
-        this._activeContent = document.getElementById(this._activeAccordionRowId);
+        this._setActiveContent();
 
-        var accordionButtonState = this._activeRow.getAttribute(Selectors$1.DATA_VISIBLE);
+        this._setVisibleState();
 
-        this._activeButtonExpandState = accordionButtonState === "true" ? "false" : "true";
-        this._activeContentHiddenState = this._activeButtonExpandState === "false" ? "true" : "false";
-
-        this._closeAllIfToggleable();
+        var canExpandMultiple = dom.hasAttr(this._activeContainer, Selectors$1.DATA_TOGGLE_MULTIPLE);
+        if (!canExpandMultiple) this._closeAllIfToggleable();
 
         this._toggleSelectedAccordion();
 
-        this._activeContainerId = null;
+        this._activeRow = null;
+        this._activeButton = null;
+        this._activeContent = null;
         this._activeContainer = null;
       }
     }, {
-      key: "_setupAccordion",
-      value: function _setupAccordion(button) {
-        var buttonId = button.getAttribute(Selectors$1.DATA_TARGET);
-        var buttonContent = document.getElementById(buttonId);
-
-        if (!buttonContent) {
-          return console.error(Messages.NO_CONTENT_ERROR(buttonId));
-        }
-
-        var accordionRowAttr = this._getAccordionRowAttr(buttonId);
-
-        var accordionRow = document.querySelector(accordionRowAttr);
-
-        if (!accordionRow) {
-          return console.error(Messages.NO_ROW_ERROR(buttonId));
-        }
-
-        var buttonHeaderAttr = this._getPossibleAccordionHeaderAttrs(accordionRowAttr);
-
-        var buttonHeader = nodeListToArray(buttonHeaderAttr)[0];
-
-        if (!buttonHeader || !buttonHeader.id) {
-          return console.error(Messages.NO_HEADER_ID_ERROR(buttonId));
-        }
-
-        var buttonContentChildren = getFocusableElements("#".concat(buttonContent.id));
-        button.setAttribute(Selectors$1.ARIA_CONTROLS, buttonId);
-        buttonContent.setAttribute(Selectors$1.ARIA_LABELLEDBY, buttonHeader.id);
-        var contentShouldExpand = accordionRow.getAttribute(Selectors$1.DATA_VISIBLE);
-
-        if (!contentShouldExpand) {
-          return console.error(Messages.NO_VISIBLE_ERROR(buttonId));
-        }
-
-        if (contentShouldExpand === "true") {
-          buttonContent.style.maxHeight = "".concat(buttonContent.scrollHeight, "px");
-          button.setAttribute(Selectors$1.ARIA_EXPANDED, "true");
-          buttonContent.setAttribute(Selectors$1.ARIA_HIDDEN, "false");
-          buttonContentChildren.forEach(function (element) {
-            element.setAttribute(Selectors$1.TABINDEX, "0");
-          });
-        } else {
-          button.setAttribute(Selectors$1.ARIA_EXPANDED, "false");
-          buttonContent.setAttribute(Selectors$1.ARIA_HIDDEN, "true");
-          buttonContentChildren.forEach(function (element) {
-            element.setAttribute(Selectors$1.TABINDEX, "-1");
-          });
-        }
+      key: "_setActiveContent",
+      value: function _setActiveContent() {
+        this._activeContent = dom.find("#".concat(this._activeAccordionRowId));
       }
     }, {
-      key: "_getPossibleAccordionButtonAttrs",
-      value: function _getPossibleAccordionButtonAttrs(attr) {
-        return this._headerLevels.map(function (num) {
-          return "".concat(attr, " > [").concat(Selectors$1.DATA_ACCORDION_ROW, "] > h").concat(num, " [").concat(Selectors$1.DATA_TARGET, "]");
-        }).join(", ");
+      key: "_setVisibleState",
+      value: function _setVisibleState() {
+        var accordionButtonState = dom.attr(this._activeRow, Selectors$1.DATA_VISIBLE);
+        this._nextButtonExpandState = accordionButtonState === "true" ? "false" : "true";
+        this._nextContentHiddenState = this._nextButtonExpandState === "false" ? "true" : "false";
       }
     }, {
-      key: "_getPossibleAccordionHeaderAttrs",
-      value: function _getPossibleAccordionHeaderAttrs(attr) {
-        return this._headerLevels.map(function (num) {
-          return "".concat(attr, " > h").concat(num);
+      key: "_setIds",
+      value: function _setIds() {
+        this._activeContainerId = dom.attr(this._activeButton, Selectors$1.DATA_PARENT);
+        this._activeAccordionRowId = dom.attr(this._activeButton, Selectors$1.DATA_TARGET);
+      }
+    }, {
+      key: "_setActiveContainer",
+      value: function _setActiveContainer() {
+        this._activeContainerAttr = "[".concat(Selectors$1.DATA_ACCORDION, "='").concat(this._activeContainerId, "']");
+        this._activeContainer = dom.find(this._activeContainerAttr);
+      }
+    }, {
+      key: "_setActiveRow",
+      value: function _setActiveRow() {
+        this._activeRowAttr = this._getAccordionRowAttr(this._activeAccordionRowId);
+        this._activeRow = dom.find(this._activeRowAttr);
+      }
+    }, {
+      key: "_getAccordionButtonSelector",
+      value: function _getAccordionButtonSelector(attr) {
+        return this._headers.map(function (header) {
+          return "".concat(attr, " > [").concat(Selectors$1.DATA_ACCORDION_ROW, "] > ").concat(header, " [").concat(Selectors$1.DATA_TARGET, "]");
         }).join(", ");
       }
     }, {
@@ -465,57 +543,52 @@
       value: function _closeAllIfToggleable() {
         var _this4 = this;
 
-        if (this._activeContainer.hasAttribute(Selectors$1.DATA_TOGGLE_MULTIPLE)) return;
-        var allContentAttr = "".concat(this._activeContainerAttr, " [").concat(Selectors$1.ARIA_HIDDEN, "]");
-        var allRows = nodeListToArray("".concat(this._activeContainerAttr, " [").concat(Selectors$1.DATA_VISIBLE, "]"));
-        var allContent = nodeListToArray(allContentAttr);
+        var allContentAttr = "".concat(this._activeContainerAttr, " > [").concat(Selectors$1.DATA_ACCORDION_ROW, "] > [").concat(Selectors$1.ARIA_HIDDEN, "]");
+        var allContent = dom.findAll(allContentAttr);
 
-        var accordionButtonSelector = this._getPossibleAccordionButtonAttrs(this._activeContainerAttr);
+        var accordionButtonSelector = this._getAccordionButtonSelector(this._activeContainerAttr);
 
-        var allButtons = nodeListToArray(accordionButtonSelector);
-        allContent.forEach(function (content) {
-          if (content !== _this4._activeContent) content.style.maxHeight = null;
+        var allButtons = dom.findAll(accordionButtonSelector);
+        var allRows = dom.findAll("".concat(this._activeContainerAttr, " > [").concat(Selectors$1.DATA_ACCORDION_ROW, "]"));
+        allContent.filter(function (content) {
+          return content !== _this4._activeContent;
+        }).forEach(function (content) {
+          return dom.css(content, "maxHeight", null);
         });
         getFocusableElements(allContentAttr).forEach(function (element) {
           element.setAttribute(Selectors$1.TABINDEX, "-1");
         });
 
-        this._toggleAttributeInCollection(allRows, Selectors$1.DATA_VISIBLE, "true", "false");
+        this._toggleAttributeInCollection(allRows, Selectors$1.DATA_VISIBLE, "false");
 
-        this._toggleAttributeInCollection(allButtons, Selectors$1.ARIA_EXPANDED, "true", "false");
+        this._toggleAttributeInCollection(allButtons, Selectors$1.ARIA_EXPANDED, "false");
 
-        this._toggleAttributeInCollection(allContent, Selectors$1.ARIA_HIDDEN, "false", "true");
+        this._toggleAttributeInCollection(allContent, Selectors$1.ARIA_HIDDEN, "true");
       }
     }, {
       key: "_toggleSelectedAccordion",
       value: function _toggleSelectedAccordion() {
         var _this5 = this;
 
-        this._activeRow.setAttribute(Selectors$1.DATA_VISIBLE, this._activeButtonExpandState);
-
-        this._activeButton.setAttribute(Selectors$1.ARIA_EXPANDED, this._activeButtonExpandState);
-
-        this._activeContent.setAttribute(Selectors$1.ARIA_HIDDEN, this._activeContentHiddenState);
-
-        var activeContentBlock = "#".concat(this._activeAccordionRowId);
-        getFocusableElements(activeContentBlock).forEach(function (element) {
-          var value = _this5._activeButtonExpandState === "true" ? "0" : "-1";
-          element.setAttribute(Selectors$1.TABINDEX, value);
+        dom.attr(this._activeRow, Selectors$1.DATA_VISIBLE, this._nextButtonExpandState);
+        dom.attr(this._activeButton, Selectors$1.ARIA_EXPANDED, this._nextButtonExpandState);
+        dom.attr(this._activeContent, Selectors$1.ARIA_HIDDEN, this._nextContentHiddenState);
+        getFocusableElements("#".concat(this._activeAccordionRowId)).forEach(function (element) {
+          var value = _this5._nextButtonExpandState === "true" ? "0" : "-1";
+          dom.attr(element, Selectors$1.TABINDEX, value);
         });
 
-        if (this._activeContent.style.maxHeight) {
-          this._activeContent.style.maxHeight = null;
+        if (dom.css(this._activeContent, "maxHeight")) {
+          dom.css(this._activeContent, "maxHeight", null);
         } else {
-          this._activeContent.style.maxHeight = "".concat(this._activeContent.scrollHeight, "px");
+          dom.css(this._activeContent, "maxHeight", "".concat(this._activeContent.scrollHeight, "px"));
         }
       }
     }, {
       key: "_toggleAttributeInCollection",
-      value: function _toggleAttributeInCollection(elements, attributeName, currentValue, newValue) {
+      value: function _toggleAttributeInCollection(elements, attributeName, newValue) {
         elements.forEach(function (element) {
-          if (element.hasAttribute(attributeName, currentValue)) {
-            element.setAttribute(attributeName, newValue);
-          }
+          return dom.attr(element, attributeName, newValue);
         });
       }
     }]);
@@ -547,13 +620,17 @@
     CLICK: "click"
   };
   var Messages$1 = {
-    NO_PARENT_ERROR: "Could not find dropdown button's [data-parent] attribute.",
-    NO_DROPDOWN_ERROR: function NO_DROPDOWN_ERROR(attr) {
-      return "Could not find dropdown container associated with ".concat(attr, ".");
-    },
+    NO_DROPDOWN_ID_ERROR: "Could not setup dropdown. Make sure it has a valid [data-dropdown] attribute with a unique id as its value.",
     NO_MENU_ERROR: function NO_MENU_ERROR(attr) {
       return "Could not find menu associated with ".concat(attr, ".");
-    }
+    },
+    NO_DROPDOWN_ITEMS_ERROR: function NO_DROPDOWN_ITEMS_ERROR(attr) {
+      return "Could not find any list items associated with ".concat(attr, ".");
+    },
+    NO_DROPDOWN_BUTTONS_ERROR: function NO_DROPDOWN_BUTTONS_ERROR(attr) {
+      return "Could not find any button or anchor elements associated with ".concat(attr, ".");
+    },
+    NO_PARENT_ERROR: "Could not find dropdown button's [data-parent] attribute."
   };
 
   var Dropdown = function (_Utils) {
@@ -572,14 +649,16 @@
       _this._handleClose = _this._handleClose.bind(_assertThisInitialized(_this));
       _this._handleEscapeKeyPress = _this._handleEscapeKeyPress.bind(_assertThisInitialized(_this));
       _this._handleOffMenuClick = _this._handleOffMenuClick.bind(_assertThisInitialized(_this));
+      _this._activeDropdown = {};
       _this._activeDropdownButton = null;
-      _this._activeDropdown = null;
-      _this._activeDropdownMenu = null;
+      _this._activeDropdownMenu = {};
       _this._activeDropdownLinks = [];
       _this._allowFocusReturn = true;
       _this._activeDropdownId = "";
       _this._activeDropdownAttr = "";
       _this._activeDropdownMenuId = "";
+      _this._firstDropdownLink = {};
+      _this._lastDropdownLink = {};
       _this._dropdownButtons = [];
       _this._dropdowns = [];
       _this._dropdownContainerAttr = "[".concat(Selectors$2.DATA_DROPDOWN, "]");
@@ -592,12 +671,12 @@
       value: function start() {
         var _this2 = this;
 
-        this._dropdowns = nodeListToArray("".concat(this._dropdownContainerAttr));
-        this._dropdownButtons = nodeListToArray("".concat(this._dropdownContainerAttr, " > ").concat(this._dropdownTargetAttr));
+        this._dropdowns = dom.findAll("".concat(this._dropdownContainerAttr));
+        this._dropdownButtons = dom.findAll("".concat(this._dropdownContainerAttr, " > ").concat(this._dropdownTargetAttr));
 
         if (this._dropdowns.length) {
-          this._dropdowns.forEach(function (dropdown) {
-            return _this2._setupDropdown(dropdown);
+          this._dropdowns.forEach(function (instance) {
+            return _this2._setup(instance);
           });
         }
 
@@ -617,73 +696,193 @@
         });
       }
     }, {
+      key: "_setup",
+      value: function _setup(instance) {
+        var dropdownId = instance.getAttribute(Selectors$2.DATA_DROPDOWN);
+
+        if (!dropdownId) {
+          throw new Error(Messages$1.NO_DROPDOWN_ID_ERROR);
+        }
+
+        var dropdownAttr = "[".concat(Selectors$2.DATA_DROPDOWN, "=\"").concat(dropdownId, "\"]");
+        var dropdownButton = dom.find("".concat(dropdownAttr, " > ").concat(this._dropdownTargetAttr));
+
+        if (!dom.attr(dropdownButton, Selectors$2.DATA_PARENT)) {
+          throw new Error(Messages$1.NO_PARENT_ERROR);
+        }
+
+        var dropdownMenu = dom.find("".concat(dropdownAttr, " > ul"));
+
+        if (!dropdownMenu) {
+          throw new Error(Messages$1.NO_MENU_ERROR(dropdownAttr));
+        }
+
+        dom.attr(dropdownMenu, Selectors$2.ARIA_LABELLEDBY, dropdownButton.id);
+        dom.attr(dropdownButton, Selectors$2.ARIA_CONTROLS, dropdownMenu.id);
+        dom.attr(dropdownButton, Selectors$2.ARIA_HASPOPUP, "true");
+        dom.attr(dropdownButton, Selectors$2.ARIA_EXPANDED, "false");
+        var dropdownMenuItemsAttr = "".concat(dropdownAttr, " > ul > li");
+        var dropdownMenuListItems = dom.findAll(dropdownMenuItemsAttr);
+
+        if (!dropdownMenuListItems.length) {
+          throw new Error(Messages$1.NO_DROPDOWN_ITEMS_ERROR(dropdownAttr));
+        }
+
+        dropdownMenuListItems.forEach(function (item) {
+          return dom.attr(item, Selectors$2.ROLE, "none");
+        });
+
+        var dropdownMenuButtons = this._getDropdownLinks(dropdownAttr);
+
+        if (!dropdownMenuButtons.length) {
+          throw new Error(Messages$1.NO_DROPDOWN_BUTTONS_ERROR(dropdownAttr));
+        }
+
+        dropdownMenuButtons.forEach(function (link) {
+          dom.attr(link, Selectors$2.ROLE, "menuitem");
+          dom.attr(link, Selectors$2.TABINDEX, "-1");
+        });
+      }
+    }, {
       key: "_render",
       value: function _render(event, key) {
-        var _this4 = this;
-
         event.preventDefault();
         event.stopPropagation();
 
-        if (this._activeDropdownButton) {
-          this._allowFocusReturn = false;
-
-          this._handleClose(event);
-
-          this._allowFocusReturn = true;
-        }
+        this._handleOpenDropdown(event);
 
         this._activeDropdownButton = event.target;
-        this._activeDropdownId = this._activeDropdownButton.getAttribute(Selectors$2.DATA_PARENT);
 
-        if (!this._activeDropdownId) {
-          return console.error(Messages$1.NO_PARENT_ERROR);
+        this._setActiveDropdownId();
+
+        this._setActiveDropdown();
+
+        this._setActiveDropdownMenu();
+
+        this._setVisibleState();
+
+        this._listenToClose();
+
+        this._startEvents();
+
+        if (key && key === KeyCodes$1.ARROW_UP) {
+          this._lastDropdownLink.focus();
+        } else {
+          this._firstDropdownLink.focus();
         }
 
-        this._activeDropdownAttr = "[".concat(Selectors$2.DATA_DROPDOWN, "=\"").concat(this._activeDropdownId, "\"]");
-        this._activeDropdown = document.querySelector(this._activeDropdownAttr);
+        if (iOSMobile) dom.css(document.body, "cursor", "pointer");
+      }
+    }, {
+      key: "_handleClose",
+      value: function _handleClose(event) {
+        event.preventDefault();
+        if (iOSMobile) dom.css(document.body, "cursor", "auto");
+        this.releaseFocus();
 
-        if (!this._activeDropdown) {
-          return console.error(Messages$1.NO_DROPDOWN_ERROR(this._activeDropdownAttr));
+        this._handleHideState();
+
+        this._listenToRender();
+
+        this._stopEvents();
+
+        if (this._allowFocusReturn) {
+          this._handleReturnFocus();
         }
 
-        this._activeDropdownMenuId = this._activeDropdownButton.getAttribute(Selectors$2.DATA_TARGET);
-        this._activeDropdownMenu = document.getElementById(this._activeDropdownMenuId);
+        this._activeDropdownButton = null;
+        this._activeDropdownId = null;
+        this._activeDropdown = null;
+      }
+    }, {
+      key: "_listenToRender",
+      value: function _listenToRender() {
+        this._activeDropdownButton.removeEventListener(Events$2.CLICK, this._handleClose);
 
-        this._activeDropdownButton.setAttribute(Selectors$2.ARIA_EXPANDED, "true");
+        this._activeDropdownButton.addEventListener(Events$2.CLICK, this._render);
+      }
+    }, {
+      key: "_handleHideState",
+      value: function _handleHideState() {
+        var _this4 = this;
 
-        this._activeDropdown.setAttribute(Selectors$2.DATA_VISIBLE, "true");
+        dom.attr(this._activeDropdownButton, Selectors$2.ARIA_EXPANDED, "false");
+        dom.attr(this._activeDropdown, Selectors$2.DATA_VISIBLE, "false");
 
-        this._activeDropdownButton.removeEventListener(Events$2.CLICK, this._render);
-
-        this._activeDropdownButton.addEventListener(Events$2.CLICK, this._handleClose);
+        this._activeDropdownLinks.forEach(function (link) {
+          dom.attr(link, Selectors$2.TABINDEX, "-1");
+          link.removeEventListener(Events$2.CLICK, _this4._handleClose);
+        });
+      }
+    }, {
+      key: "_stopEvents",
+      value: function _stopEvents() {
+        document.removeEventListener(Events$2.KEYDOWN, this._handleEscapeKeyPress);
+        document.removeEventListener(Events$2.CLICK, this._handleOffMenuClick);
+      }
+    }, {
+      key: "_setActiveDropdownId",
+      value: function _setActiveDropdownId() {
+        this._activeDropdownId = dom.attr(this._activeDropdownButton, Selectors$2.DATA_PARENT);
+      }
+    }, {
+      key: "_startEvents",
+      value: function _startEvents() {
+        var _this5 = this;
 
         document.addEventListener(Events$2.KEYDOWN, this._handleEscapeKeyPress);
         document.addEventListener(Events$2.CLICK, this._handleOffMenuClick);
-
-        if (iOSMobile) {
-          document.body.style.cursor = "pointer";
-        }
-
         this._activeDropdownLinks = this._getDropdownLinks(this._activeDropdownAttr);
-        this.firstDropdownLink = this._activeDropdownLinks[0];
-        this.lastDropdownLink = this._activeDropdownLinks[this._activeDropdownLinks.length - 1];
-        this.firstDropdownLink.addEventListener(Events$2.KEYDOWN, this._handleFirstTabClose);
-        this.lastDropdownLink.addEventListener(Events$2.KEYDOWN, this._handleLastTabClose);
+        this._firstDropdownLink = this._activeDropdownLinks[0];
+        this._lastDropdownLink = this._activeDropdownLinks[this._activeDropdownLinks.length - 1];
 
-        if (key && key === KeyCodes$1.ARROW_UP) {
-          this.lastDropdownLink.focus();
-        } else {
-          this.firstDropdownLink.focus();
-        }
+        this._firstDropdownLink.addEventListener(Events$2.KEYDOWN, this._handleFirstTabClose);
+
+        this._lastDropdownLink.addEventListener(Events$2.KEYDOWN, this._handleLastTabClose);
 
         this._activeDropdownLinks.forEach(function (link) {
-          link.setAttribute(Selectors$2.TABINDEX, "0");
-          link.addEventListener(Events$2.CLICK, _this4._handleClose);
+          dom.attr(link, Selectors$2.TABINDEX, "0");
+          link.addEventListener(Events$2.CLICK, _this5._handleClose);
         });
 
         this.captureFocus("".concat(this._activeDropdownAttr, " > ul"), {
           useArrows: true
         });
+      }
+    }, {
+      key: "_listenToClose",
+      value: function _listenToClose() {
+        this._activeDropdownButton.removeEventListener(Events$2.CLICK, this._render);
+
+        this._activeDropdownButton.addEventListener(Events$2.CLICK, this._handleClose);
+      }
+    }, {
+      key: "_setVisibleState",
+      value: function _setVisibleState() {
+        dom.attr(this._activeDropdownButton, Selectors$2.ARIA_EXPANDED, "true");
+        dom.attr(this._activeDropdown, Selectors$2.DATA_VISIBLE, "true");
+      }
+    }, {
+      key: "_setActiveDropdownMenu",
+      value: function _setActiveDropdownMenu() {
+        this._activeDropdownMenuId = dom.attr(this._activeDropdownButton, Selectors$2.DATA_TARGET);
+        this._activeDropdownMenu = dom.find("#".concat(this._activeDropdownMenuId));
+      }
+    }, {
+      key: "_setActiveDropdown",
+      value: function _setActiveDropdown() {
+        this._activeDropdownAttr = "[".concat(Selectors$2.DATA_DROPDOWN, "=\"").concat(this._activeDropdownId, "\"]");
+        this._activeDropdown = dom.find(this._activeDropdownAttr);
+      }
+    }, {
+      key: "_handleOpenDropdown",
+      value: function _handleOpenDropdown(event) {
+        if (!this._activeDropdownButton) return;
+        this._allowFocusReturn = false;
+
+        this._handleClose(event);
+
+        this._allowFocusReturn = true;
       }
     }, {
       key: "_handleFirstTabClose",
@@ -713,43 +912,6 @@
         }
       }
     }, {
-      key: "_handleClose",
-      value: function _handleClose(event) {
-        var _this5 = this;
-
-        event.preventDefault();
-        this.releaseFocus();
-
-        this._activeDropdownButton.setAttribute(Selectors$2.ARIA_EXPANDED, "false");
-
-        this._activeDropdown.setAttribute(Selectors$2.DATA_VISIBLE, "false");
-
-        this._activeDropdownLinks.forEach(function (link) {
-          link.setAttribute(Selectors$2.TABINDEX, "-1");
-          link.removeEventListener(Events$2.CLICK, _this5._handleClose);
-        });
-
-        this._activeDropdownButton.removeEventListener(Events$2.CLICK, this._handleClose);
-
-        this._activeDropdownButton.addEventListener(Events$2.CLICK, this._render);
-
-        document.removeEventListener(Events$2.KEYDOWN, this._handleEscapeKeyPress);
-
-        if (iOSMobile) {
-          document.body.style.cursor = "auto";
-        }
-
-        document.removeEventListener(Events$2.CLICK, this._handleOffMenuClick);
-
-        if (this._allowFocusReturn) {
-          this._handleReturnFocus();
-        }
-
-        this._activeDropdownButton = null;
-        this._activeDropdownId = null;
-        this._activeDropdown = null;
-      }
-    }, {
       key: "_handleEscapeKeyPress",
       value: function _handleEscapeKeyPress(event) {
         if (event.which === KeyCodes$1.ESCAPE) {
@@ -766,45 +928,16 @@
     }, {
       key: "_handleReturnFocus",
       value: function _handleReturnFocus() {
-        this._activeDropdownButton.setAttribute(Selectors$2.TAB_INDEX, "-1");
+        dom.attr(this._activeDropdownButton, Selectors$2.TAB_INDEX, "-1");
 
         this._activeDropdownButton.focus();
 
-        this._activeDropdownButton.removeAttribute(Selectors$2.TAB_INDEX);
+        dom.attr(this._activeDropdownButton, Selectors$2.TAB_INDEX, false);
       }
     }, {
       key: "_getDropdownLinks",
       value: function _getDropdownLinks(attr) {
-        return nodeListToArray("".concat(attr, " > ul > li > a, ").concat(attr, " > ul > li > button"));
-      }
-    }, {
-      key: "_setupDropdown",
-      value: function _setupDropdown(dropdown) {
-        var dropdownId = dropdown.getAttribute(Selectors$2.DATA_DROPDOWN);
-        var dropdownAttr = "[".concat(Selectors$2.DATA_DROPDOWN, "=\"").concat(dropdownId, "\"]");
-        var dropdownMenuItemsAttr = "".concat(dropdownAttr, " > ul > li");
-        var dropdownMenu = document.querySelector("".concat(dropdownAttr, " > ul"));
-
-        if (!dropdownMenu) {
-          return console.error(Messages$1.NO_MENU_ERROR(dropdownAttr));
-        }
-
-        var dropdownButton = document.querySelector("".concat(dropdownAttr, " > ").concat(this._dropdownTargetAttr));
-        dropdownButton.setAttribute(Selectors$2.ARIA_CONTROLS, dropdownMenu.id);
-        dropdownButton.setAttribute(Selectors$2.ARIA_HASPOPUP, "true");
-        dropdownButton.setAttribute(Selectors$2.ARIA_EXPANDED, "false");
-        dropdownMenu.setAttribute(Selectors$2.ARIA_LABELLEDBY, dropdownButton.id);
-        var dropdownMenuListItems = nodeListToArray(dropdownMenuItemsAttr);
-        dropdownMenuListItems.forEach(function (item) {
-          return item.setAttribute(Selectors$2.ROLE, "none");
-        });
-
-        var dropdownMenuButtons = this._getDropdownLinks(dropdownAttr);
-
-        dropdownMenuButtons.forEach(function (link) {
-          link.setAttribute(Selectors$2.ROLE, "menuitem");
-          link.setAttribute(Selectors$2.TABINDEX, "-1");
-        });
+        return dom.findAll("".concat(attr, " > ul > li > a, ").concat(attr, " > ul > li > button"));
       }
     }]);
 
@@ -832,8 +965,10 @@
     RESIZE: "resize"
   };
   var Messages$2 = {
-    NO_BUTTON_ID_ERROR: "Could not find an id on your [data-modal-button] element. Modal can't be opened.",
-    NO_MODAL_ID_ERROR: "Could not detect an id on your [data-modal] element. Please add a value matching a button's [data-modal-button] attribute.",
+    NO_BUTTON_ERROR: function NO_BUTTON_ERROR(id) {
+      return "Could not find modal trigger with id ".concat(id, ".");
+    },
+    NO_MODAL_ID_ERROR: "Could not detect an id on your [data-modal] element. Please add a value matching the modal trigger's [data-parent] attribute.",
     NO_MODAL_ERROR: function NO_MODAL_ERROR(id) {
       return "Could not find a [data-parent='".concat(id, "'] attribute within your [data-modal='").concat(id, "'] element.");
     }
@@ -858,9 +993,10 @@
       _this._activeModalOverlay = {};
       _this._activeModal = {};
       _this._activeModalId = "";
-      _this._activeModalOverlayAttr = "";
       _this._activeModalSelector = "";
       _this._activeModalCloseButtons = [];
+      _this._originalPagePaddingRight = "";
+      _this._scrollbarOffset = 0;
       _this._modalContainerAttr = "[".concat(Selectors$3.DATA_MODAL, "]");
       return _this;
     }
@@ -870,18 +1006,14 @@
       value: function start() {
         var _this2 = this;
 
-        this._modals = nodeListToArray(this._modalContainerAttr);
+        this._modals = dom.findAll(this._modalContainerAttr);
         getFocusableElements(this._modalContainerAttr).forEach(function (element) {
-          element.setAttribute(Selectors$3.TABINDEX, "-1");
+          dom.attr(element, Selectors$3.TABINDEX, "-1");
         });
 
         if (this._modals.length) {
           this._modals.forEach(function (instance) {
-            _this2._setupModal(instance);
-
-            var id = instance.getAttribute(Selectors$3.DATA_MODAL);
-            var button = document.querySelector("[".concat(Selectors$3.DATA_TARGET, "='").concat(id, "']"));
-            button.addEventListener(Events$3.CLICK, _this2._render);
+            _this2._setup(instance);
           });
         }
       }
@@ -891,113 +1023,214 @@
         var _this3 = this;
 
         this._modals.forEach(function (instance) {
-          var id = instance.getAttribute(Selectors$3.DATA_MODAL);
-          var button = document.querySelector("[".concat(Selectors$3.DATA_TARGET, "='").concat(id, "']"));
+          var id = dom.attr(instance, Selectors$3.DATA_MODAL);
+          var button = dom.find("[".concat(Selectors$3.DATA_TARGET, "='").concat(id, "']"));
+
+          if (!button) {
+            throw new Error(Messages$2.NO_BUTTON_ERROR(id));
+          }
+
           button.removeEventListener(Events$3.CLICK, _this3._render);
         });
       }
     }, {
-      key: "_render",
-      value: function _render(event) {
-        var _this4 = this;
+      key: "_setup",
+      value: function _setup(instance) {
+        var modalId = dom.attr(instance, Selectors$3.DATA_MODAL);
 
-        event.preventDefault();
-        this._activeModalButton = event.target;
-        this._activeModalId = this._activeModalButton.getAttribute(Selectors$3.DATA_TARGET);
-
-        if (!this._activeModalId) {
-          return console.error(Messages$2.NO_BUTTON_ID_ERROR);
+        if (!modalId) {
+          throw new Error(Messages$2.NO_MODAL_ID_ERROR);
         }
 
-        this._activeModalOverlay = document.querySelector("[".concat(Selectors$3.DATA_MODAL, "=\"").concat(this._activeModalId, "\"]"));
-        this._activeModalSelector = "[".concat(Selectors$3.DATA_PARENT, "='").concat(this._activeModalId, "']");
-        this._activeModal = this._activeModalOverlay.querySelector(this._activeModalSelector);
-        this._activeModalCloseButtons = nodeListToArray("".concat(this._activeModalSelector, " [").concat(Selectors$3.DATA_CLOSE, "]"));
-        getFocusableElements(this._activeModalSelector).forEach(function (element) {
-          element.setAttribute(Selectors$3.TABINDEX, "0");
-        });
+        var modal = dom.find("[".concat(Selectors$3.DATA_PARENT, "='").concat(modalId, "']"), instance);
+
+        if (!modal) {
+          throw new Error(Messages$2.NO_MODAL_ERROR(modalId));
+        }
+
+        var modalWrapper = dom.find("[".concat(Selectors$3.DATA_MODAL, "='").concat(modalId, "']"));
+        dom.attr(modalWrapper, Selectors$3.ARIA_HIDDEN, "true");
+        dom.attr(modalWrapper, Selectors$3.DATA_VISIBLE, "false");
+        dom.attr(modal, Selectors$3.ARIA_MODAL, "true");
+        dom.attr(modal, Selectors$3.ROLE, "dialog");
+        var modalButton = dom.find("[".concat(Selectors$3.DATA_TARGET, "='").concat(modalId, "']"));
+
+        if (!modalButton) {
+          throw new Error(Messages$2.NO_BUTTON_ERROR(modalId));
+        }
+
+        modalButton.addEventListener(Events$3.CLICK, this._render);
+      }
+    }, {
+      key: "_render",
+      value: function _render(event) {
+        event.preventDefault();
+        this._activeModalButton = event.target;
+
+        this._setActiveModalId();
+
+        this._setActiveModalOverlay();
+
+        this._setActiveModal();
+
+        this._enableFocusOnChildren();
+
+        this._handleScrollbarOffset();
 
         this._handleScrollStop();
 
         this.captureFocus(this._activeModalSelector);
 
-        this._activeModalOverlay.setAttribute(Selectors$3.ARIA_HIDDEN, "false");
+        this._setAttributes();
 
-        this._activeModalOverlay.setAttribute(Selectors$3.DATA_VISIBLE, "true");
+        this._setCloseButtons();
 
-        this._activeModal.setAttribute(Selectors$3.TABINDEX, "-1");
-
-        this._activeModal.focus();
+        this._handleModalFocus();
 
         this._activeModalOverlay.scrollTop = 0;
 
-        if (iOSMobile) {
-          this._activeModalOverlay.style.cursor = "pointer";
-        }
-
-        document.addEventListener(Events$3.KEYDOWN, this._handleEscapeKeyPress);
-        document.addEventListener(Events$3.CLICK, this._handleOverlayClick);
-
-        this._activeModalCloseButtons.forEach(function (button) {
-          button.addEventListener(Events$3.CLICK, _this4._handleClose);
-        });
-      }
-    }, {
-      key: "_setupModal",
-      value: function _setupModal(instance) {
-        var modalId = instance.getAttribute(Selectors$3.DATA_MODAL);
-
-        if (!modalId) {
-          return console.error(Messages$2.NO_MODAL_ID_ERROR);
-        }
-
-        var modal = instance.querySelector("[".concat(Selectors$3.DATA_PARENT, "='").concat(modalId, "']"));
-
-        if (!modal) {
-          return console.error(Messages$2.NO_MODAL_ERROR(modalId));
-        }
-
-        var modalWrapper = document.querySelector("[".concat(Selectors$3.DATA_MODAL, "='").concat(modalId, "']"));
-        modalWrapper.setAttribute(Selectors$3.ARIA_HIDDEN, "true");
-        modalWrapper.setAttribute(Selectors$3.DATA_VISIBLE, "false");
-        modal.setAttribute(Selectors$3.ARIA_MODAL, "true");
-        modal.setAttribute(Selectors$3.ROLE, "dialog");
+        this._startEvents();
       }
     }, {
       key: "_handleClose",
       value: function _handleClose(event) {
-        var _this5 = this;
-
         event.preventDefault();
 
-        this._activeModalOverlay.setAttribute(Selectors$3.DATA_VISIBLE, "false");
+        this._stopEvents();
 
         this._handleReturnFocus();
 
-        this._handleScrollRestore();
+        this._removeAttributes();
 
         this.releaseFocus();
 
-        this._activeModalOverlay.setAttribute(Selectors$3.ARIA_HIDDEN, "true");
+        this._handleScrollRestore();
 
-        this._activeModal.removeAttribute(Selectors$3.TABINDEX);
+        this._removeScrollbarOffset();
 
+        this._disableFocusOnChildren();
+
+        if (iOSMobile) dom.css(this._activeModalOverlay, "cursor", "auto");
+        this._activeModalId = null;
+        this._activeModalButton = null;
+        this._activeModal = null;
+      }
+    }, {
+      key: "_setCloseButtons",
+      value: function _setCloseButtons() {
+        this._activeModalCloseButtons = dom.findAll("".concat(this._activeModalSelector, " [").concat(Selectors$3.DATA_CLOSE, "]"));
+      }
+    }, {
+      key: "_setActiveModalId",
+      value: function _setActiveModalId() {
+        this._activeModalId = dom.attr(this._activeModalButton, Selectors$3.DATA_TARGET);
+      }
+    }, {
+      key: "_setActiveModalOverlay",
+      value: function _setActiveModalOverlay() {
+        this._activeModalOverlay = dom.find("[".concat(Selectors$3.DATA_MODAL, "='").concat(this._activeModalId, "']"));
+      }
+    }, {
+      key: "_removeAttributes",
+      value: function _removeAttributes() {
+        dom.attr(this._activeModalOverlay, Selectors$3.DATA_VISIBLE, "false");
+        dom.attr(this._activeModalOverlay, Selectors$3.ARIA_HIDDEN, "true");
+        dom.attr(this._activeModal, Selectors$3.TABINDEX, false);
+      }
+    }, {
+      key: "_disableFocusOnChildren",
+      value: function _disableFocusOnChildren() {
         getFocusableElements(this._activeModalSelector).forEach(function (element) {
-          element.setAttribute(Selectors$3.TABINDEX, "-1");
+          dom.attr(element, Selectors$3.TABINDEX, "-1");
         });
-
-        if (iOSMobile) {
-          this._activeModalOverlay.style.cursor = "auto";
-        }
+      }
+    }, {
+      key: "_stopEvents",
+      value: function _stopEvents() {
+        var _this4 = this;
 
         document.removeEventListener(Events$3.KEYDOWN, this._handleEscapeKeyPress);
         document.removeEventListener(Events$3.CLICK, this._handleOverlayClick);
 
         this._activeModalCloseButtons.forEach(function (button) {
-          button.removeEventListener(Events$3.CLICK, _this5._handleClose);
+          button.removeEventListener(Events$3.CLICK, _this4._handleClose);
         });
+      }
+    }, {
+      key: "_setActiveModal",
+      value: function _setActiveModal() {
+        this._activeModalSelector = "[".concat(Selectors$3.DATA_PARENT, "='").concat(this._activeModalId, "']");
+        this._activeModal = dom.find(this._activeModalSelector, this._activeModalOverlay);
+      }
+    }, {
+      key: "_setAttributes",
+      value: function _setAttributes() {
+        dom.attr(this._activeModalOverlay, Selectors$3.ARIA_HIDDEN, "false");
+        dom.attr(this._activeModalOverlay, Selectors$3.DATA_VISIBLE, "true");
+        if (iOSMobile) dom.css(this._activeModalOverlay, "cursor", "pointer");
+      }
+    }, {
+      key: "_startEvents",
+      value: function _startEvents() {
+        var _this5 = this;
 
-        this._activeModalId = null;
+        document.addEventListener(Events$3.KEYDOWN, this._handleEscapeKeyPress);
+        document.addEventListener(Events$3.CLICK, this._handleOverlayClick);
+
+        this._activeModalCloseButtons.forEach(function (button) {
+          button.addEventListener(Events$3.CLICK, _this5._handleClose);
+        });
+      }
+    }, {
+      key: "_handleModalFocus",
+      value: function _handleModalFocus() {
+        dom.attr(this._activeModal, Selectors$3.TABINDEX, "-1");
+
+        this._activeModal.focus();
+      }
+    }, {
+      key: "_enableFocusOnChildren",
+      value: function _enableFocusOnChildren() {
+        getFocusableElements(this._activeModalSelector).forEach(function (element) {
+          element.setAttribute(Selectors$3.TABINDEX, "0");
+        });
+      }
+    }, {
+      key: "_getScrollbarOffset",
+      value: function _getScrollbarOffset() {
+        return window.innerWidth - document.body.getBoundingClientRect().right;
+      }
+    }, {
+      key: "_handleScrollbarOffset",
+      value: function _handleScrollbarOffset() {
+        if (!this._scrollbarIsVisible()) return;
+        this._scrollbarOffset = this._getScrollbarOffset();
+        this._originalPagePaddingRight = dom.css(document.body, "paddingRight");
+        dom.css(document.body, "paddingRight", "".concat(this._scrollbarOffset, "px"));
+      }
+    }, {
+      key: "_scrollbarIsVisible",
+      value: function _scrollbarIsVisible() {
+        if (typeof window.innerWidth === "number") {
+          return window.innerWidth > document.body.getBoundingClientRect().right;
+        }
+      }
+    }, {
+      key: "_removeScrollbarOffset",
+      value: function _removeScrollbarOffset() {
+        var _this6 = this;
+
+        var originalPadding = this._originalPagePaddingRight;
+        dom.css(this._activeModalOverlay, "paddingLeft", "".concat(this._scrollbarOffset, "px"));
+        setTimeout(function () {
+          return dom.css(_this6._activeModalOverlay, "paddingLeft", "");
+        }, 500);
+
+        if (originalPadding) {
+          dom.css(document.body, "paddingRight", "".concat(originalPadding, "px"));
+        } else {
+          dom.css(document.body, "paddingRight", "");
+        }
       }
     }, {
       key: "_handleOverlayClick",
@@ -1016,23 +1249,23 @@
     }, {
       key: "_handleReturnFocus",
       value: function _handleReturnFocus() {
-        this._activeModalButton.setAttribute(Selectors$3.TABINDEX, "-1");
+        dom.attr(this._activeModalButton, Selectors$3.TABINDEX, "-1");
 
         this._activeModalButton.focus();
 
-        this._activeModalButton.removeAttribute(Selectors$3.TABINDEX);
+        dom.attr(this._activeModalButton, Selectors$3.TABINDEX, false);
       }
     }, {
       key: "_handleScrollRestore",
       value: function _handleScrollRestore() {
-        document.body.classList.remove(Selectors$3.NO_SCROLL);
-        document.documentElement.classList.remove(Selectors$3.NO_SCROLL);
+        dom.removeClass(document.body, Selectors$3.NO_SCROLL);
+        dom.removeClass(document.documentElement, Selectors$3.NO_SCROLL);
       }
     }, {
       key: "_handleScrollStop",
       value: function _handleScrollStop() {
-        document.body.classList.add(Selectors$3.NO_SCROLL);
-        document.documentElement.classList.add(Selectors$3.NO_SCROLL);
+        dom.addClass(document.body, Selectors$3.NO_SCROLL);
+        dom.addClass(document.documentElement, Selectors$3.NO_SCROLL);
       }
     }]);
 
@@ -1086,10 +1319,10 @@
       value: function start() {
         var _this = this;
 
-        this._allTooltips = document.querySelectorAll("[".concat(Selectors$4.DATA_TOOLTIP, "]"));
+        this._allTooltips = dom.findAll("[".concat(Selectors$4.DATA_TOOLTIP, "]"));
 
         this._allTooltips.forEach(function (instance) {
-          _this._setupTooltip(instance);
+          _this._setup(instance);
         });
       }
     }, {
@@ -1098,11 +1331,41 @@
         var _this2 = this;
 
         this._allTooltips.forEach(function (instance) {
-          var id = instance.getAttribute(Selectors$4.DATA_TOOLTIP);
-          var trigger = instance.querySelector(_this2._getTrigger(id));
+          var id = dom.attr(instance, Selectors$4.DATA_TOOLTIP);
+          var trigger = dom.find(_this2._getTrigger(id), instance);
+
+          if (_this2._activeTooltip || _this2._activeTrigger) {
+            _this2._handleClose();
+          }
+
           trigger.removeEventListener(Events$4.MOUSEOVER, _this2._render);
           trigger.removeEventListener(Events$4.FOCUS, _this2._render);
         });
+      }
+    }, {
+      key: "_setup",
+      value: function _setup(instance) {
+        var tooltipId = dom.attr(instance, Selectors$4.DATA_TOOLTIP);
+
+        if (!tooltipId) {
+          throw new Error(Messages$3.NO_ID_ERROR);
+        }
+
+        var trigger = dom.find(this._getTrigger(tooltipId), instance);
+        var tooltip = dom.find("#".concat(tooltipId), instance);
+
+        if (!trigger) {
+          throw new Error(Messages$3.NO_TRIGGER_ERROR(tooltipId));
+        }
+
+        if (!tooltip) {
+          throw new Error(Messages$3.NO_TOOLTIP_ERROR(tooltipId));
+        }
+
+        dom.attr(trigger, Selectors$4.ARIA_DESCRIBEDBY, tooltipId);
+        dom.attr(tooltip, Selectors$4.ROLE, "tooltip");
+        trigger.addEventListener(Events$4.MOUSEOVER, this._render);
+        trigger.addEventListener(Events$4.FOCUS, this._render);
       }
     }, {
       key: "_render",
@@ -1119,33 +1382,33 @@
           this._alignTooltip("width");
         }
 
-        this._showTooltip();
+        this._setVisibleState();
 
-        this._listenForClose();
+        this._startCloseEvents();
       }
     }, {
       key: "_handleClose",
       value: function _handleClose() {
-        this._hideTooltip();
+        this._setHideState();
 
-        this._listenForOpen();
+        this._startOpenEvents();
 
         this._activeTrigger = null;
         this._activeTooltip = null;
       }
     }, {
-      key: "_showTooltip",
-      value: function _showTooltip() {
-        this._activeTooltip.setAttribute(Selectors$4.DATA_VISIBLE, "true");
+      key: "_setVisibleState",
+      value: function _setVisibleState() {
+        dom.attr(this._activeTooltip, Selectors$4.DATA_VISIBLE, "true");
       }
     }, {
-      key: "_hideTooltip",
-      value: function _hideTooltip() {
-        this._activeTooltip.setAttribute(Selectors$4.DATA_VISIBLE, "false");
+      key: "_setHideState",
+      value: function _setHideState() {
+        dom.attr(this._activeTooltip, Selectors$4.DATA_VISIBLE, "false");
       }
     }, {
-      key: "_listenForClose",
-      value: function _listenForClose() {
+      key: "_startCloseEvents",
+      value: function _startCloseEvents() {
         this._activeTrigger.removeEventListener(Events$4.MOUSEOVER, this._render);
 
         this._activeTrigger.removeEventListener(Events$4.FOCUS, this._render);
@@ -1157,7 +1420,7 @@
         document.addEventListener(Events$4.KEYDOWN, this._handleEscapeKeyPress);
 
         if (iOSMobile) {
-          document.body.style.cursor = "pointer";
+          dom.css(document.body, "cursor", "pointer");
         }
       }
     }, {
@@ -1168,8 +1431,8 @@
         }
       }
     }, {
-      key: "_listenForOpen",
-      value: function _listenForOpen() {
+      key: "_startOpenEvents",
+      value: function _startOpenEvents() {
         this._activeTrigger.removeEventListener(Events$4.MOUSEOUT, this._handleClose);
 
         this._activeTrigger.removeEventListener(Events$4.BLUR, this._handleClose);
@@ -1179,50 +1442,23 @@
         this._activeTrigger.addEventListener(Events$4.FOCUS, this._render);
 
         document.removeEventListener(Events$4.KEYDOWN, this._handleEscapeKeyPress);
-
-        if (iOSMobile) {
-          document.body.style.cursor = "auto";
-        }
+        if (iOSMobile) dom.css(document.body, "cursor", "auto");
       }
     }, {
       key: "_alignTooltip",
       value: function _alignTooltip(property) {
-        var triggerLength = this._getComputedLength(this._activeTrigger, property);
+        var triggerSize = this._getSize(this._activeTrigger, property);
 
-        var tooltipLength = this._getComputedLength(this._activeTooltip, property);
+        var tooltipSize = this._getSize(this._activeTooltip, property);
 
-        var triggerIsLongest = triggerLength > tooltipLength;
-        var offset = triggerIsLongest ? (triggerLength - tooltipLength) / 2 : (tooltipLength - triggerLength) / -2;
+        var triggerIsBigger = triggerSize > tooltipSize;
+        var offset = triggerIsBigger ? (triggerSize - tooltipSize) / 2 : (tooltipSize - triggerSize) / -2;
 
         if (property === "height") {
-          this._activeTooltip.style.top = "".concat(offset, "px");
+          dom.css(this._activeTooltip, "top", "".concat(offset, "px"));
         } else {
-          this._activeTooltip.style.left = "".concat(offset, "px");
+          dom.css(this._activeTooltip, "left", "".concat(offset, "px"));
         }
-      }
-    }, {
-      key: "_setupTooltip",
-      value: function _setupTooltip(instance) {
-        var id = instance.getAttribute(Selectors$4.DATA_TOOLTIP);
-        var trigger = instance.querySelector(this._getTrigger(id));
-        var tooltip = document.getElementById(id);
-
-        if (!id) {
-          return console.error(Messages$3.NO_ID_ERROR);
-        }
-
-        if (!trigger) {
-          return console.error(Messages$3.NO_TRIGGER_ERROR(id));
-        }
-
-        if (!tooltip) {
-          return console.error(Messages$3.NO_TOOLTIP_ERROR(id));
-        }
-
-        trigger.setAttribute(Selectors$4.ARIA_DESCRIBEDBY, id);
-        tooltip.setAttribute(Selectors$4.ROLE, "tooltip");
-        trigger.addEventListener(Events$4.MOUSEOVER, this._render);
-        trigger.addEventListener(Events$4.FOCUS, this._render);
       }
     }, {
       key: "_getTrigger",
@@ -1230,15 +1466,14 @@
         return "[".concat(Selectors$4.DATA_TARGET, "=\"").concat(id, "\"]");
       }
     }, {
-      key: "_getComputedLength",
-      value: function _getComputedLength(element, property) {
-        return parseInt(window.getComputedStyle(element)[property].slice(0, -2));
+      key: "_getSize",
+      value: function _getSize(element, property) {
+        return Math.floor(element.getBoundingClientRect()[property]);
       }
     }, {
       key: "_isLeftOrRight",
       value: function _isLeftOrRight() {
-        var classes = this._activeTooltip.classList;
-        return classes.contains(Selectors$4.DROP_LEFT_CLASS) || classes.contains(Selectors$4.DROP_RIGHT_CLASS);
+        return dom.hasClass(this._activeTooltip, Selectors$4.DROP_LEFT_CLASS, Selectors$4.DROP_RIGHT_CLASS);
       }
     }]);
 

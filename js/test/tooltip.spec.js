@@ -1,7 +1,4 @@
 import Undernet from "../src/index"
-
-// This is the starting DOM.
-// It is assigned to document.body.innerHTML before each test suite.
 const dom = `
   <span class="tooltip" data-tooltip="new-tooltip">
     <button class="tooltip-trigger" data-target="new-tooltip">Tooltip Button</button>
@@ -12,7 +9,7 @@ const dom = `
   <span class="tooltip" data-tooltip="new-tooltip10">
     <button class="tooltip-trigger" data-target="new-tooltip10">Tooltip Button</button>
     <div class="tooltip-box" id="new-tooltip10">
-      <em>This</em> <b>is a</b> <u>tooltip</u>.
+      This is a tooltip.
     </div>
   </span>
 `
@@ -116,6 +113,45 @@ describe("Tooltips", () => {
       expect(tooltip1.getAttribute("data-visible")).toEqual("false")
     })
   })
+})
 
-  describe("Errors", () => {})
+const errorDom = (target, tooltip, id) => `
+  <span class="tooltip" data-tooltip="${tooltip}">
+    <button class="tooltip-trigger" data-target="${target}">Tooltip Button</button>
+    <div class="tooltip-box" id="${id}">
+      This is a tooltip.
+    </div>
+  </span>
+`
+
+describe("Tooltip Error Handling", () => {
+  it("throws error if [data-tooltip] is empty", () => {
+    document.body.innerHTML = errorDom("new-tooltip", "", "new-tooltip")
+
+    try {
+      Undernet.Tooltips.start()
+    } catch (e) {
+      expect(e.message).toEqual("Could not find your tooltip's id.")
+    }
+  })
+
+  it("throws error if [data-target] attribute does not match its parent [data-tooltip]", () => {
+    document.body.innerHTML = errorDom("", "new-tooltip", "new-tooltip")
+
+    try {
+      Undernet.Tooltips.start()
+    } catch (e) {
+      expect(e.message).toEqual("Could not find a tooltip trigger with id of new-tooltip.")
+    }
+  })
+
+  it("throws error if tooltip container's [id] does not match its parent [data-tooltip]", () => {
+    document.body.innerHTML = errorDom("new-tooltip", "new-tooltip", "")
+
+    try {
+      Undernet.Tooltips.start()
+    } catch (e) {
+      expect(e.message).toEqual("Could not find a tooltip with id of new-tooltip.")
+    }
+  })
 })

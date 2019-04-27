@@ -1,4 +1,4 @@
-import Utils, { iOSMobile, getFocusableElements, nodeListToArray } from "./utils"
+import Utils, { iOSMobile, getFocusableElements, dom } from "./utils"
 
 const KeyCodes = {
   ESCAPE: 27,
@@ -28,19 +28,13 @@ const Events = {
 }
 
 const Messages = {
-  NO_BUTTON_ID_ERROR:
-    "Could not find an id on your [data-modal-button] element. Modal can't be opened.",
+  NO_BUTTON_ERROR: id => `Could not find modal trigger with id ${id}.`,
   NO_MODAL_ID_ERROR:
-    "Could not detect an id on your [data-modal] element. Please add a value matching a button's [data-modal-button] attribute.",
+    "Could not detect an id on your [data-modal] element. Please add a value matching the modal trigger's [data-parent] attribute.",
   NO_MODAL_ERROR: id =>
     `Could not find a [data-parent='${id}'] attribute within your [data-modal='${id}'] element.`,
 }
 
-/**
- * Modal component class.
- * @module Modal
- * @requires Utils
- */
 export default class Modal extends Utils {
   constructor() {
     super()
@@ -60,9 +54,10 @@ export default class Modal extends Utils {
     this._activeModalOverlay = {}
     this._activeModal = {}
     this._activeModalId = ""
-    this._activeModalOverlayAttr = ""
     this._activeModalSelector = ""
     this._activeModalCloseButtons = []
+    this._originalPagePaddingRight = ""
+    this._scrollbarOffset = 0
 
     // attribute helpers
     this._modalContainerAttr = `[${Selectors.DATA_MODAL}]`
@@ -70,188 +65,223 @@ export default class Modal extends Utils {
 
   // public
 
-  /**
-   * Begin listening to modals.
-   */
   start() {
-    this._modals = nodeListToArray(this._modalContainerAttr)
+    this._modals = dom.findAll(this._modalContainerAttr)
 
     getFocusableElements(this._modalContainerAttr).forEach(element => {
-      element.setAttribute(Selectors.TABINDEX, "-1")
+      dom.attr(element, Selectors.TABINDEX, "-1")
     })
 
     if (this._modals.length) {
       this._modals.forEach(instance => {
-        this._setupModal(instance)
-        const id = instance.getAttribute(Selectors.DATA_MODAL)
-        const button = document.querySelector(`[${Selectors.DATA_TARGET}='${id}']`)
-        button.addEventListener(Events.CLICK, this._render)
+        this._setup(instance)
       })
     }
   }
 
-  /**
-   * Stop listening to modals
-   */
   stop() {
     this._modals.forEach(instance => {
-      const id = instance.getAttribute(Selectors.DATA_MODAL)
-      const button = document.querySelector(`[${Selectors.DATA_TARGET}='${id}']`)
+      const id = dom.attr(instance, Selectors.DATA_MODAL)
+      const button = dom.find(`[${Selectors.DATA_TARGET}='${id}']`)
+
+      if (!button) {
+        throw new Error(Messages.NO_BUTTON_ERROR(id))
+      }
+
       button.removeEventListener(Events.CLICK, this._render)
     })
   }
 
   // private
 
-  /**
-   * Find a button through event.target, then render the corresponding modal attribute via matching target id
-   * @param {Object} event - The event object
-   */
+  _setup(instance) {
+    const modalId = dom.attr(instance, Selectors.DATA_MODAL)
+
+    if (!modalId) {
+      throw new Error(Messages.NO_MODAL_ID_ERROR)
+    }
+
+    const modal = dom.find(`[${Selectors.DATA_PARENT}='${modalId}']`, instance)
+
+    if (!modal) {
+      throw new Error(Messages.NO_MODAL_ERROR(modalId))
+    }
+
+    const modalWrapper = dom.find(`[${Selectors.DATA_MODAL}='${modalId}']`)
+
+    dom.attr(modalWrapper, Selectors.ARIA_HIDDEN, "true")
+    dom.attr(modalWrapper, Selectors.DATA_VISIBLE, "false")
+    dom.attr(modal, Selectors.ARIA_MODAL, "true")
+    dom.attr(modal, Selectors.ROLE, "dialog")
+
+    const modalButton = dom.find(`[${Selectors.DATA_TARGET}='${modalId}']`)
+
+    if (!modalButton) {
+      throw new Error(Messages.NO_BUTTON_ERROR(modalId))
+    }
+
+    modalButton.addEventListener(Events.CLICK, this._render)
+  }
+
   _render(event) {
     event.preventDefault()
+
     this._activeModalButton = event.target
-    this._activeModalId = this._activeModalButton.getAttribute(Selectors.DATA_TARGET)
 
-    if (!this._activeModalId) {
-      return console.error(Messages.NO_BUTTON_ID_ERROR)
-    }
-
-    this._activeModalOverlay = document.querySelector(
-      `[${Selectors.DATA_MODAL}="${this._activeModalId}"]`
-    )
-
-    this._activeModalSelector = `[${Selectors.DATA_PARENT}='${this._activeModalId}']`
-    this._activeModal = this._activeModalOverlay.querySelector(this._activeModalSelector)
-
-    this._activeModalCloseButtons = nodeListToArray(
-      `${this._activeModalSelector} [${Selectors.DATA_CLOSE}]`
-    )
-
-    getFocusableElements(this._activeModalSelector).forEach(element => {
-      element.setAttribute(Selectors.TABINDEX, "0")
-    })
-
+    this._setActiveModalId()
+    this._setActiveModalOverlay()
+    this._setActiveModal()
+    this._enableFocusOnChildren()
+    this._handleScrollbarOffset()
     this._handleScrollStop()
     this.captureFocus(this._activeModalSelector)
-    this._activeModalOverlay.setAttribute(Selectors.ARIA_HIDDEN, "false")
-    this._activeModalOverlay.setAttribute(Selectors.DATA_VISIBLE, "true")
-
-    this._activeModal.setAttribute(Selectors.TABINDEX, "-1")
-    this._activeModal.focus()
-
+    this._setAttributes()
+    this._setCloseButtons()
+    this._handleModalFocus()
     this._activeModalOverlay.scrollTop = 0
+    this._startEvents()
+  }
 
-    if (iOSMobile) {
-      this._activeModalOverlay.style.cursor = "pointer"
-    }
+  _handleClose(event) {
+    event.preventDefault()
 
-    // begin listening to events
+    this._stopEvents()
+    this._handleReturnFocus()
+    this._removeAttributes()
+    this.releaseFocus()
+    this._handleScrollRestore()
+    this._removeScrollbarOffset()
+    this._disableFocusOnChildren()
+
+    if (iOSMobile) dom.css(this._activeModalOverlay, "cursor", "auto")
+
+    this._activeModalId = null
+    this._activeModalButton = null
+    this._activeModal = null
+  }
+
+  _setCloseButtons() {
+    this._activeModalCloseButtons = dom.findAll(
+      `${this._activeModalSelector} [${Selectors.DATA_CLOSE}]`
+    )
+  }
+
+  _setActiveModalId() {
+    this._activeModalId = dom.attr(this._activeModalButton, Selectors.DATA_TARGET)
+  }
+
+  _setActiveModalOverlay() {
+    this._activeModalOverlay = dom.find(`[${Selectors.DATA_MODAL}='${this._activeModalId}']`)
+  }
+
+  _removeAttributes() {
+    dom.attr(this._activeModalOverlay, Selectors.DATA_VISIBLE, "false")
+    dom.attr(this._activeModalOverlay, Selectors.ARIA_HIDDEN, "true")
+    dom.attr(this._activeModal, Selectors.TABINDEX, false)
+  }
+
+  _disableFocusOnChildren() {
+    getFocusableElements(this._activeModalSelector).forEach(element => {
+      dom.attr(element, Selectors.TABINDEX, "-1")
+    })
+  }
+
+  _stopEvents() {
+    document.removeEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
+    document.removeEventListener(Events.CLICK, this._handleOverlayClick)
+
+    this._activeModalCloseButtons.forEach(button => {
+      button.removeEventListener(Events.CLICK, this._handleClose)
+    })
+  }
+
+  _setActiveModal() {
+    this._activeModalSelector = `[${Selectors.DATA_PARENT}='${this._activeModalId}']`
+    this._activeModal = dom.find(this._activeModalSelector, this._activeModalOverlay)
+  }
+
+  _setAttributes() {
+    dom.attr(this._activeModalOverlay, Selectors.ARIA_HIDDEN, "false")
+    dom.attr(this._activeModalOverlay, Selectors.DATA_VISIBLE, "true")
+    if (iOSMobile) dom.css(this._activeModalOverlay, "cursor", "pointer")
+  }
+
+  _startEvents() {
     document.addEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
     document.addEventListener(Events.CLICK, this._handleOverlayClick)
+
     this._activeModalCloseButtons.forEach(button => {
       button.addEventListener(Events.CLICK, this._handleClose)
     })
   }
 
-  /**
-   * Setup a modal instance.
-   * @param {Object} instance - The modal element
-   */
-  _setupModal(instance) {
-    const modalId = instance.getAttribute(Selectors.DATA_MODAL)
-
-    if (!modalId) {
-      return console.error(Messages.NO_MODAL_ID_ERROR)
-    }
-
-    const modal = instance.querySelector(`[${Selectors.DATA_PARENT}='${modalId}']`)
-
-    if (!modal) {
-      return console.error(Messages.NO_MODAL_ERROR(modalId))
-    }
-
-    const modalWrapper = document.querySelector(`[${Selectors.DATA_MODAL}='${modalId}']`)
-
-    modalWrapper.setAttribute(Selectors.ARIA_HIDDEN, "true")
-    modalWrapper.setAttribute(Selectors.DATA_VISIBLE, "false")
-    modal.setAttribute(Selectors.ARIA_MODAL, "true")
-    modal.setAttribute(Selectors.ROLE, "dialog")
+  _handleModalFocus() {
+    dom.attr(this._activeModal, Selectors.TABINDEX, "-1")
+    this._activeModal.focus()
   }
 
-  /**
-   * Turn off event listeners and reset focus to last selected DOM node (button)
-   * @param {Object} event - The event object
-   */
-  _handleClose(event) {
-    event.preventDefault()
-    this._activeModalOverlay.setAttribute(Selectors.DATA_VISIBLE, "false")
-    this._handleReturnFocus()
-    this._handleScrollRestore()
-    this.releaseFocus()
-    this._activeModalOverlay.setAttribute(Selectors.ARIA_HIDDEN, "true")
-    this._activeModal.removeAttribute(Selectors.TABINDEX)
-
+  _enableFocusOnChildren() {
     getFocusableElements(this._activeModalSelector).forEach(element => {
-      element.setAttribute(Selectors.TABINDEX, "-1")
+      element.setAttribute(Selectors.TABINDEX, "0")
     })
-
-    if (iOSMobile) {
-      this._activeModalOverlay.style.cursor = "auto"
-    }
-
-    // stop listening to events
-    document.removeEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
-    document.removeEventListener(Events.CLICK, this._handleOverlayClick)
-    this._activeModalCloseButtons.forEach(button => {
-      button.removeEventListener(Events.CLICK, this._handleClose)
-    })
-
-    this._activeModalId = null
   }
 
-  /**
-   * Handles click event on the modal background to close it.
-   * @param {Object} event - The event object
-   */
+  _getScrollbarOffset() {
+    return window.innerWidth - document.body.getBoundingClientRect().right
+  }
+
+  _handleScrollbarOffset() {
+    if (!this._scrollbarIsVisible()) return
+
+    this._scrollbarOffset = this._getScrollbarOffset()
+    this._originalPagePaddingRight = dom.css(document.body, "paddingRight")
+    dom.css(document.body, "paddingRight", `${this._scrollbarOffset}px`)
+  }
+
+  _scrollbarIsVisible() {
+    if (typeof window.innerWidth === "number") {
+      return window.innerWidth > document.body.getBoundingClientRect().right
+    }
+  }
+
+  _removeScrollbarOffset() {
+    const originalPadding = this._originalPagePaddingRight
+
+    dom.css(this._activeModalOverlay, "paddingLeft", `${this._scrollbarOffset}px`)
+    setTimeout(() => dom.css(this._activeModalOverlay, "paddingLeft", ""), 500)
+
+    if (originalPadding) {
+      dom.css(document.body, "paddingRight", `${originalPadding}px`)
+    } else {
+      dom.css(document.body, "paddingRight", "")
+    }
+  }
+
   _handleOverlayClick(event) {
     if (event.target === this._activeModalOverlay) {
       this._handleClose(event)
     }
   }
 
-  /**
-   * Handles escape key event to close the current modal
-   * @param {Object} event - The event object
-   */
   _handleEscapeKeyPress(event) {
     if (event.which === KeyCodes.ESCAPE) {
       this._handleClose(event)
     }
   }
 
-  /**
-   * Returns focus to the last focused element before the modal was called.
-   * @param {Object} button - The current modal's corresponding button.
-   */
   _handleReturnFocus() {
-    this._activeModalButton.setAttribute(Selectors.TABINDEX, "-1")
+    dom.attr(this._activeModalButton, Selectors.TABINDEX, "-1")
     this._activeModalButton.focus()
-    this._activeModalButton.removeAttribute(Selectors.TABINDEX)
+    dom.attr(this._activeModalButton, Selectors.TABINDEX, false)
   }
 
-  /**
-   * Restores scroll behavior to <html> and <body>
-   */
   _handleScrollRestore() {
-    document.body.classList.remove(Selectors.NO_SCROLL)
-    document.documentElement.classList.remove(Selectors.NO_SCROLL)
+    dom.removeClass(document.body, Selectors.NO_SCROLL)
+    dom.removeClass(document.documentElement, Selectors.NO_SCROLL)
   }
 
-  /**
-   * Prevents scroll behavior on <html> and <body>
-   */
   _handleScrollStop() {
-    document.body.classList.add(Selectors.NO_SCROLL)
-    document.documentElement.classList.add(Selectors.NO_SCROLL)
+    dom.addClass(document.body, Selectors.NO_SCROLL)
+    dom.addClass(document.documentElement, Selectors.NO_SCROLL)
   }
 }
