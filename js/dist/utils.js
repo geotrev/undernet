@@ -26,9 +26,9 @@ var KeyCodes = {
   ARROW_DOWN: 40
 };
 var Selectors = {
-  NOT_VISUALLY_HIDDEN: ":not(.is-visually-hidden)",
   FOCUSABLE_TAGS: ["a", "button", "input", "object", "select", "textarea", "[tabindex]"],
-  KEYBOARD_CLASS: "using-keyboard"
+  KEYBOARD_CLASS: "using-keyboard",
+  NOT_VISUALLY_HIDDEN_CLASS: ":not(.is-visually-hidden)"
 };
 var Events = {
   KEYDOWN: "keydown",
@@ -59,8 +59,7 @@ var dom = {
   },
   css: function css(element, property, value) {
     if (typeof value === "string" || value === null) {
-      element.style[property] = value;
-      return;
+      return element.style[property] = value;
     }
 
     return element.style[property];
@@ -88,8 +87,6 @@ var dom = {
       classes[_key3 - 1] = arguments[_key3];
     }
 
-    console.log(classes);
-
     if (classes.length) {
       return classes.filter(function (cls) {
         return element.classList.contains(cls);
@@ -103,7 +100,7 @@ exports.dom = dom;
 
 var getFocusableElements = function getFocusableElements(container) {
   var focusables = Selectors.FOCUSABLE_TAGS.map(function (element) {
-    return "".concat(container, " ").concat(element).concat(Selectors.NOT_VISUALLY_HIDDEN);
+    return "".concat(container, " ").concat(element).concat(Selectors.NOT_VISUALLY_HIDDEN_CLASS);
   }).join(", ");
   return dom.findAll(focusables);
 };
