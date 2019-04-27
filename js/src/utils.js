@@ -6,9 +6,9 @@ const KeyCodes = {
 }
 
 const Selectors = {
-  NOT_VISUALLY_HIDDEN: ":not(.is-visually-hidden)",
   FOCUSABLE_TAGS: ["a", "button", "input", "object", "select", "textarea", "[tabindex]"],
   KEYBOARD_CLASS: "using-keyboard",
+  NOT_VISUALLY_HIDDEN_CLASS: ":not(.is-visually-hidden)",
 }
 
 const Events = {
@@ -16,16 +16,48 @@ const Events = {
   CLICK: "click",
 }
 
-export const nodeListToArray = nodeList => {
-  return [...document.querySelectorAll(nodeList)]
+export const dom = {
+  attr: (element, attr, newValue) => {
+    if (newValue === false) {
+      return element.removeAttribute(attr)
+    }
+
+    if (typeof newValue === "string" || newValue === null) {
+      return element.setAttribute(attr, newValue)
+    }
+
+    return element.getAttribute(attr)
+  },
+  hasAttr: (element, attr) => element.hasAttribute(attr),
+
+  find: (selector, parent = document) => parent.querySelector(selector),
+  findAll: (selector, parent = document) => [...parent.querySelectorAll(selector)],
+
+  css: (element, property, value) => {
+    if (typeof value === "string" || value === null) {
+      return (element.style[property] = value)
+    }
+
+    return element.style[property]
+  },
+
+  addClass: (element, ...classes) => element.classList.add(...classes),
+  removeClass: (element, ...classes) => element.classList.remove(...classes),
+  hasClass: (element, ...classes) => {
+    if (classes.length) {
+      return classes.filter(cls => element.classList.contains(cls)).length
+    }
+
+    return element.classList.contains(classes[0])
+  },
 }
 
 export const getFocusableElements = container => {
   const focusables = Selectors.FOCUSABLE_TAGS.map(
-    element => `${container} ${element}${Selectors.NOT_VISUALLY_HIDDEN}`
+    element => `${container} ${element}${Selectors.NOT_VISUALLY_HIDDEN_CLASS}`
   ).join(", ")
 
-  return nodeListToArray(focusables)
+  return dom.findAll(focusables)
 }
 
 export const iOSMobile = /(iphone|ipod|ipad)/i.test(navigator.userAgent)
@@ -103,7 +135,7 @@ export default class Utils {
   }
 
   _handleFocusTrapWithTab(event) {
-    const containerElement = document.querySelector(this._focusContainerSelector)
+    const containerElement = dom.find(this._focusContainerSelector)
     const containerActive = document.activeElement === containerElement
     const firstActive = document.activeElement === this._focusableFirstChild
     const lastActive = document.activeElement === this._focusableLastChild

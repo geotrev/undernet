@@ -60,10 +60,10 @@ var Tooltip = function () {
     value: function start() {
       var _this = this;
 
-      this._allTooltips = document.querySelectorAll("[".concat(Selectors.DATA_TOOLTIP, "]"));
+      this._allTooltips = _utils.dom.findAll("[".concat(Selectors.DATA_TOOLTIP, "]"));
 
       this._allTooltips.forEach(function (instance) {
-        _this._setupTooltip(instance);
+        _this._setup(instance);
       });
     }
   }, {
@@ -72,8 +72,9 @@ var Tooltip = function () {
       var _this2 = this;
 
       this._allTooltips.forEach(function (instance) {
-        var id = instance.getAttribute(Selectors.DATA_TOOLTIP);
-        var trigger = instance.querySelector(_this2._getTrigger(id));
+        var id = _utils.dom.attr(instance, Selectors.DATA_TOOLTIP);
+
+        var trigger = _utils.dom.find(_this2._getTrigger(id), instance);
 
         if (_this2._activeTooltip || _this2._activeTrigger) {
           _this2._handleClose();
@@ -84,27 +85,30 @@ var Tooltip = function () {
       });
     }
   }, {
-    key: "_setupTooltip",
-    value: function _setupTooltip(instance) {
-      var id = instance.getAttribute(Selectors.DATA_TOOLTIP);
+    key: "_setup",
+    value: function _setup(instance) {
+      var tooltipId = _utils.dom.attr(instance, Selectors.DATA_TOOLTIP);
 
-      if (!id) {
+      if (!tooltipId) {
         throw new Error(Messages.NO_ID_ERROR);
       }
 
-      var trigger = instance.querySelector(this._getTrigger(id));
-      var tooltip = instance.querySelector("#".concat(id));
+      var trigger = _utils.dom.find(this._getTrigger(tooltipId), instance);
+
+      var tooltip = _utils.dom.find("#".concat(tooltipId), instance);
 
       if (!trigger) {
-        throw new Error(Messages.NO_TRIGGER_ERROR(id));
+        throw new Error(Messages.NO_TRIGGER_ERROR(tooltipId));
       }
 
       if (!tooltip) {
-        throw new Error(Messages.NO_TOOLTIP_ERROR(id));
+        throw new Error(Messages.NO_TOOLTIP_ERROR(tooltipId));
       }
 
-      trigger.setAttribute(Selectors.ARIA_DESCRIBEDBY, id);
-      tooltip.setAttribute(Selectors.ROLE, "tooltip");
+      _utils.dom.attr(trigger, Selectors.ARIA_DESCRIBEDBY, tooltipId);
+
+      _utils.dom.attr(tooltip, Selectors.ROLE, "tooltip");
+
       trigger.addEventListener(Events.MOUSEOVER, this._render);
       trigger.addEventListener(Events.FOCUS, this._render);
     }
@@ -123,33 +127,33 @@ var Tooltip = function () {
         this._alignTooltip("width");
       }
 
-      this._showTooltip();
+      this._setVisibleState();
 
-      this._listenForClose();
+      this._startCloseEvents();
     }
   }, {
     key: "_handleClose",
     value: function _handleClose() {
-      this._hideTooltip();
+      this._setHideState();
 
-      this._listenForOpen();
+      this._startOpenEvents();
 
       this._activeTrigger = null;
       this._activeTooltip = null;
     }
   }, {
-    key: "_showTooltip",
-    value: function _showTooltip() {
-      this._activeTooltip.setAttribute(Selectors.DATA_VISIBLE, "true");
+    key: "_setVisibleState",
+    value: function _setVisibleState() {
+      _utils.dom.attr(this._activeTooltip, Selectors.DATA_VISIBLE, "true");
     }
   }, {
-    key: "_hideTooltip",
-    value: function _hideTooltip() {
-      this._activeTooltip.setAttribute(Selectors.DATA_VISIBLE, "false");
+    key: "_setHideState",
+    value: function _setHideState() {
+      _utils.dom.attr(this._activeTooltip, Selectors.DATA_VISIBLE, "false");
     }
   }, {
-    key: "_listenForClose",
-    value: function _listenForClose() {
+    key: "_startCloseEvents",
+    value: function _startCloseEvents() {
       this._activeTrigger.removeEventListener(Events.MOUSEOVER, this._render);
 
       this._activeTrigger.removeEventListener(Events.FOCUS, this._render);
@@ -161,7 +165,7 @@ var Tooltip = function () {
       document.addEventListener(Events.KEYDOWN, this._handleEscapeKeyPress);
 
       if (_utils.iOSMobile) {
-        document.body.style.cursor = "pointer";
+        _utils.dom.css(document.body, "cursor", "pointer");
       }
     }
   }, {
@@ -172,8 +176,8 @@ var Tooltip = function () {
       }
     }
   }, {
-    key: "_listenForOpen",
-    value: function _listenForOpen() {
+    key: "_startOpenEvents",
+    value: function _startOpenEvents() {
       this._activeTrigger.removeEventListener(Events.MOUSEOUT, this._handleClose);
 
       this._activeTrigger.removeEventListener(Events.BLUR, this._handleClose);
@@ -183,25 +187,22 @@ var Tooltip = function () {
       this._activeTrigger.addEventListener(Events.FOCUS, this._render);
 
       document.removeEventListener(Events.KEYDOWN, this._handleEscapeKeyPress);
-
-      if (_utils.iOSMobile) {
-        document.body.style.cursor = "auto";
-      }
+      if (_utils.iOSMobile) _utils.dom.css(document.body, "cursor", "auto");
     }
   }, {
     key: "_alignTooltip",
     value: function _alignTooltip(property) {
-      var triggerLength = this._getComputedLength(this._activeTrigger, property);
+      var triggerSize = this._getSize(this._activeTrigger, property);
 
-      var tooltipLength = this._getComputedLength(this._activeTooltip, property);
+      var tooltipSize = this._getSize(this._activeTooltip, property);
 
-      var triggerIsLongest = triggerLength > tooltipLength;
-      var offset = triggerIsLongest ? (triggerLength - tooltipLength) / 2 : (tooltipLength - triggerLength) / -2;
+      var triggerIsBigger = triggerSize > tooltipSize;
+      var offset = triggerIsBigger ? (triggerSize - tooltipSize) / 2 : (tooltipSize - triggerSize) / -2;
 
       if (property === "height") {
-        this._activeTooltip.style.top = "".concat(offset, "px");
+        _utils.dom.css(this._activeTooltip, "top", "".concat(offset, "px"));
       } else {
-        this._activeTooltip.style.left = "".concat(offset, "px");
+        _utils.dom.css(this._activeTooltip, "left", "".concat(offset, "px"));
       }
     }
   }, {
@@ -210,15 +211,14 @@ var Tooltip = function () {
       return "[".concat(Selectors.DATA_TARGET, "=\"").concat(id, "\"]");
     }
   }, {
-    key: "_getComputedLength",
-    value: function _getComputedLength(element, property) {
+    key: "_getSize",
+    value: function _getSize(element, property) {
       return Math.floor(element.getBoundingClientRect()[property]);
     }
   }, {
     key: "_isLeftOrRight",
     value: function _isLeftOrRight() {
-      var classes = this._activeTooltip.classList;
-      return classes.contains(Selectors.DROP_LEFT_CLASS) || classes.contains(Selectors.DROP_RIGHT_CLASS);
+      return _utils.dom.hasClass(this._activeTooltip, Selectors.DROP_LEFT_CLASS, Selectors.DROP_RIGHT_CLASS);
     }
   }]);
 
