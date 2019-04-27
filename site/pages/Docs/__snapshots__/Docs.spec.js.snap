@@ -217,7 +217,7 @@ exports[`<Docs /> renders 1`] = `
                     className="version-text has-no-padding has-gray800-text xsmall-12 columns"
                   >
                     Version 
-                    4.2.0
+                    4.3.0
                   </p>
                   <div
                     className="accordion-row xsmall-12 columns has-no-padding"
