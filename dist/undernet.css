@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /*!
 * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
-* Undernet v4.2.0 (https://undernet.io)
+* Undernet v4.3.0 (https://undernet.io)
 * Copyright 2017-2019 George Treviranus
 */
 html,
@@ -1323,7 +1323,7 @@ button,
   padding: 10px 16px;
   text-align: center;
   text-decoration: none;
-  transition: cubic-bezier(0.12, 0.72, 0.58, 1.03) 0.2s;
+  transition: cubic-bezier(0.12, 0.72, 0.58, 1.03) 0.1s;
   background: #ffffff;
   color: #222;
   border-color: #888; }
@@ -1990,7 +1990,7 @@ input[type="time"],
 input[type="url"],
 input[type="week"],
 textarea {
-  transition: cubic-bezier(0.12, 0.72, 0.58, 1.03) 0.2s; }
+  transition: cubic-bezier(0.12, 0.72, 0.58, 1.03) 0.1s; }
   input[type="text"]:focus, input[type="text"]:active,
   input[type="password"]:focus,
   input[type="password"]:active,
@@ -2035,7 +2035,7 @@ textarea {
     background: #ffffff;
     border: 2px solid #666;
     box-shadow: none;
-    transition: cubic-bezier(0.12, 0.72, 0.58, 1.03) 0.2s; }
+    transition: cubic-bezier(0.12, 0.72, 0.58, 1.03) 0.1s; }
 
 .dropdown {
   position: relative;
@@ -2056,7 +2056,7 @@ textarea {
     position: absolute;
     display: block;
     opacity: 0;
-    transition: opacity cubic-bezier(0.12, 0.72, 0.58, 1.03) 0.2s;
+    transition: opacity cubic-bezier(0.12, 0.72, 0.58, 1.03) 0.1s;
     pointer-events: none;
     list-style-type: none;
     margin: 0;
@@ -2237,7 +2237,7 @@ textarea {
   bottom: 0;
   left: 0;
   right: 0;
-  transition: opacity 0.5s cubic-bezier(0.12, 0.72, 0.58, 1.03);
+  transition: opacity 0.3s cubic-bezier(0.12, 0.72, 0.58, 1.03);
   pointer-events: none; }
   .modal-overlay[data-visible="true"] {
     opacity: 1;
@@ -2360,7 +2360,7 @@ textarea {
   position: absolute;
   display: block;
   opacity: 0;
-  transition: opacity cubic-bezier(0.12, 0.72, 0.58, 1.03) 0.2s;
+  transition: opacity cubic-bezier(0.12, 0.72, 0.58, 1.03) 0.1s;
   pointer-events: none;
   word-wrap: break-word;
   white-space: nowrap;
