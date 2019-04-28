@@ -62,6 +62,7 @@ module.exports = {
     react: {
       version: "detect",
     },
+    linkComponents: [{ name: "Link", linkAttribute: "to" }],
   },
   rules: {
     // errors
