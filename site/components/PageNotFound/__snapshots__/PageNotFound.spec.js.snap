@@ -11,7 +11,7 @@ exports[`<PageNotFound /> matches snapshot 1`] = `
     <p
       className="has-no-margin-bottom"
     >
-      Use the links up in the navigation bar to find your way around the site!
+      Did you enter the URL correctly?
     </p>
   </div>
 </PageNotFound>

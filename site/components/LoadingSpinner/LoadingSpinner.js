@@ -5,10 +5,10 @@ import "./styles.scss"
 
 const SPINNER_COLOR = "#d15ded"
 
-const LoadingSpinner = () => (
-  <div id="loading-spinner">
-    <ScaleLoader color={SPINNER_COLOR} />
-  </div>
-)
-
-export default LoadingSpinner
+export default function LoadingSpinner() {
+  return (
+    <div id="loading-spinner">
+      <ScaleLoader color={SPINNER_COLOR} />
+    </div>
+  )
+}
