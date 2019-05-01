@@ -1,20 +1,24 @@
-import React, { Fragment } from "react"
-import { Route } from "react-router-dom"
+import React from "react"
+import { Switch, Route } from "react-router-dom"
 import Loadable from "react-loadable"
 
 import * as routes from "routes"
+import PageNotFound from "components/PageNotFound"
 import LoadingSpinner from "components/LoadingSpinner"
+
+const Loading = () => <LoadingSpinner />
+Loading.displayName = "Loading"
 
 function getRoute(name) {
   return Loadable({
     loader: () => import(`./articles/${name}`),
-    loading: () => <LoadingSpinner />,
+    loading: Loading,
   })
 }
 
 export default function DocsRoutes() {
   return (
-    <Fragment>
+    <Switch>
       <Route exact path={routes.introductionPath} component={getRoute("introduction")} />
       <Route exact path={routes.downloadPath} component={getRoute("download")} />
       <Route exact path={routes.brandingPath} component={getRoute("branding")} />
@@ -34,6 +38,7 @@ export default function DocsRoutes() {
       <Route exact path={routes.displayPath} component={getRoute("display")} />
       <Route exact path={routes.colorPath} component={getRoute("color")} />
       <Route exact path={routes.spacingPath} component={getRoute("spacing")} />
-    </Fragment>
+      <Route component={PageNotFound} />
+    </Switch>
   )
 }

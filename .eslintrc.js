@@ -4,6 +4,12 @@ const ERROR = "error"
 const READONLY = "readonly"
 const OFF = "off"
 
+const sitePath = path.resolve(__dirname, "site")
+const srcPath = path.resolve(__dirname, "js/src")
+const scriptsPath = path.resolve(__dirname, "scripts")
+const nodeModulesPath = path.resolve(__dirname, "node_modules")
+const webpackConfigPath = path.resolve(__dirname, "webpack.common.js")
+
 module.exports = {
   env: {
     browser: true,
@@ -47,21 +53,16 @@ module.exports = {
     "import/resolver": {
       node: {
         extensions: [".js"],
-        paths: [
-          path.resolve(__dirname, "site"),
-          path.resolve(__dirname, "js/src"),
-          path.resolve(__dirname, "scripts"),
-        ],
-        moduleDirectory: [path.resolve(__dirname, "node_modules")],
+        paths: [sitePath, srcPath, scriptsPath],
+        moduleDirectory: [nodeModulesPath],
       },
-      webpack: {
-        config: path.resolve(__dirname, "webpack.common.js"),
-      },
+      webpack: { config: webpackConfigPath },
     },
     "import/ignore": [".(scss|less|css|md)$"],
     react: {
       version: "detect",
     },
+    linkComponents: [{ name: "Link", linkAttribute: "to" }],
   },
   rules: {
     // errors
@@ -181,8 +182,6 @@ module.exports = {
     "no-undefined": OFF,
     "no-unused-vars": ERROR,
     "no-use-before-define": ERROR,
-
-    // stylistic
     "no-mixed-spaces-and-tabs": ERROR,
 
     // es6
@@ -205,7 +204,7 @@ module.exports = {
     "require-yield": ERROR,
 
     // react
-    "react/display-name": OFF,
+    "react/display-name": ERROR,
 
     // used for undernet only
     "no-console": OFF,

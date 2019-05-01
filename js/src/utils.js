@@ -16,6 +16,9 @@ const Events = {
   CLICK: "click",
 }
 
+/**
+ * Simple DOM manipulator methods. NOTE: These aren't chainable.
+ */
 export const dom = {
   attr: (element, attr, newValue) => {
     if (newValue === false) {
@@ -52,6 +55,9 @@ export const dom = {
   },
 }
 
+/**
+ * Return an array literal of elements matching focusable elements within a given container.
+ */
 export const getFocusableElements = container => {
   const focusables = Selectors.FOCUSABLE_TAGS.map(
     element => `${container} ${element}${Selectors.NOT_VISUALLY_HIDDEN_CLASS}`
@@ -60,8 +66,15 @@ export const getFocusableElements = container => {
   return dom.findAll(focusables)
 }
 
+/**
+ * Check if the current browser session is within an Apple device.
+ */
 export const iOSMobile = /(iphone|ipod|ipad)/i.test(navigator.userAgent)
 
+/**
+ * Utility class to help with focus trapping and keyboard outline management.
+ * Components extend from this method.
+ */
 export default class Utils {
   constructor() {
     // events
