@@ -84,7 +84,7 @@ $ npm run test:watch
 
 The site itself is a demo of the framework, so you should be able to work on the framework source itself while the site runs in the background.
 
-The build environment works only for macOS at the moment.
+The build environment works in any bash/unix environment. If you're on Windows, that means you'll need [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10) or an equivalent solution.
 
 If you've already run `npm install`, these commands should Just Work™.
 
@@ -92,7 +92,7 @@ If you've already run `npm install`, these commands should Just Work™.
 $ npm run build:dist
 ```
 
-The script processes the SCSS and JS, then compiles the output to a `dist/` folder.
+The script processes the SCSS and JS, then compiles the output to the `dist/` folder.
 
 ### Rebuild assets on the fly
 
@@ -104,16 +104,21 @@ $ npm run js:watch
 
 ### New releases
 
-To run a release build, run the following command, where `VERSION` is the semver value incremented from `package.json`:
+To make a release build for npm, run the following command, where the third keyword should be one of `major`, `minor` or `patch`:
 
 ```sh
-$ npm run update-version -- --tag=VERSION && npm run build:dist:release
+$ npm version (major|minor|patch)
 ```
 
-This will do three things:
+This will do a few things:
 
-1. Increment the project version across docs, package.json, and in `scss/undernet.scss`
-2. Build all assets to `dist/` with the new version.
-3. Generate new sha-256 hashes for CDN subresource integrity (added to `docs/download.md`).
+1. Run the full test suite to ensure the library is stable.
+2. Increment the package by the version you specify, and tag it appropriately
+3. Run a custom node script to update appropriate files with the new version
+4. Rerun the test suite to update snapshots for the build, then build all package assets
+5. Create new content hashes to be used with cdn subresource integrity links in the docs
+6. Add all new build assets to the version commit and open a prompt for the release's commit message
 
-The result is a repo state ready to publish to npm!
+The release commit is usually in this format: `[Version X.X.X] This release does x, y, and z.`
+
+The commit will be ready to merge to master. After that, the repo can be published to npm.

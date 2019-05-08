@@ -188,6 +188,8 @@ A few key attributes are added for you when the accordion is instantiated. These
 - `aria-expanded`: an attribute added to an accordion row's button, telling assistive technologies if the row's content is visible.
 - `aria-hidden`: an attribute added to the accordion row's content block, telling assistive technologies that the element can be ignored if it's set to `true`.
 
+This component currently does not handle trapping of focus using arrow keys between accordion buttons. If you desire this feature, you will need to implement it yourself.
+
 [See WAI-ARIA documentation](https://www.w3.org/TR/wai-aria-practices-1.1/examples/accordion/accordion.html) on best-practices for the accordion UI pattern.
 
 #### Styling Classes

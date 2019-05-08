@@ -35,7 +35,9 @@
     "scss:prettify": "prettier --write 'scss/**/*.scss'",
     "scss:prepublish": "cd scss/ && zip -r ../dist/undernet.scss.zip .",
     "update-version": "node scripts/update-version.js",
-    "create-hashes": "node scripts/create-hashes.js"
+    "create-hashes": "node scripts/create-hashes.js",
+    "preversion": "npm test",
+    "postversion": "npm run update-version && npm test -- -u && npm run build:dist:release && git add -A && git commit --amend"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.3",
@@ -74,7 +76,7 @@
     "lottie-web": "^5.4.4",
     "markdown-loader": "^5.0.0",
     "mini-css-extract-plugin": "^0.6.0",
-    "node-sass": "^4.11.0",
+    "node-sass": "^4.12.0",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "postcss-loader": "^3.0.0",
     "prettier": "^1.16.4",
