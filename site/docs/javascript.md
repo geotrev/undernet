@@ -12,7 +12,7 @@ Undernet.start()
 Undernet.stop()
 ```
 
-3. If you're using Webpack and are importing components, you can `start()` or `stop()` the component in a similar fashion. 
+3. If you're using Webpack and are importing components, you can `start()` or `stop()` the component in a similar fashion.
 
 ```js
 Modals.start()
@@ -60,16 +60,16 @@ Undernet.Modals.start()
 
 ### Customizing Component Imports
 
-You may not want to include _every single_ component in your project. For example, let's say you only need the [Tooltip](/docs/components/tooltips) component. 
+You may not want to include _every single_ component in your project. For example, let's say you only need the [Tooltip](/docs/components/tooltips) component.
 
 To that end, `import` the component directly as a named import.
 
 ```js
-import { Modals } from "undernet"
-Modals.start()
+import { Tooltips } from "undernet"
+Tooltips.start()
 ```
 
-Undernet is a fully modular package in this way, enabling [tree shaking](https://webpack.js.org/guides/tree-shaking/).
+Undernet is a fully modular package in this way, enabling [tree shaking](https://webpack.js.org/guides/tree-shaking/). Note that this will only work with modern JavaScript tooling like Rollup and Webpack.
 
 <hr />
 <p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/javascript.md">Edit this page on Github!</a></p>
