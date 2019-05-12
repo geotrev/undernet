@@ -38,6 +38,29 @@
       margin-top: 32px;
     }
 
+    // override accordion examples
+    .accordion-row {
+      > h1,
+      > h2,
+      > h3,
+      > h4,
+      > h5,
+      > h6 {
+        margin-top: 0;
+      }
+    }
+
+    .dropdown-menu {
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        margin-top: 0;
+      }
+    }
+
     .inverted-bg {
       background: $gray200;
       padding: 1rem 1rem 0 1rem;
