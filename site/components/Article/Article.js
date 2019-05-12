@@ -6,7 +6,6 @@ import classNames from "classnames"
 import PropTypes from "prop-types"
 
 import ScrollUpOnMount from "helpers/ScrollUpOnMount"
-import "./styles.scss"
 
 export default class Article extends React.Component {
   constructor() {
