@@ -65,19 +65,19 @@ exports[`<Docs /> renders 1`] = `
                   "links": Array [
                     Object {
                       "name": "Flex Grid",
-                      "url": "/docs/elements/grid",
+                      "url": "/docs/layout/grid",
                     },
                     Object {
                       "name": "Alignment",
-                      "url": "/docs/utilities/alignment",
+                      "url": "/docs/layout/alignment",
                     },
                     Object {
                       "name": "Offset / Order",
-                      "url": "/docs/utilities/offset-order",
+                      "url": "/docs/layout/offset-order",
                     },
                     Object {
                       "name": "Spacing",
-                      "url": "/docs/utilities/spacing",
+                      "url": "/docs/layout/spacing",
                     },
                   ],
                 },
@@ -551,7 +551,7 @@ exports[`<Docs /> renders 1`] = `
                     className="accordion-row xsmall-12 columns has-no-padding"
                     data-accordion-row="nav-acc-content1"
                     data-visible="false"
-                    key="/docs/elements/grid"
+                    key="/docs/layout/grid"
                   >
                     <h4
                       className="paragraph"
@@ -587,22 +587,22 @@ exports[`<Docs /> renders 1`] = `
                           className="side-nav-link-item has-black-text is-flex is-aligned-center"
                           onClick={[Function]}
                           role="listitem"
-                          to="/docs/elements/grid"
+                          to="/docs/layout/grid"
                         >
                           <Route
-                            path="\\\\/docs\\\\/elements\\\\/grid"
+                            path="\\\\/docs\\\\/layout\\\\/grid"
                           >
                             <Link
                               aria-current={null}
                               className="side-nav-link-item has-black-text is-flex is-aligned-center"
                               onClick={[Function]}
                               role="listitem"
-                              to="/docs/elements/grid"
+                              to="/docs/layout/grid"
                             >
                               <a
                                 aria-current={null}
                                 className="side-nav-link-item has-black-text is-flex is-aligned-center"
-                                href="/docs/elements/grid"
+                                href="/docs/layout/grid"
                                 onClick={[Function]}
                                 role="listitem"
                               >
@@ -646,22 +646,22 @@ exports[`<Docs /> renders 1`] = `
                           className="side-nav-link-item has-black-text is-flex is-aligned-center"
                           onClick={[Function]}
                           role="listitem"
-                          to="/docs/utilities/alignment"
+                          to="/docs/layout/alignment"
                         >
                           <Route
-                            path="\\\\/docs\\\\/utilities\\\\/alignment"
+                            path="\\\\/docs\\\\/layout\\\\/alignment"
                           >
                             <Link
                               aria-current={null}
                               className="side-nav-link-item has-black-text is-flex is-aligned-center"
                               onClick={[Function]}
                               role="listitem"
-                              to="/docs/utilities/alignment"
+                              to="/docs/layout/alignment"
                             >
                               <a
                                 aria-current={null}
                                 className="side-nav-link-item has-black-text is-flex is-aligned-center"
-                                href="/docs/utilities/alignment"
+                                href="/docs/layout/alignment"
                                 onClick={[Function]}
                                 role="listitem"
                               >
@@ -705,22 +705,22 @@ exports[`<Docs /> renders 1`] = `
                           className="side-nav-link-item has-black-text is-flex is-aligned-center"
                           onClick={[Function]}
                           role="listitem"
-                          to="/docs/utilities/offset-order"
+                          to="/docs/layout/offset-order"
                         >
                           <Route
-                            path="\\\\/docs\\\\/utilities\\\\/offset-order"
+                            path="\\\\/docs\\\\/layout\\\\/offset-order"
                           >
                             <Link
                               aria-current={null}
                               className="side-nav-link-item has-black-text is-flex is-aligned-center"
                               onClick={[Function]}
                               role="listitem"
-                              to="/docs/utilities/offset-order"
+                              to="/docs/layout/offset-order"
                             >
                               <a
                                 aria-current={null}
                                 className="side-nav-link-item has-black-text is-flex is-aligned-center"
-                                href="/docs/utilities/offset-order"
+                                href="/docs/layout/offset-order"
                                 onClick={[Function]}
                                 role="listitem"
                               >
@@ -764,22 +764,22 @@ exports[`<Docs /> renders 1`] = `
                           className="side-nav-link-item has-black-text is-flex is-aligned-center"
                           onClick={[Function]}
                           role="listitem"
-                          to="/docs/utilities/spacing"
+                          to="/docs/layout/spacing"
                         >
                           <Route
-                            path="\\\\/docs\\\\/utilities\\\\/spacing"
+                            path="\\\\/docs\\\\/layout\\\\/spacing"
                           >
                             <Link
                               aria-current={null}
                               className="side-nav-link-item has-black-text is-flex is-aligned-center"
                               onClick={[Function]}
                               role="listitem"
-                              to="/docs/utilities/spacing"
+                              to="/docs/layout/spacing"
                             >
                               <a
                                 aria-current={null}
                                 className="side-nav-link-item has-black-text is-flex is-aligned-center"
-                                href="/docs/utilities/spacing"
+                                href="/docs/layout/spacing"
                                 onClick={[Function]}
                                 role="listitem"
                               >
