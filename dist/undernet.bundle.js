@@ -1,6 +1,6 @@
 /*!
   * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
-  * Undernet v4.3.0 (https://undernet.io)
+  * Undernet v4.4.0 (https://undernet.io)
   * Copyright 2017-2019 George Treviranus
   */
 (function (global, factory) {
@@ -418,41 +418,39 @@
     }, {
       key: "_setup",
       value: function _setup(instance) {
-        var buttonId = dom.attr(instance, Selectors$1.DATA_TARGET);
+        var buttonTargetId = dom.attr(instance, Selectors$1.DATA_TARGET);
         var accordionId = dom.attr(instance, Selectors$1.DATA_PARENT);
-        var buttonContent = dom.find("#".concat(buttonId));
+        var buttonContent = dom.find("#".concat(buttonTargetId));
 
         if (!accordionId) {
-          throw new Error(Messages.NO_ACCORDION_ID_ERROR(buttonId));
+          throw new Error(Messages.NO_ACCORDION_ID_ERROR(buttonTargetId));
         }
 
         if (!buttonContent) {
-          throw new Error(Messages.NO_CONTENT_ERROR(buttonId));
+          throw new Error(Messages.NO_CONTENT_ERROR(buttonTargetId));
         }
 
-        var accordionRowAttr = this._getAccordionRowAttr(buttonId);
+        var accordionRowAttr = this._getAccordionRowAttr(buttonTargetId);
 
         var accordionRow = dom.find(accordionRowAttr);
 
         if (!accordionRow) {
-          throw new Error(Messages.NO_ROW_ERROR(buttonId));
+          throw new Error(Messages.NO_ROW_ERROR(buttonTargetId));
         }
 
-        var buttonHeaderSelector = this._headers.join(", ");
+        var buttonId = instance.id;
 
-        var buttonHeader = dom.find(buttonHeaderSelector, accordionRow);
-
-        if (!buttonHeader.id) {
+        if (!buttonId) {
           throw new Error(Messages.NO_HEADER_ID_ERROR(accordionRowAttr));
         }
 
         var buttonContentChildren = getFocusableElements("#".concat(buttonContent.id));
-        dom.attr(instance, Selectors$1.ARIA_CONTROLS, buttonId);
-        dom.attr(buttonContent, Selectors$1.ARIA_LABELLEDBY, buttonHeader.id);
+        dom.attr(instance, Selectors$1.ARIA_CONTROLS, buttonTargetId);
+        dom.attr(buttonContent, Selectors$1.ARIA_LABELLEDBY, buttonId);
         var contentShouldExpand = dom.attr(accordionRow, Selectors$1.DATA_VISIBLE);
 
         if (!contentShouldExpand) {
-          throw new Error(Messages.NO_VISIBLE_ERROR(buttonId));
+          throw new Error(Messages.NO_VISIBLE_ERROR(buttonTargetId));
         }
 
         if (contentShouldExpand === "true") {
