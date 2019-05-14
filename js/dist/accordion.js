@@ -118,46 +118,44 @@ var Accordion = function (_Utils) {
   }, {
     key: "_setup",
     value: function _setup(instance) {
-      var buttonId = _utils.dom.attr(instance, Selectors.DATA_TARGET);
+      var buttonTargetId = _utils.dom.attr(instance, Selectors.DATA_TARGET);
 
       var accordionId = _utils.dom.attr(instance, Selectors.DATA_PARENT);
 
-      var buttonContent = _utils.dom.find("#".concat(buttonId));
+      var buttonContent = _utils.dom.find("#".concat(buttonTargetId));
 
       if (!accordionId) {
-        throw new Error(Messages.NO_ACCORDION_ID_ERROR(buttonId));
+        throw new Error(Messages.NO_ACCORDION_ID_ERROR(buttonTargetId));
       }
 
       if (!buttonContent) {
-        throw new Error(Messages.NO_CONTENT_ERROR(buttonId));
+        throw new Error(Messages.NO_CONTENT_ERROR(buttonTargetId));
       }
 
-      var accordionRowAttr = this._getAccordionRowAttr(buttonId);
+      var accordionRowAttr = this._getAccordionRowAttr(buttonTargetId);
 
       var accordionRow = _utils.dom.find(accordionRowAttr);
 
       if (!accordionRow) {
-        throw new Error(Messages.NO_ROW_ERROR(buttonId));
+        throw new Error(Messages.NO_ROW_ERROR(buttonTargetId));
       }
 
-      var buttonHeaderSelector = this._headers.join(", ");
+      var buttonId = instance.id;
 
-      var buttonHeader = _utils.dom.find(buttonHeaderSelector, accordionRow);
-
-      if (!buttonHeader.id) {
+      if (!buttonId) {
         throw new Error(Messages.NO_HEADER_ID_ERROR(accordionRowAttr));
       }
 
       var buttonContentChildren = (0, _utils.getFocusableElements)("#".concat(buttonContent.id));
 
-      _utils.dom.attr(instance, Selectors.ARIA_CONTROLS, buttonId);
+      _utils.dom.attr(instance, Selectors.ARIA_CONTROLS, buttonTargetId);
 
-      _utils.dom.attr(buttonContent, Selectors.ARIA_LABELLEDBY, buttonHeader.id);
+      _utils.dom.attr(buttonContent, Selectors.ARIA_LABELLEDBY, buttonId);
 
       var contentShouldExpand = _utils.dom.attr(accordionRow, Selectors.DATA_VISIBLE);
 
       if (!contentShouldExpand) {
-        throw new Error(Messages.NO_VISIBLE_ERROR(buttonId));
+        throw new Error(Messages.NO_VISIBLE_ERROR(buttonTargetId));
       }
 
       if (contentShouldExpand === "true") {

@@ -3,8 +3,8 @@ import Undernet from "../src/index"
 const dom = `
   <div data-accordion="accordion-1" class="accordion">
     <div class="accordion-row" data-visible="true" data-accordion-row="content-1">
-      <h5 id="button-1">
-        <button data-parent="accordion-1" class="accordion-button" data-target="content-1">
+      <h5>
+        <button id="button-1" data-parent="accordion-1" class="accordion-button" data-target="content-1">
           Accordion Button 1
         </button>
       </h5>
@@ -16,8 +16,8 @@ const dom = `
       </div>
     </div>
     <div class="accordion-row" data-visible="false" data-accordion-row="content-2">
-      <h5 id="button-2">
-        <button data-parent="accordion-1" class="accordion-button" data-target="content-2">
+      <h5>
+        <button id="button-2" data-parent="accordion-1" class="accordion-button" data-target="content-2">
           Accordion Button 2
         </button>
       </h5>
@@ -43,10 +43,10 @@ describe("Accordions", () => {
       Undernet.Accordions.start()
     })
 
-    it("sets unique [aria-labelledby] on each accordion content matching its button's header id", () => {
+    it("sets unique [aria-labelledby] on each accordion content matching its button's id", () => {
       contents.forEach(content => {
-        const header = content.previousElementSibling
-        expect(content.getAttribute("aria-labelledby")).toEqual(header.id)
+        const button = content.previousElementSibling.children[0]
+        expect(content.getAttribute("aria-labelledby")).toEqual(button.id)
       })
     })
 
@@ -184,8 +184,8 @@ const errorDom = (accordion, accordionRow, headerId, target, parent, contentId, 
     <div class="accordion-row" ${
       visible ? 'data-visible="false" ' : ""
     }data-accordion-row="${accordionRow}">
-      <h5 id="${headerId}">
-        <button data-parent='${parent}' class="accordion-button" data-target="${target}">
+      <h5>
+        <button id="${headerId}" data-parent='${parent}' class="accordion-button" data-target="${target}">
           Accordion Button 1
         </button>
       </h5>

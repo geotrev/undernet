@@ -1,6 +1,6 @@
 {
   "name": "undernet",
-  "version": "4.3.0",
+  "version": "4.4.0",
   "homepage": "https://undernet.io",
   "description": "A modular, configuration-first front-end framework. No strings.",
   "author": "George Treviranus",
@@ -107,8 +107,8 @@
     "yargs": "^13.2.2"
   },
   "engines": {
-    "node": ">=10.0.0",
-    "npm": ">=6.9.0"
+    "node": ">=9.0.0",
+    "npm": ">=6.0.0"
   },
   "keywords": [
     "scss",

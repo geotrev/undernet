@@ -217,7 +217,7 @@ exports[`<Docs /> renders 1`] = `
                     className="version-text has-no-padding has-gray800-text xsmall-12 columns"
                   >
                     Version 
-                    4.3.0
+                    4.4.0
                   </p>
                   <div
                     className="accordion-row xsmall-12 columns has-no-padding"
@@ -227,18 +227,19 @@ exports[`<Docs /> renders 1`] = `
                   >
                     <h4
                       className="paragraph"
-                      id="nav-acc-button0"
                     >
                       <Button
                         className="accordion-button"
                         dataParent="side-nav-accordion"
                         dataTarget="nav-acc-content0"
+                        id="nav-acc-button0"
                         role="listitem"
                       >
                         <button
                           className="accordion-button"
                           data-parent="side-nav-accordion"
                           data-target="nav-acc-content0"
+                          id="nav-acc-button0"
                           role="listitem"
                           type={null}
                         >
@@ -555,18 +556,19 @@ exports[`<Docs /> renders 1`] = `
                   >
                     <h4
                       className="paragraph"
-                      id="nav-acc-button1"
                     >
                       <Button
                         className="accordion-button"
                         dataParent="side-nav-accordion"
                         dataTarget="nav-acc-content1"
+                        id="nav-acc-button1"
                         role="listitem"
                       >
                         <button
                           className="accordion-button"
                           data-parent="side-nav-accordion"
                           data-target="nav-acc-content1"
+                          id="nav-acc-button1"
                           role="listitem"
                           type={null}
                         >
@@ -824,18 +826,19 @@ exports[`<Docs /> renders 1`] = `
                   >
                     <h4
                       className="paragraph"
-                      id="nav-acc-button2"
                     >
                       <Button
                         className="accordion-button"
                         dataParent="side-nav-accordion"
                         dataTarget="nav-acc-content2"
+                        id="nav-acc-button2"
                         role="listitem"
                       >
                         <button
                           className="accordion-button"
                           data-parent="side-nav-accordion"
                           data-target="nav-acc-content2"
+                          id="nav-acc-button2"
                           role="listitem"
                           type={null}
                         >
@@ -1034,18 +1037,19 @@ exports[`<Docs /> renders 1`] = `
                   >
                     <h4
                       className="paragraph"
-                      id="nav-acc-button3"
                     >
                       <Button
                         className="accordion-button"
                         dataParent="side-nav-accordion"
                         dataTarget="nav-acc-content3"
+                        id="nav-acc-button3"
                         role="listitem"
                       >
                         <button
                           className="accordion-button"
                           data-parent="side-nav-accordion"
                           data-target="nav-acc-content3"
+                          id="nav-acc-button3"
                           role="listitem"
                           type={null}
                         >
@@ -1303,18 +1307,19 @@ exports[`<Docs /> renders 1`] = `
                   >
                     <h4
                       className="paragraph"
-                      id="nav-acc-button4"
                     >
                       <Button
                         className="accordion-button"
                         dataParent="side-nav-accordion"
                         dataTarget="nav-acc-content4"
+                        id="nav-acc-button4"
                         role="listitem"
                       >
                         <button
                           className="accordion-button"
                           data-parent="side-nav-accordion"
                           data-target="nav-acc-content4"
+                          id="nav-acc-button4"
                           role="listitem"
                           type={null}
                         >

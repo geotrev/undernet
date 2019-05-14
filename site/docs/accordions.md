@@ -4,41 +4,41 @@ Use an accordion to hide and show content in a collapsable fashion.
 
 Check out this example accordion:
 
-<div data-accordion="accordion-1" class="accordion">
-  <div class="accordion-row" data-visible="true" data-accordion-row="content-1">
-    <h5 id="button-1">
-      <button data-parent="accordion-1" class="accordion-button" data-target="content-1">
+<div data-accordion="accordion1" class="accordion">
+  <div class="accordion-row" data-visible="true" data-accordion-row="content1">
+    <h5>
+      <button class="accordion-button" id="button1" data-parent="accordion1" data-target="content1">
         Accordion Button 1
       </button>
     </h5>
-    <div class="accordion-content" id="content-1">
-      <p class="has-margin">
+    <div class="accordion-content" id="content1">
+      <p class="has-padding">
         Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
         ipsum ut voluptate. <a>A link,</a> and <a>another link!</a>
       </p>
     </div>
   </div>
-  <div class="accordion-row" data-visible="false" data-accordion-row="content-2">
-    <h5 id="button-2">
-      <button data-parent="accordion-1" class="accordion-button" data-target="content-2">
+  <div class="accordion-row" data-visible="false" data-accordion-row="content2">
+    <h5>
+      <button class="accordion-button" id="button2" data-parent="accordion1" data-target="content2">
         Accordion Button 2
       </button>
     </h5>
-    <div class="accordion-content" id="content-2">
-      <p class="has-margin">
+    <div class="accordion-content" id="content2">
+      <p class="has-padding">
         Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
         ipsum ut voluptate. <a>A link,</a> and <a>another link!</a>
       </p>
     </div>
   </div>
-  <div class="accordion-row" data-visible="false" data-accordion-row="content-3">
-    <h5 id="button-3">
-      <button data-parent="accordion-1" class="accordion-button" data-target="content-3">
+  <div class="accordion-row" data-visible="false" data-accordion-row="content3">
+    <h5>
+      <button class="accordion-button" id="button3" data-parent="accordion1" data-target="content3">
         Accordion Button 3 
       </button>
     </h5>
-    <div class="accordion-content" id="content-3">
-      <p class="has-margin">
+    <div class="accordion-content" id="content3">
+      <p class="has-padding">
         Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
         ipsum ut voluptate. <a>A link,</a> and <a>another link!</a>
       </p>
@@ -48,41 +48,41 @@ Check out this example accordion:
 <br/>
 
 ```html
-<div data-accordion="accordion-1" class="accordion">
-  <div class="accordion-row" data-visible="true" data-accordion-row="content-1">
-    <h5 id="button-1">
-      <button data-parent="accordion-1" class="accordion-button" data-target="content-1">
+<div data-accordion="accordion1" class="accordion">
+  <div class="accordion-row" data-visible="true" data-accordion-row="content1">
+    <h5>
+      <button class="accordion-button" id="button1" data-parent="accordion1" data-target="content1">
         Accordion Button 1
       </button>
     </h5>
-    <div class="accordion-content" id="content-1">
-      <p class="has-margin">
+    <div class="accordion-content" id="content1">
+      <p class="has-padding">
         Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna ipsum ut
         voluptate.
       </p>
     </div>
   </div>
-  <div class="accordion-row" data-visible="false" data-accordion-row="content-2">
-    <h5 id="button-2">
-      <button data-parent="accordion-1" class="accordion-button" data-target="content-2">
+  <div class="accordion-row" data-visible="false" data-accordion-row="content2">
+    <h5>
+      <button class="accordion-button" id="button2" data-parent="accordion1" data-target="content2">
         Accordion Button 2
       </button>
     </h5>
-    <div class="accordion-content" id="content-2">
-      <p class="has-margin">
+    <div class="accordion-content" id="content2">
+      <p class="has-padding">
         Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna ipsum ut
         voluptate.
       </p>
     </div>
   </div>
-  <div class="accordion-row" data-visible="false" data-accordion-row="content-3">
-    <h5 id="button-3">
-      <button data-parent="accordion-1" class="accordion-button" data-target="content-3">
+  <div class="accordion-row" data-visible="false" data-accordion-row="content3">
+    <h5>
+      <button class="accordion-button" id="button3" data-parent="accordion1" data-target="content3">
         Accordion Button 3
       </button>
     </h5>
-    <div class="accordion-content" id="content-3">
-      <p class="has-margin">
+    <div class="accordion-content" id="content3">
+      <p class="has-padding">
         Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna ipsum ut
         voluptate.
       </p>
@@ -97,41 +97,41 @@ Accordions are opinionated only to ensure content, transitions, and buttons are 
 
 Add `data-toggle-multiple` on the accordion container to let each accordion row expand independently, and not close others that were already open.
 
-<div data-accordion="accordion-2" class="accordion" data-toggle-multiple>
-  <div class="accordion-row" data-visible="true" data-accordion-row="content-4">
-    <h5 id="button-4">
-      <button data-parent="accordion-2" class="accordion-button" data-target="content-4">
+<div data-accordion="accordion2" class="accordion" data-toggle-multiple>
+  <div class="accordion-row" data-visible="true" data-accordion-row="content4">
+    <h5>
+      <button class="accordion-button" id="button4" data-parent="accordion2" data-target="content4">
         Accordion Button 4
       </button>
     </h5>
-    <div class="accordion-content" id="content-4">
-      <p class="has-margin">
+    <div class="accordion-content" id="content4">
+      <p class="has-padding">
         Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
         ipsum ut voluptate.
       </p>
     </div>
   </div>
-  <div class="accordion-row" data-visible="false" data-accordion-row="content-5">
-    <h5 id="button-5">
-      <button data-parent="accordion-2" class="accordion-button" data-target="content-5">
+  <div class="accordion-row" data-visible="false" data-accordion-row="content5">
+    <h5>
+      <button class="accordion-button" id="button5" data-parent="accordion2" data-target="content5">
         Accordion Button 5
       </button>
     </h5>
-    <div class="accordion-content" id="content-5">
-      <p class="has-margin">
+    <div class="accordion-content" id="content5">
+      <p class="has-padding">
         Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
         ipsum ut voluptate.
       </p>
     </div>
   </div>
-  <div class="accordion-row" data-visible="false" data-accordion-row="content-6">
-    <h5 id="button-6">
-      <button data-parent="accordion-2" class="accordion-button" data-target="content-6">
+  <div class="accordion-row" data-visible="false" data-accordion-row="content6">
+    <h5>
+      <button class="accordion-button" id="button6" data-parent="accordion2" data-target="content6">
         Accordion Button 6
       </button>
     </h5>
-    <div class="accordion-content" id="content-6">
-      <p class="has-margin">
+    <div class="accordion-content" id="content6">
+      <p class="has-padding">
         Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
         ipsum ut voluptate.
       </p>
@@ -155,16 +155,16 @@ Two main pieces are required: an API call and correct HTML markup.
 When making an accordion, there are two major considerations in its structure: the "wrapper" to encapsulate each accordion "row" (can be multiple), and each "row" which hold a button + corresponding content block.
 
 ```html
-<div data-accordion="accordion-1" class="accordion">
+<div data-accordion="accordion1" class="accordion">
   ...
-  <div class="accordion-row" data-visible="true" data-accordion-row="content-1">
-    <h5 id="button-1">
-      <button data-parent="accordion-1" class="accordion-button" data-target="content-1">
+  <div class="accordion-row" data-visible="true" data-accordion-row="content1">
+    <h5>
+      <button class="accordion-button" id="button1" data-parent="accordion1" data-target="content1">
         ...
       </button>
     </h5>
-    <div class="accordion-content" id="content-1">
-      <p class="has-margin">...</p>
+    <div class="accordion-content" id="content1">
+      <p class="has-padding">...</p>
     </div>
   </div>
   ...
