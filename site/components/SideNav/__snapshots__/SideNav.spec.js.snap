@@ -134,18 +134,19 @@ exports[`<SideNav /> matches snapshot 1`] = `
             >
               <h4
                 className="paragraph"
-                id="nav-acc-button0"
               >
                 <Button
                   className="accordion-button"
                   dataParent="side-nav-accordion"
                   dataTarget="nav-acc-content0"
+                  id="nav-acc-button0"
                   role="listitem"
                 >
                   <button
                     className="accordion-button"
                     data-parent="side-nav-accordion"
                     data-target="nav-acc-content0"
+                    id="nav-acc-button0"
                     role="listitem"
                     type={null}
                   >
