@@ -126,8 +126,9 @@ export default class SideNav extends React.Component {
   renderAccordionRow(section, index, listItems) {
     return (
       <Fragment key={section.header}>
-        <h4 id={`nav-acc-button${index}`} className="paragraph">
+        <h4 className="paragraph">
           <Button
+            id={`nav-acc-button${index}`}
             dataParent="side-nav-accordion"
             className="accordion-button"
             dataTarget={`nav-acc-content${index}`}
