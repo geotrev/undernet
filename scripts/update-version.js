@@ -7,41 +7,31 @@ const path = require("path")
 
 const packageFilePath = path.resolve(__dirname, "../package.json")
 const pkg = require(packageFilePath)
-const nextVersion = pkg.version
 
 const undernetScssFilePath = path.resolve(__dirname, "../scss/undernet.scss")
 const downloadArticleFilePath = path.resolve(__dirname, "../site/docs/download.md")
 const readFormat = "utf-8"
-let currentVersion
+
+const versionRegEx = /[0-9]\.[0-9]\.[0-9]/g
 
 // get update for scss/undernet.scss
 
-const getScssVersion = version => `v${version}`
-
 function setNewScssVersion() {
   const undernetScssFile = fs.readFileSync(undernetScssFilePath, readFormat)
-  currentVersion = undernetScssFile.match(/v\S+/g)[1]
-  const currentVersionString = getScssVersion(currentVersion)
-  const newVersionString = getScssVersion(nextVersion)
-  return undernetScssFile.replace(currentVersionString, newVersionString)
+  return undernetScssFile.replace(versionRegEx, pkg.version)
 }
 
 // get update for site/docs/download.md
 
-const getArticleVersion = version => `@${version}`
-
-function setNewIntroArticleVersion() {
+function setNewDlArticleVersion() {
   const downloadArticleFile = fs.readFileSync(downloadArticleFilePath, readFormat)
-  const articleVersion = getArticleVersion(currentVersion)
-  const versionRegEx = new RegExp(articleVersion, "g")
-  const newVersionString = getArticleVersion(nextVersion)
-  return downloadArticleFile.replace(versionRegEx, newVersionString)
+  return downloadArticleFile.replace(versionRegEx, pkg.version)
 }
 
 // write to files
 
 fs.writeFileSync(undernetScssFilePath, setNewScssVersion(), readFormat)
-console.log(`-> scss/undernet.scss version updated to ${nextVersion}!`)
+console.log(`-> scss/undernet.scss version updated to ${pkg.version}!`)
 
-fs.writeFileSync(downloadArticleFilePath, setNewIntroArticleVersion(), readFormat)
-console.log(`-> site/docs/download.md version updated to ${nextVersion}!`)
+fs.writeFileSync(downloadArticleFilePath, setNewDlArticleVersion(), readFormat)
+console.log(`-> site/docs/download.md version updated to ${pkg.version}!`)
