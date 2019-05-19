@@ -155,4 +155,4 @@ The `disabled` class will visually dim the control, but not disable it functiona
 ```
 
 <hr />
-<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/forms.md">Edit this page on Github!</a></p>
+<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/site/docs/forms.md">Edit this page on Github!</a></p>

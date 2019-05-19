@@ -304,7 +304,7 @@ Paragraph text will wrap like it does everywhere else. Use spacing utilities to 
 </div>
 ```
 
-Learn more about [Spacing](/docs/utilities/spacing) and [Color](/docs/utilities/color) helpers.
+Learn more about [Spacing](/docs/layout/spacing) and [Color](/docs/utilities/color) helpers.
 
 ## Requirements
 
@@ -393,4 +393,4 @@ Undernet.Dropdowns.start()
 ```
 
 <hr />
-<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/dropdowns.md">Edit this page on Github!</a></p>
+<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/site/docs/dropdowns.md">Edit this page on Github!</a></p>
