@@ -72,4 +72,4 @@ Tooltips.start()
 Undernet is a fully modular package in this way, enabling [tree shaking](https://webpack.js.org/guides/tree-shaking/). Note that this will only work with modern JavaScript tooling like Rollup and Webpack.
 
 <hr />
-<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/javascript.md">Edit this page on Github!</a></p>
+<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/site/docs/javascript.md">Edit this page on Github!</a></p>

@@ -102,7 +102,7 @@ Tooltips can be used with any element. Even traditionally non-interactive elemen
 <br />
 <br />
 
-*CAUTION: If you go this route, you need to ensure the element behaves functionally the same as a button element, to ensure its focus is handled correctly.*
+_CAUTION: If you go this route, you need to ensure the element behaves functionally the same as a button element, to ensure its focus is handled correctly._
 
 ## Disabled Buttons
 
@@ -187,7 +187,7 @@ Two main pieces are required: an API call and correct HTML markup.
 A few key attributes are added for you when the tooltip is instantiated. These help assistive technologies know how to treat and navigate through the component.
 
 - `role`: Defines the element. It always equals `tooltip`.
-- `aria-describedby`: Describes which element is the tooltip. It should equal the `id` of your tooltip. 
+- `aria-describedby`: Describes which element is the tooltip. It should equal the `id` of your tooltip.
 
 [See WAI-ARIA documentation](https://www.w3.org/TR/wai-aria-practices/#tooltip) on best-practices for the tooltip widget UI pattern.
 
@@ -209,6 +209,5 @@ Undernet.start()
 Undernet.Tooltips.start()
 ```
 
-
 <hr />
-<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/dropdowns.md">Edit this page on Github!</a></p>
+<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/site/docs/dropdowns.md">Edit this page on Github!</a></p>

@@ -14,7 +14,7 @@ $grid-classes: (
 
 If you need a more custom, 2-dimensional layout, look into [Grid CSS](https://css-tricks.com/snippets/css/complete-guide-grid/).
 
-Also worth note, but not included in detail in this article, are offset and order utility classes which can be used with grid columns to move content across the grid. [Read more about those here.](/docs/utilities/offset-order)
+Also worth note, but not included in detail in this article, are offset and order utility classes which can be used with grid columns to move content across the grid. [Read more about those here.](/docs/layout/offset-order)
 
 ## Grid Container
 
@@ -274,7 +274,7 @@ Don’t want padding on your grid, rows, and/or columns? You can remove it all w
 </div>
 ```
 
-[Learn more about spacing utilities.](/docs/utilities/spacing)
+[Learn more about spacing utilities.](/docs/layout/spacing)
 
 ### Fullscreen Grid
 
@@ -316,7 +316,7 @@ By default, a row will be vertically centered. To make the row top-aligned, add 
 </div>
 ```
 
-[Learn more about alignment utilities.](/docs/utilities/alignment)
+[Learn more about alignment utilities.](/docs/layout/alignment)
 
 <hr />
-<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/grid.md">Edit this page on Github!</a></p>
+<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/site/docs/grid.md">Edit this page on Github!</a></p>

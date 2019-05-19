@@ -175,4 +175,4 @@ To manually set elements in a container to grow or shrink, add the class `can-X`
 </div>
 
 <hr />
-<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/alignment.md">Edit this page on Github!</a></p>
+<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/site/docs/alignment.md">Edit this page on Github!</a></p>

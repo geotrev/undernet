@@ -133,4 +133,4 @@ Finally, import `undernet.scss` in your global stylesheet.
 With that, you should be good to go!
 
 <hr />
-<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/branding.md">Edit this page on Github!</a></p>
+<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/site/docs/branding.md">Edit this page on Github!</a></p>

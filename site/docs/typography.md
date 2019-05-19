@@ -129,4 +129,4 @@ Ordered and unordered lists can be styled as well. You can change the bullet sty
 ```
 
 <hr />
-<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/docs/typography.md">Edit this page on Github!</a></p>
+<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/site/docs/typography.md">Edit this page on Github!</a></p>
