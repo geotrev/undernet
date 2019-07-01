@@ -1,4 +1,4 @@
-![Undernet](site/assets/images/github-logo.png?raw=true)
+![Undernet](app/assets/images/github-logo.png?raw=true)
 
 [![CircleCI](https://circleci.com/gh/geotrev/undernet/tree/master.svg?style=svg)](https://circleci.com/gh/geotrev/undernet/tree/master) [![devDependencies Status](https://david-dm.org/geotrev/undernet/dev-status.svg)](https://david-dm.org/geotrev/undernet?type=dev) [![dependencies Status](https://david-dm.org/geotrev/undernet.svg)](https://david-dm.org/geotrev/undernet) [![npm version](https://badge.fury.io/js/undernet.svg)](https://badge.fury.io/js/undernet) ![Code style](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)
 
@@ -53,7 +53,7 @@ First fork the project on Github. Then set up locally.
 ```sh
 $ git clone git@github.com:USER_NAME/undernet.git
 $ cd undernet/
-$ npm install
+$ npm install # or `yarn install`
 ```
 
 The site is both a demo and marketing tool. It is built with my own webpack setup called [Pulsar](https://github.com/geotrev/pulsar). It's basically just Webpack + React, so don't panic. :)
@@ -61,25 +61,25 @@ The site is both a demo and marketing tool. It is built with my own webpack setu
 ### Run the dev server
 
 ```sh
-$ npm run watch
+$ yarn watch
 ```
 
 ### Make a production build (mostly for sanity checks)
 
 ```sh
-$ npm run build
+$ yarn build
 ```
 
 ### Run Jest tests (for site + framework)
 
 ```sh
-$ npm test
+$ yarn test
 ```
 
 ### Load tests on file save
 
 ```sh
-$ npm run test:watch
+$ yarn test:watch
 ```
 
 ### Building the framework
@@ -88,10 +88,10 @@ The site itself is a demo of the framework, so you should be able to work on the
 
 The build environment works in any bash/unix environment. If you're on Windows, that means you'll need [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10) or an equivalent solution.
 
-If you've already run `npm install`, these commands should Just Work™.
+If you've already run `yarn install`, these commands should Just Work™.
 
 ```sh
-$ npm run build:dist
+$ yarn build:dist
 ```
 
 The script processes the SCSS and JS, then compiles the output to the `dist/` folder.
@@ -101,7 +101,7 @@ The script processes the SCSS and JS, then compiles the output to the `dist/` fo
 To continually reload fresh JS assets while running the site's dev server, run the below command in a separate terminal session.
 
 ```sh
-$ npm run js:watch
+$ yarn js:watch
 ```
 
 ### New releases
