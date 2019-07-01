@@ -1,19 +1,22 @@
 .DS_store
+yarn-error.log*
 npm-error.log*
 
-/.circleci/
 /.sass-cache/
+/.circleci/
+/app/
+/bin/
 /build/
 /config/
-/dist/undernet.css.zip
-/dist/undernet.js.zip
-/dist/undernet.modules.js.zip
-/dist/undernet.scss.zip
-/docs/
+/dist/*.zip
+/js/src/
+/js/test/
+/node_modules/
 /public/
-/src/
 
-.sass-cache
+.browserslistrc
+.eslintignore
+.eslintrc.js
 .prettierrc
 babel.config.js
 netlify.toml
