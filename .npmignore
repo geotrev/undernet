@@ -8,9 +8,8 @@ npm-error.log*
 /bin/
 /build/
 /config/
-/dist/*.zip
-/js/src/
 /js/test/
+/dist/*.zip
 /node_modules/
 /public/
 
