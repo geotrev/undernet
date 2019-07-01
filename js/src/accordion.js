@@ -201,9 +201,7 @@ export default class Accordion extends Utils {
   }
 
   _closeAllIfToggleable() {
-    const allContentAttr = `${this._activeContainerAttr} > [${Selectors.DATA_ACCORDION_ROW}] > [${
-      Selectors.ARIA_HIDDEN
-    }]`
+    const allContentAttr = `${this._activeContainerAttr} > [${Selectors.DATA_ACCORDION_ROW}] > [${Selectors.ARIA_HIDDEN}]`
     const allContent = dom.findAll(allContentAttr)
     const accordionButtonSelector = this._getAccordionButtonSelector(this._activeContainerAttr)
     const allButtons = dom.findAll(accordionButtonSelector)

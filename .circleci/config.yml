@@ -8,10 +8,9 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:9.8.0
+      - image: circleci/node:10.16.0
 
     working_directory: ~/undernet
-
     steps:
       - checkout
       - restore_cache:
@@ -19,10 +18,10 @@ jobs:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
 
-      - run: npm install
+      - run: yarn install
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run: npm test
+      - run: yarn test

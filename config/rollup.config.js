@@ -9,13 +9,11 @@ import banner from "./banner"
 
 const inputs = {
   umd: path.resolve(__dirname, "../js/src/index.bundle.js"),
-  esm: path.resolve(__dirname, "../js/src/index.js"),
 }
 
 const outputs = {
   umd: path.resolve(__dirname, "../dist/undernet.bundle.js"),
-  umdMin: path.resolve(__dirname, `../${pkg.browser}`),
-  esm: path.resolve(__dirname, `../${pkg.module}`),
+  umdMin: path.resolve(__dirname, `../dist/undernet.bundle.min.js`),
 }
 
 const plugins = [
@@ -75,14 +73,4 @@ const umdMinBundle = {
   plugins: umdMinPlugins,
 }
 
-// ESM bundle (unprocessed)
-
-const esmOutput = { file: outputs.esm, format: "esm", banner }
-
-const esmConfig = {
-  input: inputs.esm,
-  output: esmOutput,
-  plugins: [],
-}
-
-module.exports = [umdBundle, umdMinBundle, esmConfig]
+module.exports = [umdBundle, umdMinBundle]
