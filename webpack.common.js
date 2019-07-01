@@ -37,12 +37,14 @@ module.exports = {
         test: /\.s?css$/,
         use: [
           MiniCssExtractPlugin.loader,
-          "css-loader",
+          {
+            loader: "css-loader",
+            options: { importLoaders: 2 },
+          },
           {
             loader: "postcss-loader",
             options: { config: { path: "config/postcss.config.js" } },
           },
-          "resolve-url-loader",
           "sass-loader?sourceMap",
         ],
       },
