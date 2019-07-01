@@ -5,7 +5,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin")
 
 module.exports = {
   entry: {
-    main: path.resolve(__dirname, "site/index.js"),
+    main: path.resolve(__dirname, "app/index.js"),
   },
   output: {
     filename: "[name].[chunkhash].js",
@@ -17,12 +17,12 @@ module.exports = {
     extensions: [".js", ".jsx"],
     alias: {
       projectRoot: path.resolve(__dirname),
-      routes: path.resolve(__dirname, "site/routes"),
-      components: path.resolve(__dirname, "site/components/"),
-      helpers: path.resolve(__dirname, "site/helpers/"),
-      pages: path.resolve(__dirname, "site/pages/"),
-      assets: path.resolve(__dirname, "site/assets/"),
-      docs: path.resolve(__dirname, "site/docs/"),
+      routes: path.resolve(__dirname, "app/routes"),
+      components: path.resolve(__dirname, "app/components/"),
+      helpers: path.resolve(__dirname, "app/helpers/"),
+      pages: path.resolve(__dirname, "app/pages/"),
+      assets: path.resolve(__dirname, "app/assets/"),
+      docs: path.resolve(__dirname, "app/docs/"),
       undernet: path.resolve(__dirname, "js/dist/index"),
     },
   },

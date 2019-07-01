@@ -34,8 +34,8 @@
     "css:prepublish": "npm run css:package && cd dist/ && zip -r undernet.css.zip . -x *.js *.zip *.js.map",
     "scss:prettify": "prettier --write 'scss/**/*.scss'",
     "scss:prepublish": "cd scss/ && zip -r ../dist/undernet.scss.zip .",
-    "update-version": "node scripts/update-version.js",
-    "create-hashes": "node scripts/create-hashes.js",
+    "update-version": "node bin/update-version.js",
+    "create-hashes": "node bin/create-hashes.js",
     "preversion": "npm test",
     "postversion": "npm run update-version && npm test -- -u && npm run build:dist:release && git add -A && git commit --amend"
   },
@@ -136,16 +136,16 @@
       "\\.(css|scss)$": "<rootDir>/config/__mocks__/emptyMock.js",
       "\\.(jpg|jpeg|png|gif|md|eot|otf|webp|svg|ttf|woff|woff2)$": "<rootDir>/config/__mocks__/emptyMock.js",
       "^projectRoot/(.*?)$": "<rootDir>/$1",
-      "^routes/(.*?)$": "<rootDir>/site/routes/$1",
-      "^components/(.*?)$": "<rootDir>/site/components/$1",
-      "^helpers/(.*?)$": "<rootDir>/site/helpers/$1",
-      "^pages/(.*?)$": "<rootDir>/site/pages/$1",
-      "^assets/(.*?)$": "<rootDir>/site/assets/$1",
-      "^docs/(.*?)$": "<rootDir>/site/docs/$1",
+      "^routes/(.*?)$": "<rootDir>/app/routes/$1",
+      "^components/(.*?)$": "<rootDir>/app/components/$1",
+      "^helpers/(.*?)$": "<rootDir>/app/helpers/$1",
+      "^pages/(.*?)$": "<rootDir>/app/pages/$1",
+      "^assets/(.*?)$": "<rootDir>/app/assets/$1",
+      "^docs/(.*?)$": "<rootDir>/app/docs/$1",
       "^undernet/(.*?)$": "<rootDir>/js/src/$1"
     },
     "roots": [
-      "<rootDir>/site/",
+      "<rootDir>/app/",
       "<rootDir>/js/"
     ],
     "setupFiles": [
@@ -155,7 +155,7 @@
       "enzyme-to-json/serializer"
     ],
     "testMatch": [
-      "<rootDir>/site/**/*.spec.js",
+      "<rootDir>/app/**/*.spec.js",
       "<rootDir>/js/**/*.spec.js"
     ],
     "testURL": "http://localhost/",
