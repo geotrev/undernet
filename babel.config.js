@@ -7,7 +7,9 @@ let plugins = [
 
 module.exports = api => {
   const test = api.env("test")
-  const dist = api.env("dist")
+  const cjs = api.env("cjs")
+  const esm = api.env("esm")
+  const rollup = api.env("rollup")
 
   if (test) {
     presets = ["@babel/preset-react", ["@babel/preset-env", { targets: { node: "current" } }]]
@@ -16,8 +18,11 @@ module.exports = api => {
       "dynamic-import-node",
       ["babel-plugin-webpack-aliases", { config: "config/webpack.dev.js" }],
     ]
-  } else if (dist) {
+  } else if (cjs || rollup) {
     presets = ["@babel/preset-env"]
+    plugins = []
+  } else if (esm) {
+    presets = [["@babel/preset-env", { modules: false }]]
     plugins = []
   }
 

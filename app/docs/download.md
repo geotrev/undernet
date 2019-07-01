@@ -7,8 +7,8 @@ The quickest way to use Undernet is to link the bundled js and minified css usin
 ```html
 <link
   rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/undernet@4.4.1/dist/undernet.min.css"
-  integrity="sha256-KAkOhhbOk89pSIdeP0FSuYDVBy6vldISb+BKlNr+wbs="
+  href="https://cdn.jsdelivr.net/npm/undernet@4.5.0/dist/undernet.min.css"
+  integrity="sha256-lpQ4AF+Mzlonw6AIGEURg3/TuNGRwNqzoL2KHub8YEU="
   crossorigin="anonymous"
 />
 ```
@@ -16,8 +16,8 @@ The quickest way to use Undernet is to link the bundled js and minified css usin
 ```html
 <script
   type="text/javascript"
-  src="https://cdn.jsdelivr.net/npm/undernet@4.4.1/dist/undernet.bundle.min.js"
-  integrity="sha256-bsY+VnWNN4w3Up6W+HKi4nyIovEO9CW+zkrlW4JwD2g="
+  src="https://cdn.jsdelivr.net/npm/undernet@4.5.0/dist/undernet.bundle.min.js"
+  integrity="sha256-8CZr3jilCWu7b4gpoLsTFVjMxmVv98h9m4U2BheNIgw="
   crossorigin="anonymous"
 ></script>
 <script type="text/javascript">
@@ -27,14 +27,14 @@ The quickest way to use Undernet is to link the bundled js and minified css usin
 
 ## Minified & Compiled
 
-Grab compiled assets if you need them statically.
+Use these assets if you need static instances of the CDN bundled files.
 
 - CSS: [Download](https://github.com/geotrev/undernet/raw/master/dist/undernet.css.zip)
 - JS: [Download](https://github.com/geotrev/undernet/raw/master/dist/undernet.js.zip)
 
 ## Uncompiled & Unminified
 
-Going this route allows for far more customization. These should also grant better debugging during development.
+Going this route allows for far more customization. Use this option if you intend to remove or customize your build by removing components and features you don't need.
 
 - SCSS: [Download](https://github.com/geotrev/undernet/raw/master/dist/undernet.scss.zip)
 - JS: [Download](https://github.com/geotrev/undernet/raw/master/dist/undernet.modules.js.zip)
