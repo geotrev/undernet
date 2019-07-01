@@ -2,6 +2,8 @@
 yarn-error.log*
 npm-error.log*
 
+/js/esm/
+/js/cjs/
 /build/
 /node_modules/
 

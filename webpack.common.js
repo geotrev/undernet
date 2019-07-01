@@ -23,7 +23,7 @@ module.exports = {
       pages: path.resolve(__dirname, "app/pages/"),
       assets: path.resolve(__dirname, "app/assets/"),
       docs: path.resolve(__dirname, "app/docs/"),
-      undernet: path.resolve(__dirname, "js/dist/index"),
+      undernet: path.resolve(__dirname, "js/esm/index"),
     },
   },
   module: {
