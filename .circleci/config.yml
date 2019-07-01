@@ -18,7 +18,7 @@ jobs:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
 
-      - run: yarn install
+      - run: yarn install && yarn js:build
       - save_cache:
           paths:
             - node_modules
