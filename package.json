@@ -7,7 +7,7 @@
   "license": "MIT",
   "private": false,
   "main": "js/cjs/index.js",
-  "module": "dist/esm/index.js",
+  "module": "js/esm/index.js",
   "sass": "scss/undernet.scss",
   "style": "dist/undernet.css",
   "scripts": {
