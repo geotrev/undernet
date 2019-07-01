@@ -13,6 +13,8 @@ What does Undernet include?
 - Interactive components powered by JavaScript.
 - Highly brandable and extendable.
 
+The main site, https://undernet.io, is deployed using [Netlify](https://www.netlify.com/).
+
 ## Install via npm or yarn
 
 ```sh
