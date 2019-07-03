@@ -1,9 +1,9 @@
 import { uglify } from "rollup-plugin-uglify"
-import pkg from "../package.json"
 import path from "path"
 import resolve from "rollup-plugin-node-resolve"
 import babel from "rollup-plugin-babel"
-import banner from "./banner"
+import banner from "./bin/banner"
+import pkg from "./package.json"
 
 // Base configurations for all bundles
 

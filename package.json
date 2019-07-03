@@ -11,8 +11,8 @@
   "sass": "scss/undernet.scss",
   "style": "dist/undernet.css",
   "scripts": {
-    "watch": "yarn js:build && webpack-dev-server --config config/webpack.dev.js --progress --open",
-    "build": "yarn js:build && webpack --config config/webpack.prod.js --progress",
+    "watch": "yarn js:build && webpack-dev-server --config webpack.dev.js --progress",
+    "build": "yarn js:build && webpack --config webpack.prod.js --progress",
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "eslint . --ext .js -c ./.eslintrc.js --ignore-path .eslintignore; exit 0",
@@ -25,7 +25,7 @@
     "js:build:esm": "BABEL_ENV=esm babel js/src/ -d js/esm/ --ignore 'js/src/index.bundle.js' --no-comments -s",
     "js:watch": "BABEL_ENV=esm babel js/src/ -d js/esm/ --watch --no-comments -s",
     "js:prettify": "prettier --write 'js/src/**/*.js'",
-    "js:rollup": "BABEL_ENV=rollup rollup -c config/rollup.config.js",
+    "js:rollup": "BABEL_ENV=rollup rollup -c",
     "js:modules:zip": "cd js/src/ && zip -r ../../dist/undernet.modules.js.zip .",
     "js:zip": "cd dist/ && zip -r undernet.js.zip . -x *.css *.zip *.css.map",
     "js:prepublish": "yarn js:build && yarn js:rollup && yarn js:modules:zip && yarn js:zip",
@@ -98,6 +98,7 @@
     "rollup-plugin-uglify": "^6.0.2",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
+    "terser-webpack-plugin": "^1.3.0",
     "uglify-js": "^3.6.0",
     "uglifyjs-webpack-plugin": "^2.1.2",
     "webpack": "^4.35.0",
@@ -130,44 +131,5 @@
   },
   "bugs": {
     "url": "https://github.com/geotrev/undernet/issues"
-  },
-  "jest": {
-    "clearMocks": true,
-    "restoreMocks": true,
-    "moduleNameMapper": {
-      "\\.(css|scss)$": "<rootDir>/config/__mocks__/emptyMock.js",
-      "\\.(jpg|jpeg|png|gif|md|eot|otf|webp|svg|ttf|woff|woff2)$": "<rootDir>/config/__mocks__/emptyMock.js",
-      "^projectRoot/(.*?)$": "<rootDir>/$1",
-      "^routes/(.*?)$": "<rootDir>/app/routes/$1",
-      "^components/(.*?)$": "<rootDir>/app/components/$1",
-      "^helpers/(.*?)$": "<rootDir>/app/helpers/$1",
-      "^pages/(.*?)$": "<rootDir>/app/pages/$1",
-      "^assets/(.*?)$": "<rootDir>/app/assets/$1",
-      "^docs/(.*?)$": "<rootDir>/app/docs/$1",
-      "^undernet/(.*?)$": "<rootDir>/js/esm/$1"
-    },
-    "roots": [
-      "<rootDir>/app/",
-      "<rootDir>/js/"
-    ],
-    "setupFiles": [
-      "<rootDir>/config/jest.config.js"
-    ],
-    "snapshotSerializers": [
-      "enzyme-to-json/serializer"
-    ],
-    "testMatch": [
-      "<rootDir>/app/**/*.spec.js",
-      "<rootDir>/js/**/*.spec.js"
-    ],
-    "testURL": "http://localhost/",
-    "transform": {
-      "^.+\\.js$": "babel-jest"
-    },
-    "unmockedModulePathPatterns": [
-      "node_modules/react/",
-      "node_modules/enzyme/"
-    ],
-    "verbose": false
   }
 }

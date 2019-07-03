@@ -69,6 +69,7 @@ module.exports = {
     }),
     new MiniCssExtractPlugin({
       filename: "[name].[chunkhash].css",
+      chunkFilename: "[name].[chunkhash].css",
     }),
     new CopyWebpackPlugin([
       {

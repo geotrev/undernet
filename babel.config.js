@@ -16,7 +16,7 @@ module.exports = api => {
     plugins = [
       ...plugins,
       "dynamic-import-node",
-      ["babel-plugin-webpack-aliases", { config: "config/webpack.dev.js" }],
+      ["babel-plugin-webpack-aliases", { config: "webpack.dev.js" }],
     ]
   } else if (cjs || rollup) {
     presets = ["@babel/preset-env"]
