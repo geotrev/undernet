@@ -1,5 +1,5 @@
 import React from "react"
-import ScrollUpOnMount from "./ScrollUpOnMount"
+import ScrollUpOnMount from "../ScrollUpOnMount"
 
 global.scrollTo = jest.fn()
 

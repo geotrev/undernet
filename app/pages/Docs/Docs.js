@@ -1,8 +1,8 @@
 import React from "react"
 
 import SideNav from "components/SideNav"
-import DocsRoutes from "./DocsRoutes"
-import { NAV_DATA } from "./nav-data"
+import DocsRoutes from "components/DocsRoutes"
+import { NAV_DATA } from "pages/Docs/navData"
 import "./styles.scss"
 
 export default function Docs() {

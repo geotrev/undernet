@@ -1,6 +1,6 @@
 import React, { Fragment, createRef } from "react"
 import { Switch, Route } from "react-router-dom"
-import { Utils } from "undernet"
+import { ContextUtil } from "undernet"
 
 import { rootPath, docsPath } from "routes"
 import GlobalNav from "components/GlobalNav"
@@ -16,7 +16,7 @@ export default class Main extends React.Component {
   contentRef = createRef()
 
   componentDidMount() {
-    Utils.enableFocusOutline()
+    ContextUtil.enableFocusOutline()
   }
 
   // NOTE: These click events directly modify the tabindex of the elements, instead of relying on

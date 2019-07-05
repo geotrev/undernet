@@ -1,5 +1,5 @@
 import React from "react"
-import SideNav from "./SideNav"
+import SideNav from "../SideNav"
 import { BrowserRouter as Router } from "react-router-dom"
 
 const navItems = [

@@ -1,4 +1,6 @@
-import Utils, { iOSMobile, dom } from "./utils"
+import _ContextUtil, { iOSMobile, dom } from "./utils"
+
+const ContextUtil = new _ContextUtil()
 
 const KeyCodes = {
   TAB: 9,
@@ -39,10 +41,8 @@ const Messages = {
   NO_PARENT_ERROR: "Could not find dropdown button's [data-parent] attribute.",
 }
 
-export default class Dropdown extends Utils {
+export default class Dropdown {
   constructor() {
-    super()
-
     // events
     this._render = this._render.bind(this)
     this._handleFirstTabClose = this._handleFirstTabClose.bind(this)
@@ -175,7 +175,7 @@ export default class Dropdown extends Utils {
 
     if (iOSMobile) dom.css(document.body, "cursor", "auto")
 
-    this.releaseFocus()
+    ContextUtil.releaseFocus()
     this._handleHideState()
     this._listenToRender()
 
@@ -231,7 +231,7 @@ export default class Dropdown extends Utils {
       link.addEventListener(Events.CLICK, this._handleClose)
     })
 
-    this.captureFocus(`${this._activeDropdownAttr} > ul`, { useArrows: true })
+    ContextUtil.captureFocus(`${this._activeDropdownAttr} > ul`, { useArrows: true })
   }
 
   _listenToClose() {

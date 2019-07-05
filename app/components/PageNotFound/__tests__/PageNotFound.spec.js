@@ -1,5 +1,5 @@
 import React from "react"
-import PageNotFound from "./PageNotFound"
+import PageNotFound from "../PageNotFound"
 
 describe("<PageNotFound />", () => {
   let wrapper

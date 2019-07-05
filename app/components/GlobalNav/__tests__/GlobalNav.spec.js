@@ -1,18 +1,18 @@
 import React from "react"
-import DocsRoutes from "./DocsRoutes"
+import GlobalNav from "../GlobalNav"
 import { BrowserRouter as Router } from "react-router-dom"
 
-function mountRoutes() {
+function NavComponent() {
   return mount(
     <Router>
-      <DocsRoutes />
+      <GlobalNav />
     </Router>
   )
 }
 
-describe("<DocsRoutes />", () => {
+describe("<Nav />", () => {
   it("matches snapshot", () => {
-    const wrapper = mountRoutes()
+    const wrapper = NavComponent()
     expect(wrapper).toMatchSnapshot()
   })
 })

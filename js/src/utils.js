@@ -75,7 +75,7 @@ export const iOSMobile = /(iphone|ipod|ipad)/i.test(navigator.userAgent)
  * Utility class to help with focus trapping and keyboard outline management.
  * Components extend from this method.
  */
-export default class Utils {
+export default class ContextUtil {
   constructor() {
     // events
     this._listenForKeyboard = this._listenForKeyboard.bind(this)
@@ -127,6 +127,7 @@ export default class Utils {
     if (this._listeningForKeydown) {
       document.removeEventListener(Events.KEYDOWN, this._listenForKeyboard)
     } else {
+      document.body.classList.remove(Selectors.KEYBOARD_CLASS)
       document.removeEventListener(Events.CLICK, this._listenForClick)
     }
   }
