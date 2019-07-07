@@ -8,12 +8,12 @@ import pkg from "./package.json"
 // Base configurations for all bundles
 
 const inputs = {
-  umd: path.resolve(__dirname, "../js/src/index.bundle.js"),
+  umd: path.join(__dirname, "js/src/index.bundle.js"),
 }
 
 const outputs = {
-  umd: path.resolve(__dirname, "../dist/undernet.bundle.js"),
-  umdMin: path.resolve(__dirname, `../dist/undernet.bundle.min.js`),
+  umd: path.join(__dirname, "dist/undernet.bundle.js"),
+  umdMin: path.join(__dirname, "dist/undernet.bundle.min.js"),
 }
 
 const plugins = [
