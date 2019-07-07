@@ -11,10 +11,10 @@ A number of components are available for you to use in your site:
 
 Additionally, there are two utilities you can use to manipulate certain behavior outside of components using the `ContextUtil` plugin:
 
-1. Focus Trapping: Use `ContextUtil.captureFocus(selector)` to trap focus within a given container. `selector` can be any valid class, id, attribute, or other identifier in the DOM. E.g., `.my-cool-class`. To release focus, use `ContextUtil.releaseFocus()`; it assumes you are releasing the focus on the same element you captured focus on, so don't call `captureFocus` twice in a row!
-2. Focus Outline: Use `ContextUtil.enableFocusOutline()` to enable a focus outline when keyboard navigation activity is detected (spacebar, enter, escape, arrow keys, etc). Use `ContextUtil.disableFocusOutline()` to manually turn it off.
+1. **Focus Trap**: Use `ContextUtil.captureFocus(selector)` to trap focus within a given container. `selector` can be any valid class, id, attribute, or other identifier in the DOM. E.g., `.my-cool-class`. To release focus, use `ContextUtil.releaseFocus()`; it assumes you are releasing focus on the same element you captured focus on, so don't call `captureFocus` twice in a row!
+2. **Focus Outline**: Use `ContextUtil.enableFocusOutline()` to enable a focus outline when keyboard navigation activity is detected (tab, shift, spacebar, enter, escape, arrow keys, etc). Use `ContextUtil.disableFocusOutline()` to manually turn it off.
 
-# API Patterns
+## API Pattern
 
 Undernet's components and focus outline plugin can all be enabled using a one line "start" method:
 
@@ -36,13 +36,13 @@ Modals.start()
 Modals.stop()
 ```
 
-## Bundling
+## Bundle & Install Options
 
 There's two main ways to gain access to the JavaScript: the CDN and NPM package. The API is the same in either case.
 
-### CDN
+### CDN or Static Assets
 
-Just like in the [Introduction](/docs/overview/introduction) article, the fastest option is to add the compiled assets right to your layout. Then in a separate script tag, call the API.
+Similar the [Introduction](/docs/overview/introduction) article (CDN example is used there), the fastest option is to add the compiled assets right to your layout. Then in a separate script tag, call the API.
 
 ```html
 <!DOCTYPE html>

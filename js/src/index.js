@@ -11,7 +11,6 @@ export const Tooltips = new _Tooltips()
 export const ContextUtil = new _ContextUtil()
 
 const Undernet = {
-  // Components
   Modals,
   Accordions,
   Dropdowns,
@@ -31,6 +30,7 @@ Undernet.stop = () => {
   Undernet.Modals.stop()
   Undernet.Accordions.stop()
   Undernet.Dropdowns.stop()
+  Undernet.Tooltips.stop()
   ContextUtil.disableFocusOutline()
 }
 
