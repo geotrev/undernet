@@ -2,8 +2,9 @@ import { uglify } from "rollup-plugin-uglify"
 import path from "path"
 import resolve from "rollup-plugin-node-resolve"
 import babel from "rollup-plugin-babel"
-import banner from "./bin/banner"
-import pkg from "./package.json"
+
+const banner = require("./bin/banner")
+const pkg = require("./package.json")
 
 // Base configurations for all bundles
 
@@ -56,7 +57,7 @@ umdMinPlugins.push(
   ...plugins,
   uglify({
     output: {
-      comments: (node, comment) => {
+      comments: (_, comment) => {
         if (comment.type === "comment2") {
           return /@preserve|@license|@cc_on/i.test(comment.value)
         }

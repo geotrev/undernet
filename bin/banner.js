@@ -8,4 +8,4 @@ const banner = `/*!
   * Copyright 2017-${year} ${pkg.author}
   */`
 
-export default banner
+module.exports = banner
