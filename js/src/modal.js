@@ -1,4 +1,6 @@
-import Utils, { iOSMobile, getFocusableElements, dom } from "./utils"
+import _ContextUtil, { iOSMobile, getFocusableElements, dom } from "./utils"
+
+const ContextUtil = new _ContextUtil()
 
 const KeyCodes = {
   ESCAPE: 27,
@@ -35,10 +37,8 @@ const Messages = {
     `Could not find a [data-parent='${id}'] attribute within your [data-modal='${id}'] element.`,
 }
 
-export default class Modal extends Utils {
+export default class Modal {
   constructor() {
-    super()
-
     // events
     this._render = this._render.bind(this)
     this._handleClose = this._handleClose.bind(this)
@@ -134,7 +134,7 @@ export default class Modal extends Utils {
     this._enableFocusOnChildren()
     this._handleScrollbarOffset()
     this._handleScrollStop()
-    this.captureFocus(this._activeModalSelector)
+    ContextUtil.captureFocus(this._activeModalSelector)
     this._setAttributes()
     this._setCloseButtons()
     this._handleModalFocus()
@@ -148,7 +148,7 @@ export default class Modal extends Utils {
     this._stopEvents()
     this._handleReturnFocus()
     this._removeAttributes()
-    this.releaseFocus()
+    ContextUtil.releaseFocus()
     this._handleScrollRestore()
     this._removeScrollbarOffset()
     this._disableFocusOnChildren()

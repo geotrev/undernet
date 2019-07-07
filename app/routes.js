@@ -5,7 +5,6 @@ export const introductionPath = "/docs/overview/introduction"
 export const downloadPath = "/docs/overview/download"
 export const brandingPath = "/docs/overview/branding"
 export const javascriptPath = "/docs/overview/javascript"
-export const accessibilityPath = "/docs/overview/accessibility"
 
 export const gridPath = "/docs/layout/grid"
 export const alignmentPath = "/docs/layout/alignment"

@@ -12,8 +12,8 @@ Undernet can both be a prototyping tool or the basis for your web app. You can e
 
 ### Core Principles
 
-- **Configuration:** The framework comes with a configuration file that you can update with your intended brand attributes, including colors, typography, the flex grid, forms, and more.
-- **Semantics:** All examples recommend [semantic HTML](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5#Semantics), and always include accessibility considerations where necessary.
+- **Configuration:** The framework comes with a configuration file that you can update with your intended brand attributes, including colors, typography, the flex grid, forms, buttons, and more.
+- **Accessibility:** All examples recommend [semantic HTML](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5#Semantics), and **always include accessibility considerations** where necessary.
 - **Modularity:** Undernet can act independently from your core stylesheet and can be added to to existing projects using [scopes](/docs/overview/branding).
 - **Agility:** Installation options range from CDN to full pipeline control.
 

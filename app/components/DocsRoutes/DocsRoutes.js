@@ -23,7 +23,6 @@ export default function DocsRoutes() {
       <Route exact path={routes.downloadPath} component={getRoute("download")} />
       <Route exact path={routes.brandingPath} component={getRoute("branding")} />
       <Route exact path={routes.javascriptPath} component={getRoute("javascript")} />
-      <Route exact path={routes.accessibilityPath} component={getRoute("accessibility")} />
       <Route exact path={routes.gridPath} component={getRoute("grid")} />
       <Route exact path={routes.typographyPath} component={getRoute("typography")} />
       <Route exact path={routes.buttonsPath} component={getRoute("buttons")} />
