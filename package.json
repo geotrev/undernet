@@ -37,7 +37,7 @@
     "scss:prepublish": "cd scss/ && zip -r ../dist/undernet.scss.zip .",
     "update-version": "node bin/update-version.js",
     "create-hashes": "node bin/create-hashes.js",
-    "preversion": "npm test",
+    "preversion": "yarn js:build && npm test",
     "postversion": "yarn update-version && npm test -- -u && yarn build:dist:release && git add -A && git commit --amend"
   },
   "devDependencies": {
