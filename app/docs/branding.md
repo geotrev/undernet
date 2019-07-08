@@ -35,9 +35,8 @@ In order for the previous html snippet to work, you will need to add a `div` or 
     <p>This is some random text</p>
   </div>
 </div>
-
 <button>Press me, too!</button>
-<p>This is some other random text!<p>
+<p>This is some other random text!</p>
 ```
 
 Now any elements within the `my-scope` wrapper will use Undernet's styling, and the other elements will not.

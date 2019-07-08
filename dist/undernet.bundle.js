@@ -1,6 +1,6 @@
 /*!
   * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
-  * Undernet v4.5.1 (https://undernet.io)
+  * Undernet v5.0.1 (https://undernet.io)
   * Copyright 2017-2019 George Treviranus
   */
 (function (global, factory) {
@@ -29,53 +29,6 @@
     if (protoProps) _defineProperties(Constructor.prototype, protoProps);
     if (staticProps) _defineProperties(Constructor, staticProps);
     return Constructor;
-  }
-
-  function _inherits(subClass, superClass) {
-    if (typeof superClass !== "function" && superClass !== null) {
-      throw new TypeError("Super expression must either be null or a function");
-    }
-
-    subClass.prototype = Object.create(superClass && superClass.prototype, {
-      constructor: {
-        value: subClass,
-        writable: true,
-        configurable: true
-      }
-    });
-    if (superClass) _setPrototypeOf(subClass, superClass);
-  }
-
-  function _getPrototypeOf(o) {
-    _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
-      return o.__proto__ || Object.getPrototypeOf(o);
-    };
-    return _getPrototypeOf(o);
-  }
-
-  function _setPrototypeOf(o, p) {
-    _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
-      o.__proto__ = p;
-      return o;
-    };
-
-    return _setPrototypeOf(o, p);
-  }
-
-  function _assertThisInitialized(self) {
-    if (self === void 0) {
-      throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-    }
-
-    return self;
-  }
-
-  function _possibleConstructorReturn(self, call) {
-    if (call && (typeof call === "object" || typeof call === "function")) {
-      return call;
-    }
-
-    return _assertThisInitialized(self);
   }
 
   function _toConsumableArray(arr) {
@@ -183,9 +136,9 @@
   };
   var iOSMobile = /(iphone|ipod|ipad)/i.test(navigator.userAgent);
 
-  var Utils = function () {
-    function Utils() {
-      _classCallCheck(this, Utils);
+  var ContextUtil = function () {
+    function ContextUtil() {
+      _classCallCheck(this, ContextUtil);
 
       this._listenForKeyboard = this._listenForKeyboard.bind(this);
       this._listenForClick = this._listenForClick.bind(this);
@@ -199,7 +152,7 @@
       this._trapFocusWithArrows = false;
     }
 
-    _createClass(Utils, [{
+    _createClass(ContextUtil, [{
       key: "captureFocus",
       value: function captureFocus(container, options) {
         this._focusContainerSelector = container;
@@ -237,6 +190,7 @@
         if (this._listeningForKeydown) {
           document.removeEventListener(Events.KEYDOWN, this._listenForKeyboard);
         } else {
+          document.body.classList.remove(Selectors.KEYBOARD_CLASS);
           document.removeEventListener(Events.CLICK, this._listenForClick);
         }
       }
@@ -324,7 +278,7 @@
       }
     }]);
 
-    return Utils;
+    return ContextUtil;
   }();
 
   var Selectors$1 = {
@@ -362,37 +316,31 @@
     }
   };
 
-  var Accordion = function (_Utils) {
-    _inherits(Accordion, _Utils);
-
+  var Accordion = function () {
     function Accordion() {
-      var _this;
-
       _classCallCheck(this, Accordion);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(Accordion).call(this));
-      _this._render = _this._render.bind(_assertThisInitialized(_this));
-      _this._accordionButtons = [];
-      _this._accordionContentsAttr = "";
-      _this._accordionContents = [];
-      _this._activeContainer = {};
-      _this._activeButton = {};
-      _this._activeAccordionRowId = "";
-      _this._activeRowAttr = "";
-      _this._activeRow = "";
-      _this._activeContainerId = "";
-      _this._activeContainerAttr = "";
-      _this._activeContent = {};
-      _this._activeButtonExpandState = "";
-      _this._activeContentHiddenState = "";
-      _this._headers = ["h1", "h2", "h3", "h4", "h5", "h6"];
-      return _this;
+      this._render = this._render.bind(this);
+      this._accordionButtons = [];
+      this._accordionContentsAttr = "";
+      this._accordionContents = [];
+      this._activeContainer = {};
+      this._activeButton = {};
+      this._activeAccordionRowId = "";
+      this._activeRowAttr = "";
+      this._activeRow = "";
+      this._activeContainerId = "";
+      this._activeContainerAttr = "";
+      this._activeContent = {};
+      this._activeButtonExpandState = "";
+      this._activeContentHiddenState = "";
+      this._headers = ["h1", "h2", "h3", "h4", "h5", "h6"];
     }
 
     _createClass(Accordion, [{
       key: "start",
       value: function start() {
-        var _this2 = this;
+        var _this = this;
 
         var accordionButtonSelector = this._getAccordionButtonSelector("[".concat(Selectors$1.DATA_ACCORDION, "]"));
 
@@ -400,19 +348,19 @@
 
         if (this._accordionButtons.length) {
           this._accordionButtons.forEach(function (instance) {
-            _this2._setup(instance);
+            _this._setup(instance);
 
-            instance.addEventListener(Events$1.CLICK, _this2._render);
+            instance.addEventListener(Events$1.CLICK, _this._render);
           });
         }
       }
     }, {
       key: "stop",
       value: function stop() {
-        var _this3 = this;
+        var _this2 = this;
 
         this._accordionButtons.forEach(function (instance) {
-          instance.removeEventListener(Events$1.CLICK, _this3._render);
+          instance.removeEventListener(Events$1.CLICK, _this2._render);
         });
       }
     }, {
@@ -539,7 +487,7 @@
     }, {
       key: "_closeAllIfToggleable",
       value: function _closeAllIfToggleable() {
-        var _this4 = this;
+        var _this3 = this;
 
         var allContentAttr = "".concat(this._activeContainerAttr, " > [").concat(Selectors$1.DATA_ACCORDION_ROW, "] > [").concat(Selectors$1.ARIA_HIDDEN, "]");
         var allContent = dom.findAll(allContentAttr);
@@ -549,7 +497,7 @@
         var allButtons = dom.findAll(accordionButtonSelector);
         var allRows = dom.findAll("".concat(this._activeContainerAttr, " > [").concat(Selectors$1.DATA_ACCORDION_ROW, "]"));
         allContent.filter(function (content) {
-          return content !== _this4._activeContent;
+          return content !== _this3._activeContent;
         }).forEach(function (content) {
           return dom.css(content, "maxHeight", null);
         });
@@ -566,13 +514,13 @@
     }, {
       key: "_toggleSelectedAccordion",
       value: function _toggleSelectedAccordion() {
-        var _this5 = this;
+        var _this4 = this;
 
         dom.attr(this._activeRow, Selectors$1.DATA_VISIBLE, this._nextButtonExpandState);
         dom.attr(this._activeButton, Selectors$1.ARIA_EXPANDED, this._nextButtonExpandState);
         dom.attr(this._activeContent, Selectors$1.ARIA_HIDDEN, this._nextContentHiddenState);
         getFocusableElements("#".concat(this._activeAccordionRowId)).forEach(function (element) {
-          var value = _this5._nextButtonExpandState === "true" ? "0" : "-1";
+          var value = _this4._nextButtonExpandState === "true" ? "0" : "-1";
           dom.attr(element, Selectors$1.TABINDEX, value);
         });
 
@@ -592,8 +540,9 @@
     }]);
 
     return Accordion;
-  }(Utils);
+  }();
 
+  var ContextUtil$1 = new ContextUtil();
   var KeyCodes$1 = {
     TAB: 9,
     SHIFT: 16,
@@ -631,66 +580,60 @@
     NO_PARENT_ERROR: "Could not find dropdown button's [data-parent] attribute."
   };
 
-  var Dropdown = function (_Utils) {
-    _inherits(Dropdown, _Utils);
-
+  var Dropdown = function () {
     function Dropdown() {
-      var _this;
-
       _classCallCheck(this, Dropdown);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(Dropdown).call(this));
-      _this._render = _this._render.bind(_assertThisInitialized(_this));
-      _this._handleFirstTabClose = _this._handleFirstTabClose.bind(_assertThisInitialized(_this));
-      _this._handleLastTabClose = _this._handleLastTabClose.bind(_assertThisInitialized(_this));
-      _this._renderWithKeys = _this._renderWithKeys.bind(_assertThisInitialized(_this));
-      _this._handleClose = _this._handleClose.bind(_assertThisInitialized(_this));
-      _this._handleEscapeKeyPress = _this._handleEscapeKeyPress.bind(_assertThisInitialized(_this));
-      _this._handleOffMenuClick = _this._handleOffMenuClick.bind(_assertThisInitialized(_this));
-      _this._activeDropdown = {};
-      _this._activeDropdownButton = null;
-      _this._activeDropdownMenu = {};
-      _this._activeDropdownLinks = [];
-      _this._allowFocusReturn = true;
-      _this._activeDropdownId = "";
-      _this._activeDropdownAttr = "";
-      _this._activeDropdownMenuId = "";
-      _this._firstDropdownLink = {};
-      _this._lastDropdownLink = {};
-      _this._dropdownButtons = [];
-      _this._dropdowns = [];
-      _this._dropdownContainerAttr = "[".concat(Selectors$2.DATA_DROPDOWN, "]");
-      _this._dropdownTargetAttr = "[".concat(Selectors$2.DATA_TARGET, "]");
-      return _this;
+      this._render = this._render.bind(this);
+      this._handleFirstTabClose = this._handleFirstTabClose.bind(this);
+      this._handleLastTabClose = this._handleLastTabClose.bind(this);
+      this._renderWithKeys = this._renderWithKeys.bind(this);
+      this._handleClose = this._handleClose.bind(this);
+      this._handleEscapeKeyPress = this._handleEscapeKeyPress.bind(this);
+      this._handleOffMenuClick = this._handleOffMenuClick.bind(this);
+      this._activeDropdown = {};
+      this._activeDropdownButton = null;
+      this._activeDropdownMenu = {};
+      this._activeDropdownLinks = [];
+      this._allowFocusReturn = true;
+      this._activeDropdownId = "";
+      this._activeDropdownAttr = "";
+      this._activeDropdownMenuId = "";
+      this._firstDropdownLink = {};
+      this._lastDropdownLink = {};
+      this._dropdownButtons = [];
+      this._dropdowns = [];
+      this._dropdownContainerAttr = "[".concat(Selectors$2.DATA_DROPDOWN, "]");
+      this._dropdownTargetAttr = "[".concat(Selectors$2.DATA_TARGET, "]");
     }
 
     _createClass(Dropdown, [{
       key: "start",
       value: function start() {
-        var _this2 = this;
+        var _this = this;
 
         this._dropdowns = dom.findAll("".concat(this._dropdownContainerAttr));
         this._dropdownButtons = dom.findAll("".concat(this._dropdownContainerAttr, " > ").concat(this._dropdownTargetAttr));
 
         if (this._dropdowns.length) {
           this._dropdowns.forEach(function (instance) {
-            return _this2._setup(instance);
+            return _this._setup(instance);
           });
         }
 
         this._dropdownButtons.forEach(function (button) {
-          button.addEventListener(Events$2.CLICK, _this2._render);
-          button.addEventListener(Events$2.KEYDOWN, _this2._renderWithKeys);
+          button.addEventListener(Events$2.CLICK, _this._render);
+          button.addEventListener(Events$2.KEYDOWN, _this._renderWithKeys);
         });
       }
     }, {
       key: "stop",
       value: function stop() {
-        var _this3 = this;
+        var _this2 = this;
 
         this._dropdownButtons.forEach(function (button) {
-          button.removeEventListener(Events$2.CLICK, _this3._render);
-          button.removeEventListener(Events$2.KEYDOWN, _this3._renderWithKeys);
+          button.removeEventListener(Events$2.CLICK, _this2._render);
+          button.removeEventListener(Events$2.KEYDOWN, _this2._renderWithKeys);
         });
       }
     }, {
@@ -776,7 +719,7 @@
       value: function _handleClose(event) {
         event.preventDefault();
         if (iOSMobile) dom.css(document.body, "cursor", "auto");
-        this.releaseFocus();
+        ContextUtil$1.releaseFocus();
 
         this._handleHideState();
 
@@ -802,14 +745,14 @@
     }, {
       key: "_handleHideState",
       value: function _handleHideState() {
-        var _this4 = this;
+        var _this3 = this;
 
         dom.attr(this._activeDropdownButton, Selectors$2.ARIA_EXPANDED, "false");
         dom.attr(this._activeDropdown, Selectors$2.DATA_VISIBLE, "false");
 
         this._activeDropdownLinks.forEach(function (link) {
           dom.attr(link, Selectors$2.TABINDEX, "-1");
-          link.removeEventListener(Events$2.CLICK, _this4._handleClose);
+          link.removeEventListener(Events$2.CLICK, _this3._handleClose);
         });
       }
     }, {
@@ -826,7 +769,7 @@
     }, {
       key: "_startEvents",
       value: function _startEvents() {
-        var _this5 = this;
+        var _this4 = this;
 
         document.addEventListener(Events$2.KEYDOWN, this._handleEscapeKeyPress);
         document.addEventListener(Events$2.CLICK, this._handleOffMenuClick);
@@ -840,10 +783,10 @@
 
         this._activeDropdownLinks.forEach(function (link) {
           dom.attr(link, Selectors$2.TABINDEX, "0");
-          link.addEventListener(Events$2.CLICK, _this5._handleClose);
+          link.addEventListener(Events$2.CLICK, _this4._handleClose);
         });
 
-        this.captureFocus("".concat(this._activeDropdownAttr, " > ul"), {
+        ContextUtil$1.captureFocus("".concat(this._activeDropdownAttr, " > ul"), {
           useArrows: true
         });
       }
@@ -940,8 +883,9 @@
     }]);
 
     return Dropdown;
-  }(Utils);
+  }();
 
+  var ContextUtil$2 = new ContextUtil();
   var KeyCodes$2 = {
     ESCAPE: 27
   };
@@ -972,37 +916,31 @@
     }
   };
 
-  var Modal = function (_Utils) {
-    _inherits(Modal, _Utils);
-
+  var Modal = function () {
     function Modal() {
-      var _this;
-
       _classCallCheck(this, Modal);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(Modal).call(this));
-      _this._render = _this._render.bind(_assertThisInitialized(_this));
-      _this._handleClose = _this._handleClose.bind(_assertThisInitialized(_this));
-      _this._handleOverlayClick = _this._handleOverlayClick.bind(_assertThisInitialized(_this));
-      _this._handleEscapeKeyPress = _this._handleEscapeKeyPress.bind(_assertThisInitialized(_this));
-      _this._modals = [];
-      _this._modalButtons = [];
-      _this._activeModalButton = {};
-      _this._activeModalOverlay = {};
-      _this._activeModal = {};
-      _this._activeModalId = "";
-      _this._activeModalSelector = "";
-      _this._activeModalCloseButtons = [];
-      _this._originalPagePaddingRight = "";
-      _this._scrollbarOffset = 0;
-      _this._modalContainerAttr = "[".concat(Selectors$3.DATA_MODAL, "]");
-      return _this;
+      this._render = this._render.bind(this);
+      this._handleClose = this._handleClose.bind(this);
+      this._handleOverlayClick = this._handleOverlayClick.bind(this);
+      this._handleEscapeKeyPress = this._handleEscapeKeyPress.bind(this);
+      this._modals = [];
+      this._modalButtons = [];
+      this._activeModalButton = {};
+      this._activeModalOverlay = {};
+      this._activeModal = {};
+      this._activeModalId = "";
+      this._activeModalSelector = "";
+      this._activeModalCloseButtons = [];
+      this._originalPagePaddingRight = "";
+      this._scrollbarOffset = 0;
+      this._modalContainerAttr = "[".concat(Selectors$3.DATA_MODAL, "]");
     }
 
     _createClass(Modal, [{
       key: "start",
       value: function start() {
-        var _this2 = this;
+        var _this = this;
 
         this._modals = dom.findAll(this._modalContainerAttr);
         getFocusableElements(this._modalContainerAttr).forEach(function (element) {
@@ -1011,14 +949,14 @@
 
         if (this._modals.length) {
           this._modals.forEach(function (instance) {
-            _this2._setup(instance);
+            _this._setup(instance);
           });
         }
       }
     }, {
       key: "stop",
       value: function stop() {
-        var _this3 = this;
+        var _this2 = this;
 
         this._modals.forEach(function (instance) {
           var id = dom.attr(instance, Selectors$3.DATA_MODAL);
@@ -1028,7 +966,7 @@
             throw new Error(Messages$2.NO_BUTTON_ERROR(id));
           }
 
-          button.removeEventListener(Events$3.CLICK, _this3._render);
+          button.removeEventListener(Events$3.CLICK, _this2._render);
         });
       }
     }, {
@@ -1077,7 +1015,7 @@
 
         this._handleScrollStop();
 
-        this.captureFocus(this._activeModalSelector);
+        ContextUtil$2.captureFocus(this._activeModalSelector);
 
         this._setAttributes();
 
@@ -1100,7 +1038,7 @@
 
         this._removeAttributes();
 
-        this.releaseFocus();
+        ContextUtil$2.releaseFocus();
 
         this._handleScrollRestore();
 
@@ -1145,13 +1083,13 @@
     }, {
       key: "_stopEvents",
       value: function _stopEvents() {
-        var _this4 = this;
+        var _this3 = this;
 
         document.removeEventListener(Events$3.KEYDOWN, this._handleEscapeKeyPress);
         document.removeEventListener(Events$3.CLICK, this._handleOverlayClick);
 
         this._activeModalCloseButtons.forEach(function (button) {
-          button.removeEventListener(Events$3.CLICK, _this4._handleClose);
+          button.removeEventListener(Events$3.CLICK, _this3._handleClose);
         });
       }
     }, {
@@ -1170,13 +1108,13 @@
     }, {
       key: "_startEvents",
       value: function _startEvents() {
-        var _this5 = this;
+        var _this4 = this;
 
         document.addEventListener(Events$3.KEYDOWN, this._handleEscapeKeyPress);
         document.addEventListener(Events$3.CLICK, this._handleOverlayClick);
 
         this._activeModalCloseButtons.forEach(function (button) {
-          button.addEventListener(Events$3.CLICK, _this5._handleClose);
+          button.addEventListener(Events$3.CLICK, _this4._handleClose);
         });
       }
     }, {
@@ -1216,12 +1154,12 @@
     }, {
       key: "_removeScrollbarOffset",
       value: function _removeScrollbarOffset() {
-        var _this6 = this;
+        var _this5 = this;
 
         var originalPadding = this._originalPagePaddingRight;
         dom.css(this._activeModalOverlay, "paddingLeft", "".concat(this._scrollbarOffset, "px"));
         setTimeout(function () {
-          return dom.css(_this6._activeModalOverlay, "paddingLeft", "");
+          return dom.css(_this5._activeModalOverlay, "paddingLeft", "");
         }, 500);
 
         if (originalPadding) {
@@ -1268,7 +1206,7 @@
     }]);
 
     return Modal;
-  }(Utils);
+  }();
 
   var KeyCodes$3 = {
     ESCAPE: 27
@@ -1482,13 +1420,13 @@
   var Dropdowns = new Dropdown();
   var Modals = new Modal();
   var Tooltips = new Tooltip();
-  var Utils$1 = new Utils();
+  var ContextUtil$3 = new ContextUtil();
   var Undernet = {
     Modals: Modals,
     Accordions: Accordions,
     Dropdowns: Dropdowns,
     Tooltips: Tooltips,
-    Utils: Utils$1
+    ContextUtil: ContextUtil$3
   };
 
   Undernet.start = function () {
@@ -1496,24 +1434,25 @@
     Undernet.Accordions.start();
     Undernet.Dropdowns.start();
     Undernet.Tooltips.start();
-    Undernet.Utils.enableFocusOutline();
+    ContextUtil$3.enableFocusOutline();
   };
 
   Undernet.stop = function () {
     Undernet.Modals.stop();
     Undernet.Accordions.stop();
     Undernet.Dropdowns.stop();
-    Undernet.Utils.disableFocusOutline();
+    Undernet.Tooltips.stop();
+    ContextUtil$3.disableFocusOutline();
   };
 
   window.Undernet = Undernet;
 
   exports.Accordions = Accordions;
+  exports.ContextUtil = ContextUtil$3;
   exports.Dropdowns = Dropdowns;
   exports.Modals = Modals;
   exports.Tooltips = Tooltips;
   exports.Undernet = Undernet;
-  exports.Utils = Utils$1;
 
   Object.defineProperty(exports, '__esModule', { value: true });
 

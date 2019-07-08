@@ -2,18 +2,19 @@ import { uglify } from "rollup-plugin-uglify"
 import path from "path"
 import resolve from "rollup-plugin-node-resolve"
 import babel from "rollup-plugin-babel"
-import banner from "./bin/banner"
-import pkg from "./package.json"
+
+const banner = require("./bin/banner")
+const pkg = require("./package.json")
 
 // Base configurations for all bundles
 
 const inputs = {
-  umd: path.resolve(__dirname, "../js/src/index.bundle.js"),
+  umd: path.join(__dirname, "js/src/index.bundle.js"),
 }
 
 const outputs = {
-  umd: path.resolve(__dirname, "../dist/undernet.bundle.js"),
-  umdMin: path.resolve(__dirname, `../dist/undernet.bundle.min.js`),
+  umd: path.join(__dirname, "dist/undernet.bundle.js"),
+  umdMin: path.join(__dirname, "dist/undernet.bundle.min.js"),
 }
 
 const plugins = [
@@ -56,7 +57,7 @@ umdMinPlugins.push(
   ...plugins,
   uglify({
     output: {
-      comments: (node, comment) => {
+      comments: (_, comment) => {
         if (comment.type === "comment2") {
           return /@preserve|@license|@cc_on/i.test(comment.value)
         }

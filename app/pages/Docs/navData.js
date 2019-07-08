@@ -3,7 +3,6 @@ import {
   downloadPath,
   brandingPath,
   javascriptPath,
-  accessibilityPath,
   gridPath,
   typographyPath,
   buttonsPath,
@@ -28,7 +27,6 @@ export const NAV_DATA = [
       { name: "Download", url: downloadPath },
       { name: "Branding", url: brandingPath },
       { name: "JavaScript", url: javascriptPath },
-      { name: "Accessibility", url: accessibilityPath },
     ],
   },
   {

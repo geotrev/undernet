@@ -1,5 +1,5 @@
 import React from "react"
-import PageHeader from "./PageHeader"
+import PageHeader from "../PageHeader"
 import { LastLocationProvider } from "react-router-last-location"
 import { BrowserRouter as Router } from "react-router-dom"
 

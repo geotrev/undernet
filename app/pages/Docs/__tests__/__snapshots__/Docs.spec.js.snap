@@ -1,0 +1,149 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Docs /> renders 1`] = `
+<BrowserRouter>
+  <Router
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "createHref": [Function],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "/",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+  >
+    <Docs>
+      <div
+        className="fluid grid has-no-padding"
+        id="docs"
+      >
+        <div
+          className="row"
+        >
+          <SideNav
+            navItems={
+              Array [
+                Object {
+                  "header": "Overview",
+                  "links": Array [
+                    Object {
+                      "name": "Introduction",
+                      "url": "/docs/overview/introduction",
+                    },
+                    Object {
+                      "name": "Download",
+                      "url": "/docs/overview/download",
+                    },
+                    Object {
+                      "name": "Branding",
+                      "url": "/docs/overview/branding",
+                    },
+                    Object {
+                      "name": "JavaScript",
+                      "url": "/docs/overview/javascript",
+                    },
+                  ],
+                },
+                Object {
+                  "header": "Layout",
+                  "links": Array [
+                    Object {
+                      "name": "Flex Grid",
+                      "url": "/docs/layout/grid",
+                    },
+                    Object {
+                      "name": "Alignment",
+                      "url": "/docs/layout/alignment",
+                    },
+                    Object {
+                      "name": "Offset / Order",
+                      "url": "/docs/layout/offset-order",
+                    },
+                    Object {
+                      "name": "Spacing",
+                      "url": "/docs/layout/spacing",
+                    },
+                  ],
+                },
+                Object {
+                  "header": "Elements",
+                  "links": Array [
+                    Object {
+                      "name": "Buttons",
+                      "url": "/docs/elements/buttons",
+                    },
+                    Object {
+                      "name": "Forms",
+                      "url": "/docs/elements/forms",
+                    },
+                    Object {
+                      "name": "Typography",
+                      "url": "/docs/elements/typography",
+                    },
+                  ],
+                },
+                Object {
+                  "header": "Components",
+                  "links": Array [
+                    Object {
+                      "name": "Accordions",
+                      "url": "/docs/components/accordions",
+                    },
+                    Object {
+                      "name": "Dropdowns",
+                      "url": "/docs/components/dropdowns",
+                    },
+                    Object {
+                      "name": "Modals",
+                      "url": "/docs/components/modals",
+                    },
+                    Object {
+                      "name": "Tooltips",
+                      "url": "/docs/components/tooltips",
+                    },
+                  ],
+                },
+                Object {
+                  "header": "Utilities",
+                  "links": Array [
+                    Object {
+                      "name": "Color",
+                      "url": "/docs/utilities/color",
+                    },
+                    Object {
+                      "name": "Display",
+                      "url": "/docs/utilities/display",
+                    },
+                    Object {
+                      "name": "Text",
+                      "url": "/docs/utilities/text",
+                    },
+                  ],
+                },
+              ]
+            }
+            navListClasses="xsmall-12 columns has-no-padding"
+          />
+          <div
+            className="xsmall-12 xlarge-10 columns has-padding-3"
+          >
+            <DocsRoutes />
+          </div>
+        </div>
+      </div>
+    </Docs>
+  </Router>
+</BrowserRouter>
+`;

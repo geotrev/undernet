@@ -1,4 +1,4 @@
-import Utils, { getFocusableElements, dom } from "./utils"
+import { getFocusableElements, dom } from "./utils"
 
 const Selectors = {
   // unique
@@ -33,10 +33,8 @@ const Messages = {
     `Could not find accordion content block with id '${id}'; should match trigger with [data-target='${id}'].`,
 }
 
-export default class Accordion extends Utils {
+export default class Accordion {
   constructor() {
-    super()
-
     // events
     this._render = this._render.bind(this)
 

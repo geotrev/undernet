@@ -1,5 +1,5 @@
 import React from "react"
-import SetMeta from "./SetMeta"
+import SetMeta from "../SetMeta"
 
 describe("<SetMeta />", () => {
   it("matches snapshot", () => {

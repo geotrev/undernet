@@ -1,6 +1,6 @@
 {
   "name": "undernet",
-  "version": "4.5.1",
+  "version": "5.0.1",
   "homepage": "https://undernet.io",
   "description": "A modular, configuration-first front-end framework. No strings.",
   "author": "George Treviranus",
@@ -23,9 +23,9 @@
     "js:build": "yarn js:build:cjs && yarn js:build:esm",
     "js:build:cjs": "BABEL_ENV=cjs babel js/src/ -d js/cjs/ --ignore 'js/src/index.bundle.js' --no-comments -s",
     "js:build:esm": "BABEL_ENV=esm babel js/src/ -d js/esm/ --ignore 'js/src/index.bundle.js' --no-comments -s",
-    "js:watch": "BABEL_ENV=esm babel js/src/ -d js/esm/ --watch --no-comments -s",
+    "js:watch": "BABEL_ENV=esm babel js/src/ -d js/esm/ --watch --ignore 'js/src/index.bundle.js' --no-comments -s",
     "js:prettify": "prettier --write 'js/src/**/*.js'",
-    "js:rollup": "BABEL_ENV=rollup rollup -c",
+    "js:rollup": "BABEL_ENV=rollup rollup -c rollup.config.js",
     "js:modules:zip": "cd js/src/ && zip -r ../../dist/undernet.modules.js.zip .",
     "js:zip": "cd dist/ && zip -r undernet.js.zip . -x *.css *.zip *.css.map",
     "js:prepublish": "yarn js:build && yarn js:rollup && yarn js:modules:zip && yarn js:zip",
@@ -37,7 +37,7 @@
     "scss:prepublish": "cd scss/ && zip -r ../dist/undernet.scss.zip .",
     "update-version": "node bin/update-version.js",
     "create-hashes": "node bin/create-hashes.js",
-    "preversion": "npm test",
+    "preversion": "yarn js:build && npm test",
     "postversion": "yarn update-version && npm test -- -u && yarn build:dist:release && git add -A && git commit --amend"
   },
   "devDependencies": {
