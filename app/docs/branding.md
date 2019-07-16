@@ -95,7 +95,7 @@ Next, in a separate stylesheet, import Undernet's other stylesheets. Order is im
 
 _NOTE: Only import the below **one time** in your application!_
 
-_NOTE #2: The below imports have a `~` preceeding the import path; this is a Webpack feature. If you're not using webpack, you will need to use another package like css-import or import straight from the `node_modules` directory in your proejct._
+_NOTE #2: The below imports have a `~` preceeding the import path; this is a Webpack feature. If you're not using webpack, you will need to use another package like css-import or import straight from the `node_modules` directory in your project._
 
 ```css
 @import "path/to/new_config";
