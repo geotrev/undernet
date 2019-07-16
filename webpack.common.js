@@ -8,8 +8,8 @@ module.exports = {
     main: path.resolve(__dirname, "app/index.js"),
   },
   output: {
-    filename: "[name].[chunkhash].js",
-    chunkFilename: "[name].[chunkhash].js",
+    filename: "[name].[contenthash].js",
+    chunkFilename: "[name].[contenthash].js",
     path: path.resolve(__dirname, "build"),
     publicPath: "/",
   },
@@ -41,10 +41,7 @@ module.exports = {
             loader: "css-loader",
             options: { importLoaders: 2 },
           },
-          {
-            loader: "postcss-loader",
-            options: { config: { path: "config/postcss.config.js" } },
-          },
+          "postcss-loader",
           "sass-loader?sourceMap",
         ],
       },
@@ -68,8 +65,8 @@ module.exports = {
       template: path.resolve(__dirname, "public/index.html"),
     }),
     new MiniCssExtractPlugin({
-      filename: "[name].[chunkhash].css",
-      chunkFilename: "[name].[chunkhash].css",
+      filename: "[name].[contenthash].css",
+      chunkFilename: "[name].[contenthash].css",
     }),
     new CopyWebpackPlugin([
       {

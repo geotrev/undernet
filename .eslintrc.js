@@ -3,6 +3,7 @@ const path = require("path")
 const ERROR = "error"
 const READONLY = "readonly"
 const OFF = "off"
+const ALWAYS = "always"
 
 const sitePath = path.resolve(__dirname, "site")
 const srcPath = path.resolve(__dirname, "js/src")
@@ -59,9 +60,7 @@ module.exports = {
       webpack: { config: webpackConfigPath },
     },
     "import/ignore": [".(scss|less|css|md)$"],
-    react: {
-      version: "detect",
-    },
+    react: { version: "detect" },
     linkComponents: [{ name: "Link", linkAttribute: "to" }],
   },
   rules: {
@@ -71,7 +70,7 @@ module.exports = {
     "no-async-promise-executor": ERROR,
     "no-await-in-loop": ERROR,
     "no-compare-neg-zero": ERROR,
-    "no-cond-assign": [ERROR, "always"],
+    "no-cond-assign": [ERROR, ALWAYS],
     "no-constant-condition": [ERROR, { checkLoops: true }],
     "no-debugger": ERROR,
     "no-dupe-args": ERROR,
@@ -197,7 +196,7 @@ module.exports = {
     "no-useless-constructor": ERROR,
     "no-useless-rename": ERROR,
     "no-var": ERROR,
-    "object-shorthand": [ERROR, "always"],
+    "object-shorthand": [ERROR, ALWAYS],
     "prefer-const": ERROR,
     "prefer-spread": ERROR,
     "prefer-template": ERROR,
