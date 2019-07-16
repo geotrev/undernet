@@ -7,16 +7,21 @@ npm-error.log*
 /app/
 /bin/
 /build/
-/config/
 /js/test/
 /dist/*.zip
 /node_modules/
 /public/
+/test/
 
 .browserslistrc
 .eslintignore
 .eslintrc.js
 .prettierrc
 babel.config.js
+jest.config.js
 netlify.toml
+postcss.config.js
+rollup.config.js
 webpack.common.js
+webpack.dev.js
+webpack.prod.js
