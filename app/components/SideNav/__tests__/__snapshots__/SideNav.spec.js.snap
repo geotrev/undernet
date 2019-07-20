@@ -124,7 +124,7 @@ exports[`<SideNav /> matches snapshot 1`] = `
               className="version-text has-no-padding has-gray800-text xsmall-12 columns"
             >
               Version 
-              5.0.1
+              5.0.2
             </p>
             <div
               className="accordion-row"
@@ -169,52 +169,48 @@ exports[`<SideNav /> matches snapshot 1`] = `
                     role="listitem"
                     to="#"
                   >
-                    <Route
-                      path="#"
+                    <Link
+                      aria-current={null}
+                      className="side-nav-link-item has-black-text is-flex is-aligned-center"
+                      onClick={[Function]}
+                      role="listitem"
+                      to="#"
                     >
-                      <Link
+                      <a
                         aria-current={null}
                         className="side-nav-link-item has-black-text is-flex is-aligned-center"
+                        href="/"
                         onClick={[Function]}
                         role="listitem"
-                        to="#"
                       >
-                        <a
-                          aria-current={null}
-                          className="side-nav-link-item has-black-text is-flex is-aligned-center"
-                          href="/"
-                          onClick={[Function]}
-                          role="listitem"
+                        Test 1
+                         
+                        <ChevronRight
+                          color="currentColor"
+                          focusable="false"
+                          role="presentation"
+                          size={16}
                         >
-                          Test 1
-                           
-                          <ChevronRight
-                            color="currentColor"
+                          <svg
+                            fill="none"
                             focusable="false"
+                            height={16}
                             role="presentation"
-                            size={16}
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            viewBox="0 0 24 24"
+                            width={16}
+                            xmlns="http://www.w3.org/2000/svg"
                           >
-                            <svg
-                              fill="none"
-                              focusable="false"
-                              height={16}
-                              role="presentation"
-                              stroke="currentColor"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              viewBox="0 0 24 24"
-                              width={16}
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <polyline
-                                points="9 18 15 12 9 6"
-                              />
-                            </svg>
-                          </ChevronRight>
-                        </a>
-                      </Link>
-                    </Route>
+                            <polyline
+                              points="9 18 15 12 9 6"
+                            />
+                          </svg>
+                        </ChevronRight>
+                      </a>
+                    </Link>
                   </NavLink>
                 </li>
                 <li
@@ -228,52 +224,48 @@ exports[`<SideNav /> matches snapshot 1`] = `
                     role="listitem"
                     to="#"
                   >
-                    <Route
-                      path="#"
+                    <Link
+                      aria-current={null}
+                      className="side-nav-link-item has-black-text is-flex is-aligned-center"
+                      onClick={[Function]}
+                      role="listitem"
+                      to="#"
                     >
-                      <Link
+                      <a
                         aria-current={null}
                         className="side-nav-link-item has-black-text is-flex is-aligned-center"
+                        href="/"
                         onClick={[Function]}
                         role="listitem"
-                        to="#"
                       >
-                        <a
-                          aria-current={null}
-                          className="side-nav-link-item has-black-text is-flex is-aligned-center"
-                          href="/"
-                          onClick={[Function]}
-                          role="listitem"
+                        Test 2
+                         
+                        <ChevronRight
+                          color="currentColor"
+                          focusable="false"
+                          role="presentation"
+                          size={16}
                         >
-                          Test 2
-                           
-                          <ChevronRight
-                            color="currentColor"
+                          <svg
+                            fill="none"
                             focusable="false"
+                            height={16}
                             role="presentation"
-                            size={16}
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            viewBox="0 0 24 24"
+                            width={16}
+                            xmlns="http://www.w3.org/2000/svg"
                           >
-                            <svg
-                              fill="none"
-                              focusable="false"
-                              height={16}
-                              role="presentation"
-                              stroke="currentColor"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              viewBox="0 0 24 24"
-                              width={16}
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <polyline
-                                points="9 18 15 12 9 6"
-                              />
-                            </svg>
-                          </ChevronRight>
-                        </a>
-                      </Link>
-                    </Route>
+                            <polyline
+                              points="9 18 15 12 9 6"
+                            />
+                          </svg>
+                        </ChevronRight>
+                      </a>
+                    </Link>
                   </NavLink>
                 </li>
                 <li
@@ -287,52 +279,48 @@ exports[`<SideNav /> matches snapshot 1`] = `
                     role="listitem"
                     to="#"
                   >
-                    <Route
-                      path="#"
+                    <Link
+                      aria-current={null}
+                      className="side-nav-link-item has-black-text is-flex is-aligned-center"
+                      onClick={[Function]}
+                      role="listitem"
+                      to="#"
                     >
-                      <Link
+                      <a
                         aria-current={null}
                         className="side-nav-link-item has-black-text is-flex is-aligned-center"
+                        href="/"
                         onClick={[Function]}
                         role="listitem"
-                        to="#"
                       >
-                        <a
-                          aria-current={null}
-                          className="side-nav-link-item has-black-text is-flex is-aligned-center"
-                          href="/"
-                          onClick={[Function]}
-                          role="listitem"
+                        Test 3
+                         
+                        <ChevronRight
+                          color="currentColor"
+                          focusable="false"
+                          role="presentation"
+                          size={16}
                         >
-                          Test 3
-                           
-                          <ChevronRight
-                            color="currentColor"
+                          <svg
+                            fill="none"
                             focusable="false"
+                            height={16}
                             role="presentation"
-                            size={16}
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            viewBox="0 0 24 24"
+                            width={16}
+                            xmlns="http://www.w3.org/2000/svg"
                           >
-                            <svg
-                              fill="none"
-                              focusable="false"
-                              height={16}
-                              role="presentation"
-                              stroke="currentColor"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              viewBox="0 0 24 24"
-                              width={16}
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <polyline
-                                points="9 18 15 12 9 6"
-                              />
-                            </svg>
-                          </ChevronRight>
-                        </a>
-                      </Link>
-                    </Route>
+                            <polyline
+                              points="9 18 15 12 9 6"
+                            />
+                          </svg>
+                        </ChevronRight>
+                      </a>
+                    </Link>
                   </NavLink>
                 </li>
               </ul>

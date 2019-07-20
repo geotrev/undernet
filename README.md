@@ -61,25 +61,25 @@ The site is both a demo and marketing tool. It is built with my own webpack setu
 ### Run the dev server
 
 ```sh
-$ yarn watch
+$ npm run watch
 ```
 
 ### Make a production build (mostly for sanity checks)
 
 ```sh
-$ yarn build
+$ npm run build
 ```
 
 ### Run Jest tests (for site + framework)
 
 ```sh
-$ yarn test
+$ npm run test
 ```
 
 ### Load tests on file save
 
 ```sh
-$ yarn test:watch
+$ npm run test:watch
 ```
 
 ### Building the framework
@@ -88,10 +88,10 @@ The site itself is a demo of the framework, so you should be able to work on the
 
 The build environment works in any bash/unix environment. If you're on Windows, that means you'll need [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10) or an equivalent solution.
 
-If you've already run `yarn install`, these commands should Just Work™.
+If you've already run `npm run install`, these commands should Just Work™.
 
 ```sh
-$ yarn build:dist
+$ npm run build:dist
 ```
 
 The script processes the SCSS and JS, then compiles the output to the `dist/` folder.
@@ -101,7 +101,7 @@ The script processes the SCSS and JS, then compiles the output to the `dist/` fo
 To continually reload fresh JS assets while running the site's dev server, run the below command in a separate terminal session.
 
 ```sh
-$ yarn js:watch
+$ npm run js:watch
 ```
 
 ### New releases
