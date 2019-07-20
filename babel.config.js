@@ -1,9 +1,12 @@
-let presets = ["@babel/preset-env", "@babel/preset-react"]
-let plugins = [
-  "@babel/plugin-proposal-class-properties",
-  "@babel/plugin-syntax-dynamic-import",
-  "emotion",
-]
+const modules = {
+  env: "@babel/preset-env",
+  react: "@babel/preset-react",
+  properties: "@babel/plugin-proposal-class-properties",
+  dynamicImport: "@babel/plugin-syntax-dynamic-import",
+  dynamicImportNode: "dynamic-import-node",
+  aliases: "babel-plugin-webpack-aliases",
+  emotion: "emotion",
+}
 
 module.exports = api => {
   const test = api.env("test")
@@ -11,18 +14,21 @@ module.exports = api => {
   const esm = api.env("esm")
   const rollup = api.env("rollup")
 
+  let presets = [modules.env, modules.react]
+  let plugins = [modules.properties, modules.dynamicImport, modules.emotion]
+
   if (test) {
-    presets = ["@babel/preset-react", ["@babel/preset-env", { targets: { node: "current" } }]]
+    presets = [modules.react, [modules.env, { targets: { node: "current" } }]]
     plugins = [
       ...plugins,
-      "dynamic-import-node",
-      ["babel-plugin-webpack-aliases", { config: "webpack.dev.js" }],
+      modules.dynamicImportNode,
+      [modules.aliases, { config: "webpack.dev.js" }],
     ]
   } else if (cjs || rollup) {
-    presets = ["@babel/preset-env"]
+    presets = [modules.env]
     plugins = []
   } else if (esm) {
-    presets = [["@babel/preset-env", { modules: false }]]
+    presets = [[modules.env, { modules: false }]]
     plugins = []
   }
 
