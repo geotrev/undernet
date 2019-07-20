@@ -124,7 +124,7 @@ exports[`<SideNav /> matches snapshot 1`] = `
               className="version-text has-no-padding has-gray800-text xsmall-12 columns"
             >
               Version 
-              5.0.1
+              5.0.2
             </p>
             <div
               className="accordion-row"
