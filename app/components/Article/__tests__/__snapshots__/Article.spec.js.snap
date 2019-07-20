@@ -9,6 +9,7 @@ exports[`<Article /> matches snapshot 1`] = `
     <ReactMarkdown
       astPlugins={Array []}
       escapeHtml={false}
+      parserOptions={Object {}}
       plugins={Array []}
       rawSourcePos={false}
       renderers={Object {}}

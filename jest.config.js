@@ -12,7 +12,7 @@ module.exports = {
     "^pages/(.*?)$": "<rootDir>/app/pages/$1",
     "^assets/(.*?)$": "<rootDir>/app/assets/$1",
     "^docs/(.*?)$": "<rootDir>/app/docs/$1",
-    "^undernet/(.*?)$": "<rootDir>/js/esm/$1",
+    "^undernet/(.*?)$": "<rootDir>/lib/esm/$1",
   },
   roots: ["<rootDir>/app/", "<rootDir>/js/"],
   setupFiles: ["<rootDir>/test/jest.setup.js"],

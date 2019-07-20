@@ -85,6 +85,7 @@ First, import in a new global SCSS file: 1) functions, 2) default config, and 3)
 You can import this file in other stylesheets to get access to the mixin and variable definitions while not risking duplication of selector definitions.
 
 ```css
+/* myConfig.scss */
 @import "~undernet/scss/utilities/functions";
 /* Add config overrides here! */
 @import "~undernet/scss/config";
@@ -98,7 +99,7 @@ _NOTE: Only import the below **one time** in your application!_
 _NOTE #2: The below imports have a `~` preceeding the import path; this is a Webpack feature. If you're not using webpack, you will need to use another package like css-import or import straight from the `node_modules` directory in your project._
 
 ```css
-@import "path/to/new_config";
+@import "path/to/myConfig";
 /* remove reset below if you are scoping */
 @import "~undernet/scss/elements/reset";
 /* Scope is defined in the config. Remove the scope wrapper if you aren't needing it. */
