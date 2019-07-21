@@ -73,7 +73,6 @@ export const iOSMobile = /(iphone|ipod|ipad)/i.test(navigator.userAgent)
 
 /**
  * Utility class to help with focus trapping and keyboard outline management.
- * Components extend from this method.
  */
 export default class ContextUtil {
   constructor() {
