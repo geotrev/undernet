@@ -1,6 +1,6 @@
 {
   "name": "undernet",
-  "version": "5.0.2",
+  "version": "5.0.3",
   "homepage": "https://undernet.io",
   "description": "A modular, configuration-first front-end framework. No strings.",
   "author": "George Treviranus",
@@ -16,9 +16,9 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "eslint . --ext .js -c ./.eslintrc.js --ignore-path .eslintignore; exit 0",
-    "build:dist": "npm run build:prettify && npm run js:build && npm run js:rollup && npm run css:build && npm run css:minify",
-    "build:dist:release": "npm run clean && npm run build:prettify && npm run scss:prepublish && npm run css:prepublish && npm run js:prepublish && npm run create-hashes",
-    "build:prettify": "npm run js:prettify && npm run scss:prettify",
+    "build:dist": "npm run js:build && npm run js:rollup && npm run css:build && npm run css:minify",
+    "build:dist:release": "npm run clean && npm run scss:prepublish && npm run css:prepublish && npm run js:prepublish && npm run create-hashes",
+    "prettify": "npm run js:prettify && npm run scss:prettify",
     "clean": "rm -rf dist/ lib/ && mkdir dist/ lib/",
     "js:build": "npm run js:build:cjs && npm run js:build:esm",
     "js:build:cjs": "BABEL_ENV=cjs babel js/src/ -d lib/cjs/ --ignore 'js/src/index.bundle.js' --no-comments -s",
@@ -107,9 +107,8 @@
     "webpack-merge": "^4.2.1"
   },
   "engines": {
-    "node": ">=9.0.0",
-    "npm": ">=6.0.0",
-    "yarn": ">=1.16.0"
+    "node": ">=12.0.0",
+    "npm": ">=6.0.0"
   },
   "keywords": [
     "scss",
@@ -122,7 +121,7 @@
   ],
   "files": [
     "dist/*.{css,js,map}",
-    "js/{src,esm,cjs}/*.{js,map}",
+    "lib/{esm,cjs}/*.{js,map}",
     "scss/**/*.scss"
   ],
   "repository": {
