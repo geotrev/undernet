@@ -17,13 +17,8 @@ module.exports = {
     extensions: [".js", ".jsx"],
     alias: {
       projectRoot: path.resolve(__dirname),
-      routes: path.resolve(__dirname, "app/routes"),
-      components: path.resolve(__dirname, "app/components/"),
-      helpers: path.resolve(__dirname, "app/helpers/"),
-      pages: path.resolve(__dirname, "app/pages/"),
-      assets: path.resolve(__dirname, "app/assets/"),
-      docs: path.resolve(__dirname, "app/docs/"),
-      undernet: path.resolve(__dirname, "lib/esm/index"),
+      app: path.resolve(__dirname, "app"),
+      undernet: path.resolve(__dirname, "lib/esm/"),
     },
   },
   module: {

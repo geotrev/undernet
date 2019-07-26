@@ -1,8 +1,8 @@
 import React, { Fragment } from "react"
-import Article from "components/Article"
-import PageHeader from "components/PageHeader"
-import SetMeta from "components/SetMeta"
-import AlignmentMd from "docs/alignment.md"
+import Article from "app/components/Article"
+import PageHeader from "app/components/PageHeader"
+import SetMeta from "app/components/SetMeta"
+import AlignmentMd from "app/docs/alignment.md"
 
 const Alignment = () => {
   return (

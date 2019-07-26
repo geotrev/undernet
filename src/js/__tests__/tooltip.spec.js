@@ -1,4 +1,4 @@
-import Undernet from "../src/index"
+import Undernet from "../"
 
 const dom = `
   <span class="tooltip" data-tooltip="new-tooltip">
