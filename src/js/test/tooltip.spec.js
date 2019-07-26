@@ -1,4 +1,5 @@
 import Undernet from "../src/index"
+
 const dom = `
   <span class="tooltip" data-tooltip="new-tooltip">
     <button class="tooltip-trigger" data-target="new-tooltip">Tooltip Button</button>

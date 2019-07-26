@@ -4,7 +4,6 @@ const modules = {
   properties: "@babel/plugin-proposal-class-properties",
   dynamicImport: "@babel/plugin-syntax-dynamic-import",
   dynamicImportNode: "dynamic-import-node",
-  aliases: "babel-plugin-webpack-aliases",
   emotion: "emotion",
 }
 
@@ -19,11 +18,7 @@ module.exports = api => {
 
   if (test) {
     presets = [modules.react, [modules.env, { targets: { node: "current" } }]]
-    plugins = [
-      ...plugins,
-      modules.dynamicImportNode,
-      [modules.aliases, { config: "webpack.dev.js" }],
-    ]
+    plugins = [...plugins, modules.dynamicImportNode]
   } else if (cjs || rollup) {
     presets = [modules.env]
     plugins = []

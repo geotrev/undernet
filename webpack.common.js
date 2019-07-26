@@ -42,8 +42,14 @@ module.exports = {
             options: { importLoaders: 2 },
           },
           "postcss-loader",
-          "sass-loader?sourceMap",
+          {
+            loader: "sass-loader?sourceMap",
+            options: {
+              includePaths: ["src/", "app/"],
+            },
+          },
         ],
+        include: [path.resolve(__dirname, "src"), path.resolve(__dirname, "app")],
       },
       {
         test: /\.(ico|png|jpe?g|gif|eot|svg|ttf|woff2?|otf)$/,

@@ -9,7 +9,7 @@ const pkg = require("./package.json")
 // Base configurations for all bundles
 
 const inputs = {
-  umd: path.join(__dirname, "js/src/index.bundle.js"),
+  umd: path.join(__dirname, "src/js/index.bundle.js"),
 }
 
 const outputs = {

@@ -14,14 +14,12 @@ module.exports = {
     "^docs/(.*?)$": "<rootDir>/app/docs/$1",
     "^undernet/(.*?)$": "<rootDir>/lib/esm/$1",
   },
-  roots: ["<rootDir>/app/", "<rootDir>/js/"],
+  roots: ["<rootDir>/app/", "<rootDir>/src/js/"],
   setupFiles: ["<rootDir>/test/jest.setup.js"],
   snapshotSerializers: ["enzyme-to-json/serializer"],
-  testMatch: ["<rootDir>/app/**/*.spec.js", "<rootDir>/js/**/*.spec.js"],
+  testMatch: ["<rootDir>/app/**/*.spec.js", "<rootDir>/src/js/**/*.spec.js"],
   testURL: "http://localhost/",
-  transform: {
-    "^.+\\.js$": "babel-jest",
-  },
+  transform: { "^.+\\.js$": "babel-jest" },
   unmockedModulePathPatterns: ["node_modules/react/", "node_modules/enzyme/"],
   verbose: false,
 }

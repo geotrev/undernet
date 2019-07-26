@@ -1,24 +1,24 @@
-@import "../../global";
-
 @charset "UTF-8";
-@import "../../../scss/utilities/reset";
+@import "app/global";
+
+@import "src/scss/utilities/reset";
 
 // .#{$scope} {
-@import "../../../scss/utilities/classes";
+@import "src/scss/utilities/classes";
 
-@import "../../../scss/layout/grid";
+@import "src/scss/layout/grid";
 
-@import "../../../scss/elements/typography";
-@import "../../../scss/elements/button";
-@import "../../../scss/elements/form";
+@import "src/scss/elements/typography";
+@import "src/scss/elements/button";
+@import "src/scss/elements/form";
 
-@import "../../../scss/components/dropdown";
-@import "../../../scss/components/modal";
-@import "../../../scss/components/accordion";
-@import "../../../scss/components/tooltip";
+@import "src/scss/components/dropdown";
+@import "src/scss/components/modal";
+@import "src/scss/components/accordion";
+@import "src/scss/components/tooltip";
 // }
 
-@import "../../../scss/utilities/scope-overrides";
+@import "src/scss/utilities/scope-overrides";
 
 // Layout styles:
 
