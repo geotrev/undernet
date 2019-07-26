@@ -1,0 +1,301 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Home /> renders 1`] = `
+<BrowserRouter>
+  <Router
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "createHref": [Function],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "/",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+  >
+    <withRouter(LastLocationProvider)>
+      <LastLocationProvider
+        history={
+          Object {
+            "action": "POP",
+            "block": [Function],
+            "createHref": [Function],
+            "go": [Function],
+            "goBack": [Function],
+            "goForward": [Function],
+            "length": 1,
+            "listen": [Function],
+            "location": Object {
+              "hash": "",
+              "pathname": "/",
+              "search": "",
+              "state": undefined,
+            },
+            "push": [Function],
+            "replace": [Function],
+          }
+        }
+        location={
+          Object {
+            "hash": "",
+            "pathname": "/",
+            "search": "",
+            "state": undefined,
+          }
+        }
+        match={
+          Object {
+            "isExact": true,
+            "params": Object {},
+            "path": "/",
+            "url": "/",
+          }
+        }
+        watchOnlyPathname={false}
+      >
+        <Home>
+          <div
+            id="home"
+          >
+            <ScrollUpOnMount />
+            <SetMeta
+              description="Undernet is a highly customizable web framework for building websites."
+              title="A modular, configuration-first front-end framework. No strings."
+            />
+            <div
+              className="medium-section fluid grid hero"
+            >
+              <div
+                className="row"
+              >
+                <div
+                  className="xsmall-12 columns has-center-text"
+                >
+                  <PageHeader
+                    className="h3"
+                  >
+                    A modular, configuration-first front-end framework. No strings.
+                  </PageHeader>
+                </div>
+                <div
+                  className="xsmall-12 columns has-center-text"
+                >
+                  <Link
+                    className="medium button has-feather"
+                    to="/docs/overview/download"
+                  >
+                    <a
+                      className="medium button has-feather"
+                      href="/docs/overview/download"
+                      onClick={[Function]}
+                    >
+                      Download 
+                      <ChevronRight
+                        focusable="false"
+                        role="presentation"
+                        size={20}
+                      />
+                    </a>
+                  </Link>
+                  <Link
+                    className="primary medium button has-gradient has-feather"
+                    to="/docs/overview/introduction"
+                  >
+                    <a
+                      className="primary medium button has-gradient has-feather"
+                      href="/docs/overview/introduction"
+                      onClick={[Function]}
+                    >
+                      Learn More 
+                      <ChevronRight
+                        focusable="false"
+                        role="presentation"
+                        size={20}
+                      />
+                    </a>
+                  </Link>
+                </div>
+                <div
+                  className="xsmall-12 columns has-center-text"
+                >
+                  <p
+                    className="un-version has-no-margin"
+                  >
+                    Version 
+                    5.0.3
+                  </p>
+                </div>
+                <div
+                  className="xsmall-12 columns badges"
+                >
+                  <StatusBadges />
+                </div>
+              </div>
+            </div>
+            <div
+              className="medium-section fluid grid animations"
+            >
+              <div
+                className="row has-no-padding"
+              >
+                <div
+                  className="column has-no-padding"
+                >
+                  <div
+                    className="wide grid"
+                  >
+                    <ul
+                      className="row is-unstyled-list has-no-padding"
+                    >
+                      <li
+                        className="large-3 small-6 xsmall-12 columns has-center-text has-no-padding-bottom"
+                        key="Tiny"
+                      >
+                        <div
+                          className="animated-icon"
+                          id="animated-tiny"
+                        />
+                        <h2
+                          className="h6 has-white-text"
+                        >
+                          Tiny
+                        </h2>
+                        <p
+                          className="has-white-text"
+                        >
+                          CSS and JS under 12kb minified + gzipped; you can be assured performance isn’t an issue.
+                        </p>
+                      </li>
+                      <li
+                        className="large-3 small-6 xsmall-12 columns has-center-text has-no-padding-bottom"
+                        key="Modular"
+                      >
+                        <div
+                          className="animated-icon"
+                          id="animated-modular"
+                        />
+                        <h2
+                          className="h6 has-white-text"
+                        >
+                          Modular
+                        </h2>
+                        <p
+                          className="has-white-text"
+                        >
+                          Include only the pieces you need, or even namespace the components for existing projects.
+                        </p>
+                      </li>
+                      <li
+                        className="large-3 small-6 xsmall-12 columns has-center-text has-no-padding-bottom"
+                        key="Configurable"
+                      >
+                        <div
+                          className="animated-icon"
+                          id="animated-configurable"
+                        />
+                        <h2
+                          className="h6 has-white-text"
+                        >
+                          Configurable
+                        </h2>
+                        <p
+                          className="has-white-text"
+                        >
+                          Built for a great developer experience, you can customize and extend the library with ease.
+                        </p>
+                      </li>
+                      <li
+                        className="large-3 small-6 xsmall-12 columns has-center-text has-no-padding-bottom"
+                        key="Accessible"
+                      >
+                        <div
+                          className="animated-icon"
+                          id="animated-accessible"
+                        />
+                        <h2
+                          className="h6 has-white-text"
+                        >
+                          Accessible
+                        </h2>
+                        <p
+                          className="has-white-text"
+                        >
+                          Interactive components are designed with WAI-ARIA guidelines in mind to ensure your HTML is accessible.
+                        </p>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="medium-section narrow grid"
+            >
+              <div
+                className="row"
+              >
+                <div
+                  className="xsmall-12 columns has-center-text"
+                >
+                  <h2
+                    className="h6"
+                  >
+                    Painless Setup
+                  </h2>
+                  <p>
+                    Install with npm:
+                  </p>
+                  <InstallNpm />
+                </div>
+                <div
+                  className="xsmall-12 columns has-center-text"
+                >
+                  <p>
+                    Or simply link to minified assets:
+                  </p>
+                  <Install />
+                </div>
+                <div
+                  className="xsmall-12 columns has-center-text"
+                >
+                  <p>
+                    See how Undernet can improve your developer experience!
+                  </p>
+                  <Link
+                    className="primary medium button has-gradient has-feather"
+                    to="/docs/overview/introduction"
+                  >
+                    <a
+                      className="primary medium button has-gradient has-feather"
+                      href="/docs/overview/introduction"
+                      onClick={[Function]}
+                    >
+                      Learn More 
+                      <ChevronRight
+                        focusable="false"
+                        role="presentation"
+                        size={20}
+                      />
+                    </a>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Home>
+      </LastLocationProvider>
+    </withRouter(LastLocationProvider)>
+  </Router>
+</BrowserRouter>
+`;

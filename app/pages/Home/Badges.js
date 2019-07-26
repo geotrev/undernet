@@ -1,6 +1,6 @@
 import React from "react"
 import Markdown from "react-markdown"
-import statusBadges from "./badges.md"
+import statusBadges from "./markdown/badges.md"
 
 const Badges = () => <Markdown source={statusBadges} escapeHtml={false} />
 

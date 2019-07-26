@@ -2,8 +2,8 @@ import React from "react"
 import Markdown from "react-markdown"
 import Loadable from "react-loadable"
 
-import installNpm from "./installNpm.md"
-import installAssets from "./installAssets.md"
+import installNpm from "./markdown/installNpm.md"
+import installAssets from "./markdown/installAssets.md"
 
 const loader = () => import("./Badges")
 const loading = () => <span className="is-visually-hidden">Loading badges</span>
