@@ -5,13 +5,13 @@ import Undernet from "undernet"
 import classNames from "classnames"
 import PropTypes from "prop-types"
 
-import ScrollUpOnMount from "helpers/ScrollUpOnMount"
+import ScrollUpOnMount from "app/components/ScrollUpOnMount"
 
 export default class Article extends React.Component {
   constructor() {
     super()
     this.state = {
-      mounted: false,
+      domIsLoaded: false,
     }
   }
 
@@ -24,7 +24,7 @@ export default class Article extends React.Component {
     Prism.highlightAll()
 
     this.setState({
-      mounted: true,
+      domIsLoaded: true,
     })
   }
 
@@ -36,7 +36,7 @@ export default class Article extends React.Component {
     return (
       <article
         className={classNames("article-wrapper has-no-padding column", {
-          fadeIn: this.state.mounted,
+          fadeIn: this.state.domIsLoaded,
         })}
       >
         <ScrollUpOnMount />

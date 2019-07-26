@@ -3,8 +3,8 @@ import Github from "react-feather/dist/icons/github"
 import Twitter from "react-feather/dist/icons/twitter"
 import { Link } from "react-router-dom"
 
-import { introductionPath } from "routes"
-import Logo from "assets/images/un-logo.png"
+import { introductionPath } from "app/routes"
+import Logo from "app/assets/images/un-logo.png"
 import "./styles.scss"
 
 export default function GlobalNav() {

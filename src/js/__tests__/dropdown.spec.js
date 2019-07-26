@@ -1,4 +1,4 @@
-import Undernet from "../src/index"
+import Undernet from "../"
 
 const dom = `
   <div data-dropdown="dropdown1" class="dropdown">

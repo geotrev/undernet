@@ -1,8 +1,8 @@
 import React, { Fragment } from "react"
-import Article from "components/Article"
-import PageHeader from "components/PageHeader"
-import SetMeta from "components/SetMeta"
-import TextMd from "docs/text.md"
+import Article from "app/components/Article"
+import PageHeader from "app/components/PageHeader"
+import SetMeta from "app/components/SetMeta"
+import TextMd from "app/docs/text.md"
 
 const Text = () => {
   return (

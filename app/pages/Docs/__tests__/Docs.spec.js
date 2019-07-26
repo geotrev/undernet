@@ -1,9 +1,9 @@
 import React from "react"
-import Docs from "pages/Docs/Docs"
+import Docs from "app/pages/Docs/Docs"
 import { BrowserRouter as Router } from "react-router-dom"
 
-jest.mock("components/DocsRoutes", () => global.simpleMock("DocsRoutes"))
-jest.mock("components/SideNav", () => global.simpleMock("SideNav"))
+jest.mock("app/components/DocsRoutes", () => global.simpleMock("DocsRoutes"))
+jest.mock("app/components/SideNav", () => global.simpleMock("SideNav"))
 
 describe("<Docs />", () => {
   it("renders", () => {

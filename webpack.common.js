@@ -17,13 +17,8 @@ module.exports = {
     extensions: [".js", ".jsx"],
     alias: {
       projectRoot: path.resolve(__dirname),
-      routes: path.resolve(__dirname, "app/routes"),
-      components: path.resolve(__dirname, "app/components/"),
-      helpers: path.resolve(__dirname, "app/helpers/"),
-      pages: path.resolve(__dirname, "app/pages/"),
-      assets: path.resolve(__dirname, "app/assets/"),
-      docs: path.resolve(__dirname, "app/docs/"),
-      undernet: path.resolve(__dirname, "lib/esm/index"),
+      app: path.resolve(__dirname, "app"),
+      undernet: path.resolve(__dirname, "lib/esm/"),
     },
   },
   module: {
@@ -42,8 +37,14 @@ module.exports = {
             options: { importLoaders: 2 },
           },
           "postcss-loader",
-          "sass-loader?sourceMap",
+          {
+            loader: "sass-loader?sourceMap",
+            options: {
+              includePaths: ["src/", "app/"],
+            },
+          },
         ],
+        include: [path.resolve(__dirname, "src"), path.resolve(__dirname, "app")],
       },
       {
         test: /\.(ico|png|jpe?g|gif|eot|svg|ttf|woff2?|otf)$/,
