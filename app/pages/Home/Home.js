@@ -44,7 +44,10 @@ export default class Home extends React.Component {
 
   componentDidMount() {
     Prism.highlightAll()
+    this.loadAnimations()
+  }
 
+  loadAnimations() {
     this.ANIMATION_DATA.forEach(data => {
       const name = data.title.toLowerCase()
 
@@ -61,12 +64,12 @@ export default class Home extends React.Component {
     })
 
     window.setTimeout(() => {
-      this.ANIMATION_DATA.forEach(data => data.animation.play())
+      this.ANIMATION_DATA.forEach(lottieInstance => lottieInstance.animation.play())
     }, 1500)
   }
 
   componentWillUnmount() {
-    this.ANIMATION_DATA.forEach(data => data.animation.destroy())
+    this.ANIMATION_DATA.forEach(lottieInstance => lottieInstance.animation.destroy())
   }
 
   renderAnimatedIcon(name) {
