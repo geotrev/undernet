@@ -2,9 +2,9 @@ import React from "react"
 import { Switch, Route } from "react-router-dom"
 import Loadable from "react-loadable"
 
-import * as routes from "routes"
-import PageNotFound from "components/PageNotFound"
-import LoadingSpinner from "components/LoadingSpinner"
+import * as routes from "app/routes"
+import PageNotFound from "app/components/PageNotFound"
+import LoadingSpinner from "app/components/LoadingSpinner"
 
 const Loading = () => <LoadingSpinner />
 Loading.displayName = "Loading"

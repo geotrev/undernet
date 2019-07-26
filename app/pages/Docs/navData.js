@@ -17,7 +17,7 @@ import {
   displayPath,
   colorPath,
   spacingPath,
-} from "routes"
+} from "app/routes"
 
 export const NAV_DATA = [
   {

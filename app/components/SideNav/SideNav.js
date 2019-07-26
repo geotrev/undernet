@@ -7,7 +7,7 @@ import Menu from "react-feather/dist/icons/menu"
 import ChevronRight from "react-feather/dist/icons/chevron-right"
 import { Accordions } from "undernet"
 
-import Button from "components/Button"
+import Button from "app/components/Button"
 import "./styles.scss"
 
 const pkg = require("../../../package.json")

@@ -1,19 +1,19 @@
-import React, { Fragment } from "react"
-import Article from "components/Article"
-import PageHeader from "components/PageHeader"
-import SetMeta from "components/SetMeta"
-import TypographyMd from "docs/typography.md"
+import React from "react"
+import Article from "app/components/Article"
+import PageHeader from "app/components/PageHeader"
+import SetMeta from "app/components/SetMeta"
+import TypographyMd from "app/docs/typography.md"
 
 const Typography = () => {
   return (
-    <Fragment>
+    <React.Fragment>
       <SetMeta
         title="Typography"
         description="Use typography elements for displaying readable content."
       />
       <PageHeader>Typography</PageHeader>
       <Article>{TypographyMd}</Article>
-    </Fragment>
+    </React.Fragment>
   )
 }
 

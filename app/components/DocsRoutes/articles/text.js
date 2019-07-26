@@ -1,19 +1,19 @@
-import React, { Fragment } from "react"
-import Article from "components/Article"
-import PageHeader from "components/PageHeader"
-import SetMeta from "components/SetMeta"
-import TextMd from "docs/text.md"
+import React from "react"
+import Article from "app/components/Article"
+import PageHeader from "app/components/PageHeader"
+import SetMeta from "app/components/SetMeta"
+import TextMd from "app/docs/text.md"
 
 const Text = () => {
   return (
-    <Fragment>
+    <React.Fragment>
       <SetMeta
         title="Text"
         description="Apply specific text style customizations using these class helpers."
       />
       <PageHeader>Text</PageHeader>
       <Article>{TextMd}</Article>
-    </Fragment>
+    </React.Fragment>
   )
 }
 

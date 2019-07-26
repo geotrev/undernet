@@ -9,7 +9,7 @@ const pkg = require("./package.json")
 // Base configurations for all bundles
 
 const inputs = {
-  umd: path.join(__dirname, "js/src/index.bundle.js"),
+  umd: path.join(__dirname, "src/js/index.bundle.js"),
 }
 
 const outputs = {
@@ -29,18 +29,16 @@ const plugins = [
  * UMD bundle
  **/
 
-const umdOutput = {
-  file: outputs.umd,
-  format: "umd",
-  name: pkg.name,
-  sourcemap: true,
-  exports: "named",
-  banner,
-}
-
 const umdBundle = {
   input: inputs.umd,
-  output: umdOutput,
+  output: {
+    file: outputs.umd,
+    format: "umd",
+    name: pkg.name,
+    sourcemap: true,
+    exports: "named",
+    banner,
+  },
   plugins,
 }
 

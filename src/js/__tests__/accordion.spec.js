@@ -1,4 +1,4 @@
-import Undernet from "../src/index"
+import Undernet from "../"
 
 const dom = `
   <div data-accordion="accordion-1" class="accordion">

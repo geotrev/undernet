@@ -1,4 +1,4 @@
-import Undernet from "../src/index"
+import Undernet from "../"
 
 const dom = `
   <button data-target="new-modal">Open modal</button>

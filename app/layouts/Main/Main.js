@@ -2,12 +2,12 @@ import React, { Fragment, createRef } from "react"
 import { Switch, Route } from "react-router-dom"
 import { ContextUtil } from "undernet"
 
-import { rootPath, docsPath } from "routes"
-import GlobalNav from "components/GlobalNav"
-import Footer from "components/Footer"
-import PageNotFound from "components/PageNotFound"
-import Home from "pages/Home"
-import Docs from "pages/Docs"
+import { rootPath, docsPath } from "app/routes"
+import GlobalNav from "app/components/GlobalNav"
+import Footer from "app/components/Footer"
+import PageNotFound from "app/components/PageNotFound"
+import Home from "app/pages/Home"
+import Docs from "app/pages/Docs"
 
 import "./styles.scss"
 
