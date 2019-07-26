@@ -1,7 +1,7 @@
 import React from "react"
 import { BrowserRouter as Router } from "react-router-dom"
 import { LastLocationProvider } from "react-router-last-location"
-import Home from "../"
+import Home from "../Home"
 
 jest.mock("app/components/ScrollUpOnMount", () => global.simpleMock("ScrollUpOnMount"))
 jest.mock("app/components/SetMeta", () => global.simpleMock("SetMeta"))
