@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Article /> matches snapshot 1`] = `
+exports[`<Article /> renders 1`] = `
 <Article>
   <article
     className="article-wrapper has-no-padding column fadeIn"

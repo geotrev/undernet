@@ -7,7 +7,7 @@ jest.mock("app/pages/Docs", () => global.simpleMock("Docs"))
 jest.mock("app/components/PageNotFound", () => global.simpleMock("PageNotFound"))
 
 describe("<Main />", () => {
-  it("matches snapshot", () => {
+  it("renders", () => {
     const wrapper = mount(
       <Router>
         <Main />

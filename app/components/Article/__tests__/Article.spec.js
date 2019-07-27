@@ -10,7 +10,7 @@ describe("<Article />", () => {
     wrapper = mount(<Article>{md}</Article>)
   })
 
-  it("matches snapshot", () => {
+  it("renders", () => {
     expect(wrapper).toMatchSnapshot()
   })
 

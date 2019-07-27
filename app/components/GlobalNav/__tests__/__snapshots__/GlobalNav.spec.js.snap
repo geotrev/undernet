@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Nav /> matches snapshot 1`] = `
+exports[`<Nav /> renders 1`] = `
 <BrowserRouter>
   <Router
     history={

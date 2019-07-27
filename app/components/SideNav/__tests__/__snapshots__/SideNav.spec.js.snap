@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<SideNav /> matches snapshot 1`] = `
+exports[`<SideNav /> renders 1`] = `
 <BrowserRouter>
   <Router
     history={
