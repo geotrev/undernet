@@ -32,14 +32,18 @@ const dom = `
 `
 
 describe("Accordions", () => {
+  afterEach(() => {
+    Undernet.Accordions.stop()
+  })
+
   describe("API start", () => {
-    it("sets all necessary element attributes when initialized", () => {
+    it("sets all necessary element attributes", () => {
       // Given
       document.body.innerHTML = dom
       // When
       Undernet.Accordions.start()
       // Then
-      expect(document.body.innerHTML).toMatchSnapshot()
+      expect(document.body).toMatchSnapshot()
     })
   })
 
@@ -66,7 +70,7 @@ describe("Accordions", () => {
         Undernet.Accordions.start()
         document.querySelector("#button-2").click()
         // Then
-        expect(document.body.innerHTML).toMatchSnapshot()
+        expect(document.body).toMatchSnapshot()
       })
     })
   })
@@ -82,7 +86,7 @@ describe("Accordions", () => {
       Undernet.Accordions.start()
       document.querySelector("#button-2").click()
       // Then
-      expect(document.body.innerHTML).toMatchSnapshot()
+      expect(document.body).toMatchSnapshot()
     })
   })
 })
