@@ -29,16 +29,18 @@ const plugins = [
  * UMD bundle
  **/
 
+const umdOutput = {
+  file: outputs.umd,
+  format: "umd",
+  name: pkg.name,
+  sourcemap: true,
+  exports: "named",
+  banner,
+}
+
 const umdBundle = {
   input: inputs.umd,
-  output: {
-    file: outputs.umd,
-    format: "umd",
-    name: pkg.name,
-    sourcemap: true,
-    exports: "named",
-    banner,
-  },
+  output: umdOutput,
   plugins,
 }
 
