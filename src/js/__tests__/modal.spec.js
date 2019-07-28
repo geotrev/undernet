@@ -29,6 +29,10 @@ const dom = `
   </div>
 `
 
+const KeyCodes = {
+  ESCAPE: 27,
+}
+
 describe("Modals", () => {
   afterEach(() => {
     Undernet.Modals.stop()
@@ -83,7 +87,7 @@ describe("Modals", () => {
     let trigger
     let closeButton
 
-    beforeAll(() => {
+    beforeEach(() => {
       document.body.innerHTML = dom
 
       trigger = document.querySelector("[data-target]")
@@ -127,7 +131,7 @@ describe("Modals", () => {
       // When
       Undernet.Modals.start()
       trigger.click()
-      global.simulateKeyPress(27)
+      global.simulateKeyPress(KeyCodes.ESCAPE)
       // Then
       expect(modalOverlay).toMatchSnapshot()
     })
@@ -152,7 +156,7 @@ describe("Modals", () => {
     let trigger
     let closeButton
 
-    beforeAll(() => {
+    beforeEach(() => {
       document.body.innerHTML = dom
 
       trigger = document.querySelector("[data-target]")
@@ -173,7 +177,7 @@ describe("Modals", () => {
   })
 
   describe("#handleScrollStop -> Modal Button Click", () => {
-    beforeAll(() => {
+    beforeEach(() => {
       document.body.innerHTML = dom
 
       const trigger = document.querySelector("[data-target]")

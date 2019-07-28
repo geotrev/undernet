@@ -18,6 +18,13 @@ const dom = `
   </div>
 `
 
+const KeyCodes = {
+  ARROW_UP: 38,
+  ARROW_DOWN: 40,
+  ESCAPE: 27,
+  TAB: 9,
+}
+
 describe("Dropdowns", () => {
   afterEach(() => {
     Undernet.Dropdowns.stop()
@@ -86,28 +93,28 @@ describe("Dropdowns", () => {
 
     it("displays dropdown on down arrow key press", () => {
       // When
-      global.simulateKeyPress(40, false, trigger)
+      global.simulateKeyPress(KeyCodes.ARROW_DOWN, false, trigger)
       // Then
       expect(document.body).toMatchSnapshot()
     })
 
     it("displays dropdown on up arrow key press", () => {
       // When
-      global.simulateKeyPress(38, false, trigger)
+      global.simulateKeyPress(KeyCodes.ARROW_UP, false, trigger)
       // Then
       expect(document.body).toMatchSnapshot()
     })
 
     it("sets focus to first item in dropdown menu on down arrow key press", () => {
       // When
-      global.simulateKeyPress(40, false, trigger)
+      global.simulateKeyPress(KeyCodes.ARROW_DOWN, false, trigger)
       // Then
       expect(document.activeElement).toEqual(firstDropdownItem)
     })
 
     it("sets focus to first item in dropdown menu on up arrow key press", () => {
       // When
-      global.simulateKeyPress(38, false, trigger)
+      global.simulateKeyPress(KeyCodes.ARROW_UP, false, trigger)
       // Then
       expect(document.activeElement).toEqual(lastDropdownItem)
     })
@@ -132,14 +139,14 @@ describe("Dropdowns", () => {
 
     it("displays dropdown if shift + tab key is pressed in open menu", () => {
       // When
-      global.simulateKeyPress(9, true, firstDropdownItem)
+      global.simulateKeyPress(KeyCodes.TAB, true, firstDropdownItem)
       // Then
       expect(dropdownWrapper).toMatchSnapshot()
     })
 
     it("displays dropdown if tab key is pressed in open menu", () => {
       // When
-      global.simulateKeyPress(9, false, lastDropdownItem)
+      global.simulateKeyPress(KeyCodes.TAB, false, lastDropdownItem)
       // Then
       expect(dropdownWrapper).toMatchSnapshot()
     })
@@ -149,7 +156,7 @@ describe("Dropdowns", () => {
     let trigger
     let dropdownWrapper
 
-    beforeAll(() => {
+    beforeEach(() => {
       document.body.innerHTML = dom
 
       trigger = document.getElementById("dropdown-button")
@@ -179,7 +186,7 @@ describe("Dropdowns", () => {
       // When
       Undernet.Dropdowns.start()
       trigger.click()
-      global.simulateKeyPress(27)
+      global.simulateKeyPress(KeyCodes.ESCAPE)
       // Then
       expect(dropdownWrapper).toMatchSnapshot()
     })
@@ -208,7 +215,7 @@ describe("Dropdowns", () => {
       // When
       Undernet.Dropdowns.start()
       trigger.click()
-      global.simulateKeyPress(27)
+      global.simulateKeyPress(KeyCodes.ESCAPE)
       // Then
       expect(document.activeElement).toEqual(trigger)
     })
