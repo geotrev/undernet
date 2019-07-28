@@ -37,7 +37,7 @@ describe("Accordions", () => {
   })
 
   describe("API start", () => {
-    it("sets all necessary element attributes", () => {
+    it("sets attributes", () => {
       // Given
       document.body.innerHTML = dom
       // When
@@ -51,11 +51,12 @@ describe("Accordions", () => {
     it("does not set attributes", () => {
       // Given
       document.body.innerHTML = dom
+      const trigger = document.querySelector("#button-2")
       const content = document.querySelector("#content-2")
       // When
       Undernet.Accordions.start()
       Undernet.Accordions.stop()
-      document.querySelector("#button-2").click()
+      trigger.click()
       // Then
       expect(content).toMatchSnapshot()
     })
@@ -66,9 +67,10 @@ describe("Accordions", () => {
       it("opens clicked accordion and closes all others", () => {
         // Given
         document.body.innerHTML = dom
+        const trigger = document.querySelector("#button-2")
         // When
         Undernet.Accordions.start()
-        document.querySelector("#button-2").click()
+        trigger.click()
         // Then
         expect(document.body).toMatchSnapshot()
       })
@@ -79,12 +81,13 @@ describe("Accordions", () => {
     it("opens clicked accordion and doesn't close the others", () => {
       // Given
       document.body.innerHTML = dom
-      // When
+      const trigger = document.querySelector("#button-2")
       document
         .querySelector("[data-accordion='accordion-1']")
         .setAttribute("data-toggle-multiple", null)
+      // When
       Undernet.Accordions.start()
-      document.querySelector("#button-2").click()
+      trigger.click()
       // Then
       expect(document.body).toMatchSnapshot()
     })

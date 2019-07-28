@@ -288,7 +288,7 @@ exports[`Dropdowns #handleFirstTabClose & #handleLastTabClose displays dropdown 
 </div>
 `;
 
-exports[`Dropdowns #handleOffMenuClick -> Non-Dropdown Close Click closes dropdown 1`] = `
+exports[`Dropdowns #handleOffMenuClick -> Off-Dropdown Close Click closes dropdown 1`] = `
 <div
   class="dropdown"
   data-dropdown="dropdown1"
@@ -726,7 +726,7 @@ exports[`Dropdowns #renderWithKeys -> Arrow Down or Up Key Press displays dropdo
 </body>
 `;
 
-exports[`Dropdowns API start sets attributes on all dropdowns 1`] = `
+exports[`Dropdowns API start sets attributes 1`] = `
 <body>
   
   
@@ -847,7 +847,7 @@ exports[`Dropdowns API start sets attributes on all dropdowns 1`] = `
 </body>
 `;
 
-exports[`Dropdowns API stop -> Dropdown Button Click does not set attributes on any dropdown 1`] = `
+exports[`Dropdowns API stop -> Dropdown Button Click does not set attributes 1`] = `
 <body>
   
   

@@ -134,7 +134,7 @@ exports[`Accordions #render -> Accordion Button Click (no toggle-multiple) Butto
 </body>
 `;
 
-exports[`Accordions API start sets all necessary element attributes 1`] = `
+exports[`Accordions API start sets attributes 1`] = `
 <body>
   
   
