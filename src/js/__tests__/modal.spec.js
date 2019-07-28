@@ -50,7 +50,7 @@ describe("Modals", () => {
   })
 
   describe("API stop -> Modal Button Click", () => {
-    it("does not set attributes", () => {
+    it("does not open modal", () => {
       // Given
       document.body.innerHTML = dom
       const trigger = document.querySelector("[data-target]")
@@ -73,7 +73,7 @@ describe("Modals", () => {
       trigger.click()
     })
 
-    it("displays modal", () => {
+    it("opens modal", () => {
       expect(document.body).toMatchSnapshot()
     })
 

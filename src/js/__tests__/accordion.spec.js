@@ -48,7 +48,7 @@ describe("Accordions", () => {
   })
 
   describe("API stop -> Accordion Button Click", () => {
-    it("does not set attributes", () => {
+    it("does not open accordion", () => {
       // Given
       document.body.innerHTML = dom
       const trigger = document.querySelector("#button-2")
@@ -62,22 +62,20 @@ describe("Accordions", () => {
     })
   })
 
-  describe("#render -> Accordion Button Click (no toggle-multiple)", () => {
-    describe("Button content is expanded", () => {
-      it("opens clicked accordion and closes all others", () => {
-        // Given
-        document.body.innerHTML = dom
-        const trigger = document.querySelector("#button-2")
-        // When
-        Undernet.Accordions.start()
-        trigger.click()
-        // Then
-        expect(document.body).toMatchSnapshot()
-      })
+  describe("#render -> Accordion Button Click (no toggle multiple)", () => {
+    it("opens clicked accordion and closes all others", () => {
+      // Given
+      document.body.innerHTML = dom
+      const trigger = document.querySelector("#button-2")
+      // When
+      Undernet.Accordions.start()
+      trigger.click()
+      // Then
+      expect(document.body).toMatchSnapshot()
     })
   })
 
-  describe("Toggle Multiple -> Accordion Button Click", () => {
+  describe("#render -> Accordion Button Click (toggle multiple)", () => {
     it("opens clicked accordion and doesn't close the others", () => {
       // Given
       document.body.innerHTML = dom

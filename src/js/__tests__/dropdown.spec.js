@@ -42,7 +42,7 @@ describe("Dropdowns", () => {
   })
 
   describe("API stop -> Dropdown Button Click", () => {
-    it("does not set attributes", () => {
+    it("does not open dropdown", () => {
       // Given
       document.body.innerHTML = dom
       const trigger = document.querySelector("#dropdown-button")
@@ -65,7 +65,7 @@ describe("Dropdowns", () => {
       trigger.click()
     })
 
-    it("displays clicked dropdown", () => {
+    it("opens clicked dropdown", () => {
       expect(document.body).toMatchSnapshot()
     })
 
@@ -91,14 +91,14 @@ describe("Dropdowns", () => {
       Undernet.Dropdowns.start()
     })
 
-    it("displays dropdown on down arrow key press", () => {
+    it("opens dropdown on down arrow key press", () => {
       // When
       global.simulateKeyPress(KeyCodes.ARROW_DOWN, false, trigger)
       // Then
       expect(document.body).toMatchSnapshot()
     })
 
-    it("displays dropdown on up arrow key press", () => {
+    it("opens dropdown on up arrow key press", () => {
       // When
       global.simulateKeyPress(KeyCodes.ARROW_UP, false, trigger)
       // Then
@@ -137,14 +137,14 @@ describe("Dropdowns", () => {
       trigger.click()
     })
 
-    it("displays dropdown if shift + tab key is pressed in open menu", () => {
+    it("opens dropdown if shift + tab key is pressed in open menu", () => {
       // When
       global.simulateKeyPress(KeyCodes.TAB, true, firstDropdownItem)
       // Then
       expect(dropdownWrapper).toMatchSnapshot()
     })
 
-    it("displays dropdown if tab key is pressed in open menu", () => {
+    it("opens dropdown if tab key is pressed in open menu", () => {
       // When
       global.simulateKeyPress(KeyCodes.TAB, false, lastDropdownItem)
       // Then

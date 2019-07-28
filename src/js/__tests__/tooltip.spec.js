@@ -49,12 +49,12 @@ describe("Tooltips", () => {
       Undernet.Tooltips.stop()
     })
 
-    it("does not set attributes on focus", () => {
+    it("does not open tooltip on focus", () => {
       trigger.focus()
       expect(tooltip).toMatchSnapshot()
     })
 
-    it("does not set attributes on mouseover", () => {
+    it("does not open tooltip on mouseover", () => {
       global.simulateMouseEvent("mouseover", trigger, true, true)
       expect(tooltip).toMatchSnapshot()
     })
@@ -73,12 +73,12 @@ describe("Tooltips", () => {
       Undernet.Tooltips.start()
     })
 
-    it("sets attributes on focus", () => {
+    it("opens tooltip on focus", () => {
       trigger.focus()
       expect(tooltip).toMatchSnapshot()
     })
 
-    it("sets attributes on mouseover", () => {
+    it("opens tooltip on mouseover", () => {
       global.simulateMouseEvent("mouseover", trigger, true, true)
       expect(tooltip).toMatchSnapshot()
     })

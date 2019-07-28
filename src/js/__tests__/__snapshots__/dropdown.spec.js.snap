@@ -144,7 +144,7 @@ exports[`Dropdowns #handleEscapeKeyPress -> Escape Key Press closes dropdown 1`]
 </div>
 `;
 
-exports[`Dropdowns #handleFirstTabClose & #handleLastTabClose displays dropdown if shift + tab key is pressed in open menu 1`] = `
+exports[`Dropdowns #handleFirstTabClose & #handleLastTabClose opens dropdown if shift + tab key is pressed in open menu 1`] = `
 <div
   class="dropdown"
   data-dropdown="dropdown1"
@@ -216,7 +216,7 @@ exports[`Dropdowns #handleFirstTabClose & #handleLastTabClose displays dropdown 
 </div>
 `;
 
-exports[`Dropdowns #handleFirstTabClose & #handleLastTabClose displays dropdown if tab key is pressed in open menu 1`] = `
+exports[`Dropdowns #handleFirstTabClose & #handleLastTabClose opens dropdown if tab key is pressed in open menu 1`] = `
 <div
   class="dropdown"
   data-dropdown="dropdown1"
@@ -360,7 +360,7 @@ exports[`Dropdowns #handleOffMenuClick -> Off-Dropdown Close Click closes dropdo
 </div>
 `;
 
-exports[`Dropdowns #render -> Dropdown Button Click displays clicked dropdown 1`] = `
+exports[`Dropdowns #render -> Dropdown Button Click opens clicked dropdown 1`] = `
 <body>
   
   
@@ -482,7 +482,7 @@ exports[`Dropdowns #render -> Dropdown Button Click displays clicked dropdown 1`
 </body>
 `;
 
-exports[`Dropdowns #renderWithKeys -> Arrow Down or Up Key Press displays dropdown on down arrow key press 1`] = `
+exports[`Dropdowns #renderWithKeys -> Arrow Down or Up Key Press opens dropdown on down arrow key press 1`] = `
 <body>
   
   
@@ -604,7 +604,7 @@ exports[`Dropdowns #renderWithKeys -> Arrow Down or Up Key Press displays dropdo
 </body>
 `;
 
-exports[`Dropdowns #renderWithKeys -> Arrow Down or Up Key Press displays dropdown on up arrow key press 1`] = `
+exports[`Dropdowns #renderWithKeys -> Arrow Down or Up Key Press opens dropdown on up arrow key press 1`] = `
 <body>
   
   
@@ -847,7 +847,7 @@ exports[`Dropdowns API start sets attributes 1`] = `
 </body>
 `;
 
-exports[`Dropdowns API stop -> Dropdown Button Click does not set attributes 1`] = `
+exports[`Dropdowns API stop -> Dropdown Button Click does not open dropdown 1`] = `
 <body>
   
   

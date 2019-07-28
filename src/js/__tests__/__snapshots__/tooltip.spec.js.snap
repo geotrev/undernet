@@ -97,7 +97,7 @@ exports[`Tooltips #handleClose -> Tooltip Blur/MouseOut hides tooltip on mouseou
 </div>
 `;
 
-exports[`Tooltips #render -> Tooltip Focus/MouseOver sets attributes on focus 1`] = `
+exports[`Tooltips #render -> Tooltip Focus/MouseOver opens tooltip on focus 1`] = `
 <div
   class="tooltip-box"
   data-visible="true"
@@ -111,7 +111,7 @@ exports[`Tooltips #render -> Tooltip Focus/MouseOver sets attributes on focus 1`
 </div>
 `;
 
-exports[`Tooltips #render -> Tooltip Focus/MouseOver sets attributes on mouseover 1`] = `
+exports[`Tooltips #render -> Tooltip Focus/MouseOver opens tooltip on mouseover 1`] = `
 <div
   class="tooltip-box"
   data-visible="true"
@@ -190,7 +190,7 @@ exports[`Tooltips API start sets attributes 1`] = `
 </body>
 `;
 
-exports[`Tooltips API stop -> Tooltip Focus/MouseOver does not set attributes on focus 1`] = `
+exports[`Tooltips API stop -> Tooltip Focus/MouseOver does not open tooltip on focus 1`] = `
 <div
   class="tooltip-box"
   id="new-tooltip"
@@ -202,7 +202,7 @@ exports[`Tooltips API stop -> Tooltip Focus/MouseOver does not set attributes on
 </div>
 `;
 
-exports[`Tooltips API stop -> Tooltip Focus/MouseOver does not set attributes on mouseover 1`] = `
+exports[`Tooltips API stop -> Tooltip Focus/MouseOver does not open tooltip on mouseover 1`] = `
 <div
   class="tooltip-box"
   id="new-tooltip"

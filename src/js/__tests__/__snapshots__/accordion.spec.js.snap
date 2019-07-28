@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Accordions #render -> Accordion Button Click (no toggle-multiple) Button content is expanded opens clicked accordion and closes all others 1`] = `
+exports[`Accordions #render -> Accordion Button Click (no toggle multiple) opens clicked accordion and closes all others 1`] = `
 <body>
   
   
@@ -55,6 +55,141 @@ exports[`Accordions #render -> Accordion Button Click (no toggle-multiple) Butto
           <a
             href="#"
             tabindex="-1"
+          >
+            E pluribus unum.
+          </a>
+          
+        
+        </p>
+        
+      
+      </div>
+      
+    
+    </div>
+    
+    
+    <div
+      class="accordion-row"
+      data-accordion-row="content-2"
+      data-visible="true"
+    >
+      
+      
+      <h5>
+        
+        
+        <button
+          aria-controls="content-2"
+          aria-expanded="true"
+          class="accordion-button"
+          data-parent="accordion-1"
+          data-target="content-2"
+          id="button-2"
+        >
+          
+          Accordion Button 2
+        
+        </button>
+        
+      
+      </h5>
+      
+      
+      <div
+        aria-hidden="false"
+        aria-labelledby="button-2"
+        class="accordion-content"
+        id="content-2"
+        style="max-height: 0px;"
+      >
+        
+        
+        <p
+          class="has-margin"
+        >
+          
+          Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
+          ipsum ut voluptate. 
+          <a
+            href="#"
+            tabindex="0"
+          >
+            E pluribus unum.
+          </a>
+          
+        
+        </p>
+        
+      
+      </div>
+      
+    
+    </div>
+    
+  
+  </div>
+  
+
+</body>
+`;
+
+exports[`Accordions #render -> Accordion Button Click (toggle multiple) opens clicked accordion and doesn't close the others 1`] = `
+<body>
+  
+  
+  <div
+    class="accordion"
+    data-accordion="accordion-1"
+    data-toggle-multiple="null"
+  >
+    
+    
+    <div
+      class="accordion-row"
+      data-accordion-row="content-1"
+      data-visible="true"
+    >
+      
+      
+      <h5>
+        
+        
+        <button
+          aria-controls="content-1"
+          aria-expanded="true"
+          class="accordion-button"
+          data-parent="accordion-1"
+          data-target="content-1"
+          id="button-1"
+        >
+          
+          Accordion Button 1
+        
+        </button>
+        
+      
+      </h5>
+      
+      
+      <div
+        aria-hidden="false"
+        aria-labelledby="button-1"
+        class="accordion-content"
+        id="content-1"
+        style="max-height: 0px;"
+      >
+        
+        
+        <p
+          class="has-margin"
+        >
+          
+          Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
+          ipsum ut voluptate. 
+          <a
+            href="#"
+            tabindex="0"
           >
             E pluribus unum.
           </a>
@@ -267,7 +402,7 @@ exports[`Accordions API start sets attributes 1`] = `
 </body>
 `;
 
-exports[`Accordions API stop -> Accordion Button Click does not set attributes 1`] = `
+exports[`Accordions API stop -> Accordion Button Click does not open accordion 1`] = `
 <div
   aria-hidden="true"
   aria-labelledby="button-2"
@@ -294,139 +429,4 @@ exports[`Accordions API stop -> Accordion Button Click does not set attributes 1
   
       
 </div>
-`;
-
-exports[`Accordions Toggle Multiple -> Accordion Button Click opens clicked accordion and doesn't close the others 1`] = `
-<body>
-  
-  
-  <div
-    class="accordion"
-    data-accordion="accordion-1"
-    data-toggle-multiple="null"
-  >
-    
-    
-    <div
-      class="accordion-row"
-      data-accordion-row="content-1"
-      data-visible="true"
-    >
-      
-      
-      <h5>
-        
-        
-        <button
-          aria-controls="content-1"
-          aria-expanded="true"
-          class="accordion-button"
-          data-parent="accordion-1"
-          data-target="content-1"
-          id="button-1"
-        >
-          
-          Accordion Button 1
-        
-        </button>
-        
-      
-      </h5>
-      
-      
-      <div
-        aria-hidden="false"
-        aria-labelledby="button-1"
-        class="accordion-content"
-        id="content-1"
-        style="max-height: 0px;"
-      >
-        
-        
-        <p
-          class="has-margin"
-        >
-          
-          Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
-          ipsum ut voluptate. 
-          <a
-            href="#"
-            tabindex="0"
-          >
-            E pluribus unum.
-          </a>
-          
-        
-        </p>
-        
-      
-      </div>
-      
-    
-    </div>
-    
-    
-    <div
-      class="accordion-row"
-      data-accordion-row="content-2"
-      data-visible="true"
-    >
-      
-      
-      <h5>
-        
-        
-        <button
-          aria-controls="content-2"
-          aria-expanded="true"
-          class="accordion-button"
-          data-parent="accordion-1"
-          data-target="content-2"
-          id="button-2"
-        >
-          
-          Accordion Button 2
-        
-        </button>
-        
-      
-      </h5>
-      
-      
-      <div
-        aria-hidden="false"
-        aria-labelledby="button-2"
-        class="accordion-content"
-        id="content-2"
-        style="max-height: 0px;"
-      >
-        
-        
-        <p
-          class="has-margin"
-        >
-          
-          Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
-          ipsum ut voluptate. 
-          <a
-            href="#"
-            tabindex="0"
-          >
-            E pluribus unum.
-          </a>
-          
-        
-        </p>
-        
-      
-      </div>
-      
-    
-    </div>
-    
-  
-  </div>
-  
-
-</body>
 `;
