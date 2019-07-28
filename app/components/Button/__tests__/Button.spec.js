@@ -2,7 +2,7 @@ import React from "react"
 import Button from "../Button"
 
 describe("<Button />", () => {
-  it("matches snapshot", () => {
+  it("renders", () => {
     const wrapper = shallow(<Button>Test</Button>)
     expect(wrapper).toMatchSnapshot()
   })

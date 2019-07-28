@@ -11,7 +11,7 @@ function mountRoutes() {
 }
 
 describe("<DocsRoutes />", () => {
-  it("matches snapshot", () => {
+  it("renders", () => {
     const wrapper = mountRoutes()
     expect(wrapper).toMatchSnapshot()
   })

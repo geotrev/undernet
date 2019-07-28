@@ -15,7 +15,7 @@ describe("<PageHeader />", () => {
     )
   })
 
-  it("matches snapshot", () => {
+  it("renders", () => {
     expect(wrapper).toMatchSnapshot()
   })
 

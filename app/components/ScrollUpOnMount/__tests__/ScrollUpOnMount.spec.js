@@ -4,7 +4,7 @@ import ScrollUpOnMount from "../ScrollUpOnMount"
 global.scrollTo = jest.fn()
 
 describe("<ScrollUpOnMount />", () => {
-  it("matches snapshot", () => {
+  it("renders", () => {
     const wrapper = mount(<ScrollUpOnMount />)
     expect(wrapper).toMatchSnapshot()
   })

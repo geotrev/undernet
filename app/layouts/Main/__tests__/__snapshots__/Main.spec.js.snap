@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Main /> matches snapshot 1`] = `
+exports[`<Main /> renders 1`] = `
 <BrowserRouter>
   <Router
     history={
