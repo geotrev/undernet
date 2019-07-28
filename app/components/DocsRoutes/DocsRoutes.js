@@ -9,34 +9,33 @@ import LoadingSpinner from "app/components/LoadingSpinner"
 const Loading = () => <LoadingSpinner />
 Loading.displayName = "Loading"
 
-function getRoute(component) {
-  return Loadable({
+const getComponent = component =>
+  Loadable({
     loader: () => import(`./articles/${component}`),
     loading: Loading,
   })
-}
 
 export default function DocsRoutes() {
   return (
     <Switch>
-      <Route exact path={routes.introductionPath} component={getRoute("Introduction")} />
-      <Route exact path={routes.downloadPath} component={getRoute("Download")} />
-      <Route exact path={routes.brandingPath} component={getRoute("Branding")} />
-      <Route exact path={routes.javascriptPath} component={getRoute("Javascript")} />
-      <Route exact path={routes.gridPath} component={getRoute("Grid")} />
-      <Route exact path={routes.typographyPath} component={getRoute("Typography")} />
-      <Route exact path={routes.buttonsPath} component={getRoute("Buttons")} />
-      <Route exact path={routes.formsPath} component={getRoute("Forms")} />
-      <Route exact path={routes.modalsPath} component={getRoute("Modals")} />
-      <Route exact path={routes.accordionsPath} component={getRoute("Accordions")} />
-      <Route exact path={routes.dropdownsPath} component={getRoute("Dropdowns")} />
-      <Route exact path={routes.tooltipsPath} component={getRoute("Tooltips")} />
-      <Route exact path={routes.alignmentPath} component={getRoute("Alignment")} />
-      <Route exact path={routes.offsetOrderPath} component={getRoute("OffsetOrder")} />
-      <Route exact path={routes.textPath} component={getRoute("Text")} />
-      <Route exact path={routes.displayPath} component={getRoute("Display")} />
-      <Route exact path={routes.colorPath} component={getRoute("Color")} />
-      <Route exact path={routes.spacingPath} component={getRoute("Spacing")} />
+      <Route exact path={routes.introductionPath} component={getComponent("Introduction")} />
+      <Route exact path={routes.downloadPath} component={getComponent("Download")} />
+      <Route exact path={routes.brandingPath} component={getComponent("Branding")} />
+      <Route exact path={routes.javascriptPath} component={getComponent("Javascript")} />
+      <Route exact path={routes.gridPath} component={getComponent("Grid")} />
+      <Route exact path={routes.typographyPath} component={getComponent("Typography")} />
+      <Route exact path={routes.buttonsPath} component={getComponent("Buttons")} />
+      <Route exact path={routes.formsPath} component={getComponent("Forms")} />
+      <Route exact path={routes.modalsPath} component={getComponent("Modals")} />
+      <Route exact path={routes.accordionsPath} component={getComponent("Accordions")} />
+      <Route exact path={routes.dropdownsPath} component={getComponent("Dropdowns")} />
+      <Route exact path={routes.tooltipsPath} component={getComponent("Tooltips")} />
+      <Route exact path={routes.alignmentPath} component={getComponent("Alignment")} />
+      <Route exact path={routes.offsetOrderPath} component={getComponent("OffsetOrder")} />
+      <Route exact path={routes.textPath} component={getComponent("Text")} />
+      <Route exact path={routes.displayPath} component={getComponent("Display")} />
+      <Route exact path={routes.colorPath} component={getComponent("Color")} />
+      <Route exact path={routes.spacingPath} component={getComponent("Spacing")} />
       <Route component={PageNotFound} />
     </Switch>
   )
