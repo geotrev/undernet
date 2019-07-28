@@ -1,3 +1,12 @@
+# remaining folders/files:
+# - src/
+# - dist/
+# - README.md
+# - package.json
+# - package-lock.json
+# - LICENSE
+# - CONTRIBUTING
+
 .DS_store
 yarn-error.log*
 npm-error.log*
@@ -7,10 +16,10 @@ npm-error.log*
 /app/
 /bin/
 /build/
-/js/test/
 /dist/*.zip
 /node_modules/
 /public/
+/src/js/__tests__/
 /test/
 
 .browserslistrc

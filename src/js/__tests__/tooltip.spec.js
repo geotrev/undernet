@@ -15,27 +15,23 @@ const dom = `
   </span>
 `
 
+const KeyCodes = {
+  ESCAPE: 27,
+}
+
 describe("Tooltips", () => {
-  const tooltipId1 = "new-tooltip"
-  const tooltipId2 = "new-tooltip10"
+  afterEach(() => {
+    Undernet.Tooltips.stop()
+  })
 
   describe("API start", () => {
-    let trigger
-    let tooltip
-
-    beforeAll(() => {
+    it("sets attributes", () => {
+      // Given
       document.body.innerHTML = dom
-      trigger = document.querySelector(`[data-target='${tooltipId1}']`)
-      tooltip = document.getElementById(tooltipId1)
+      // When
       Undernet.Tooltips.start()
-    })
-
-    it("sets [aria-describedby] on tooltip trigger", () => {
-      expect(trigger.getAttribute("aria-describedby")).toEqual(tooltipId1)
-    })
-
-    it("sets [role] on tooltip", () => {
-      expect(tooltip.getAttribute("role")).toEqual("tooltip")
+      // Then
+      expect(document.body).toMatchSnapshot()
     })
   })
 
@@ -43,22 +39,24 @@ describe("Tooltips", () => {
     let trigger
     let tooltip
 
-    beforeAll(() => {
+    beforeEach(() => {
       document.body.innerHTML = dom
-      trigger = document.querySelector(`[data-target='${tooltipId1}']`)
-      tooltip = document.getElementById(tooltipId1)
+
+      trigger = document.querySelector(`[data-target='${"new-tooltip"}']`)
+      tooltip = document.getElementById("new-tooltip")
+
       Undernet.Tooltips.start()
       Undernet.Tooltips.stop()
     })
 
-    it("does not set [data-visible='true'] on tooltip when trigger is focused", () => {
+    it("does not open tooltip on focus", () => {
       trigger.focus()
-      expect(tooltip.getAttribute("data-visible")).toEqual(null)
+      expect(tooltip).toMatchSnapshot()
     })
 
-    it("does not set [data-visible='true'] on tooltip when mouse moves over trigger", () => {
+    it("does not open tooltip on mouseover", () => {
       global.simulateMouseEvent("mouseover", trigger, true, true)
-      expect(tooltip.getAttribute("data-visible")).toEqual(null)
+      expect(tooltip).toMatchSnapshot()
     })
   })
 
@@ -66,52 +64,69 @@ describe("Tooltips", () => {
     let trigger
     let tooltip
 
-    beforeAll(() => {
+    beforeEach(() => {
       document.body.innerHTML = dom
-      trigger = document.querySelector(`[data-target='${tooltipId1}']`)
-      tooltip = document.getElementById(tooltipId1)
+
+      trigger = document.querySelector(`[data-target='${"new-tooltip"}']`)
+      tooltip = document.getElementById("new-tooltip")
+
       Undernet.Tooltips.start()
     })
 
-    it("sets [data-visible='true'] on tooltip when trigger is focused", () => {
+    it("opens tooltip on focus", () => {
       trigger.focus()
-      expect(tooltip.getAttribute("data-visible")).toEqual("true")
+      expect(tooltip).toMatchSnapshot()
     })
 
-    it("sets [data-visible='true'] on tooltip when mouse moves over trigger", () => {
+    it("opens tooltip on mouseover", () => {
       global.simulateMouseEvent("mouseover", trigger, true, true)
-      expect(tooltip.getAttribute("data-visible")).toEqual("true")
+      expect(tooltip).toMatchSnapshot()
     })
   })
 
   describe("#handleClose -> Tooltip Blur/MouseOut", () => {
     let trigger1
     let trigger2
-    let tooltip1
-    let tooltip2
+    let tooltip
 
-    beforeAll(() => {
+    beforeEach(() => {
       document.body.innerHTML = dom
-      trigger1 = document.querySelector(`[data-target='${tooltipId1}']`)
-      trigger2 = document.querySelector(`[data-target='${tooltipId2}']`)
-      tooltip1 = document.getElementById(tooltipId1)
-      tooltip2 = document.getElementById(tooltipId2)
-      Undernet.start()
-    })
 
-    it("hides previous tooltip if another is focused", () => {
-      trigger1.focus()
-      expect(tooltip1.getAttribute("data-visible")).toEqual("true")
-      trigger2.focus()
-      expect(tooltip1.getAttribute("data-visible")).toEqual("false")
-      expect(tooltip2.getAttribute("data-visible")).toEqual("true")
+      trigger1 = document.querySelector(`[data-target='${"new-tooltip"}']`)
+      trigger2 = document.querySelector(`[data-target='${"new-tooltip10"}']`)
+      tooltip = document.getElementById("new-tooltip")
+
+      Undernet.Tooltips.start()
     })
 
     it("hides tooltip on mouseout event", () => {
+      // When
       global.simulateMouseEvent("mouseover", trigger1, true, true)
-      expect(tooltip1.getAttribute("data-visible")).toEqual("true")
       global.simulateMouseEvent("mouseout", trigger1, true, true)
-      expect(tooltip1.getAttribute("data-visible")).toEqual("false")
+      // Then
+      expect(tooltip).toMatchSnapshot()
+    })
+
+    it("hides first tooltip if second is focused", () => {
+      // When
+      trigger1.focus()
+      trigger2.focus()
+      expect(document.body).toMatchSnapshot()
+    })
+  })
+
+  describe("#handleClose -> Escape Key Press", () => {
+    it("closes tooltip", () => {
+      // Given
+      document.body.innerHTML = dom
+      const trigger = document.querySelector(`[data-target='${"new-tooltip"}']`)
+      const tooltip = document.getElementById("new-tooltip")
+      // When
+      Undernet.Tooltips.start()
+      trigger.focus()
+      global.simulateKeyPress(KeyCodes.ESCAPE)
+      // Then
+      expect(tooltip).toMatchSnapshot()
     })
   })
 })

@@ -48,12 +48,12 @@ See CONTRIBUTING.md for more details on git flow and recommendations for pull re
 
 ### Fork and clone for development / contributing
 
-First fork the project on Github. Then set up locally.
+First fork the project on Github. Then set up locally. Note that NPM is used for all scripts.
 
 ```sh
 $ git clone git@github.com:USER_NAME/undernet.git
 $ cd undernet/
-$ npm install # or `yarn install`
+$ npm run setup
 ```
 
 The site is both a demo and marketing tool. It is built with my own webpack setup called [Pulsar](https://github.com/geotrev/pulsar). It's basically just Webpack + React, so don't panic. :)

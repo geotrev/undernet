@@ -8,7 +8,7 @@ const path = require("path")
 const packageFilePath = path.resolve(__dirname, "../package.json")
 const pkg = require(packageFilePath)
 
-const undernetScssFilePath = path.resolve(__dirname, "../scss/undernet.scss")
+const undernetScssFilePath = path.resolve(__dirname, "../src/scss/undernet.scss")
 const downloadArticleFilePath = path.resolve(__dirname, "../app/docs/download.md")
 const readFormat = "utf-8"
 

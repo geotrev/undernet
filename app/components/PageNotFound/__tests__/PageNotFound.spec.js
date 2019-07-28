@@ -7,7 +7,7 @@ describe("<PageNotFound />", () => {
     wrapper = mount(<PageNotFound />)
   })
 
-  it("matches snapshot", () => {
+  it("renders", () => {
     expect(wrapper).toMatchSnapshot()
   })
 })

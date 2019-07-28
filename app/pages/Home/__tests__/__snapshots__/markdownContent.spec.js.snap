@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<InstallAssets /> renders 1`] = `
+<InstallAssets>
+  <ReactMarkdown
+    astPlugins={Array []}
+    escapeHtml={false}
+    parserOptions={Object {}}
+    plugins={Array []}
+    rawSourcePos={false}
+    renderers={Object {}}
+    skipHtml={false}
+    source="install npm!"
+    sourcePos={false}
+    transformLinkUri={[Function]}
+  >
+    <Root
+      key="root-1-1"
+    >
+      <p
+        key="paragraph-1-1"
+      >
+        <TextRenderer
+          key="text-1-1"
+          nodeKey="text-1-1"
+          value="install npm!"
+        >
+          install npm!
+        </TextRenderer>
+      </p>
+    </Root>
+  </ReactMarkdown>
+</InstallAssets>
+`;
+
+exports[`<InstallNpm /> renders 1`] = `
+<InstallNpm>
+  <ReactMarkdown
+    astPlugins={Array []}
+    escapeHtml={false}
+    parserOptions={Object {}}
+    plugins={Array []}
+    rawSourcePos={false}
+    renderers={Object {}}
+    skipHtml={false}
+    source="install npm!"
+    sourcePos={false}
+    transformLinkUri={[Function]}
+  >
+    <Root
+      key="root-1-1"
+    >
+      <p
+        key="paragraph-1-1"
+      >
+        <TextRenderer
+          key="text-1-1"
+          nodeKey="text-1-1"
+          value="install npm!"
+        >
+          install npm!
+        </TextRenderer>
+      </p>
+    </Root>
+  </ReactMarkdown>
+</InstallNpm>
+`;
+
+exports[`<StatusBadges /> renders component once resolved 1`] = `<Badges />`;
+
+exports[`<StatusBadges /> renders loader  1`] = `
+<loading
+  error={null}
+  isLoading={true}
+  pastDelay={false}
+  retry={[Function]}
+  timedOut={false}
+/>
+`;

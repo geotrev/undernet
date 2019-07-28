@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<LoadingSpinner /> matches snapshot 1`] = `
+exports[`<LoadingSpinner /> renders 1`] = `
 <LoadingSpinner>
   <div
     id="loading-spinner"

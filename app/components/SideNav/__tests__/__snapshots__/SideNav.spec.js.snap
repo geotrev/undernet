@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<SideNav /> matches snapshot 1`] = `
+exports[`<SideNav /> renders 1`] = `
 <BrowserRouter>
   <Router
     history={
@@ -124,7 +124,7 @@ exports[`<SideNav /> matches snapshot 1`] = `
               className="version-text has-no-padding has-gray800-text xsmall-12 columns"
             >
               Version 
-              5.0.3
+              5.0.4
             </p>
             <div
               className="accordion-row"

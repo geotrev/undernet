@@ -1,4 +1,5 @@
 import Undernet from "../"
+import { getFocusableElements } from "../utils"
 
 const dom = `
   <button data-target="new-modal">Open modal</button>
@@ -28,218 +29,141 @@ const dom = `
   </div>
 `
 
+const KeyCodes = {
+  ESCAPE: 27,
+}
+
 describe("Modals", () => {
+  afterEach(() => {
+    Undernet.Modals.stop()
+  })
+
   describe("API start", () => {
-    let modalDialog
-    let modalOverlay
-
-    beforeAll(() => {
+    it("sets attributes", () => {
+      // Given
       document.body.innerHTML = dom
+      // When
       Undernet.Modals.start()
-      modalDialog = document.querySelector("[data-parent]")
-      modalOverlay = document.querySelector("[data-modal]")
-    })
-
-    it("has no [tabindex] on modal dialog", () => {
-      expect(modalDialog.getAttribute("tabindex")).toEqual(null)
-    })
-
-    it("sets [data-visible='false'] on modal overlay", () => {
-      expect(modalOverlay.getAttribute("data-visible")).toEqual("false")
-    })
-
-    it("sets [aria-hidden='true'] on modal overlay", () => {
-      expect(modalOverlay.getAttribute("aria-hidden")).toEqual("true")
-    })
-
-    it("sets [tabindex='-1'] on each focusable element", () => {
-      const focusableElements = modalDialog.querySelectorAll("a")
-      focusableElements.forEach(el => {
-        expect(el.getAttribute("tabindex")).toEqual("-1")
-      })
-    })
-
-    it("sets [role='dialog'] to modal dialog", () => {
-      expect(modalDialog.getAttribute("role")).toEqual("dialog")
-    })
-
-    it("sets [aria-modal='true'] to modal dialog", () => {
-      expect(modalDialog.getAttribute("aria-modal")).toEqual("true")
-    })
-
-    it("sets [aria-labelledby] on modal dialog equal to header id", () => {
-      const header = document.querySelector("h2")
-      expect(modalDialog.getAttribute("aria-labelledby")).toEqual(header.id)
+      // Then
+      expect(document.body).toMatchSnapshot()
     })
   })
 
   describe("API stop -> Modal Button Click", () => {
-    let button
-    let modalOverlay
-    let modalDialog
-
-    beforeAll(() => {
+    it("does not open modal", () => {
+      // Given
       document.body.innerHTML = dom
+      const trigger = document.querySelector("[data-target]")
+      // When
       Undernet.Modals.start()
       Undernet.Modals.stop()
-      button = document.querySelector("[data-target]")
-      modalOverlay = document.querySelector("[data-modal]")
-      modalDialog = document.querySelector("[data-parent]")
-      button.click()
-    })
-
-    it("has [data-visible='false'] on modal overlay", () => {
-      expect(modalOverlay.getAttribute("data-visible")).toEqual("false")
-    })
-
-    it("does not set [tabindex] on modal dialog", () => {
-      expect(modalDialog.getAttribute("tabindex")).toEqual(null)
+      trigger.click()
+      // Then
+      expect(document.body).toMatchSnapshot()
     })
   })
 
   describe("#render -> Modal Button Click", () => {
-    let button
-    let modalOverlay
-    let modalDialog
-
-    beforeAll(() => {
+    beforeEach(() => {
       document.body.innerHTML = dom
+
+      const trigger = document.querySelector("[data-target]")
+
       Undernet.Modals.start()
-      button = document.querySelector("[data-target]")
-      modalDialog = document.querySelector("[data-parent]")
-      modalOverlay = document.querySelector("[data-modal]")
-      button.click()
+      trigger.click()
     })
 
-    it("sets [tabindex='-1'] on modal dialog", () => {
-      expect(modalDialog.getAttribute("tabindex")).toEqual("-1")
+    it("opens modal", () => {
+      expect(document.body).toMatchSnapshot()
     })
 
-    it("sets [data-visible='true'] on modal overlay", () => {
-      expect(modalOverlay.getAttribute("data-visible")).toEqual("true")
-    })
-
-    it("sets [aria-hidden='false'] on modal overlay", () => {
-      expect(modalOverlay.getAttribute("aria-hidden")).toEqual("false")
-    })
-
-    it("sets [tabindex='0'] on each focusable element", () => {
-      const focusableElements = modalDialog.querySelectorAll("a")
-      focusableElements.forEach(el => {
-        expect(el.getAttribute("tabindex")).toEqual("0")
-      })
-    })
-
-    it("sets focus to [data-parent]", () => {
+    it("sets focus to modal dialog", () => {
+      const modalDialog = document.querySelector("[data-parent]")
       expect(document.activeElement).toEqual(modalDialog)
     })
   })
 
   describe("#handleClose -> Modal Close Button Click", () => {
-    let openButton
+    let trigger
     let closeButton
-    let modalOverlay
-    let modalDialog
 
-    beforeAll(() => {
+    beforeEach(() => {
       document.body.innerHTML = dom
-      Undernet.Modals.start()
-      openButton = document.querySelector("[data-target]")
+
+      trigger = document.querySelector("[data-target]")
       closeButton = document.querySelector("[data-close]")
-      modalOverlay = document.querySelector("[data-modal]")
-      modalDialog = document.querySelector("[data-parent]")
-      openButton.click()
+
+      Undernet.Modals.start()
+      trigger.click()
       closeButton.click()
     })
 
-    it("sets [data-visible='false'] on modal overlay", () => {
-      expect(modalOverlay.getAttribute("data-visible")).toEqual("false")
+    it("closes modal", () => {
+      expect(document.body).toMatchSnapshot()
     })
 
-    it("removes [tabindex] on modal dialog", () => {
-      expect(modalDialog.getAttribute("tabindex")).toEqual(null)
-    })
-
-    it("sets [aria-hidden='true'] on modal overlay", () => {
-      expect(modalOverlay.getAttribute("aria-hidden")).toEqual("true")
-    })
-
-    it("sets [tabindex='-1'] on each focusable element", () => {
-      const focusableElements = modalDialog.querySelectorAll("a")
-      focusableElements.forEach(el => {
-        expect(el.getAttribute("tabindex")).toEqual("-1")
-      })
-    })
-
-    it("sets focus to [data-target]", () => {
-      expect(document.activeElement).toEqual(openButton)
+    it("sets focus to modal trigger", () => {
+      expect(document.activeElement).toEqual(trigger)
     })
   })
 
   describe("#handleOverlayClick -> Modal Overlay Click", () => {
-    let button
-    let modalOverlay
-
-    beforeAll(() => {
+    it("closes modal", () => {
+      // Given
       document.body.innerHTML = dom
+      const trigger = document.querySelector("[data-target]")
+      const modalOverlay = document.querySelector("[data-modal]")
+      // When
       Undernet.Modals.start()
-      button = document.querySelector("[data-target]")
-      modalOverlay = document.querySelector("[data-modal]")
-      button.click()
+      trigger.click()
       modalOverlay.click()
-    })
-
-    it("sets [data-visible='false'] on modal overlay", () => {
-      expect(modalOverlay.getAttribute("data-visible")).toEqual("false")
+      // Then
+      expect(modalOverlay).toMatchSnapshot()
     })
   })
 
   describe("#handleEscapeKeyPress -> Escape Key Press", () => {
-    let button
-    let modalOverlay
-
-    beforeAll(() => {
+    it("closes modal", () => {
+      // Given
       document.body.innerHTML = dom
+      const trigger = document.querySelector("[data-target]")
+      const modalOverlay = document.querySelector("[data-modal]")
+      // When
       Undernet.Modals.start()
-      button = document.querySelector("[data-target]")
-      modalOverlay = document.querySelector("[data-modal]")
-    })
-
-    it("sets [data-visible='false'] on modal overlay", () => {
-      button.click()
-      global.simulateKeyPress(27)
-      expect(modalOverlay.getAttribute("data-visible")).toEqual("false")
+      trigger.click()
+      global.simulateKeyPress(KeyCodes.ESCAPE)
+      // Then
+      expect(modalOverlay).toMatchSnapshot()
     })
   })
 
   describe("#handleReturnFocus -> Modal Close Button Click", () => {
-    let openButton
-    let closeButton
-
-    beforeAll(() => {
+    it("sets focus back to modal trigger", () => {
+      // Given
       document.body.innerHTML = dom
+      const trigger = document.querySelector("[data-target]")
+      const closeButton = document.querySelector("[data-close]")
+      // When
       Undernet.Modals.start()
-      openButton = document.querySelector("[data-target]")
-      closeButton = document.querySelector("[data-close]")
-      openButton.click()
+      trigger.click()
       closeButton.click()
-    })
-
-    it("sets focus back to [data-target]", () => {
-      expect(document.activeElement).toEqual(openButton)
+      // Then
+      expect(document.activeElement).toEqual(trigger)
     })
   })
 
   describe("#handleScrollRestore -> Modal Close Button Click", () => {
-    let openButton
+    let trigger
     let closeButton
 
-    beforeAll(() => {
+    beforeEach(() => {
       document.body.innerHTML = dom
-      Undernet.Modals.start()
-      openButton = document.querySelector("[data-target]")
+
+      trigger = document.querySelector("[data-target]")
       closeButton = document.querySelector("[data-close]")
-      openButton.click()
+
+      Undernet.Modals.start()
+      trigger.click()
       closeButton.click()
     })
 
@@ -253,13 +177,13 @@ describe("Modals", () => {
   })
 
   describe("#handleScrollStop -> Modal Button Click", () => {
-    let button
-
-    beforeAll(() => {
+    beforeEach(() => {
       document.body.innerHTML = dom
+
+      const trigger = document.querySelector("[data-target]")
+
       Undernet.Modals.start()
-      button = document.querySelector("[data-target]")
-      button.click()
+      trigger.click()
     })
 
     it("sets 'no-scroll' class to <body>", () => {

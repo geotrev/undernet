@@ -22,7 +22,7 @@ function SideNavComponent() {
 }
 
 describe.only("<SideNav />", () => {
-  it("matches snapshot", () => {
+  it("renders", () => {
     const wrapper = SideNavComponent()
     expect(wrapper).toMatchSnapshot()
   })

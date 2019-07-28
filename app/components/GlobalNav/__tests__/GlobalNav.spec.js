@@ -11,7 +11,7 @@ function NavComponent() {
 }
 
 describe("<Nav />", () => {
-  it("matches snapshot", () => {
+  it("renders", () => {
     const wrapper = NavComponent()
     expect(wrapper).toMatchSnapshot()
   })
