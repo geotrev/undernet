@@ -133,7 +133,7 @@ exports[`<Home /> renders 1`] = `
                     className="un-version has-no-margin"
                   >
                     Version 
-                    5.0.4
+                    5.1.0
                   </p>
                 </div>
                 <div

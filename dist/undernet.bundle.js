@@ -1,6 +1,6 @@
 /*!
   * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
-  * Undernet v5.0.4 (https://undernet.io)
+  * Undernet v5.1.0 (https://undernet.io)
   * Copyright 2017-2019 George Treviranus
   */
 (function (global, factory) {
@@ -66,6 +66,7 @@
     KEYDOWN: "keydown",
     CLICK: "click"
   };
+  var browserEnv = typeof window !== "undefined";
   var dom = {
     attr: function attr(element, _attr, newValue) {
       if (newValue === false) {
@@ -155,6 +156,7 @@
     _createClass(ContextUtil, [{
       key: "captureFocus",
       value: function captureFocus(container, options) {
+        if (!browserEnv) return;
         this._focusContainerSelector = container;
         this._focusableChildren = getFocusableElements(this._focusContainerSelector);
         this._focusableFirstChild = this._focusableChildren[0];
@@ -172,6 +174,8 @@
     }, {
       key: "releaseFocus",
       value: function releaseFocus() {
+        if (!browserEnv) return;
+
         if (this._trapFocusWithArrows) {
           document.removeEventListener(Events.KEYDOWN, this._handleFocusTrapWithArrows);
           this._trapFocusWithArrows = false;
@@ -182,11 +186,14 @@
     }, {
       key: "enableFocusOutline",
       value: function enableFocusOutline() {
+        if (!browserEnv) return;
         document.addEventListener(Events.KEYDOWN, this._listenForKeyboard);
       }
     }, {
       key: "disableFocusOutline",
       value: function disableFocusOutline() {
+        if (!browserEnv) return;
+
         if (this._listeningForKeydown) {
           document.removeEventListener(Events.KEYDOWN, this._listenForKeyboard);
         } else {
@@ -342,6 +349,8 @@
       value: function start() {
         var _this = this;
 
+        if (!browserEnv) return;
+
         var accordionButtonSelector = this._getAccordionButtonSelector("[".concat(Selectors$1.DATA_ACCORDION, "]"));
 
         this._accordionButtons = dom.findAll(accordionButtonSelector);
@@ -358,6 +367,8 @@
       key: "stop",
       value: function stop() {
         var _this2 = this;
+
+        if (!browserEnv) return;
 
         this._accordionButtons.forEach(function (instance) {
           instance.removeEventListener(Events$1.CLICK, _this2._render);
@@ -612,6 +623,7 @@
       value: function start() {
         var _this = this;
 
+        if (!browserEnv) return;
         this._dropdowns = dom.findAll("".concat(this._dropdownContainerAttr));
         this._dropdownButtons = dom.findAll("".concat(this._dropdownContainerAttr, " > ").concat(this._dropdownTargetAttr));
 
@@ -630,6 +642,8 @@
       key: "stop",
       value: function stop() {
         var _this2 = this;
+
+        if (!browserEnv) return;
 
         this._dropdownButtons.forEach(function (button) {
           button.removeEventListener(Events$2.CLICK, _this2._render);
@@ -942,6 +956,7 @@
       value: function start() {
         var _this = this;
 
+        if (!browserEnv) return;
         this._modals = dom.findAll(this._modalContainerAttr);
         getFocusableElements(this._modalContainerAttr).forEach(function (element) {
           dom.attr(element, Selectors$3.TABINDEX, "-1");
@@ -957,6 +972,8 @@
       key: "stop",
       value: function stop() {
         var _this2 = this;
+
+        if (!browserEnv) return;
 
         this._modals.forEach(function (instance) {
           var id = dom.attr(instance, Selectors$3.DATA_MODAL);
@@ -1255,6 +1272,7 @@
       value: function start() {
         var _this = this;
 
+        if (!browserEnv) return;
         this._allTooltips = dom.findAll("[".concat(Selectors$4.DATA_TOOLTIP, "]"));
 
         this._allTooltips.forEach(function (instance) {
@@ -1265,6 +1283,8 @@
       key: "stop",
       value: function stop() {
         var _this2 = this;
+
+        if (!browserEnv) return;
 
         this._allTooltips.forEach(function (instance) {
           var id = dom.attr(instance, Selectors$4.DATA_TOOLTIP);
@@ -1445,7 +1465,9 @@
     ContextUtil$3.disableFocusOutline();
   };
 
-  window.Undernet = Undernet;
+  if (browserEnv) {
+    window.Undernet = Undernet;
+  }
 
   exports.Accordions = Accordions;
   exports.ContextUtil = ContextUtil$3;
