@@ -1,6 +1,6 @@
-Undernet uses a flex grid that behaves largely like other CSS grids: using rows with nested columns, and spacing/positioning modifiers to enable more complex layouts.
+Undernet uses a flex grid that behaves largely like other CSS grids: using rows with nested columns, and spacing/positioning modifiers to enable more complex layouts. Almost every aspect of the grid can be customized within `_config.scss`, if you're choosing to go with a more custom pipeline as outlined in the [Branding](/docs/overview/branding) article.
 
-The grid is mobile first, so any [breakpoint classes](#breakpoint-classes) and modifiers take effect from the breakpoint value and wider (ie, `medium` is `768px` and wider).
+The grid is mobile first, so any [breakpoint classes](#breakpoint-classes) and modifiers take effect from the given breakpoint and wider (ie, `medium` is `768px` and wider).
 
 An important part of Undernet's grid is it allows you to customize the class names to your liking. This change won't have any effect on the rest of the framework, and is useful in preventing namespace collisions. The default values are as you might expect:
 
@@ -12,13 +12,13 @@ $grid-classes: (
 ) !default;
 ```
 
-If you need a more custom, 2-dimensional layout, look into [Grid CSS](https://css-tricks.com/snippets/css/complete-guide-grid/).
+If you need a more custom, 2-dimensional layout, look into [CSS Grid](https://css-tricks.com/snippets/css/complete-guide-grid/).
 
-Also worth note, but not included in detail in this article, are offset and order utility classes which can be used with grid columns to move content across the grid. [Read more about those here.](/docs/layout/offset-order)
+Also worth note, but not included in detail in this article, are offset and order utility classes which can be used with grid columns to move content across the grid, or even break it. [Read more about those here.](/docs/layout/offset-order)
 
 ## Grid Container
 
-The basic wrapper of a layout uses the `grid` class. Grid's are automatically centered (`margin: 0 auto`) and have a left and right gutter.
+The basic wrapper of a layout uses the `grid` class. Grids are automatically centered (`margin: 0 auto`) and have a left and right gutter. Note that a grid container is entirely optional if you already have a wrapper with your desired properties.
 
 <div class="grid has-center-text has-padding filler">
   .grid
@@ -30,9 +30,11 @@ The basic wrapper of a layout uses the `grid` class. Grid's are automatically ce
 </div>
 ```
 
+A grid is a flex container with `column` direction.
+
 ### Grid Widths
 
-Widths are exactly what they sound like. For example, declaring a grid with a `.narrow` class will give you a grid horizontally narrower than the default.
+These are modifiers to the grid container that change its `max-width`.
 
 <div class="narrow grid has-center-text has-padding filler">
   .narrow.grid
@@ -110,9 +112,7 @@ Like other grid systems, layouts are defined with rows and columns.
 </div>
 ```
 
-Rows have no padding or margin, and automatically fill the width of their parent (usually a grid, but not a requirement). Columns, by default, have left, right, and bottom padding.
-
-_NOTE: columns must be inside a row, or a parent that has `display: flex`._
+Rows have no padding or margin, and automatically fill the width of their parent (usually a grid, but not a requirement). Columns, by default, have left, right, and bottom padding. Both are flex containers.
 
 ### Multiple Columns
 
@@ -190,6 +190,18 @@ Add more rows within your columns for more advanced layouts. Just make sure the 
 
 Undernet comes with helpful breakpoint classes to define how columns should behave at and above a certain size. For example, if you set `medium-6` on a column, content will be at half-width in its row as long as the device width is `768px` (the default medium value) or wider.
 
+Here are the default breakpoints:
+
+```scss
+$breakpoints: (
+  xsmall: 0,
+  small: 576px,
+  medium: 768px,
+  large: 992px,
+  xlarge: 1200px,
+) !default;
+```
+
 <div class="grid filler-bg">
   <div class="row">
     <div class="xsmall-12 large-8 columns">
@@ -238,18 +250,6 @@ Undernet comes with helpful breakpoint classes to define how columns should beha
     </div>
   </div>
 </div>
-```
-
-Here are the default breakpoint values defined in `_config.scss`.
-
-```scss
-$breakpoints: (
-  xsmall: 0,
-  small: 576px,
-  medium: 768px,
-  large: 992px,
-  xlarge: 1200px,
-) !default;
 ```
 
 ### Collapse Gutters

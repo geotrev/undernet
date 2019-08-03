@@ -135,12 +135,14 @@ Using a few custom classes, you can specify where the menu pops open relative to
 </div>
 
 ```html
+<!-- drop up -->
 <div data-dropdown="dropdown9" class="dropdown">
   <button id="dropdown-button9" data-parent="dropdown9" data-target="new-dropdown9">Open Up</button>
   <ul id="new-dropdown9" class="dropdown-menu is-drop-up">
     ...
   </ul>
 </div>
+<!-- drop right -->
 <div data-dropdown="dropdown11" class="dropdown">
   <button id="dropdown-button11" data-parent="dropdown11" data-target="new-dropdown11">
     Open Right
@@ -149,6 +151,7 @@ Using a few custom classes, you can specify where the menu pops open relative to
     ...
   </ul>
 </div>
+<!-- drop left -->
 <div data-dropdown="dropdown10" class="dropdown">
   <button id="dropdown-button10" data-parent="dropdown10" data-target="new-dropdown10">
     Open Left
@@ -185,6 +188,7 @@ You can also combine direction with alignment to get even more customization!
 </div>
 
 ```html
+<!-- drop up & aligned bottom -->
 <div data-dropdown="dropdown21" class="dropdown">
   <button id="dropdown-button21" data-parent="dropdown21" data-target="new-dropdown21">
     Open Up, Aligned Right
@@ -193,6 +197,7 @@ You can also combine direction with alignment to get even more customization!
     ...
   </ul>
 </div>
+<!-- drop right & aligned bottom -->
 <div data-dropdown="dropdown11" class="dropdown">
   <button id="dropdown-button23" data-parent="dropdown23" data-target="new-dropdown23">
     Open Right, Aligned Bottom
@@ -201,6 +206,7 @@ You can also combine direction with alignment to get even more customization!
     ...
   </ul>
 </div>
+<!-- drop left & aligned bottom -->
 <div data-dropdown="dropdown10" class="dropdown">
   <button id="dropdown-button22" data-parent="dropdown22" data-target="new-dropdown22">
     Open Left, Aligned Bottom

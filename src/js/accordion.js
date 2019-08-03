@@ -1,4 +1,4 @@
-import { getFocusableElements, dom } from "./utils"
+import { getFocusableElements, dom, browserEnv } from "./utils"
 
 const Selectors = {
   // unique
@@ -62,6 +62,8 @@ export default class Accordion {
   // public
 
   start() {
+    if (!browserEnv) return
+
     const accordionButtonSelector = this._getAccordionButtonSelector(
       `[${Selectors.DATA_ACCORDION}]`
     )
@@ -76,6 +78,8 @@ export default class Accordion {
   }
 
   stop() {
+    if (!browserEnv) return
+
     this._accordionButtons.forEach(instance => {
       instance.removeEventListener(Events.CLICK, this._render)
     })
