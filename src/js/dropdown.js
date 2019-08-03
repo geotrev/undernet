@@ -1,4 +1,4 @@
-import _ContextUtil, { iOSMobile, dom, windowExists } from "./utils"
+import _ContextUtil, { iOSMobile, dom, browserEnv } from "./utils"
 
 const ContextUtil = new _ContextUtil()
 
@@ -76,7 +76,7 @@ export default class Dropdown {
   // public
 
   start() {
-    if (!windowExists) return
+    if (!browserEnv) return
 
     this._dropdowns = dom.findAll(`${this._dropdownContainerAttr}`)
     this._dropdownButtons = dom.findAll(
@@ -94,7 +94,7 @@ export default class Dropdown {
   }
 
   stop() {
-    if (!windowExists) return
+    if (!browserEnv) return
 
     this._dropdownButtons.forEach(button => {
       button.removeEventListener(Events.CLICK, this._render)

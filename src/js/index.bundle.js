@@ -1,7 +1,7 @@
 import Undernet from "./index"
-import { windowExists } from "./utils"
+import { browserEnv } from "./utils"
 
-if (windowExists) {
+if (browserEnv) {
   window.Undernet = Undernet
 }
 

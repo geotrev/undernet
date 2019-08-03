@@ -1,4 +1,4 @@
-import { iOSMobile, dom, windowExists } from "./utils"
+import { iOSMobile, dom, browserEnv } from "./utils"
 
 const KeyCodes = {
   ESCAPE: 27,
@@ -51,7 +51,7 @@ export default class Tooltip {
   // public
 
   start() {
-    if (!windowExists) return
+    if (!browserEnv) return
 
     this._allTooltips = dom.findAll(`[${Selectors.DATA_TOOLTIP}]`)
 
@@ -61,7 +61,7 @@ export default class Tooltip {
   }
 
   stop() {
-    if (!windowExists) return
+    if (!browserEnv) return
 
     this._allTooltips.forEach(instance => {
       const id = dom.attr(instance, Selectors.DATA_TOOLTIP)

@@ -1,4 +1,4 @@
-import _ContextUtil, { iOSMobile, getFocusableElements, dom, windowExists } from "./utils"
+import _ContextUtil, { iOSMobile, getFocusableElements, dom, browserEnv } from "./utils"
 
 const ContextUtil = new _ContextUtil()
 
@@ -66,7 +66,7 @@ export default class Modal {
   // public
 
   start() {
-    if (!windowExists) return
+    if (!browserEnv) return
 
     this._modals = dom.findAll(this._modalContainerAttr)
 
@@ -82,7 +82,7 @@ export default class Modal {
   }
 
   stop() {
-    if (!windowExists) return
+    if (!browserEnv) return
 
     this._modals.forEach(instance => {
       const id = dom.attr(instance, Selectors.DATA_MODAL)
