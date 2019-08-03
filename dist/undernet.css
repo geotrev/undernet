@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /*!
 * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
-* Undernet v5.0.4 (https://undernet.io)
+* Undernet v5.1.0 (https://undernet.io)
 * Copyright 2017-2019 George Treviranus
 */
 html,
@@ -2242,11 +2242,6 @@ textarea {
   .modal-overlay[data-visible="true"] {
     opacity: 1;
     pointer-events: auto; }
-  .modal-overlay.is-centered {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-flow: row nowrap; }
   .modal-overlay .modal-dialog {
     background: #ffffff;
     width: 95%;

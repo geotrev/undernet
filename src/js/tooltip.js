@@ -1,4 +1,4 @@
-import { iOSMobile, dom } from "./utils"
+import { iOSMobile, dom, browserEnv } from "./utils"
 
 const KeyCodes = {
   ESCAPE: 27,
@@ -51,6 +51,8 @@ export default class Tooltip {
   // public
 
   start() {
+    if (!browserEnv) return
+
     this._allTooltips = dom.findAll(`[${Selectors.DATA_TOOLTIP}]`)
 
     this._allTooltips.forEach(instance => {
@@ -59,6 +61,8 @@ export default class Tooltip {
   }
 
   stop() {
+    if (!browserEnv) return
+
     this._allTooltips.forEach(instance => {
       const id = dom.attr(instance, Selectors.DATA_TOOLTIP)
       const trigger = dom.find(this._getTrigger(id), instance)

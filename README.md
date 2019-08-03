@@ -86,7 +86,7 @@ $ npm run test:watch
 
 The site itself is a demo of the framework, so you should be able to work on the framework source itself while the site runs in the background.
 
-The build environment works in any bash/unix environment. If you're on Windows, that means you'll need [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10) or an equivalent solution.
+The build environment works in any unix environment where node and npm are available. If you're on Windows, that means you'll need [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10) or an equivalent solution.
 
 If you've already run `npm run install`, these commands should Just Work™.
 

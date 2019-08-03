@@ -1,10 +1,8 @@
-last 1 major version
->= 1%
-not dead
+> 0.2%
+ie 11
 edge >= 15
 firefox >= 54
 chrome >= 51
 safari >= 10
 ios >= 9
-ie >= 11
 opera >= 38

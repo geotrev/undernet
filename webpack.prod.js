@@ -23,7 +23,14 @@ module.exports = merge(common, {
       name: "manifest",
     },
   },
-  stats: { children: false, warnings: false, entrypoints: false, modules: false },
+  stats: {
+    children: false,
+    warnings: false,
+    entrypoints: false,
+    modules: false,
+    errorDetails: true,
+    errors: true,
+  },
   plugins: [
     new CleanWebpackPlugin(),
     new OptimizeCSSAssetsPlugin({

@@ -86,10 +86,10 @@ You can import this file in other stylesheets to get access to the mixin and var
 
 ```css
 /* myConfig.scss */
-@import "~undernet/scss/utilities/functions";
+@import "~undernet/src/scss/utilities/functions";
 /* Add config overrides here! */
-@import "~undernet/scss/config";
-@import "~undernet/scss/utilities/mixins";
+@import "~undernet/src/scss/config";
+@import "~undernet/src/scss/utilities/mixins";
 ```
 
 Next, in a separate stylesheet, import Undernet's other stylesheets. Order is important here: make sure the new config comes before your reset. Everything else should import after the reset file.
@@ -101,21 +101,21 @@ _NOTE #2: The below imports have a `~` preceeding the import path; this is a Web
 ```css
 @import "path/to/myConfig";
 /* remove reset below if you are scoping */
-@import "~undernet/scss/elements/reset";
+@import "~undernet/src/scss/elements/reset";
 /* Scope is defined in the config. Remove the scope wrapper if you aren't needing it. */
 /* .#{$scope} { */
-@import "~undernet/scss/utilities/classes";
-@import "~undernet/scss/layout/grid";
-@import "~undernet/scss/elements/typography";
-@import "~undernet/scss/elements/button";
-@import "~undernet/scss/elements/form";
-@import "~undernet/scss/components/modal";
-@import "~undernet/scss/components/accordion";
-@import "~undernet/scss/components/dropdown";
-@import "~undernet/scss/components/tooltips";
+@import "~undernet/src/scss/utilities/classes";
+@import "~undernet/src/scss/layout/grid";
+@import "~undernet/src/scss/elements/typography";
+@import "~undernet/src/scss/elements/button";
+@import "~undernet/src/scss/elements/form";
+@import "~undernet/src/scss/components/modal";
+@import "~undernet/src/scss/components/accordion";
+@import "~undernet/src/scss/components/dropdown";
+@import "~undernet/src/scss/components/tooltips";
 /* } */
 /* Remove the overrides if you aren't using a scope. */
-@import "~undernet/scss/utilities/scope-overrides";
+@import "~undernet/src/scss/utilities/scope-overrides";
 ```
 
 Finally, import `undernet.scss` in your global stylesheet.

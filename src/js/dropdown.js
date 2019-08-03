@@ -1,4 +1,4 @@
-import _ContextUtil, { iOSMobile, dom } from "./utils"
+import _ContextUtil, { iOSMobile, dom, browserEnv } from "./utils"
 
 const ContextUtil = new _ContextUtil()
 
@@ -76,6 +76,8 @@ export default class Dropdown {
   // public
 
   start() {
+    if (!browserEnv) return
+
     this._dropdowns = dom.findAll(`${this._dropdownContainerAttr}`)
     this._dropdownButtons = dom.findAll(
       `${this._dropdownContainerAttr} > ${this._dropdownTargetAttr}`
@@ -92,6 +94,8 @@ export default class Dropdown {
   }
 
   stop() {
+    if (!browserEnv) return
+
     this._dropdownButtons.forEach(button => {
       button.removeEventListener(Events.CLICK, this._render)
       button.removeEventListener(Events.KEYDOWN, this._renderWithKeys)

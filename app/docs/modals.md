@@ -1,4 +1,6 @@
-Use modals to focus the user experience on a critical task or set of information. Modals have simple base styling, with the contents using a subjective markup structure.
+Use modals to focus the user experience on a critical task or set of information. Modals have simple base styling, with the contents using a semantic markup structure.
+
+Try to keep the modal dialog as high in the document tree as possible. While the dialog is styled in a way to make it mostly capable of being nested in divs or other wrappers, doing so comes with a risk of interfering with the fullscreen effect of the dialog.
 
 ## Basic Modal
 
@@ -31,10 +33,9 @@ Check out this example modal:
 </div>
 
 ```html
+<!-- modal trigger -->
 <button data-target="new-modal">Open modal</button>
-```
-
-```html
+<!-- modal dialog, somewhere on the page -->
 <div class="modal-overlay" data-modal="new-modal">
   <div class="modal-dialog" data-parent="new-modal" aria-labelledby="header-id">
     <header>
@@ -67,7 +68,7 @@ You can have custom contents as well (hence subjective markup). Meaning the head
 
 The modal will be able to handle long-content with ease, turning the overlay into a scrollable area.
 
-<button data-target="new-modal-3">Open modal</button>
+<button data-target="new-modal-3">Open long-content modal</button>
 
 <div class="modal-overlay" data-modal="new-modal-3">
   <div class="modal-dialog" data-parent="new-modal-3" aria-labelledby="header-id">
@@ -93,13 +94,15 @@ The modal will be able to handle long-content with ease, turning the overlay int
   </div>
 </div>
 
-## Vertical Centering
+## Dialog Positioning
 
-Adding the `is-centered` class onto the modal overlay will vertically center the modal dialog on the screen.
+By adding flex modifier classes onto the overlay, you can position the dialog within its overlay.
+
+For example, to center it, add `is-flex is-aligned-center is-justified-center`.
 
 <button data-target="new-modal-2">Open centered modal</button>
 
-<div class="modal-overlay is-centered" data-modal="new-modal-2">
+<div class="modal-overlay is-flex is-aligned-center is-justified-center" data-modal="new-modal-2">
   <div class="modal-dialog" data-parent="new-modal-2" aria-labelledby="header-id-2">
     <header>
       <h2 class="h6 has-no-margin-top" id="header-id-2">
@@ -128,12 +131,14 @@ Adding the `is-centered` class onto the modal overlay will vertically center the
 ```
 
 ```html
-<div class="modal-overlay is-centered" data-modal="new-modal-2">
+<div class="modal-overlay is-flex is-aligned-center is-justified-center" data-modal="new-modal-2">
   <div class="modal-dialog" data-parent="new-modal-2" aria-labelledby="header-id-2">
     ...
   </div>
 </div>
 ```
+
+Learn more about [alignment](/docs/layout/alignment) and [display](/docs/utilities/display) utilities.
 
 ## Requirements
 
@@ -175,9 +180,9 @@ For the modal itself, you need a few more things.
 </div>
 ```
 
-- `data-modal`: an attribute matching your corresponding button's `data-target` value. Add it to the modal overlay element. overlay.
+- `data-modal`: an attribute with a value matching its trigger element's `data-target` attribute.
 - `data-parent`: an attribute pointing to the modal wrapper. It should equal the value of the element with `data-modal`.
-- `data-close`: an attribute indicating a button or link will close the current modal dialog.
+- `data-close`: an attribute indicating a button or link will close the active modal dialog.
 
 #### Accessibility
 
@@ -192,7 +197,6 @@ The below attributes you should add to elements yourself. They increase the cont
 
 - `modal-overlay`: gives overlay styling for the modal background.
 - `modal-dialog`: container for the dialog's contents.
-- `is-centered`: a helper class that vertically centers the modal dialog within the modal overlay.
 
 Edit much of the styling within `_config.scss`.
 
