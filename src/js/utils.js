@@ -17,6 +17,11 @@ const Events = {
 }
 
 /**
+ * Check if window exists. If it doesn't, we're probably in a node environment.
+ */
+export const windowExists = typeof window !== "undefined"
+
+/**
  * Simple DOM manipulator methods. NOTE: These aren't chainable.
  */
 export const dom = {
@@ -94,6 +99,8 @@ export default class ContextUtil {
   // public
 
   captureFocus(container, options) {
+    if (!windowExists) return
+
     this._focusContainerSelector = container
     this._focusableChildren = getFocusableElements(this._focusContainerSelector)
     this._focusableFirstChild = this._focusableChildren[0]
@@ -110,6 +117,8 @@ export default class ContextUtil {
   }
 
   releaseFocus() {
+    if (!windowExists) return
+
     if (this._trapFocusWithArrows) {
       document.removeEventListener(Events.KEYDOWN, this._handleFocusTrapWithArrows)
       this._trapFocusWithArrows = false
@@ -119,10 +128,13 @@ export default class ContextUtil {
   }
 
   enableFocusOutline() {
+    if (!windowExists) return
     document.addEventListener(Events.KEYDOWN, this._listenForKeyboard)
   }
 
   disableFocusOutline() {
+    if (!windowExists) return
+
     if (this._listeningForKeydown) {
       document.removeEventListener(Events.KEYDOWN, this._listenForKeyboard)
     } else {

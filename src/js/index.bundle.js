@@ -1,4 +1,8 @@
 import Undernet from "./index"
+import { windowExists } from "./utils"
 
-window.Undernet = Undernet
+if (windowExists) {
+  window.Undernet = Undernet
+}
+
 export { default as Undernet, Modals, Accordions, Dropdowns, Tooltips, ContextUtil } from "./index"

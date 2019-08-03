@@ -38,11 +38,11 @@ Modals.stop()
 
 ## Bundle & Install Options
 
-There's two main ways to gain access to the JavaScript: the CDN and NPM package. The API is the same in either case.
+There's two main ways to gain access to the JavaScript: the static assets and NPM package.
 
 ### CDN or Static Assets
 
-Similar the [Introduction](/docs/overview/introduction) article (CDN example is used there), the fastest option is to add the compiled assets right to your layout. Then in a separate script tag, call the API.
+The fastest way forward is using the CDN (see the example on the [Download](/docs/overview/download) article). If you want to get access to the raw distribution files, [download them](/docs/overview/download) and then link them in your layout:
 
 ```html
 <!DOCTYPE html>
@@ -52,7 +52,7 @@ Similar the [Introduction](/docs/overview/introduction) article (CDN example is 
   </head>
   <body>
     ...
-    <script type="text/javascript" src="path/to/undernet.bundle.min.js"></script>
+    <script type="text/javascript" src="/path/to/undernet.bundle.min.js"></script>
     <script type="text/javascript">
       document.addEventListener("DOMContentLoaded", Undernet.start())
     </script>
@@ -62,7 +62,7 @@ Similar the [Introduction](/docs/overview/introduction) article (CDN example is 
 
 ### NPM
 
-_NOTE: The plugin uses global variables such as `window` and `document`, which means Undernet can't run reliably for [server side rendering](https://medium.com/@baphemot/whats-server-side-rendering-and-do-i-need-it-cb42dc059b38) (SSR). Take care in guarding the scripts from running if you plan to take advantage of SSR._
+_NOTE: The plugin uses global variables such as `window` and `document`, which can break server-side rendering. To avoid issues, the scripts internally guard against these globals. This should not affect SEO in any meaningful way, provided your HTML is semantically structured._
 
 Easily import with npm. First, install the dependency:
 
@@ -77,27 +77,19 @@ import Undernet from "undernet"
 Undernet.start()
 ```
 
-#### Use only a single component
-
-If you want to be more concise, you can avoid starting _every_ component by instead calling the exact one you need.
+The above is useful if you need to use 2 or more components on a single page. If you only have one, you can target that component script directly:
 
 ```js
 import Undernet from "undernet"
 Undernet.Modals.start()
 ```
 
-#### Customizing Component Imports
-
-You may not want to include _every single_ component in your project. For example, let's say you only need the [Tooltip](/docs/components/tooltips) component.
-
-To that end, `import` the component directly as a named import.
+[Tree shaking](https://webpack.js.org/guides/tree-shaking/) is also available for more precise dependency control:
 
 ```js
 import { Tooltips } from "undernet"
 Tooltips.start()
 ```
-
-Undernet is a fully modular package in this way, enabling [tree shaking](https://webpack.js.org/guides/tree-shaking/). Note that this will only work with modern JavaScript tooling like Rollup and Webpack.
 
 <hr />
 <p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/site/docs/javascript.md">Edit this page on Github!</a></p>
