@@ -12,9 +12,9 @@
   "style": "dist/undernet.css",
   "scripts": {
     "setup": "npm i && npm run js:build",
-    "watch": "npm run js:build && webpack-dev-server --config webpack.dev.js --progress",
+    "watch": "webpack-dev-server --config webpack.dev.js --progress",
     "build": "npm run js:build && webpack --config webpack.prod.js --progress",
-    "build:quiet": "webpack --config webpack.prod.js --display minimal",
+    "build:quiet": "npm run js:build && webpack --config webpack.prod.js --display minimal",
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "eslint . --ext .js -c .eslintrc.js --ignore-path .eslintignore; exit 0",
