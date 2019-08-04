@@ -100,4 +100,4 @@ Also Add styles for your regular anchor links.
 ```
 
 <hr />
-<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/site/docs/buttons.md">Edit this page on Github!</a></p>
+<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/app/docs/buttons.md">Edit this page on Github!</a></p>
