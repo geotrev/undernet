@@ -11,44 +11,18 @@ import { downloadPath, introductionPath } from "app/routes"
 
 import pkg from "projectRoot/package.json"
 import { StatusBadges, InstallNpm, InstallAssets } from "./markdownContent"
+import { ANIMATION_DATA } from "./animations"
 
 import "./styles.scss"
 
 export default class Home extends React.Component {
-  ANIMATION_DATA = [
-    {
-      title: "Tiny",
-      subtitle:
-        "CSS and JS under 12kb minified + gzipped; you can be assured performance isn’t an issue.",
-      animation: null,
-    },
-    {
-      title: "Modular",
-      subtitle:
-        "Include only the pieces you need, or even namespace the components for existing projects.",
-      animation: null,
-    },
-    {
-      title: "Configurable",
-      subtitle:
-        "Built for a great developer experience, you can customize and extend the library with ease.",
-      animation: null,
-    },
-    {
-      title: "Accessible",
-      subtitle:
-        "Interactive components are designed with WAI-ARIA guidelines in mind to ensure your HTML is accessible.",
-      animation: null,
-    },
-  ]
-
   componentDidMount() {
     Prism.highlightAll()
     this.loadAnimations()
   }
 
   loadAnimations() {
-    this.ANIMATION_DATA.forEach(data => {
+    ANIMATION_DATA.forEach(data => {
       const name = data.title.toLowerCase()
 
       const loadedAnimation = lottie.loadAnimation({
@@ -64,20 +38,16 @@ export default class Home extends React.Component {
     })
 
     window.setTimeout(() => {
-      this.ANIMATION_DATA.forEach(lottieInstance => lottieInstance.animation.play())
+      ANIMATION_DATA.forEach(instance => instance.animation.play())
     }, 1500)
   }
 
   componentWillUnmount() {
-    this.ANIMATION_DATA.forEach(lottieInstance => lottieInstance.animation.destroy())
-  }
-
-  renderAnimatedIcon(name) {
-    return <div className="animated-icon" id={`animated-${name}`} />
+    ANIMATION_DATA.forEach(instance => instance.animation.destroy())
   }
 
   renderAnimations() {
-    return this.ANIMATION_DATA.map(animation => {
+    return ANIMATION_DATA.map(animation => {
       const animationName = animation.title.toLowerCase()
 
       return (
@@ -85,7 +55,7 @@ export default class Home extends React.Component {
           className="large-3 small-6 xsmall-12 columns has-center-text has-no-padding-bottom"
           key={animation.title}
         >
-          {this.renderAnimatedIcon(animationName)}
+          <div className="animated-icon" id={`animated-${animationName}`} />
           <h2 className="h6 has-white-text">{animation.title}</h2>
           <p className="has-white-text">{animation.subtitle}</p>
         </li>
