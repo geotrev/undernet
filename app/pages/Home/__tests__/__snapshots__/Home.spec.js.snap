@@ -174,7 +174,7 @@ exports[`<Home /> renders 1`] = `
                         <p
                           className="has-white-text"
                         >
-                          CSS and JS under 12kb minified + gzipped; you can be assured performance isn’t an issue.
+                          CSS and JS under 14kb minified + gzipped; you can be assured performance isn’t an issue.
                         </p>
                       </li>
                       <li
@@ -193,7 +193,7 @@ exports[`<Home /> renders 1`] = `
                         <p
                           className="has-white-text"
                         >
-                          Include only the pieces you need, or even namespace the components for existing projects.
+                          Remove and namespace pieces of the framework to prevent collisions and take only what you need.
                         </p>
                       </li>
                       <li
