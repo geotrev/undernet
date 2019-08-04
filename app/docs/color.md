@@ -29,4 +29,4 @@ Similar to text, use `has-X-bg` to modify an element's `background-color`, where
 ```
 
 <hr />
-<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/site/docs/color.md">Edit this page on Github!</a></p>
+<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/app/docs/color.md">Edit this page on Github!</a></p>
