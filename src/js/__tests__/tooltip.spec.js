@@ -42,7 +42,7 @@ describe("Tooltips", () => {
     beforeEach(() => {
       document.body.innerHTML = dom
 
-      trigger = document.querySelector(`[data-target='${"new-tooltip"}']`)
+      trigger = document.querySelector("[data-target='new-tooltip']")
       tooltip = document.getElementById("new-tooltip")
 
       Undernet.Tooltips.start()
@@ -67,7 +67,7 @@ describe("Tooltips", () => {
     beforeEach(() => {
       document.body.innerHTML = dom
 
-      trigger = document.querySelector(`[data-target='${"new-tooltip"}']`)
+      trigger = document.querySelector("[data-target='new-tooltip']")
       tooltip = document.getElementById("new-tooltip")
 
       Undernet.Tooltips.start()
@@ -92,8 +92,8 @@ describe("Tooltips", () => {
     beforeEach(() => {
       document.body.innerHTML = dom
 
-      trigger1 = document.querySelector(`[data-target='${"new-tooltip"}']`)
-      trigger2 = document.querySelector(`[data-target='${"new-tooltip10"}']`)
+      trigger1 = document.querySelector("[data-target='new-tooltip']")
+      trigger2 = document.querySelector("[data-target='new-tooltip10']")
       tooltip = document.getElementById("new-tooltip")
 
       Undernet.Tooltips.start()
@@ -119,7 +119,7 @@ describe("Tooltips", () => {
     it("closes tooltip", () => {
       // Given
       document.body.innerHTML = dom
-      const trigger = document.querySelector(`[data-target='${"new-tooltip"}']`)
+      const trigger = document.querySelector("[data-target='new-tooltip']")
       const tooltip = document.getElementById("new-tooltip")
       // When
       Undernet.Tooltips.start()
