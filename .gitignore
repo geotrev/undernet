@@ -4,6 +4,7 @@ npm-error.log*
 
 /lib/
 /build/
+/coverage/
 /node_modules/
 
 # don't include umd files in git - only in npm for cdn access

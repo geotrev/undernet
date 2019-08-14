@@ -141,9 +141,7 @@ export default class Tooltip {
     this._activeTrigger.addEventListener(Events.BLUR, this._handleClose)
     document.addEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
 
-    if (iOSMobile) {
-      dom.css(document.body, "cursor", "pointer")
-    }
+    if (iOSMobile) dom.css(document.body, "cursor", "pointer")
   }
 
   _handleEscapeKeyPress(event) {

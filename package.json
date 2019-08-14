@@ -26,7 +26,7 @@
     "js:build:cjs": "BABEL_ENV=cjs babel src/js/ -d lib/cjs/ --ignore 'src/js/index.bundle.js','src/js/**/*.spec.js' --no-comments -s",
     "js:build:esm": "BABEL_ENV=esm babel src/js/ -d lib/esm/ --ignore 'src/js/index.bundle.js','src/js/**/*.spec.js' --no-comments -s",
     "js:build:rollup": "BABEL_ENV=cjs rollup -c rollup.config.js",
-    "js:watch": "BABEL_ENV=esm babel src/js/ -d js/esm/ --watch --ignore 'src/js/index.bundle.js' --no-comments -s",
+    "js:watch": "BABEL_ENV=esm babel src/js/ -d lib/esm/ --watch --ignore 'src/js/index.bundle.js' --no-comments -s",
     "js:prettify": "prettier --write 'src/js/**/*.js'",
     "js:modules:zip": "cd src/js/ && zip -x '/*__tests__/*' -r ../../dist/undernet.modules.js.zip .",
     "js:zip": "cd dist/ && zip -r undernet.js.zip . -x *.css *.zip *.css.map",

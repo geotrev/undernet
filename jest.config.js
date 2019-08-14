@@ -1,5 +1,6 @@
 module.exports = {
   clearMocks: true,
+  collectCoverageFrom: ["<rootDir>/app/**/*.js", "<rootDir>/src/js/**/*.js"],
   restoreMocks: true,
   moduleNameMapper: {
     "\\.(css|scss)$": "<rootDir>/.jest/__mocks__/emptyMock.js",

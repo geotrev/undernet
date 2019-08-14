@@ -16,6 +16,7 @@ npm-error.log*
 /app/
 /bin/
 /build/
+/coverage/
 /dist/*.zip
 /node_modules/
 /public/
