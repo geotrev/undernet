@@ -10,17 +10,17 @@ import { Accordions } from "undernet"
 import Button from "app/components/Button"
 import "./styles.scss"
 
-const pkg = require("../../../package.json")
-const MENU_COLLAPSE_BREAKPOINT = 1199
+const pkg = require("projectRoot/package.json")
+const MENU_COLLAPSE_WIDTH = 1199
 
 export default class SideNav extends React.Component {
   constructor(props) {
     super(props)
-    this.handleCurrentWidth = throttle(this.handleCurrentWidth.bind(this), 50)
+    this.handleCurrentWidth = throttle(this.handleCurrentWidth, 50)
   }
 
   state = {
-    menuIsOpen: window.innerWidth > MENU_COLLAPSE_BREAKPOINT ? true : false,
+    menuIsOpen: window.innerWidth > MENU_COLLAPSE_WIDTH,
     currentWindowWidth: window.innerWidth,
   }
 
@@ -43,14 +43,9 @@ export default class SideNav extends React.Component {
     window.addEventListener("resize", this.handleCurrentWidth)
     window.addEventListener("resize", this.handleMenuVisibility)
 
-    const menuIsOpen = this.state.currentWindowWidth > MENU_COLLAPSE_BREAKPOINT
+    const menuIsOpen = this.state.currentWindowWidth > MENU_COLLAPSE_WIDTH
     this.setState({ menuIsOpen })
 
-    Accordions.start()
-  }
-
-  componentDidUpdate() {
-    Accordions.stop()
     Accordions.start()
   }
 
@@ -61,35 +56,33 @@ export default class SideNav extends React.Component {
   }
 
   handleCollapseClick = () => {
-    if (this.state.currentWindowWidth <= MENU_COLLAPSE_BREAKPOINT) {
+    if (this.state.currentWindowWidth <= MENU_COLLAPSE_WIDTH) {
       this.setState({ menuIsOpen: false })
     }
   }
 
   handleCurrentWidth = () => {
-    this.setState({
-      currentWindowWidth: window.innerWidth,
-    })
+    this.setState({ currentWindowWidth: window.innerWidth })
   }
 
   handleMenuVisibility = () => {
-    if (this.state.currentWindowWidth > MENU_COLLAPSE_BREAKPOINT) {
+    if (this.state.currentWindowWidth > MENU_COLLAPSE_WIDTH) {
       this.setState({ menuIsOpen: true })
     }
   }
 
-  handleClick = event => {
+  handleMenuToggleClick = event => {
     event.preventDefault()
     this.setState({ menuIsOpen: !this.state.menuIsOpen })
   }
 
-  getButtonClasses() {
+  get buttonClasses() {
     return classNames("is-justified-center is-aligned-center is-flex is-hidden-xlarge", {
       "rotate-180": !this.state.menuIsOpen,
     })
   }
 
-  getMenuClasses() {
+  get menuClasses() {
     return classNames("row side-nav-menu accordion has-padding-3", {
       "is-hidden": !this.state.menuIsOpen,
     })
@@ -107,7 +100,7 @@ export default class SideNav extends React.Component {
     return isActive
   }
 
-  renderAccordionChildLink(item) {
+  renderAccordionChildLink = item => {
     return (
       <li key={item.name} role="none">
         <NavLink
@@ -123,7 +116,9 @@ export default class SideNav extends React.Component {
     )
   }
 
-  renderAccordionRow(section, index, listItems) {
+  renderAccordionRow(section, index) {
+    const listItems = section.links.map(this.renderAccordionChildLink)
+
     return (
       <Fragment key={section.header}>
         <h4 className="paragraph">
@@ -146,10 +141,6 @@ export default class SideNav extends React.Component {
 
   renderNavAccordion() {
     return this.props.navItems.map((section, i) => {
-      const listItems = section.links.map((item, j) => {
-        return this.renderAccordionChildLink(item, j)
-      })
-
       return (
         <div
           data-visible={this.accordionIsActive(section.links) ? "true" : "false"}
@@ -157,7 +148,7 @@ export default class SideNav extends React.Component {
           className={classNames("accordion-row", this.props.navListClasses)}
           key={section.links[0].url}
         >
-          {this.renderAccordionRow(section, i, listItems)}
+          {this.renderAccordionRow(section, i)}
         </div>
       )
     })
@@ -168,13 +159,22 @@ export default class SideNav extends React.Component {
       <div className="xsmall-12 xlarge-2 columns has-no-padding" id="side-nav">
         <div className="fluid grid side-nav-wrapper">
           <div className="row is-flex is-hidden-xlarge side-nav-expand">
-            <Button onClick={this.handleClick} href="#" className={this.getButtonClasses()}>
+            <Button
+              onClick={this.handleMenuToggleClick}
+              className={this.buttonClasses}
+              ariaControls="side-nav-wrapper"
+              ariaExpanded={this.state.menuIsOpen}
+            >
               <Menu size={20} role="presentation" focusable="false" />{" "}
               <span className="has-black-text">Explore</span>
             </Button>
           </div>
 
-          <nav data-accordion="side-nav-accordion" className={this.getMenuClasses()}>
+          <nav
+            data-accordion="side-nav-accordion"
+            className={this.menuClasses}
+            id="side-nav-wrapper"
+          >
             <p className="version-text has-no-padding has-gray800-text xsmall-12 columns">
               Version {pkg.version}
             </p>

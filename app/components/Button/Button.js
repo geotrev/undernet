@@ -33,6 +33,8 @@ export default function Button(props) {
       tabIndex={props.tabIndex}
       id={props.id}
       role={props.role}
+      aria-controls={props.ariaControls}
+      aria-expanded={props.ariaExpanded}
     >
       {props.children}
     </Tag>
@@ -52,5 +54,7 @@ Button.propTypes = {
   dataParent: PropTypes.string,
   dataTarget: PropTypes.string,
   role: PropTypes.string,
+  ariaControls: PropTypes.string,
+  ariaExpanded: PropTypes.bool,
   children: PropTypes.node.isRequired,
 }
