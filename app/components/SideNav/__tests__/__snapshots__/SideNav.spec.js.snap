@@ -7,32 +7,24 @@ exports[`<SideNav /> #handleMenuToggleClick toggles menu when button is clicked 
   <div
     className="row is-flex is-hidden-xlarge side-nav-expand"
   >
-    <Button
-      ariaControls="side-nav-wrapper"
-      ariaExpanded={true}
+    <button
+      aria-controls="side-nav-wrapper"
+      aria-expanded={true}
       className="is-justified-center is-aligned-center is-flex is-hidden-xlarge"
       onClick={[Function]}
     >
-      <button
-        aria-controls="side-nav-wrapper"
-        aria-expanded={true}
-        className="is-justified-center is-aligned-center is-flex is-hidden-xlarge"
-        onClick={[Function]}
-        type={null}
+      <Menu
+        focusable="false"
+        role="presentation"
+        size={20}
+      />
+       
+      <span
+        className="has-black-text"
       >
-        <Menu
-          focusable="false"
-          role="presentation"
-          size={20}
-        />
-         
-        <span
-          className="has-black-text"
-        >
-          Explore
-        </span>
-      </button>
-    </Button>
+        Explore
+      </span>
+    </button>
   </div>
   <nav
     className="row side-nav-menu accordion has-padding-3"
@@ -54,24 +46,14 @@ exports[`<SideNav /> #handleMenuToggleClick toggles menu when button is clicked 
       <h4
         className="paragraph"
       >
-        <Button
+        <button
           className="accordion-button"
-          dataParent="side-nav-accordion"
-          dataTarget="nav-acc-content0"
+          data-parent="side-nav-accordion"
+          data-target="nav-acc-content0"
           id="nav-acc-button0"
-          role="listitem"
         >
-          <button
-            className="accordion-button"
-            data-parent="side-nav-accordion"
-            data-target="nav-acc-content0"
-            id="nav-acc-button0"
-            role="listitem"
-            type={null}
-          >
-            Test Header
-          </button>
-        </Button>
+          Test Header
+        </button>
       </h4>
       <ul
         className="accordion-content"
@@ -126,32 +108,24 @@ exports[`<SideNav /> #handleMenuVisibility hides menu at or below 1199 1`] = `
   <div
     className="row is-flex is-hidden-xlarge side-nav-expand"
   >
-    <Button
-      ariaControls="side-nav-wrapper"
-      ariaExpanded={false}
+    <button
+      aria-controls="side-nav-wrapper"
+      aria-expanded={false}
       className="is-justified-center is-aligned-center is-flex is-hidden-xlarge rotate-180"
       onClick={[Function]}
     >
-      <button
-        aria-controls="side-nav-wrapper"
-        aria-expanded={false}
-        className="is-justified-center is-aligned-center is-flex is-hidden-xlarge rotate-180"
-        onClick={[Function]}
-        type={null}
+      <Menu
+        focusable="false"
+        role="presentation"
+        size={20}
+      />
+       
+      <span
+        className="has-black-text"
       >
-        <Menu
-          focusable="false"
-          role="presentation"
-          size={20}
-        />
-         
-        <span
-          className="has-black-text"
-        >
-          Explore
-        </span>
-      </button>
-    </Button>
+        Explore
+      </span>
+    </button>
   </div>
   <nav
     className="row side-nav-menu accordion has-padding-3 is-hidden"
@@ -173,24 +147,14 @@ exports[`<SideNav /> #handleMenuVisibility hides menu at or below 1199 1`] = `
       <h4
         className="paragraph"
       >
-        <Button
+        <button
           className="accordion-button"
-          dataParent="side-nav-accordion"
-          dataTarget="nav-acc-content0"
+          data-parent="side-nav-accordion"
+          data-target="nav-acc-content0"
           id="nav-acc-button0"
-          role="listitem"
         >
-          <button
-            className="accordion-button"
-            data-parent="side-nav-accordion"
-            data-target="nav-acc-content0"
-            id="nav-acc-button0"
-            role="listitem"
-            type={null}
-          >
-            Test Header
-          </button>
-        </Button>
+          Test Header
+        </button>
       </h4>
       <ul
         className="accordion-content"
@@ -245,32 +209,24 @@ exports[`<SideNav /> #handleMenuVisibility shows menu above 1199 1`] = `
   <div
     className="row is-flex is-hidden-xlarge side-nav-expand"
   >
-    <Button
-      ariaControls="side-nav-wrapper"
-      ariaExpanded={true}
+    <button
+      aria-controls="side-nav-wrapper"
+      aria-expanded={true}
       className="is-justified-center is-aligned-center is-flex is-hidden-xlarge"
       onClick={[Function]}
     >
-      <button
-        aria-controls="side-nav-wrapper"
-        aria-expanded={true}
-        className="is-justified-center is-aligned-center is-flex is-hidden-xlarge"
-        onClick={[Function]}
-        type={null}
+      <Menu
+        focusable="false"
+        role="presentation"
+        size={20}
+      />
+       
+      <span
+        className="has-black-text"
       >
-        <Menu
-          focusable="false"
-          role="presentation"
-          size={20}
-        />
-         
-        <span
-          className="has-black-text"
-        >
-          Explore
-        </span>
-      </button>
-    </Button>
+        Explore
+      </span>
+    </button>
   </div>
   <nav
     className="row side-nav-menu accordion has-padding-3"
@@ -292,24 +248,14 @@ exports[`<SideNav /> #handleMenuVisibility shows menu above 1199 1`] = `
       <h4
         className="paragraph"
       >
-        <Button
+        <button
           className="accordion-button"
-          dataParent="side-nav-accordion"
-          dataTarget="nav-acc-content0"
+          data-parent="side-nav-accordion"
+          data-target="nav-acc-content0"
           id="nav-acc-button0"
-          role="listitem"
         >
-          <button
-            className="accordion-button"
-            data-parent="side-nav-accordion"
-            data-target="nav-acc-content0"
-            id="nav-acc-button0"
-            role="listitem"
-            type={null}
-          >
-            Test Header
-          </button>
-        </Button>
+          Test Header
+        </button>
       </h4>
       <ul
         className="accordion-content"
@@ -383,32 +329,24 @@ exports[`<SideNav /> #render renders 1`] = `
       <div
         className="row is-flex is-hidden-xlarge side-nav-expand"
       >
-        <Button
-          ariaControls="side-nav-wrapper"
-          ariaExpanded={false}
+        <button
+          aria-controls="side-nav-wrapper"
+          aria-expanded={false}
           className="is-justified-center is-aligned-center is-flex is-hidden-xlarge rotate-180"
           onClick={[Function]}
         >
-          <button
-            aria-controls="side-nav-wrapper"
-            aria-expanded={false}
-            className="is-justified-center is-aligned-center is-flex is-hidden-xlarge rotate-180"
-            onClick={[Function]}
-            type={null}
+          <Menu
+            focusable="false"
+            role="presentation"
+            size={20}
+          />
+           
+          <span
+            className="has-black-text"
           >
-            <Menu
-              focusable="false"
-              role="presentation"
-              size={20}
-            />
-             
-            <span
-              className="has-black-text"
-            >
-              Explore
-            </span>
-          </button>
-        </Button>
+            Explore
+          </span>
+        </button>
       </div>
       <nav
         className="row side-nav-menu accordion has-padding-3 is-hidden"
@@ -430,24 +368,14 @@ exports[`<SideNav /> #render renders 1`] = `
           <h4
             className="paragraph"
           >
-            <Button
+            <button
               className="accordion-button"
-              dataParent="side-nav-accordion"
-              dataTarget="nav-acc-content0"
+              data-parent="side-nav-accordion"
+              data-target="nav-acc-content0"
               id="nav-acc-button0"
-              role="listitem"
             >
-              <button
-                className="accordion-button"
-                data-parent="side-nav-accordion"
-                data-target="nav-acc-content0"
-                id="nav-acc-button0"
-                role="listitem"
-                type={null}
-              >
-                Test Header
-              </button>
-            </Button>
+              Test Header
+            </button>
           </h4>
           <ul
             className="accordion-content"

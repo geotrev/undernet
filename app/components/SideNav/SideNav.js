@@ -7,7 +7,6 @@ import Menu from "react-feather/dist/icons/menu"
 import ChevronRight from "react-feather/dist/icons/chevron-right"
 import { Accordions } from "undernet"
 
-import Button from "app/components/Button"
 import "./styles.scss"
 
 const pkg = require("projectRoot/package.json")
@@ -122,15 +121,14 @@ export default class SideNav extends React.Component {
     return (
       <Fragment key={section.header}>
         <h4 className="paragraph">
-          <Button
+          <button
             id={`nav-acc-button${index}`}
-            dataParent="side-nav-accordion"
+            data-parent="side-nav-accordion"
             className="accordion-button"
-            dataTarget={`nav-acc-content${index}`}
-            role="listitem"
+            data-target={`nav-acc-content${index}`}
           >
             {section.header}
-          </Button>
+          </button>
         </h4>
         <ul className="accordion-content" id={`nav-acc-content${index}`}>
           {listItems}
@@ -159,15 +157,15 @@ export default class SideNav extends React.Component {
       <div className="xsmall-12 xlarge-2 columns has-no-padding" id="side-nav">
         <div className="fluid grid side-nav-wrapper">
           <div className="row is-flex is-hidden-xlarge side-nav-expand">
-            <Button
+            <button
               onClick={this.handleMenuToggleClick}
               className={this.buttonClasses}
-              ariaControls="side-nav-wrapper"
-              ariaExpanded={this.state.menuIsOpen}
+              aria-controls="side-nav-wrapper"
+              aria-expanded={this.state.menuIsOpen}
             >
               <Menu size={20} role="presentation" focusable="false" />{" "}
               <span className="has-black-text">Explore</span>
-            </Button>
+            </button>
           </div>
 
           <nav
