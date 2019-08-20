@@ -15,12 +15,11 @@ const MENU_COLLAPSE_WIDTH = 1199
 export default class SideNav extends React.Component {
   constructor(props) {
     super(props)
-    this.handleCurrentWidth = throttle(this.handleCurrentWidth, 50)
+    this.handleMenuVisibility = throttle(this.handleMenuVisibility, 50)
   }
 
   state = {
     menuIsOpen: window.innerWidth > MENU_COLLAPSE_WIDTH,
-    currentWindowWidth: window.innerWidth,
   }
 
   static propTypes = {
@@ -39,33 +38,27 @@ export default class SideNav extends React.Component {
   }
 
   componentDidMount() {
-    window.addEventListener("resize", this.handleCurrentWidth)
     window.addEventListener("resize", this.handleMenuVisibility)
 
-    const menuIsOpen = this.state.currentWindowWidth > MENU_COLLAPSE_WIDTH
+    const menuIsOpen = window.innerWidth > MENU_COLLAPSE_WIDTH
     this.setState({ menuIsOpen })
 
     Accordions.start()
   }
 
   componentWillUnmount() {
-    window.removeEventListener("resize", this.handleCurrentWidth)
     window.removeEventListener("resize", this.handleMenuVisibility)
     Accordions.stop()
   }
 
   handleCollapseClick = () => {
-    if (this.state.currentWindowWidth <= MENU_COLLAPSE_WIDTH) {
+    if (window.innerWidth <= MENU_COLLAPSE_WIDTH) {
       this.setState({ menuIsOpen: false })
     }
   }
 
-  handleCurrentWidth = () => {
-    this.setState({ currentWindowWidth: window.innerWidth })
-  }
-
   handleMenuVisibility = () => {
-    if (this.state.currentWindowWidth > MENU_COLLAPSE_WIDTH) {
+    if (window.innerWidth > MENU_COLLAPSE_WIDTH) {
       this.setState({ menuIsOpen: true })
     }
   }
