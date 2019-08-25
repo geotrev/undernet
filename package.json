@@ -17,7 +17,7 @@
     "build:quiet": "npm run js:build && webpack --config webpack.prod.js --display minimal",
     "test": "jest",
     "test:watch": "jest --watch",
-    "lint": "eslint . --ext .js -c .eslintrc.js --ignore-path .eslintignore; exit 0",
+    "lint": "eslint . --ext .js -c .eslintrc.js --ignore-path .eslintignore",
     "build:dist": "npm run js:build && npm run js:build:rollup && npm run css:build && npm run css:minify",
     "build:dist:release": "npm run clean && npm run scss:prepublish && npm run css:prepublish && npm run js:prepublish && npm run create-hashes",
     "prettify": "npm run js:prettify && npm run scss:prettify",
