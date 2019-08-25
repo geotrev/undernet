@@ -3,7 +3,7 @@
 [build]
   base = ""
   publish = "build"
-  command = "npm run build:quiet"
+  command = "npm run build"
 
 [[redirects]]
   from = "/*"

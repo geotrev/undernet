@@ -13,8 +13,7 @@
   "scripts": {
     "setup": "npm i && npm run js:build",
     "watch": "webpack-dev-server --config webpack.dev.js --progress",
-    "build": "npm run js:build && webpack --config webpack.prod.js --progress",
-    "build:quiet": "npm run js:build && webpack --config webpack.prod.js --display minimal",
+    "build": "npm run js:build && webpack --config webpack.prod.js",
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "eslint . --ext .js -c .eslintrc.js --ignore-path .eslintignore",
