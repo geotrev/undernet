@@ -71,7 +71,7 @@ export default class Modal {
     this._modals = dom.findAll(this._modalContainerAttr)
 
     getFocusableElements(this._modalContainerAttr).forEach(element => {
-      dom.attr(element, Selectors.TABINDEX, "-1")
+      dom.setAttr(element, Selectors.TABINDEX, "-1")
     })
 
     if (this._modals.length) {
@@ -85,7 +85,7 @@ export default class Modal {
     if (!browserEnv) return
 
     this._modals.forEach(instance => {
-      const id = dom.attr(instance, Selectors.DATA_MODAL)
+      const id = dom.getAttr(instance, Selectors.DATA_MODAL)
       const button = dom.find(`[${Selectors.DATA_TARGET}='${id}']`)
 
       if (!button) {
@@ -99,7 +99,7 @@ export default class Modal {
   // private
 
   _setup(instance) {
-    const modalId = dom.attr(instance, Selectors.DATA_MODAL)
+    const modalId = dom.getAttr(instance, Selectors.DATA_MODAL)
 
     if (!modalId) {
       throw new Error(Messages.NO_MODAL_ID_ERROR)
@@ -113,10 +113,10 @@ export default class Modal {
 
     const modalWrapper = dom.find(`[${Selectors.DATA_MODAL}='${modalId}']`)
 
-    dom.attr(modalWrapper, Selectors.ARIA_HIDDEN, "true")
-    dom.attr(modalWrapper, Selectors.DATA_VISIBLE, "false")
-    dom.attr(modal, Selectors.ARIA_MODAL, "true")
-    dom.attr(modal, Selectors.ROLE, "dialog")
+    dom.setAttr(modalWrapper, Selectors.ARIA_HIDDEN, "true")
+    dom.setAttr(modalWrapper, Selectors.DATA_VISIBLE, "false")
+    dom.setAttr(modal, Selectors.ARIA_MODAL, "true")
+    dom.setAttr(modal, Selectors.ROLE, "dialog")
 
     const modalButton = dom.find(`[${Selectors.DATA_TARGET}='${modalId}']`)
 
@@ -171,7 +171,7 @@ export default class Modal {
   }
 
   _setActiveModalId() {
-    this._activeModalId = dom.attr(this._activeModalButton, Selectors.DATA_TARGET)
+    this._activeModalId = dom.getAttr(this._activeModalButton, Selectors.DATA_TARGET)
   }
 
   _setActiveModalOverlay() {
@@ -179,14 +179,14 @@ export default class Modal {
   }
 
   _removeAttributes() {
-    dom.attr(this._activeModalOverlay, Selectors.DATA_VISIBLE, "false")
-    dom.attr(this._activeModalOverlay, Selectors.ARIA_HIDDEN, "true")
-    dom.attr(this._activeModal, Selectors.TABINDEX, false)
+    dom.setAttr(this._activeModalOverlay, Selectors.DATA_VISIBLE, "false")
+    dom.setAttr(this._activeModalOverlay, Selectors.ARIA_HIDDEN, "true")
+    dom.removeAttr(this._activeModal, Selectors.TABINDEX)
   }
 
   _disableFocusOnChildren() {
     getFocusableElements(this._activeModalSelector).forEach(element => {
-      dom.attr(element, Selectors.TABINDEX, "-1")
+      dom.setAttr(element, Selectors.TABINDEX, "-1")
     })
   }
 
@@ -205,8 +205,8 @@ export default class Modal {
   }
 
   _setAttributes() {
-    dom.attr(this._activeModalOverlay, Selectors.ARIA_HIDDEN, "false")
-    dom.attr(this._activeModalOverlay, Selectors.DATA_VISIBLE, "true")
+    dom.setAttr(this._activeModalOverlay, Selectors.ARIA_HIDDEN, "false")
+    dom.setAttr(this._activeModalOverlay, Selectors.DATA_VISIBLE, "true")
     if (iOSMobile) dom.css(this._activeModalOverlay, "cursor", "pointer")
   }
 
@@ -220,7 +220,7 @@ export default class Modal {
   }
 
   _handleModalFocus() {
-    dom.attr(this._activeModal, Selectors.TABINDEX, "-1")
+    dom.setAttr(this._activeModal, Selectors.TABINDEX, "-1")
     this._activeModal.focus()
   }
 
@@ -274,9 +274,9 @@ export default class Modal {
   }
 
   _handleReturnFocus() {
-    dom.attr(this._activeModalButton, Selectors.TABINDEX, "-1")
+    dom.setAttr(this._activeModalButton, Selectors.TABINDEX, "-1")
     this._activeModalButton.focus()
-    dom.attr(this._activeModalButton, Selectors.TABINDEX, false)
+    dom.removeAttr(this._activeModalButton, Selectors.TABINDEX)
   }
 
   _handleScrollRestore() {

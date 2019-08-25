@@ -198,7 +198,6 @@ module.exports = {
     "no-var": ERROR,
     "object-shorthand": [ERROR, ALWAYS],
     "prefer-const": ERROR,
-    "prefer-spread": ERROR,
     "prefer-template": ERROR,
     "require-yield": ERROR,
 

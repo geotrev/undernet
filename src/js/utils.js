@@ -25,21 +25,13 @@ export const browserEnv = typeof window !== "undefined"
  * Simple DOM manipulator methods. NOTE: These aren't chainable.
  */
 export const dom = {
-  attr: (element, attr, newValue) => {
-    if (newValue === false) {
-      return element.removeAttribute(attr)
-    }
-
-    if (typeof newValue === "string" || newValue === null) {
-      return element.setAttribute(attr, newValue)
-    }
-
-    return element.getAttribute(attr)
-  },
+  getAttr: (element, attr) => element.getAttribute(attr),
+  setAttr: (element, attr, value) => element.setAttribute(attr, value),
+  removeAttr: (element, attr) => element.removeAttribute(attr),
   hasAttr: (element, attr) => element.hasAttribute(attr),
 
   find: (selector, parent = document) => parent.querySelector(selector),
-  findAll: (selector, parent = document) => [...parent.querySelectorAll(selector)],
+  findAll: (selector, parent = document) => Array.apply(null, parent.querySelectorAll(selector)),
 
   css: (element, property, value) => {
     if (typeof value === "string" || value === null) {
