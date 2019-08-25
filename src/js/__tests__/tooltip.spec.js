@@ -111,6 +111,23 @@ describe("Tooltips", () => {
       // When
       trigger1.focus()
       trigger2.focus()
+      // Then
+      expect(document.body).toMatchSnapshot()
+    })
+
+    it("will hide hovered tooltip if second is focused at the same time", () => {
+      // When
+      global.simulateMouseEvent("mouseover", trigger1, true, true)
+      trigger2.focus()
+      // Then
+      expect(document.body).toMatchSnapshot()
+    })
+
+    it("will hide focused tooltip if second is hovered at the same time", () => {
+      // When
+      trigger1.focus()
+      global.simulateMouseEvent("mouseover", trigger2, true, true)
+      // Then
       expect(document.body).toMatchSnapshot()
     })
   })
