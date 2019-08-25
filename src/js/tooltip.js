@@ -103,6 +103,8 @@ export default class Tooltip {
   }
 
   _render(event) {
+    if (this._activeTooltip || this._activeTrigger) this._handleClose()
+
     this._activeTrigger = event.target
 
     const tooltipId = this._activeTrigger.getAttribute(Selectors.DATA_TARGET)

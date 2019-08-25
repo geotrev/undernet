@@ -97,6 +97,144 @@ exports[`Tooltips #handleClose -> Tooltip Blur/MouseOut hides tooltip on mouseou
 </div>
 `;
 
+exports[`Tooltips #handleClose -> Tooltip Blur/MouseOut will hide focused tooltip if second is hovered at the same time 1`] = `
+<body>
+  
+  
+  <span
+    class="tooltip"
+    data-tooltip="new-tooltip"
+  >
+    
+    
+    <button
+      aria-describedby="new-tooltip"
+      class="tooltip-trigger"
+      data-target="new-tooltip"
+    >
+      Tooltip Button
+    </button>
+    
+    
+    <div
+      class="tooltip-box"
+      data-visible="false"
+      id="new-tooltip"
+      role="tooltip"
+      style="left: 0px;"
+    >
+      
+      This is a tooltip.
+    
+    </div>
+    
+  
+  </span>
+  
+  
+  <span
+    class="tooltip"
+    data-tooltip="new-tooltip10"
+  >
+    
+    
+    <button
+      aria-describedby="new-tooltip10"
+      class="tooltip-trigger"
+      data-target="new-tooltip10"
+    >
+      Tooltip Button
+    </button>
+    
+    
+    <div
+      class="tooltip-box"
+      data-visible="true"
+      id="new-tooltip10"
+      role="tooltip"
+      style="left: 0px;"
+    >
+      
+      This is a tooltip.
+    
+    </div>
+    
+  
+  </span>
+  
+
+</body>
+`;
+
+exports[`Tooltips #handleClose -> Tooltip Blur/MouseOut will hide hovered tooltip if second is focused at the same time 1`] = `
+<body>
+  
+  
+  <span
+    class="tooltip"
+    data-tooltip="new-tooltip"
+  >
+    
+    
+    <button
+      aria-describedby="new-tooltip"
+      class="tooltip-trigger"
+      data-target="new-tooltip"
+    >
+      Tooltip Button
+    </button>
+    
+    
+    <div
+      class="tooltip-box"
+      data-visible="false"
+      id="new-tooltip"
+      role="tooltip"
+      style="left: 0px;"
+    >
+      
+      This is a tooltip.
+    
+    </div>
+    
+  
+  </span>
+  
+  
+  <span
+    class="tooltip"
+    data-tooltip="new-tooltip10"
+  >
+    
+    
+    <button
+      aria-describedby="new-tooltip10"
+      class="tooltip-trigger"
+      data-target="new-tooltip10"
+    >
+      Tooltip Button
+    </button>
+    
+    
+    <div
+      class="tooltip-box"
+      data-visible="true"
+      id="new-tooltip10"
+      role="tooltip"
+      style="left: 0px;"
+    >
+      
+      This is a tooltip.
+    
+    </div>
+    
+  
+  </span>
+  
+
+</body>
+`;
+
 exports[`Tooltips #render -> Tooltip Focus/MouseOver opens tooltip on focus 1`] = `
 <div
   class="tooltip-box"
