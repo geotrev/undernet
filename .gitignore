@@ -4,7 +4,14 @@ npm-error.log*
 
 /lib/
 /build/
+/coverage/
 /node_modules/
+
+# don't include umd files in git - only in npm for cdn access
+/dist/*.js
+/dist/*.js.map
+/dist/*.css
+/dist/*.css.map
 
 .sass-cache
 .eslint-output

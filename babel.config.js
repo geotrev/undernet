@@ -11,7 +11,6 @@ module.exports = api => {
   const test = api.env("test")
   const cjs = api.env("cjs")
   const esm = api.env("esm")
-  const rollup = api.env("rollup")
 
   let presets = [modules.env, modules.react]
   let plugins = [modules.properties, modules.dynamicImport, modules.emotion]
@@ -19,7 +18,7 @@ module.exports = api => {
   if (test) {
     presets = [modules.react, [modules.env, { targets: { node: "current" } }]]
     plugins = [...plugins, modules.dynamicImportNode]
-  } else if (cjs || rollup) {
+  } else if (cjs) {
     presets = [modules.env]
     plugins = []
   } else if (esm) {

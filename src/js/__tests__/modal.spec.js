@@ -1,5 +1,4 @@
 import Undernet from "../"
-import { getFocusableElements } from "../utils"
 
 const dom = `
   <button data-target="new-modal">Open modal</button>

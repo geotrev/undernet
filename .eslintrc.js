@@ -5,9 +5,9 @@ const READONLY = "readonly"
 const OFF = "off"
 const ALWAYS = "always"
 
-const sitePath = path.resolve(__dirname, "site")
-const srcPath = path.resolve(__dirname, "js/src")
-const scriptsPath = path.resolve(__dirname, "scripts")
+const appPath = path.resolve(__dirname, "app")
+const srcPath = path.resolve(__dirname, "src/js")
+const binPath = path.resolve(__dirname, "bin")
 const nodeModulesPath = path.resolve(__dirname, "node_modules")
 const webpackConfigPath = path.resolve(__dirname, "webpack.common.js")
 
@@ -54,7 +54,7 @@ module.exports = {
     "import/resolver": {
       node: {
         extensions: [".js"],
-        paths: [sitePath, srcPath, scriptsPath],
+        paths: [appPath, srcPath, binPath],
         moduleDirectory: [nodeModulesPath],
       },
       webpack: { config: webpackConfigPath },

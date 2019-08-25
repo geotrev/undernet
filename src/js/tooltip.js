@@ -103,6 +103,8 @@ export default class Tooltip {
   }
 
   _render(event) {
+    if (this._activeTooltip || this._activeTrigger) this._handleClose()
+
     this._activeTrigger = event.target
 
     const tooltipId = this._activeTrigger.getAttribute(Selectors.DATA_TARGET)
@@ -141,9 +143,7 @@ export default class Tooltip {
     this._activeTrigger.addEventListener(Events.BLUR, this._handleClose)
     document.addEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
 
-    if (iOSMobile) {
-      dom.css(document.body, "cursor", "pointer")
-    }
+    if (iOSMobile) dom.css(document.body, "cursor", "pointer")
   }
 
   _handleEscapeKeyPress(event) {

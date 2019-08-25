@@ -1,4 +1,4 @@
-import { uglify } from "rollup-plugin-uglify"
+import { terser } from "rollup-plugin-terser"
 import path from "path"
 import resolve from "rollup-plugin-node-resolve"
 import babel from "rollup-plugin-babel"
@@ -55,13 +55,14 @@ const umdMinOutput = Object.assign({}, umdOutput, {
 const umdMinPlugins = []
 umdMinPlugins.push(
   ...plugins,
-  uglify({
+  terser({
     output: {
       comments: (_, comment) => {
-        if (comment.type === "comment2") {
-          return /@preserve|@license|@cc_on/i.test(comment.value)
+        const { value, type } = comment
+
+        if (type === "comment2") {
+          return /@preserve|@license|@cc_on/i.test(value)
         }
-        return false
       },
     },
     mangle: { reserved: ["Undernet"] },
@@ -74,4 +75,4 @@ const umdMinBundle = {
   plugins: umdMinPlugins,
 }
 
-module.exports = [umdBundle, umdMinBundle]
+export default [umdBundle, umdMinBundle]

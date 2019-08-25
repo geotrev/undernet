@@ -1,334 +1,426 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<SideNav /> renders 1`] = `
-<BrowserRouter>
-  <Router
-    history={
-      Object {
-        "action": "POP",
-        "block": [Function],
-        "createHref": [Function],
-        "go": [Function],
-        "goBack": [Function],
-        "goForward": [Function],
-        "length": 1,
-        "listen": [Function],
-        "location": Object {
-          "hash": "",
-          "pathname": "/",
-          "search": "",
-          "state": undefined,
-        },
-        "push": [Function],
-        "replace": [Function],
-      }
-    }
+exports[`<SideNav /> #handleMenuToggleClick toggles menu when button is clicked 1`] = `
+<div
+  className="fluid grid side-nav-wrapper"
+>
+  <div
+    className="row is-flex is-hidden-xlarge side-nav-expand"
   >
-    <SideNav
-      navItems={
-        Array [
-          Object {
-            "header": "Test Header",
-            "links": Array [
-              Object {
-                "name": "Test 1",
-                "url": "#",
-              },
-              Object {
-                "name": "Test 2",
-                "url": "#",
-              },
-              Object {
-                "name": "Test 3",
-                "url": "#",
-              },
-            ],
-          },
-        ]
-      }
+    <button
+      aria-controls="side-nav-wrapper"
+      aria-expanded={true}
+      className="is-justified-center is-aligned-center is-flex is-hidden-xlarge"
+      onClick={[Function]}
     >
-      <div
-        className="xsmall-12 xlarge-2 columns has-no-padding"
-        id="side-nav"
+      <Menu
+        focusable="false"
+        role="presentation"
+        size={20}
+      />
+       
+      <span
+        className="has-black-text"
       >
-        <div
-          className="fluid grid side-nav-wrapper"
+        Explore
+      </span>
+    </button>
+  </div>
+  <nav
+    className="row side-nav-menu accordion has-padding-3"
+    data-accordion="side-nav-accordion"
+    id="side-nav-wrapper"
+  >
+    <p
+      className="version-text has-no-padding has-gray800-text xsmall-12 columns"
+    >
+      Version 
+      5.1.0
+    </p>
+    <div
+      className="accordion-row"
+      data-accordion-row="nav-acc-content0"
+      data-visible="false"
+      key="#"
+    >
+      <h4
+        className="paragraph"
+      >
+        <button
+          className="accordion-button"
+          data-parent="side-nav-accordion"
+          data-target="nav-acc-content0"
+          id="nav-acc-button0"
         >
-          <div
-            className="row is-flex is-hidden-xlarge side-nav-expand"
+          Test Header
+        </button>
+      </h4>
+      <ul
+        className="accordion-content"
+        id="nav-acc-content0"
+      >
+        <li
+          key="Test 1"
+          role="none"
+        >
+          <NavLink
+            activeClassName="active"
+            className="side-nav-link-item has-black-text is-flex is-aligned-center"
+            onClick={[Function]}
+            role="listitem"
+            to="#"
           >
-            <Button
-              className="is-justified-center is-aligned-center is-flex is-hidden-xlarge rotate-180"
-              href="#"
+            <Link
+              aria-current={null}
+              className="side-nav-link-item has-black-text is-flex is-aligned-center"
               onClick={[Function]}
+              role="listitem"
+              to="#"
             >
               <a
-                className="is-justified-center is-aligned-center is-flex is-hidden-xlarge rotate-180"
-                href="#"
+                aria-current={null}
+                className="side-nav-link-item has-black-text is-flex is-aligned-center"
+                href="/"
                 onClick={[Function]}
-                type={null}
+                role="listitem"
               >
-                <Menu
-                  color="currentColor"
+                Test 1
+                 
+                <ChevronRight
                   focusable="false"
                   role="presentation"
-                  size={20}
-                >
-                  <svg
-                    fill="none"
-                    focusable="false"
-                    height={20}
-                    role="presentation"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    viewBox="0 0 24 24"
-                    width={20}
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <line
-                      x1="3"
-                      x2="21"
-                      y1="12"
-                      y2="12"
-                    />
-                    <line
-                      x1="3"
-                      x2="21"
-                      y1="6"
-                      y2="6"
-                    />
-                    <line
-                      x1="3"
-                      x2="21"
-                      y1="18"
-                      y2="18"
-                    />
-                  </svg>
-                </Menu>
-                 
-                <span
-                  className="has-black-text"
-                >
-                  Explore
-                </span>
+                  size={16}
+                />
               </a>
-            </Button>
-          </div>
-          <nav
-            className="row side-nav-menu accordion has-padding-3 is-hidden"
-            data-accordion="side-nav-accordion"
+            </Link>
+          </NavLink>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>
+`;
+
+exports[`<SideNav /> #handleMenuVisibility hides menu at or below 1199 1`] = `
+<div
+  className="fluid grid side-nav-wrapper"
+>
+  <div
+    className="row is-flex is-hidden-xlarge side-nav-expand"
+  >
+    <button
+      aria-controls="side-nav-wrapper"
+      aria-expanded={false}
+      className="is-justified-center is-aligned-center is-flex is-hidden-xlarge rotate-180"
+      onClick={[Function]}
+    >
+      <Menu
+        focusable="false"
+        role="presentation"
+        size={20}
+      />
+       
+      <span
+        className="has-black-text"
+      >
+        Explore
+      </span>
+    </button>
+  </div>
+  <nav
+    className="row side-nav-menu accordion has-padding-3 is-hidden"
+    data-accordion="side-nav-accordion"
+    id="side-nav-wrapper"
+  >
+    <p
+      className="version-text has-no-padding has-gray800-text xsmall-12 columns"
+    >
+      Version 
+      5.1.0
+    </p>
+    <div
+      className="accordion-row"
+      data-accordion-row="nav-acc-content0"
+      data-visible="false"
+      key="#"
+    >
+      <h4
+        className="paragraph"
+      >
+        <button
+          className="accordion-button"
+          data-parent="side-nav-accordion"
+          data-target="nav-acc-content0"
+          id="nav-acc-button0"
+        >
+          Test Header
+        </button>
+      </h4>
+      <ul
+        className="accordion-content"
+        id="nav-acc-content0"
+      >
+        <li
+          key="Test 1"
+          role="none"
+        >
+          <NavLink
+            activeClassName="active"
+            className="side-nav-link-item has-black-text is-flex is-aligned-center"
+            onClick={[Function]}
+            role="listitem"
+            to="#"
           >
-            <p
-              className="version-text has-no-padding has-gray800-text xsmall-12 columns"
+            <Link
+              aria-current={null}
+              className="side-nav-link-item has-black-text is-flex is-aligned-center"
+              onClick={[Function]}
+              role="listitem"
+              to="#"
             >
-              Version 
-              5.1.0
-            </p>
-            <div
-              className="accordion-row"
-              data-accordion-row="nav-acc-content0"
-              data-visible="false"
-              key="#"
+              <a
+                aria-current={null}
+                className="side-nav-link-item has-black-text is-flex is-aligned-center"
+                href="/"
+                onClick={[Function]}
+                role="listitem"
+              >
+                Test 1
+                 
+                <ChevronRight
+                  focusable="false"
+                  role="presentation"
+                  size={16}
+                />
+              </a>
+            </Link>
+          </NavLink>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>
+`;
+
+exports[`<SideNav /> #handleMenuVisibility shows menu above 1199 1`] = `
+<div
+  className="fluid grid side-nav-wrapper"
+>
+  <div
+    className="row is-flex is-hidden-xlarge side-nav-expand"
+  >
+    <button
+      aria-controls="side-nav-wrapper"
+      aria-expanded={true}
+      className="is-justified-center is-aligned-center is-flex is-hidden-xlarge"
+      onClick={[Function]}
+    >
+      <Menu
+        focusable="false"
+        role="presentation"
+        size={20}
+      />
+       
+      <span
+        className="has-black-text"
+      >
+        Explore
+      </span>
+    </button>
+  </div>
+  <nav
+    className="row side-nav-menu accordion has-padding-3"
+    data-accordion="side-nav-accordion"
+    id="side-nav-wrapper"
+  >
+    <p
+      className="version-text has-no-padding has-gray800-text xsmall-12 columns"
+    >
+      Version 
+      5.1.0
+    </p>
+    <div
+      className="accordion-row"
+      data-accordion-row="nav-acc-content0"
+      data-visible="false"
+      key="#"
+    >
+      <h4
+        className="paragraph"
+      >
+        <button
+          className="accordion-button"
+          data-parent="side-nav-accordion"
+          data-target="nav-acc-content0"
+          id="nav-acc-button0"
+        >
+          Test Header
+        </button>
+      </h4>
+      <ul
+        className="accordion-content"
+        id="nav-acc-content0"
+      >
+        <li
+          key="Test 1"
+          role="none"
+        >
+          <NavLink
+            activeClassName="active"
+            className="side-nav-link-item has-black-text is-flex is-aligned-center"
+            onClick={[Function]}
+            role="listitem"
+            to="#"
+          >
+            <Link
+              aria-current={null}
+              className="side-nav-link-item has-black-text is-flex is-aligned-center"
+              onClick={[Function]}
+              role="listitem"
+              to="#"
             >
-              <h4
-                className="paragraph"
+              <a
+                aria-current={null}
+                className="side-nav-link-item has-black-text is-flex is-aligned-center"
+                href="/"
+                onClick={[Function]}
+                role="listitem"
               >
-                <Button
-                  className="accordion-button"
-                  dataParent="side-nav-accordion"
-                  dataTarget="nav-acc-content0"
-                  id="nav-acc-button0"
-                  role="listitem"
-                >
-                  <button
-                    className="accordion-button"
-                    data-parent="side-nav-accordion"
-                    data-target="nav-acc-content0"
-                    id="nav-acc-button0"
-                    role="listitem"
-                    type={null}
-                  >
-                    Test Header
-                  </button>
-                </Button>
-              </h4>
-              <ul
-                className="accordion-content"
-                id="nav-acc-content0"
-              >
-                <li
-                  key="Test 1"
-                  role="none"
-                >
-                  <NavLink
-                    activeClassName="active"
-                    className="side-nav-link-item has-black-text is-flex is-aligned-center"
-                    onClick={[Function]}
-                    role="listitem"
-                    to="#"
-                  >
-                    <Link
-                      aria-current={null}
-                      className="side-nav-link-item has-black-text is-flex is-aligned-center"
-                      onClick={[Function]}
-                      role="listitem"
-                      to="#"
-                    >
-                      <a
-                        aria-current={null}
-                        className="side-nav-link-item has-black-text is-flex is-aligned-center"
-                        href="/"
-                        onClick={[Function]}
-                        role="listitem"
-                      >
-                        Test 1
-                         
-                        <ChevronRight
-                          color="currentColor"
-                          focusable="false"
-                          role="presentation"
-                          size={16}
-                        >
-                          <svg
-                            fill="none"
-                            focusable="false"
-                            height={16}
-                            role="presentation"
-                            stroke="currentColor"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            viewBox="0 0 24 24"
-                            width={16}
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <polyline
-                              points="9 18 15 12 9 6"
-                            />
-                          </svg>
-                        </ChevronRight>
-                      </a>
-                    </Link>
-                  </NavLink>
-                </li>
-                <li
-                  key="Test 2"
-                  role="none"
-                >
-                  <NavLink
-                    activeClassName="active"
-                    className="side-nav-link-item has-black-text is-flex is-aligned-center"
-                    onClick={[Function]}
-                    role="listitem"
-                    to="#"
-                  >
-                    <Link
-                      aria-current={null}
-                      className="side-nav-link-item has-black-text is-flex is-aligned-center"
-                      onClick={[Function]}
-                      role="listitem"
-                      to="#"
-                    >
-                      <a
-                        aria-current={null}
-                        className="side-nav-link-item has-black-text is-flex is-aligned-center"
-                        href="/"
-                        onClick={[Function]}
-                        role="listitem"
-                      >
-                        Test 2
-                         
-                        <ChevronRight
-                          color="currentColor"
-                          focusable="false"
-                          role="presentation"
-                          size={16}
-                        >
-                          <svg
-                            fill="none"
-                            focusable="false"
-                            height={16}
-                            role="presentation"
-                            stroke="currentColor"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            viewBox="0 0 24 24"
-                            width={16}
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <polyline
-                              points="9 18 15 12 9 6"
-                            />
-                          </svg>
-                        </ChevronRight>
-                      </a>
-                    </Link>
-                  </NavLink>
-                </li>
-                <li
-                  key="Test 3"
-                  role="none"
-                >
-                  <NavLink
-                    activeClassName="active"
-                    className="side-nav-link-item has-black-text is-flex is-aligned-center"
-                    onClick={[Function]}
-                    role="listitem"
-                    to="#"
-                  >
-                    <Link
-                      aria-current={null}
-                      className="side-nav-link-item has-black-text is-flex is-aligned-center"
-                      onClick={[Function]}
-                      role="listitem"
-                      to="#"
-                    >
-                      <a
-                        aria-current={null}
-                        className="side-nav-link-item has-black-text is-flex is-aligned-center"
-                        href="/"
-                        onClick={[Function]}
-                        role="listitem"
-                      >
-                        Test 3
-                         
-                        <ChevronRight
-                          color="currentColor"
-                          focusable="false"
-                          role="presentation"
-                          size={16}
-                        >
-                          <svg
-                            fill="none"
-                            focusable="false"
-                            height={16}
-                            role="presentation"
-                            stroke="currentColor"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            viewBox="0 0 24 24"
-                            width={16}
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <polyline
-                              points="9 18 15 12 9 6"
-                            />
-                          </svg>
-                        </ChevronRight>
-                      </a>
-                    </Link>
-                  </NavLink>
-                </li>
-              </ul>
-            </div>
-          </nav>
-        </div>
+                Test 1
+                 
+                <ChevronRight
+                  focusable="false"
+                  role="presentation"
+                  size={16}
+                />
+              </a>
+            </Link>
+          </NavLink>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>
+`;
+
+exports[`<SideNav /> #render renders 1`] = `
+<SideNav
+  navItems={
+    Array [
+      Object {
+        "header": "Test Header",
+        "links": Array [
+          Object {
+            "name": "Test 1",
+            "url": "#",
+          },
+        ],
+      },
+    ]
+  }
+>
+  <div
+    className="xsmall-12 xlarge-2 columns has-no-padding"
+    id="side-nav"
+  >
+    <div
+      className="fluid grid side-nav-wrapper"
+    >
+      <div
+        className="row is-flex is-hidden-xlarge side-nav-expand"
+      >
+        <button
+          aria-controls="side-nav-wrapper"
+          aria-expanded={false}
+          className="is-justified-center is-aligned-center is-flex is-hidden-xlarge rotate-180"
+          onClick={[Function]}
+        >
+          <Menu
+            focusable="false"
+            role="presentation"
+            size={20}
+          />
+           
+          <span
+            className="has-black-text"
+          >
+            Explore
+          </span>
+        </button>
       </div>
-    </SideNav>
-  </Router>
-</BrowserRouter>
+      <nav
+        className="row side-nav-menu accordion has-padding-3 is-hidden"
+        data-accordion="side-nav-accordion"
+        id="side-nav-wrapper"
+      >
+        <p
+          className="version-text has-no-padding has-gray800-text xsmall-12 columns"
+        >
+          Version 
+          5.1.0
+        </p>
+        <div
+          className="accordion-row"
+          data-accordion-row="nav-acc-content0"
+          data-visible="false"
+          key="#"
+        >
+          <h4
+            className="paragraph"
+          >
+            <button
+              className="accordion-button"
+              data-parent="side-nav-accordion"
+              data-target="nav-acc-content0"
+              id="nav-acc-button0"
+            >
+              Test Header
+            </button>
+          </h4>
+          <ul
+            className="accordion-content"
+            id="nav-acc-content0"
+          >
+            <li
+              key="Test 1"
+              role="none"
+            >
+              <NavLink
+                activeClassName="active"
+                className="side-nav-link-item has-black-text is-flex is-aligned-center"
+                onClick={[Function]}
+                role="listitem"
+                to="#"
+              >
+                <Link
+                  aria-current={null}
+                  className="side-nav-link-item has-black-text is-flex is-aligned-center"
+                  onClick={[Function]}
+                  role="listitem"
+                  to="#"
+                >
+                  <a
+                    aria-current={null}
+                    className="side-nav-link-item has-black-text is-flex is-aligned-center"
+                    href="/"
+                    onClick={[Function]}
+                    role="listitem"
+                  >
+                    Test 1
+                     
+                    <ChevronRight
+                      focusable="false"
+                      role="presentation"
+                      size={16}
+                    />
+                  </a>
+                </Link>
+              </NavLink>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+</SideNav>
 `;

@@ -2,18 +2,20 @@ import React from "react"
 import SideNav from "../SideNav"
 import { BrowserRouter as Router } from "react-router-dom"
 
+jest.mock("react-feather/dist/icons/chevron-right", () => global.simpleMock("ChevronRight"))
+jest.mock("react-feather/dist/icons/menu", () => global.simpleMock("Menu"))
+
+const MENU_COLLAPSE_WIDTH = 1199
+const MENU_EXPAND_WIDTH = MENU_COLLAPSE_WIDTH + 1
+const DEFAULT_WIDTH = 1024
 const navItems = [
   {
     header: "Test Header",
-    links: [
-      { name: "Test 1", url: "#" },
-      { name: "Test 2", url: "#" },
-      { name: "Test 3", url: "#" },
-    ],
+    links: [{ name: "Test 1", url: "#" }],
   },
 ]
 
-function SideNavComponent() {
+function mountComponent() {
   return mount(
     <Router>
       <SideNav navItems={navItems} />
@@ -21,18 +23,51 @@ function SideNavComponent() {
   )
 }
 
+function updatePageWidth(width) {
+  global.window.innerWidth = width
+  window.dispatchEvent(new Event("resize"))
+}
+
 describe.only("<SideNav />", () => {
-  it("renders", () => {
-    const wrapper = SideNavComponent()
-    expect(wrapper).toMatchSnapshot()
+  describe("#render", () => {
+    it("renders", () => {
+      // Given
+      const wrapper = mountComponent()
+      // Then
+      expect(wrapper.find("SideNav")).toMatchSnapshot()
+    })
   })
 
-  it("is collapsable/expandable with expand button", () => {
-    const wrapper = SideNavComponent()
-    const button = wrapper.find(".side-nav-expand a")
-    button.simulate("click")
-    expect(wrapper.find(".is-hidden")).toHaveLength(0)
-    button.simulate("click")
-    expect(wrapper.find(".is-hidden")).toHaveLength(1)
+  describe("#handleMenuVisibility", () => {
+    afterEach(() => {
+      updatePageWidth(DEFAULT_WIDTH)
+    })
+
+    it(`hides menu at or below ${MENU_COLLAPSE_WIDTH}`, () => {
+      // Given
+      const wrapper = mountComponent()
+      // Then
+      expect(wrapper.find(".side-nav-wrapper")).toMatchSnapshot()
+    })
+
+    it(`shows menu above ${MENU_COLLAPSE_WIDTH}`, () => {
+      // Given
+      updatePageWidth(MENU_EXPAND_WIDTH)
+      const wrapper = mountComponent()
+      // Then
+      expect(wrapper.find(".side-nav-wrapper")).toMatchSnapshot()
+    })
+  })
+
+  describe("#handleMenuToggleClick", () => {
+    it("toggles menu when button is clicked", () => {
+      // Given
+      const wrapper = mountComponent()
+      const button = wrapper.find(".side-nav-expand button")
+      // When
+      button.simulate("click")
+      // Then
+      expect(wrapper.find(".side-nav-wrapper")).toMatchSnapshot()
+    })
   })
 })

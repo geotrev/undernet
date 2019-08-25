@@ -17,10 +17,13 @@
         border-bottom: none;
       }
 
-      a {
+      > button {
         width: 100%;
         padding: 20px;
         text-decoration: none;
+        margin: $global-border-width;
+        border: none;
+        color: $primary-color;
 
         &.rotate-180 {
           svg {

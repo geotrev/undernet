@@ -9,10 +9,10 @@
 @import "config";
 @import "utilities/mixins";
 
-// remove this reset if you are scoping!
+// .#{$scope} {
+// Reset within the scope is optional
 @import "utilities/reset";
 
-// .#{$scope} {
 @import "utilities/classes";
 
 @import "layout/grid";
