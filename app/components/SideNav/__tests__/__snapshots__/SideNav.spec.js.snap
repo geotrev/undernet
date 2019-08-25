@@ -35,7 +35,7 @@ exports[`<SideNav /> #handleMenuToggleClick toggles menu when button is clicked 
       className="version-text has-no-padding has-gray800-text xsmall-12 columns"
     >
       Version 
-      5.1.1
+      9.9.9
     </p>
     <div
       className="accordion-row"
@@ -136,7 +136,7 @@ exports[`<SideNav /> #handleMenuVisibility hides menu at or below 1199 1`] = `
       className="version-text has-no-padding has-gray800-text xsmall-12 columns"
     >
       Version 
-      5.1.1
+      9.9.9
     </p>
     <div
       className="accordion-row"
@@ -237,7 +237,7 @@ exports[`<SideNav /> #handleMenuVisibility shows menu above 1199 1`] = `
       className="version-text has-no-padding has-gray800-text xsmall-12 columns"
     >
       Version 
-      5.1.1
+      9.9.9
     </p>
     <div
       className="accordion-row"
@@ -357,7 +357,7 @@ exports[`<SideNav /> #render renders 1`] = `
           className="version-text has-no-padding has-gray800-text xsmall-12 columns"
         >
           Version 
-          5.1.1
+          9.9.9
         </p>
         <div
           className="accordion-row"

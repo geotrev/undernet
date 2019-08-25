@@ -14,6 +14,11 @@ jest.mock("../markdownContent", () => ({
   InstallAssets: global.simpleMock("Install"),
 }))
 
+jest.mock("projectRoot/package.json", () => ({
+  description: "Mocked description",
+  version: "9.9.9",
+}))
+
 jest.mock("prismjs", () => ({
   highlightAll: jest.fn(),
 }))

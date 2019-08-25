@@ -85,7 +85,7 @@ exports[`<Home /> renders 1`] = `
                   <PageHeader
                     className="h3"
                   >
-                    A modular, configuration-first front-end framework. No strings.
+                    Mocked description
                   </PageHeader>
                 </div>
                 <div
@@ -133,7 +133,7 @@ exports[`<Home /> renders 1`] = `
                     className="un-version has-no-margin"
                   >
                     Version 
-                    5.1.1
+                    9.9.9
                   </p>
                 </div>
                 <div

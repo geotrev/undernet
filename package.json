@@ -1,6 +1,6 @@
 {
   "name": "undernet",
-  "version": "5.1.1",
+  "version": "5.1.2",
   "homepage": "https://undernet.io",
   "description": "A modular, configuration-first front-end framework. No strings.",
   "author": "George Treviranus",
@@ -40,7 +40,7 @@
     "update-version": "node bin/update-version.js",
     "create-hashes": "node bin/create-hashes.js",
     "preversion": "npm run js:build && npm test",
-    "postversion": "npm run update-version && npm test -- -u && npm run build:dist:release && git add -A && git commit --amend"
+    "postversion": "npm run update-version && npm run build:dist:release && git add -A && git commit --amend"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",

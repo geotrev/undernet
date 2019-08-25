@@ -7,7 +7,6 @@
 # - LICENSE
 # - CONTRIBUTING
 
-.DS_store
 yarn-error.log*
 npm-error.log*
 
@@ -18,7 +17,6 @@ npm-error.log*
 /build/
 /coverage/
 /dist/*.zip
-/node_modules/
 /public/
 /src/js/__tests__/
 /test/
