@@ -15,6 +15,7 @@ describe("<StatusBadges />", () => {
     expect(wrapper).toMatchSnapshot()
   })
 })
+
 describe("<InstallNpm />", () => {
   it("renders", () => {
     const wrapper = mount(<InstallNpm />)

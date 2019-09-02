@@ -31,7 +31,7 @@ export const dom = {
   hasAttr: (element, attr) => element.hasAttribute(attr),
 
   find: (selector, parent = document) => parent.querySelector(selector),
-  findAll: (selector, parent = document) => Array.apply(null, parent.querySelectorAll(selector)),
+  findAll: (selector, parent = document) => [...parent.querySelectorAll(selector)],
 
   css: (element, property, value) => {
     if (typeof value === "string" || value === null) {
@@ -45,10 +45,11 @@ export const dom = {
   removeClass: (element, ...classes) => element.classList.remove(...classes),
   hasClass: (element, ...classes) => {
     if (classes.length) {
-      return classes.filter(cls => element.classList.contains(cls)).length
+      return classes.filter(givenClassName => element.classList.contains(givenClassName)).length > 0
     }
 
-    return element.classList.contains(classes[0])
+    const [givenClassName] = classes
+    return element.classList.contains(givenClassName)
   },
 }
 
