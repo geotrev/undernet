@@ -1,4 +1,4 @@
-import ContextUtil, { dom, getFocusableElements } from "../utils"
+import { dom, getFocusableElements } from "../utils"
 
 const testDom = `<div data-tester="true" data-removable class="wrapper">
     <p>Hello world! <a href="#">this link is focusable</a> </p>
@@ -224,4 +224,4 @@ describe("getFocusableElements(container)", () => {
   })
 })
 
-describe("ContextUtil", () => {})
+// describe("ContextUtil", () => {})
