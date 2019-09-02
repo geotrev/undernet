@@ -114,7 +114,7 @@ export default class Dropdown {
     const dropdownAttr = `[${Selectors.DATA_DROPDOWN}="${dropdownId}"]`
     const dropdownButton = dom.find(`${dropdownAttr} > ${this._dropdownTargetAttr}`)
 
-    if (!dom.attr(dropdownButton, Selectors.DATA_PARENT)) {
+    if (!dom.getAttr(dropdownButton, Selectors.DATA_PARENT)) {
       throw new Error(Messages.NO_PARENT_ERROR)
     }
 
@@ -124,11 +124,11 @@ export default class Dropdown {
       throw new Error(Messages.NO_MENU_ERROR(dropdownAttr))
     }
 
-    dom.attr(dropdownMenu, Selectors.ARIA_LABELLEDBY, dropdownButton.id)
+    dom.setAttr(dropdownMenu, Selectors.ARIA_LABELLEDBY, dropdownButton.id)
 
-    dom.attr(dropdownButton, Selectors.ARIA_CONTROLS, dropdownMenu.id)
-    dom.attr(dropdownButton, Selectors.ARIA_HASPOPUP, "true")
-    dom.attr(dropdownButton, Selectors.ARIA_EXPANDED, "false")
+    dom.setAttr(dropdownButton, Selectors.ARIA_CONTROLS, dropdownMenu.id)
+    dom.setAttr(dropdownButton, Selectors.ARIA_HASPOPUP, "true")
+    dom.setAttr(dropdownButton, Selectors.ARIA_EXPANDED, "false")
 
     const dropdownMenuItemsAttr = `${dropdownAttr} > ul > li`
     const dropdownMenuListItems = dom.findAll(dropdownMenuItemsAttr)
@@ -137,7 +137,7 @@ export default class Dropdown {
       throw new Error(Messages.NO_DROPDOWN_ITEMS_ERROR(dropdownAttr))
     }
 
-    dropdownMenuListItems.forEach(item => dom.attr(item, Selectors.ROLE, "none"))
+    dropdownMenuListItems.forEach(item => dom.setAttr(item, Selectors.ROLE, "none"))
 
     const dropdownMenuButtons = this._getDropdownLinks(dropdownAttr)
 
@@ -146,8 +146,8 @@ export default class Dropdown {
     }
 
     dropdownMenuButtons.forEach(link => {
-      dom.attr(link, Selectors.ROLE, "menuitem")
-      dom.attr(link, Selectors.TABINDEX, "-1")
+      dom.setAttr(link, Selectors.ROLE, "menuitem")
+      dom.setAttr(link, Selectors.TABINDEX, "-1")
     })
   }
 
@@ -200,11 +200,11 @@ export default class Dropdown {
   }
 
   _handleHideState() {
-    dom.attr(this._activeDropdownButton, Selectors.ARIA_EXPANDED, "false")
-    dom.attr(this._activeDropdown, Selectors.DATA_VISIBLE, "false")
+    dom.setAttr(this._activeDropdownButton, Selectors.ARIA_EXPANDED, "false")
+    dom.setAttr(this._activeDropdown, Selectors.DATA_VISIBLE, "false")
 
     this._activeDropdownLinks.forEach(link => {
-      dom.attr(link, Selectors.TABINDEX, "-1")
+      dom.setAttr(link, Selectors.TABINDEX, "-1")
       link.removeEventListener(Events.CLICK, this._handleClose)
     })
   }
@@ -215,7 +215,7 @@ export default class Dropdown {
   }
 
   _setActiveDropdownId() {
-    this._activeDropdownId = dom.attr(this._activeDropdownButton, Selectors.DATA_PARENT)
+    this._activeDropdownId = dom.getAttr(this._activeDropdownButton, Selectors.DATA_PARENT)
   }
 
   _startEvents() {
@@ -231,7 +231,7 @@ export default class Dropdown {
     this._lastDropdownLink.addEventListener(Events.KEYDOWN, this._handleLastTabClose)
 
     this._activeDropdownLinks.forEach(link => {
-      dom.attr(link, Selectors.TABINDEX, "0")
+      dom.setAttr(link, Selectors.TABINDEX, "0")
       link.addEventListener(Events.CLICK, this._handleClose)
     })
 
@@ -244,12 +244,12 @@ export default class Dropdown {
   }
 
   _setVisibleState() {
-    dom.attr(this._activeDropdownButton, Selectors.ARIA_EXPANDED, "true")
-    dom.attr(this._activeDropdown, Selectors.DATA_VISIBLE, "true")
+    dom.setAttr(this._activeDropdownButton, Selectors.ARIA_EXPANDED, "true")
+    dom.setAttr(this._activeDropdown, Selectors.DATA_VISIBLE, "true")
   }
 
   _setActiveDropdownMenu() {
-    this._activeDropdownMenuId = dom.attr(this._activeDropdownButton, Selectors.DATA_TARGET)
+    this._activeDropdownMenuId = dom.getAttr(this._activeDropdownButton, Selectors.DATA_TARGET)
     this._activeDropdownMenu = dom.find(`#${this._activeDropdownMenuId}`)
   }
 
@@ -303,9 +303,9 @@ export default class Dropdown {
   }
 
   _handleReturnFocus() {
-    dom.attr(this._activeDropdownButton, Selectors.TAB_INDEX, "-1")
+    dom.setAttr(this._activeDropdownButton, Selectors.TAB_INDEX, "-1")
     this._activeDropdownButton.focus()
-    dom.attr(this._activeDropdownButton, Selectors.TAB_INDEX, false)
+    dom.removeAttr(this._activeDropdownButton, Selectors.TAB_INDEX)
   }
 
   _getDropdownLinks(attr) {
