@@ -88,12 +88,12 @@ describe("dom", () => {
       // Given
       document.body.innerHTML = testDom
       const element = document.querySelector(".hello.world")
-      const classNameToDetect1 = "hello"
-      const classNameToDetect2 = "not-in-class-list"
+      const classNameToDetect1 = "not-in-class-list"
+      const classNameToDetect2 = "not-in-class-list-either"
       // When
       const received = dom.hasClass(element, classNameToDetect1, classNameToDetect2)
       // Then
-      expect(received).toEqual(true)
+      expect(received).toEqual(false)
     })
 
     it("returns true if class can be found among given classes", () => {
