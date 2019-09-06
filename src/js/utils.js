@@ -35,7 +35,8 @@ export const dom = {
 
   css: (element, property, value) => {
     if (typeof value === "string" || value === null) {
-      return (element.style[property] = value)
+      element.style[property] = value
+      return
     }
 
     return element.style[property]
@@ -43,14 +44,8 @@ export const dom = {
 
   addClass: (element, ...classes) => element.classList.add(...classes),
   removeClass: (element, ...classes) => element.classList.remove(...classes),
-  hasClass: (element, ...classes) => {
-    if (classes.length) {
-      return classes.filter(givenClassName => element.classList.contains(givenClassName)).length > 0
-    }
-
-    const [givenClassName] = classes
-    return element.classList.contains(givenClassName)
-  },
+  hasClass: (element, ...classes) =>
+    classes.filter(givenClassName => element.classList.contains(givenClassName)).length > 0,
 }
 
 /**
