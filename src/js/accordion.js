@@ -33,6 +33,8 @@ const Messages = {
     `Could not find accordion content block with id '${id}'; should match trigger with [data-target='${id}'].`,
 }
 
+const BASE_FONT_SIZE = 16
+
 export default class Accordion {
   constructor() {
     // events
@@ -125,7 +127,7 @@ export default class Accordion {
     }
 
     if (contentShouldExpand === "true") {
-      dom.css(buttonContent, "maxHeight", `${buttonContent.scrollHeight}px`)
+      dom.css(buttonContent, "maxHeight", `${buttonContent.scrollHeight / BASE_FONT_SIZE}em`)
       dom.setAttr(instance, Selectors.ARIA_EXPANDED, "true")
       dom.setAttr(buttonContent, Selectors.ARIA_HIDDEN, "false")
 
@@ -235,7 +237,11 @@ export default class Accordion {
     if (dom.css(this._activeContent, "maxHeight")) {
       dom.css(this._activeContent, "maxHeight", null)
     } else {
-      dom.css(this._activeContent, "maxHeight", `${this._activeContent.scrollHeight}px`)
+      dom.css(
+        this._activeContent,
+        "maxHeight",
+        `${this._activeContent.scrollHeight / BASE_FONT_SIZE}em`
+      )
     }
   }
 
