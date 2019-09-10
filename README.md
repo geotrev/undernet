@@ -117,10 +117,10 @@ This will do a few things:
 1. Run the full test suite to ensure the library is stable.
 2. Increment the package by the version you specify, and tag it appropriately
 3. Run a custom node script to update appropriate files with the new version
-4. Rerun the test suite to update snapshots for the build, then build all package assets
+4. Build all package assets for publishing
 5. Create new content hashes to be used with cdn subresource integrity links in the docs
 6. Add all new build assets to the version commit and open a prompt for the release's commit message
 
 The release commit is usually in this format: `[Version X.X.X] This release does x, y, and z.`
 
-The commit will be ready to merge to master. After that, the repo can be published to npm.
+The commit will be ready to merge to master. After that, the repo can be published to npm. I recommend using `npm publish --dry-run` to confirm the output is what you expect. Then remove the flag and a new version is out in the world!

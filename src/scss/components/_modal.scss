@@ -30,6 +30,7 @@
   .modal-dialog {
     background: $modal-container-background-color;
     width: $modal-container-width-small;
+    max-width: $modal-container-max-width;
     position: relative;
     flex-flow: column nowrap;
     display: flex;
