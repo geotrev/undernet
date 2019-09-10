@@ -666,6 +666,7 @@ $modal-container-border-radius: $global-border-radius !default;
 $modal-container-padding: $global-space !default;
 $modal-container-width: em(450px) !default;
 $modal-container-width-small: 95% !default;
+$modal-container-max-width: 95vw !default;
 $modal-container-margin: 40px auto !default;
 $modal-container-margin-small: $global-space auto !default;
 
@@ -717,6 +718,7 @@ $dropdown-menu-padding: 8px 0 !default;
 $dropdown-menu-border-radius: $global-border-radius !default;
 $dropdown-menu-background-color: $white !default;
 $dropdown-menu-width: em(200px) !default;
+$dropdown-menu-max-width: 95vw !default;
 $dropdown-menu-border: 1px solid $dropdown-border-color !default;
 
 $dropdown-arrow-offset: 12px !default;
