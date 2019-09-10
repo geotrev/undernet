@@ -274,7 +274,7 @@ $type-p-line-height: $global-line-height !default;
 $type-p-margin-bottom: $global-font-size !default;
 
 $type-code-font: $global-monospace !default;
-$type-code-font-size: 1em !default;
+$type-code-font-size: $global-font-size !default;
 $type-code-color: $gray600 !default;
 $type-code-background: lighten($gray900, 10%) !default;
 $type-code-border: none !default;
@@ -296,10 +296,10 @@ $type-mark-padding: 0 !default;
 $type-mark-color: $gray200 !default;
 $type-mark-background: status(warning) !default;
 
-$underline-text-decoration: underline;
+$underline-text-decoration: underline !default;
 
-$hr-border: 1px solid $gray900;
-$hr-margin: 2.5rem 0;
+$hr-border: 1px solid $gray900 !default;
+$hr-margin: spacing(4) 0 !default;
 
 $ul-list-style: disc !default;
 $ol-list-style: decimal !default;
@@ -615,8 +615,6 @@ $input-border-radius: $form-radius !default;
 $input-background: $white !default;
 $input-resize: vertical !default;
 
-// Input + Textarea states
-
 $input-hover-background: $input-background !default;
 $input-hover-border: $global-border-width solid $gray600 !default;
 $input-hover-box-shadow: $input-box-shadow !default;
@@ -666,7 +664,7 @@ $modal-transition-ease: $global-ease !default;
 $modal-container-background-color: $white !default;
 $modal-container-border-radius: $global-border-radius !default;
 $modal-container-padding: $global-space !default;
-$modal-container-width: 450px !default;
+$modal-container-width: em(450px) !default;
 $modal-container-width-small: 95% !default;
 $modal-container-margin: 40px auto !default;
 $modal-container-margin-small: $global-space auto !default;
@@ -718,7 +716,7 @@ $dropdown-menu-transition: opacity $global-transition !default;
 $dropdown-menu-padding: 8px 0 !default;
 $dropdown-menu-border-radius: $global-border-radius !default;
 $dropdown-menu-background-color: $white !default;
-$dropdown-menu-width: 200px !default;
+$dropdown-menu-width: em(200px) !default;
 $dropdown-menu-border: 1px solid $dropdown-border-color !default;
 
 $dropdown-arrow-offset: 12px !default;
@@ -744,7 +742,7 @@ $tooltip-arrows-enabled: true !default;
 $tooltip-padding: 4px 8px !default;
 $tooltip-margin: 0 0 $arrow-size !default;
 
-$tooltip-transition: opacity $global-transition !default;
+$tooltip-transition: $global-transition !default;
 
 $tooltip-font-size: 14px !default;
 $tooltip-border-radius: $global-border-radius !default;

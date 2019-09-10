@@ -33,6 +33,8 @@ const Messages = {
     `Could not find accordion content block with id '${id}'; should match trigger with [data-target='${id}'].`,
 }
 
+const BASE_FONT_SIZE = 16
+
 export default class Accordion {
   constructor() {
     // events
@@ -88,8 +90,8 @@ export default class Accordion {
   // private
 
   _setup(instance) {
-    const buttonTargetId = dom.attr(instance, Selectors.DATA_TARGET)
-    const accordionId = dom.attr(instance, Selectors.DATA_PARENT)
+    const buttonTargetId = dom.getAttr(instance, Selectors.DATA_TARGET)
+    const accordionId = dom.getAttr(instance, Selectors.DATA_PARENT)
     const buttonContent = dom.find(`#${buttonTargetId}`)
 
     if (!accordionId) {
@@ -115,29 +117,29 @@ export default class Accordion {
 
     const buttonContentChildren = getFocusableElements(`#${buttonContent.id}`)
 
-    dom.attr(instance, Selectors.ARIA_CONTROLS, buttonTargetId)
-    dom.attr(buttonContent, Selectors.ARIA_LABELLEDBY, buttonId)
+    dom.setAttr(instance, Selectors.ARIA_CONTROLS, buttonTargetId)
+    dom.setAttr(buttonContent, Selectors.ARIA_LABELLEDBY, buttonId)
 
-    const contentShouldExpand = dom.attr(accordionRow, Selectors.DATA_VISIBLE)
+    const contentShouldExpand = dom.getAttr(accordionRow, Selectors.DATA_VISIBLE)
 
     if (!contentShouldExpand) {
       throw new Error(Messages.NO_VISIBLE_ERROR(buttonTargetId))
     }
 
     if (contentShouldExpand === "true") {
-      dom.css(buttonContent, "maxHeight", `${buttonContent.scrollHeight}px`)
-      dom.attr(instance, Selectors.ARIA_EXPANDED, "true")
-      dom.attr(buttonContent, Selectors.ARIA_HIDDEN, "false")
+      dom.css(buttonContent, "maxHeight", `${buttonContent.scrollHeight / BASE_FONT_SIZE}em`)
+      dom.setAttr(instance, Selectors.ARIA_EXPANDED, "true")
+      dom.setAttr(buttonContent, Selectors.ARIA_HIDDEN, "false")
 
       buttonContentChildren.forEach(element => {
-        dom.attr(element, Selectors.TABINDEX, "0")
+        dom.setAttr(element, Selectors.TABINDEX, "0")
       })
     } else {
-      dom.attr(instance, Selectors.ARIA_EXPANDED, "false")
-      dom.attr(buttonContent, Selectors.ARIA_HIDDEN, "true")
+      dom.setAttr(instance, Selectors.ARIA_EXPANDED, "false")
+      dom.setAttr(buttonContent, Selectors.ARIA_HIDDEN, "true")
 
       buttonContentChildren.forEach(element => {
-        dom.attr(element, Selectors.TABINDEX, "-1")
+        dom.setAttr(element, Selectors.TABINDEX, "-1")
       })
     }
   }
@@ -170,14 +172,14 @@ export default class Accordion {
   }
 
   _setVisibleState() {
-    const accordionButtonState = dom.attr(this._activeRow, Selectors.DATA_VISIBLE)
+    const accordionButtonState = dom.getAttr(this._activeRow, Selectors.DATA_VISIBLE)
     this._nextButtonExpandState = accordionButtonState === "true" ? "false" : "true"
     this._nextContentHiddenState = this._nextButtonExpandState === "false" ? "true" : "false"
   }
 
   _setIds() {
-    this._activeContainerId = dom.attr(this._activeButton, Selectors.DATA_PARENT)
-    this._activeAccordionRowId = dom.attr(this._activeButton, Selectors.DATA_TARGET)
+    this._activeContainerId = dom.getAttr(this._activeButton, Selectors.DATA_PARENT)
+    this._activeAccordionRowId = dom.getAttr(this._activeButton, Selectors.DATA_TARGET)
   }
 
   _setActiveContainer() {
@@ -223,23 +225,27 @@ export default class Accordion {
   }
 
   _toggleSelectedAccordion() {
-    dom.attr(this._activeRow, Selectors.DATA_VISIBLE, this._nextButtonExpandState)
-    dom.attr(this._activeButton, Selectors.ARIA_EXPANDED, this._nextButtonExpandState)
-    dom.attr(this._activeContent, Selectors.ARIA_HIDDEN, this._nextContentHiddenState)
+    dom.setAttr(this._activeRow, Selectors.DATA_VISIBLE, this._nextButtonExpandState)
+    dom.setAttr(this._activeButton, Selectors.ARIA_EXPANDED, this._nextButtonExpandState)
+    dom.setAttr(this._activeContent, Selectors.ARIA_HIDDEN, this._nextContentHiddenState)
 
     getFocusableElements(`#${this._activeAccordionRowId}`).forEach(element => {
       const value = this._nextButtonExpandState === "true" ? "0" : "-1"
-      dom.attr(element, Selectors.TABINDEX, value)
+      dom.setAttr(element, Selectors.TABINDEX, value)
     })
 
     if (dom.css(this._activeContent, "maxHeight")) {
       dom.css(this._activeContent, "maxHeight", null)
     } else {
-      dom.css(this._activeContent, "maxHeight", `${this._activeContent.scrollHeight}px`)
+      dom.css(
+        this._activeContent,
+        "maxHeight",
+        `${this._activeContent.scrollHeight / BASE_FONT_SIZE}em`
+      )
     }
   }
 
-  _toggleAttributeInCollection(elements, attributeName, newValue) {
-    elements.forEach(element => dom.attr(element, attributeName, newValue))
+  _toggleAttributeInCollection(elements, attributeName, value) {
+    elements.forEach(element => dom.setAttr(element, attributeName, value))
   }
 }

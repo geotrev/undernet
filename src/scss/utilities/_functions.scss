@@ -5,3 +5,13 @@
 @function breakpoint($name) {
   @return map-get($breakpoints, $name);
 }
+
+$base-em-font-size: 16px !default;
+
+@function em($pixels, $font-size: $base-em-font-size) {
+  @return #{$pixels / $font-size}em;
+}
+
+@function spacing($increment) {
+  @return map-get($spacing-increments, "#{$increment}");
+}

@@ -21,7 +21,7 @@
   position: absolute;
   display: block;
   opacity: 0;
-  transition: $tooltip-transition;
+  transition: opacity $tooltip-transition;
   pointer-events: none;
   word-wrap: break-word;
   white-space: nowrap;

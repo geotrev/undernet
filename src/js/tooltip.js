@@ -64,7 +64,7 @@ export default class Tooltip {
     if (!browserEnv) return
 
     this._allTooltips.forEach(instance => {
-      const id = dom.attr(instance, Selectors.DATA_TOOLTIP)
+      const id = dom.getAttr(instance, Selectors.DATA_TOOLTIP)
       const trigger = dom.find(this._getTrigger(id), instance)
 
       if (this._activeTooltip || this._activeTrigger) {
@@ -79,7 +79,7 @@ export default class Tooltip {
   // private
 
   _setup(instance) {
-    const tooltipId = dom.attr(instance, Selectors.DATA_TOOLTIP)
+    const tooltipId = dom.getAttr(instance, Selectors.DATA_TOOLTIP)
 
     if (!tooltipId) {
       throw new Error(Messages.NO_ID_ERROR)
@@ -96,8 +96,8 @@ export default class Tooltip {
       throw new Error(Messages.NO_TOOLTIP_ERROR(tooltipId))
     }
 
-    dom.attr(trigger, Selectors.ARIA_DESCRIBEDBY, tooltipId)
-    dom.attr(tooltip, Selectors.ROLE, "tooltip")
+    dom.setAttr(trigger, Selectors.ARIA_DESCRIBEDBY, tooltipId)
+    dom.setAttr(tooltip, Selectors.ROLE, "tooltip")
     trigger.addEventListener(Events.MOUSEOVER, this._render)
     trigger.addEventListener(Events.FOCUS, this._render)
   }
@@ -129,11 +129,11 @@ export default class Tooltip {
   }
 
   _setVisibleState() {
-    dom.attr(this._activeTooltip, Selectors.DATA_VISIBLE, "true")
+    dom.setAttr(this._activeTooltip, Selectors.DATA_VISIBLE, "true")
   }
 
   _setHideState() {
-    dom.attr(this._activeTooltip, Selectors.DATA_VISIBLE, "false")
+    dom.setAttr(this._activeTooltip, Selectors.DATA_VISIBLE, "false")
   }
 
   _startCloseEvents() {

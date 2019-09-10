@@ -101,7 +101,7 @@ exports[`Accordions #render -> Accordion Button Click (no toggle multiple) opens
         aria-labelledby="button-2"
         class="accordion-content"
         id="content-2"
-        style="max-height: 0px;"
+        style="max-height: 0em;"
       >
         
         
@@ -177,7 +177,7 @@ exports[`Accordions #render -> Accordion Button Click (toggle multiple) opens cl
         aria-labelledby="button-1"
         class="accordion-content"
         id="content-1"
-        style="max-height: 0px;"
+        style="max-height: 0em;"
       >
         
         
@@ -236,7 +236,7 @@ exports[`Accordions #render -> Accordion Button Click (toggle multiple) opens cl
         aria-labelledby="button-2"
         class="accordion-content"
         id="content-2"
-        style="max-height: 0px;"
+        style="max-height: 0em;"
       >
         
         
@@ -311,7 +311,7 @@ exports[`Accordions API start sets attributes 1`] = `
         aria-labelledby="button-1"
         class="accordion-content"
         id="content-1"
-        style="max-height: 0px;"
+        style="max-height: 0em;"
       >
         
         
