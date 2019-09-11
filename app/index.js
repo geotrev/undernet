@@ -8,6 +8,17 @@ if (!modernBrowser) {
   polyfills.push(import(/* webpackChunkName: "polyfill" */ "core-js/stable"))
 }
 
+// Tell prerender.io we're ready to prerender
+const readyToPrerender = () => {
+  window.prerenderReady = true
+}
+
+const importApp = () => {
+  return import(/* webpackChunkName: "app" */ "./app")
+    .then(() => readyToPrerender())
+    .catch(error => console.error("Polyfills were resolved but the app was not.", error))
+}
+
 Promise.all(polyfills)
-  .then(() => import(/* webpackChunkName: "app" */ "./app"))
-  .catch(error => console.error("Uh oh! Polyfills couldn't load!", error))
+  .then(importApp)
+  .catch(error => console.error("Polyfills could not load.", error))
