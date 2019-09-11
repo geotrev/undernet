@@ -24,7 +24,9 @@ exports[`<Nav /> renders 1`] = `
       }
     }
   >
-    <GlobalNav>
+    <GlobalNav
+      handleMainFocusClick={[MockFunction]}
+    >
       <nav
         className="fluid grid"
         id="global-nav"
@@ -57,6 +59,14 @@ exports[`<Nav /> renders 1`] = `
             <ul
               className="row"
             >
+              <li>
+                <button
+                  className="is-visually-hidden-focusable"
+                  onClick={[MockFunction]}
+                >
+                  Skip to main content
+                </button>
+              </li>
               <li>
                 <a
                   className="has-feather"

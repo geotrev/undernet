@@ -205,6 +205,9 @@ module.exports = {
     // react
     "react/display-name": ERROR,
 
+    // jsx-a11y
+    "jsx-a11y/no-noninteractive-element-interactions": OFF,
+
     // used for undernet only
     "no-console": OFF,
   },

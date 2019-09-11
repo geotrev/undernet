@@ -2,12 +2,13 @@ import React from "react"
 import Github from "react-feather/dist/icons/github"
 import Twitter from "react-feather/dist/icons/twitter"
 import { Link } from "react-router-dom"
+import PropTypes from "prop-types"
 
 import { introductionPath } from "app/routes"
 import Logo from "app/assets/images/un-logo.png"
 import "./styles.scss"
 
-export default function GlobalNav() {
+export default function GlobalNav(props) {
   return (
     <nav id="global-nav" className="fluid grid">
       <ul className="nav-list row has-no-padding">
@@ -18,6 +19,11 @@ export default function GlobalNav() {
         </li>
         <li className="small-7 xsmall-12 columns">
           <ul className="row">
+            <li>
+              <button className="is-visually-hidden-focusable" onClick={props.handleMainFocusClick}>
+                Skip to main content
+              </button>
+            </li>
             <li>
               <a className="has-feather" href="https://www.twitter.com/gwtrev">
                 <Twitter role="presentation" focusable="false" />
@@ -40,4 +46,8 @@ export default function GlobalNav() {
       </ul>
     </nav>
   )
+}
+
+GlobalNav.propTypes = {
+  handleMainFocusClick: PropTypes.func.isRequired,
 }

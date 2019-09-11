@@ -5,7 +5,7 @@ import { BrowserRouter as Router } from "react-router-dom"
 function NavComponent() {
   return mount(
     <Router>
-      <GlobalNav />
+      <GlobalNav handleMainFocusClick={jest.fn()} />
     </Router>
   )
 }
