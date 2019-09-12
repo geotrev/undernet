@@ -44,7 +44,7 @@ describe("<Article />", () => {
     })
   })
 
-  describe("#componentWillMount", () => {
+  describe("#componentDidMount", () => {
     it("calls Prism.highlightAll on mount", () => {
       // Given
       mountComponent()
