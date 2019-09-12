@@ -11,11 +11,18 @@ export default function Footer(props) {
       <div className="row">
         <div className="has-no-padding column">
           <p className="has-center-text has-gray900-text">
-            Undernet is front-end framework created and maintained by{" "}
+            Undernet is a front-end framework created and maintained by{" "}
             <a className="has-white-text" href="http://www.geotrev.com">
               George Treviranus
             </a>
             .
+          </p>
+          <p className="has-center-text has-gray900-text">
+            Animations provided by{" "}
+            <a className="has-white-text" href="https://folgert.com/">
+              Gavin Folgert
+            </a>
+            . ❤️
           </p>
           <ul className="has-center-text has-gray900-text is-unstyled-list is-flex-row is-flex is-justified-center">
             <li role="none">

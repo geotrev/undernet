@@ -110,11 +110,6 @@ export default class Home extends React.Component {
             <div className="column has-no-padding">
               <div className="wide grid">
                 <ul className="row is-unstyled-list has-no-padding">{this.renderAnimations()}</ul>
-                <div className="row has-padding-top-3">
-                  <p className="column has-center-text has-white-text credit-text">
-                    Animations provided by <a href="https://folgert.com/">Gavin Folgert</a>. ❤️
-                  </p>
-                </div>
               </div>
             </div>
           </div>

@@ -235,21 +235,6 @@ exports[`<Home /> renders 1`] = `
                         </p>
                       </li>
                     </ul>
-                    <div
-                      className="row has-padding-top-3"
-                    >
-                      <p
-                        className="column has-center-text has-white-text credit-text"
-                      >
-                        Animations provided by 
-                        <a
-                          href="https://folgert.com/"
-                        >
-                          Gavin Folgert
-                        </a>
-                        . ❤️
-                      </p>
-                    </div>
                   </div>
                 </div>
               </div>
