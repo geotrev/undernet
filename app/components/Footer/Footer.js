@@ -18,14 +18,19 @@ export default function Footer(props) {
             .
           </p>
           <ul className="has-center-text has-gray900-text is-unstyled-list is-flex-row is-flex is-justified-center">
-            <li>
-              <a className="has-white-text has-feather" href="https://www.twitter.com/gwtrev">
+            <li role="none">
+              <a
+                role="listitem"
+                className="has-white-text has-feather"
+                href="https://www.twitter.com/gwtrev"
+              >
                 <Twitter role="presentation" focusable="false" />
                 <span className="is-visually-hidden">Open link to www.twitter.com/gwtrev</span>
               </a>
             </li>
-            <li>
+            <li role="none">
               <a
+                role="listitem"
                 className="has-white-text has-feather"
                 href="https://www.github.com/geotrev/undernet"
               >
@@ -35,10 +40,11 @@ export default function Footer(props) {
                 </span>
               </a>
             </li>
-            <li>
+            <li role="none">
               <button
                 className="is-visually-hidden-focusable"
                 onClick={props.handleHeaderFocusClick}
+                role="listitem"
               >
                 Return to top of page
               </button>

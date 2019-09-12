@@ -29,10 +29,13 @@ exports[`<Footer /> renders 1`] = `
         <ul
           className="has-center-text has-gray900-text is-unstyled-list is-flex-row is-flex is-justified-center"
         >
-          <li>
+          <li
+            role="none"
+          >
             <a
               className="has-white-text has-feather"
               href="https://www.twitter.com/gwtrev"
+              role="listitem"
             >
               <Twitter
                 focusable="false"
@@ -45,10 +48,13 @@ exports[`<Footer /> renders 1`] = `
               </span>
             </a>
           </li>
-          <li>
+          <li
+            role="none"
+          >
             <a
               className="has-white-text has-feather"
               href="https://www.github.com/geotrev/undernet"
+              role="listitem"
             >
               <Github
                 focusable="false"
@@ -61,10 +67,13 @@ exports[`<Footer /> renders 1`] = `
               </span>
             </a>
           </li>
-          <li>
+          <li
+            role="none"
+          >
             <button
               className="is-visually-hidden-focusable"
               onClick={[MockFunction]}
+              role="listitem"
             >
               Return to top of page
             </button>

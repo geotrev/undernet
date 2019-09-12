@@ -42,6 +42,7 @@ exports[`<Main /> #render renders 1`] = `
             >
               <li
                 className="small-5 xsmall-12 columns"
+                role="none"
               >
                 <Link
                   className="logo"
@@ -61,22 +62,29 @@ exports[`<Main /> #render renders 1`] = `
               </li>
               <li
                 className="small-7 xsmall-12 columns"
+                role="none"
               >
                 <ul
                   className="row"
                 >
-                  <li>
+                  <li
+                    role="none"
+                  >
                     <button
                       className="is-visually-hidden-focusable"
                       onClick={[Function]}
+                      role="listitem"
                     >
                       Skip to main content
                     </button>
                   </li>
-                  <li>
+                  <li
+                    role="none"
+                  >
                     <a
                       className="has-feather"
                       href="https://www.twitter.com/gwtrev"
+                      role="listitem"
                     >
                       <Twitter
                         color="currentColor"
@@ -109,10 +117,13 @@ exports[`<Main /> #render renders 1`] = `
                       </span>
                     </a>
                   </li>
-                  <li>
+                  <li
+                    role="none"
+                  >
                     <a
                       className="has-feather"
                       href="https://www.github.com/geotrev/undernet"
+                      role="listitem"
                     >
                       <GitHub
                         color="currentColor"
@@ -145,13 +156,17 @@ exports[`<Main /> #render renders 1`] = `
                       </span>
                     </a>
                   </li>
-                  <li>
+                  <li
+                    role="none"
+                  >
                     <Link
+                      role="listitem"
                       to="/docs/overview/introduction"
                     >
                       <a
                         href="/docs/overview/introduction"
                         onClick={[Function]}
+                        role="listitem"
                       >
                         Documentation
                       </a>
@@ -260,10 +275,13 @@ exports[`<Main /> #render renders 1`] = `
                 <ul
                   className="has-center-text has-gray900-text is-unstyled-list is-flex-row is-flex is-justified-center"
                 >
-                  <li>
+                  <li
+                    role="none"
+                  >
                     <a
                       className="has-white-text has-feather"
                       href="https://www.twitter.com/gwtrev"
+                      role="listitem"
                     >
                       <Twitter
                         color="currentColor"
@@ -296,10 +314,13 @@ exports[`<Main /> #render renders 1`] = `
                       </span>
                     </a>
                   </li>
-                  <li>
+                  <li
+                    role="none"
+                  >
                     <a
                       className="has-white-text has-feather"
                       href="https://www.github.com/geotrev/undernet"
+                      role="listitem"
                     >
                       <GitHub
                         color="currentColor"
@@ -332,10 +353,13 @@ exports[`<Main /> #render renders 1`] = `
                       </span>
                     </a>
                   </li>
-                  <li>
+                  <li
+                    role="none"
+                  >
                     <button
                       className="is-visually-hidden-focusable"
                       onClick={[Function]}
+                      role="listitem"
                     >
                       Return to top of page
                     </button>

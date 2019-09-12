@@ -12,34 +12,44 @@ export default function GlobalNav(props) {
   return (
     <nav id="global-nav" className="fluid grid">
       <ul className="nav-list row has-no-padding">
-        <li className="small-5 xsmall-12 columns">
+        <li className="small-5 xsmall-12 columns" role="none">
           <Link to="/" className="logo">
             <img src={Logo} alt="Undernet" />
           </Link>
         </li>
-        <li className="small-7 xsmall-12 columns">
+        <li className="small-7 xsmall-12 columns" role="none">
           <ul className="row">
-            <li>
-              <button className="is-visually-hidden-focusable" onClick={props.handleMainFocusClick}>
+            <li role="none">
+              <button
+                role="listitem"
+                className="is-visually-hidden-focusable"
+                onClick={props.handleMainFocusClick}
+              >
                 Skip to main content
               </button>
             </li>
-            <li>
-              <a className="has-feather" href="https://www.twitter.com/gwtrev">
+            <li role="none">
+              <a className="has-feather" href="https://www.twitter.com/gwtrev" role="listitem">
                 <Twitter role="presentation" focusable="false" />
                 <span className="is-visually-hidden">Open link to www.twitter.com/gwtrev</span>
               </a>
             </li>
-            <li>
-              <a className="has-feather" href="https://www.github.com/geotrev/undernet">
+            <li role="none">
+              <a
+                className="has-feather"
+                href="https://www.github.com/geotrev/undernet"
+                role="listitem"
+              >
                 <Github role="presentation" focusable="false" />
                 <span className="is-visually-hidden">
                   Open link to www.github.com/geotrev/undernet
                 </span>
               </a>
             </li>
-            <li>
-              <Link to={introductionPath}>Documentation</Link>
+            <li role="none">
+              <Link to={introductionPath} role="listitem">
+                Documentation
+              </Link>
             </li>
           </ul>
         </li>
