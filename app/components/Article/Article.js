@@ -10,26 +10,30 @@ import ScrollUpOnMount from "app/components/ScrollUpOnMount"
 export default class Article extends React.Component {
   constructor() {
     super()
+
     this.state = {
       domIsLoaded: false,
     }
   }
+
+  COMPONENTS = ["Tooltips", "Accordions", "Modals", "Dropdowns"]
 
   static propTypes = {
     children: PropTypes.any,
   }
 
   componentDidMount() {
-    Undernet.start()
     Prism.highlightAll()
 
-    this.setState({
-      domIsLoaded: true,
-    })
+    // initialize all Undernet components
+    // DO NOT init focus outline - it is set up in layouts/Main
+    this.COMPONENTS.forEach(component => Undernet[component].start())
+
+    this.setState({ domIsLoaded: true })
   }
 
   componentWillUnmount() {
-    Undernet.stop()
+    this.COMPONENTS.forEach(component => Undernet[component].stop())
   }
 
   render() {

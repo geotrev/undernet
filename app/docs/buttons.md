@@ -91,7 +91,7 @@ Also in the same map as `$button-types`, you can find status buttons. By default
 
 ## Links
 
-Add styles for your regular anchor links. Use the helper class `link` to style text as a link.
+Control the look and feel of your links as well. They don't require any modifier classes.
 
 <a href="#0">Just a link!</a>
 

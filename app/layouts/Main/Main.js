@@ -14,8 +14,8 @@ import "./styles.scss"
 import { FOCUSABLE_TABINDEX, UNFOCUSABLE_TABINDEX } from "./constants"
 
 export default class Main extends React.Component {
-  constructor(props) {
-    super(props)
+  constructor() {
+    super()
 
     this.state = {
       headerTabIndex: UNFOCUSABLE_TABINDEX,
@@ -28,6 +28,10 @@ export default class Main extends React.Component {
 
   componentDidMount() {
     ContextUtil.enableFocusOutline()
+  }
+
+  componentWillUnmount() {
+    ContextUtil.disableFocusOutline()
   }
 
   handleHeaderFocusClick = event => {
