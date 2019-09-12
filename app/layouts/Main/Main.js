@@ -65,7 +65,7 @@ export default class Main extends React.Component {
           tabIndex={headerTabIndex}
           ref={this.headerRef}
           onBlur={this.handleHeaderBlur}
-          role="heading"
+          role="banner"
         >
           <GlobalNav handleMainFocusClick={this.handleMainFocusClick} />
         </header>

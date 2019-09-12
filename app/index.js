@@ -1,8 +1,7 @@
 import "core-js/features/promise"
 
 const polyfills = []
-const modernBrowser =
-  "assign" in Object && typeof Promise === "function" && typeof Symbol === "function"
+const modernBrowser = "assign" in Object && "from" in Array && "fetch" in window
 
 if (!modernBrowser) {
   polyfills.push(import(/* webpackChunkName: "polyfill" */ "core-js/stable"))

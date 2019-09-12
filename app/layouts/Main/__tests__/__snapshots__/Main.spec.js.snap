@@ -27,7 +27,7 @@ exports[`<Main /> #render renders 1`] = `
     <Main>
       <header
         onBlur={[Function]}
-        role="heading"
+        role="banner"
         tabIndex={null}
       >
         <GlobalNav
