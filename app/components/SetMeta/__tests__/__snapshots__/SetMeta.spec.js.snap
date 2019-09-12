@@ -3,6 +3,7 @@
 exports[`<SetMeta /> renders 1`] = `
 <SetMeta
   description="Test description"
+  pageNotFound={false}
   title="Test title"
 >
   <HelmetWrapper
@@ -58,6 +59,86 @@ exports[`<SetMeta /> renders 1`] = `
           ]
         }
         title="Test title"
+        titleAttributes={
+          Object {
+            "itemprop": "name",
+            "lang": "en",
+          }
+        }
+        titleTemplate="Undernet – %s"
+      />
+    </SideEffect(NullComponent)>
+  </HelmetWrapper>
+</SetMeta>
+`;
+
+exports[`<SetMeta /> renders with pageNotFound state 1`] = `
+<SetMeta
+  description=""
+  pageNotFound={true}
+  title="Page Not Found"
+>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+    titleTemplate="Undernet – %s"
+  >
+    <SideEffect(NullComponent)
+      defer={true}
+      encodeSpecialCharacters={true}
+      link={
+        Array [
+          Object {
+            "href": "http://localhost/",
+            "rel": "canonical",
+          },
+        ]
+      }
+      meta={
+        Array [
+          Object {
+            "content": "",
+            "name": "description",
+          },
+          Object {
+            "content": "404",
+            "name": "prerender-status-code",
+          },
+        ]
+      }
+      title="Page Not Found"
+      titleAttributes={
+        Object {
+          "itemprop": "name",
+          "lang": "en",
+        }
+      }
+      titleTemplate="Undernet – %s"
+    >
+      <NullComponent
+        defer={true}
+        encodeSpecialCharacters={true}
+        link={
+          Array [
+            Object {
+              "href": "http://localhost/",
+              "rel": "canonical",
+            },
+          ]
+        }
+        meta={
+          Array [
+            Object {
+              "content": "",
+              "name": "description",
+            },
+            Object {
+              "content": "404",
+              "name": "prerender-status-code",
+            },
+          ]
+        }
+        title="Page Not Found"
         titleAttributes={
           Object {
             "itemprop": "name",

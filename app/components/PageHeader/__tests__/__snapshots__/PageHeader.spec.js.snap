@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<PageHeader /> renders 1`] = `
+exports[`<PageHeader /> #render renders 1`] = `
 <BrowserRouter>
   <Router
     history={
@@ -64,8 +64,11 @@ exports[`<PageHeader /> renders 1`] = `
         }
         watchOnlyPathname={false}
       >
-        <withRouter(WithLastLocation(PageHeader))>
+        <withRouter(WithLastLocation(PageHeader))
+          className="test"
+        >
           <WithLastLocation(PageHeader)
+            className="test"
             history={
               Object {
                 "action": "POP",
@@ -104,6 +107,7 @@ exports[`<PageHeader /> renders 1`] = `
             }
           >
             <PageHeader
+              className="test"
               history={
                 Object {
                   "action": "POP",
@@ -143,6 +147,8 @@ exports[`<PageHeader /> renders 1`] = `
               }
             >
               <h1
+                className="test"
+                onBlur={[Function]}
                 tabIndex={null}
               >
                 Test Header

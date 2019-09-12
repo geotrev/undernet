@@ -5,6 +5,9 @@ exports[`<PageNotFound /> renders 1`] = `
   <div
     className="has-padding-4 has-center-text"
   >
+    <SetMeta
+      pageNotFound={true}
+    />
     <h1>
       Sorry, that page doesn't exist. :(
     </h1>

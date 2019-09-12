@@ -3,51 +3,75 @@ import Article from "../Article"
 import Undernet from "undernet"
 import Prism from "prismjs"
 
+jest.mock("app/components/ScrollUpOnMount", () => global.simpleMock("ScrollUpOnMount"))
+
 global.scrollTo = jest.fn()
 
-jest.mock("undernet", () => ({
-  start: jest.fn(),
-  stop: jest.fn(),
-}))
+const components = ["Tooltips", "Accordions", "Modals", "Dropdowns"]
+
+components.forEach(component => {
+  Undernet[component].start = jest.fn()
+  Undernet[component].stop = jest.fn()
+})
 
 jest.mock("prismjs", () => ({
   highlightAll: jest.fn(),
 }))
 
+const mountComponent = () => {
+  const md = "# Test header \n So neat"
+  return mount(<Article>{md}</Article>)
+}
+
 describe("<Article />", () => {
-  let wrapper
-  beforeEach(() => {
-    const md = "# Test header \n So neat"
-    wrapper = mount(<Article>{md}</Article>)
-  })
+  describe("#render", () => {
+    it("renders", () => {
+      // Given
+      const wrapper = mountComponent()
+      // Then
+      expect(wrapper).toMatchSnapshot()
+    })
 
-  it("renders", () => {
-    expect(wrapper).toMatchSnapshot()
-  })
-
-  it("calls window.scrollTo on mount", () => {
-    expect(window.scrollTo).toHaveBeenCalledWith(0, 0)
-  })
-
-  it("calls Prism.highlightAll on mount", () => {
-    expect(Prism.highlightAll).toHaveBeenCalled()
-  })
-
-  it("starts Undernet on mount", () => {
-    expect(Undernet.start).toHaveBeenCalled()
-  })
-
-  it("stops Undernet on unmount", () => {
-    wrapper.unmount()
-    expect(Undernet.stop).toHaveBeenCalled()
-  })
-
-  it("sets fadeIn class on wrapper on mount", () => {
-    expect(
-      wrapper
+    it("sets fadeIn class on wrapper on mount", () => {
+      // Given
+      const wrapper = mountComponent()
+      // Then
+      const fadeInClassIsPresent = wrapper
         .find("article")
         .prop("className")
         .includes("fadeIn")
-    ).toBe(true)
+      expect(fadeInClassIsPresent).toBe(true)
+    })
+  })
+
+  describe("#componentDidMount", () => {
+    it("calls Prism.highlightAll on mount", () => {
+      // Given
+      mountComponent()
+      // Then
+      expect(Prism.highlightAll).toHaveBeenCalled()
+    })
+
+    components.forEach(component => {
+      it(`calls Undernet.${component}.start`, () => {
+        // Given
+        mountComponent()
+        // Then
+        expect(Undernet[component].start).toHaveBeenCalled()
+      })
+    })
+  })
+
+  describe("#componentWillUnmount", () => {
+    components.forEach(component => {
+      it(`calls Undernet.${component}.stop`, () => {
+        // Given
+        const wrapper = mountComponent()
+        // When
+        wrapper.unmount()
+        // Then
+        expect(Undernet[component].stop).toHaveBeenCalled()
+      })
+    })
   })
 })

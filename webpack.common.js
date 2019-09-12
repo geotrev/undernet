@@ -47,7 +47,18 @@ module.exports = {
         include: [path.resolve(__dirname, "src"), path.resolve(__dirname, "app")],
       },
       {
-        test: /\.(ico|png|jpe?g|gif|eot|svg|ttf|woff2?|otf)$/,
+        test: /\.(png|jpe?g|svg|gif)$/i,
+        use: [
+          {
+            loader: "url-loader",
+            options: {
+              limit: 8192,
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(ico|eot|ttf|woff2?|otf)$/,
         use: [
           {
             loader: "file-loader",

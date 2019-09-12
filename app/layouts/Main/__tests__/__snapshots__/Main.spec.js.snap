@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Main /> renders 1`] = `
+exports[`<Main /> #render renders 1`] = `
 <BrowserRouter>
   <Router
     history={
@@ -25,14 +25,14 @@ exports[`<Main /> renders 1`] = `
     }
   >
     <Main>
-      <button
-        className="is-visually-hidden"
-        onClick={[Function]}
+      <header
+        onBlur={[Function]}
+        role="banner"
+        tabIndex={null}
       >
-        Skip to main content
-      </button>
-      <header>
-        <GlobalNav>
+        <GlobalNav
+          handleMainFocusClick={[Function]}
+        >
           <nav
             className="fluid grid"
             id="global-nav"
@@ -42,6 +42,7 @@ exports[`<Main /> renders 1`] = `
             >
               <li
                 className="small-5 xsmall-12 columns"
+                role="none"
               >
                 <Link
                   className="logo"
@@ -61,39 +62,34 @@ exports[`<Main /> renders 1`] = `
               </li>
               <li
                 className="small-7 xsmall-12 columns"
+                role="none"
               >
                 <ul
                   className="row"
                 >
-                  <li>
+                  <li
+                    role="none"
+                  >
+                    <button
+                      className="is-visually-hidden-focusable"
+                      onClick={[Function]}
+                      role="listitem"
+                    >
+                      Skip to main content
+                    </button>
+                  </li>
+                  <li
+                    role="none"
+                  >
                     <a
                       className="has-feather"
                       href="https://www.twitter.com/gwtrev"
+                      role="listitem"
                     >
                       <Twitter
-                        color="currentColor"
                         focusable="false"
                         role="presentation"
-                        size="24"
-                      >
-                        <svg
-                          fill="none"
-                          focusable="false"
-                          height="24"
-                          role="presentation"
-                          stroke="currentColor"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          viewBox="0 0 24 24"
-                          width="24"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"
-                          />
-                        </svg>
-                      </Twitter>
+                      />
                       <span
                         className="is-visually-hidden"
                       >
@@ -101,35 +97,18 @@ exports[`<Main /> renders 1`] = `
                       </span>
                     </a>
                   </li>
-                  <li>
+                  <li
+                    role="none"
+                  >
                     <a
                       className="has-feather"
                       href="https://www.github.com/geotrev/undernet"
+                      role="listitem"
                     >
-                      <GitHub
-                        color="currentColor"
+                      <Github
                         focusable="false"
                         role="presentation"
-                        size="24"
-                      >
-                        <svg
-                          fill="none"
-                          focusable="false"
-                          height="24"
-                          role="presentation"
-                          stroke="currentColor"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          viewBox="0 0 24 24"
-                          width="24"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
-                          />
-                        </svg>
-                      </GitHub>
+                      />
                       <span
                         className="is-visually-hidden"
                       >
@@ -137,13 +116,17 @@ exports[`<Main /> renders 1`] = `
                       </span>
                     </a>
                   </li>
-                  <li>
+                  <li
+                    role="none"
+                  >
                     <Link
+                      role="listitem"
                       to="/docs/overview/introduction"
                     >
                       <a
                         href="/docs/overview/introduction"
                         onClick={[Function]}
+                        role="listitem"
                       >
                         Documentation
                       </a>
@@ -155,7 +138,11 @@ exports[`<Main /> renders 1`] = `
           </nav>
         </GlobalNav>
       </header>
-      <main>
+      <main
+        onBlur={[Function]}
+        role="main"
+        tabIndex={null}
+      >
         <Switch>
           <Route
             component={[Function]}
@@ -220,7 +207,9 @@ exports[`<Main /> renders 1`] = `
         </Switch>
       </main>
       <footer>
-        <Footer>
+        <Footer
+          handleHeaderFocusClick={[Function]}
+        >
           <div
             className="footer-wrapper small-section fluid grid"
           >
@@ -233,7 +222,7 @@ exports[`<Main /> renders 1`] = `
                 <p
                   className="has-center-text has-gray900-text"
                 >
-                  Undernet is front-end framework created and maintained by
+                  Undernet is a front-end framework created and maintained by
                    
                   <a
                     className="has-white-text"
@@ -246,85 +235,73 @@ exports[`<Main /> renders 1`] = `
                 <p
                   className="has-center-text has-gray900-text"
                 >
+                  Animations provided by
+                   
                   <a
-                    className="has-white-text has-feather"
-                    href="https://www.twitter.com/gwtrev"
+                    className="has-white-text"
+                    href="https://folgert.com/"
                   >
-                    <Twitter
-                      color="currentColor"
-                      focusable="false"
-                      role="presentation"
-                      size="24"
-                    >
-                      <svg
-                        fill="none"
-                        focusable="false"
-                        height="24"
-                        role="presentation"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        viewBox="0 0 24 24"
-                        width="24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"
-                        />
-                      </svg>
-                    </Twitter>
-                    <span
-                      className="is-visually-hidden"
-                    >
-                      Open link to www.twitter.com/gwtrev
-                    </span>
+                    Gavin Folgert
                   </a>
-                  <a
-                    className="has-white-text has-feather"
-                    href="https://www.github.com/geotrev/undernet"
-                  >
-                    <GitHub
-                      color="currentColor"
-                      focusable="false"
-                      role="presentation"
-                      size="24"
-                    >
-                      <svg
-                        fill="none"
-                        focusable="false"
-                        height="24"
-                        role="presentation"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        viewBox="0 0 24 24"
-                        width="24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
-                        />
-                      </svg>
-                    </GitHub>
-                    <span
-                      className="is-visually-hidden"
-                    >
-                      Open link to www.github.com/geotrev/undernet
-                    </span>
-                  </a>
+                  . ❤️
                 </p>
+                <ul
+                  className="has-center-text has-gray900-text is-unstyled-list is-flex-row is-flex is-justified-center"
+                >
+                  <li
+                    role="none"
+                  >
+                    <a
+                      className="has-white-text has-feather"
+                      href="https://www.twitter.com/gwtrev"
+                      role="listitem"
+                    >
+                      <Twitter
+                        focusable="false"
+                        role="presentation"
+                      />
+                      <span
+                        className="is-visually-hidden"
+                      >
+                        Open link to www.twitter.com/gwtrev
+                      </span>
+                    </a>
+                  </li>
+                  <li
+                    role="none"
+                  >
+                    <a
+                      className="has-white-text has-feather"
+                      href="https://www.github.com/geotrev/undernet"
+                      role="listitem"
+                    >
+                      <Github
+                        focusable="false"
+                        role="presentation"
+                      />
+                      <span
+                        className="is-visually-hidden"
+                      >
+                        Open link to www.github.com/geotrev/undernet
+                      </span>
+                    </a>
+                  </li>
+                  <li
+                    role="none"
+                  >
+                    <button
+                      className="is-visually-hidden-focusable"
+                      onClick={[Function]}
+                      role="listitem"
+                    >
+                      Return to top of page
+                    </button>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
         </Footer>
-        <button
-          className="is-visually-hidden"
-          onClick={[Function]}
-        >
-          Return to top of page
-        </button>
       </footer>
     </Main>
   </Router>
