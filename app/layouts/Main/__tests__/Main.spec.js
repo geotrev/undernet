@@ -6,6 +6,8 @@ jest.mock("app/pages/Home", () => global.simpleMock("Home"))
 jest.mock("app/pages/Docs", () => global.simpleMock("Docs"))
 jest.mock("app/components/PageNotFound", () => global.simpleMock("PageNotFound"))
 
+import { UNFOCUSABLE_TABINDEX } from "../constants"
+
 const mountComponent = () => {
   return mount(
     <Router>
@@ -41,7 +43,7 @@ describe("<Main />", () => {
       wrapper.find("footer .is-visually-hidden-focusable").simulate("click")
       header.simulate("blur")
       // Then
-      expect(header.props().tabIndex).toEqual(null)
+      expect(header.props().tabIndex).toEqual(UNFOCUSABLE_TABINDEX)
     })
   })
 
@@ -59,12 +61,12 @@ describe("<Main />", () => {
     it("sets [tabindex] of main tag to null when blurred", () => {
       // Given
       const wrapper = mountComponent()
-      const main = wrapper.find("header")
+      const main = wrapper.find("main")
       // When
       wrapper.find("footer .is-visually-hidden-focusable").simulate("click")
       main.simulate("blur")
       // Then
-      expect(main.props().tabIndex).toEqual(null)
+      expect(main.props().tabIndex).toEqual(UNFOCUSABLE_TABINDEX)
     })
   })
 })

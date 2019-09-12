@@ -11,13 +11,15 @@ import Docs from "app/pages/Docs"
 
 import "./styles.scss"
 
+import { FOCUSABLE_TABINDEX, UNFOCUSABLE_TABINDEX } from "./constants"
+
 export default class Main extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      headerTabIndex: null,
-      mainTabIndex: null,
+      headerTabIndex: UNFOCUSABLE_TABINDEX,
+      mainTabIndex: UNFOCUSABLE_TABINDEX,
     }
 
     this.headerRef = React.createRef()
@@ -31,7 +33,7 @@ export default class Main extends React.Component {
   handleHeaderFocusClick = event => {
     event.preventDefault()
 
-    this.setState({ headerTabIndex: "-1" }, () => {
+    this.setState({ headerTabIndex: FOCUSABLE_TABINDEX }, () => {
       this.headerRef.current.focus()
     })
   }
@@ -39,19 +41,19 @@ export default class Main extends React.Component {
   handleMainFocusClick = event => {
     event.preventDefault()
 
-    this.setState({ mainTabIndex: "-1" }, () => {
+    this.setState({ mainTabIndex: FOCUSABLE_TABINDEX }, () => {
       this.mainRef.current.focus()
     })
   }
 
   handleHeaderBlur = () => {
-    if (this.state.headerTabIndex === null) return
-    this.setState({ headerTabIndex: null })
+    if (this.state.headerTabIndex === UNFOCUSABLE_TABINDEX) return
+    this.setState({ headerTabIndex: UNFOCUSABLE_TABINDEX })
   }
 
   handleMainBlur = () => {
-    if (this.state.mainTabIndex === null) return
-    this.setState({ mainTabIndex: null })
+    if (this.state.mainTabIndex === UNFOCUSABLE_TABINDEX) return
+    this.setState({ mainTabIndex: UNFOCUSABLE_TABINDEX })
   }
 
   render() {
