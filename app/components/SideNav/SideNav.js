@@ -16,10 +16,10 @@ export default class SideNav extends React.Component {
   constructor(props) {
     super(props)
     this.handleMenuVisibility = throttle(this.handleMenuVisibility, 50)
-  }
 
-  state = {
-    menuIsOpen: window.innerWidth > MENU_COLLAPSE_WIDTH,
+    this.state = {
+      menuIsOpen: window.innerWidth > MENU_COLLAPSE_WIDTH,
+    }
   }
 
   static propTypes = {
@@ -49,6 +49,13 @@ export default class SideNav extends React.Component {
   componentWillUnmount() {
     window.removeEventListener("resize", this.handleMenuVisibility)
     Accordions.stop()
+  }
+
+  componentDidUpdate(_, prevState) {
+    if (prevState.menuIsOpen !== this.state.menuIsOpen) {
+      Accordions.stop()
+      Accordions.start()
+    }
   }
 
   handleCollapseClick = () => {
