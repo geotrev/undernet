@@ -1,26 +1,29 @@
 import React, { useState, useEffect } from "react"
-import PropTypes from "prop-types"
 import classNames from "classnames"
 import throttle from "lodash/throttle"
 import { NavLink } from "react-router-dom"
 import Menu from "react-feather/dist/icons/menu"
 import ChevronRight from "react-feather/dist/icons/chevron-right"
 
+import { NAV_DATA } from "app/components/SideNav/navData"
 import { Accordions } from "undernet"
 import "./styles.scss"
 
 const pkg = require("projectRoot/package.json")
 const MENU_COLLAPSE_WIDTH = 1199
 
-export default function SideNav(props) {
+export default function SideNav() {
+  // set up effects and state
+
   const getWindowInnerWidth = () => {
     return window.innerWidth
   }
 
-  const [menuIsOpen, setMenuIsOpen] = useState(getWindowInnerWidth() > MENU_COLLAPSE_WIDTH)
+  const isLargerThanCollapseWidth = getWindowInnerWidth() > MENU_COLLAPSE_WIDTH
+  const [menuIsOpen, setMenuIsOpen] = useState(isLargerThanCollapseWidth)
 
   let handleMenuVisibility = () => {
-    if (getWindowInnerWidth() > MENU_COLLAPSE_WIDTH) {
+    if (isLargerThanCollapseWidth) {
       setMenuIsOpen(true)
     }
   }
@@ -30,7 +33,7 @@ export default function SideNav(props) {
   useEffect(() => {
     Accordions.start()
     window.addEventListener("resize", handleMenuVisibility)
-    setMenuIsOpen(getWindowInnerWidth() > MENU_COLLAPSE_WIDTH)
+    setMenuIsOpen(isLargerThanCollapseWidth)
 
     return () => {
       window.removeEventListener("resize", handleMenuVisibility)
@@ -43,7 +46,7 @@ export default function SideNav(props) {
     Accordions.start()
   }, [menuIsOpen])
 
-  // handlers
+  // set up handlers
 
   const handleCollapseClick = () => {
     if (getWindowInnerWidth() <= MENU_COLLAPSE_WIDTH) {
@@ -79,6 +82,8 @@ export default function SideNav(props) {
 
     return isActive
   }
+
+  // render content
 
   const renderAccordionChildLink = item => {
     return (
@@ -119,12 +124,12 @@ export default function SideNav(props) {
   }
 
   const renderNavAccordion = () => {
-    return props.navItems.map((section, i) => {
+    return NAV_DATA.map((section, i) => {
       return (
         <div
           data-visible={accordionIsActive(section.links) ? "true" : "false"}
           data-accordion-row={`nav-acc-content${i}`}
-          className={classNames("accordion-row", props.navListClasses)}
+          className="accordion-row xsmall-12 columns has-no-padding"
           key={section.links[0].url}
         >
           {renderAccordionRow(section, i)}
@@ -157,19 +162,4 @@ export default function SideNav(props) {
       </div>
     </div>
   )
-}
-
-SideNav.propTypes = {
-  navItems: PropTypes.arrayOf(
-    PropTypes.shape({
-      header: PropTypes.string,
-      links: PropTypes.arrayOf(
-        PropTypes.shape({
-          name: PropTypes.string,
-          url: PropTypes.string,
-        })
-      ),
-    })
-  ).isRequired,
-  navListClasses: PropTypes.string,
 }

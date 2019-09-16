@@ -6,6 +6,14 @@ import { Accordions } from "undernet"
 jest.mock("react-feather/dist/icons/chevron-right", () => global.simpleMock("ChevronRight"))
 jest.mock("react-feather/dist/icons/menu", () => global.simpleMock("Menu"))
 jest.mock("projectRoot/package.json", () => ({ version: "9.9.9" }))
+jest.mock("app/components/SideNav/navData", () => ({
+  NAV_DATA: [
+    {
+      header: "Test Header",
+      links: [{ name: "Test 1", url: "#" }],
+    },
+  ],
+}))
 
 Accordions.start = jest.fn()
 Accordions.stop = jest.fn()
@@ -13,17 +21,11 @@ Accordions.stop = jest.fn()
 const MENU_COLLAPSE_WIDTH = 1199
 const MENU_EXPAND_WIDTH = MENU_COLLAPSE_WIDTH + 1
 const DEFAULT_WIDTH = 1024
-const navItems = [
-  {
-    header: "Test Header",
-    links: [{ name: "Test 1", url: "#" }],
-  },
-]
 
 function mountComponent() {
   return mount(
     <Router>
-      <SideNav navItems={navItems} />
+      <SideNav />
     </Router>
   )
 }
