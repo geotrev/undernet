@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom"
 import Menu from "react-feather/dist/icons/menu"
 import ChevronRight from "react-feather/dist/icons/chevron-right"
 
-import { NAV_DATA } from "app/components/SideNav/navData"
+import { NAV_DATA } from "./constants"
 import { Accordions } from "undernet"
 import "./styles.scss"
 

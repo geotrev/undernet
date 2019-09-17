@@ -6,7 +6,7 @@ import { Accordions } from "undernet"
 jest.mock("react-feather/dist/icons/chevron-right", () => global.simpleMock("ChevronRight"))
 jest.mock("react-feather/dist/icons/menu", () => global.simpleMock("Menu"))
 jest.mock("projectRoot/package.json", () => ({ version: "9.9.9" }))
-jest.mock("app/components/SideNav/navData", () => ({
+jest.mock("../constants", () => ({
   NAV_DATA: [
     {
       header: "Test Header",
