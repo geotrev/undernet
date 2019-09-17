@@ -46,7 +46,7 @@ export default function SideNav() {
     Accordions.start()
   }, [menuIsOpen])
 
-  // set up handlers
+  // set up handlers and other helper methods
 
   const handleCollapseClick = () => {
     if (getWindowInnerWidth() <= MENU_COLLAPSE_WIDTH) {

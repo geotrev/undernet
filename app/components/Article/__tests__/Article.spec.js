@@ -2,14 +2,13 @@ import React from "react"
 import Article from "../Article"
 import Undernet from "undernet"
 import Prism from "prismjs"
+import { COMPONENTS } from "../constants"
 
 jest.mock("app/components/ScrollUpOnMount", () => global.simpleMock("ScrollUpOnMount"))
 
 global.scrollTo = jest.fn()
 
-const components = ["Tooltips", "Accordions", "Modals", "Dropdowns"]
-
-components.forEach(component => {
+COMPONENTS.forEach(component => {
   Undernet[component].start = jest.fn()
   Undernet[component].stop = jest.fn()
 })
@@ -52,7 +51,7 @@ describe("<Article />", () => {
       expect(Prism.highlightAll).toHaveBeenCalled()
     })
 
-    components.forEach(component => {
+    COMPONENTS.forEach(component => {
       it(`calls Undernet.${component}.start`, () => {
         // Given
         mountComponent()
@@ -63,7 +62,7 @@ describe("<Article />", () => {
   })
 
   describe("#componentWillUnmount", () => {
-    components.forEach(component => {
+    COMPONENTS.forEach(component => {
       it(`calls Undernet.${component}.stop`, () => {
         // Given
         const wrapper = mountComponent()
