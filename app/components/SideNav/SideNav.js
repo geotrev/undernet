@@ -30,15 +30,17 @@ export default function SideNav() {
 
   handleMenuVisibility = throttle(handleMenuVisibility, 50)
 
+  const componentUnmountFunction = () => {
+    window.removeEventListener("resize", handleMenuVisibility)
+    Accordions.stop()
+  }
+
   useEffect(() => {
     Accordions.start()
     window.addEventListener("resize", handleMenuVisibility)
     setMenuIsOpen(isLargerThanCollapseWidth)
 
-    return () => {
-      window.removeEventListener("resize", handleMenuVisibility)
-      Accordions.stop()
-    }
+    return componentUnmountFunction
   }, [])
 
   useEffect(() => {
