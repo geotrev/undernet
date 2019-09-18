@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom"
 import Menu from "react-feather/dist/icons/menu"
 import ChevronRight from "react-feather/dist/icons/chevron-right"
 
-import { NAV_DATA } from "app/components/SideNav/navData"
+import { NAV_DATA } from "./constants"
 import { Accordions } from "undernet"
 import "./styles.scss"
 
@@ -15,9 +15,7 @@ const MENU_COLLAPSE_WIDTH = 1199
 export default function SideNav() {
   // set up effects and state
 
-  const getWindowInnerWidth = () => {
-    return window.innerWidth
-  }
+  const getWindowInnerWidth = () => window.innerWidth
 
   const isLargerThanCollapseWidth = getWindowInnerWidth() > MENU_COLLAPSE_WIDTH
   const [menuIsOpen, setMenuIsOpen] = useState(isLargerThanCollapseWidth)
@@ -30,15 +28,17 @@ export default function SideNav() {
 
   handleMenuVisibility = throttle(handleMenuVisibility, 50)
 
+  const componentUnmountFunction = () => {
+    window.removeEventListener("resize", handleMenuVisibility)
+    Accordions.stop()
+  }
+
   useEffect(() => {
     Accordions.start()
     window.addEventListener("resize", handleMenuVisibility)
     setMenuIsOpen(isLargerThanCollapseWidth)
 
-    return () => {
-      window.removeEventListener("resize", handleMenuVisibility)
-      Accordions.stop()
-    }
+    return componentUnmountFunction
   }, [])
 
   useEffect(() => {
@@ -46,7 +46,7 @@ export default function SideNav() {
     Accordions.start()
   }, [menuIsOpen])
 
-  // set up handlers
+  // set up handlers and other helper methods
 
   const handleCollapseClick = () => {
     if (getWindowInnerWidth() <= MENU_COLLAPSE_WIDTH) {
