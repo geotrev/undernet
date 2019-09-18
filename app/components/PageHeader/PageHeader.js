@@ -31,7 +31,6 @@ const PageHeader = props => {
 PageHeader.propTypes = {
   children: PropTypes.any.isRequired,
   className: PropTypes.string,
-  history: PropTypes.object,
   lastLocation: PropTypes.object,
 }
 
