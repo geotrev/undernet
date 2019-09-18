@@ -100,10 +100,10 @@ _NOTE #2: The below imports have a `~` preceeding the import path; this is a Web
 
 ```css
 @import "path/to/myConfig";
-/* remove reset below if you are scoping */
-@import "~undernet/src/scss/elements/reset";
 /* Scope is defined in the config. Remove the scope wrapper if you aren't needing it. */
 /* .#{$scope} { */
+/* Reset within scope is optional */
+@import "~undernet/src/scss/elements/reset";
 @import "~undernet/src/scss/utilities/classes";
 @import "~undernet/src/scss/layout/grid";
 @import "~undernet/src/scss/elements/typography";

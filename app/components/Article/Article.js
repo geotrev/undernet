@@ -11,7 +11,7 @@ import ScrollUpOnMount from "app/components/ScrollUpOnMount"
 export default function Article(props) {
   const [domIsLoaded, setDomIsLoaded] = useState(false)
 
-  const componentUnmountFunc = () => {
+  const componentUnmountFunction = () => {
     COMPONENTS.forEach(component => Undernet[component].stop())
   }
 
@@ -20,7 +20,7 @@ export default function Article(props) {
     COMPONENTS.forEach(component => Undernet[component].start())
     setDomIsLoaded(true)
 
-    return componentUnmountFunc
+    return componentUnmountFunction
   }, [])
 
   return (

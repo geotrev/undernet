@@ -1,50 +1,40 @@
-import React, { createRef } from "react"
+import React, { createRef, useState, useEffect } from "react"
 import { withLastLocation } from "react-router-last-location"
 import PropTypes from "prop-types"
 
 import { FOCUSABLE_TABINDEX, UNFOCUSABLE_TABINDEX } from "./constants"
 
-class PageHeader extends React.Component {
-  constructor(props) {
-    super(props)
+const PageHeader = props => {
+  const [tabIndex, setTabIndex] = useState(UNFOCUSABLE_TABINDEX)
+  const headerRef = createRef()
 
-    this.state = { tabIndex: UNFOCUSABLE_TABINDEX }
-    this.headerRef = createRef()
+  useEffect(() => {
+    if (tabIndex === FOCUSABLE_TABINDEX) {
+      headerRef.current.focus()
+    }
+  }, [tabIndex])
+
+  useEffect(() => {
+    if (props.lastLocation) setTabIndex(FOCUSABLE_TABINDEX)
+  }, [])
+
+  const handleBlur = () => {
+    if (tabIndex === UNFOCUSABLE_TABINDEX) return
+    setTabIndex(UNFOCUSABLE_TABINDEX)
   }
 
-  static propTypes = {
-    children: PropTypes.any.isRequired,
-    className: PropTypes.string,
-    lastLocation: PropTypes.object,
-  }
+  return (
+    <h1 onBlur={handleBlur} tabIndex={tabIndex} ref={headerRef} className={props.className}>
+      {props.children}
+    </h1>
+  )
+}
 
-  componentDidMount() {
-    if (!this.props.lastLocation) return
-
-    this.setState({ tabIndex: FOCUSABLE_TABINDEX }, () => {
-      this.headerRef.current.focus()
-    })
-  }
-
-  handleBlur = () => {
-    if (this.state.tabIndex === UNFOCUSABLE_TABINDEX) return
-    this.setState({ tabIndex: UNFOCUSABLE_TABINDEX })
-  }
-
-  render() {
-    const { className, children } = this.props
-
-    return (
-      <h1
-        onBlur={this.handleBlur}
-        tabIndex={this.state.tabIndex}
-        ref={this.headerRef}
-        className={className}
-      >
-        {children}
-      </h1>
-    )
-  }
+PageHeader.propTypes = {
+  children: PropTypes.any.isRequired,
+  className: PropTypes.string,
+  history: PropTypes.object,
+  lastLocation: PropTypes.object,
 }
 
 export default withLastLocation(PageHeader)

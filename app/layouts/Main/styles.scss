@@ -1,9 +1,8 @@
 @charset "UTF-8";
 @import "app/global";
 
-@import "src/scss/utilities/reset";
-
 // .#{$scope} {
+@import "src/scss/utilities/reset";
 @import "src/scss/utilities/classes";
 
 @import "src/scss/layout/grid";

@@ -15,9 +15,7 @@ const MENU_COLLAPSE_WIDTH = 1199
 export default function SideNav() {
   // set up effects and state
 
-  const getWindowInnerWidth = () => {
-    return window.innerWidth
-  }
+  const getWindowInnerWidth = () => window.innerWidth
 
   const isLargerThanCollapseWidth = getWindowInnerWidth() > MENU_COLLAPSE_WIDTH
   const [menuIsOpen, setMenuIsOpen] = useState(isLargerThanCollapseWidth)
