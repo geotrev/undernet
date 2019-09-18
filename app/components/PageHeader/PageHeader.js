@@ -5,17 +5,15 @@ import PropTypes from "prop-types"
 import { FOCUSABLE_TABINDEX, UNFOCUSABLE_TABINDEX } from "./constants"
 
 const PageHeader = props => {
-  const [tabIndex, setTabIndex] = useState(UNFOCUSABLE_TABINDEX)
+  const [tabIndex, setTabIndex] = useState(FOCUSABLE_TABINDEX)
   const headerRef = createRef()
 
   useEffect(() => {
-    if (tabIndex === FOCUSABLE_TABINDEX) {
+    if (props.lastLocation) {
       headerRef.current.focus()
+    } else {
+      setTabIndex(UNFOCUSABLE_TABINDEX)
     }
-  }, [tabIndex])
-
-  useEffect(() => {
-    if (props.lastLocation) setTabIndex(FOCUSABLE_TABINDEX)
   }, [])
 
   const handleBlur = () => {
