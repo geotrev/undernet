@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useEffect } from "react"
 import { Switch, Route } from "react-router-dom"
 import { ContextUtil } from "undernet"
 
@@ -14,8 +14,10 @@ import "./styles.scss"
 import { FOCUSABLE_TABINDEX, UNFOCUSABLE_TABINDEX } from "./constants"
 
 export default function Main() {
-  const [headerTabIndex, setHeaderTabIndex] = useState(UNFOCUSABLE_TABINDEX)
-  const [mainTabIndex, setMainTabIndex] = useState(UNFOCUSABLE_TABINDEX)
+  const Attributes = {
+    TABINDEX: "tabindex",
+  }
+
   const headerRef = React.createRef()
   const mainRef = React.createRef()
   const componentUnmountFunction = () => {
@@ -27,41 +29,31 @@ export default function Main() {
     return componentUnmountFunction
   }, [])
 
-  useEffect(() => {
-    if (headerTabIndex === FOCUSABLE_TABINDEX) {
-      headerRef.current.focus()
-    } else if (mainTabIndex === FOCUSABLE_TABINDEX) {
-      mainRef.current.focus()
-    }
-  }, [headerTabIndex, mainTabIndex])
-
-  const handleHeaderFocusClick = event => {
-    event.preventDefault()
-    setHeaderTabIndex(FOCUSABLE_TABINDEX)
+  const handleRefocusClick = ref => {
+    ref.current.setAttribute(Attributes.TABINDEX, FOCUSABLE_TABINDEX)
+    ref.current.focus()
   }
 
-  const handleMainFocusClick = event => {
-    event.preventDefault()
-    setMainTabIndex(FOCUSABLE_TABINDEX)
-  }
+  const getHeaderTabIndex = () => headerRef.current.getAttribute(Attributes.TABINDEX)
+  const getMainTabIndex = () => mainRef.current.getAttribute(Attributes.TABINDEX)
 
   const handleHeaderBlur = () => {
-    if (headerTabIndex === UNFOCUSABLE_TABINDEX) return
-    setHeaderTabIndex(UNFOCUSABLE_TABINDEX)
+    if (getHeaderTabIndex() === UNFOCUSABLE_TABINDEX) return
+    headerRef.current.removeAttribute(Attributes.TABINDEX)
   }
 
   const handleMainBlur = () => {
-    if (mainTabIndex === UNFOCUSABLE_TABINDEX) return
-    setMainTabIndex(UNFOCUSABLE_TABINDEX)
+    if (getMainTabIndex() === UNFOCUSABLE_TABINDEX) return
+    mainRef.current.removeAttribute(Attributes.TABINDEX)
   }
 
   return (
     <React.Fragment>
-      <header tabIndex={headerTabIndex} ref={headerRef} onBlur={handleHeaderBlur} role="banner">
-        <GlobalNav handleMainFocusClick={handleMainFocusClick} />
+      <header ref={headerRef} onBlur={handleHeaderBlur} role="banner">
+        <GlobalNav handleRefocusClick={handleRefocusClick} mainRef={mainRef} />
       </header>
 
-      <main tabIndex={mainTabIndex} ref={mainRef} onBlur={handleMainBlur} role="main">
+      <main ref={mainRef} onBlur={handleMainBlur} role="main">
         <Switch>
           <Route exact path={rootPath} component={Home} />
           <Route path={docsPath} component={Docs} />
@@ -70,7 +62,7 @@ export default function Main() {
       </main>
 
       <footer>
-        <Footer handleHeaderFocusClick={handleHeaderFocusClick} />
+        <Footer handleRefocusClick={handleRefocusClick} headerRef={headerRef} />
       </footer>
     </React.Fragment>
   )

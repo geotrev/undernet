@@ -4,7 +4,10 @@ import { BrowserRouter as Router } from "react-router-dom"
 
 describe("<Nav />", () => {
   const baseProps = {
-    handleMainFocusClick: jest.fn(),
+    handleRefocusClick: jest.fn(),
+    mainRef: {
+      current: document.createElement("main"),
+    },
   }
 
   const mountComponent = () => {
@@ -22,12 +25,12 @@ describe("<Nav />", () => {
     expect(wrapper).toMatchSnapshot()
   })
 
-  it("calls handleMainFocusClick prop when hidden button is clicked", () => {
+  it("calls handleRefocusClick prop when hidden button is clicked", () => {
     // Given
     const wrapper = mountComponent()
     // When
     wrapper.find(".is-visually-hidden-focusable").simulate("click")
     // Then
-    expect(baseProps.handleMainFocusClick).toHaveBeenCalled()
+    expect(baseProps.handleRefocusClick).toHaveBeenCalledWith(baseProps.mainRef)
   })
 })

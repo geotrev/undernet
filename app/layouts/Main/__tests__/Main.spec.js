@@ -37,7 +37,7 @@ describe("<Main />", () => {
       expect(header.is(":focus")).toBe(true)
     })
 
-    it("sets [tabindex] of header tag to null when blurred", () => {
+    it("removes [tabindex] of header tag when blurred", () => {
       // Given
       const wrapper = mountComponent()
       const header = wrapper.find("header")
@@ -60,7 +60,7 @@ describe("<Main />", () => {
       expect(main.is(":focus")).toBe(true)
     })
 
-    it("sets [tabindex] of main tag to null when blurred", () => {
+    it("removes [tabindex] of main tag when blurred", () => {
       // Given
       const wrapper = mountComponent()
       const main = wrapper.find("main")

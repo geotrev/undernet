@@ -36,5 +36,5 @@ export default function Article(props) {
 }
 
 Article.propTypes = {
-  children: PropTypes.any,
+  children: PropTypes.string.isRequired,
 }

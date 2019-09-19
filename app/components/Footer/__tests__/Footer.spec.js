@@ -6,7 +6,10 @@ jest.mock("react-feather/dist/icons/github", () => global.simpleMock("Github"))
 
 describe("<Footer />", () => {
   const baseProps = {
-    handleHeaderFocusClick: jest.fn(),
+    handleRefocusClick: jest.fn(),
+    headerRef: {
+      current: document.createElement("header"),
+    },
   }
 
   const mountComponent = () => {
@@ -20,12 +23,12 @@ describe("<Footer />", () => {
     expect(wrapper).toMatchSnapshot()
   })
 
-  it("calls handleHeaderFocusClick prop when hidden button is clicked", () => {
+  it("calls handleRefocusClick prop when hidden button is clicked", () => {
     // Given
     const wrapper = mountComponent()
     // When
     wrapper.find(".is-visually-hidden-focusable").simulate("click")
     // Then
-    expect(baseProps.handleHeaderFocusClick).toHaveBeenCalled()
+    expect(baseProps.handleRefocusClick).toHaveBeenCalledWith(baseProps.headerRef)
   })
 })
