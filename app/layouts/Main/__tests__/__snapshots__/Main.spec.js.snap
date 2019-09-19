@@ -28,10 +28,16 @@ exports[`<Main /> #render renders 1`] = `
       <header
         onBlur={[Function]}
         role="banner"
-        tabIndex={null}
       >
         <GlobalNav
-          handleMainFocusClick={[Function]}
+          handleRefocusClick={[Function]}
+          mainRef={
+            Object {
+              "current": <main
+                role="main"
+              />,
+            }
+          }
         >
           <nav
             className="fluid grid"
@@ -46,12 +52,14 @@ exports[`<Main /> #render renders 1`] = `
               >
                 <Link
                   className="logo"
+                  role="listitem"
                   to="/"
                 >
                   <a
                     className="logo"
                     href="/"
                     onClick={[Function]}
+                    role="listitem"
                   >
                     <img
                       alt="Undernet"
@@ -62,7 +70,6 @@ exports[`<Main /> #render renders 1`] = `
               </li>
               <li
                 className="small-7 xsmall-12 columns"
-                role="none"
               >
                 <ul
                   className="row"
@@ -74,6 +81,7 @@ exports[`<Main /> #render renders 1`] = `
                       className="is-visually-hidden-focusable"
                       onClick={[Function]}
                       role="listitem"
+                      type="button"
                     >
                       Skip to main content
                     </button>
@@ -119,18 +127,12 @@ exports[`<Main /> #render renders 1`] = `
                   <li
                     role="none"
                   >
-                    <Link
+                    <a
+                      href="/docs/overview/introduction"
                       role="listitem"
-                      to="/docs/overview/introduction"
                     >
-                      <a
-                        href="/docs/overview/introduction"
-                        onClick={[Function]}
-                        role="listitem"
-                      >
-                        Documentation
-                      </a>
-                    </Link>
+                      Documentation
+                    </a>
                   </li>
                 </ul>
               </li>
@@ -141,7 +143,6 @@ exports[`<Main /> #render renders 1`] = `
       <main
         onBlur={[Function]}
         role="main"
-        tabIndex={null}
       >
         <Switch>
           <Route
@@ -208,7 +209,98 @@ exports[`<Main /> #render renders 1`] = `
       </main>
       <footer>
         <Footer
-          handleHeaderFocusClick={[Function]}
+          handleRefocusClick={[Function]}
+          headerRef={
+            Object {
+              "current": <header
+                role="banner"
+              >
+                <nav
+                  class="fluid grid"
+                  id="global-nav"
+                >
+                  <ul
+                    class="nav-list row has-no-padding"
+                  >
+                    <li
+                      class="small-5 xsmall-12 columns"
+                      role="none"
+                    >
+                      <a
+                        class="logo"
+                        href="/"
+                        role="listitem"
+                      >
+                        <img
+                          alt="Undernet"
+                          src="[object Object]"
+                        />
+                      </a>
+                    </li>
+                    <li
+                      class="small-7 xsmall-12 columns"
+                    >
+                      <ul
+                        class="row"
+                      >
+                        <li
+                          role="none"
+                        >
+                          <button
+                            class="is-visually-hidden-focusable"
+                            role="listitem"
+                            type="button"
+                          >
+                            Skip to main content
+                          </button>
+                        </li>
+                        <li
+                          role="none"
+                        >
+                          <a
+                            class="has-feather"
+                            href="https://www.twitter.com/gwtrev"
+                            role="listitem"
+                          >
+                            <span
+                              class="is-visually-hidden"
+                            >
+                              Open link to www.twitter.com/gwtrev
+                            </span>
+                          </a>
+                        </li>
+                        <li
+                          role="none"
+                        >
+                          <a
+                            class="has-feather"
+                            href="https://www.github.com/geotrev/undernet"
+                            role="listitem"
+                          >
+                            <span
+                              class="is-visually-hidden"
+                            >
+                              Open link to www.github.com/geotrev/undernet
+                            </span>
+                          </a>
+                        </li>
+                        <li
+                          role="none"
+                        >
+                          <a
+                            href="/docs/overview/introduction"
+                            role="listitem"
+                          >
+                            Documentation
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </nav>
+              </header>,
+            }
+          }
         >
           <div
             className="footer-wrapper small-section fluid grid"
@@ -293,6 +385,7 @@ exports[`<Main /> #render renders 1`] = `
                       className="is-visually-hidden-focusable"
                       onClick={[Function]}
                       role="listitem"
+                      type="button"
                     >
                       Return to top of page
                     </button>

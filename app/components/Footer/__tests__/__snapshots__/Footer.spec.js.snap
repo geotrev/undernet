@@ -2,7 +2,12 @@
 
 exports[`<Footer /> renders 1`] = `
 <Footer
-  handleHeaderFocusClick={[MockFunction]}
+  handleRefocusClick={[MockFunction]}
+  headerRef={
+    Object {
+      "current": <header />,
+    }
+  }
 >
   <div
     className="footer-wrapper small-section fluid grid"
@@ -85,8 +90,9 @@ exports[`<Footer /> renders 1`] = `
           >
             <button
               className="is-visually-hidden-focusable"
-              onClick={[MockFunction]}
+              onClick={[Function]}
               role="listitem"
+              type="button"
             >
               Return to top of page
             </button>
