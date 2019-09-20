@@ -33,18 +33,20 @@ export default function SideNav() {
     Accordions.stop()
   }
 
+  const onMountOnly = []
   useEffect(() => {
     Accordions.start()
     window.addEventListener("resize", handleMenuVisibility)
     setMenuIsOpen(isLargerThanCollapseWidth)
 
     return componentUnmountFunction
-  }, [])
+  }, onMountOnly)
 
+  const updateConditions = [menuIsOpen]
   useEffect(() => {
     Accordions.stop()
     Accordions.start()
-  }, [menuIsOpen])
+  }, updateConditions)
 
   // set up handlers and other helper methods
 

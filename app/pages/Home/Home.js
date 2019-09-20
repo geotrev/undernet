@@ -41,12 +41,13 @@ export default function Home() {
     ANIMATION_DATA.forEach(instance => instance.animation.destroy())
   }
 
+  const onMountOnly = []
   useEffect(() => {
     Prism.highlightAll()
     loadAnimations()
 
     return componentUnmountFunction
-  }, [])
+  }, onMountOnly)
 
   const renderAnimations = () => {
     return ANIMATION_DATA.map(animation => {
