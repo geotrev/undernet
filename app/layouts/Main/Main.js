@@ -14,12 +14,14 @@ import "./styles.scss"
 import { FOCUSABLE_TABINDEX, UNFOCUSABLE_TABINDEX } from "./constants"
 
 export default function Main() {
+  const headerRef = React.useRef(null)
+  const mainRef = React.useRef(null)
   const Attributes = {
     TABINDEX: "tabindex",
   }
+  const getHeaderTabIndex = () => headerRef.current.getAttribute(Attributes.TABINDEX)
+  const getMainTabIndex = () => mainRef.current.getAttribute(Attributes.TABINDEX)
 
-  const headerRef = React.createRef()
-  const mainRef = React.createRef()
   const componentUnmountFunction = () => {
     ContextUtil.disableFocusOutline()
   }
@@ -33,9 +35,6 @@ export default function Main() {
     ref.current.setAttribute(Attributes.TABINDEX, FOCUSABLE_TABINDEX)
     ref.current.focus()
   }
-
-  const getHeaderTabIndex = () => headerRef.current.getAttribute(Attributes.TABINDEX)
-  const getMainTabIndex = () => mainRef.current.getAttribute(Attributes.TABINDEX)
 
   const handleHeaderBlur = () => {
     if (getHeaderTabIndex() === UNFOCUSABLE_TABINDEX) return
