@@ -2,31 +2,31 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Helmet } from "react-helmet"
 
-export default class SetMeta extends React.Component {
-  static propTypes = {
-    title: PropTypes.string,
-    description: PropTypes.string,
-    pageNotFound: PropTypes.bool,
-  }
+import { titleTemplate } from "./constants"
 
-  static defaultProps = {
-    title: "Page Not Found",
-    description: "",
-    pageNotFound: false,
-  }
+export default function SetMeta(props) {
+  return (
+    <Helmet titleTemplate={titleTemplate("%s")}>
+      <title itemProp="name" lang="en">
+        {props.title}
+      </title>
 
-  render() {
-    return (
-      <Helmet titleTemplate="Undernet – %s">
-        <title itemProp="name" lang="en">
-          {this.props.title}
-        </title>
+      <meta name="description" content={props.description} />
 
-        <meta name="description" content={this.props.description} />
-        <link rel="canonical" href={window.location.href} />
+      {!props.pageNotFound && <link rel="canonical" href={window.location.href} />}
+      {props.pageNotFound && <meta name="prerender-status-code" content="404" />}
+    </Helmet>
+  )
+}
 
-        {this.props.pageNotFound && <meta name="prerender-status-code" content="404" />}
-      </Helmet>
-    )
-  }
+SetMeta.propTypes = {
+  title: PropTypes.string,
+  description: PropTypes.string,
+  pageNotFound: PropTypes.bool,
+}
+
+SetMeta.defaultProps = {
+  title: "Page Not Found",
+  description: "",
+  pageNotFound: false,
 }

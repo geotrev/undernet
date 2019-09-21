@@ -6,6 +6,11 @@ import PropTypes from "prop-types"
 import "./styles.scss"
 
 export default function Footer(props) {
+  const handleClick = event => {
+    event.preventDefault()
+    props.handleRefocusClick(props.headerRef)
+  }
+
   return (
     <div className="footer-wrapper small-section fluid grid">
       <div className="row">
@@ -50,8 +55,9 @@ export default function Footer(props) {
             <li role="none">
               <button
                 className="is-visually-hidden-focusable"
-                onClick={props.handleHeaderFocusClick}
+                onClick={handleClick}
                 role="listitem"
+                type="button"
               >
                 Return to top of page
               </button>
@@ -64,5 +70,8 @@ export default function Footer(props) {
 }
 
 Footer.propTypes = {
-  handleHeaderFocusClick: PropTypes.func.isRequired,
+  handleRefocusClick: PropTypes.func.isRequired,
+  headerRef: PropTypes.shape({
+    current: PropTypes.instanceOf(Element),
+  }),
 }

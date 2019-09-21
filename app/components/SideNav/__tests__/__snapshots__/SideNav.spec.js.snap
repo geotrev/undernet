@@ -38,7 +38,7 @@ exports[`<SideNav /> #handleMenuToggleClick toggles menu when button is clicked 
       9.9.9
     </p>
     <div
-      className="accordion-row"
+      className="accordion-row xsmall-12 columns has-no-padding"
       data-accordion-row="nav-acc-content0"
       data-visible="false"
       key="#"
@@ -139,7 +139,7 @@ exports[`<SideNav /> #handleMenuVisibility hides menu at or below 1199 1`] = `
       9.9.9
     </p>
     <div
-      className="accordion-row"
+      className="accordion-row xsmall-12 columns has-no-padding"
       data-accordion-row="nav-acc-content0"
       data-visible="false"
       key="#"
@@ -240,7 +240,7 @@ exports[`<SideNav /> #handleMenuVisibility shows menu above 1199 1`] = `
       9.9.9
     </p>
     <div
-      className="accordion-row"
+      className="accordion-row xsmall-12 columns has-no-padding"
       data-accordion-row="nav-acc-content0"
       data-visible="false"
       key="#"
@@ -304,21 +304,7 @@ exports[`<SideNav /> #handleMenuVisibility shows menu above 1199 1`] = `
 `;
 
 exports[`<SideNav /> #render renders 1`] = `
-<SideNav
-  navItems={
-    Array [
-      Object {
-        "header": "Test Header",
-        "links": Array [
-          Object {
-            "name": "Test 1",
-            "url": "#",
-          },
-        ],
-      },
-    ]
-  }
->
+<SideNav>
   <div
     className="xsmall-12 xlarge-2 columns has-no-padding"
     id="side-nav"
@@ -360,7 +346,7 @@ exports[`<SideNav /> #render renders 1`] = `
           9.9.9
         </p>
         <div
-          className="accordion-row"
+          className="accordion-row xsmall-12 columns has-no-padding"
           data-accordion-row="nav-acc-content0"
           data-visible="false"
           key="#"

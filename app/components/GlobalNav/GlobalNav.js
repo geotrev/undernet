@@ -9,21 +9,27 @@ import Logo from "app/assets/images/un-logo.png"
 import "./styles.scss"
 
 export default function GlobalNav(props) {
+  const handleClick = event => {
+    event.preventDefault()
+    props.handleRefocusClick(props.mainRef)
+  }
+
   return (
     <nav id="global-nav" className="fluid grid">
       <ul className="nav-list row has-no-padding">
         <li className="small-5 xsmall-12 columns" role="none">
-          <Link to="/" className="logo">
+          <Link to="/" className="logo" role="listitem">
             <img src={Logo} alt="Undernet" />
           </Link>
         </li>
-        <li className="small-7 xsmall-12 columns" role="none">
+        <li className="small-7 xsmall-12 columns">
           <ul className="row">
             <li role="none">
               <button
                 role="listitem"
                 className="is-visually-hidden-focusable"
-                onClick={props.handleMainFocusClick}
+                onClick={handleClick}
+                type="button"
               >
                 Skip to main content
               </button>
@@ -47,9 +53,9 @@ export default function GlobalNav(props) {
               </a>
             </li>
             <li role="none">
-              <Link to={introductionPath} role="listitem">
+              <a href={introductionPath} role="listitem">
                 Documentation
-              </Link>
+              </a>
             </li>
           </ul>
         </li>
@@ -59,5 +65,8 @@ export default function GlobalNav(props) {
 }
 
 GlobalNav.propTypes = {
-  handleMainFocusClick: PropTypes.func.isRequired,
+  handleRefocusClick: PropTypes.func.isRequired,
+  mainRef: PropTypes.shape({
+    current: PropTypes.instanceOf(Element),
+  }),
 }

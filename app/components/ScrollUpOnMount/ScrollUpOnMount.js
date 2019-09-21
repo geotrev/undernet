@@ -1,11 +1,11 @@
-import React from "react"
+import { useEffect } from "react"
 
-export default class ScrollUpOnMount extends React.Component {
-  componentDidMount() {
+export default function ScrollUpOnMount() {
+  const onMountOnly = []
+
+  useEffect(() => {
     window.scrollTo(0, 0)
-  }
+  }, onMountOnly)
 
-  render() {
-    return null
-  }
+  return null
 }

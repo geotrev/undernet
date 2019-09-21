@@ -7,10 +7,10 @@
 
 // Typography style modifiers
 
-.has-sans-font {
+.has-sans-text {
   font-family: $global-font-sans !important;
 }
-.has-serif-font {
+.has-serif-text {
   font-family: $global-font-serif !important;
 }
 
@@ -20,10 +20,10 @@
   }
 }
 
-.is-bold {
+.has-bold-text {
   font-weight: $global-font-weight-bold !important;
 }
-.is-italic {
+.has-italic-text {
   font-style: $global-font-style-italic !important;
 }
 
@@ -211,4 +211,17 @@
     white-space: normal;
     width: auto;
   }
+}
+
+// Revert `is-visually-hidden` class. Will always ensure an element is normally visible even
+// if hidden class is present.
+
+.is-not-visually-hidden {
+  clip: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  position: static;
+  white-space: normal;
+  width: auto;
 }
