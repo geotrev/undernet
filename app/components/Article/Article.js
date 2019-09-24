@@ -14,14 +14,14 @@ export default function Article(props) {
     COMPONENTS.forEach(Component => Component.stop())
   }
 
-  const onMountOnly = []
+  const observedStateOnMount = []
   useEffect(() => {
     Prism.highlightAll()
     COMPONENTS.forEach(Component => Component.start())
     setDomIsLoaded(true)
 
     return componentUnmountFunction
-  }, onMountOnly)
+  }, observedStateOnMount)
 
   return (
     <article
