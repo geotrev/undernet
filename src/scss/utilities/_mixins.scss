@@ -182,9 +182,11 @@ $arrow-border-position: $arrow-size * -2;
   .is-flex-#{$size} {
     display: flex !important;
   }
+
   .is-block-#{$size} {
     display: block !important;
   }
+
   .is-hidden-#{$size} {
     display: none !important;
   }
