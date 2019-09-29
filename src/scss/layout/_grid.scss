@@ -19,7 +19,6 @@ $column: map-get($grid-classes, column);
 
 .#{$grid} {
   @include flex(flex, column, nowrap, 1, 1, 0);
-
   box-sizing: border-box;
   margin: 0 auto;
   max-width: $grid-width;
@@ -42,10 +41,7 @@ $column: map-get($grid-classes, column);
   max-width: 100%;
   min-height: 1px;
   min-width: 0;
-  padding-bottom: $column-padding-bottom;
-  padding-left: $column-gutter;
-  padding-right: $column-gutter;
-  padding-top: $column-padding-top;
+  padding: $column-padding-top $column-gutter $column-padding-bottom $column-gutter;
   word-wrap: break-word;
 }
 

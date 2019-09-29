@@ -2,37 +2,40 @@ const ALWAYS = "always"
 const NEVER = "never"
 const NEVER_SINGLE_LINE = "never-single-line"
 
+// Some rules are either unnecessary or conflict with prettier's formatting rules
+// Instead of fighting prettier's auto-save, those rules are disabled.
 const RULE_DISABLED = null
 
 module.exports = {
   plugins: ["stylelint-scss"],
+  extends: ["stylelint-config-prettier"],
   rules: {
     // CSS
     // https://github.com/stylelint/stylelint/blob/master/docs/user-guide/rules.md
 
     "at-rule-blacklist": ["debug"],
     "at-rule-empty-line-before": RULE_DISABLED,
-    "at-rule-name-case": "lower",
+    "at-rule-name-case": RULE_DISABLED,
     "at-rule-name-newline-after": RULE_DISABLED,
     "at-rule-name-space-after": ALWAYS,
     "at-rule-no-unknown": RULE_DISABLED,
     "at-rule-no-vendor-prefix": true,
     "at-rule-property-requirelist": {},
-    "at-rule-semicolon-newline-after": ALWAYS,
+    "at-rule-semicolon-newline-after": RULE_DISABLED,
     "at-rule-semicolon-space-before": NEVER,
 
-    "block-closing-brace-empty-line-before": NEVER,
-    "block-closing-brace-newline-after": ["always-multi-line", { ignoreAtRules: ["if", "else"] }],
-    "block-closing-brace-newline-before": ALWAYS,
-    "block-closing-brace-space-after": NEVER_SINGLE_LINE,
-    "block-closing-brace-space-before": NEVER_SINGLE_LINE,
+    "block-closing-brace-empty-line-before": RULE_DISABLED,
+    "block-closing-brace-newline-after": RULE_DISABLED,
+    "block-closing-brace-newline-before": RULE_DISABLED,
+    "block-closing-brace-space-after": RULE_DISABLED,
+    "block-closing-brace-space-before": RULE_DISABLED,
     "block-no-empty": true,
-    "block-opening-brace-newline-after": ALWAYS,
-    "block-opening-brace-newline-before": NEVER_SINGLE_LINE,
+    "block-opening-brace-newline-after": RULE_DISABLED,
+    "block-opening-brace-newline-before": RULE_DISABLED,
     "block-opening-brace-space-after": RULE_DISABLED,
-    "block-opening-brace-space-before": ALWAYS,
+    "block-opening-brace-space-before": RULE_DISABLED,
 
-    "color-hex-case": "lower",
+    "color-hex-case": RULE_DISABLED,
     "color-hex-length": "long",
     "color-named": "always-where-possible",
     "color-no-hex": RULE_DISABLED,
@@ -56,33 +59,28 @@ module.exports = {
         ignoreProperties: ["background"],
       },
     ],
-    // "declaration-block-no-redundant-longhand-properties": true,
-    // "declaration-block-no-shorthand-property-overrides": true,
-    // "declaration-block-semicolon-newline-after":
-    //   "always" | "always-multi-line" | "never-multi-line",
-    // "declaration-block-semicolon-newline-before":
-    //   "always" | "always-multi-line" | "never-multi-line",
-    // "declaration-block-semicolon-space-after":
-    //   "always" | "never" | "always-single-line" | "never-single-line",
-    // "declaration-block-semicolon-space-before":
-    //   "always" | "never" | "always-single-line" | "never-single-line",
-    // "declaration-block-single-line-max-declarations": int,
-    // "declaration-block-trailing-semicolon": "always" | "never",
-    // "declaration-colon-newline-after": "always" | "always-multi-line",
-    // "declaration-colon-space-after": "always" | "never" | "always-single-line",
-    // "declaration-colon-space-before": "always" | "never",
-    // "declaration-empty-line-before": "always" | "never",
-    // "declaration-no-important": true,
-    // "declaration-property-unit-blacklist": {},
-    // "declaration-property-unit-whitelist": {},
-    // "declaration-property-value-blacklist": {},
-    // "declaration-property-value-whitelist": {},
+    "declaration-block-no-redundant-longhand-properties": true,
+    "declaration-block-no-shorthand-property-overrides": true,
+    "declaration-block-semicolon-newline-after": RULE_DISABLED,
+    "declaration-block-semicolon-newline-before": RULE_DISABLED,
+    "declaration-block-semicolon-space-after": RULE_DISABLED,
+    "declaration-block-semicolon-space-before": RULE_DISABLED,
+    "declaration-block-single-line-max-declarations": 1,
+    "declaration-block-trailing-semicolon": RULE_DISABLED,
+    "declaration-colon-newline-after": RULE_DISABLED,
+    "declaration-colon-space-after": RULE_DISABLED,
+    "declaration-colon-space-before": RULE_DISABLED,
+    "declaration-empty-line-before": NEVER,
+    "declaration-no-important": RULE_DISABLED,
+    "declaration-property-unit-blacklist": {},
+    "declaration-property-unit-whitelist": {},
+    "declaration-property-value-blacklist": {},
+    "declaration-property-value-whitelist": {},
 
-    // "font-family-name-quotes":
-    //   "always-where-required" | "always-where-recommended" | "always-unless-keyword",
-    // "font-family-no-duplicate-names": true,
-    // "font-family-no-missing-generic-family-keyword": true,
-    // "font-weight-notation": "numeric" | "named",
+    "font-family-name-quotes": "always-where-recommended",
+    "font-family-no-duplicate-names": true,
+    "font-family-no-missing-generic-family-keyword": true,
+    "font-weight-notation": "named-where-possible",
 
     // "function-blacklist": string | [],
     // "function-calc-no-invalid": true,
