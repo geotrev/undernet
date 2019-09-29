@@ -17,7 +17,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "npm run scss:lint && npm run js:lint",
-    "scss:lint": "stylelint '**/*.scss'",
+    "scss:lint": "stylelint '**/*.scss' && npm run lint:check",
     "js:lint": "eslint . --ext .js -c .eslintrc.js --ignore-path .eslintignore",
     "lint:check": "stylelint-config-prettier-check",
     "build:dist": "npm run js:build && npm run js:build:rollup && npm run css:build && npm run css:minify",

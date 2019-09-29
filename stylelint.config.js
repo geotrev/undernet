@@ -111,9 +111,9 @@ module.exports = {
 
     linebreaks: "unix",
 
-    // "max-empty-lines": int,
-    // "max-line-length": int,
-    // "max-nesting-depth": int,
+    "max-empty-lines": DISABLED,
+    "max-line-length": DISABLED,
+    "max-nesting-depth": [3, { ignore: ["pseudo-classes", "blockless-at-rules"] }],
 
     // "media-feature-colon-space-after": "always" | "never",
     // "media-feature-colon-space-before": "always" | "never",
