@@ -10,6 +10,23 @@
 #home {
   width: 100%;
 
+  .animations {
+    background-color: $brand-dark-blue;
+
+    .animated-icon {
+      width: 125px;
+      margin: 0 auto;
+    }
+
+    p {
+      margin: 0 8px;
+
+      @include breakpoint-down(large) {
+        margin-bottom: 24px;
+      }
+    }
+  }
+
   .hero {
     background-image: url("../../assets/images/grid-bg.svg");
     background-repeat: no-repeat;
@@ -45,23 +62,6 @@
 
       a {
         margin: 0;
-      }
-    }
-  }
-
-  .animations {
-    background-color: $brand-dark-blue;
-
-    .animated-icon {
-      width: 125px;
-      margin: 0 auto;
-    }
-
-    p {
-      margin: 0 8px;
-
-      @include breakpoint-down(large) {
-        margin-bottom: 24px;
       }
     }
   }

@@ -593,6 +593,23 @@ $link-active: $link-hover !default;
 // 5. Forms
 // --------
 
+$input-button-types: ("submit", "file", "reset", "button");
+$input-check-types: ("checkbox", "radio");
+$input-field-types: (
+  "text",
+  "password",
+  "email",
+  "date",
+  "datetime-local",
+  "month",
+  "number",
+  "tel",
+  "search",
+  "time",
+  "url",
+  "week"
+);
+
 // Form tag
 
 $form-margin: 0 !default;

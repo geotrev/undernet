@@ -1,11 +1,12 @@
 const ALWAYS = "always"
 const NEVER = "never"
-const NEVER_SINGLE_LINE = "never-single-line"
 
 // Some rules are either unnecessary or conflict with prettier's formatting rules
 // Instead of fighting prettier, those rules are disabled.
 // Prettier generally formats reasonably well, so this is actually a good thing.
 const DISABLED = null
+// To check if prettier has collisions with stylelint, run:
+// npm run `scss:lint:check`
 
 module.exports = {
   plugins: ["stylelint-scss"],
@@ -115,46 +116,40 @@ module.exports = {
     "max-line-length": DISABLED,
     "max-nesting-depth": [3, { ignore: ["pseudo-classes", "blockless-at-rules"] }],
 
-    // "media-feature-colon-space-after": "always" | "never",
-    // "media-feature-colon-space-before": "always" | "never",
-    // "media-feature-name-blacklist": string | [],
-    // "media-feature-name-case": "lower" | "upper",
-    // "media-feature-name-no-unknown": true,
-    // "media-feature-name-no-vendor-prefix": true,
-    // "media-feature-name-value-whitelist": {},
-    // "media-feature-name-whitelist": string | [],
-    // "media-feature-parentheses-space-inside": "always" | "never",
-    // "media-feature-range-operator-space-after": "always" | "never",
-    // "media-feature-range-operator-space-before": "always" | "never",
-    // "media-query-list-comma-newline-after": "always" | "always-multi-line" | "never-multi-line",
-    // "media-query-list-comma-newline-before": "always" | "always-multi-line" | "never-multi-line",
-    // "media-query-list-comma-space-after":
-    //   "always" | "never" | "always-single-line" | "never-single-line",
-    // "media-query-list-comma-space-before":
-    //   "always" | "never" | "always-single-line" | "never-single-line",
+    "media-feature-colon-space-after": ALWAYS,
+    "media-feature-colon-space-before": NEVER,
+    "media-feature-name-blacklist": [],
+    "media-feature-name-case": DISABLED,
+    "media-feature-name-no-unknown": true,
+    "media-feature-name-no-vendor-prefix": DISABLED,
+    "media-feature-name-value-whitelist": DISABLED,
+    "media-feature-name-whitelist": DISABLED,
+    "media-feature-parentheses-space-inside": NEVER,
+    "media-feature-range-operator-space-after": NEVER,
+    "media-feature-range-operator-space-before": NEVER,
 
-    // "no-descending-specificity": true,
-    // "no-duplicate-at-import-rules": true,
-    // "no-duplicate-selectors": true,
-    // "no-empty-source": true,
-    // "no-empty-first-line": true,
-    // "no-eol-whitespace": true,
-    // "no-extra-semicolons": true,
-    // "no-invalid-double-slash-comments": true,
-    // "no-missing-end-of-source-newline": true,
-    // "no-unknown-animations": true,
+    "no-descending-specificity": true,
+    "no-duplicate-at-import-rules": true,
+    "no-duplicate-selectors": true,
+    "no-empty-source": true,
+    "no-empty-first-line": true,
+    "no-eol-whitespace": DISABLED,
+    "no-extra-semicolons": DISABLED,
+    "no-invalid-double-slash-comments": true,
+    "no-missing-end-of-source-newline": DISABLED,
+    "no-unknown-animations": true,
 
-    // "number-leading-zero": "always" | "never",
-    // "number-max-precision": int,
-    // "number-no-trailing-zeros": true,
+    "number-leading-zero": DISABLED,
+    "number-max-precision": DISABLED,
+    "number-no-trailing-zeros": DISABLED,
 
-    // "property-blacklist": string | [],
-    // "property-case": "lower" | "upper",
-    // "property-no-unknown": true,
-    // "property-no-vendor-prefix": true,
-    // "property-whitelist": string | [],
+    "property-blacklist": [],
+    "property-case": DISABLED,
+    "property-no-unknown": true,
+    "property-no-vendor-prefix": DISABLED,
+    "property-whitelist": DISABLED,
 
-    // "rule-empty-line-before": "always" | "never" | "always-multi-line" | "never-multi-line",
+    "rule-empty-line-before": [ALWAYS, { except: ["first-nested"], ignore: ["after-comment"] }],
 
     // "selector-attribute-brackets-space-inside": "always" | "never",
     // "selector-attribute-operator-blacklist": string | [],
@@ -230,7 +225,7 @@ module.exports = {
     "scss/at-extend-no-missing-placeholder": null,
     "scss/at-else-closing-brace-newline-after": DISABLED,
     "scss/at-else-closing-brace-space-after": null,
-    "scss/at-else-empty-line-before": null,
+    "scss/at-else-empty-line-before": NEVER,
     "scss/at-else-if-parentheses-space-before": null,
     "scss/at-function-named-arguments": NEVER,
     "scss/at-function-parentheses-space-before": null,

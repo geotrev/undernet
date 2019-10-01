@@ -238,8 +238,8 @@
   }
 }
 
-// Revert `is-visually-hidden` class. Will always ensure an element is normally visible even
-// if hidden class is present.
+// Revert `is-visually-hidden` class.
+// Will always ensure an element is normally visible even if hidden class is present.
 
 .is-not-visually-hidden {
   @extend %not-visually-hidden;

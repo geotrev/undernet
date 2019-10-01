@@ -25,6 +25,32 @@ $column: map-get($grid-classes, column);
   padding-left: $grid-gutter;
   padding-right: $grid-gutter;
   position: relative;
+
+  @each $name, $width in $grid-widths {
+    &.#{$name} {
+      max-width: $width;
+    }
+  }
+
+  @each $name, $padding in $grid-sections {
+    &.#{$name}-section {
+      padding-top: $padding;
+      padding-bottom: $padding;
+    }
+  }
+
+  &.fullscreen {
+    box-sizing: border-box;
+    height: 100vh;
+    max-width: initial;
+    width: 100vw;
+
+    .#{$row} {
+      @include flex($grow: 1, $shrink: 1, $basis: auto);
+      align-items: center;
+      align-content: center;
+    }
+  }
 }
 
 .#{$row} {
@@ -57,34 +83,6 @@ $column: map-get($grid-classes, column);
   } @else {
     @include breakpoint-up($name) {
       @include grid-classes($name);
-    }
-  }
-}
-
-.#{$grid} {
-  @each $name, $width in $grid-widths {
-    &.#{$name} {
-      max-width: $width;
-    }
-  }
-
-  @each $name, $padding in $grid-sections {
-    &.#{$name}-section {
-      padding-top: $padding;
-      padding-bottom: $padding;
-    }
-  }
-
-  &.fullscreen {
-    box-sizing: border-box;
-    height: 100vh;
-    max-width: unset;
-    width: 100vw;
-
-    .#{$row} {
-      @include flex($grow: 1, $shrink: 1, $basis: auto);
-      align-items: center;
-      align-content: center;
     }
   }
 }

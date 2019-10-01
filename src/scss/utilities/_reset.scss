@@ -1,3 +1,10 @@
+// Modified minireset.css
+
+/*! minireset.css v0.0.5 | MIT License | github.com/jgthms/minireset.css */
+// This file doesn't need to worry about linting or being pretty.
+
+// stylelint-disable
+
 html,
 body,
 p,
@@ -47,6 +54,8 @@ textarea {
   margin: 0;
 }
 
+// Don't show active area on touch devices
+// Use custom active styles instead
 a,
 button,
 label,
@@ -89,17 +98,14 @@ body {
   padding: 0;
   box-sizing: border-box;
   line-height: $global-line-height;
-}
 
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
-}
-
-html,
-body {
   *:focus {
     outline: $global-outline;
   }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
 }
