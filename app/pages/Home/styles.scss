@@ -66,7 +66,7 @@
     }
   }
 
-  a.has-gradient {
+  .has-gradient {
     @include bg-gradient;
     border: none;
     padding: 14px 18px;

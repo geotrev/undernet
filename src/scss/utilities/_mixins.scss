@@ -251,8 +251,10 @@ $arrow-border-position: $arrow-size * -2;
 }
 
 @mixin using-keyboard {
+  // stylelint-disable
   .using-keyboard
     *:not([type="text"]):not([type="email"]):not([type="password"]):not([type="search"]):not([type="url"]):not(textarea):not(select):focus {
     outline: $global-outline-using-keyboard !important;
   }
+  // stylelint-enable
 }

@@ -76,9 +76,9 @@ input[type="checkbox"] {
   @include input-of-type-disabled($type);
 }
 
-textarea:disabled,
-button:disabled,
-.button:disabled {
+textarea,
+button,
+.button {
   &:disabled,
   &.disabled {
     @include input-element-disabled-properties;

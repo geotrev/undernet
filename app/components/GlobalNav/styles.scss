@@ -58,6 +58,6 @@
     @include colored-link($white);
     display: flex;
     text-decoration: none;
-    padding: 1rem;
+    padding: $global-space;
   }
 }
