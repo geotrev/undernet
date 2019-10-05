@@ -57,6 +57,7 @@ button,
       @each $property, $value in $properties {
         #{$property}: $value;
       }
+
       &:visited {
         @each $property, $value in $properties {
           #{$property}: $value;
@@ -94,6 +95,7 @@ button,
           @each $property, $value in $properties {
             #{$property}: $value;
           }
+
           &:visited {
             @each $property, $value in $properties {
               #{$property}: $value;

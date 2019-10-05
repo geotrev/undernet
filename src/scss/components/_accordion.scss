@@ -3,10 +3,6 @@
   overflow: hidden;
   border-radius: $accordion-border-radius;
 
-  [data-visible="false"] .accordion-button::after {
-    transform: rotate(180deg);
-  }
-
   .accordion-button {
     display: flex;
     flex-flow: row nowrap;
@@ -35,6 +31,10 @@
     }
   }
 
+  [data-visible="false"] .accordion-button::after {
+    transform: rotate(180deg);
+  }
+
   .accordion-row {
     h1,
     h2,
@@ -46,10 +46,6 @@
       margin: 0;
     }
 
-    &:last-child .accordion-content {
-      border-bottom: none;
-    }
-
     .accordion-content {
       overflow: hidden;
       padding: 0;
@@ -57,6 +53,10 @@
       background: $accordion-content-background;
       transition: max-height $accordion-transition-duration $accordion-transition-ease;
       border-bottom: $accordion-row-divider;
+    }
+
+    &:last-child .accordion-content {
+      border-bottom: none;
     }
   }
 }

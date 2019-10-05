@@ -85,14 +85,14 @@
       flex-flow: row nowrap;
       justify-content: $modal-footer-button-alignment;
 
-      a:first-child,
-      button:first-child {
-        margin-right: 16px;
-      }
-
       a,
       button {
         margin-bottom: 0;
+      }
+
+      a:first-child,
+      button:first-child {
+        margin-right: 16px;
       }
     }
   }

@@ -2,17 +2,6 @@
   position: relative;
   display: inline-block;
 
-  &[data-visible="true"] {
-    .dropdown-menu {
-      opacity: 1;
-      pointer-events: auto;
-
-      [data-close] {
-        display: flex;
-      }
-    }
-  }
-
   [data-target] {
     display: inline-flex;
     align-items: center;
@@ -157,6 +146,17 @@
         margin: 0;
         padding: $dropdown-menu-header-padding;
         color: $dropdown-menu-header-color;
+      }
+    }
+  }
+
+  &[data-visible="true"] {
+    .dropdown-menu {
+      opacity: 1;
+      pointer-events: auto;
+
+      [data-close] {
+        display: flex;
       }
     }
   }
