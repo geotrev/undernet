@@ -56,10 +56,7 @@ module.exports = {
     "declaration-bang-space-before": ALWAYS,
     "declaration-block-no-duplicate-properties": [
       true,
-      {
-        ignore: ["consecutive-duplicates-with-different-values"],
-        ignoreProperties: ["background"],
-      },
+      { ignore: ["consecutive-duplicates-with-different-values"] },
     ],
     "declaration-block-no-redundant-longhand-properties": true,
     "declaration-block-no-shorthand-property-overrides": true,
