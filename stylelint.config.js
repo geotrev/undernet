@@ -1,13 +1,6 @@
 const ALWAYS = "always"
 const NEVER = "never"
 
-// Some rules are either unnecessary or conflict with prettier's formatting rules
-// Instead of fighting prettier, those rules are disabled.
-// Prettier generally formats reasonably well, so this is actually a good thing.
-const DISABLED = null
-// To check if prettier has collisions with stylelint, run:
-// npm run `scss:lint:check`
-
 module.exports = {
   plugins: ["stylelint-scss"],
   extends: ["stylelint-config-prettier"],
