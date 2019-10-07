@@ -11,7 +11,7 @@
   "sass": "src/scss/undernet.scss",
   "style": "dist/undernet.css",
   "scripts": {
-    "setup": "npm i && npm run js:build",
+    "postinstall": "npm run build:dist",
     "watch": "webpack-dev-server --config webpack.dev.js --progress",
     "build": "npm run js:build && webpack --config webpack.prod.js",
     "test": "jest",

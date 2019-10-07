@@ -104,8 +104,6 @@ module.exports = {
 
     "time-min-milliseconds": 150,
 
-    "unicode-bom": NEVER,
-
     "unit-blacklist": [],
     "unit-no-unknown": true,
     "unit-whitelist": ["em", "%", "px", "vw", "vh", "s", "ms", "deg"],
