@@ -11,7 +11,7 @@
   "sass": "src/scss/undernet.scss",
   "style": "dist/undernet.css",
   "scripts": {
-    "postinstall": "npm run build:dist",
+    "setup": "npm i && npm run build:dist",
     "watch": "webpack-dev-server --config webpack.dev.js --progress",
     "build": "npm run js:build && webpack --config webpack.prod.js",
     "test": "jest",
@@ -71,6 +71,8 @@
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-jsx-a11y": "^6.2.2",
     "eslint-plugin-react": "^7.14.2",
+    "express": "^4.17.1",
+    "express-static-gzip": "^2.0.5",
     "file-loader": "^4.0.0",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
