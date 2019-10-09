@@ -79,7 +79,7 @@
     "jest": "^24.7.1",
     "jshashes": "^1.0.7",
     "lodash": "^4.17.11",
-    "lottie-web": "^5.5.5",
+    "lottie-web": "^5.5.9",
     "markdown-loader": "^5.1.0",
     "mini-css-extract-plugin": "^0.7.0",
     "node-sass": "^4.12.0",
