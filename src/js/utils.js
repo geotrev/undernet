@@ -62,7 +62,7 @@ export const getFocusableElements = container => {
 /**
  * Check if the current browser session is within an Apple device.
  */
-export const iOSMobile = /(iphone|ipod|ipad)/i.test(navigator.userAgent)
+export const iOSMobile = browserEnv ? /(iphone|ipod|ipad)/i.test(navigator.userAgent) : false
 
 /**
  * Utility class to help with focus trapping and keyboard outline management.

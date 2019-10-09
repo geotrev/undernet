@@ -208,8 +208,5 @@ module.exports = {
     // jsx-a11y
     "jsx-a11y/no-noninteractive-element-interactions": OFF,
     "jsx-a11y/no-interactive-element-to-noninteractive-role": OFF,
-
-    // used for undernet only
-    "no-console": OFF,
   },
 }

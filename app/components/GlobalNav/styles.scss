@@ -13,6 +13,10 @@
   padding: 0;
   z-index: 5;
 
+  li {
+    padding: 0;
+  }
+
   .nav-list {
     list-style-type: none;
     margin: 0;
@@ -41,23 +45,19 @@
         list-style-type: none;
         margin: 0;
         padding: 0;
+      }
 
-        li {
-          display: flex;
-          align-items: center;
-        }
+      li {
+        display: flex;
+        align-items: center;
       }
     }
-  }
-
-  li {
-    padding: 0;
   }
 
   li a {
     @include colored-link($white);
     display: flex;
     text-decoration: none;
-    padding: 1rem;
+    padding: $global-space;
   }
 }

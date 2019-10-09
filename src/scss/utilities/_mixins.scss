@@ -68,7 +68,7 @@
   }
 }
 
-// this mixin is used for arrow CSS below and in scss/components/_dropdown.scss
+// this mixin is used for arrow mixins/CSS below and in src/scss/components/_dropdown.scss
 @mixin if-has-arrow {
   &:not(.has-no-arrow) {
     @content;
@@ -182,11 +182,65 @@ $arrow-border-position: $arrow-size * -2;
   .is-flex-#{$size} {
     display: flex !important;
   }
+
   .is-block-#{$size} {
     display: block !important;
   }
+
   .is-hidden-#{$size} {
     display: none !important;
+  }
+}
+
+@mixin input-field-base-properties {
+  background: $input-background;
+  appearance: none;
+  border-radius: $input-border-radius;
+  border: $input-border;
+  box-shadow: $input-box-shadow;
+  font-family: $input-font-family;
+  font-size: $input-font-size;
+  margin: $input-margin;
+  padding: $input-padding;
+}
+
+@mixin input-field-interacted-properties {
+  transition: $global-transition;
+
+  &:focus,
+  &:active {
+    background: $input-focus-background !important;
+    border: $input-focus-border !important;
+    box-shadow: $input-focus-box-shadow !important;
+  }
+
+  &:hover {
+    background: $input-hover-background;
+    border: $input-hover-border;
+    box-shadow: $input-hover-box-shadow;
+    transition: $global-transition;
+  }
+}
+
+@mixin input-element-disabled-properties {
+  background: $input-disabled-background !important;
+  border: $input-disabled-border !important;
+  color: $input-disabled-color !important;
+  cursor: not-allowed;
+  resize: $input-disabled-resize !important;
+  opacity: 1;
+
+  &:hover {
+    background: $input-disabled-background !important;
+    border: $input-disabled-border !important;
+    color: $input-disabled-color !important;
+  }
+}
+
+@mixin input-of-type-disabled($type) {
+  input[type="#{$type}"]:disabled,
+  input[type="#{$type}"].disabled {
+    @include input-element-disabled-properties;
   }
 }
 
@@ -197,8 +251,13 @@ $arrow-border-position: $arrow-size * -2;
 }
 
 @mixin using-keyboard {
-  .using-keyboard
-    *:not([type="text"]):not([type="email"]):not([type="password"]):not([type="search"]):not([type="url"]):not(textarea):not(select):focus {
+  $inputs: "";
+
+  @each $type in $input-field-types {
+    $inputs: $inputs + ':not([type="#{$type}"])';
+  }
+
+  .using-keyboard *#{$inputs}:not(textarea):not(select):focus {
     outline: $global-outline-using-keyboard !important;
   }
 }

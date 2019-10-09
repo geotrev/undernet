@@ -19,53 +19,13 @@ $column: map-get($grid-classes, column);
 
 .#{$grid} {
   @include flex(flex, column, nowrap, 1, 1, 0);
-
   box-sizing: border-box;
   margin: 0 auto;
   max-width: $grid-width;
   padding-left: $grid-gutter;
   padding-right: $grid-gutter;
   position: relative;
-}
 
-.#{$row} {
-  @include flex(flex, row, wrap, 1, 1, auto);
-  position: relative;
-  max-width: 100%;
-  min-height: 1px;
-}
-
-.#{$column}s,
-.#{$column} {
-  @include flex($grow: 1, $shrink: 1, $basis: auto);
-  box-sizing: border-box;
-  max-width: 100%;
-  min-height: 1px;
-  min-width: 0;
-  padding-bottom: $column-padding-bottom;
-  padding-left: $column-gutter;
-  padding-right: $column-gutter;
-  padding-top: $column-padding-top;
-  word-wrap: break-word;
-}
-
-@each $name, $value in $breakpoints {
-  // Returns index of the current $key + $value pair
-  $breakpoint-index: index($breakpoints, ($name $value));
-
-  // If the index is on the first item in $breakpoints
-  @if $breakpoint-index == 1 {
-    @include grid-classes($name);
-
-    // Else add a media query
-  } @else {
-    @include breakpoint-up($name) {
-      @include grid-classes($name);
-    }
-  }
-}
-
-.#{$grid} {
   @each $name, $width in $grid-widths {
     &.#{$name} {
       max-width: $width;
@@ -82,13 +42,47 @@ $column: map-get($grid-classes, column);
   &.fullscreen {
     box-sizing: border-box;
     height: 100vh;
-    max-width: unset;
+    max-width: initial;
     width: 100vw;
 
     .#{$row} {
       @include flex($grow: 1, $shrink: 1, $basis: auto);
       align-items: center;
       align-content: center;
+    }
+  }
+}
+
+.#{$row} {
+  @include flex(flex, row, wrap, 1, 1, auto);
+  position: relative;
+  max-width: 100%;
+  min-height: 1px;
+}
+
+.#{$column}s,
+.#{$column} {
+  @include flex($grow: 1, $shrink: 1, $basis: auto);
+  box-sizing: border-box;
+  max-width: 100%;
+  min-height: 1px;
+  min-width: 0;
+  padding: $column-padding-top $column-gutter $column-padding-bottom $column-gutter;
+  word-wrap: break-word;
+}
+
+@each $name, $value in $breakpoints {
+  // Returns index of the current $key + $value pair
+  $breakpoint-index: index($breakpoints, ($name $value));
+
+  // If the index is on the first item in $breakpoints
+  @if $breakpoint-index == 1 {
+    @include grid-classes($name);
+
+    // Else add a media query
+  } @else {
+    @include breakpoint-up($name) {
+      @include grid-classes($name);
     }
   }
 }

@@ -20,7 +20,7 @@
     .filler {
       background: $gray900;
       border-radius: $global-border-radius;
-      margin-bottom: 1rem;
+      margin-bottom: $global-space;
     }
 
     .static-height {
@@ -63,13 +63,13 @@
 
     .inverted-bg {
       background: $gray200;
-      padding: 1rem 1rem 0 1rem;
+      padding: $global-space $global-space 0 $global-space;
     }
 
     .filler-bg {
       background: $gray900;
-      padding: 1rem;
-      margin-bottom: 1rem;
+      padding: $global-space;
+      margin-bottom: $global-space;
       border-radius: $global-border-radius;
 
       .filler {
