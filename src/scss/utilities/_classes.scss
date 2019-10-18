@@ -15,10 +15,16 @@
   font-family: $global-font-serif !important;
 }
 
-@each $property in center, left, right {
-  .has-#{$property}-text {
-    text-align: $property !important;
-  }
+.has-left-text {
+  @include set-flow("text-align", left !important);
+}
+
+.has-center-text {
+  @include set-flow("text-align", center !important);
+}
+
+.has-right-text {
+  @include set-flow("text-align", right !important);
 }
 
 .has-bold-text {

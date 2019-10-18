@@ -13,17 +13,25 @@
   $rtl-property: $property;
   $rtl-value: $value;
 
-  // output the original property
-  #{$property}: $value;
-
-  // output rtl variant of property/value
-  html[dir="rtl"] &,
-  &[dir="rtl"] {
-    $rtl-property: str-replace($property, "left", "right");
-
-    @if type-of($rtl-value) == string {
+  @if type-of($value) == string {
+    @if str-index($value, "left") {
       $rtl-value: str-replace($value, "left", "right");
+    } @else if str-index($value, "right") {
+      $rtl-value: str-replace($value, "right", "left");
     }
+  }
+
+  @if str-index($property, "left") {
+    $rtl-property: str-replace($property, "left", "right");
+  } @else if str-index($property, "right") {
+    $rtl-property: str-replace($property, "right", "left");
+  }
+
+  html:not([dir="rtl"]) & {
+    #{$property}: $value;
+  }
+
+  html[dir="rtl"] & {
     #{$rtl-property}: $rtl-value;
   }
 }
@@ -97,11 +105,11 @@ $arrow-fill-position: $arrow-size * -2 + 1.5px;
 $arrow-border-position: $arrow-size * -2;
 
 @mixin arrow-base {
-  content: "";
+  @include set-flow("border-left", $arrow-size solid transparent);
+  @include set-flow("border-right", $arrow-size solid transparent);
   border-bottom: $arrow-size solid transparent;
   border-top: $arrow-size solid transparent;
-  border-left: $arrow-size solid transparent;
-  border-right: $arrow-size solid transparent;
+  content: "";
   position: absolute;
 }
 
@@ -109,20 +117,20 @@ $arrow-border-position: $arrow-size * -2;
   @include if-has-arrow {
     &::after {
       @include arrow-base;
-      border-bottom: $arrow-size solid $fill-color;
+      @include set-flow("left", $edge-offset);
+      @include set-flow("right", auto);
       top: $arrow-fill-position;
-      left: $edge-offset;
-      right: auto;
       bottom: auto;
+      border-bottom: $arrow-size solid $fill-color;
     }
 
     &::before {
       @include arrow-base;
-      border-bottom: $arrow-size solid $border-color;
+      @include set-flow("left", $edge-offset);
+      @include set-flow("right", auto);
       top: $arrow-border-position;
-      left: $edge-offset;
-      right: auto;
       bottom: auto;
+      border-bottom: $arrow-size solid $border-color;
     }
   }
 }
@@ -131,20 +139,20 @@ $arrow-border-position: $arrow-size * -2;
   @include if-has-arrow {
     &::after {
       @include arrow-base;
-      border-top: $arrow-size solid $fill-color;
+      @include set-flow("left", $edge-offset);
+      @include set-flow("right", auto);
       bottom: $arrow-fill-position;
-      left: $edge-offset;
       top: auto;
-      right: auto;
+      border-top: $arrow-size solid $fill-color;
     }
 
     &::before {
       @include arrow-base;
-      border-top: $arrow-size solid $border-color;
+      @include set-flow("left", $edge-offset);
+      @include set-flow("right", auto);
       bottom: $arrow-border-position;
-      left: $edge-offset;
       top: auto;
-      right: auto;
+      border-top: $arrow-size solid $border-color;
     }
   }
 }
@@ -153,19 +161,19 @@ $arrow-border-position: $arrow-size * -2;
   @include if-has-arrow {
     &::after {
       @include arrow-base;
-      border-left: $arrow-size solid $fill-color;
-      right: $arrow-fill-position;
+      @include set-flow("border-left", $arrow-size solid $fill-color);
+      @include set-flow("right", $arrow-fill-position);
+      @include set-flow("left", auto);
       top: $edge-offset;
-      left: auto;
       bottom: auto;
     }
 
     &::before {
       @include arrow-base;
-      border-left: $arrow-size solid $border-color;
-      right: $arrow-border-position;
+      @include set-flow("border-left", $arrow-size solid $border-color);
+      @include set-flow("right", $arrow-border-position);
+      @include set-flow("left", auto);
       top: $edge-offset;
-      left: auto;
       bottom: auto;
     }
   }
@@ -175,20 +183,20 @@ $arrow-border-position: $arrow-size * -2;
   @include if-has-arrow {
     &::after {
       @include arrow-base;
-      border-right: $arrow-size solid $fill-color;
-      left: $arrow-fill-position;
+      @include set-flow("border-right", $arrow-size solid $fill-color);
+      @include set-flow("left", $arrow-fill-position);
+      @include set-flow("right", auto);
       top: $edge-offset;
       bottom: auto;
-      right: auto;
     }
 
     &::before {
       @include arrow-base;
-      border-right: $arrow-size solid $border-color;
-      left: $arrow-border-position;
+      @include set-flow("border-right", $arrow-size solid $border-color);
+      @include set-flow("left", $arrow-border-position);
+      @include set-flow("right", auto);
       top: $edge-offset;
       bottom: auto;
-      right: auto;
     }
   }
 }
