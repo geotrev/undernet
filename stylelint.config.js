@@ -137,8 +137,6 @@ module.exports = {
 
     "scss/map-keys-quotes": ALWAYS,
 
-    "scss/operator-no-newline-after": true,
-    "scss/operator-no-newline-before": true,
     "scss/operator-no-unspaced": true,
 
     "scss/selector-no-redundant-nesting-selector": true,

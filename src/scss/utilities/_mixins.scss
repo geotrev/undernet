@@ -1,28 +1,43 @@
-@mixin flex(
-  $display: null,
-  $direction: null,
-  $wrap: null,
-  $grow: null,
-  $shrink: null,
-  $basis: null,
-  $align: null
-) {
-  display: $display;
-  flex-flow: $direction $wrap;
-  flex: $grow $shrink $basis;
-  align-items: $align;
+@function str-replace($string, $search, $replace: "") {
+  $index: str-index($string, $search);
+
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace +
+      str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+  }
+
+  @return $string;
+}
+
+@mixin set-flow($property, $value) {
+  $rtl-property: $property;
+  $rtl-value: $value;
+
+  // output the original property
+  #{$property}: $value;
+
+  // output rtl variant of property/value
+  html[dir="rtl"] &,
+  &[dir="rtl"] {
+    $rtl-property: str-replace($property, "left", "right");
+
+    @if type-of($rtl-value) == string {
+      $rtl-value: str-replace($value, "left", "right");
+    }
+    #{$rtl-property}: $rtl-value;
+  }
 }
 
 @mixin grid-classes($size) {
   @for $i from 1 through $columns {
     .#{$size}-#{$i} {
-      @include flex($grow: 0, $shrink: 0, $basis: percentage($i / $columns));
+      flex: 0 0 percentage($i / $columns);
       max-width: percentage($i / $columns);
     }
 
     @if $column-offset-classes == true {
       .#{$size}-offset-#{$i} {
-        margin-left: percentage($i / $columns);
+        @include set-flow("margin-left", percentage($i / $columns));
       }
     }
 

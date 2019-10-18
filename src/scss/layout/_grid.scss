@@ -18,7 +18,9 @@ $column: map-get($grid-classes, column);
 }
 
 .#{$grid} {
-  @include flex(flex, column, nowrap, 1, 1, 0);
+  display: flex;
+  flex-flow: column nowrap;
+  flex: 1 1 0;
   box-sizing: border-box;
   margin: 0 auto;
   max-width: $grid-width;
@@ -46,15 +48,16 @@ $column: map-get($grid-classes, column);
     width: 100vw;
 
     .#{$row} {
-      @include flex($grow: 1, $shrink: 1, $basis: auto);
+      flex: 1 1 0;
       align-items: center;
-      align-content: center;
     }
   }
 }
 
 .#{$row} {
-  @include flex(flex, row, wrap, 1, 1, auto);
+  display: flex;
+  flex-flow: row wrap;
+  flex: 1 1 auto;
   position: relative;
   max-width: 100%;
   min-height: 1px;
@@ -62,7 +65,7 @@ $column: map-get($grid-classes, column);
 
 .#{$column}s,
 .#{$column} {
-  @include flex($grow: 1, $shrink: 1, $basis: auto);
+  flex: 1 1 auto;
   box-sizing: border-box;
   max-width: 100%;
   min-height: 1px;
