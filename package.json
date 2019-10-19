@@ -21,7 +21,7 @@
     "scss:lint:check": "stylelint-config-prettier-check",
     "js:lint": "eslint . --ext .js -c .eslintrc.js --ignore-path .eslintignore",
     "build:dist": "npm run js:build && npm run js:build:rollup && npm run css:build && npm run css:minify",
-    "build:dist:release": "npm run clean && npm run scss:prepublish && npm run css:prepublish && npm run js:prepublish && npm run create-hashes",
+    "build:dist:release": "npm run clean && npm run scss:prepublish && npm run css:prepublish && npm run js:prepublish && npm run node:create-hashes",
     "prettify": "npm run js:prettify && npm run scss:prettify",
     "clean": "rm -rf dist/ lib/ && mkdir dist/ lib/",
     "js:build": "npm run js:build:cjs && npm run js:build:esm",
@@ -39,10 +39,10 @@
     "css:prepublish": "npm run css:package && cd dist/ && zip -r undernet.css.zip . -x *.js *.zip *.js.map",
     "scss:prettify": "prettier --write 'src/scss/**/*.scss'",
     "scss:prepublish": "cd src/scss/ && zip -r ../../dist/undernet.scss.zip .",
-    "update-version": "node bin/update-version.js",
-    "create-hashes": "node bin/create-hashes.js",
+    "node:update-version": "node bin/update-version.js",
+    "node:create-hashes": "node bin/create-hashes.js",
     "preversion": "npm run js:build && npm test",
-    "postversion": "npm run update-version && npm run build:dist:release && git add -A && git commit --amend"
+    "postversion": "npm run node:update-version && npm run build:dist:release && git add -A && git commit --amend"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",

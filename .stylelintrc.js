@@ -8,6 +8,10 @@ module.exports = {
     // CSS
     // https://github.com/stylelint/stylelint/blob/master/docs/user-guide/rules.md
 
+    // This will be flagged by the script `scss:lint:check`
+    // Please ignore the error :)
+    "rule-empty-line-before": [ALWAYS, { except: ["first-nested"], ignore: ["after-comment"] }],
+
     "at-rule-blacklist": ["debug"],
     "at-rule-name-space-after": ALWAYS,
     "at-rule-no-vendor-prefix": true,
@@ -77,10 +81,6 @@ module.exports = {
 
     "property-no-unknown": true,
 
-    // This will be flagged by the script `scss:lint:check`
-    // Please ignore the error :)
-    "rule-empty-line-before": [ALWAYS, { except: ["first-nested"], ignore: ["after-comment"] }],
-
     "selector-attribute-brackets-space-inside": NEVER,
     "selector-attribute-operator-blacklist": [],
     "selector-attribute-operator-space-after": NEVER,
@@ -119,7 +119,6 @@ module.exports = {
     "scss/at-mixin-argumentless-call-parentheses": NEVER,
     "scss/at-mixin-parentheses-space-before": NEVER,
     "scss/at-each-key-value-single-line": true,
-    "scss/at-rule-conditional-no-parentheses": true,
     "scss/at-rule-no-unknown": true,
 
     "scss/declaration-nested-properties": NEVER,

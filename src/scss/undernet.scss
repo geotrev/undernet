@@ -3,24 +3,27 @@
 * Undernet v5.1.0 (https://undernet.io)
 * Copyright 2017-2019 George Treviranus
 */
+
 @charset "UTF-8";
 
 @import "utilities/functions";
 @import "config";
 @import "utilities/mixins";
 
+// Enable a scope in _config.scss
+// Read more here: https://www.undernet.io/docs/overview/branding
+//
 // .#{$scope} {
+//
 // Reset within scope is optional
 @import "utilities/reset";
 
 @import "utilities/classes";
 
 @import "layout/grid";
-
 @import "elements/typography";
 @import "elements/button";
 @import "elements/form";
-
 @import "components/dropdown";
 @import "components/modal";
 @import "components/accordion";
