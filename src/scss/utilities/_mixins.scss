@@ -202,15 +202,15 @@ $arrow-border-position: $arrow-size * -2;
 }
 
 @mixin visibility($size) {
-  .is-flex-#{$size} {
+  .has-display-flex-#{$size} {
     display: flex !important;
   }
 
-  .is-block-#{$size} {
+  .has-display-block-#{$size} {
     display: block !important;
   }
 
-  .is-hidden-#{$size} {
+  .has-display-hidden-#{$size} {
     display: none !important;
   }
 }

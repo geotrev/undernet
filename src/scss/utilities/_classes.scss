@@ -5,7 +5,7 @@
   @include using-keyboard;
 }
 
-// Typography style modifiers
+// `font-family` modifiers
 
 .has-sans-text {
   font-family: $global-font-sans !important;
@@ -15,17 +15,7 @@
   font-family: $global-font-serif !important;
 }
 
-.has-left-text {
-  @include set-flow("text-align", left !important);
-}
-
-.has-center-text {
-  @include set-flow("text-align", center !important);
-}
-
-.has-right-text {
-  @include set-flow("text-align", right !important);
-}
+// `font-weight` modifiers
 
 .has-bold-text {
   font-weight: $global-font-weight-bold !important;
@@ -35,7 +25,15 @@
   font-style: $global-font-style-italic !important;
 }
 
-// Color modifier for text and backgrounds
+// `text-align` modifiers
+
+@each $direction in left, center, right {
+  .has-#{$direction}-text {
+    @include set-flow("text-align", $direction !important);
+  }
+}
+
+// `color` modifier for text and backgrounds
 
 @each $name, $color in $full-palette {
   .has-#{$name}-text {
@@ -47,23 +45,22 @@
   }
 }
 
-// Visibility modifiers by breakpoint
+// `display` modifiers
 
 @each $size, $value in $breakpoints {
   $breakpoint-index: index($breakpoints, ($size $value));
 
   // If the index is on the first item in $breakpoints
-
   @if $breakpoint-index == 1 {
-    .is-flex {
+    .has-display-flex {
       display: flex !important;
     }
 
-    .is-block {
+    .has-display-block {
       display: block !important;
     }
 
-    .is-hidden {
+    .has-display-hidden {
       display: none !important;
     }
   } @else {
@@ -76,7 +73,7 @@
 // `flex-direction` modifiers
 
 @each $property in row, column {
-  .is-flex-#{$property} {
+  .has-direction-#{$property} {
     flex-direction: $property !important;
   }
 }
@@ -84,7 +81,7 @@
 // `justify-content` modifiers
 
 @each $property in center, flex-end, flex-start, space-around, space-between {
-  .is-justified-#{$property} {
+  .has-justify-content-#{$property} {
     justify-content: $property !important;
   }
 }
@@ -92,7 +89,7 @@
 // `align-items` modifiers
 
 @each $property in center, flex-end, flex-start, stretch {
-  .is-aligned-#{$property} {
+  .has-align-items-#{$property} {
     align-items: $property !important;
   }
 }
@@ -100,27 +97,21 @@
 // `align-content` modifiers
 
 @each $property in center, flex-end, flex-start, space-around, space-between, stretch {
-  .has-content-#{$property} {
+  .has-align-content-#{$property} {
     align-content: $property !important;
   }
 }
 
 // `flex-grow` and `flex-shrink` modifiers
 
-.can-grow {
-  flex-grow: 1 !important;
-}
+@each $value in 0, 1 {
+  .has-grow-#{$value} {
+    flex-grow: $value !important;
+  }
 
-.can-shrink {
-  flex-shrink: 1 !important;
-}
-
-.wont-grow {
-  flex-grow: 0 !important;
-}
-
-.wont-shrink {
-  flex-shrink: 0 !important;
+  .has-shrink-#{$value} {
+    flex-shrink: $value !important;
+  }
 }
 
 // Spacing modifier removes from all sides
@@ -135,7 +126,17 @@
 
 // Spacing modifier removes from a single side only
 
-@each $side in left, right, top, bottom {
+@each $side in left, right {
+  .has-no-padding-#{$side} {
+    @include set-flow("padding-#{$side}", 0 !important);
+  }
+
+  .has-no-margin-#{$side} {
+    @include set-flow("margin-#{$side}", 0 !important);
+  }
+}
+
+@each $side in top, bottom {
   .has-no-padding-#{$side} {
     padding-#{$side}: 0 !important;
   }
@@ -157,7 +158,17 @@
 
 // Spacing modifier on a single side only
 
-@each $side in left, right, top, bottom {
+@each $side in left, right {
+  .has-padding-#{$side} {
+    @include set-flow("padding-#{$side}", $global-space !important);
+  }
+
+  .has-margin-#{$side} {
+    @include set-flow("margin-#{$side}", $global-space !important);
+  }
+}
+
+@each $side in top, bottom {
   .has-padding-#{$side} {
     padding-#{$side}: $global-space !important;
   }
@@ -167,9 +178,11 @@
   }
 }
 
-@each $size, $value in $spacing-increments {
-  // Spacing modifier on all sides, for each spacing increment
+// 1. Spacing modifier on all sides, for each spacing increment
+// 2. Spacing modifier on a single side only, for each spacing increment
 
+@each $size, $value in $spacing-increments {
+  // 1
   .has-padding-#{$size} {
     padding: $value !important;
   }
@@ -178,9 +191,18 @@
     margin: $value !important;
   }
 
-  // Spacing modifier on single side only, for each spacing increment
+  // 2
+  @each $side in left, right {
+    .has-margin-#{$side}-#{$size} {
+      @include set-flow("margin-#{$side}:", $value !important);
+    }
 
-  @each $side in left, right, top, bottom {
+    .has-padding-#{$side}-#{$size} {
+      @include set-flow("padding-#{$side}:", $value !important);
+    }
+  }
+
+  @each $side in top, bottom {
     .has-margin-#{$side}-#{$size} {
       margin-#{$side}: $value !important;
     }
@@ -188,8 +210,8 @@
     .has-padding-#{$side}-#{$size} {
       padding-#{$side}: $value !important;
     }
-  }
-}
+  } // end @each
+} // end @each
 
 // List style modifier
 
@@ -198,12 +220,10 @@
   padding-left: 0 !important;
 }
 
-// A11y
-// https://gomakethings.com/hidden-content-for-better-a11y/
-
 // Visually hide an element, but leave it available for screen readers
 // https://github.com/h5bp/html5-boilerplate/blob/master/dist/css/main.css
 // http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+// https://gomakethings.com/hidden-content-for-better-a11y/
 
 %visually-hidden {
   border: 0;
