@@ -16,14 +16,14 @@ Change an element and/or it's children to use sans or sans-serif font family as 
 
 Align text left, right, or center.
 
-<p class="filler has-padding has-left-text">I'm aligned left!</p>
-<p class="filler has-padding has-center-text">I'm aligned center!</p>
-<p class="filler has-padding has-right-text">I'm aligned right!</p>
+<p class="filler has-padding has-text-start">I'm aligned left!</p>
+<p class="filler has-padding has-text-center">I'm aligned center!</p>
+<p class="filler has-padding has-text-end">I'm aligned right!</p>
 
 ```html
-<p class="has-left-text">I'm aligned left!</p>
-<p class="has-center-text">I'm aligned center!</p>
-<p class="has-right-text">I'm aligned right!</p>
+<p class="has-text-start">I'm aligned left!</p>
+<p class="has-text-center">I'm aligned center!</p>
+<p class="has-text-end">I'm aligned right!</p>
 ```
 
 ## Font Weight
@@ -39,4 +39,4 @@ Make your font bold or italic.
 ```
 
 <hr />
-<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/app/docs/text.md">Edit this page on Github!</a></p>
+<p class="has-text-end">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/app/docs/text.md">Edit this page on Github!</a></p>

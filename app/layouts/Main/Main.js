@@ -8,10 +8,9 @@ import Footer from "app/components/Footer"
 import PageNotFound from "app/components/PageNotFound"
 import Home from "app/pages/Home"
 import Docs from "app/pages/Docs"
+import { FOCUSABLE_TABINDEX, UNFOCUSABLE_TABINDEX } from "./constants"
 
 import "./styles.scss"
-
-import { FOCUSABLE_TABINDEX, UNFOCUSABLE_TABINDEX } from "./constants"
 
 export default function Main() {
   const headerRef = React.useRef(null)

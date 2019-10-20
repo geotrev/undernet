@@ -20,7 +20,7 @@ Also worth note, but not included in detail in this article, are offset and orde
 
 The basic wrapper of a layout uses the `grid` class. Grids are automatically centered (`margin: 0 auto`) and have a left and right gutter. Note that a grid container is entirely optional if you already have a wrapper with your desired properties.
 
-<div class="grid has-center-text has-padding filler">
+<div class="grid has-text-center has-padding filler">
   .grid
 </div>
 
@@ -36,16 +36,16 @@ A grid is a flex container with `column` direction.
 
 These are modifiers to the grid container that change its `max-width`.
 
-<div class="narrow grid has-center-text has-padding filler">
+<div class="narrow grid has-text-center has-padding filler">
   .narrow.grid
 </div>
-<div class="grid has-center-text has-padding filler">
+<div class="grid has-text-center has-padding filler">
   .grid
 </div>
-<div class="wide grid has-center-text has-padding filler">
+<div class="wide grid has-text-center has-padding filler">
   .wide.grid
 </div>
-<div class="fluid grid has-center-text has-padding filler">
+<div class="fluid grid has-text-center has-padding filler">
   .fluid.grid
 </div>
 
@@ -68,13 +68,13 @@ These are modifiers to the grid container that change its `max-width`.
 
 Sections do the same, but add top and bottom padding. This can be helpful for creating content folds with colored backgrounds (i.e., for marketing pages).
 
-<div class="small-section grid has-center-text filler">
+<div class="small-section grid has-text-center filler">
   .small-section.grid
 </div>
-<div class="medium-section grid has-center-text filler">
+<div class="medium-section grid has-text-center filler">
   .medium-section.grid
 </div>
-<div class="large-section grid has-center-text filler">
+<div class="large-section grid has-text-center filler">
   .large-section.grid
 </div>
 
@@ -120,10 +120,10 @@ If you add a column element inside a row, they stack next to each other with equ
 
 <div class="grid filler-bg">
   <div class="row">
-    <div class="column has-no-padding-bottom has-no-padding-left">
+    <div class="column has-no-padding-bottom has-no-padding-start">
       <p class="filler has-padding">.column</p>
     </div>
-    <div class="column has-no-padding-bottom has-no-padding-right">
+    <div class="column has-no-padding-bottom has-no-padding-end">
       <p class="filler has-padding">.column</p>
     </div>
   </div>
@@ -319,4 +319,4 @@ By default, a row will be vertically centered. To make the row top-aligned, add 
 [Learn more about alignment utilities.](/docs/layout/alignment)
 
 <hr />
-<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/app/docs/grid.md">Edit this page on Github!</a></p>
+<p class="has-text-end">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/app/docs/grid.md">Edit this page on Github!</a></p>

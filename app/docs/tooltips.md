@@ -130,16 +130,16 @@ Because `disabled` elements aren't focusable, you will need to instead place any
 
 ## Direction
 
-Have the tooltip appear from the left, right, or bottom position by adding `is-drop-left`, `is-drop-right`, or `is-drop-down`, respectively.
+Have the tooltip appear from the left, right, or bottom position by adding `is-drop-start`, `is-drop-end`, or `is-drop-down`, respectively.
 
 <span class="tooltip" data-tooltip="new-tooltip5">
   <button class="tooltip-trigger" data-target="new-tooltip5">Drop Right</button>
-  <div class="tooltip-box is-drop-right" id="new-tooltip5">
+  <div class="tooltip-box is-drop-end" id="new-tooltip5">
     Right tooltip.
   </div>
 </span> <span class="tooltip" data-tooltip="new-tooltip4">
   <button class="tooltip-trigger" data-target="new-tooltip4">Drop Left</button>
-  <div class="tooltip-box is-drop-left" id="new-tooltip4">
+  <div class="tooltip-box is-drop-start" id="new-tooltip4">
     Left tooltip.
   </div>
 </span> <span class="tooltip" data-tooltip="new-tooltip6">
@@ -152,11 +152,11 @@ Have the tooltip appear from the left, right, or bottom position by adding `is-d
 ```html
 <span class="tooltip" data-tooltip="new-tooltip5">
   <button class="tooltip-trigger" data-target="new-tooltip5">Drop Right</button>
-  <div class="tooltip-box is-drop-right" id="new-tooltip5">...</div>
+  <div class="tooltip-box is-drop-end" id="new-tooltip5">...</div>
 </span> 
 <span class="tooltip" data-tooltip="new-tooltip4">
   <button class="tooltip-trigger" data-target="new-tooltip4">Drop Left</button>
-  <div class="tooltip-box is-drop-left" id="new-tooltip4">...</div>
+  <div class="tooltip-box is-drop-start" id="new-tooltip4">...</div>
 </span> 
 <span class="tooltip" data-tooltip="new-tooltip6">
   <button class="tooltip-trigger" data-target="new-tooltip6">Drop Down</button>
@@ -210,4 +210,4 @@ Undernet.Tooltips.start()
 ```
 
 <hr />
-<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/app/docs/dropdowns.md">Edit this page on Github!</a></p>
+<p class="has-text-end">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/app/docs/dropdowns.md">Edit this page on Github!</a></p>

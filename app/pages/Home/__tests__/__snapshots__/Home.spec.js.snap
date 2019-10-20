@@ -80,7 +80,7 @@ exports[`<Home /> renders 1`] = `
                 className="row"
               >
                 <div
-                  className="xsmall-12 columns has-center-text"
+                  className="xsmall-12 columns has-text-center"
                 >
                   <PageHeader
                     className="h3"
@@ -89,7 +89,7 @@ exports[`<Home /> renders 1`] = `
                   </PageHeader>
                 </div>
                 <div
-                  className="xsmall-12 columns has-center-text"
+                  className="xsmall-12 columns has-text-center"
                 >
                   <Link
                     className="medium button has-feather"
@@ -127,7 +127,7 @@ exports[`<Home /> renders 1`] = `
                   </Link>
                 </div>
                 <div
-                  className="xsmall-12 columns has-center-text"
+                  className="xsmall-12 columns has-text-center"
                 >
                   <p
                     className="un-version has-no-margin"
@@ -156,10 +156,10 @@ exports[`<Home /> renders 1`] = `
                     className="wide grid"
                   >
                     <ul
-                      className="row is-unstyled-list has-no-padding"
+                      className="row has-unstyled-list has-no-padding"
                     >
                       <li
-                        className="large-3 small-6 xsmall-12 columns has-center-text has-no-padding-bottom"
+                        className="large-3 small-6 xsmall-12 columns has-text-center has-no-padding-bottom"
                         key="Tiny"
                       >
                         <div
@@ -178,7 +178,7 @@ exports[`<Home /> renders 1`] = `
                         </p>
                       </li>
                       <li
-                        className="large-3 small-6 xsmall-12 columns has-center-text has-no-padding-bottom"
+                        className="large-3 small-6 xsmall-12 columns has-text-center has-no-padding-bottom"
                         key="Modular"
                       >
                         <div
@@ -197,7 +197,7 @@ exports[`<Home /> renders 1`] = `
                         </p>
                       </li>
                       <li
-                        className="large-3 small-6 xsmall-12 columns has-center-text has-no-padding-bottom"
+                        className="large-3 small-6 xsmall-12 columns has-text-center has-no-padding-bottom"
                         key="Configurable"
                       >
                         <div
@@ -216,7 +216,7 @@ exports[`<Home /> renders 1`] = `
                         </p>
                       </li>
                       <li
-                        className="large-3 small-6 xsmall-12 columns has-center-text has-no-padding-bottom"
+                        className="large-3 small-6 xsmall-12 columns has-text-center has-no-padding-bottom"
                         key="Accessible"
                       >
                         <div
@@ -246,7 +246,7 @@ exports[`<Home /> renders 1`] = `
                 className="row"
               >
                 <div
-                  className="xsmall-12 columns has-center-text"
+                  className="xsmall-12 columns has-text-center"
                 >
                   <h2
                     className="h6"
@@ -259,7 +259,7 @@ exports[`<Home /> renders 1`] = `
                   <InstallNpm />
                 </div>
                 <div
-                  className="xsmall-12 columns has-center-text"
+                  className="xsmall-12 columns has-text-center"
                 >
                   <p>
                     Or simply link to minified assets:
@@ -267,7 +267,7 @@ exports[`<Home /> renders 1`] = `
                   <Install />
                 </div>
                 <div
-                  className="xsmall-12 columns has-center-text"
+                  className="xsmall-12 columns has-text-center"
                 >
                   <p>
                     See how Undernet can improve your developer experience!

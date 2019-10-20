@@ -13,8 +13,8 @@ Add padding or margin to all sides of an element. Value defaults to `$global-spa
 
 Add padding or margin to one side, e.g. `has-margin-X`, where `X` is the side you want. Value defaults to `$global-space`.
 
-<div class="filler-bg has-padding-left has-no-padding-top has-no-padding-right has-no-padding-bottom">
-  .has-padding-left
+<div class="filler-bg has-padding-start has-no-padding-top has-no-padding-end has-no-padding-bottom">
+  .has-padding-start
   <div class="filler has-margin-top has-padding can-grow">
     .has-margin-top
   </div>
@@ -35,8 +35,8 @@ If the default value of `$global-space` isn't the right size, don't worry, there
 
 Define a spacing size with a side, e.g. `has-padding-X-Y`, where `X` is the side and `Y` is the size.
 
-<div class="filler-bg has-padding-left-1 has-no-padding-top has-no-padding-right has-no-padding-bottom">
-  .has-padding-left-1
+<div class="filler-bg has-padding-start-1 has-no-padding-top has-no-padding-end has-no-padding-bottom">
+  .has-padding-start-1
   <div class="filler has-margin-top-4 has-padding can-grow">
     .has-margin-top-4
   </div>
@@ -55,12 +55,12 @@ Remove padding or margin from all sides of an element.
 
 Further, remove padding or margin from specifically one side using `has-no-padding-X`, where `X` is the side you want.
 
-<div class="filler-bg has-no-padding-left">
-  .has-no-padding-left
-  <div class="filler has-no-margin-top has-padding can-grow">
-    .has-no-margin-top
+<div class="filler-bg has-no-padding-start">
+  .has-no-padding-start
+  <div class="filler has-margin has-no-margin-top has-padding can-grow">
+    .has-margin.has-no-margin-top
   </div>
 </div>
 
 <hr />
-<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/app/docs/spacing.md">Edit this page on Github!</a></p>
+<p class="has-text-end">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/app/docs/spacing.md">Edit this page on Github!</a></p>

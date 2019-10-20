@@ -1,2 +1,3 @@
 dist/
+app/docs/*
 src/scss/utilities/_reset.scss

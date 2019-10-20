@@ -27,10 +27,16 @@
 
 // `text-align` modifiers
 
-@each $direction in left, center, right {
-  .has-#{$direction}-text {
-    @include set-flow("text-align", $direction !important);
-  }
+.has-text-start {
+  @include set-flow("text-align", left !important);
+}
+
+.has-text-center {
+  text-align: center !important;
+}
+
+.has-text-end {
+  @include set-flow("text-align", right !important);
 }
 
 // `color` modifier for text and backgrounds
@@ -60,7 +66,7 @@
       display: block !important;
     }
 
-    .has-display-hidden {
+    .has-display-none {
       display: none !important;
     }
   } @else {
@@ -114,38 +120,6 @@
   }
 }
 
-// Spacing modifier removes from all sides
-
-.has-no-margin {
-  margin: 0 !important;
-}
-
-.has-no-padding {
-  padding: 0 !important;
-}
-
-// Spacing modifier removes from a single side only
-
-@each $side in left, right {
-  .has-no-padding-#{$side} {
-    @include set-flow("padding-#{$side}", 0 !important);
-  }
-
-  .has-no-margin-#{$side} {
-    @include set-flow("margin-#{$side}", 0 !important);
-  }
-}
-
-@each $side in top, bottom {
-  .has-no-padding-#{$side} {
-    padding-#{$side}: 0 !important;
-  }
-
-  .has-no-margin-#{$side} {
-    margin-#{$side}: 0 !important;
-  }
-}
-
 // Spacing modifiers on all sides
 
 .has-padding {
@@ -158,14 +132,20 @@
 
 // Spacing modifier on a single side only
 
-@each $side in left, right {
-  .has-padding-#{$side} {
-    @include set-flow("padding-#{$side}", $global-space !important);
-  }
+.has-padding-start {
+  @include set-flow("padding-left", $global-space !important);
+}
 
-  .has-margin-#{$side} {
-    @include set-flow("margin-#{$side}", $global-space !important);
-  }
+.has-margin-start {
+  @include set-flow("margin-left", $global-space !important);
+}
+
+.has-padding-end {
+  @include set-flow("padding-right", $global-space !important);
+}
+
+.has-margin-end {
+  @include set-flow("margin-right", $global-space !important);
 }
 
 @each $side in top, bottom {
@@ -192,14 +172,20 @@
   }
 
   // 2
-  @each $side in left, right {
-    .has-margin-#{$side}-#{$size} {
-      @include set-flow("margin-#{$side}:", $value !important);
-    }
+  .has-margin-start-#{$size} {
+    @include set-flow("margin-left", $value !important);
+  }
 
-    .has-padding-#{$side}-#{$size} {
-      @include set-flow("padding-#{$side}:", $value !important);
-    }
+  .has-padding-start-#{$size} {
+    @include set-flow("padding-left", $value !important);
+  }
+
+  .has-margin-end-#{$size} {
+    @include set-flow("margin-right", $value !important);
+  }
+
+  .has-padding-end-#{$size} {
+    @include set-flow("padding-right", $value !important);
   }
 
   @each $side in top, bottom {
@@ -213,9 +199,47 @@
   } // end @each
 } // end @each
 
+// Spacing modifier removes from all sides
+
+.has-no-margin {
+  margin: 0 !important;
+}
+
+.has-no-padding {
+  padding: 0 !important;
+}
+
+// Spacing modifier removes from a single side only
+
+.has-no-padding-start {
+  @include set-flow("padding-left", 0 !important);
+}
+
+.has-no-margin-start {
+  @include set-flow("margin-left", 0 !important);
+}
+
+.has-no-padding-end {
+  @include set-flow("padding-right", 0 !important);
+}
+
+.has-no-margin-end {
+  @include set-flow("margin-right", 0 !important);
+}
+
+@each $side in top, bottom {
+  .has-no-padding-#{$side} {
+    padding-#{$side}: 0 !important;
+  }
+
+  .has-no-margin-#{$side} {
+    margin-#{$side}: 0 !important;
+  }
+}
+
 // List style modifier
 
-.is-unstyled-list {
+.has-unstyled-list {
   list-style-type: none !important;
   padding-left: 0 !important;
 }

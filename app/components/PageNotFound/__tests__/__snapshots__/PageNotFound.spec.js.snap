@@ -3,7 +3,7 @@
 exports[`<PageNotFound /> renders 1`] = `
 <PageNotFound>
   <div
-    className="has-padding-4 has-center-text"
+    className="has-padding-4 has-text-center"
   >
     <SetMeta
       pageNotFound={true}

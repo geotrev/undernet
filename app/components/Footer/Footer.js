@@ -15,21 +15,21 @@ export default function Footer(props) {
     <div className="footer-wrapper small-section fluid grid">
       <div className="row">
         <div className="has-no-padding column">
-          <p className="has-center-text has-gray900-text">
+          <p className="has-text-center has-gray900-text">
             Undernet is a front-end framework created and maintained by{" "}
             <a className="has-white-text" href="http://www.geotrev.com">
               George Treviranus
             </a>
             .
           </p>
-          <p className="has-center-text has-gray900-text">
+          <p className="has-text-center has-gray900-text">
             Animations provided by{" "}
             <a className="has-white-text" href="https://folgert.com/">
               Gavin Folgert
             </a>
             . ❤️
           </p>
-          <ul className="has-center-text has-gray900-text is-unstyled-list is-flex-row is-flex is-justified-center">
+          <ul className="has-text-center has-gray900-text has-unstyled-list has-direction-row has-display-flex has-justify-content-center">
             <li role="none">
               <a
                 role="listitem"

@@ -55,7 +55,7 @@ export default function Home() {
 
       return (
         <li
-          className="large-3 small-6 xsmall-12 columns has-center-text has-no-padding-bottom"
+          className="large-3 small-6 xsmall-12 columns has-text-center has-no-padding-bottom"
           key={animation.title}
         >
           <div className="animated-icon" id={`animated-${animationName}`} />
@@ -82,11 +82,11 @@ export default function Home() {
 
       <div className="medium-section fluid grid hero">
         <div className="row">
-          <div className="xsmall-12 columns has-center-text">
+          <div className="xsmall-12 columns has-text-center">
             <PageHeader className="h3">{pkg.description}</PageHeader>
           </div>
 
-          <div className="xsmall-12 columns has-center-text">
+          <div className="xsmall-12 columns has-text-center">
             <Link to={downloadPath} className="medium button has-feather">
               Download <ChevronRight size={20} role="presentation" focusable="false" />
             </Link>
@@ -95,7 +95,7 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="xsmall-12 columns has-center-text">
+          <div className="xsmall-12 columns has-text-center">
             <p className="un-version has-no-margin">Version {pkg.version}</p>
           </div>
 
@@ -109,7 +109,7 @@ export default function Home() {
         <div className="row has-no-padding">
           <div className="column has-no-padding">
             <div className="wide grid">
-              <ul className="row is-unstyled-list has-no-padding">{renderAnimations()}</ul>
+              <ul className="row has-unstyled-list has-no-padding">{renderAnimations()}</ul>
             </div>
           </div>
         </div>
@@ -117,16 +117,16 @@ export default function Home() {
 
       <div className="medium-section narrow grid">
         <div className="row">
-          <div className="xsmall-12 columns has-center-text">
+          <div className="xsmall-12 columns has-text-center">
             <h2 className="h6">Painless Setup</h2>
             <p>Install with npm:</p>
             <InstallNpm />
           </div>
-          <div className="xsmall-12 columns has-center-text">
+          <div className="xsmall-12 columns has-text-center">
             <p>Or simply link to minified assets:</p>
             <InstallAssets />
           </div>
-          <div className="xsmall-12 columns has-center-text">
+          <div className="xsmall-12 columns has-text-center">
             <p>See how Undernet can improve your developer experience!</p>
             <Link to={introductionPath} className="primary medium button has-gradient has-feather">
               Learn More <ChevronRight size={20} role="presentation" focusable="false" />

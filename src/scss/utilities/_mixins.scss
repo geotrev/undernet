@@ -210,7 +210,7 @@ $arrow-border-position: $arrow-size * -2;
     display: block !important;
   }
 
-  .has-display-hidden-#{$size} {
+  .has-display-none-#{$size} {
     display: none !important;
   }
 }

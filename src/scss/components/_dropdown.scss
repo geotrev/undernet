@@ -54,7 +54,7 @@
           );
         }
 
-        &.is-drop-left {
+        &.is-drop-start {
           @include set-flow("right", 100%);
           @include set-flow("margin-right", $global-space);
           top: 0;
@@ -66,7 +66,7 @@
           );
         }
 
-        &.is-drop-right {
+        &.is-drop-end {
           @include set-flow("left", 100%);
           @include set-flow("margin-left", $global-space);
           top: 0;
@@ -78,7 +78,7 @@
           );
         }
 
-        &.is-aligned-right {
+        &.is-aligned-end {
           @include set-flow("right", 0);
 
           @include if-has-arrow {

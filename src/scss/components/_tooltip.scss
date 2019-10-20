@@ -46,7 +46,7 @@
 
     @include down-arrow(calc(50% - #{$arrow-size}), $gray100, $gray100);
 
-    &.is-drop-right {
+    &.is-drop-end {
       left: 100%;
       margin: 0 0 0 $arrow-size;
       bottom: auto;
@@ -55,7 +55,7 @@
       @include left-arrow(calc(50% - #{$arrow-size}), $gray100, $gray100);
     }
 
-    &.is-drop-left {
+    &.is-drop-start {
       right: 100%;
       margin: 0 $arrow-size 0 0;
       bottom: auto;

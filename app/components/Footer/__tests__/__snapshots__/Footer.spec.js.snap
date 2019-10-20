@@ -19,7 +19,7 @@ exports[`<Footer /> renders 1`] = `
         className="has-no-padding column"
       >
         <p
-          className="has-center-text has-gray900-text"
+          className="has-text-center has-gray900-text"
         >
           Undernet is a front-end framework created and maintained by
            
@@ -32,7 +32,7 @@ exports[`<Footer /> renders 1`] = `
           .
         </p>
         <p
-          className="has-center-text has-gray900-text"
+          className="has-text-center has-gray900-text"
         >
           Animations provided by
            
@@ -45,7 +45,7 @@ exports[`<Footer /> renders 1`] = `
           . ❤️
         </p>
         <ul
-          className="has-center-text has-gray900-text is-unstyled-list is-flex-row is-flex is-justified-center"
+          className="has-text-center has-gray900-text has-unstyled-list has-direction-row has-display-flex has-justify-content-center"
         >
           <li
             role="none"

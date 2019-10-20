@@ -14,8 +14,8 @@ const Selectors = {
   ROLE: "role",
   ARIA_DESCRIBEDBY: "aria-describedby",
   // classes
-  DROP_LEFT_CLASS: "is-drop-left",
-  DROP_RIGHT_CLASS: "is-drop-right",
+  DROP_LEFT_CLASS: "is-drop-start",
+  DROP_RIGHT_CLASS: "is-drop-end",
 }
 
 const Events = {

@@ -62,14 +62,17 @@ export default function SideNav() {
   }
 
   const buttonClasses = () => {
-    return classNames("is-justified-center is-aligned-center is-flex is-hidden-xlarge", {
-      "rotate-180": !menuIsOpen,
-    })
+    return classNames(
+      "has-justify-content-center has-align-items-center has-display-flex has-display-none-xlarge",
+      {
+        "rotate-180": !menuIsOpen,
+      }
+    )
   }
 
   const menuClasses = () => {
     return classNames("row side-nav-menu accordion has-padding-3", {
-      "is-hidden": !menuIsOpen,
+      "has-display-none": !menuIsOpen,
     })
   }
 
@@ -92,7 +95,7 @@ export default function SideNav() {
       <li key={item.name} role="none">
         <NavLink
           role="listitem"
-          className="side-nav-link-item has-black-text is-flex is-aligned-center"
+          className="side-nav-link-item has-black-text is-display-flex has-align-items-center"
           activeClassName="active"
           onClick={handleCollapseClick}
           to={item.url}
@@ -143,7 +146,7 @@ export default function SideNav() {
   return (
     <div className="xsmall-12 xlarge-2 columns has-no-padding" id="side-nav">
       <div className="fluid grid side-nav-wrapper">
-        <div className="row is-flex is-hidden-xlarge side-nav-expand">
+        <div className="row has-display-flex has-display-none-xlarge side-nav-expand">
           <button
             onClick={handleMenuToggleClick}
             className={buttonClasses()}
