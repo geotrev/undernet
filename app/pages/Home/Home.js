@@ -73,7 +73,7 @@ export default function Home() {
       {/*
        * Title is set here _and_ in public/index.html...
        * Doing so prevents title changes on other pages from
-       * persisting if a visitor return to the home page.
+       * persisting if a visitor returns to the home page.
        */}
       <SetMeta
         title="A modular, configuration-first front-end framework. No strings."

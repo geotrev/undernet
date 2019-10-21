@@ -41,35 +41,39 @@
   }
 
   @if $tooltip-arrows-enabled {
+    @include set-flow("left", 0); // This is a fallback.
     bottom: 100%;
-    left: 0; // Overriden in javascript. This is a fallback.
 
     @include down-arrow(calc(50% - #{$arrow-size}), $gray100, $gray100);
 
     &.is-drop-end {
-      left: 100%;
-      margin: 0 0 0 $arrow-size;
+      @include set-flow("left", 100%);
+      @include set-flow(margin-left, $arrow-size);
+      margin-top: 0;
+      margin-bottom: 0;
       bottom: auto;
-      top: 0; // Overriden in javascript. This is a fallback.
+      top: 0; // This is a fallback.
 
       @include left-arrow(calc(50% - #{$arrow-size}), $gray100, $gray100);
     }
 
     &.is-drop-start {
-      right: 100%;
-      margin: 0 $arrow-size 0 0;
+      @include set-flow("right", 100%);
+      @include set-flow("left", auto);
+      @include set-flow(margin-right, $arrow-size);
+      margin-top: 0;
+      margin-bottom: 0;
       bottom: auto;
-      left: auto;
-      top: 0; // Overriden in javascript. This is a fallback.
+      top: 0; // This is a fallback.
 
       @include right-arrow(calc(50% - #{$arrow-size}), $gray100, $gray100);
     }
 
     &.is-drop-down {
+      @include set-flow("left", 0); // This is a fallback.
       top: 100%;
       margin: -$arrow-size 0 0 0;
       bottom: auto;
-      left: 0; // Overriden in javascript. This is a fallback.
 
       @include up-arrow(calc(50% - #{$arrow-size}), $gray100, $gray100);
     }
