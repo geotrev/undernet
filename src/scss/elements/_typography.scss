@@ -15,7 +15,8 @@ mark {
 
 ul,
 ol {
-  padding: $list-padding;
+  @include set-flow("padding-left", $list-padding-inline-start);
+  padding-bottom: $list-padding-bottom;
   margin: $list-margin;
   font-family: $list-font;
 

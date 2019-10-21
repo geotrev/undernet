@@ -303,7 +303,9 @@ $hr-margin: spacing(4) 0 !default;
 
 $ul-list-style: disc !default;
 $ol-list-style: decimal !default;
-$list-padding: 0 0 $global-space 22px !default;
+
+$list-padding-bottom: $global-space !default;
+$list-padding-inline-start: 22px !default;
 $list-margin: 0 !default;
 $list-font: $global-font-sans !default;
 $list-item-margin: 0 !default;
