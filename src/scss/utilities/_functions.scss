@@ -1,3 +1,5 @@
+@import "../vendor/functions";
+
 @function status($color) {
   @return map-get($status-palette, $color);
 }
