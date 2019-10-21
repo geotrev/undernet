@@ -1,4 +1,4 @@
-@mixin set-flow($property, $value) {
+@mixin net-set-flow($property, $value) {
   $rtl-property: $property;
   $rtl-value: $value;
 
@@ -25,7 +25,7 @@
   }
 }
 
-@mixin grid-classes($size) {
+@mixin net-create-grid-classes($size) {
   @for $i from 1 through $columns {
     .#{$size}-#{$i} {
       flex: 0 0 percentage($i / $columns);
@@ -34,7 +34,7 @@
 
     @if $column-offset-classes == true {
       .#{$size}-offset-#{$i} {
-        @include set-flow("margin-left", percentage($i / $columns));
+        @include net-set-flow("margin-left", percentage($i / $columns));
       }
     }
 
@@ -49,19 +49,19 @@
   }
 }
 
-@mixin breakpoint-up($size) {
+@mixin net-breakpoint($size) {
   @media screen and (min-width: #{breakpoint($size)}) {
     @content;
   }
 }
 
-@mixin breakpoint-down($size) {
+@mixin net-breakpoint-down($size) {
   @media screen and (max-width: #{breakpoint($size) - 1}) {
     @content;
   }
 }
 
-@mixin breakpoint-between($min, $max) {
+@mixin net-breakpoint-between($min, $max) {
   @media screen
     and (min-width: #{breakpoint($min)})
     and (max-width: #{breakpoint($max) - 1}) {
@@ -69,7 +69,7 @@
   }
 }
 
-@mixin header-sizes($headers) {
+@mixin net-create-headers($headers) {
   @each $header, $properties in $headers {
     #{$header},
     .#{$header} {
@@ -81,7 +81,7 @@
 }
 
 // this mixin is used for arrow mixins/CSS below and in src/scss/components/_dropdown.scss
-@mixin if-has-arrow {
+@mixin net-with-arrow-enabled {
   &:not(.has-no-arrow) {
     @content;
   }
@@ -93,7 +93,7 @@
 $arrow-fill-position: $arrow-size * -2 + 1.5px;
 $arrow-border-position: $arrow-size * -2;
 
-@mixin arrow-base {
+@mixin net-create-arrow-base-styles {
   border-left: $arrow-size solid transparent;
   border-right: $arrow-size solid transparent;
   border-bottom: $arrow-size solid transparent;
@@ -102,21 +102,21 @@ $arrow-border-position: $arrow-size * -2;
   position: absolute;
 }
 
-@mixin up-arrow($edge-offset, $fill-color, $border-color) {
-  @include if-has-arrow {
+@mixin net-create-up-arrow($edge-offset, $fill-color, $border-color) {
+  @include net-with-arrow-enabled {
     &::after {
-      @include arrow-base;
-      @include set-flow("left", $edge-offset);
-      @include set-flow("right", auto);
+      @include net-create-arrow-base-styles;
+      @include net-set-flow("left", $edge-offset);
+      @include net-set-flow("right", auto);
       top: $arrow-fill-position;
       bottom: auto;
       border-bottom: $arrow-size solid $fill-color;
     }
 
     &::before {
-      @include arrow-base;
-      @include set-flow("left", $edge-offset);
-      @include set-flow("right", auto);
+      @include net-create-arrow-base-styles;
+      @include net-set-flow("left", $edge-offset);
+      @include net-set-flow("right", auto);
       top: $arrow-border-position;
       bottom: auto;
       border-bottom: $arrow-size solid $border-color;
@@ -124,21 +124,21 @@ $arrow-border-position: $arrow-size * -2;
   }
 }
 
-@mixin down-arrow($edge-offset, $fill-color, $border-color) {
-  @include if-has-arrow {
+@mixin net-create-down-arrow($edge-offset, $fill-color, $border-color) {
+  @include net-with-arrow-enabled {
     &::after {
-      @include arrow-base;
-      @include set-flow("left", $edge-offset);
-      @include set-flow("right", auto);
+      @include net-create-arrow-base-styles;
+      @include net-set-flow("left", $edge-offset);
+      @include net-set-flow("right", auto);
       bottom: $arrow-fill-position;
       top: auto;
       border-top: $arrow-size solid $fill-color;
     }
 
     &::before {
-      @include arrow-base;
-      @include set-flow("left", $edge-offset);
-      @include set-flow("right", auto);
+      @include net-create-arrow-base-styles;
+      @include net-set-flow("left", $edge-offset);
+      @include net-set-flow("right", auto);
       bottom: $arrow-border-position;
       top: auto;
       border-top: $arrow-size solid $border-color;
@@ -146,51 +146,51 @@ $arrow-border-position: $arrow-size * -2;
   }
 }
 
-@mixin right-arrow($edge-offset, $fill-color, $border-color) {
-  @include if-has-arrow {
+@mixin net-create-right-arrow($edge-offset, $fill-color, $border-color) {
+  @include net-with-arrow-enabled {
     &::after {
-      @include arrow-base;
-      @include set-flow("border-left", $arrow-size solid $fill-color);
-      @include set-flow("right", $arrow-fill-position);
-      @include set-flow("left", auto);
+      @include net-create-arrow-base-styles;
+      @include net-set-flow("border-left", $arrow-size solid $fill-color);
+      @include net-set-flow("right", $arrow-fill-position);
+      @include net-set-flow("left", auto);
       top: $edge-offset;
       bottom: auto;
     }
 
     &::before {
-      @include arrow-base;
-      @include set-flow("border-left", $arrow-size solid $border-color);
-      @include set-flow("right", $arrow-border-position);
-      @include set-flow("left", auto);
+      @include net-create-arrow-base-styles;
+      @include net-set-flow("border-left", $arrow-size solid $border-color);
+      @include net-set-flow("right", $arrow-border-position);
+      @include net-set-flow("left", auto);
       top: $edge-offset;
       bottom: auto;
     }
   }
 }
 
-@mixin left-arrow($edge-offset, $fill-color, $border-color) {
-  @include if-has-arrow {
+@mixin net-create-left-arrow($edge-offset, $fill-color, $border-color) {
+  @include net-with-arrow-enabled {
     &::after {
-      @include arrow-base;
-      @include set-flow("border-right", $arrow-size solid $fill-color);
-      @include set-flow("left", $arrow-fill-position);
-      @include set-flow("right", auto);
+      @include net-create-arrow-base-styles;
+      @include net-set-flow("border-right", $arrow-size solid $fill-color);
+      @include net-set-flow("left", $arrow-fill-position);
+      @include net-set-flow("right", auto);
       top: $edge-offset;
       bottom: auto;
     }
 
     &::before {
-      @include arrow-base;
-      @include set-flow("border-right", $arrow-size solid $border-color);
-      @include set-flow("left", $arrow-border-position);
-      @include set-flow("right", auto);
+      @include net-create-arrow-base-styles;
+      @include net-set-flow("border-right", $arrow-size solid $border-color);
+      @include net-set-flow("left", $arrow-border-position);
+      @include net-set-flow("right", auto);
       top: $edge-offset;
       bottom: auto;
     }
   }
 }
 
-@mixin visibility($size) {
+@mixin net-create-visibility-classes($size) {
   .has-display-flex-#{$size} {
     display: flex !important;
   }
@@ -204,7 +204,7 @@ $arrow-border-position: $arrow-size * -2;
   }
 }
 
-@mixin input-field-base-properties {
+@mixin net-create-input-field-base-styles {
   background: $input-background;
   appearance: none;
   border-radius: $input-border-radius;
@@ -216,7 +216,7 @@ $arrow-border-position: $arrow-size * -2;
   padding: $input-padding;
 }
 
-@mixin input-field-interacted-properties {
+@mixin net-create-input-field-interactive-styles {
   transition: $global-transition;
 
   &:focus,
@@ -234,7 +234,7 @@ $arrow-border-position: $arrow-size * -2;
   }
 }
 
-@mixin input-element-disabled-properties {
+@mixin net-create-input-disabled-styles {
   background: $input-disabled-background !important;
   border: $input-disabled-border !important;
   color: $input-disabled-color !important;
@@ -249,20 +249,20 @@ $arrow-border-position: $arrow-size * -2;
   }
 }
 
-@mixin input-of-type-disabled($type) {
+@mixin net-create-input-of-type-disabled($type) {
   input[type="#{$type}"]:disabled,
   input[type="#{$type}"].disabled {
-    @include input-element-disabled-properties;
+    @include net-create-input-disabled-styles;
   }
 }
 
-@mixin no-scroll {
+@mixin net-create-no-scroll-class {
   .no-scroll {
     overflow: hidden !important;
   }
 }
 
-@mixin using-keyboard {
+@mixin net-create-using-keyboard-class {
   $inputs: "";
 
   @each $type in $input-field-types {

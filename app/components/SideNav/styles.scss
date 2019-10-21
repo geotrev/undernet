@@ -11,11 +11,11 @@
     .side-nav-expand {
       background: $white;
 
-      @include breakpoint-up(xsmall) {
+      @include net-breakpoint(xsmall) {
         border-bottom: 1px solid $gray900;
       }
 
-      @include breakpoint-up(xlarge) {
+      @include net-breakpoint(xlarge) {
         border-bottom: none;
       }
 

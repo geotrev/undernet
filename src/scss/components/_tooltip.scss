@@ -41,41 +41,41 @@
   }
 
   @if $tooltip-arrows-enabled {
-    @include set-flow("left", 0); // This is a fallback.
+    @include net-set-flow("left", 0); // This is a fallback.
     bottom: 100%;
 
-    @include down-arrow(calc(50% - #{$arrow-size}), $gray100, $gray100);
+    @include net-create-down-arrow(calc(50% - #{$arrow-size}), $gray100, $gray100);
 
     &.is-drop-end {
-      @include set-flow("left", 100%);
-      @include set-flow("margin-left", $arrow-size);
+      @include net-set-flow("left", 100%);
+      @include net-set-flow("margin-left", $arrow-size);
       margin-top: 0;
       margin-bottom: 0;
       bottom: auto;
       top: 0; // This is a fallback.
 
-      @include left-arrow(calc(50% - #{$arrow-size}), $gray100, $gray100);
+      @include net-create-left-arrow(calc(50% - #{$arrow-size}), $gray100, $gray100);
     }
 
     &.is-drop-start {
-      @include set-flow("right", 100%);
-      @include set-flow("left", auto);
-      @include set-flow("margin-right", $arrow-size);
+      @include net-set-flow("right", 100%);
+      @include net-set-flow("left", auto);
+      @include net-set-flow("margin-right", $arrow-size);
       margin-top: 0;
       margin-bottom: 0;
       bottom: auto;
       top: 0; // This is a fallback.
 
-      @include right-arrow(calc(50% - #{$arrow-size}), $gray100, $gray100);
+      @include net-create-right-arrow(calc(50% - #{$arrow-size}), $gray100, $gray100);
     }
 
     &.is-drop-down {
-      @include set-flow("left", 0); // This is a fallback.
+      @include net-set-flow("left", 0); // This is a fallback.
       top: 100%;
       margin: -$arrow-size 0 0 0;
       bottom: auto;
 
-      @include up-arrow(calc(50% - #{$arrow-size}), $gray100, $gray100);
+      @include net-create-up-arrow(calc(50% - #{$arrow-size}), $gray100, $gray100);
     }
   }
 }

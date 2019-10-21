@@ -80,12 +80,12 @@ $column: map-get($grid-classes, column);
 
   // If the index is on the first item in $breakpoints
   @if $breakpoint-index == 1 {
-    @include grid-classes($name);
+    @include net-create-grid-classes($name);
 
     // Else add a media query
   } @else {
-    @include breakpoint-up($name) {
-      @include grid-classes($name);
+    @include net-breakpoint($name) {
+      @include net-create-grid-classes($name);
     }
   }
 }

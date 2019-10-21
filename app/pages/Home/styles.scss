@@ -21,7 +21,7 @@
     p {
       margin: 0 8px;
 
-      @include breakpoint-down(large) {
+      @include net-breakpoint-down(large) {
         margin-bottom: 24px;
       }
     }

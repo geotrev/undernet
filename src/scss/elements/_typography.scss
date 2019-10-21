@@ -15,7 +15,7 @@ mark {
 
 ul,
 ol {
-  @include set-flow("padding-left", $list-padding-start);
+  @include net-set-flow("padding-left", $list-padding-start);
   padding-bottom: $list-padding-bottom;
   margin: $list-margin;
   font-family: $list-font;
@@ -51,12 +51,12 @@ ol {
 
   // If the index is on the first item in $breakpoints
   @if $breakpoint-index == 1 {
-    @include header-sizes($headers);
+    @include net-create-headers($headers);
 
     // Else add a media query
   } @else {
-    @include breakpoint-up($size) {
-      @include header-sizes($headers);
+    @include net-breakpoint($size) {
+      @include net-create-headers($headers);
     }
   }
 }

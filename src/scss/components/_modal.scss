@@ -2,7 +2,7 @@
 // If $scope is defined, no-scroll is included via `_scope-overrides.scss`
 
 @if $scope == "" {
-  @include no-scroll;
+  @include net-create-no-scroll-class;
 }
 
 .modal-overlay {
