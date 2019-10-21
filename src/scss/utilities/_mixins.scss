@@ -105,8 +105,8 @@ $arrow-fill-position: $arrow-size * -2 + 1.5px;
 $arrow-border-position: $arrow-size * -2;
 
 @mixin arrow-base {
-  @include set-flow("border-left", $arrow-size solid transparent);
-  @include set-flow("border-right", $arrow-size solid transparent);
+  border-left: $arrow-size solid transparent;
+  border-right: $arrow-size solid transparent;
   border-bottom: $arrow-size solid transparent;
   border-top: $arrow-size solid transparent;
   content: "";

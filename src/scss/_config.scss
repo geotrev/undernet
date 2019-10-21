@@ -305,7 +305,7 @@ $ul-list-style: disc !default;
 $ol-list-style: decimal !default;
 
 $list-padding-bottom: $global-space !default;
-$list-padding-inline-start: 22px !default;
+$list-padding-start: 22px !default;
 $list-margin: 0 !default;
 $list-font: $global-font-sans !default;
 $list-item-margin: 0 !default;
@@ -727,7 +727,7 @@ $dropdown-arrows-enabled: true !default;
 $dropdown-border-color: $gray900 !default;
 
 $dropdown-button-arrow: "\25bc" !default;
-$dropdown-button-arrow-padding: 0 0 0 8px !default;
+$dropdown-button-arrow-padding-start: 8px !default;
 $dropdown-button-arrow-font-size: 12px !default;
 
 $dropdown-menu-direction-breakpoint: medium !default;

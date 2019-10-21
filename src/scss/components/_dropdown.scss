@@ -7,8 +7,8 @@
     align-items: center;
 
     &::after {
+      @include set-flow("padding-left", $dropdown-button-arrow-padding-start);
       content: $dropdown-button-arrow;
-      padding: $dropdown-button-arrow-padding;
       font-size: $dropdown-button-arrow-font-size;
     }
   }

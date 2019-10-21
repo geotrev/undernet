@@ -240,8 +240,8 @@
 // List style modifier
 
 .has-unstyled-list {
+  @include set-flow("padding-left", 0 !important);
   list-style-type: none !important;
-  padding-left: 0 !important;
 }
 
 // Visually hide an element, but leave it available for screen readers
