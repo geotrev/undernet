@@ -32,7 +32,7 @@ function setNewDlArticleVersion() {
 // write to files
 
 fs.writeFileSync(undernetScssFilePath, setNewScssVersion(), readFormat)
-console.log(`-> scss/undernet.scss version updated to ${newVersion}!`)
+console.log(`-> src/scss/undernet.scss version updated to ${newVersion}!`)
 
 fs.writeFileSync(downloadArticleFilePath, setNewDlArticleVersion(), readFormat)
 console.log(`-> app/docs/download.md version updated to ${newVersion}!`)

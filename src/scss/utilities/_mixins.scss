@@ -266,7 +266,7 @@ $arrow-border-position: $arrow-size * -2;
   $inputs: "";
 
   @each $type in $input-field-types {
-    $inputs: $inputs + ':not([type="#{$type}"])';
+    $inputs: $inputs + ":not([type='#{$type}'])";
   }
 
   .using-keyboard *#{$inputs}:not(textarea):not(select):focus {
