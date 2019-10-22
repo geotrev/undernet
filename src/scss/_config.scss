@@ -294,12 +294,12 @@ $type-small-font-weight: inherit !default;
 
 $type-mark-padding: 0 !default;
 $type-mark-color: $gray200 !default;
-$type-mark-background: status(warning) !default;
+$type-mark-background: net-status-color(warning) !default;
 
 $underline-text-decoration: underline !default;
 
 $hr-border: 1px solid $gray900 !default;
-$hr-margin: spacing(4) 0 !default;
+$hr-margin: net-spacing-value(4) 0 !default;
 
 $ul-list-style: disc !default;
 $ol-list-style: decimal !default;
@@ -492,88 +492,88 @@ $button-types: (
   ),
   "warning": (
     "default": (
-      "background": darken(status(warning), 5%),
+      "background": darken(net-status-color(warning), 5%),
       "color": $black,
       "border-color": transparent
     ),
     "hover": (
-      "background": status(warning),
+      "background": net-status-color(warning),
       "color": $black,
       "border-color": transparent
     ),
     "active": (
-      "background": darken(status(warning), 2%),
+      "background": darken(net-status-color(warning), 2%),
       "color": $black,
       "border-color": transparent
     ),
     "focus": (
-      "background": darken(status(warning), 2%),
+      "background": darken(net-status-color(warning), 2%),
       "color": $black,
       "border-color": transparent
     )
   ),
   "success": (
     "default": (
-      "background": darken(status(success), 5%),
+      "background": darken(net-status-color(success), 5%),
       "color": $white,
       "border-color": transparent
     ),
     "hover": (
-      "background": status(success),
+      "background": net-status-color(success),
       "color": $white,
       "border-color": transparent
     ),
     "active": (
-      "background": darken(status(success), 2%),
+      "background": darken(net-status-color(success), 2%),
       "color": $white,
       "border-color": transparent
     ),
     "focus": (
-      "background": darken(status(success), 2%),
+      "background": darken(net-status-color(success), 2%),
       "color": $white,
       "border-color": transparent
     )
   ),
   "destroy": (
     "default": (
-      "background": darken(status(destroy), 5%),
+      "background": darken(net-status-color(destroy), 5%),
       "color": $white,
       "border-color": transparent
     ),
     "hover": (
-      "background": status(destroy),
+      "background": net-status-color(destroy),
       "color": $white,
       "border-color": transparent
     ),
     "active": (
-      "background": darken(status(destroy), 2%),
+      "background": darken(net-status-color(destroy), 2%),
       "color": $white,
       "border-color": transparent
     ),
     "focus": (
-      "background": darken(status(destroy), 2%),
+      "background": darken(net-status-color(destroy), 2%),
       "color": $white,
       "border-color": transparent
     )
   ),
   "notice": (
     "default": (
-      "background": darken(status(notice), 5%),
+      "background": darken(net-status-color(notice), 5%),
       "color": $white,
       "border-color": transparent
     ),
     "hover": (
-      "background": status(notice),
+      "background": net-status-color(notice),
       "color": $white,
       "border-color": transparent
     ),
     "active": (
-      "background": darken(status(notice), 2%),
+      "background": darken(net-status-color(notice), 2%),
       "color": $white,
       "border-color": transparent
     ),
     "focus": (
-      "background": darken(status(notice), 2%),
+      "background": darken(net-status-color(notice), 2%),
       "color": $white,
       "border-color": transparent
     )
@@ -683,7 +683,7 @@ $modal-transition-ease: $global-ease !default;
 $modal-container-background-color: $white !default;
 $modal-container-border-radius: $global-border-radius !default;
 $modal-container-padding: $global-space !default;
-$modal-container-width: em(450px) !default;
+$modal-container-width: net-px-to-em(450px) !default;
 $modal-container-width-small: 95% !default;
 $modal-container-max-width: 95vw !default;
 $modal-container-margin: 40px auto !default;
@@ -695,8 +695,8 @@ $modal-header-border: 1px solid $gray900 !default;
 $modal-footer-border: 1px solid $gray900 !default;
 $modal-footer-button-alignment: flex-end !default;
 
-$modal-horizontal-breakpoint: breakpoint(small) !default;
-$modal-vertical-breakpoint: breakpoint(small) !default;
+$modal-horizontal-breakpoint: net-breakpoint-value(small) !default;
+$modal-vertical-breakpoint: net-breakpoint-value(small) !default;
 
 // 7. Accordions
 // -------------
@@ -736,7 +736,7 @@ $dropdown-menu-transition: opacity $global-transition !default;
 $dropdown-menu-padding: 8px 0 !default;
 $dropdown-menu-border-radius: $global-border-radius !default;
 $dropdown-menu-background-color: $white !default;
-$dropdown-menu-width: em(200px) !default;
+$dropdown-menu-width: net-px-to-em(200px) !default;
 $dropdown-menu-max-width: 95vw !default;
 $dropdown-menu-border: 1px solid $dropdown-border-color !default;
 

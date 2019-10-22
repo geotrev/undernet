@@ -37,7 +37,7 @@ exports[`Modals #handleClose -> Modal Close Button Click closes modal 1`] = `
         
         
         <h2
-          classname="h6 has-no-margin-top"
+          classname="h6 has-no-margin-block-start"
           id="header-id"
         >
           
@@ -138,7 +138,7 @@ exports[`Modals #handleEscapeKeyPress -> Escape Key Press closes modal 1`] = `
       
         
       <h2
-        classname="h6 has-no-margin-top"
+        classname="h6 has-no-margin-block-start"
         id="header-id"
       >
         
@@ -236,7 +236,7 @@ exports[`Modals #handleOverlayClick -> Modal Overlay Click closes modal 1`] = `
       
         
       <h2
-        classname="h6 has-no-margin-top"
+        classname="h6 has-no-margin-block-start"
         id="header-id"
       >
         
@@ -348,7 +348,7 @@ exports[`Modals #render -> Modal Button Click opens modal 1`] = `
         
         
         <h2
-          classname="h6 has-no-margin-top"
+          classname="h6 has-no-margin-block-start"
           id="header-id"
         >
           
@@ -459,7 +459,7 @@ exports[`Modals API start sets attributes 1`] = `
         
         
         <h2
-          classname="h6 has-no-margin-top"
+          classname="h6 has-no-margin-block-start"
           id="header-id"
         >
           
@@ -570,7 +570,7 @@ exports[`Modals API stop -> Modal Button Click does not open modal 1`] = `
         
         
         <h2
-          classname="h6 has-no-margin-top"
+          classname="h6 has-no-margin-block-start"
           id="header-id"
         >
           

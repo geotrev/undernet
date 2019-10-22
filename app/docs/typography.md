@@ -9,22 +9,22 @@ Headers can vary a lot within a project. For that reason, headers use a scss map
 These maps output their keys and values as css properties. This means you can add any `property: value` normally found in CSS into these maps.
 
 <div class="row">
-  <div class="xsmall-12 medium-6 columns has-no-padding-bottom">
+  <div class="xsmall-12 medium-6 columns has-no-padding-block-end">
     <p class="h1">Header 1</p>
   </div>
-  <div class="xsmall-12 medium-6 columns has-no-padding-bottom">
+  <div class="xsmall-12 medium-6 columns has-no-padding-block-end">
     <p class="h2">Header 2</p>
   </div>
-  <div class="xsmall-12 medium-6 columns has-no-padding-bottom">
+  <div class="xsmall-12 medium-6 columns has-no-padding-block-end">
     <p class="h3">Header 3</p>
   </div>
-  <div class="xsmall-12 medium-6 columns has-no-padding-bottom">
+  <div class="xsmall-12 medium-6 columns has-no-padding-block-end">
     <p class="h4">Header 4</p>
   </div>
-  <div class="xsmall-12 medium-6 columns has-no-padding-bottom">
+  <div class="xsmall-12 medium-6 columns has-no-padding-block-end">
     <p class="h5">Header 5</p>
   </div>
-  <div class="xsmall-12 medium-6 columns has-no-padding-bottom">
+  <div class="xsmall-12 medium-6 columns has-no-padding-block-end">
     <p class="h6">Header 6</p>
   </div>
 </div>

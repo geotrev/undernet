@@ -50,21 +50,21 @@
 }
 
 @mixin net-breakpoint($size) {
-  @media screen and (min-width: #{breakpoint($size)}) {
+  @media screen and (min-width: #{net-breakpoint-value($size)}) {
     @content;
   }
 }
 
 @mixin net-breakpoint-down($size) {
-  @media screen and (max-width: #{breakpoint($size) - 1}) {
+  @media screen and (max-width: #{net-breakpoint-value($size) - 1}) {
     @content;
   }
 }
 
 @mixin net-breakpoint-between($min, $max) {
   @media screen
-    and (min-width: #{breakpoint($min)})
-    and (max-width: #{breakpoint($max) - 1}) {
+    and (min-width: #{net-breakpoint-value($min)})
+    and (max-width: #{net-breakpoint-value($max) - 1}) {
     @content;
   }
 }

@@ -7,7 +7,7 @@ const PageNotFound = () => {
     <div className="has-padding-4 has-text-center">
       <SetMeta pageNotFound={true} />
       <h1>{"Sorry, that page doesn't exist. :("}</h1>
-      <p className="has-no-margin-bottom">{"Did you enter the URL correctly?"}</p>
+      <p className="has-no-margin-block-end">{"Did you enter the URL correctly?"}</p>
     </div>
   )
 }

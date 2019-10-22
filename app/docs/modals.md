@@ -11,7 +11,7 @@ Check out this example modal:
 <div class="modal-overlay" data-modal="new-modal">
   <div class="modal-dialog" data-parent="new-modal" aria-labelledby="header-id">
     <header>
-      <h2 class="h6 has-no-margin-top" id="header-id">
+      <h2 class="h6 has-no-margin-block-start" id="header-id">
         Modal Header
       </h2>
       <a data-close href="#">
@@ -73,7 +73,7 @@ The modal will be able to handle long-content with ease, turning the overlay int
 <div class="modal-overlay" data-modal="new-modal-3">
   <div class="modal-dialog" data-parent="new-modal-3" aria-labelledby="header-id">
     <header>
-      <h2 class="h6 has-no-margin-top" id="header-id">
+      <h2 class="h6 has-no-margin-block-start" id="header-id">
         Modal Header
       </h2>
       <a data-close href="#">
@@ -98,14 +98,14 @@ The modal will be able to handle long-content with ease, turning the overlay int
 
 By adding flex modifier classes onto the overlay, you can position the dialog within its overlay.
 
-For example, to center it, add `is-flex is-aligned-center is-justified-center`.
+For example, to center it, add `has-display-flex has-align-items-center has-justify-content-center`.
 
 <button data-target="new-modal-2">Open centered modal</button>
 
-<div class="modal-overlay is-flex is-aligned-center is-justified-center" data-modal="new-modal-2">
+<div class="modal-overlay has-display-flex has-align-items-center has-justify-content-center" data-modal="new-modal-2">
   <div class="modal-dialog" data-parent="new-modal-2" aria-labelledby="header-id-2">
     <header>
-      <h2 class="h6 has-no-margin-top" id="header-id-2">
+      <h2 class="h6 has-no-margin-block-start" id="header-id-2">
         Modal Header
       </h2>
       <a data-close href="#">
@@ -131,7 +131,7 @@ For example, to center it, add `is-flex is-aligned-center is-justified-center`.
 ```
 
 ```html
-<div class="modal-overlay is-flex is-aligned-center is-justified-center" data-modal="new-modal-2">
+<div class="modal-overlay has-display-flex has-align-items-center has-justify-content-center" data-modal="new-modal-2">
   <div class="modal-dialog" data-parent="new-modal-2" aria-labelledby="header-id-2">
     ...
   </div>

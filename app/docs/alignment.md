@@ -101,43 +101,43 @@ To manually apply `align-items` or `align-content` properties to an element for 
   <div class="large-3 small-6 xsmall-12 columns">
     <p><code>.has-align-content-flex-start</code></p>
     <div class="static-height row filler-bg has-align-content-flex-start">
-      <div class="filler xsmall-12 columns has-padding has-margin-1 has-shrink-1 has-no-margin-start has-no-margin-end"></div>
-      <div class="filler xsmall-12 columns has-padding has-margin-1 has-shrink-1 has-no-margin-start has-no-margin-end"></div>
+      <div class="filler xsmall-12 columns has-padding has-margin-1 has-shrink-1 has-no-margin-inline-start has-no-margin-inline-end"></div>
+      <div class="filler xsmall-12 columns has-padding has-margin-1 has-shrink-1 has-no-margin-inline-start has-no-margin-inline-end"></div>
     </div>
   </div>
   <div class="large-3 small-6 xsmall-12 columns">
     <p><code>.has-align-content-center</code></p>
     <div class="static-height row filler-bg has-align-content-center">
-      <div class="filler xsmall-12 columns has-padding has-margin-1 has-shrink-1 has-no-margin-start has-no-margin-end"></div>
-      <div class="filler xsmall-12 columns has-padding has-margin-1 has-shrink-1 has-no-margin-start has-no-margin-end"></div>
+      <div class="filler xsmall-12 columns has-padding has-margin-1 has-shrink-1 has-no-margin-inline-start has-no-margin-inline-end"></div>
+      <div class="filler xsmall-12 columns has-padding has-margin-1 has-shrink-1 has-no-margin-inline-start has-no-margin-inline-end"></div>
     </div>
   </div>
   <div class="large-3 small-6 xsmall-12 columns">
     <p><code>.has-align-content-flex-end</code></p>
     <div class="static-height row filler-bg has-align-content-flex-end">
-      <div class="filler xsmall-12 columns has-padding has-margin-1 has-shrink-1 has-no-margin-start has-no-margin-end"></div>
-      <div class="filler xsmall-12 columns has-padding has-margin-1 has-shrink-1 has-no-margin-start has-no-margin-end"></div>
+      <div class="filler xsmall-12 columns has-padding has-margin-1 has-shrink-1 has-no-margin-inline-start has-no-margin-inline-end"></div>
+      <div class="filler xsmall-12 columns has-padding has-margin-1 has-shrink-1 has-no-margin-inline-start has-no-margin-inline-end"></div>
     </div>
   </div>
   <div class="large-3 small-6 xsmall-12 columns">
     <p><code>.has-align-content-space-around</code></p>
     <div class="static-height row filler-bg has-align-content-space-around">
-      <div class="filler xsmall-12 columns has-padding has-margin-1 has-shrink-1 has-no-margin-start has-no-margin-end"></div>
-      <div class="filler xsmall-12 columns has-padding has-margin-1 has-shrink-1 has-no-margin-start has-no-margin-end"></div>
+      <div class="filler xsmall-12 columns has-padding has-margin-1 has-shrink-1 has-no-margin-inline-start has-no-margin-inline-end"></div>
+      <div class="filler xsmall-12 columns has-padding has-margin-1 has-shrink-1 has-no-margin-inline-start has-no-margin-inline-end"></div>
     </div>
   </div>
   <div class="large-3 small-6 xsmall-12 columns">
     <p><code>.has-align-content-space-between</code></p>
     <div class="static-height row filler-bg has-align-content-space-between">
-      <div class="filler xsmall-12 columns has-padding has-margin-1 has-shrink-1 has-no-margin-start has-no-margin-end"></div>
-      <div class="filler xsmall-12 columns has-padding has-margin-1 has-shrink-1 has-no-margin-start has-no-margin-end"></div>
+      <div class="filler xsmall-12 columns has-padding has-margin-1 has-shrink-1 has-no-margin-inline-start has-no-margin-inline-end"></div>
+      <div class="filler xsmall-12 columns has-padding has-margin-1 has-shrink-1 has-no-margin-inline-start has-no-margin-inline-end"></div>
     </div>
   </div>
   <div class="large-3 small-6 xsmall-12 columns">
     <p><code>.has-align-content-stretch</code></p>
     <div class="static-height row filler-bg has-align-content-stretch">
-      <div class="filler xsmall-12 columns has-padding has-margin-1 has-shrink-1 has-no-margin-start has-no-margin-end"></div>
-      <div class="filler xsmall-12 columns has-padding has-margin-1 has-shrink-1 has-no-margin-start has-no-margin-end"></div>
+      <div class="filler xsmall-12 columns has-padding has-margin-1 has-shrink-1 has-no-margin-inline-start has-no-margin-inline-end"></div>
+      <div class="filler xsmall-12 columns has-padding has-margin-1 has-shrink-1 has-no-margin-inline-start has-no-margin-inline-end"></div>
     </div>
   </div>
 </div>

@@ -58,25 +58,25 @@ Use the fieldset tag to group form elements together. It should sit inside a for
   <fieldset>
     <legend>Sign Up For Our Newsletter</legend>
     <div class="row">
-      <div class="xsmall-12 medium-6 columns has-no-padding-bottom">
+      <div class="xsmall-12 medium-6 columns has-no-padding-block-end">
         <label for="fieldset-email">
           Email
           <input id="fieldset-email" type="email" value="" placeholder="person@example.com" />
         </label>
       </div>
-      <div class="xsmall-12 medium-6 columns has-no-padding-bottom">
+      <div class="xsmall-12 medium-6 columns has-no-padding-block-end">
         <label for="fieldset-name">
           Name
           <input id="fieldset-name" type="text" value="" placeholder="Dr. Thomas Light" />
         </label>
       </div>
-      <div class="xsmall-12 columns has-no-padding-bottom">
+      <div class="xsmall-12 columns has-no-padding-block-end">
         <label for="fieldset-textarea-3">
           Tell us about yourself:
           <textarea id="fieldset-textarea-3" placeholder="I'm a big fan of..."></textarea>
         </label>
       </div>
-      <div class="column has-no-padding-bottom">
+      <div class="column has-no-padding-block-end">
         <label for="fieldset-check" class="has-check">
           <input id="fieldset-check" type="checkbox" /> Send me occasional marketing and product
           updates.
@@ -92,25 +92,25 @@ Use the fieldset tag to group form elements together. It should sit inside a for
   <fieldset>
     <legend>Sign Up For Our Newsletter</legend>
     <div class="row">
-      <div class="xsmall-12 medium-6 columns has-no-padding-bottom">
+      <div class="xsmall-12 medium-6 columns has-no-padding-block-end">
         <label for="fieldset-email">
           Email
           <input id="fieldset-email" type="email" value="" placeholder="person@example.com" />
         </label>
       </div>
-      <div class="xsmall-12 medium-6 columns has-no-padding-bottom">
+      <div class="xsmall-12 medium-6 columns has-no-padding-block-end">
         <label for="fieldset-name">
           Name
           <input id="fieldset-name" type="text" value="" placeholder="Dr. Thomas Light" />
         </label>
       </div>
-      <div class="xsmall-12 columns has-no-padding-bottom">
+      <div class="xsmall-12 columns has-no-padding-block-end">
         <label for="fieldset-textarea-3">
           Tell us about yourself:
           <textarea id="fieldset-textarea-3" placeholder="I'm a big fan of..."></textarea>
         </label>
       </div>
-      <div class="column has-no-padding-bottom">
+      <div class="column has-no-padding-block-end">
         <label for="fieldset-check" class="has-check">
           <input id="fieldset-check" type="checkbox" /> Send me occasional marketing and product
           updates.
@@ -128,7 +128,7 @@ Using the `[disabled]` attribute will visually and functionally disable the cont
 
 The `disabled` class will visually dim the control, but not disable it functionally. The input must return `false` in JavaScript but still receive focus to truly disable clicks and other forms of input if you use the class. Useful for disabling anchor tag buttons.
 
-<button disabled class="has-no-margin-bottom">Disabled Button</button>
+<button disabled class="has-no-margin-block-end">Disabled Button</button>
 
 <input type="text" disabled value="Disabled Text Input" />
 

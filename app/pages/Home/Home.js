@@ -55,7 +55,7 @@ export default function Home() {
 
       return (
         <li
-          className="large-3 small-6 xsmall-12 columns has-text-center has-no-padding-bottom"
+          className="large-3 small-6 xsmall-12 columns has-text-center has-no-padding-block-end"
           key={animation.title}
         >
           <div className="animated-icon" id={`animated-${animationName}`} />

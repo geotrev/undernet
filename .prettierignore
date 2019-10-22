@@ -1,2 +1,5 @@
-**/*.html
-**/*.md
+/node_modules/
+/build/
+/dist/
+/lib/
+/app/docs/

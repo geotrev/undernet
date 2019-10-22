@@ -120,10 +120,10 @@ If you add a column element inside a row, they stack next to each other with equ
 
 <div class="grid filler-bg">
   <div class="row">
-    <div class="column has-no-padding-bottom has-no-padding-start">
+    <div class="column has-no-padding-block-end has-no-padding-inline-start">
       <p class="filler has-padding">.column</p>
     </div>
-    <div class="column has-no-padding-bottom has-no-padding-end">
+    <div class="column has-no-padding-block-end has-no-padding-inline-end">
       <p class="filler has-padding">.column</p>
     </div>
   </div>
@@ -292,11 +292,11 @@ Create a grid that always takes up the full width and height of your device/brow
 
 You should really only ever need a single row within a full screen grid. From there, you can create as many columns as you need to continue creating more complex layouts.
 
-By default, a row will be vertically centered. To make the row top-aligned, add modifier classes: `is-aligned-flex-start` and `has-content-flex-start` to push content to the top of the container.
+By default, a row will be vertically centered. To make the row top-aligned, add modifier classes: `has-align-items-flex-start` and `has-align-content-flex-start` to push content to the top of the container.
 
 ```html
 <div class="fullscreen grid">
-  <div class="row is-aligned-flex-start has-content-flex-start">
+  <div class="row has-align-items-flex-start has-align-content-flex-start">
     <div class="column">
       <p>I’m at the top.</p>
     </div>
@@ -308,7 +308,7 @@ By default, a row will be vertically centered. To make the row top-aligned, add 
 
 ```html
 <div class="fullscreen grid">
-  <div class="row is-aligned-flex-end has-content-flex-end">
+  <div class="row has-align-items-flex-end has-align-content-flex-end">
     <div class="column">
       <p>I’m at the bottom.</p>
     </div>

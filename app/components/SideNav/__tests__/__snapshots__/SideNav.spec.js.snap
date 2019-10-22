@@ -5,12 +5,12 @@ exports[`<SideNav /> #handleMenuToggleClick toggles menu when button is clicked 
   className="fluid grid side-nav-wrapper"
 >
   <div
-    className="row is-flex is-hidden-xlarge side-nav-expand"
+    className="row has-display-flex has-display-none-xlarge side-nav-expand"
   >
     <button
       aria-controls="side-nav-wrapper"
       aria-expanded={true}
-      className="is-justified-center is-aligned-center is-flex is-hidden-xlarge"
+      className="has-justify-content-center has-align-items-center has-display-flex has-display-none-xlarge"
       onClick={[Function]}
     >
       <Menu
@@ -65,21 +65,21 @@ exports[`<SideNav /> #handleMenuToggleClick toggles menu when button is clicked 
         >
           <NavLink
             activeClassName="active"
-            className="side-nav-link-item has-black-text is-flex is-aligned-center"
+            className="side-nav-link-item has-black-text is-display-flex has-align-items-center"
             onClick={[Function]}
             role="listitem"
             to="#"
           >
             <Link
               aria-current={null}
-              className="side-nav-link-item has-black-text is-flex is-aligned-center"
+              className="side-nav-link-item has-black-text is-display-flex has-align-items-center"
               onClick={[Function]}
               role="listitem"
               to="#"
             >
               <a
                 aria-current={null}
-                className="side-nav-link-item has-black-text is-flex is-aligned-center"
+                className="side-nav-link-item has-black-text is-display-flex has-align-items-center"
                 href="/"
                 onClick={[Function]}
                 role="listitem"
@@ -106,12 +106,12 @@ exports[`<SideNav /> #handleMenuVisibility hides menu at or below 1199 1`] = `
   className="fluid grid side-nav-wrapper"
 >
   <div
-    className="row is-flex is-hidden-xlarge side-nav-expand"
+    className="row has-display-flex has-display-none-xlarge side-nav-expand"
   >
     <button
       aria-controls="side-nav-wrapper"
       aria-expanded={false}
-      className="is-justified-center is-aligned-center is-flex is-hidden-xlarge rotate-180"
+      className="has-justify-content-center has-align-items-center has-display-flex has-display-none-xlarge rotate-180"
       onClick={[Function]}
     >
       <Menu
@@ -128,7 +128,7 @@ exports[`<SideNav /> #handleMenuVisibility hides menu at or below 1199 1`] = `
     </button>
   </div>
   <nav
-    className="row side-nav-menu accordion has-padding-3 is-hidden"
+    className="row side-nav-menu accordion has-padding-3 has-display-none"
     data-accordion="side-nav-accordion"
     id="side-nav-wrapper"
   >
@@ -166,21 +166,21 @@ exports[`<SideNav /> #handleMenuVisibility hides menu at or below 1199 1`] = `
         >
           <NavLink
             activeClassName="active"
-            className="side-nav-link-item has-black-text is-flex is-aligned-center"
+            className="side-nav-link-item has-black-text is-display-flex has-align-items-center"
             onClick={[Function]}
             role="listitem"
             to="#"
           >
             <Link
               aria-current={null}
-              className="side-nav-link-item has-black-text is-flex is-aligned-center"
+              className="side-nav-link-item has-black-text is-display-flex has-align-items-center"
               onClick={[Function]}
               role="listitem"
               to="#"
             >
               <a
                 aria-current={null}
-                className="side-nav-link-item has-black-text is-flex is-aligned-center"
+                className="side-nav-link-item has-black-text is-display-flex has-align-items-center"
                 href="/"
                 onClick={[Function]}
                 role="listitem"
@@ -207,12 +207,12 @@ exports[`<SideNav /> #handleMenuVisibility shows menu above 1199 1`] = `
   className="fluid grid side-nav-wrapper"
 >
   <div
-    className="row is-flex is-hidden-xlarge side-nav-expand"
+    className="row has-display-flex has-display-none-xlarge side-nav-expand"
   >
     <button
       aria-controls="side-nav-wrapper"
       aria-expanded={true}
-      className="is-justified-center is-aligned-center is-flex is-hidden-xlarge"
+      className="has-justify-content-center has-align-items-center has-display-flex has-display-none-xlarge"
       onClick={[Function]}
     >
       <Menu
@@ -267,21 +267,21 @@ exports[`<SideNav /> #handleMenuVisibility shows menu above 1199 1`] = `
         >
           <NavLink
             activeClassName="active"
-            className="side-nav-link-item has-black-text is-flex is-aligned-center"
+            className="side-nav-link-item has-black-text is-display-flex has-align-items-center"
             onClick={[Function]}
             role="listitem"
             to="#"
           >
             <Link
               aria-current={null}
-              className="side-nav-link-item has-black-text is-flex is-aligned-center"
+              className="side-nav-link-item has-black-text is-display-flex has-align-items-center"
               onClick={[Function]}
               role="listitem"
               to="#"
             >
               <a
                 aria-current={null}
-                className="side-nav-link-item has-black-text is-flex is-aligned-center"
+                className="side-nav-link-item has-black-text is-display-flex has-align-items-center"
                 href="/"
                 onClick={[Function]}
                 role="listitem"
@@ -313,12 +313,12 @@ exports[`<SideNav /> #render renders 1`] = `
       className="fluid grid side-nav-wrapper"
     >
       <div
-        className="row is-flex is-hidden-xlarge side-nav-expand"
+        className="row has-display-flex has-display-none-xlarge side-nav-expand"
       >
         <button
           aria-controls="side-nav-wrapper"
           aria-expanded={false}
-          className="is-justified-center is-aligned-center is-flex is-hidden-xlarge rotate-180"
+          className="has-justify-content-center has-align-items-center has-display-flex has-display-none-xlarge rotate-180"
           onClick={[Function]}
         >
           <Menu
@@ -335,7 +335,7 @@ exports[`<SideNav /> #render renders 1`] = `
         </button>
       </div>
       <nav
-        className="row side-nav-menu accordion has-padding-3 is-hidden"
+        className="row side-nav-menu accordion has-padding-3 has-display-none"
         data-accordion="side-nav-accordion"
         id="side-nav-wrapper"
       >
@@ -373,21 +373,21 @@ exports[`<SideNav /> #render renders 1`] = `
             >
               <NavLink
                 activeClassName="active"
-                className="side-nav-link-item has-black-text is-flex is-aligned-center"
+                className="side-nav-link-item has-black-text is-display-flex has-align-items-center"
                 onClick={[Function]}
                 role="listitem"
                 to="#"
               >
                 <Link
                   aria-current={null}
-                  className="side-nav-link-item has-black-text is-flex is-aligned-center"
+                  className="side-nav-link-item has-black-text is-display-flex has-align-items-center"
                   onClick={[Function]}
                   role="listitem"
                   to="#"
                 >
                   <a
                     aria-current={null}
-                    className="side-nav-link-item has-black-text is-flex is-aligned-center"
+                    className="side-nav-link-item has-black-text is-display-flex has-align-items-center"
                     href="/"
                     onClick={[Function]}
                     role="listitem"

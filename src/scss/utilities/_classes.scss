@@ -120,7 +120,7 @@
   }
 }
 
-// Spacing modifiers on all sides
+// `margin` and `padding` modifiers on all sides
 
 .has-padding {
   padding: $global-space !important;
@@ -130,76 +130,61 @@
   margin: $global-space !important;
 }
 
-// Spacing modifier on a single side only
+$flow-map: (
+  "inline-start": "left",
+  "inline-end": "right",
+  "block-start": "top",
+  "block-end": "bottom"
+);
 
-.has-padding-start {
-  @include net-set-flow("padding-left", $global-space !important);
-}
+// // `margin` and `padding` modifiers on a single side only
+// e.g., `has-padding-inline-start`
+// or `has-margin-block-end`
 
-.has-margin-start {
-  @include net-set-flow("margin-left", $global-space !important);
-}
-
-.has-padding-end {
-  @include net-set-flow("padding-right", $global-space !important);
-}
-
-.has-margin-end {
-  @include net-set-flow("margin-right", $global-space !important);
-}
-
-@each $side in top, bottom {
-  .has-padding-#{$side} {
-    padding-#{$side}: $global-space !important;
-  }
-
-  .has-margin-#{$side} {
-    margin-#{$side}: $global-space !important;
-  }
-}
-
-// 1. Spacing modifier on all sides, for each spacing increment
-// 2. Spacing modifier on a single side only, for each spacing increment
-
-@each $size, $value in $spacing-increments {
-  // 1
-  .has-padding-#{$size} {
-    padding: $value !important;
-  }
-
-  .has-margin-#{$size} {
-    margin: $value !important;
-  }
-
-  // 2
-  .has-margin-start-#{$size} {
-    @include net-set-flow("margin-left", $value !important);
-  }
-
-  .has-padding-start-#{$size} {
-    @include net-set-flow("padding-left", $value !important);
-  }
-
-  .has-margin-end-#{$size} {
-    @include net-set-flow("margin-right", $value !important);
-  }
-
-  .has-padding-end-#{$size} {
-    @include net-set-flow("padding-right", $value !important);
-  }
-
-  @each $side in top, bottom {
-    .has-margin-#{$side}-#{$size} {
-      margin-#{$side}: $value !important;
-    }
-
-    .has-padding-#{$side}-#{$size} {
-      padding-#{$side}: $value !important;
-    }
+@each $spacing-type in "padding", "margin" {
+  @each $flow-type, $flow-value in $flow-map {
+    @if $flow-value == "left" or $flow-value == "right" {
+      .has-#{$spacing-type}-#{$flow-type} {
+        @include net-set-flow("#{$spacing-type}-#{$flow-value}", $global-space !important);
+      }
+    } @else {
+      .has-#{$spacing-type}-#{$flow-type} {
+        #{$spacing-type}-#{$flow-value}: $global-space !important;
+      }
+    } // end @if
   } // end @each
 } // end @each
 
-// Spacing modifier removes from all sides
+// 1. `margin` and `padding` modifiers on all sides, for each spacing increment
+// 2. `margin` and `padding` modifiers on a single side only, for each spacing increment
+
+@each $spacing-size, $spacing-value in $spacing-increments {
+  // 1
+  .has-padding-#{$spacing-size} {
+    padding: $spacing-value !important;
+  }
+
+  .has-margin-#{$spacing-size} {
+    margin: $spacing-value !important;
+  }
+
+  // 2
+  @each $spacing-type in "padding", "margin" {
+    @each $flow-type, $flow-value in $flow-map {
+      @if $flow-value == "left" or $flow-value == "right" {
+        .has-#{$spacing-type}-#{$flow-type}-#{$spacing-size} {
+          @include net-set-flow("#{$spacing-type}-#{$flow-value}", $spacing-value !important);
+        }
+      } @else {
+        .has-#{$spacing-type}-#{$flow-type}-#{$spacing-size} {
+          #{$spacing-type}-#{$flow-value}: $spacing-value !important;
+        }
+      }
+    } // end @if
+  } // end @each
+} // end @each
+
+// `margin` and `padding` modifiers remove from all sides
 
 .has-no-margin {
   margin: 0 !important;
@@ -209,33 +194,21 @@
   padding: 0 !important;
 }
 
-// Spacing modifier removes from a single side only
+// `margin` and `padding` modifiers remove from a single side only
 
-.has-no-padding-start {
-  @include net-set-flow("padding-left", 0 !important);
-}
-
-.has-no-margin-start {
-  @include net-set-flow("margin-left", 0 !important);
-}
-
-.has-no-padding-end {
-  @include net-set-flow("padding-right", 0 !important);
-}
-
-.has-no-margin-end {
-  @include net-set-flow("margin-right", 0 !important);
-}
-
-@each $side in top, bottom {
-  .has-no-padding-#{$side} {
-    padding-#{$side}: 0 !important;
-  }
-
-  .has-no-margin-#{$side} {
-    margin-#{$side}: 0 !important;
-  }
-}
+@each $spacing-type in "padding", "margin" {
+  @each $flow-type, $flow-value in $flow-map {
+    @if $flow-value == "left" or $flow-value == "right" {
+      .has-no-#{$spacing-type}-#{$flow-type} {
+        @include net-set-flow("#{$spacing-type}-#{$flow-value}", 0 !important);
+      }
+    } @else {
+      .has-no-#{$spacing-type}-#{$flow-type} {
+        #{$spacing-type}-#{$flow-value}: 0 !important;
+      }
+    } // end @if
+  } // end @each
+} // end @each
 
 // List style modifier
 
@@ -250,25 +223,25 @@
 // https://gomakethings.com/hidden-content-for-better-a11y/
 
 %visually-hidden {
-  border: 0;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
+  border: 0 !important;
+  clip: rect(0 0 0 0) !important;
+  height: 1px !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  position: absolute !important;
+  white-space: nowrap !important;
+  width: 1px !important;
 }
 
 %not-visually-hidden {
-  clip: auto;
-  height: auto;
-  margin: 0;
-  overflow: visible;
-  position: static;
-  white-space: normal;
-  width: auto;
+  clip: auto !important;
+  height: auto !important;
+  margin: 0 !important;
+  overflow: visible !important;
+  position: static !important;
+  white-space: normal !important;
+  width: auto !important;
 }
 
 .is-visually-hidden {
@@ -289,8 +262,13 @@
 }
 
 // Revert `is-visually-hidden` class.
-// Will always ensure an element is normally visible even if hidden class is present.
+// Will always ensure an element is normally visible even if hidden classes are present.
 
 .is-not-visually-hidden {
   @extend %not-visually-hidden;
+
+  &:active,
+  &:focus {
+    @extend %not-visually-hidden;
+  }
 }

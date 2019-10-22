@@ -12,7 +12,7 @@ exports[`<PageNotFound /> renders 1`] = `
       Sorry, that page doesn't exist. :(
     </h1>
     <p
-      className="has-no-margin-bottom"
+      className="has-no-margin-block-end"
     >
       Did you enter the URL correctly?
     </p>
