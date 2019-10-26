@@ -27,13 +27,13 @@
 
 @mixin net-create-grid-classes($size) {
   @for $i from 1 through $columns {
-    .#{$size}-#{$i} {
+    .is-#{$size}-#{$i} {
       flex: 0 0 percentage($i / $columns);
       max-width: percentage($i / $columns);
     }
 
     @if $column-offset-classes == true {
-      .#{$size}-offset-#{$i} {
+      .is-#{$size}-offset-#{$i} {
         @include net-set-flow("margin-left", percentage($i / $columns));
       }
     }
@@ -42,7 +42,7 @@
       // order-1 = -12
       // order-2 = -11
       // etc...
-      .#{$size}-order-#{$i} {
+      .is-#{$size}-order-#{$i} {
         order: $i - 1 - $columns;
       }
     }

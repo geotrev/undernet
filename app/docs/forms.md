@@ -10,7 +10,7 @@ Use consistently styled text and textarea elements. They should be wrapped in a 
 </label>
 <label for="fieldset-textarea-1">
   Tell us about yourself:
-  <textarea id="fieldset-textarea-1" placeholder="I'm a big fan of..."></textarea>
+  <textarea id="fieldset-textarea-1" placeholder="Tell me about yourself..."></textarea>
 </label>
 
 ```html
@@ -20,7 +20,7 @@ Use consistently styled text and textarea elements. They should be wrapped in a 
 </label>
 <label for="example-textarea-1">
   Tell us about yourself:
-  <textarea id="example-textarea-1" placeholder="I'm a big fan of..."></textarea>
+  <textarea id="example-textarea-1" placeholder="Tell me about yourself..."></textarea>
 </label>
 ```
 
@@ -122,11 +122,11 @@ Use the fieldset tag to group form elements together. It should sit inside a for
 </form>
 ```
 
-## Disabled State
+## Disabled States
 
 Using the `[disabled]` attribute will visually and functionally disable the control.
 
-The `disabled` class will visually dim the control, but not disable it functionally. The input must return `false` in JavaScript but still receive focus to truly disable clicks and other forms of input if you use the class. Useful for disabling anchor tag buttons.
+The `disabled` class will visually dim the control, but not disable it functionally. The input must return `false` in JavaScript, have `aria-disabled='true'`, and still receive focus to disable the element in an accessible way.
 
 <button disabled class="has-no-margin-block-end">Disabled Button</button>
 
