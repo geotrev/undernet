@@ -2,7 +2,7 @@ Undernet uses a flex grid that behaves largely like other CSS grids: using rows 
 
 The grid is mobile first, so any [breakpoint classes](#breakpoint-classes) and modifiers take effect from the given breakpoint and wider (ie, `medium` is `768px` and wider).
 
-An important part of Undernet's grid is it allows you to customize the class names to your liking. This change won't have any effect on the rest of the framework, and is useful in preventing namespace collisions. The default values are `grid`, `row`, and `column`.is-
+An important part of Undernet's grid is it allows you to customize the class names to your liking. This change won't have any effect on the rest of the framework, and is useful in preventing namespace collisions. The default values are `grid`, `row`, and `column`.
 
 If you need a more custom, 2-dimensional layout, look into [CSS Grid](https://css-tricks.com/snippets/css/complete-guide-grid/).
 
@@ -246,7 +246,7 @@ $breakpoints: (
 
 ### Collapse Gutters
 
-Don’t want padding on your grid, rows, and/or columns? You can remove it all with a `.has-no-padding` modifier on a given element. The class won't have an effect on child elements, so you'll need to add a modifier to each `div`. Useful for nested layouts.
+Don’t want padding on your grid, rows, and/or columns? You can remove it all with a `has-no-padding` modifier class on a given element. The class won't have an effect on child elements, so you'll need to add a modifier to each `div`. Useful for nested layouts.
 
 <div class="grid filler-bg has-no-padding">
   <div class="row has-no-padding">

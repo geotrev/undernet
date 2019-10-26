@@ -40,7 +40,7 @@ exports[`<Nav /> renders 1`] = `
           className="nav-list row has-no-padding"
         >
           <li
-            className="small-5 xsmall-12 columns"
+            className="is-small-5 is-xsmall-12 column"
             role="none"
           >
             <Link
@@ -62,7 +62,7 @@ exports[`<Nav /> renders 1`] = `
             </Link>
           </li>
           <li
-            className="small-7 xsmall-12 columns"
+            className="is-small-7 is-xsmall-12 column"
           >
             <ul
               className="row"

@@ -48,14 +48,14 @@ Check out this example accordion:
 <br/>
 
 ```html
-<div data-accordion="accordion1" class="accordion">
-  <div class="accordion-row" data-visible="true" data-accordion-row="content1">
+<div data-accordion="accordion-id" class="accordion">
+  <div class="accordion-row" data-visible="true" data-accordion-row="accordion-content-id">
     <h5>
-      <button class="accordion-button" id="button1" data-parent="accordion1" data-target="content1">
+      <button class="accordion-button" id="accordionn-button-id" data-parent="accordion-id" data-target="accordion-content-id">
         Accordion Button 1
       </button>
     </h5>
-    <div class="accordion-content" id="content1">
+    <div class="accordion-content" id="accordion-content-id">
       <p class="has-padding">
         Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna ipsum ut
         voluptate.
@@ -64,7 +64,7 @@ Check out this example accordion:
   </div>
   <div class="accordion-row" data-visible="false" data-accordion-row="content2">
     <h5>
-      <button class="accordion-button" id="button2" data-parent="accordion1" data-target="content2">
+      <button class="accordion-button" id="button2" data-parent="accordion-id" data-target="content2">
         Accordion Button 2
       </button>
     </h5>
@@ -77,7 +77,7 @@ Check out this example accordion:
   </div>
   <div class="accordion-row" data-visible="false" data-accordion-row="content3">
     <h5>
-      <button class="accordion-button" id="button3" data-parent="accordion1" data-target="content3">
+      <button class="accordion-button" id="button3" data-parent="accordion-id" data-target="content3">
         Accordion Button 3
       </button>
     </h5>
@@ -141,7 +141,7 @@ Add `data-toggle-multiple` on the accordion container to let each accordion row 
 <br/>
 
 ```html
-<div data-accordion="new-accordion" class="accordion" data-toggle-multiple>
+<div data-accordion="accordion-id" class="accordion" data-toggle-multiple>
   ...
 </div>
 ```
@@ -155,15 +155,15 @@ Two main pieces are required: an API call and correct HTML markup.
 When making an accordion, there are two major considerations in its structure: the "wrapper" to encapsulate each accordion "row" (can be multiple), and each "row" which hold a button + corresponding content block.
 
 ```html
-<div data-accordion="accordion1" class="accordion">
+<div data-accordion="accordion-id" class="accordion">
   ...
-  <div class="accordion-row" data-visible="true" data-accordion-row="content1">
+  <div class="accordion-row" data-visible="true" data-accordion-row="accordion-content-id">
     <h5>
-      <button class="accordion-button" id="button1" data-parent="accordion1" data-target="content1">
+      <button class="accordion-button" id="accordion-button-id" data-parent="accordion-id" data-target="accordion-content-id">
         ...
       </button>
     </h5>
-    <div class="accordion-content" id="content1">
+    <div class="accordion-content" id="accordion-content-id">
       <p class="has-padding">...</p>
     </div>
   </div>

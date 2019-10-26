@@ -26,7 +26,7 @@ Undernet's CSS and JavaScript will work in _recent versions_ these browsers:
 - Safari ✓
 - Opera ✓
 
-The framework is also tested in and supports Internet Explorer 11 and Edge on Windows.
+The framework is also tested in and supports Internet Explorer 11 and Edge on Windows. Support for IE11 may drop in the near future, same with non-Chromium Edge as that version rolls out more substantially in 2020.
 
 ## Contribute
 

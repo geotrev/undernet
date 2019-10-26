@@ -32,9 +32,9 @@ The tooltip itself is just a div, so you can add any HTML you would normally use
 </span>
 
 ```html
-<span class="tooltip" data-tooltip="new-tooltip10">
-  <button class="tooltip-trigger" data-target="new-tooltip10">Tooltip Button</button>
-  <div class="tooltip-box" id="new-tooltip10">
+<span class="tooltip" data-tooltip="new-tooltip">
+  <button class="tooltip-trigger" data-target="new-tooltip">Tooltip Button</button>
+  <div class="tooltip-box" id="new-tooltip">
     <em>This</em> <b>is a</b> <u>tooltip</u>.
   </div>
 </span>
@@ -72,9 +72,9 @@ Alternatively, you can force the arrow to hide using the `has-no-arrow` class on
 </span>
 
 ```html
-<span class="tooltip" data-tooltip="new-tooltip2">
-  <button class="tooltip-trigger" data-target="new-tooltip2">Tooltip Button</button>
-  <div class="tooltip-box has-no-arrow" id="new-tooltip2">
+<span class="tooltip" data-tooltip="new-tooltip">
+  <button class="tooltip-trigger" data-target="new-tooltip">Tooltip Button</button>
+  <div class="tooltip-box has-no-arrow" id="new-tooltip">
     This is a tooltip.
   </div>
 </span>
@@ -92,9 +92,9 @@ Tooltips can be used with any element. Even traditionally non-interactive elemen
 </span>
 
 ```html
-<span class="tooltip" data-tooltip="new-tooltip3">
-  <span tabindex="0" class="tooltip-trigger has-gray900-bg has-padding-2" data-target="new-tooltip3">Tooltip (not a) Button</span>
-  <div class="tooltip-box" id="new-tooltip3">
+<span class="tooltip" data-tooltip="tooltip-id">
+  <span tabindex="0" class="tooltip-trigger has-gray900-bg has-padding-2" data-target="tooltip-id">Tooltip (not a) Button</span>
+  <div class="tooltip-box" id="tooltip-id">
     This is a tooltip.
   </div>
 </span>
@@ -118,11 +118,11 @@ Because `disabled` elements aren't focusable, you will need to instead place any
 </span>
 
 ```html
-<span class="tooltip" data-tooltip="new-tooltip9">
-  <span tabindex="0" class="tooltip-trigger" data-target="new-tooltip9">
+<span class="tooltip" data-tooltip="tooltip-id">
+  <span tabindex="0" class="tooltip-trigger" data-target="tooltip-id">
     <button disabled>Tooltip Button</button>
   </span>
-  <div class="tooltip-box" id="new-tooltip9">
+  <div class="tooltip-box" id="tooltip-id">
     Element is disabled!
   </div>
 </span>
@@ -150,17 +150,17 @@ Have the tooltip appear from the left, right, or bottom position by adding `is-d
 </span>
 
 ```html
-<span class="tooltip" data-tooltip="new-tooltip5">
-  <button class="tooltip-trigger" data-target="new-tooltip5">Drop Right</button>
-  <div class="tooltip-box is-drop-end" id="new-tooltip5">...</div>
+<span class="tooltip" data-tooltip="tooltip-id-1">
+  <button class="tooltip-trigger" data-target="tooltip-id-1">Drop Right</button>
+  <div class="tooltip-box is-drop-end" id="tooltip-id-1">...</div>
 </span> 
-<span class="tooltip" data-tooltip="new-tooltip4">
-  <button class="tooltip-trigger" data-target="new-tooltip4">Drop Left</button>
-  <div class="tooltip-box is-drop-start" id="new-tooltip4">...</div>
+<span class="tooltip" data-tooltip="tooltip-id-2">
+  <button class="tooltip-trigger" data-target="tooltip-id-2">Drop Left</button>
+  <div class="tooltip-box is-drop-start" id="tooltip-id-2">...</div>
 </span> 
-<span class="tooltip" data-tooltip="new-tooltip6">
-  <button class="tooltip-trigger" data-target="new-tooltip6">Drop Down</button>
-  <div class="tooltip-box is-drop-down" id="new-tooltip6">...</div>
+<span class="tooltip" data-tooltip="tooltip-id-3">
+  <button class="tooltip-trigger" data-target="tooltip-id-3">Drop Down</button>
+  <div class="tooltip-box is-drop-down" id="tooltip-id-3">...</div>
 </span>
 ```
 

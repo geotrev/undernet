@@ -17,12 +17,12 @@ export default function GlobalNav(props) {
   return (
     <nav id="global-nav" className="fluid grid">
       <ul className="nav-list row has-no-padding">
-        <li className="small-5 xsmall-12 columns" role="none">
+        <li className="is-small-5 is-xsmall-12 column" role="none">
           <Link to="/" className="logo" role="listitem">
             <img src={Logo} alt="Undernet" />
           </Link>
         </li>
-        <li className="small-7 xsmall-12 columns">
+        <li className="is-small-7 is-xsmall-12 column">
           <ul className="row">
             <li role="none">
               <button

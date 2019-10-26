@@ -34,7 +34,7 @@ exports[`<Docs /> renders 1`] = `
         >
           <SideNav />
           <div
-            className="xsmall-12 xlarge-10 columns has-padding-3"
+            className="is-xsmall-12 is-xlarge-10 column has-padding-3"
           >
             <DocsRoutes />
           </div>

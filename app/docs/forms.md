@@ -14,13 +14,13 @@ Use consistently styled text and textarea elements. They should be wrapped in a 
 </label>
 
 ```html
-<label for="example-name-1">
+<label for="example-name">
   Name
-  <input id="example-name-1" type="text" value="" placeholder="Dr. Thomas Light" />
+  <input id="example-name" type="text" value="" placeholder="Dr. Thomas Light" />
 </label>
-<label for="example-textarea-1">
+<label for="example-textarea">
   Tell us about yourself:
-  <textarea id="example-textarea-1" placeholder="Tell me about yourself..."></textarea>
+  <textarea id="example-textarea" placeholder="Tell me about yourself..."></textarea>
 </label>
 ```
 
@@ -58,22 +58,22 @@ Use the fieldset tag to group form elements together. It should sit inside a for
   <fieldset>
     <legend>Sign Up For Our Newsletter</legend>
     <div class="row">
-      <div class="xsmall-12 medium-6 columns has-no-padding-block-end">
+      <div class="is-xsmall-12 is-medium-6 column has-no-padding-block-end">
         <label for="fieldset-email">
           Email
           <input id="fieldset-email" type="email" value="" placeholder="person@example.com" />
         </label>
       </div>
-      <div class="xsmall-12 medium-6 columns has-no-padding-block-end">
+      <div class="is-xsmall-12 is-medium-6 column has-no-padding-block-end">
         <label for="fieldset-name">
           Name
           <input id="fieldset-name" type="text" value="" placeholder="Dr. Thomas Light" />
         </label>
       </div>
-      <div class="xsmall-12 columns has-no-padding-block-end">
-        <label for="fieldset-textarea-3">
+      <div class="is-xsmall-12 column has-no-padding-block-end">
+        <label for="fieldset-textarea">
           Tell us about yourself:
-          <textarea id="fieldset-textarea-3" placeholder="I'm a big fan of..."></textarea>
+          <textarea id="fieldset-textarea" placeholder="I'm a big fan of..."></textarea>
         </label>
       </div>
       <div class="column has-no-padding-block-end">
@@ -92,22 +92,22 @@ Use the fieldset tag to group form elements together. It should sit inside a for
   <fieldset>
     <legend>Sign Up For Our Newsletter</legend>
     <div class="row">
-      <div class="xsmall-12 medium-6 columns has-no-padding-block-end">
+      <div class="is-xsmall-12 is-medium-6 column has-no-padding-block-end">
         <label for="fieldset-email">
           Email
           <input id="fieldset-email" type="email" value="" placeholder="person@example.com" />
         </label>
       </div>
-      <div class="xsmall-12 medium-6 columns has-no-padding-block-end">
+      <div class="is-xsmall-12 is-medium-6 column has-no-padding-block-end">
         <label for="fieldset-name">
           Name
           <input id="fieldset-name" type="text" value="" placeholder="Dr. Thomas Light" />
         </label>
       </div>
-      <div class="xsmall-12 columns has-no-padding-block-end">
-        <label for="fieldset-textarea-3">
+      <div class="is-xsmall-12 column has-no-padding-block-end">
+        <label for="fieldset-textarea">
           Tell us about yourself:
-          <textarea id="fieldset-textarea-3" placeholder="I'm a big fan of..."></textarea>
+          <textarea id="fieldset-textarea" placeholder="I'm a big fan of..."></textarea>
         </label>
       </div>
       <div class="column has-no-padding-block-end">

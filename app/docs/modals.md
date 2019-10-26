@@ -34,10 +34,10 @@ Check out this example modal:
 
 ```html
 <!-- modal trigger -->
-<button data-target="new-modal">Open modal</button>
+<button data-target="modal-id">Open modal</button>
 <!-- modal dialog, somewhere on the page -->
-<div class="modal-overlay" data-modal="new-modal">
-  <div class="modal-dialog" data-parent="new-modal" aria-labelledby="header-id">
+<div class="modal-overlay" data-modal="modal-id">
+  <div class="modal-dialog" data-parent="modal-id" aria-labelledby="header-id">
     <header>
       <h2 class="h6" id="header-id">
         Modal Header
@@ -127,12 +127,12 @@ For example, to center it, add `has-display-flex has-align-items-center has-just
 </div>
 
 ```html
-<button data-target="new-modal-2">Open centered modal</button>
+<button data-target="modal-id">Open centered modal</button>
 ```
 
 ```html
-<div class="modal-overlay has-display-flex has-align-items-center has-justify-content-center" data-modal="new-modal-2">
-  <div class="modal-dialog" data-parent="new-modal-2" aria-labelledby="header-id-2">
+<div class="modal-overlay has-display-flex has-align-items-center has-justify-content-center" data-modal="modal-id">
+  <div class="modal-dialog" data-parent="modal-id" aria-labelledby="header-id">
     ...
   </div>
 </div>
@@ -151,7 +151,7 @@ Two main pieces are required: an API call and correct HTML markup.
 For the modal button, it should have two main properties:
 
 ```html
-<button data-target="new-modal">Press me</button>
+<button data-target="modal-id">Press me</button>
 ```
 
 - `data-target`: an attribute containing a unique id pointing to the modal overlay's `data-modal` attribute.
@@ -161,8 +161,8 @@ For the modal button, it should have two main properties:
 For the modal itself, you need a few more things.
 
 ```html
-<div class="modal-overlay" data-modal="new-modal">
-  <div class="modal-dialog" data-parent="new-modal" aria-labelledby="header-id">
+<div class="modal-overlay" data-modal="modal-id">
+  <div class="modal-dialog" data-parent="modal-id" aria-labelledby="header-id">
     <header>
       <h2 class="h6" id="header-id">...</h2>
       <a data-close href="#">

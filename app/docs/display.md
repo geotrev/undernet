@@ -3,7 +3,7 @@ Change an element's `display` property on the fly with these utility classes.
 ```html
 <div class="has-display-flex">...</div>
 <div class="has-display-block">...</div>
-<div class="is-display-hidden">...</div>
+<div class="has-display-none">...</div>
 ```
 
 ## Change Display By Breakpoint

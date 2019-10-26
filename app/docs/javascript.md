@@ -42,7 +42,7 @@ There's two main ways to gain access to the JavaScript: the static assets and NP
 
 ### CDN or Static Assets
 
-The fastest way forward is using the CDN (see the example on the [Download](/docs/overview/download) article). If you want to get access to the raw distribution files, [download them](/docs/overview/download) and then link them in your layout:
+The fastest way forward is using the CDN. Alternatively, if you want to get access to the raw distribution files, download them and then link them in your layout.
 
 ```html
 <!DOCTYPE html>
@@ -59,6 +59,8 @@ The fastest way forward is using the CDN (see the example on the [Download](/doc
   </body>
 </html>
 ```
+
+Both the minified and source code files are available via the [download article](/docs/overview/download).
 
 ### NPM
 
@@ -77,14 +79,14 @@ import Undernet from "undernet"
 Undernet.start()
 ```
 
-The above is useful if you need to use 2 or more components on a single page. If you only have one, you can target that component script directly:
+The above is useful if you need all the components at once on a single page. If you only need one or two, you can target that component script directly:
 
 ```js
 import Undernet from "undernet"
 Undernet.Modals.start()
 ```
 
-[Tree shaking](https://webpack.js.org/guides/tree-shaking/) is also available for more precise dependency control:
+[Tree shaking](https://webpack.js.org/guides/tree-shaking/) is also available for more precise dependency control if you're using a module bundler like Webpack or Rollup:
 
 ```js
 import { Tooltips } from "undernet"

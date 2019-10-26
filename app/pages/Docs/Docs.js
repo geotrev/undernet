@@ -9,7 +9,7 @@ export default function Docs() {
     <div id="docs" className="fluid grid has-no-padding">
       <div className="row">
         <SideNav />
-        <div className="xsmall-12 xlarge-10 columns has-padding-3">
+        <div className="is-xsmall-12 is-xlarge-10 column has-padding-3">
           <DocsRoutes />
         </div>
       </div>

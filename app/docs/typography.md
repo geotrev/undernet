@@ -9,22 +9,22 @@ Headers can vary a lot within a project. For that reason, headers use a scss map
 These maps output their keys and values as css properties. This means you can add any `property: value` normally found in CSS into these maps.
 
 <div class="row">
-  <div class="xsmall-12 medium-6 columns has-no-padding-block-end">
+  <div class="is-xsmall-12 is-medium-6 column has-no-padding-block-end">
     <p class="h1">Header 1</p>
   </div>
-  <div class="xsmall-12 medium-6 columns has-no-padding-block-end">
+  <div class="is-xsmall-12 is-medium-6 column has-no-padding-block-end">
     <p class="h2">Header 2</p>
   </div>
-  <div class="xsmall-12 medium-6 columns has-no-padding-block-end">
+  <div class="is-xsmall-12 is-medium-6 column has-no-padding-block-end">
     <p class="h3">Header 3</p>
   </div>
-  <div class="xsmall-12 medium-6 columns has-no-padding-block-end">
+  <div class="is-xsmall-12 is-medium-6 column has-no-padding-block-end">
     <p class="h4">Header 4</p>
   </div>
-  <div class="xsmall-12 medium-6 columns has-no-padding-block-end">
+  <div class="is-xsmall-12 is-medium-6 column has-no-padding-block-end">
     <p class="h5">Header 5</p>
   </div>
-  <div class="xsmall-12 medium-6 columns has-no-padding-block-end">
+  <div class="is-xsmall-12 is-medium-6 column has-no-padding-block-end">
     <p class="h6">Header 6</p>
   </div>
 </div>
@@ -91,7 +91,7 @@ Use inline text tags as well:
 Ordered and unordered lists can be styled as well. You can change the bullet style for each, if you don't like the default `disc` and `decimal` variants.
 
 <div class="row">
-  <div class="xsmall-12 medium-6 columns">
+  <div class="is-xsmall-12 is-medium-6 column">
     <p><strong>Unordered List</strong></p>
     <ul>
       <li>Unordered item</li>
@@ -110,7 +110,7 @@ Ordered and unordered lists can be styled as well. You can change the bullet sty
 ```
 
 <div class="row">
-  <div class="xsmall-12 medium-6 columns">
+  <div class="is-xsmall-12 is-medium-6 column">
     <p><strong>Ordered List</strong></p>
     <ol>
       <li>Item #1</li>

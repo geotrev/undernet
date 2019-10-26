@@ -251,7 +251,7 @@ $arrow-border-position: $arrow-size * -2;
 
 @mixin net-create-input-of-type-disabled($type) {
   input[type="#{$type}"]:disabled,
-  input[type="#{$type}"].disabled {
+  input[type="#{$type}"].is-disabled {
     @include net-create-input-disabled-styles;
   }
 }

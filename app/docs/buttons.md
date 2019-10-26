@@ -22,7 +22,7 @@ All button input "types" will receive styling, even without the `button` class.
 
 ## Block button
 
-Using `.is-wide` as a modifier class, your buttons stretch full-width in their container.
+Using `is-wide` as a modifier class, your buttons stretch full-width in their container.
 
 <button class="is-wide">Button Tag</button>
 <a class="button is-wide">Anchor Tag</a>
@@ -77,16 +77,28 @@ Create custom buttons easily in the `$button-types` scss map. Like in the `$butt
 
 Also in the same map as `$button-types`, you can find status buttons. By default, there are four: `success`, `notice`, `destroy`, and `warning`.
 
-<button class="is-success">Success Button</button>
-<button class="is-notice">Notice Button</button>
-<button class="is-warning">Warning Button</button>
-<button class="is-destroy">Destroy Button</button>
+<button class="is-success">Success</button>
+<button class="is-notice">Notice</button>
+<button class="is-warning">Warning</button>
+<button class="is-destroy">Destroy</button>
 
 ```html
-<button class="is-success">Success Button</button>
-<button class="is-notice">Notice Button</button>
-<button class="is-warning">Warning Button</button>
-<button class="is-destroy">Destroy Button</button>
+<button class="is-success">Success</button>
+<button class="is-notice">Notice</button>
+<button class="is-warning">Warning</button>
+<button class="is-destroy">Destroy</button>
+```
+
+## Disabled Buttons
+
+Show a button is disabled using the `disabled` attribute or `is-disabled` class. Also works on `input`s, as well as `a` tags using the `button` class.
+
+<button disabled>Disabled Attribute</button>
+<button class="is-disabled">Disabled Class</button>
+
+```html
+<button disabled>Disabled Attribute</button>
+<button class="is-disabled">Disabled Class</button>
 ```
 
 ## Links
