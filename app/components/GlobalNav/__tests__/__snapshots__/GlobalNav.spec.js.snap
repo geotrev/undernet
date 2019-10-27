@@ -33,7 +33,7 @@ exports[`<Nav /> renders 1`] = `
       }
     >
       <nav
-        className="fluid grid"
+        className="is-fluid grid"
         id="global-nav"
       >
         <ul
@@ -45,14 +45,14 @@ exports[`<Nav /> renders 1`] = `
           >
             <Link
               className="logo"
-              role="listitem"
+              role="menuitem"
               to="/"
             >
               <a
                 className="logo"
                 href="/"
                 onClick={[Function]}
-                role="listitem"
+                role="menuitem"
               >
                 <img
                   alt="Undernet"
@@ -73,7 +73,7 @@ exports[`<Nav /> renders 1`] = `
                 <button
                   className="is-visually-hidden-focusable"
                   onClick={[Function]}
-                  role="listitem"
+                  role="menuitem"
                   type="button"
                 >
                   Skip to main content
@@ -85,7 +85,7 @@ exports[`<Nav /> renders 1`] = `
                 <a
                   className="has-feather"
                   href="https://www.twitter.com/gwtrev"
-                  role="listitem"
+                  role="menuitem"
                 >
                   <Twitter
                     color="currentColor"
@@ -124,7 +124,7 @@ exports[`<Nav /> renders 1`] = `
                 <a
                   className="has-feather"
                   href="https://www.github.com/geotrev/undernet"
-                  role="listitem"
+                  role="menuitem"
                 >
                   <GitHub
                     color="currentColor"
@@ -162,7 +162,7 @@ exports[`<Nav /> renders 1`] = `
               >
                 <a
                   href="/docs/overview/introduction"
-                  role="listitem"
+                  role="menuitem"
                 >
                   Documentation
                 </a>

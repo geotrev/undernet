@@ -92,7 +92,7 @@
 
       a:first-child,
       button:first-child {
-        margin-right: 16px;
+        @include net-set-flow("margin-right", $global-space);
       }
     }
   }

@@ -4,7 +4,7 @@ import Twitter from "react-feather/dist/icons/twitter"
 import { Link } from "react-router-dom"
 import PropTypes from "prop-types"
 
-import { introductionPath } from "app/routes"
+import { introductionPath, rootPath } from "app/routes"
 import Logo from "app/assets/images/un-logo.png"
 import "./styles.scss"
 
@@ -15,10 +15,10 @@ export default function GlobalNav(props) {
   }
 
   return (
-    <nav id="global-nav" className="fluid grid">
+    <nav id="global-nav" className="is-fluid grid">
       <ul className="nav-list row has-no-padding">
         <li className="is-small-5 is-xsmall-12 column" role="none">
-          <Link to="/" className="logo" role="listitem">
+          <Link to={rootPath} className="logo" role="menuitem">
             <img src={Logo} alt="Undernet" />
           </Link>
         </li>
@@ -26,7 +26,7 @@ export default function GlobalNav(props) {
           <ul className="row">
             <li role="none">
               <button
-                role="listitem"
+                role="menuitem"
                 className="is-visually-hidden-focusable"
                 onClick={handleClick}
                 type="button"
@@ -35,7 +35,7 @@ export default function GlobalNav(props) {
               </button>
             </li>
             <li role="none">
-              <a className="has-feather" href="https://www.twitter.com/gwtrev" role="listitem">
+              <a className="has-feather" href="https://www.twitter.com/gwtrev" role="menuitem">
                 <Twitter role="presentation" focusable="false" />
                 <span className="is-visually-hidden">Open link to www.twitter.com/gwtrev</span>
               </a>
@@ -44,7 +44,7 @@ export default function GlobalNav(props) {
               <a
                 className="has-feather"
                 href="https://www.github.com/geotrev/undernet"
-                role="listitem"
+                role="menuitem"
               >
                 <Github role="presentation" focusable="false" />
                 <span className="is-visually-hidden">
@@ -53,7 +53,7 @@ export default function GlobalNav(props) {
               </a>
             </li>
             <li role="none">
-              <a href={introductionPath} role="listitem">
+              <a href={introductionPath} role="menuitem">
                 Documentation
               </a>
             </li>

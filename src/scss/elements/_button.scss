@@ -67,7 +67,7 @@ button,
   } // end @each
 
   @each $size, $properties in $button-sizes {
-    &.is-#{$size} {
+    &.#{$size} {
       @each $property, $value in $properties {
         #{$property}: $value;
       } // end @each
@@ -83,7 +83,7 @@ button,
   @each $type, $states in $button-types {
     @each $state, $properties in $states {
       @if $state != "default" {
-        &.is-#{$type} {
+        &.#{$type} {
           &:#{$state} {
             @each $property, $value in $properties {
               #{$property}: $value;
@@ -91,7 +91,7 @@ button,
           }
         }
       } @else {
-        &.is-#{$type} {
+        &.#{$type} {
           @each $property, $value in $properties {
             #{$property}: $value;
           }

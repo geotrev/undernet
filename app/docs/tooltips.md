@@ -12,9 +12,9 @@ Check out this example tooltip:
 </span>
 
 ```html
-<span class="tooltip" data-tooltip="new-tooltip">
-  <button class="tooltip-trigger" data-target="new-tooltip">Tooltip Button</button>
-  <div class="tooltip-box" id="new-tooltip">
+<span class="tooltip" data-tooltip="tooltip-id">
+  <button class="tooltip-trigger" data-target="tooltip-id">Tooltip Button</button>
+  <div class="tooltip-box" id="tooltip-id">
     This is a tooltip.
   </div>
 </span>
@@ -32,9 +32,9 @@ The tooltip itself is just a div, so you can add any HTML you would normally use
 </span>
 
 ```html
-<span class="tooltip" data-tooltip="new-tooltip">
-  <button class="tooltip-trigger" data-target="new-tooltip">Tooltip Button</button>
-  <div class="tooltip-box" id="new-tooltip">
+<span class="tooltip" data-tooltip="tooltip-id">
+  <button class="tooltip-trigger" data-target="tooltip-id">Tooltip Button</button>
+  <div class="tooltip-box" id="tooltip-id">
     <em>This</em> <b>is a</b> <u>tooltip</u>.
   </div>
 </span>
@@ -72,9 +72,9 @@ Alternatively, you can force the arrow to hide using the `has-no-arrow` class on
 </span>
 
 ```html
-<span class="tooltip" data-tooltip="new-tooltip">
-  <button class="tooltip-trigger" data-target="new-tooltip">Tooltip Button</button>
-  <div class="tooltip-box has-no-arrow" id="new-tooltip">
+<span class="tooltip" data-tooltip="tooltip-id">
+  <button class="tooltip-trigger" data-target="tooltip-id">Tooltip Button</button>
+  <div class="tooltip-box has-no-arrow" id="tooltip-id">
     This is a tooltip.
   </div>
 </span>
@@ -85,7 +85,7 @@ Alternatively, you can force the arrow to hide using the `has-no-arrow` class on
 Tooltips can be used with any element. Even traditionally non-interactive elements, such as `div`s. You should add `tabindex="0"` to elements that don't naturally receive keyboard focus. This includes anything that isn't a button, input, or the like.
 
 <span class="tooltip" data-tooltip="new-tooltip3">
-  <span tabindex="0" class="tooltip-trigger has-gray900-bg has-padding-2" data-target="new-tooltip3">Tooltip (not a) Button</span>
+  <span tabindex="0" class="tooltip-trigger has-secondary-color-bg has-white-text has-padding-2" data-target="new-tooltip3">Tooltip (not a) Button</span>
   <div class="tooltip-box" id="new-tooltip3">
     This is a tooltip.
   </div>

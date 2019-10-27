@@ -74,7 +74,7 @@ exports[`<Home /> renders 1`] = `
               title="A modular, configuration-first front-end framework. No strings."
             />
             <div
-              className="medium-section fluid grid hero"
+              className="is-medium-section is-fluid grid hero"
             >
               <div
                 className="row"
@@ -92,11 +92,11 @@ exports[`<Home /> renders 1`] = `
                   className="is-xsmall-12 column has-text-center"
                 >
                   <Link
-                    className="medium button has-feather"
+                    className="button has-feather"
                     to="/docs/overview/download"
                   >
                     <a
-                      className="medium button has-feather"
+                      className="button has-feather"
                       href="/docs/overview/download"
                       onClick={[Function]}
                     >
@@ -109,11 +109,11 @@ exports[`<Home /> renders 1`] = `
                     </a>
                   </Link>
                   <Link
-                    className="primary medium button has-gradient has-feather"
+                    className="button is-primary has-gradient has-feather"
                     to="/docs/overview/introduction"
                   >
                     <a
-                      className="primary medium button has-gradient has-feather"
+                      className="button is-primary has-gradient has-feather"
                       href="/docs/overview/introduction"
                       onClick={[Function]}
                     >
@@ -144,7 +144,7 @@ exports[`<Home /> renders 1`] = `
               </div>
             </div>
             <div
-              className="medium-section fluid grid animations"
+              className="is-medium-section is-fluid grid animations"
             >
               <div
                 className="row has-no-padding"
@@ -240,7 +240,7 @@ exports[`<Home /> renders 1`] = `
               </div>
             </div>
             <div
-              className="medium-section narrow grid"
+              className="is-medium-section is-narrow grid"
             >
               <div
                 className="row"
@@ -273,11 +273,11 @@ exports[`<Home /> renders 1`] = `
                     See how Undernet can improve your developer experience!
                   </p>
                   <Link
-                    className="primary medium button has-gradient has-feather"
+                    className="is-primary button has-gradient has-feather"
                     to="/docs/overview/introduction"
                   >
                     <a
-                      className="primary medium button has-gradient has-feather"
+                      className="is-primary button has-gradient has-feather"
                       href="/docs/overview/introduction"
                       onClick={[Function]}
                     >

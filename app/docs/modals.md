@@ -2,6 +2,8 @@ Use modals to focus the user experience on a critical task or set of information
 
 Try to keep the modal dialog as high in the document tree as possible. While the dialog is styled in a way to make it mostly capable of being nested in divs or other wrappers, doing so comes with a risk of interfering with the fullscreen effect of the dialog.
 
+Worth noting: there can only be one modal open at a time. Stacking modals are not supported.
+
 ## Basic Modal
 
 Check out this example modal:
@@ -16,6 +18,7 @@ Check out this example modal:
       </h2>
       <a data-close href="#">
         <span aria-hidden="true">&times;</span>
+        <span class="is-visually-hidden">close modal</span>
       </a>
     </header>
     <section>
@@ -44,7 +47,7 @@ Check out this example modal:
       </h2>
       <a data-close href="#">
         <span aria-hidden="true">&times;</span>
-        <span class"is-visually-hidden">close modal</span>
+        <span class="is-visually-hidden">close modal</span>
       </a>
     </header>
     <section>
@@ -78,6 +81,7 @@ The modal will be able to handle long-content with ease, turning the overlay int
       </h2>
       <a data-close href="#">
         <span aria-hidden="true">&times;</span>
+        <span class="is-visually-hidden">close modal</span>
       </a>
     </header>
     <section>
@@ -98,11 +102,11 @@ The modal will be able to handle long-content with ease, turning the overlay int
 
 By adding flex modifier classes onto the overlay, you can position the dialog within its overlay.
 
-For example, to center it, add `has-display-flex has-align-items-center has-justify-content-center`.
+For example, to center the dialog, add `has-display-flex has-align-items-center` to the overlay (wrapper) element.
 
 <button data-target="new-modal-2">Open centered modal</button>
 
-<div class="modal-overlay has-display-flex has-align-items-center has-justify-content-center" data-modal="new-modal-2">
+<div class="modal-overlay has-display-flex has-align-items-center" data-modal="new-modal-2">
   <div class="modal-dialog" data-parent="new-modal-2" aria-labelledby="header-id-2">
     <header>
       <h2 class="h6 has-no-margin-block-start" id="header-id-2">
@@ -110,6 +114,7 @@ For example, to center it, add `has-display-flex has-align-items-center has-just
       </h2>
       <a data-close href="#">
         <span aria-hidden="true">&times;</span>
+        <span class="is-visually-hidden">close modal</span>
       </a>
     </header>
     <section>
@@ -131,7 +136,7 @@ For example, to center it, add `has-display-flex has-align-items-center has-just
 ```
 
 ```html
-<div class="modal-overlay has-display-flex has-align-items-center has-justify-content-center" data-modal="modal-id">
+<div class="modal-overlay has-display-flex has-align-items-center" data-modal="modal-id">
   <div class="modal-dialog" data-parent="modal-id" aria-labelledby="header-id">
     ...
   </div>
@@ -167,7 +172,7 @@ For the modal itself, you need a few more things.
       <h2 class="h6" id="header-id">...</h2>
       <a data-close href="#">
         <span aria-hidden="true">&times;</span>
-        <span class"is-visually-hidden">close modal</span>
+        <span class="is-visually-hidden">close modal</span>
       </a>
     </header>
     <section>

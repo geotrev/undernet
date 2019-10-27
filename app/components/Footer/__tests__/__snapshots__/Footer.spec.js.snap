@@ -10,7 +10,7 @@ exports[`<Footer /> renders 1`] = `
   }
 >
   <div
-    className="footer-wrapper small-section fluid grid"
+    className="footer-wrapper is-small-section is-fluid grid"
   >
     <div
       className="row"
@@ -19,7 +19,7 @@ exports[`<Footer /> renders 1`] = `
         className="has-no-padding column"
       >
         <p
-          className="has-text-center has-gray900-text"
+          className="has-no-margin-block-end has-text-center has-gray900-text"
         >
           Undernet is a front-end framework created and maintained by
            
@@ -32,7 +32,7 @@ exports[`<Footer /> renders 1`] = `
           .
         </p>
         <p
-          className="has-text-center has-gray900-text"
+          className="has-no-margin-block-end has-text-center has-gray900-text"
         >
           Animations provided by
            
@@ -45,15 +45,16 @@ exports[`<Footer /> renders 1`] = `
           . ❤️
         </p>
         <ul
-          className="has-text-center has-gray900-text has-unstyled-list has-direction-row has-display-flex has-justify-content-center"
+          className="has-text-center has-no-padding has-gray900-text has-unstyled-list has-direction-row has-display-flex has-justify-content-center"
         >
           <li
+            className="has-no-padding"
             role="none"
           >
             <a
               className="has-white-text has-feather"
               href="https://www.twitter.com/gwtrev"
-              role="listitem"
+              role="menuitem"
             >
               <Twitter
                 focusable="false"
@@ -67,12 +68,13 @@ exports[`<Footer /> renders 1`] = `
             </a>
           </li>
           <li
+            className="has-no-padding"
             role="none"
           >
             <a
               className="has-white-text has-feather"
               href="https://www.github.com/geotrev/undernet"
-              role="listitem"
+              role="menuitem"
             >
               <Github
                 focusable="false"
@@ -86,12 +88,13 @@ exports[`<Footer /> renders 1`] = `
             </a>
           </li>
           <li
+            className="has-no-padding"
             role="none"
           >
             <button
               className="is-visually-hidden-focusable"
               onClick={[Function]}
-              role="listitem"
+              role="menuitem"
               type="button"
             >
               Return to top of page

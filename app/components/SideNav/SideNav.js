@@ -94,7 +94,7 @@ export default function SideNav() {
     return (
       <li key={item.name} role="none">
         <NavLink
-          role="listitem"
+          role="menuitem"
           className="side-nav-link-item has-black-text is-display-flex has-align-items-center"
           activeClassName="active"
           onClick={handleCollapseClick}

@@ -314,29 +314,9 @@ $list-item-padding: 8px 0 !default;
 // 4. Buttons
 // ----------
 
-// NOTE: You can treat this map as CSS proper, but in `key: value` format.
-$button-sizes: (
-  "small": (
-    "padding": 8px 14px,
-    "font-size": 14px
-  ),
-  "medium": (
-    "padding": 12px 18px,
-    "font-size": $global-font-size
-  ),
-  "large": (
-    "padding": $global-space 22px,
-    "font-size": 20px
-  ),
-  "huge": (
-    "padding": 20px 30px,
-    "font-size": 24px
-  )
-) !default;
-
 // Base button styling
 
-$button-padding: 10px $global-space !default;
+$button-padding: 6px 18px !default;
 $button-margin: 0 0 $global-space 0 !default;
 $button-border-radius: $global-border-radius !default;
 $button-border-style: solid !default;
@@ -347,8 +327,7 @@ $button-font-weight: normal !default;
 $button-font: $global-font-sans !default;
 $button-decoration: none !default;
 
-// Default button styling.
-
+// Base button state styling
 // NOTE: You can treat this map as CSS proper, but in `key: value` format.
 $button-base: (
   "default": (
@@ -376,11 +355,31 @@ $button-base: (
   )
 ) !default;
 
-// Branded & specialized button styling
+// Button size modifier styling
+// NOTE: You can treat this map as CSS proper, but in `key: value` format.
+$button-sizes: (
+  "is-small": (
+    "padding": 4px 14px,
+    "font-size": 14px
+  ),
+  "is-medium": (
+    "padding": 8px 20px,
+    "font-size": $global-font-size
+  ),
+  "is-large": (
+    "padding": 10px 30px,
+    "font-size": 20px
+  ),
+  "is-huge": (
+    "padding": 10px 34px,
+    "font-size": 24px
+  )
+) !default;
 
+// Specialized button modifier styling
 // NOTE: You can treat this map as CSS proper, but in `key: value` format.
 $button-types: (
-  "primary": (
+  "is-primary": (
     "default": (
       "background": lighten($primary-color, 5%),
       "color": $white,
@@ -402,7 +401,7 @@ $button-types: (
       "border-color": transparent
     )
   ),
-  "secondary": (
+  "is-secondary": (
     "default": (
       "background": transparent,
       "color": lighten($primary-color, 5%),
@@ -424,7 +423,7 @@ $button-types: (
       "border-color": darken($primary-color, 2%)
     )
   ),
-  "tertiary": (
+  "is-tertiary": (
     "default": (
       "background": transparent,
       "color": $primary-color,
@@ -446,7 +445,7 @@ $button-types: (
       "border-color": transparent
     )
   ),
-  "inverted": (
+  "is-inverted": (
     "default": (
       "background": lighten($gray900, 5%),
       "color": $gray200,
@@ -468,7 +467,7 @@ $button-types: (
       "border-color": transparent
     )
   ),
-  "inverted-outline": (
+  "is-inverted-outline": (
     "default": (
       "background": transparent,
       "color": $white,
@@ -490,7 +489,7 @@ $button-types: (
       "border-color": darken($gray900, 2%)
     )
   ),
-  "warning": (
+  "is-warning": (
     "default": (
       "background": darken(net-status-color(warning), 5%),
       "color": $black,
@@ -512,7 +511,7 @@ $button-types: (
       "border-color": transparent
     )
   ),
-  "success": (
+  "is-success": (
     "default": (
       "background": darken(net-status-color(success), 5%),
       "color": $white,
@@ -534,7 +533,7 @@ $button-types: (
       "border-color": transparent
     )
   ),
-  "destroy": (
+  "is-destroy": (
     "default": (
       "background": darken(net-status-color(destroy), 5%),
       "color": $white,
@@ -556,7 +555,7 @@ $button-types: (
       "border-color": transparent
     )
   ),
-  "notice": (
+  "is-notice": (
     "default": (
       "background": darken(net-status-color(notice), 5%),
       "color": $white,
@@ -660,9 +659,9 @@ $fieldset-border-radius: $form-radius !default;
 $fieldset-box-shadow: none !default;
 $fieldset-background: transparent !default;
 $fieldset-margin: 0 0 $global-space 0 !default;
-$fieldset-padding: $global-space !default;
+$fieldset-padding: 8px !default;
 
-// Fieldset legend
+// Fieldset Legend
 
 $fieldset-legend-font-family: $form-font-family !default;
 $fieldset-legend-font-size: $global-font-size !default;

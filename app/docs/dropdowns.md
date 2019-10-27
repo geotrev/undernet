@@ -59,21 +59,21 @@ Alternatively, you can force the arrow to hide using the `has-no-arrow` class on
 You can use any button style with a dropdown. Just add the appropriate class to the dropdown button.
 
 <div data-dropdown="dropdown2" class="dropdown">
-  <button class="primary" id="dropdown-button-id2" data-parent="dropdown2" data-target="dropdown-menu-id2">Primary Button</button>
+  <button class="is-primary" id="dropdown-button-id2" data-parent="dropdown2" data-target="dropdown-menu-id2">Primary Button</button>
   <ul id="dropdown-menu-id2" class="dropdown-menu">
     <li><a href="#">Item 1</a></li>
     <li><a href="#">Item 2</a></li>
     <li><a href="#">Item 3</a></li>
   </ul>
 </div> <div data-dropdown="dropdown3" class="dropdown">
-  <button class="secondary" id="dropdown-button-id3" data-parent="dropdown3" data-target="dropdown-menu-id3">Secondary Button</button>
+  <button class="is-secondary" id="dropdown-button-id3" data-parent="dropdown3" data-target="dropdown-menu-id3">Secondary Button</button>
   <ul id="dropdown-menu-id3" class="dropdown-menu">
     <li><a href="#">Item 1</a></li>
     <li><a href="#">Item 2</a></li>
     <li><a href="#">Item 3</a></li>
   </ul>
 </div> <div data-dropdown="dropdown4" class="dropdown">
-  <button class="tertiary" id="dropdown-button-id4" data-parent="dropdown4" data-target="dropdown-menu-id4">Tertiary Button</button>
+  <button class="is-tertiary" id="dropdown-button-id4" data-parent="dropdown4" data-target="dropdown-menu-id4">Tertiary Button</button>
   <ul id="dropdown-menu-id4" class="dropdown-menu">
     <li><a href="#">Item 1</a></li>
     <li><a href="#">Item 2</a></li>
@@ -118,9 +118,9 @@ Using a few custom classes, you can specify where the menu pops open relative to
     <li><a href="#">Item 2</a></li>
     <li><a href="#">Item 3</a></li>
   </ul>
-</div> <div data-dropdown=" class="dropdown">
-  <button id="dropdown-button-id11" data-parent=" data-target="new">Open Right</button>
-  <ul id="new" class="dropdown-menu is-drop-end">
+</div> <div data-dropdown="dropdown-id11" class="dropdown">
+  <button id="dropdown-button-id11" data-parent="dropdown-id11" data-target="dropdown-menu-id30">Open Right</button>
+  <ul id="dropdown-menu-id30" class="dropdown-menu is-drop-end">
     <li><a href="#">Item 1</a></li>
     <li><a href="#">Item 2</a></li>
     <li><a href="#">Item 3</a></li>
@@ -136,15 +136,15 @@ Using a few custom classes, you can specify where the menu pops open relative to
 
 ```html
 <!-- drop up -->
-<div data-dropdown="dropdown-id" class="dropdown">
-  <button id="dropdown-button-id" data-parent="dropdown-id" data-target="dropdown-menu-id">Open Up</button>
+<div data-dropdown="dropdown-id1" class="dropdown">
+  <button id="dropdown-button-id" data-parent="dropdown-id1" data-target="dropdown-menu-id">Open Up</button>
   <ul id="dropdown-menu-id" class="dropdown-menu is-drop-up">
     ...
   </ul>
 </div>
 <!-- drop right -->
-<div data-dropdown="dropdown-id" class="dropdown">
-  <button id="dropdown-button-id" data-parent="dropdown-id" data-target="dropdown-menu-id">
+<div data-dropdown="dropdown-id2" class="dropdown">
+  <button id="dropdown-button-id" data-parent="dropdown-id2" data-target="dropdown-menu-id">
     Open Right
   </button>
   <ul id="dropdown-menu-id" class="dropdown-menu is-drop-end">
@@ -152,8 +152,8 @@ Using a few custom classes, you can specify where the menu pops open relative to
   </ul>
 </div>
 <!-- drop left -->
-<div data-dropdown="dropdown-id" class="dropdown">
-  <button id="dropdown-button-id" data-parent="dropdown-id" data-target="dropdown-menu-id">
+<div data-dropdown="dropdown-id3" class="dropdown">
+  <button id="dropdown-button-id" data-parent="dropdown-id3" data-target="dropdown-menu-id">
     Open Left
   </button>
   <ul id="dropdown-menu-id" class="dropdown-menu is-drop-start">
@@ -189,8 +189,8 @@ You can also combine direction with alignment to get even more customization!
 
 ```html
 <!-- drop up & aligned bottom -->
-<div data-dropdown="dropdown-id" class="dropdown">
-  <button id="dropdown-button-id" data-parent="dropdown-id" data-target="dropdown-menu-id">
+<div data-dropdown="dropdown-id1" class="dropdown">
+  <button id="dropdown-button-id" data-parent="dropdown-id1" data-target="dropdown-menu-id">
     Open Up, Aligned Right
   </button>
   <ul id="dropdown-menu-id" class="dropdown-menu is-drop-up is-aligned-end">
@@ -198,8 +198,8 @@ You can also combine direction with alignment to get even more customization!
   </ul>
 </div>
 <!-- drop right & aligned bottom -->
-<div data-dropdown="dropdown-id" class="dropdown">
-  <button id="dropdown-button-id" data-parent="dropdown-id" data-target="dropdown-menu-id">
+<div data-dropdown="dropdown-id2" class="dropdown">
+  <button id="dropdown-button-id" data-parent="dropdown-id2" data-target="dropdown-menu-id">
     Open Right, Aligned Bottom
   </button>
   <ul id="dropdown-menu-id" class="dropdown-menu is-drop-end is-aligned-bottom">
@@ -207,8 +207,8 @@ You can also combine direction with alignment to get even more customization!
   </ul>
 </div>
 <!-- drop left & aligned bottom -->
-<div data-dropdown="dropdown-id" class="dropdown">
-  <button id="dropdown-button-id" data-parent="dropdown-id" data-target="dropdown-menu-id">
+<div data-dropdown="dropdown-id3" class="dropdown">
+  <button id="dropdown-button-id" data-parent="dropdown-id3" data-target="dropdown-menu-id">
     Open Left, Aligned Bottom
   </button>
   <ul id="dropdown-menu-id" class="dropdown-menu is-drop-start is-aligned-bottom">
@@ -323,7 +323,7 @@ Two main pieces are required: an API call and correct HTML markup.
 The dropdown container has both the button and the menu.
 
 ```html
-<div data-dropdown="dropdown1" class="dropdown">...</div>
+<div data-dropdown="dropdown-id" class="dropdown">...</div>
 ```
 
 - `data-dropdown`: an attribute containing a unique id for the dropdown container.
@@ -370,7 +370,7 @@ A few key attributes are added for you when the dropdown is instantiated. These 
 - `aria-haspopup`: added to the button element, an attribute equal to `true`, it will tell assistive technologies this button has a menu associated with it.
 - `aria-controls`: added to the button element, an attribute given to the dropdown button with matching value to the dropdown menu's `id`.
 - `aria-labelledby`: added to the menu, an attribute that is assigned a value equal to the id from the dropdown button, telling assistive technologies the element that triggered the menu.
-- `role`: added to the menu list items, `li` tags are given `role="none"` and the buttons (`a` or `button`) themselves are given `role="menuitm"`.
+- `role`: added to the menu list items, `li` tags are given `role="none"` and the buttons (`a` or `button`) themselves are given `role="menuitem"`.
 
 [See WAI-ARIA documentation](https://www.w3.org/TR/wai-aria-practices-1.1/examples/menu-button/menu-button-links.html) on best-practices for the menu button UI pattern.
 

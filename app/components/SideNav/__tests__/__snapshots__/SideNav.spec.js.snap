@@ -67,14 +67,14 @@ exports[`<SideNav /> #handleMenuToggleClick toggles menu when button is clicked 
             activeClassName="active"
             className="side-nav-link-item has-black-text is-display-flex has-align-items-center"
             onClick={[Function]}
-            role="listitem"
+            role="menuitem"
             to="#"
           >
             <Link
               aria-current={null}
               className="side-nav-link-item has-black-text is-display-flex has-align-items-center"
               onClick={[Function]}
-              role="listitem"
+              role="menuitem"
               to="#"
             >
               <a
@@ -82,7 +82,7 @@ exports[`<SideNav /> #handleMenuToggleClick toggles menu when button is clicked 
                 className="side-nav-link-item has-black-text is-display-flex has-align-items-center"
                 href="/"
                 onClick={[Function]}
-                role="listitem"
+                role="menuitem"
               >
                 Test 1
                  
@@ -168,14 +168,14 @@ exports[`<SideNav /> #handleMenuVisibility hides menu at or below 1199 1`] = `
             activeClassName="active"
             className="side-nav-link-item has-black-text is-display-flex has-align-items-center"
             onClick={[Function]}
-            role="listitem"
+            role="menuitem"
             to="#"
           >
             <Link
               aria-current={null}
               className="side-nav-link-item has-black-text is-display-flex has-align-items-center"
               onClick={[Function]}
-              role="listitem"
+              role="menuitem"
               to="#"
             >
               <a
@@ -183,7 +183,7 @@ exports[`<SideNav /> #handleMenuVisibility hides menu at or below 1199 1`] = `
                 className="side-nav-link-item has-black-text is-display-flex has-align-items-center"
                 href="/"
                 onClick={[Function]}
-                role="listitem"
+                role="menuitem"
               >
                 Test 1
                  
@@ -269,14 +269,14 @@ exports[`<SideNav /> #handleMenuVisibility shows menu above 1199 1`] = `
             activeClassName="active"
             className="side-nav-link-item has-black-text is-display-flex has-align-items-center"
             onClick={[Function]}
-            role="listitem"
+            role="menuitem"
             to="#"
           >
             <Link
               aria-current={null}
               className="side-nav-link-item has-black-text is-display-flex has-align-items-center"
               onClick={[Function]}
-              role="listitem"
+              role="menuitem"
               to="#"
             >
               <a
@@ -284,7 +284,7 @@ exports[`<SideNav /> #handleMenuVisibility shows menu above 1199 1`] = `
                 className="side-nav-link-item has-black-text is-display-flex has-align-items-center"
                 href="/"
                 onClick={[Function]}
-                role="listitem"
+                role="menuitem"
               >
                 Test 1
                  
@@ -375,14 +375,14 @@ exports[`<SideNav /> #render renders 1`] = `
                 activeClassName="active"
                 className="side-nav-link-item has-black-text is-display-flex has-align-items-center"
                 onClick={[Function]}
-                role="listitem"
+                role="menuitem"
                 to="#"
               >
                 <Link
                   aria-current={null}
                   className="side-nav-link-item has-black-text is-display-flex has-align-items-center"
                   onClick={[Function]}
-                  role="listitem"
+                  role="menuitem"
                   to="#"
                 >
                   <a
@@ -390,7 +390,7 @@ exports[`<SideNav /> #render renders 1`] = `
                     className="side-nav-link-item has-black-text is-display-flex has-align-items-center"
                     href="/"
                     onClick={[Function]}
-                    role="listitem"
+                    role="menuitem"
                   >
                     Test 1
                      
