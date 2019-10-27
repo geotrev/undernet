@@ -40,26 +40,26 @@ exports[`<Main /> #render renders 1`] = `
           }
         >
           <nav
-            className="fluid grid"
+            className="is-fluid grid"
             id="global-nav"
           >
             <ul
               className="nav-list row has-no-padding"
             >
               <li
-                className="small-5 xsmall-12 columns"
+                className="is-small-5 is-xsmall-12 column"
                 role="none"
               >
                 <Link
                   className="logo"
-                  role="listitem"
+                  role="menuitem"
                   to="/"
                 >
                   <a
                     className="logo"
                     href="/"
                     onClick={[Function]}
-                    role="listitem"
+                    role="menuitem"
                   >
                     <img
                       alt="Undernet"
@@ -69,7 +69,7 @@ exports[`<Main /> #render renders 1`] = `
                 </Link>
               </li>
               <li
-                className="small-7 xsmall-12 columns"
+                className="is-small-7 is-xsmall-12 column"
               >
                 <ul
                   className="row"
@@ -80,7 +80,7 @@ exports[`<Main /> #render renders 1`] = `
                     <button
                       className="is-visually-hidden-focusable"
                       onClick={[Function]}
-                      role="listitem"
+                      role="menuitem"
                       type="button"
                     >
                       Skip to main content
@@ -92,7 +92,7 @@ exports[`<Main /> #render renders 1`] = `
                     <a
                       className="has-feather"
                       href="https://www.twitter.com/gwtrev"
-                      role="listitem"
+                      role="menuitem"
                     >
                       <Twitter
                         focusable="false"
@@ -111,7 +111,7 @@ exports[`<Main /> #render renders 1`] = `
                     <a
                       className="has-feather"
                       href="https://www.github.com/geotrev/undernet"
-                      role="listitem"
+                      role="menuitem"
                     >
                       <Github
                         focusable="false"
@@ -129,7 +129,7 @@ exports[`<Main /> #render renders 1`] = `
                   >
                     <a
                       href="/docs/overview/introduction"
-                      role="listitem"
+                      role="menuitem"
                     >
                       Documentation
                     </a>
@@ -216,20 +216,20 @@ exports[`<Main /> #render renders 1`] = `
                 role="banner"
               >
                 <nav
-                  class="fluid grid"
+                  class="is-fluid grid"
                   id="global-nav"
                 >
                   <ul
                     class="nav-list row has-no-padding"
                   >
                     <li
-                      class="small-5 xsmall-12 columns"
+                      class="is-small-5 is-xsmall-12 column"
                       role="none"
                     >
                       <a
                         class="logo"
                         href="/"
-                        role="listitem"
+                        role="menuitem"
                       >
                         <img
                           alt="Undernet"
@@ -238,7 +238,7 @@ exports[`<Main /> #render renders 1`] = `
                       </a>
                     </li>
                     <li
-                      class="small-7 xsmall-12 columns"
+                      class="is-small-7 is-xsmall-12 column"
                     >
                       <ul
                         class="row"
@@ -248,7 +248,7 @@ exports[`<Main /> #render renders 1`] = `
                         >
                           <button
                             class="is-visually-hidden-focusable"
-                            role="listitem"
+                            role="menuitem"
                             type="button"
                           >
                             Skip to main content
@@ -260,7 +260,7 @@ exports[`<Main /> #render renders 1`] = `
                           <a
                             class="has-feather"
                             href="https://www.twitter.com/gwtrev"
-                            role="listitem"
+                            role="menuitem"
                           >
                             <span
                               class="is-visually-hidden"
@@ -275,7 +275,7 @@ exports[`<Main /> #render renders 1`] = `
                           <a
                             class="has-feather"
                             href="https://www.github.com/geotrev/undernet"
-                            role="listitem"
+                            role="menuitem"
                           >
                             <span
                               class="is-visually-hidden"
@@ -289,7 +289,7 @@ exports[`<Main /> #render renders 1`] = `
                         >
                           <a
                             href="/docs/overview/introduction"
-                            role="listitem"
+                            role="menuitem"
                           >
                             Documentation
                           </a>
@@ -303,7 +303,7 @@ exports[`<Main /> #render renders 1`] = `
           }
         >
           <div
-            className="footer-wrapper small-section fluid grid"
+            className="footer-wrapper is-small-section is-fluid grid"
           >
             <div
               className="row"
@@ -312,7 +312,7 @@ exports[`<Main /> #render renders 1`] = `
                 className="has-no-padding column"
               >
                 <p
-                  className="has-text-center has-gray900-text"
+                  className="has-no-margin-block-end has-text-center has-gray900-text"
                 >
                   Undernet is a front-end framework created and maintained by
                    
@@ -325,7 +325,7 @@ exports[`<Main /> #render renders 1`] = `
                   .
                 </p>
                 <p
-                  className="has-text-center has-gray900-text"
+                  className="has-no-margin-block-end has-text-center has-gray900-text"
                 >
                   Animations provided by
                    
@@ -338,15 +338,16 @@ exports[`<Main /> #render renders 1`] = `
                   . ❤️
                 </p>
                 <ul
-                  className="has-text-center has-gray900-text has-unstyled-list has-direction-row has-display-flex has-justify-content-center"
+                  className="has-text-center has-no-padding has-gray900-text has-unstyled-list has-direction-row has-display-flex has-justify-content-center"
                 >
                   <li
+                    className="has-no-padding"
                     role="none"
                   >
                     <a
                       className="has-white-text has-feather"
                       href="https://www.twitter.com/gwtrev"
-                      role="listitem"
+                      role="menuitem"
                     >
                       <Twitter
                         focusable="false"
@@ -360,12 +361,13 @@ exports[`<Main /> #render renders 1`] = `
                     </a>
                   </li>
                   <li
+                    className="has-no-padding"
                     role="none"
                   >
                     <a
                       className="has-white-text has-feather"
                       href="https://www.github.com/geotrev/undernet"
-                      role="listitem"
+                      role="menuitem"
                     >
                       <Github
                         focusable="false"
@@ -379,12 +381,13 @@ exports[`<Main /> #render renders 1`] = `
                     </a>
                   </li>
                   <li
+                    className="has-no-padding"
                     role="none"
                   >
                     <button
                       className="is-visually-hidden-focusable"
                       onClick={[Function]}
-                      role="listitem"
+                      role="menuitem"
                       type="button"
                     >
                       Return to top of page

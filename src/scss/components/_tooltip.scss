@@ -8,7 +8,7 @@
   cursor: pointer;
 
   > *:disabled,
-  > .disabled {
+  > .is-disabled {
     pointer-events: none;
   }
 }

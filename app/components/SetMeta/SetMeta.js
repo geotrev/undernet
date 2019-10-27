@@ -13,8 +13,11 @@ export default function SetMeta(props) {
 
       <meta name="description" content={props.description} />
 
-      {!props.pageNotFound && <link rel="canonical" href={window.location.href} />}
-      {props.pageNotFound && <meta name="prerender-status-code" content="404" />}
+      {props.pageNotFound ? (
+        <meta name="prerender-status-code" content="404" />
+      ) : (
+        <link rel="canonical" href={window.location.href} />
+      )}
     </Helmet>
   )
 }

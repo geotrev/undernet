@@ -55,7 +55,7 @@ export default function Home() {
 
       return (
         <li
-          className="large-3 small-6 xsmall-12 columns has-text-center has-no-padding-block-end"
+          className="is-large-3 is-small-6 is-xsmall-12 column has-text-center has-no-padding-block-end"
           key={animation.title}
         >
           <div className="animated-icon" id={`animated-${animationName}`} />
@@ -80,32 +80,32 @@ export default function Home() {
         description="Undernet is a highly customizable web framework for building websites."
       />
 
-      <div className="medium-section fluid grid hero">
+      <div className="is-medium-section is-fluid grid hero">
         <div className="row">
-          <div className="xsmall-12 columns has-text-center">
+          <div className="is-xsmall-12 column has-text-center">
             <PageHeader className="h3">{pkg.description}</PageHeader>
           </div>
 
-          <div className="xsmall-12 columns has-text-center">
-            <Link to={downloadPath} className="medium button has-feather">
+          <div className="is-xsmall-12 column has-text-center">
+            <Link to={downloadPath} className="button has-feather">
               Download <ChevronRight size={20} role="presentation" focusable="false" />
             </Link>
-            <Link to={introductionPath} className="primary medium button has-gradient has-feather">
+            <Link to={introductionPath} className="button is-primary has-gradient has-feather">
               Learn More <ChevronRight size={20} role="presentation" focusable="false" />
             </Link>
           </div>
 
-          <div className="xsmall-12 columns has-text-center">
+          <div className="is-xsmall-12 column has-text-center">
             <p className="un-version has-no-margin">Version {pkg.version}</p>
           </div>
 
-          <div className="xsmall-12 columns badges">
+          <div className="is-xsmall-12 column badges">
             <StatusBadges />
           </div>
         </div>
       </div>
 
-      <div className="medium-section fluid grid animations">
+      <div className="is-medium-section is-fluid grid animations">
         <div className="row has-no-padding">
           <div className="column has-no-padding">
             <div className="wide grid">
@@ -115,20 +115,20 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="medium-section narrow grid">
+      <div className="is-medium-section is-narrow grid">
         <div className="row">
-          <div className="xsmall-12 columns has-text-center">
+          <div className="is-xsmall-12 column has-text-center">
             <h2 className="h6">Painless Setup</h2>
             <p>Install with npm:</p>
             <InstallNpm />
           </div>
-          <div className="xsmall-12 columns has-text-center">
+          <div className="is-xsmall-12 column has-text-center">
             <p>Or simply link to minified assets:</p>
             <InstallAssets />
           </div>
-          <div className="xsmall-12 columns has-text-center">
+          <div className="is-xsmall-12 column has-text-center">
             <p>See how Undernet can improve your developer experience!</p>
-            <Link to={introductionPath} className="primary medium button has-gradient has-feather">
+            <Link to={introductionPath} className="is-primary button has-gradient has-feather">
               Learn More <ChevronRight size={20} role="presentation" focusable="false" />
             </Link>
           </div>

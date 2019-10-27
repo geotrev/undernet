@@ -61,20 +61,20 @@ button,
       &:visited {
         @each $property, $value in $properties {
           #{$property}: $value;
-        }
+        } // end @each
       }
-    }
-  }
+    } // end @if
+  } // end @each
 
   @each $size, $properties in $button-sizes {
     &.#{$size} {
       @each $property, $value in $properties {
         #{$property}: $value;
-      }
+      } // end @each
     }
-  }
+  } // end @each
 
-  &.wide {
+  &.is-wide {
     display: block;
     max-width: 100%;
     width: 100%;
@@ -102,7 +102,7 @@ button,
             }
           }
         }
-      }
-    }
-  }
+      } // end @if
+    } // end @each
+  } // end @each
 }

@@ -3,13 +3,13 @@
 .footer-wrapper {
   background: $brand-dark-blue;
 
-  p {
-    margin-bottom: 0;
-  }
-
   .has-feather {
     @include colored-link;
     display: inline-block;
     padding: $global-space;
+
+    svg {
+      @include net-set-flow("margin-left", 0);
+    }
   }
 }

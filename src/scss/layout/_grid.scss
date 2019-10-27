@@ -29,19 +29,19 @@ $column: map-get($grid-classes, column);
   position: relative;
 
   @each $name, $width in $grid-widths {
-    &.#{$name} {
+    &.is-#{$name} {
       max-width: $width;
     }
   }
 
   @each $name, $padding in $grid-sections {
-    &.#{$name}-section {
+    &.is-#{$name}-section {
       padding-top: $padding;
       padding-bottom: $padding;
     }
   }
 
-  &.fullscreen {
+  &.is-fullscreen {
     box-sizing: border-box;
     height: 100vh;
     max-width: initial;

@@ -22,71 +22,83 @@ All button input "types" will receive styling, even without the `button` class.
 
 ## Block button
 
-Using `.wide` as a modifier class, your buttons stretch full-width in their container.
+Using `is-wide` as a modifier class, your buttons stretch full-width in their container.
 
-<button class="wide">Button Tag</button>
-<a class="wide button">Anchor Tag</a>
-<input class="wide" type="button" value="Input Tag" />
+<button class="is-wide">Button Tag</button>
+<a class="button is-wide">Anchor Tag</a>
+<input class="is-wide" type="button" value="Input Tag" />
 
 ```html
-<button class="wide">Button Tag</button>
-<a class="wide button">Anchor Tag</a>
-<input class="wide" type="button" value="Input Tag" />
+<button class="is-wide">Button Tag</button>
+<a class="button is-wide">Anchor Tag</a>
+<input class="is-wide" type="button" value="Input Tag" />
 ```
 
 ## Button Sizes
 
 Defined in `$button-sizes` is a list of keys (classes) mapped to padding and font-sizes to modify your buttons. Remove, edit, or add extra sizes to fit your needs.
 
-<button class="huge">Submit</button>
-<button class="large">Submit</button>
-<button class="medium">Submit</button>
-<button class="small">Submit</button>
+<button class="is-huge">Huge</button>
+<button class="is-large">Large</button>
+<button class="is-medium">Medium</button>
+<button class="is-small">Small</button>
 
 ```html
-<button class="huge">Submit</button>
-<button class="large">Submit</button>
-<button class="medium">Submit</button>
-<button class="small">Submit</button>
+<button class="is-huge">Huge</button>
+<button class="is-large">Large</button>
+<button class="is-medium">Medium</button>
+<button class="is-small">Small</button>
 ```
 
 ## Custom Button Types
 
 Create custom buttons easily in the `$button-types` scss map. Like in the `$button-base` map, the states included are `hover`, `active`, and `focus`.
 
-<button class="primary">Primary Button</button>
-<button class="secondary">Secondary Button</button>
-<button class="tertiary">Tertiary Button</button>
+<button class="is-primary">Primary</button>
+<button class="is-secondary">Secondary</button>
+<button class="is-tertiary">Tertiary</button>
 
 <p>
   <div class="inverted-bg">
-    <button class="inverted">Inverted Button</button>
-    <button class="inverted-outline">Inverted Outline Button</button>
+    <button class="is-inverted">Inverted</button>
+    <button class="is-inverted-outline">Inverted Outline</button>
   </div>
 </p>
 
 ```html
-<button class="primary">Primary Button</button>
-<button class="secondary">Secondary Button</button>
-<button class="tertiary">Tertiary Button</button>
-<button class="inverted">Inverted Button</button>
-<button class="inverted-outline">Inverted Outline Button</button>
+<button class="is-primary">Primary</button>
+<button class="is-secondary">Secondary</button>
+<button class="is-tertiary">Tertiary</button>
+<button class="is-inverted">Inverted</button>
+<button class="is-inverted-outline">Inverted Outline</button>
 ```
 
 ### Status Buttons
 
 Also in the same map as `$button-types`, you can find status buttons. By default, there are four: `success`, `notice`, `destroy`, and `warning`.
 
-<button class="success">Success Button</button>
-<button class="notice">Notice Button</button>
-<button class="warning">Warning Button</button>
-<button class="destroy">Destroy Button</button>
+<button class="is-success">Success</button>
+<button class="is-notice">Notice</button>
+<button class="is-warning">Warning</button>
+<button class="is-destroy">Destroy</button>
 
 ```html
-<button class="success">Success Button</button>
-<button class="notice">Notice Button</button>
-<button class="warning">Warning Button</button>
-<button class="destroy">Destroy Button</button>
+<button class="is-success">Success</button>
+<button class="is-notice">Notice</button>
+<button class="is-warning">Warning</button>
+<button class="is-destroy">Destroy</button>
+```
+
+## Disabled Buttons
+
+Show a button is disabled using the `disabled` attribute or `is-disabled` class. Also works on `input`s, as well as `a` tags using the `button` class.
+
+<button disabled>Disabled Attribute</button>
+<button class="is-disabled">Disabled Class</button>
+
+```html
+<button disabled>Disabled Attribute</button>
+<button class="is-disabled">Disabled Class</button>
 ```
 
 ## Links

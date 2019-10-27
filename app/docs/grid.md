@@ -2,15 +2,7 @@ Undernet uses a flex grid that behaves largely like other CSS grids: using rows 
 
 The grid is mobile first, so any [breakpoint classes](#breakpoint-classes) and modifiers take effect from the given breakpoint and wider (ie, `medium` is `768px` and wider).
 
-An important part of Undernet's grid is it allows you to customize the class names to your liking. This change won't have any effect on the rest of the framework, and is useful in preventing namespace collisions. The default values are as you might expect:
-
-```scss
-$grid-classes: (
-  grid: "grid",
-  row: "row",
-  column: "column",
-) !default;
-```
+An important part of Undernet's grid is it allows you to customize the class names to your liking. This change won't have any effect on the rest of the framework, and is useful in preventing namespace collisions. The default values are `grid`, `row`, and `column`.
 
 If you need a more custom, 2-dimensional layout, look into [CSS Grid](https://css-tricks.com/snippets/css/complete-guide-grid/).
 
@@ -36,31 +28,31 @@ A grid is a flex container with `column` direction.
 
 These are modifiers to the grid container that change its `max-width`.
 
-<div class="narrow grid has-text-center has-padding filler">
-  .narrow.grid
+<div class="grid is-narrow has-text-center has-padding filler">
+  .grid.is-narrow
 </div>
 <div class="grid has-text-center has-padding filler">
   .grid
 </div>
-<div class="wide grid has-text-center has-padding filler">
-  .wide.grid
+<div class="grid is-wide has-text-center has-padding filler">
+  .grid.is-wide
 </div>
-<div class="fluid grid has-text-center has-padding filler">
-  .fluid.grid
+<div class="grid is-fluid has-text-center has-padding filler">
+  .grid.is-fluid
 </div>
 
 ```html
-<div class="narrow grid">
-  .narrow.grid
+<div class="grid is-narrow">
+  .grid.is-narrow
 </div>
 <div class="grid">
   .grid
 </div>
-<div class="wide grid">
-  .wide.grid
+<div class="grid is-wide">
+  .grid.is-wide
 </div>
-<div class="fluid grid">
-  .fluid.grid
+<div class="grid is-fluid">
+  .grid.is-fluid
 </div>
 ```
 
@@ -68,25 +60,25 @@ These are modifiers to the grid container that change its `max-width`.
 
 Sections do the same, but add top and bottom padding. This can be helpful for creating content folds with colored backgrounds (i.e., for marketing pages).
 
-<div class="small-section grid has-text-center filler">
-  .small-section.grid
+<div class="grid is-small-section has-text-center filler">
+  .grid.small-section
 </div>
-<div class="medium-section grid has-text-center filler">
-  .medium-section.grid
+<div class="grid is-medium-section has-text-center filler">
+  .grid.medium-section
 </div>
-<div class="large-section grid has-text-center filler">
-  .large-section.grid
+<div class="grid is-large-section has-text-center filler">
+  .grid.large-section
 </div>
 
 ```html
-<div class="small-section grid">
-  .small-section.grid
+<div class="grid small-section">
+  .grid.small-section
 </div>
-<div class="medium-section grid">
-  .medium-section.grid
+<div class="grid medium-section">
+  .grid.medium-section
 </div>
-<div class="large-section grid">
-  .large-section.grid
+<div class="grid large-section">
+  .grid.large-section
 </div>
 ```
 
@@ -153,7 +145,7 @@ Add more rows within your columns for more advanced layouts. Just make sure the 
         <div class="column filler has-padding">
           <p class="has-white-text">.column</p>
           <div class="row filler-bg">
-            <div class="xsmall-12 column has-black-text">
+            <div class="is-xsmall-12 column has-black-text">
               .row
             </div>
             <div class="column">
@@ -204,28 +196,28 @@ $breakpoints: (
 
 <div class="grid filler-bg">
   <div class="row">
-    <div class="xsmall-12 large-8 columns">
+    <div class="column is-xsmall-12 is-large-8">
       <div class="row">
         <div class="column filler has-padding">
-          <p class="has-white-text">.xsmall-12.large-8.columns</p>
+          <p class="has-white-text">.column.is-xsmall-12.is-large-8</p>
           <div class="row filler-bg">
-            <div class="xsmall-12 columns has-black-text">
+            <div class="column is-xsmall-12 has-black-text">
               .row
             </div>
-            <div class="xsmall-12 large-6 columns">
-              <p class="has-no-margin filler has-padding">.xsmall-12.large-6.columns</p>
+            <div class=".column is-xsmall-12 is-large-6">
+              <p class="has-no-margin filler has-padding">.column.is-xsmall-12.is-large-6</p>
             </div>
-            <div class="xsmall-12 large-6 columns">
-              <p class="has-no-margin filler has-padding">.xsmall-12.large-6.columns</p>
+            <div class=".column is-xsmall-12 is-large-6">
+              <p class="has-no-margin filler has-padding">.column.is-xsmall-12.is-large-6</p>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="xsmall-12 large-4 columns">
+    <div class="column is-xsmall-12 is-large-4 ">
       <div class="row">
         <div class="column has-no-padding">
-          <p class="has-no-margin has-padding filler">.xsmall-12.large-4.columns</p>
+          <p class="has-no-margin has-padding filler">.column.is-xsmall-12.is-large-4</p>
         </div>
       </div>
     </div>
@@ -235,18 +227,18 @@ $breakpoints: (
 ```html
 <div class="grid">
   <div class="row">
-    <div class="xsmall-12 large-8 columns">
+    <div class="column is-xsmall-12 is-large-8">
       <div class="row">
-        <div class="xsmall-12 large-6 columns">
-          .xsmall-12.large-6.columns
+        <div class="column is-xsmall-12 is-large-6">
+          .column.is-xsmall-12.is-large-6
         </div>
-        <div class="xsmall-12 large-6 columns">
-          .xsmall-12.large-6.columns
+        <div class="column is-xsmall-12 is-large-6">
+          .column.is-xsmall-12.is-large-6
         </div>
       </div>
     </div>
-    <div class="xsmall-12 large-4 column">
-      .xsmall-12.large-4.column
+    <div class="column is-xsmall-12 is-large-4">
+      .column.is-xsmall-12.is-large-4
     </div>
   </div>
 </div>
@@ -254,7 +246,7 @@ $breakpoints: (
 
 ### Collapse Gutters
 
-Don’t want padding on your grid, rows, and/or columns? You can remove it all with a `.has-no-padding` modifier on a given element. The class won't have an effect on child elements, so you'll need to add a modifier to each `div`. Useful for nested layouts.
+Don’t want padding on your grid, rows, and/or columns? You can remove it all with a `has-no-padding` modifier class on a given element. The class won't have an effect on child elements, so you'll need to add a modifier to each `div`. Useful for nested layouts.
 
 <div class="grid filler-bg has-no-padding">
   <div class="row has-no-padding">
@@ -281,7 +273,7 @@ Don’t want padding on your grid, rows, and/or columns? You can remove it all w
 Create a grid that always takes up the full width and height of your device/browser window.
 
 ```html
-<div class="fullscreen grid">
+<div class="grid is-fullscreen">
   <div class="row">
     <div class="column">
       <p>I’m huge, woohoo!</p>
@@ -295,7 +287,7 @@ You should really only ever need a single row within a full screen grid. From th
 By default, a row will be vertically centered. To make the row top-aligned, add modifier classes: `has-align-items-flex-start` and `has-align-content-flex-start` to push content to the top of the container.
 
 ```html
-<div class="fullscreen grid">
+<div class="grid is-fullscreen">
   <div class="row has-align-items-flex-start has-align-content-flex-start">
     <div class="column">
       <p>I’m at the top.</p>
@@ -307,7 +299,7 @@ By default, a row will be vertically centered. To make the row top-aligned, add 
 ... or to the bottom.
 
 ```html
-<div class="fullscreen grid">
+<div class="grid is-fullscreen">
   <div class="row has-align-items-flex-end has-align-content-flex-end">
     <div class="column">
       <p>I’m at the bottom.</p>

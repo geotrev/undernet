@@ -27,13 +27,13 @@
 
 @mixin net-create-grid-classes($size) {
   @for $i from 1 through $columns {
-    .#{$size}-#{$i} {
+    .is-#{$size}-#{$i} {
       flex: 0 0 percentage($i / $columns);
       max-width: percentage($i / $columns);
     }
 
     @if $column-offset-classes == true {
-      .#{$size}-offset-#{$i} {
+      .is-#{$size}-offset-#{$i} {
         @include net-set-flow("margin-left", percentage($i / $columns));
       }
     }
@@ -42,7 +42,7 @@
       // order-1 = -12
       // order-2 = -11
       // etc...
-      .#{$size}-order-#{$i} {
+      .is-#{$size}-order-#{$i} {
         order: $i - 1 - $columns;
       }
     }
@@ -251,7 +251,7 @@ $arrow-border-position: $arrow-size * -2;
 
 @mixin net-create-input-of-type-disabled($type) {
   input[type="#{$type}"]:disabled,
-  input[type="#{$type}"].disabled {
+  input[type="#{$type}"].is-disabled {
     @include net-create-input-disabled-styles;
   }
 }
@@ -266,7 +266,7 @@ $arrow-border-position: $arrow-size * -2;
   $inputs: "";
 
   @each $type in $input-field-types {
-    $inputs: $inputs + ':not([type="#{$type}"])';
+    $inputs: $inputs + ":not([type='#{$type}'])";
   }
 
   .using-keyboard *#{$inputs}:not(textarea):not(select):focus {

@@ -94,7 +94,7 @@ export default function SideNav() {
     return (
       <li key={item.name} role="none">
         <NavLink
-          role="listitem"
+          role="menuitem"
           className="side-nav-link-item has-black-text is-display-flex has-align-items-center"
           activeClassName="active"
           onClick={handleCollapseClick}
@@ -134,7 +134,7 @@ export default function SideNav() {
         <div
           data-visible={accordionIsActive(section.links) ? "true" : "false"}
           data-accordion-row={`nav-acc-content${i}`}
-          className="accordion-row xsmall-12 columns has-no-padding"
+          className="accordion-row is-xsmall-12 column has-no-padding"
           key={section.links[0].url}
         >
           {renderAccordionRow(section, i)}
@@ -144,8 +144,8 @@ export default function SideNav() {
   }
 
   return (
-    <div className="xsmall-12 xlarge-2 columns has-no-padding" id="side-nav">
-      <div className="fluid grid side-nav-wrapper">
+    <div className="is-xsmall-12 is-xlarge-2 column has-no-padding" id="side-nav">
+      <div className="is-fluid grid side-nav-wrapper">
         <div className="row has-display-flex has-display-none-xlarge side-nav-expand">
           <button
             onClick={handleMenuToggleClick}
@@ -159,7 +159,7 @@ export default function SideNav() {
         </div>
 
         <nav data-accordion="side-nav-accordion" className={menuClasses()} id="side-nav-wrapper">
-          <p className="version-text has-no-padding has-gray800-text xsmall-12 columns">
+          <p className="version-text has-no-padding has-gray800-text is-xsmall-12 column">
             Version {pkg.version}
           </p>
           {renderNavAccordion()}

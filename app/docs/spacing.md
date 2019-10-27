@@ -1,10 +1,10 @@
 Undernet has reductive and additive spacing utility classes. They utilize [logical property syntax](https://www.smashingmagazine.com/2018/03/understanding-logical-properties-values/) to indicate the direction the modifier will be applied.
 
-In other words, for pages with languages reading left-to-right (e.g., have `dir="rtl"` on the page `html` tag), a modifier like `has-padding-inline-start` will apply `padding-left` to the element. However, in a right-to-left page, the same class name will apply `padding-right` to reflect the new opposite page flow.
+In other words, for pages with languages reading right-to-left (e.g., have `dir="rtl"` on the page `html` tag), a modifier like `has-padding-inline-start` will apply `padding-right` to the element. However, in a left-to-right page, the same class name will apply `padding-left` to reflect the opposite page flow.
 
 It's worth [reading about the pattern](https://css-tricks.com/css-logical-properties/) to fully grasp it, and it will help you think in terms of direction-agnostic content, as not all languages are left-to-right!
 
-The CSS properties which make the methodology automatic are [not fully supported](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Logical_Properties) in IE11 or Edge, so it's been (more or less) polyfilled in Undernet in preparation for the next generation of CSS. 
+The CSS properties which make the methodology automatic are [not fully supported](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Logical_Properties) in IE11 or Edge, so it's been (more or less) polyfilled in Undernet in preparation for the next generation of CSS. The future is now!
 
 ## Additive
 

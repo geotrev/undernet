@@ -84,7 +84,7 @@ textarea,
 button,
 .button {
   &:disabled,
-  &.disabled {
+  &.is-disabled {
     @include net-create-input-disabled-styles;
   }
 }

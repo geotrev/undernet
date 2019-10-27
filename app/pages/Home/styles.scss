@@ -68,8 +68,9 @@
 
   .has-gradient {
     @include bg-gradient;
-    border: none;
-    padding: 14px 18px;
+    border-color: #3f48af;
+    border-width: 2px;
+    border-style: solid;
     opacity: 0.75;
     font-weight: bold;
 
