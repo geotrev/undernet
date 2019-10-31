@@ -146,6 +146,8 @@ describe("Tooltips", () => {
       expect(tooltip).toMatchSnapshot()
     })
   })
+
+  describe("#isLeftOrRight", () => {})
 })
 
 const errorDom = (target, tooltip, id) => `
