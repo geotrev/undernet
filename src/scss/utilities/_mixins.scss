@@ -88,16 +88,16 @@
 }
 
 // These values calculate a consistent arrow fill (inner) and arrow border (outer),
-// given any value of $arrow-size from _config.scss
+// given any value of $global-arrow-size from _config.scss
 // partial pixel values are used to prevent some browsers from clipping the edge
-$arrow-fill-position: $arrow-size * -2 + 1.5px;
-$arrow-border-position: $arrow-size * -2;
+$arrow-fill-position: $global-arrow-size * -2 + 1.5px;
+$arrow-border-position: $global-arrow-size * -2;
 
 @mixin net-create-arrow-base-styles {
-  border-left: $arrow-size solid transparent;
-  border-right: $arrow-size solid transparent;
-  border-bottom: $arrow-size solid transparent;
-  border-top: $arrow-size solid transparent;
+  border-left: $global-arrow-size solid transparent;
+  border-right: $global-arrow-size solid transparent;
+  border-bottom: $global-arrow-size solid transparent;
+  border-top: $global-arrow-size solid transparent;
   content: "";
   position: absolute;
 }
@@ -110,7 +110,7 @@ $arrow-border-position: $arrow-size * -2;
       @include net-set-flow("right", auto);
       top: $arrow-fill-position;
       bottom: auto;
-      border-bottom: $arrow-size solid $fill-color;
+      border-bottom: $global-arrow-size solid $fill-color;
     }
 
     &::before {
@@ -119,7 +119,7 @@ $arrow-border-position: $arrow-size * -2;
       @include net-set-flow("right", auto);
       top: $arrow-border-position;
       bottom: auto;
-      border-bottom: $arrow-size solid $border-color;
+      border-bottom: $global-arrow-size solid $border-color;
     }
   }
 }
@@ -132,7 +132,7 @@ $arrow-border-position: $arrow-size * -2;
       @include net-set-flow("right", auto);
       bottom: $arrow-fill-position;
       top: auto;
-      border-top: $arrow-size solid $fill-color;
+      border-top: $global-arrow-size solid $fill-color;
     }
 
     &::before {
@@ -141,7 +141,7 @@ $arrow-border-position: $arrow-size * -2;
       @include net-set-flow("right", auto);
       bottom: $arrow-border-position;
       top: auto;
-      border-top: $arrow-size solid $border-color;
+      border-top: $global-arrow-size solid $border-color;
     }
   }
 }
@@ -150,7 +150,7 @@ $arrow-border-position: $arrow-size * -2;
   @include net-with-arrow-enabled {
     &::after {
       @include net-create-arrow-base-styles;
-      @include net-set-flow("border-left", $arrow-size solid $fill-color);
+      @include net-set-flow("border-left", $global-arrow-size solid $fill-color);
       @include net-set-flow("right", $arrow-fill-position);
       @include net-set-flow("left", auto);
       top: $edge-offset;
@@ -159,7 +159,7 @@ $arrow-border-position: $arrow-size * -2;
 
     &::before {
       @include net-create-arrow-base-styles;
-      @include net-set-flow("border-left", $arrow-size solid $border-color);
+      @include net-set-flow("border-left", $global-arrow-size solid $border-color);
       @include net-set-flow("right", $arrow-border-position);
       @include net-set-flow("left", auto);
       top: $edge-offset;
@@ -172,7 +172,7 @@ $arrow-border-position: $arrow-size * -2;
   @include net-with-arrow-enabled {
     &::after {
       @include net-create-arrow-base-styles;
-      @include net-set-flow("border-right", $arrow-size solid $fill-color);
+      @include net-set-flow("border-right", $global-arrow-size solid $fill-color);
       @include net-set-flow("left", $arrow-fill-position);
       @include net-set-flow("right", auto);
       top: $edge-offset;
@@ -181,7 +181,7 @@ $arrow-border-position: $arrow-size * -2;
 
     &::before {
       @include net-create-arrow-base-styles;
-      @include net-set-flow("border-right", $arrow-size solid $border-color);
+      @include net-set-flow("border-right", $global-arrow-size solid $border-color);
       @include net-set-flow("left", $arrow-border-position);
       @include net-set-flow("right", auto);
       top: $edge-offset;

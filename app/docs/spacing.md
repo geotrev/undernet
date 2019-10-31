@@ -28,7 +28,7 @@ Add padding or margin to one side. E.g. `has-margin-X`, where `X` is a logical d
 
 ### Custom Sizes
 
-If the default value of `$global-space` isn't the right size, don't worry, there are more sizes to choose from. E.g. `has-padding-X`, where `X` is the size as defined in `$spacing-increments`.
+If the default value of `$global-space` isn't the right size, don't worry, there are more sizes to choose from. E.g. `has-padding-X`, where `X` is the size as defined in `$global-spacing-increments`.
 
 <div class="filler-bg has-padding-1">
   .has-padding-1

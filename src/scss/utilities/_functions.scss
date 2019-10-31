@@ -15,5 +15,5 @@ $base-em-font-size: 16px !default;
 }
 
 @function net-spacing-value($increment) {
-  @return map-get($spacing-increments, "#{$increment}");
+  @return map-get($global-spacing-increments, "#{$increment}");
 }

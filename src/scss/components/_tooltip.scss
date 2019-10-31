@@ -41,38 +41,38 @@
     @include net-set-flow("left", 0); // This is a fallback.
     bottom: 100%;
 
-    @include net-create-down-arrow(calc(50% - #{$arrow-size}), $gray100, $gray100);
+    @include net-create-down-arrow(calc(50% - #{$global-arrow-size}), $gray100, $gray100);
 
     &.is-drop-inline-end {
       @include net-set-flow("left", 100%);
-      @include net-set-flow("margin-left", $arrow-size);
+      @include net-set-flow("margin-left", $global-arrow-size);
       margin-top: 0;
       margin-bottom: 0;
       bottom: auto;
       top: 0; // This is a fallback.
 
-      @include net-create-left-arrow(calc(50% - #{$arrow-size}), $gray100, $gray100);
+      @include net-create-left-arrow(calc(50% - #{$global-arrow-size}), $gray100, $gray100);
     }
 
     &.is-drop-inline-start {
       @include net-set-flow("right", 100%);
       @include net-set-flow("left", auto);
-      @include net-set-flow("margin-right", $arrow-size);
+      @include net-set-flow("margin-right", $global-arrow-size);
       margin-top: 0;
       margin-bottom: 0;
       bottom: auto;
       top: 0; // This is a fallback.
 
-      @include net-create-right-arrow(calc(50% - #{$arrow-size}), $gray100, $gray100);
+      @include net-create-right-arrow(calc(50% - #{$global-arrow-size}), $gray100, $gray100);
     }
 
     &.is-drop-block-end {
       @include net-set-flow("left", 0); // This is a fallback.
       top: 100%;
-      margin: 0;
+      margin: -$global-arrow-size 0 0 0;
       bottom: auto;
 
-      @include net-create-up-arrow(calc(50% - #{$arrow-size}), $gray100, $gray100);
+      @include net-create-up-arrow(calc(50% - #{$global-arrow-size}), $gray100, $gray100);
     }
   }
 }
