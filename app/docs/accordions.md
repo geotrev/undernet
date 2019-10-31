@@ -194,10 +194,10 @@ This component currently does not handle trapping of focus using arrow keys betw
 
 #### Styling Classes
 
-- `accordion`: gives wrapper styling to the accordion.
-- `accordion-row`: wrapper class for an accordion row's button and content block.
-- `accordion-button`: gives a row's button specific styling for the component.
-- `accordion-content`: gives separator styling for a row.
+- `accordion`: adds styling to the accordion container.
+- `accordion-row`: adds special styling for an accordion row's button and content block.
+- `accordion-button`: adds styling for an accordion row's trigger.
+- `accordion-content`: adds styling for an accordion row's content block.
 
 Edit much of the styling within `_config.scss`.
 

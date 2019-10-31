@@ -200,8 +200,8 @@ The below attributes you should add to elements yourself. They increase the cont
 
 #### Styling Classes
 
-- `modal-overlay`: gives overlay styling for the modal background.
-- `modal-dialog`: container for the dialog's contents.
+- `modal-overlay`: adds overlay styling for the modal background.
+- `modal-dialog`: the container for dialog content.
 
 Edit much of the styling within `_config.scss`.
 

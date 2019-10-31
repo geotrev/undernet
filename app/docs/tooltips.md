@@ -25,24 +25,37 @@ Check out this example tooltip:
 The tooltip itself is just a div, so you can add any HTML you would normally use. Keep in mind tooltips are _not_ designed for interactivity, so any anchors or buttons shouldn't be placed there.
 
 <span class="tooltip" data-tooltip="new-tooltip10">
-  <button class="tooltip-trigger" data-target="new-tooltip10">Tooltip Button</button>
+  <button class="tooltip-trigger" data-target="new-tooltip10">Tooltip With HTML</button>
   <div class="tooltip-box" id="new-tooltip10">
     <em>This</em> <b>is a</b> <u>tooltip</u>.
+  </div>
+</span> <span class="tooltip" data-tooltip="new-tooltip11">
+  <button class="tooltip-trigger" data-target="new-tooltip11">Tooltip With More HTML</button>
+  <div class="tooltip-box" id="new-tooltip11">
+    This is a tooltip.
+    <br /> It has a line-break!
   </div>
 </span>
 
 ```html
-<span class="tooltip" data-tooltip="tooltip-id">
-  <button class="tooltip-trigger" data-target="tooltip-id">Tooltip Button</button>
-  <div class="tooltip-box" id="tooltip-id">
+<span class="tooltip" data-tooltip="tooltip-id-1">
+  <button class="tooltip-trigger" data-target="tooltip-id-1">Tooltip Button</button>
+  <div class="tooltip-box" id="tooltip-id-1">
     <em>This</em> <b>is a</b> <u>tooltip</u>.
+  </div>
+</span>
+<span class="tooltip" data-tooltip="tooltip-id-2">
+  <button class="tooltip-trigger" data-target="tooltip-id-2">Tooltip With More HTML</button>
+  <div class="tooltip-box" id="tooltip-id-2">
+    <em>This</em> <b>is a</b> <u>tooltip</u>.
+    <br /> It has a line-rea
   </div>
 </span>
 ```
 
-## Automatic Alignment
+## Automatic Centering
 
-Tooltips will always automatically align to the middle of whichever element you are calling them on.
+Tooltips will always automatically center to the middle of whichever element you are calling them on.
 
 <span class="tooltip" data-tooltip="new-tooltip7">
   <button class="tooltip-trigger" data-target="new-tooltip7">Short</button>
@@ -60,9 +73,9 @@ Tooltips will always automatically align to the middle of whichever element you 
 
 ## Disable Tooltip Arrow
 
-If you don't want to include the little arrow pointing toward your tooltip trigger, you can flip it off using the variable `$tooltip-arrows-enabled`. It is set to `true` by default.
+If you don't want to include the little arrow pointing toward your tooltip trigger, you can change it using the variable `$tooltip-arrows-enabled`. It is set to `true` by default.
 
-Alternatively, you can force the arrow to hide using the `has-no-arrow` class on the `tooltip` element.
+Alternatively, you can force the arrow to hide using the `has-no-arrow` class on the `tooltip-box` element.
 
 <span class="tooltip" data-tooltip="new-tooltip2">
   <button class="tooltip-trigger" data-target="new-tooltip2">Tooltip Button</button>
@@ -80,12 +93,12 @@ Alternatively, you can force the arrow to hide using the `has-no-arrow` class on
 </span>
 ```
 
-## Use Custom Elements
+## Use Non-Interactive Elements (not recommended)
 
 Tooltips can be used with any element. Even traditionally non-interactive elements, such as `div`s. You should add `tabindex="0"` to elements that don't naturally receive keyboard focus. This includes anything that isn't a button, input, or the like.
 
 <span class="tooltip" data-tooltip="new-tooltip3">
-  <span tabindex="0" class="tooltip-trigger has-secondary-color-bg has-white-text has-padding-2" data-target="new-tooltip3">Tooltip (not a) Button</span>
+  <span tabindex="0" class="tooltip-trigger has-display-block has-secondary-color-bg has-white-text has-padding-2" data-target="new-tooltip3">Tooltip (not a) Button</span>
   <div class="tooltip-box" id="new-tooltip3">
     This is a tooltip.
   </div>
@@ -93,7 +106,7 @@ Tooltips can be used with any element. Even traditionally non-interactive elemen
 
 ```html
 <span class="tooltip" data-tooltip="tooltip-id">
-  <span tabindex="0" class="tooltip-trigger has-gray900-bg has-padding-2" data-target="tooltip-id">Tooltip (not a) Button</span>
+  <span tabindex="0" class="tooltip-trigger has-display-block has-secondary-color-bg has-white-text has-padding-2" data-target="tooltip-id">Tooltip (not a) Button</span>
   <div class="tooltip-box" id="tooltip-id">
     This is a tooltip.
   </div>
@@ -109,8 +122,8 @@ _CAUTION: If you go this route, you need to ensure the element behaves functiona
 Because `disabled` elements aren't focusable, you will need to instead place any appropriate tooltip attributes onto a `span` or `div` wrapping the disabled element.
 
 <span class="tooltip" data-tooltip="new-tooltip9">
-  <span tabindex="0" class="tooltip-trigger" data-target="new-tooltip9">
-    <button disabled>Tooltip Button</button>
+  <span tabindex="0" class="tooltip-trigger has-display-block" data-target="new-tooltip9">
+    <button disabled>Disabled Tooltip Button</button>
   </span>
   <div class="tooltip-box" id="new-tooltip9">
     Element is disabled!
@@ -119,7 +132,7 @@ Because `disabled` elements aren't focusable, you will need to instead place any
 
 ```html
 <span class="tooltip" data-tooltip="tooltip-id">
-  <span tabindex="0" class="tooltip-trigger" data-target="tooltip-id">
+  <span tabindex="0" class="tooltip-trigger has-display-block" data-target="tooltip-id">
     <button disabled>Tooltip Button</button>
   </span>
   <div class="tooltip-box" id="tooltip-id">
@@ -130,37 +143,42 @@ Because `disabled` elements aren't focusable, you will need to instead place any
 
 ## Direction
 
-Have the tooltip appear from the left, right, or bottom position by adding `is-drop-start`, `is-drop-end`, or `is-drop-down`, respectively.
+All tooltips, by default, drop block-start and align center to their trigger element.
+
+Have the tooltip appear from inline-start, inline-end, or block-end position by adding `is-drop-inline-start`, `is-drop-inline-end`, or `is-drop-block-end` classes, respectively.
 
 <span class="tooltip" data-tooltip="new-tooltip5">
-  <button class="tooltip-trigger" data-target="new-tooltip5">Drop Right</button>
-  <div class="tooltip-box is-drop-end" id="new-tooltip5">
-    Right tooltip.
+  <button class="tooltip-trigger" data-target="new-tooltip5">Drop Inline-End</button>
+  <div class="tooltip-box is-drop-inline-end" id="new-tooltip5">
+    Inline-end tooltip.
   </div>
 </span> <span class="tooltip" data-tooltip="new-tooltip4">
-  <button class="tooltip-trigger" data-target="new-tooltip4">Drop Left</button>
-  <div class="tooltip-box is-drop-start" id="new-tooltip4">
-    Left tooltip.
+  <button class="tooltip-trigger" data-target="new-tooltip4">Drop Inline-Start</button>
+  <div class="tooltip-box is-drop-inline-start" id="new-tooltip4">
+    Inline-start tooltip.
   </div>
 </span> <span class="tooltip" data-tooltip="new-tooltip6">
-  <button class="tooltip-trigger" data-target="new-tooltip6">Drop Down</button>
-  <div class="tooltip-box is-drop-down" id="new-tooltip6">
-    Bottom tooltip.
+  <button class="tooltip-trigger" data-target="new-tooltip6">Drop Block-End</button>
+  <div class="tooltip-box is-drop-block-end" id="new-tooltip6">
+    Block-end tooltip.
   </div>
 </span>
 
 ```html
+<!-- drop inline-end -->
 <span class="tooltip" data-tooltip="tooltip-id-1">
-  <button class="tooltip-trigger" data-target="tooltip-id-1">Drop Right</button>
-  <div class="tooltip-box is-drop-end" id="tooltip-id-1">...</div>
+  <button class="tooltip-trigger" data-target="tooltip-id-1">Drop Inline-End</button>
+  <div class="tooltip-box is-drop-inline-end" id="tooltip-id-1">...</div>
 </span> 
+<!-- drop inline-start -->
 <span class="tooltip" data-tooltip="tooltip-id-2">
-  <button class="tooltip-trigger" data-target="tooltip-id-2">Drop Left</button>
-  <div class="tooltip-box is-drop-start" id="tooltip-id-2">...</div>
-</span> 
+  <button class="tooltip-trigger" data-target="tooltip-id-2">Drop Inline-Start</button>
+  <div class="tooltip-box is-drop-inline-start" id="tooltip-id-2">...</div>
+</span>
+<!-- drop block-end -->
 <span class="tooltip" data-tooltip="tooltip-id-3">
-  <button class="tooltip-trigger" data-target="tooltip-id-3">Drop Down</button>
-  <div class="tooltip-box is-drop-down" id="tooltip-id-3">...</div>
+  <button class="tooltip-trigger" data-target="tooltip-id-3">Drop Block-End</button>
+  <div class="tooltip-box is-drop-block-end" id="tooltip-id-3">...</div>
 </span>
 ```
 
@@ -191,11 +209,17 @@ A few key attributes are added for you when the tooltip is instantiated. These h
 
 [See WAI-ARIA documentation](https://www.w3.org/TR/wai-aria-practices/#tooltip) on best-practices for the tooltip widget UI pattern.
 
-#### Styling Classes
+#### Helper Classes
 
-- `tooltip`: Wrapper class that adds assists with positioning the tooltip to its trigger.
-- `tooltip-trigger`: Adds hover/focus handling for the tooltip.
-- `tooltip-box`: Adds tooltip styling. Special responsive styling is added with this too.
+Required:
+- `tooltip`: assists with positioning the tooltip to its trigger.
+- `tooltip-trigger`: adds hover/focus handling for the tooltip.
+- `tooltip-box`: adds tooltip styling. Special responsive styling is added with this too.
+
+Optional:
+- `is-drop-inline-start`: positions the tooltip to inline-tart when open.
+- `is-drop-inline-end`: positions the tooltip to inline-end when open.
+- `is-drop-block-end`: positions the tooltip to block-end when open.
 
 ### API
 
