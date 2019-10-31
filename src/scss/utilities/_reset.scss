@@ -7,6 +7,14 @@
 html,
 body,
 p,
+em,
+small,
+mark,
+u,
+code,
+kbd,
+samp,
+tt,
 ol,
 ul,
 li,
@@ -99,7 +107,7 @@ body {
   line-height: $global-line-height;
 
   *:focus {
-    outline: $global-outline;
+    outline: none;
   }
 }
 

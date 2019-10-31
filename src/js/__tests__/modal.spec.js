@@ -6,7 +6,7 @@ const dom = `
   <div className="modal-overlay" data-modal="new-modal">
     <div className="modal-dialog" data-parent="new-modal" aria-labelledby="header-id">
       <header>
-        <h2 className="h6 has-no-margin-block-start" id="header-id">
+        <h2 className="h6 has-no-m-block-start" id="header-id">
           Modal Header
         </h2>
         <a data-close href="#">
@@ -201,7 +201,7 @@ const errorDom = (target, modal, parent) => `
   <div className="modal-overlay" data-modal="${modal}">
     <div className="modal-dialog" data-parent="${parent}" aria-labelledby="header-id">
       <header>
-        <h2 className="h6 has-no-margin-block-start" id="header-id">
+        <h2 className="h6 has-no-m-block-start" id="header-id">
           Modal Header
         </h2>
         <a data-close href="#">

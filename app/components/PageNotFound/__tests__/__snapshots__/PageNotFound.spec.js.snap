@@ -3,7 +3,7 @@
 exports[`<PageNotFound /> renders 1`] = `
 <PageNotFound>
   <div
-    className="has-padding-4 has-text-center"
+    className="has-p--xl has-text-center"
   >
     <SetMeta
       pageNotFound={true}
@@ -12,7 +12,7 @@ exports[`<PageNotFound /> renders 1`] = `
       Sorry, that page doesn't exist. :(
     </h1>
     <p
-      className="has-no-margin-block-end"
+      className="has-no-m-block-end"
     >
       Did you enter the URL correctly?
     </p>

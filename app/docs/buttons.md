@@ -1,4 +1,4 @@
-The button element in Undernet is unique in similar fashion to the typography. All states are controllable via the scss maps, [`$button-base`](/docs/elements/buttons#base-button) and [`$button-types`](/docs/elements/buttons#custom-button-types). You can also customize button sizes via [`$button-sizes`](/docs/elements/buttons#button-sizes).
+The button element in Undernet is unique in similar fashion to the typography. All states are controllable via the sass-maps, `$button-base-states` and `$button-types`. You can also customize button sizes via `$button-sizes`.
 
 These maps output their keys and values as css properties. This means you can add any `property: value` normally found in CSS into these maps.
 
@@ -38,21 +38,21 @@ Using `is-wide` as a modifier class, your buttons stretch full-width in their co
 
 Defined in `$button-sizes` is a list of keys (classes) mapped to padding and font-sizes to modify your buttons. Remove, edit, or add extra sizes to fit your needs.
 
-<button class="is-huge">Huge</button>
-<button class="is-large">Large</button>
-<button class="is-medium">Medium</button>
-<button class="is-small">Small</button>
+<button class="is-xl">Huge</button>
+<button class="is-lg">Large</button>
+<button class="is-md">Medium</button>
+<button class="is-sm">Small</button>
 
 ```html
-<button class="is-huge">Huge</button>
-<button class="is-large">Large</button>
-<button class="is-medium">Medium</button>
-<button class="is-small">Small</button>
+<button class="is-xl">Huge</button>
+<button class="is-lg">Large</button>
+<button class="is-md">Medium</button>
+<button class="is-sm">Small</button>
 ```
 
 ## Custom Button Types
 
-Create custom buttons easily in the `$button-types` scss map. Like in the `$button-base` map, the states included are `hover`, `active`, and `focus`.
+Create custom buttons easily in the `$button-types` sass-map. Like in the `$button-base-states` map, the states included are `hover`, `active`, and `focus`.
 
 <button class="is-primary">Primary</button>
 <button class="is-secondary">Secondary</button>

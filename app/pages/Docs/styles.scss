@@ -18,7 +18,7 @@
     }
 
     .filler {
-      background: $gray900;
+      background: $color-gray900;
       border-radius: $global-border-radius;
       margin-bottom: $global-space;
     }
@@ -62,18 +62,18 @@
     }
 
     .inverted-bg {
-      background: $gray200;
+      background: $color-gray200;
       padding: $global-space $global-space 0 $global-space;
     }
 
     .filler-bg {
-      background: $gray900;
+      background: $color-gray900;
       padding: $global-space;
       margin-bottom: $global-space;
       border-radius: $global-border-radius;
 
       .filler {
-        background: $gray800;
+        background: $color-gray800;
         color: white;
         margin-bottom: 0;
       }

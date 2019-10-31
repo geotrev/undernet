@@ -1,19 +1,19 @@
 @each $type in $input-field-types {
   input[type="#{$type}"] {
-    @include net-create-input-field-base-styles;
+    @include create-input-field-base-styles;
   }
 }
 
 textarea {
-  @include net-create-input-field-base-styles;
-  @include net-create-input-field-interactive-styles;
+  @include create-input-field-base-styles;
+  @include create-input-field-interactive-styles;
   resize: $input-resize;
 }
 
 fieldset {
   display: flex;
   flex-direction: column;
-  background: $fieldset-background;
+  background: $fieldset-bg;
   border-radius: $fieldset-border-radius;
   border: $fieldset-border;
   box-shadow: $fieldset-box-shadow;
@@ -22,7 +22,7 @@ fieldset {
 
   legend {
     align-self: flex-start;
-    background: $fieldset-legend-background;
+    background: $fieldset-legend-bg;
     border-radius: $fieldset-legend-border-radius;
     border: $fieldset-legend-border;
     box-shadow: $fieldset-legend-box-shadow;
@@ -30,11 +30,12 @@ fieldset {
     font-family: $fieldset-legend-font-family;
     font-size: $fieldset-legend-font-size;
     padding: $fieldset-legend-padding;
+    margin: $fieldset-legend-margin;
   }
 }
 
 form {
-  background: $form-background;
+  background: $form-bg;
   border: $form-border;
   box-shadow: $form-box-shadow;
   margin: $form-margin;
@@ -64,20 +65,20 @@ input[type="checkbox"] {
 
 @each $type in $input-field-types {
   input[type="#{$type}"] {
-    @include net-create-input-field-interactive-styles;
+    @include create-input-field-interactive-styles;
   }
 }
 
 @each $type in $input-field-types {
-  @include net-create-input-of-type-disabled($type);
+  @include create-input-of-type-disabled($type);
 }
 
 @each $type in $input-button-types {
-  @include net-create-input-of-type-disabled($type);
+  @include create-input-of-type-disabled($type);
 }
 
 @each $type in $input-check-types {
-  @include net-create-input-of-type-disabled($type);
+  @include create-input-of-type-disabled($type);
 }
 
 textarea,
@@ -85,6 +86,6 @@ button,
 .button {
   &:disabled,
   &.is-disabled {
-    @include net-create-input-disabled-styles;
+    @include create-input-disabled-styles;
   }
 }

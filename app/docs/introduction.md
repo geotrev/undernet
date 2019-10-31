@@ -2,7 +2,7 @@ Thanks for using Undernet! Hit the ground running in your next web project with 
 
 Undernet is extremely light, carrying no external dependencies, with a fully module-based interface through [npm](https://www.npmjs.org/package/undernet).
 
-Head over to the [download page](/docs/overview/download) to get Undernet's static assets, or see the [JavaScript](/docs/overview/javascript) and [Branding](/docs/overview/branding) pages for more advanced pipeline integration options.
+Head over to the [download page](/docs/overview/download) to get Undernet's static assets, or see the [JavaScript](/docs/overview/javascript) and [CSS](/docs/overview/css) pages for more advanced pipeline integration options.
 
 ## About Undernet
 
@@ -14,7 +14,7 @@ Undernet can both be a prototyping tool or the basis for your web app. You can e
 
 - **Configuration:** The framework comes with a configuration file that you can update with your intended brand attributes, including colors, typography, the flex grid, forms, buttons, and more.
 - **Accessibility:** All examples recommend [semantic HTML](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5#Semantics), and **always include accessibility considerations** where necessary.
-- **Modularity:** Undernet can act independently from your core stylesheet and can be added to to existing projects using [scopes](/docs/overview/branding).
+- **Modularity:** Undernet can act independently from your core stylesheet and can be added to to existing projects using [scopes](/docs/overview/css).
 - **Agility:** Installation options range from CDN to full pipeline control.
 
 ### Support

@@ -9,36 +9,32 @@ em,
 small,
 mark {
   font-family: $global-font-sans;
-  margin: 0;
-  padding: 0;
 }
 
 ul,
 ol {
-  @include net-set-flow("padding-left", $list-padding-start);
-  padding-bottom: $list-padding-bottom;
-  margin: $list-margin;
-  font-family: $list-font;
+  @include create-flow-property("padding-left", $type-list-padding-start);
+  padding-bottom: $type-list-padding-bottom;
+  margin: $type-list-margin;
+  font-family: $type-list-font;
 
   li {
-    margin: $list-item-margin;
-    padding: $list-item-padding;
+    margin: $type-list-item-margin;
+    padding: $type-list-item-padding;
   }
 }
 
 ul {
-  list-style-type: $ul-list-style;
+  list-style-type: $type-ul-list-style;
 }
 
 ol {
-  list-style-type: $ol-list-style;
+  list-style-type: $type-ol-list-style;
 }
 
 @each $header, $properties in $type-header-styles {
   #{$header},
   .#{$header} {
-    line-height: $type-header-line-height;
-
     @each $property, $value in $properties {
       #{$property}: $value;
     }
@@ -47,16 +43,16 @@ ol {
 
 @each $size, $headers in $type-header-sizes {
   // Returns index of the current $key + $value pair
-  $breakpoint-index: index($type-header-sizes, ($size $headers));
+  $bp-index: index($type-header-sizes, ($size $headers));
 
-  // If the index is on the first item in $breakpoints
-  @if $breakpoint-index == 1 {
-    @include net-create-headers($headers);
+  // If the index is on the first item in $$type-header-sizes
+  @if $bp-index == 1 {
+    @include create-headers($headers);
 
     // Else add a media query
   } @else {
-    @include net-breakpoint($size) {
-      @include net-create-headers($headers);
+    @include create-bp($size) {
+      @include create-headers($headers);
     }
   }
 }
@@ -83,7 +79,7 @@ tt,
 .tt {
   font-family: $type-code-font;
   font-size: $type-code-font-size;
-  background: $type-code-background;
+  background: $type-code-bg;
   border: $type-code-border;
   border-radius: $type-code-radius;
   padding: $type-code-padding;
@@ -121,7 +117,7 @@ mark,
 .mark {
   font-size: inherit;
   padding: $type-mark-padding;
-  background: $type-mark-background;
+  background: $type-mark-bg;
   color: $type-mark-color;
 }
 
@@ -133,7 +129,7 @@ small,
 
 u,
 .underline {
-  text-decoration: $underline-text-decoration;
+  text-decoration: $type-underline-text-decoration;
 }
 
 hr {

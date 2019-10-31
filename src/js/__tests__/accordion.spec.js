@@ -9,7 +9,7 @@ const dom = `
         </button>
       </h5>
       <div class="accordion-content" id="content-1">
-        <p class="has-margin">
+        <p class="has-m">
           Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
           ipsum ut voluptate. <a href="#">E pluribus unum.</a>
         </p>
@@ -22,7 +22,7 @@ const dom = `
         </button>
       </h5>
       <div class="accordion-content" id="content-2">
-        <p class="has-margin">
+        <p class="has-m">
           Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
           ipsum ut voluptate. <a href="#">E pluribus unum.</a>
         </p>
@@ -103,7 +103,7 @@ const errorDom = (accordion, accordionRow, headerId, target, parent, contentId, 
         </button>
       </h5>
       <div class="accordion-content" id="${contentId}">
-        <p class="has-margin">
+        <p class="has-m">
           Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
           ipsum ut voluptate. <a href="#">E pluribus unum.</a>
         </p>

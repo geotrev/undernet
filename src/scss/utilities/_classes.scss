@@ -1,34 +1,34 @@
-// Keyboard focus modifier - only included if $scope is left empty.
-// If $scope is defined, using-keyboard is included via `_scope-overrides.scss`
+// Keyboard focus modifier - only included if $style-scope is left empty.
+// If $style-scope is defined, using-keyboard is included via `_scope-overrides.scss`
 
-@if $scope == "" {
-  @include net-create-using-keyboard-class;
+@if $style-scope == "" {
+  @include create-using-keyboard-class;
 }
 
 // `font-family` modifiers
 
-.has-sans-text {
+.has-font-sans {
   font-family: $global-font-sans !important;
 }
 
-.has-serif-text {
+.has-font-serif {
   font-family: $global-font-serif !important;
 }
 
 // `font-weight` modifiers
 
-.has-bold-text {
+.has-font-bold {
   font-weight: $global-font-weight-bold !important;
 }
 
-.has-italic-text {
+.has-font-italic {
   font-style: $global-font-style-italic !important;
 }
 
 // `text-align` modifiers
 
 .has-text-start {
-  @include net-set-flow("text-align", left !important);
+  @include create-flow-property("text-align", left !important);
 }
 
 .has-text-center {
@@ -36,44 +36,57 @@
 }
 
 .has-text-end {
-  @include net-set-flow("text-align", right !important);
+  @include create-flow-property("text-align", right !important);
 }
 
 // `color` modifier for text and backgrounds
 
-@each $name, $color in $full-palette {
-  .has-#{$name}-text {
+@each $name, $color in $color-full-palette {
+  .has-#{$name}-text-color {
     color: $color !important;
   }
 
-  .has-#{$name}-bg {
+  .has-#{$name}-bg-color {
     background-color: $color !important;
+  }
+}
+
+// `font-size` modifiers
+
+@each $name, $size in $global-font-increments {
+  .has-font-size--#{$name} {
+    font-size: $size !important;
   }
 }
 
 // `display` modifiers
 
-@each $size, $value in $breakpoints {
-  $breakpoint-index: index($breakpoints, ($size $value));
+.is-d-flex {
+  display: flex !important;
+}
 
-  // If the index is on the first item in $breakpoints
-  @if $breakpoint-index == 1 {
-    .has-display-flex {
+.is-d-block {
+  display: block !important;
+}
+
+.is-d-none {
+  display: none !important;
+}
+
+@each $size, $_ in $grid-breakpoints {
+  @include create-bp($size) {
+    .is-#{$size}-d-flex {
       display: flex !important;
     }
 
-    .has-display-block {
+    .is-#{$size}-d-block {
       display: block !important;
     }
 
-    .has-display-none {
+    .is-#{$size}-d-none {
       display: none !important;
     }
-  } @else {
-    @include net-breakpoint($size) {
-      @include net-create-visibility-classes($size);
-    } // end @include
-  } // end @if
+  } // end @include
 } // end @each
 
 // `flex-direction` modifiers
@@ -122,11 +135,11 @@
 
 // `margin` and `padding` modifiers on all sides
 
-.has-padding {
+.has-p {
   padding: $global-space !important;
 }
 
-.has-margin {
+.has-m {
   margin: $global-space !important;
 }
 
@@ -137,19 +150,24 @@ $flow-map: (
   "block-end": "bottom"
 );
 
-// // `margin` and `padding` modifiers on a single side only
-// e.g., `has-padding-inline-start`
-// or `has-margin-block-end`
+$spacing-map: (
+  "m": "margin",
+  "p": "padding"
+);
 
-@each $spacing-type in "padding", "margin" {
-  @each $flow-type, $flow-value in $flow-map {
+// // `margin` and `padding` modifiers on a single side only
+// e.g., `has-p-inline-start`
+// or `has-m-block-end`
+
+@each $spacing-key, $spacing-name in $spacing-map {
+  @each $flow-name, $flow-value in $flow-map {
     @if $flow-value == "left" or $flow-value == "right" {
-      .has-#{$spacing-type}-#{$flow-type} {
-        @include net-set-flow("#{$spacing-type}-#{$flow-value}", $global-space !important);
+      .has-#{$spacing-key}-#{$flow-name} {
+        @include create-flow-property("#{$spacing-name}-#{$flow-value}", $global-space !important);
       }
     } @else {
-      .has-#{$spacing-type}-#{$flow-type} {
-        #{$spacing-type}-#{$flow-value}: $global-space !important;
+      .has-#{$spacing-key}-#{$flow-name} {
+        #{$spacing-name}-#{$flow-value}: $global-space !important;
       }
     } // end @if
   } // end @each
@@ -158,26 +176,29 @@ $flow-map: (
 // 1. `margin` and `padding` modifiers on all sides, for each spacing increment
 // 2. `margin` and `padding` modifiers on a single side only, for each spacing increment
 
-@each $spacing-size, $spacing-value in $global-spacing-increments {
+@each $increment-size, $increment-value in $global-spacing-increments {
   // 1
-  .has-padding-#{$spacing-size} {
-    padding: $spacing-value !important;
+  .has-p--#{$increment-size} {
+    padding: $increment-value !important;
   }
 
-  .has-margin-#{$spacing-size} {
-    margin: $spacing-value !important;
+  .has-m--#{$increment-size} {
+    margin: $increment-value !important;
   }
 
   // 2
-  @each $spacing-type in "padding", "margin" {
-    @each $flow-type, $flow-value in $flow-map {
+  @each $spacing-key, $spacing-name in $spacing-map {
+    @each $flow-name, $flow-value in $flow-map {
       @if $flow-value == "left" or $flow-value == "right" {
-        .has-#{$spacing-type}-#{$flow-type}-#{$spacing-size} {
-          @include net-set-flow("#{$spacing-type}-#{$flow-value}", $spacing-value !important);
+        .has-#{$spacing-key}-#{$flow-name}--#{$increment-size} {
+          @include create-flow-property(
+            "#{$spacing-name}-#{$flow-value}",
+            $increment-value !important
+          );
         }
       } @else {
-        .has-#{$spacing-type}-#{$flow-type}-#{$spacing-size} {
-          #{$spacing-type}-#{$flow-value}: $spacing-value !important;
+        .has-#{$spacing-key}-#{$flow-name}--#{$increment-size} {
+          #{$spacing-name}-#{$flow-value}: $increment-value !important;
         }
       }
     } // end @if
@@ -186,25 +207,25 @@ $flow-map: (
 
 // `margin` and `padding` modifiers remove from all sides
 
-.has-no-margin {
+.has-no-m {
   margin: 0 !important;
 }
 
-.has-no-padding {
+.has-no-p {
   padding: 0 !important;
 }
 
 // `margin` and `padding` modifiers remove from a single side only
 
-@each $spacing-type in "padding", "margin" {
-  @each $flow-type, $flow-value in $flow-map {
+@each $spacing-key, $spacing-name in $spacing-map {
+  @each $flow-name, $flow-value in $flow-map {
     @if $flow-value == "left" or $flow-value == "right" {
-      .has-no-#{$spacing-type}-#{$flow-type} {
-        @include net-set-flow("#{$spacing-type}-#{$flow-value}", 0 !important);
+      .has-no-#{$spacing-key}-#{$flow-name} {
+        @include create-flow-property("#{$spacing-name}-#{$flow-value}", 0 !important);
       }
     } @else {
-      .has-no-#{$spacing-type}-#{$flow-type} {
-        #{$spacing-type}-#{$flow-value}: 0 !important;
+      .has-no-#{$spacing-key}-#{$flow-name} {
+        #{$spacing-name}-#{$flow-value}: 0 !important;
       }
     } // end @if
   } // end @each
@@ -213,7 +234,7 @@ $flow-map: (
 // List style modifier
 
 .has-unstyled-list {
-  @include net-set-flow("padding-left", 0 !important);
+  @include create-flow-property("padding-left", 0 !important);
   list-style-type: none !important;
 }
 

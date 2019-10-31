@@ -1,7 +1,7 @@
 @import "app/global";
 
 .footer-wrapper {
-  background: $brand-dark-blue;
+  background: $color-dark-blue;
 
   .has-feather {
     @include colored-link;
@@ -9,7 +9,7 @@
     padding: $global-space;
 
     svg {
-      @include net-set-flow("margin-left", 0);
+      @include create-flow-property("margin-left", 0);
     }
   }
 }

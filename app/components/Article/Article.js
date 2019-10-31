@@ -24,9 +24,7 @@ export default function Article(props) {
   }, observedStateOnMount)
 
   return (
-    <article
-      className={classNames("article-wrapper has-no-padding column", { fadeIn: domIsLoaded })}
-    >
+    <article className={classNames("article-wrapper has-no-p column", { fadeIn: domIsLoaded })}>
       <ScrollUpOnMount />
       <Markdown source={props.children} escapeHtml={false} />
     </article>

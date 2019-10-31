@@ -4,7 +4,7 @@ a {
   font-style: $link-style;
   font-weight: $link-weight;
   color: $link-color;
-  text-decoration: $link-decoration;
+  text-decoration: $link-text-decoration;
 
   &:visited {
     color: $link-color;
@@ -13,7 +13,7 @@ a {
   &:hover,
   &:focus {
     color: $link-hover;
-    text-decoration: $link-decoration-hover;
+    text-decoration: $link-text-decoration-hover;
   }
 
   &:active {
@@ -43,10 +43,14 @@ button,
   margin: $button-margin;
   padding: $button-padding;
   text-align: center;
-  text-decoration: $button-decoration;
+  text-decoration: $button-text-decoration;
   transition: $global-transition;
 
-  @each $state, $properties in $button-base {
+  &::-moz-focus-inner {
+    border: none;
+  }
+
+  @each $state, $properties in $button-base-states {
     @if $state != "default" {
       &:#{$state} {
         @each $property, $value in $properties {
@@ -67,7 +71,7 @@ button,
   } // end @each
 
   @each $size, $properties in $button-sizes {
-    &.#{$size} {
+    &.is-#{$size} {
       @each $property, $value in $properties {
         #{$property}: $value;
       } // end @each
@@ -83,7 +87,7 @@ button,
   @each $type, $states in $button-types {
     @each $state, $properties in $states {
       @if $state != "default" {
-        &.#{$type} {
+        &.is-#{$type} {
           &:#{$state} {
             @each $property, $value in $properties {
               #{$property}: $value;
@@ -91,7 +95,7 @@ button,
           }
         }
       } @else {
-        &.#{$type} {
+        &.is-#{$type} {
           @each $property, $value in $properties {
             #{$property}: $value;
           }
@@ -105,4 +109,4 @@ button,
       } // end @if
     } // end @each
   } // end @each
-}
+} // end .button

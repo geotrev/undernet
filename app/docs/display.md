@@ -1,18 +1,20 @@
 Change an element's `display` property on the fly with these utility classes.
 
+Note: All display modifiers use an abbreviated syntax of `d` (for 'display').
+
 ```html
-<div class="has-display-flex">...</div>
-<div class="has-display-block">...</div>
-<div class="has-display-none">...</div>
+<div class="is-d-flex">...</div>
+<div class="is-d-block">...</div>
+<div class="is-d-none">...</div>
 ```
 
 ## Change Display By Breakpoint
 
-A useful utility to have in responsive design is one that modifies with your grid. These display helpers are meant just for that. Set an element with one of the above classes with the modifer `-xsmall`, `-large`, etc., to indicate the element gets the override only at the specified breakpoint per your `$breakpoints` sass map.
+Using the breakpoints defined in `$grid-breakpoints`, you can add them to the display properties to modify display at various viewport widths. The pattern is `is-X-d-Y`, where `X` is the breakpoint, and `Y` is one of `flex`, `block`, or `none`.
 
 ```html
-<p class="has-display-none-xsmall has-display-flex-medium has-display-block-xlarge">
-  I'm not displayed at xsmall, use flex at medium, and become block-level at xlarge!
+<p class="is-xs-d-none is-md-d-flex is-xl-d-block">
+  I'm not displayed at xs, use flex at md, and become block-level at xl
 </p>
 ```
 

@@ -3,13 +3,13 @@
 @mixin align-nav-item($justify) {
   justify-content: center;
 
-  @include net-breakpoint(small) {
+  @include create-bp(sm) {
     justify-content: $justify;
   }
 }
 
 #global-nav {
-  background: $brand-dark-blue;
+  background: $color-dark-blue;
   padding: 0;
   z-index: 5;
 
@@ -55,7 +55,7 @@
   }
 
   li a {
-    @include colored-link($white);
+    @include colored-link($color-white);
     display: flex;
     text-decoration: none;
     padding: $global-space;
