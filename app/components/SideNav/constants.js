@@ -1,7 +1,7 @@
 import {
   introductionPath,
   downloadPath,
-  brandingPath,
+  cssPath,
   javascriptPath,
   gridPath,
   typographyPath,
@@ -25,7 +25,7 @@ export const NAV_DATA = [
     links: [
       { name: "Introduction", url: introductionPath },
       { name: "Download", url: downloadPath },
-      { name: "Branding", url: brandingPath },
+      { name: "CSS", url: cssPath },
       { name: "JavaScript", url: javascriptPath },
     ],
   },

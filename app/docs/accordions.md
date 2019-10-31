@@ -12,7 +12,7 @@ Check out this example accordion:
       </button>
     </h5>
     <div class="accordion-content" id="content1">
-      <p class="has-padding">
+      <p class="has-p">
         Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
         ipsum ut voluptate. <a>A link,</a> and <a>another link!</a>
       </p>
@@ -25,7 +25,7 @@ Check out this example accordion:
       </button>
     </h5>
     <div class="accordion-content" id="content2">
-      <p class="has-padding">
+      <p class="has-p">
         Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
         ipsum ut voluptate. <a>A link,</a> and <a>another link!</a>
       </p>
@@ -38,7 +38,7 @@ Check out this example accordion:
       </button>
     </h5>
     <div class="accordion-content" id="content3">
-      <p class="has-padding">
+      <p class="has-p">
         Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
         ipsum ut voluptate. <a>A link,</a> and <a>another link!</a>
       </p>
@@ -56,7 +56,7 @@ Check out this example accordion:
       </button>
     </h5>
     <div class="accordion-content" id="accordion-content-id">
-      <p class="has-padding">
+      <p class="has-p">
         Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna ipsum ut
         voluptate.
       </p>
@@ -69,7 +69,7 @@ Check out this example accordion:
       </button>
     </h5>
     <div class="accordion-content" id="content2">
-      <p class="has-padding">
+      <p class="has-p">
         Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna ipsum ut
         voluptate.
       </p>
@@ -82,7 +82,7 @@ Check out this example accordion:
       </button>
     </h5>
     <div class="accordion-content" id="content3">
-      <p class="has-padding">
+      <p class="has-p">
         Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna ipsum ut
         voluptate.
       </p>
@@ -105,7 +105,7 @@ Add `data-toggle-multiple` on the accordion container to let each accordion row 
       </button>
     </h5>
     <div class="accordion-content" id="content4">
-      <p class="has-padding">
+      <p class="has-p">
         Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
         ipsum ut voluptate.
       </p>
@@ -118,7 +118,7 @@ Add `data-toggle-multiple` on the accordion container to let each accordion row 
       </button>
     </h5>
     <div class="accordion-content" id="content5">
-      <p class="has-padding">
+      <p class="has-p">
         Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
         ipsum ut voluptate.
       </p>
@@ -131,7 +131,7 @@ Add `data-toggle-multiple` on the accordion container to let each accordion row 
       </button>
     </h5>
     <div class="accordion-content" id="content6">
-      <p class="has-padding">
+      <p class="has-p">
         Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
         ipsum ut voluptate.
       </p>
@@ -164,7 +164,7 @@ When making an accordion, there are two major considerations in its structure: t
       </button>
     </h5>
     <div class="accordion-content" id="accordion-content-id">
-      <p class="has-padding">...</p>
+      <p class="has-p">...</p>
     </div>
   </div>
   ...

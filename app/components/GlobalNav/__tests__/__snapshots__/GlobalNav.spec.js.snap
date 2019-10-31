@@ -37,10 +37,10 @@ exports[`<Nav /> renders 1`] = `
         id="global-nav"
       >
         <ul
-          className="nav-list row has-no-padding"
+          className="nav-list row has-no-p"
         >
           <li
-            className="is-small-5 is-xsmall-12 column"
+            className="is-sm-5 is-xs-12 column"
             role="none"
           >
             <Link
@@ -62,7 +62,7 @@ exports[`<Nav /> renders 1`] = `
             </Link>
           </li>
           <li
-            className="is-small-7 is-xsmall-12 column"
+            className="is-sm-7 is-xs-12 column"
           >
             <ul
               className="row"

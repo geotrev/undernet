@@ -1,7 +1,7 @@
 @charset "UTF-8";
 @import "app/global";
 
-// .#{$scope} {
+// .#{$style-scope} {
 @import "src/scss/utilities/reset";
 @import "src/scss/utilities/classes";
 
@@ -31,6 +31,6 @@ main {
   align-items: center;
 
   svg {
-    @include net-set-flow("margin-left", 5px);
+    @include create-flow-property("margin-left", 5px);
   }
 }

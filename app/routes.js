@@ -3,7 +3,7 @@ export const docsPath = "/docs"
 
 export const introductionPath = "/docs/overview/introduction"
 export const downloadPath = "/docs/overview/download"
-export const brandingPath = "/docs/overview/branding"
+export const cssPath = "/docs/overview/css"
 export const javascriptPath = "/docs/overview/javascript"
 
 export const gridPath = "/docs/layout/grid"

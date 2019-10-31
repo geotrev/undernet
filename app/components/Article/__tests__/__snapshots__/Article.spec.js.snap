@@ -3,7 +3,7 @@
 exports[`<Article /> #render renders 1`] = `
 <Article>
   <article
-    className="article-wrapper has-no-padding column fadeIn"
+    className="article-wrapper has-no-p column fadeIn"
   >
     <ScrollUpOnMount />
     <ReactMarkdown

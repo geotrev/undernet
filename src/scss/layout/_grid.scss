@@ -7,9 +7,7 @@ $column: map-get($grid-classes, column);
 .#{$grid} .#{$row}::before,
 .#{$grid} .#{$row}::after,
 .#{$row} .#{$column}::before,
-.#{$row} .#{$column}::after,
-.#{$row} .#{$column}s::before,
-.#{$row} .#{$column}s::after {
+.#{$row} .#{$column}::after {
   display: block;
   height: 0;
   width: 0;
@@ -24,8 +22,7 @@ $column: map-get($grid-classes, column);
   box-sizing: border-box;
   margin: 0 auto;
   max-width: $grid-width;
-  padding-left: $grid-gutter;
-  padding-right: $grid-gutter;
+  padding: $grid-padding;
   position: relative;
 
   @each $name, $width in $grid-widths {
@@ -35,7 +32,7 @@ $column: map-get($grid-classes, column);
   }
 
   @each $name, $padding in $grid-sections {
-    &.is-#{$name}-section {
+    &.is-section--#{$name} {
       padding-top: $padding;
       padding-bottom: $padding;
     }
@@ -55,37 +52,40 @@ $column: map-get($grid-classes, column);
 }
 
 .#{$row} {
+  box-sizing: border-box;
   display: flex;
   flex-flow: row wrap;
   flex: 1 1 auto;
   position: relative;
   max-width: 100%;
   min-height: 1px;
+  padding: 0;
+  margin: 0;
 }
 
-.#{$column}s,
 .#{$column} {
-  flex: 1 1 auto;
   box-sizing: border-box;
+  flex: 1 1 auto;
   max-width: 100%;
   min-height: 1px;
-  min-width: 0;
-  padding: $column-padding-top $column-gutter $column-padding-bottom $column-gutter;
+  min-width: 1px;
+  padding: $grid-column-padding-block-start $grid-column-padding-inline
+    $grid-column-padding-block-end $grid-column-padding-inline;
   word-wrap: break-word;
 }
 
-@each $name, $value in $breakpoints {
+@each $name, $value in $grid-breakpoints {
   // Returns index of the current $key + $value pair
-  $breakpoint-index: index($breakpoints, ($name $value));
+  $bp-index: index($grid-breakpoints, ($name $value));
 
-  // If the index is on the first item in $breakpoints
-  @if $breakpoint-index == 1 {
-    @include net-create-grid-classes($name);
+  // If the index is on the first item in $grid-breakpoints
+  @if $bp-index == 1 {
+    @include create-grid-classes($name);
 
     // Else add a media query
   } @else {
-    @include net-breakpoint($name) {
-      @include net-create-grid-classes($name);
+    @include create-bp($name) {
+      @include create-grid-classes($name);
     }
   }
 }

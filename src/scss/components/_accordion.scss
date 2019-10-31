@@ -12,7 +12,7 @@
     width: 100%;
     border: none;
     color: $accordion-button-color;
-    background: $accordion-button-background;
+    background: $accordion-button-bg;
     padding: $accordion-button-padding;
     margin: 0;
     border-radius: 0;
@@ -21,7 +21,7 @@
     &:hover,
     &:focus {
       color: $accordion-button-color-hover;
-      background: $accordion-button-background-hover;
+      background: $accordion-button-bg-hover;
     }
 
     &::after {
@@ -50,7 +50,7 @@
       overflow: hidden;
       padding: 0;
       max-height: 0;
-      background: $accordion-content-background;
+      background: $accordion-content-bg;
       transition: max-height $accordion-transition-duration $accordion-transition-ease;
       border-bottom: $accordion-row-divider;
     }

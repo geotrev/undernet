@@ -2,164 +2,156 @@
   position: relative;
   display: inline-block;
 
-  [data-target] {
+  > [data-target] {
     display: inline-flex;
     align-items: center;
+  }
+}
 
-    &::after {
-      @include net-set-flow("padding-left", $dropdown-button-arrow-padding-start);
-      content: $dropdown-button-arrow;
-      font-size: $dropdown-button-arrow-font-size;
+.dropdown-menu {
+  position: absolute;
+  display: block;
+  opacity: 0;
+  transition: $dropdown-menu-transition;
+  pointer-events: none;
+  list-style-type: none;
+  margin: 0;
+  padding: $dropdown-menu-padding;
+  border-radius: $dropdown-menu-border-radius;
+  background: $dropdown-menu-bg-color;
+  width: $dropdown-menu-width;
+  max-width: $dropdown-menu-max-width;
+  border: $dropdown-menu-border;
+  z-index: $z-index-dropdown-menu;
+  top: 100%;
+
+  .modal-dialog & {
+    z-index: $z-index-dropdown-menu-in-modal;
+  }
+
+  @if $dropdown-arrow-enabled {
+    @include create-up-arrow(
+      $dropdown-arrow-offset,
+      $dropdown-arrow-fill-color,
+      $dropdown-arrow-border-color
+    );
+
+    @include create-bp($dropdown-menu-direction-bp) {
+      &.is-drop-block-start {
+        bottom: 100%;
+        top: auto;
+        margin-bottom: $global-space;
+
+        @include create-down-arrow(
+          $dropdown-arrow-offset,
+          $dropdown-arrow-fill-color,
+          $dropdown-arrow-border-color
+        );
+      }
+
+      &.is-drop-inline-start {
+        @include create-flow-property("right", 100%);
+        @include create-flow-property("margin-right", $global-space);
+        top: 0;
+
+        @include create-right-arrow(
+          $dropdown-arrow-offset,
+          $dropdown-arrow-fill-color,
+          $dropdown-arrow-border-color
+        );
+      }
+
+      &.is-drop-inline-end {
+        @include create-flow-property("left", 100%);
+        @include create-flow-property("margin-left", $global-space);
+        top: 0;
+
+        @include create-left-arrow(
+          $dropdown-arrow-offset,
+          $dropdown-arrow-fill-color,
+          $dropdown-arrow-border-color
+        );
+      }
+
+      &.is-aligned-inline-end {
+        @include create-flow-property("right", 0);
+
+        @include with-arrow-enabled {
+          &::after {
+            @include create-flow-property("right", $dropdown-arrow-offset);
+            @include create-flow-property("left", auto);
+          }
+
+          &::before {
+            @include create-flow-property("right", $dropdown-arrow-offset);
+            @include create-flow-property("left", auto);
+          }
+        }
+      }
+
+      &.is-aligned-block-end {
+        top: auto;
+        bottom: $global-space;
+
+        @include with-arrow-enabled {
+          &::after {
+            top: auto;
+            bottom: $dropdown-arrow-offset;
+          }
+
+          &::before {
+            top: auto;
+            bottom: $dropdown-arrow-offset;
+          }
+        }
+      }
     }
   }
 
-  .dropdown-menu {
-    position: absolute;
+  li {
+    padding: 0;
     display: block;
-    opacity: 0;
-    transition: $dropdown-menu-transition;
-    pointer-events: none;
-    list-style-type: none;
-    margin: 0;
-    padding: $dropdown-menu-padding;
-    border-radius: $dropdown-menu-border-radius;
-    background: $dropdown-menu-background-color;
-    width: $dropdown-menu-width;
-    max-width: $dropdown-menu-max-width;
-    border: $dropdown-menu-border;
-    z-index: $dropdown-menu-index;
-    top: 100%;
+    position: relative;
 
-    .modal-dialog & {
-      z-index: $dropdown-menu-index-in-modal;
+    hr {
+      border: none;
+      height: $dropdown-menu-rule-height;
+      background: $dropdown-menu-rule-color;
+      margin: $dropdown-menu-rule-margin;
     }
 
-    @if $dropdown-arrows-enabled {
-      @include net-create-up-arrow(
-        $dropdown-arrow-offset,
-        $dropdown-arrow-fill-color,
-        $dropdown-arrow-border-color
-      );
-
-      @include net-breakpoint($dropdown-menu-direction-breakpoint) {
-        &.is-drop-block-start {
-          bottom: 100%;
-          top: auto;
-          margin-bottom: $global-space;
-
-          @include net-create-down-arrow(
-            $dropdown-arrow-offset,
-            $dropdown-arrow-fill-color,
-            $dropdown-arrow-border-color
-          );
-        }
-
-        &.is-drop-inline-start {
-          @include net-set-flow("right", 100%);
-          @include net-set-flow("margin-right", $global-space);
-          top: 0;
-
-          @include net-create-right-arrow(
-            $dropdown-arrow-offset,
-            $dropdown-arrow-fill-color,
-            $dropdown-arrow-border-color
-          );
-        }
-
-        &.is-drop-inline-end {
-          @include net-set-flow("left", 100%);
-          @include net-set-flow("margin-left", $global-space);
-          top: 0;
-
-          @include net-create-left-arrow(
-            $dropdown-arrow-offset,
-            $dropdown-arrow-fill-color,
-            $dropdown-arrow-border-color
-          );
-        }
-
-        &.is-aligned-inline-end {
-          @include net-set-flow("right", 0);
-
-          @include net-with-arrow-enabled {
-            &::after {
-              @include net-set-flow("right", $dropdown-arrow-offset);
-              @include net-set-flow("left", auto);
-            }
-
-            &::before {
-              @include net-set-flow("right", $dropdown-arrow-offset);
-              @include net-set-flow("left", auto);
-            }
-          }
-        }
-
-        &.is-aligned-block-end {
-          top: auto;
-          bottom: $global-space;
-
-          @include net-with-arrow-enabled {
-            &::after {
-              top: auto;
-              bottom: $dropdown-arrow-offset;
-            }
-
-            &::before {
-              top: auto;
-              bottom: $dropdown-arrow-offset;
-            }
-          }
-        }
-      }
-    }
-
-    li {
-      padding: 0;
-      display: block;
+    a {
+      display: flex;
       position: relative;
+      padding: $dropdown-menu-button-padding;
+      flex: 0 0 100%;
+      max-width: 100%;
+      text-decoration: none;
+      color: $dropdown-menu-button-text-color;
 
-      hr {
-        border: none;
-        height: $dropdown-menu-rule-height;
-        background: $dropdown-menu-rule-color;
-        margin: $dropdown-menu-rule-margin;
+      &:hover {
+        background: lighten($color-gray900, 10%);
       }
 
-      a {
-        display: flex;
-        position: relative;
-        padding: $dropdown-menu-button-padding;
-        flex: 0 0 100%;
-        max-width: 100%;
-        text-decoration: none;
-        color: $dropdown-menu-button-text-color;
-
-        &:hover {
-          background: lighten($gray900, 10%);
-        }
-
-        &:active {
-          background: lighten($gray900, 8%);
-        }
+      &:active {
+        background: lighten($color-gray900, 8%);
       }
+    }
 
-      .dropdown-header {
-        font-size: $dropdown-menu-header-font-size;
-        margin: 0;
-        padding: $dropdown-menu-header-padding;
-        color: $dropdown-menu-header-color;
-      }
+    .dropdown-header {
+      font-size: $dropdown-menu-header-font-size;
+      margin: 0;
+      padding: $dropdown-menu-header-padding;
+      color: $dropdown-menu-header-color;
     }
   }
 
-  &[data-visible="true"] {
-    .dropdown-menu {
-      opacity: 1;
-      pointer-events: auto;
+  .dropdown[data-visible="true"] & {
+    opacity: 1;
+    pointer-events: auto;
 
-      [data-close] {
-        display: flex;
-      }
+    [data-close] {
+      display: flex;
     }
   }
 }

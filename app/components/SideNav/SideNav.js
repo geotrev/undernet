@@ -62,17 +62,14 @@ export default function SideNav() {
   }
 
   const buttonClasses = () => {
-    return classNames(
-      "has-justify-content-center has-align-items-center has-display-flex has-display-none-xlarge",
-      {
-        "rotate-180": !menuIsOpen,
-      }
-    )
+    return classNames("has-justify-content-center has-align-items-center is-d-flex is-xl-d-none", {
+      "rotate-180": !menuIsOpen,
+    })
   }
 
   const menuClasses = () => {
-    return classNames("row side-nav-menu accordion has-padding-3", {
-      "has-display-none": !menuIsOpen,
+    return classNames("row side-nav-menu accordion has-p--lg", {
+      "is-d-none": !menuIsOpen,
     })
   }
 
@@ -95,7 +92,7 @@ export default function SideNav() {
       <li key={item.name} role="none">
         <NavLink
           role="menuitem"
-          className="side-nav-link-item has-black-text is-display-flex has-align-items-center"
+          className="side-nav-link-item has-black-text-color is-d-flex has-align-items-center"
           activeClassName="active"
           onClick={handleCollapseClick}
           to={item.url}
@@ -134,7 +131,7 @@ export default function SideNav() {
         <div
           data-visible={accordionIsActive(section.links) ? "true" : "false"}
           data-accordion-row={`nav-acc-content${i}`}
-          className="accordion-row is-xsmall-12 column has-no-padding"
+          className="accordion-row is-xs-12 column has-no-p"
           key={section.links[0].url}
         >
           {renderAccordionRow(section, i)}
@@ -144,9 +141,9 @@ export default function SideNav() {
   }
 
   return (
-    <div className="is-xsmall-12 is-xlarge-2 column has-no-padding" id="side-nav">
+    <div className="is-xs-12 is-xl-2 column has-no-p" id="side-nav">
       <div className="is-fluid grid side-nav-wrapper">
-        <div className="row has-display-flex has-display-none-xlarge side-nav-expand">
+        <div className="row is-d-flex is-xl-d-none side-nav-expand">
           <button
             onClick={handleMenuToggleClick}
             className={buttonClasses()}
@@ -154,12 +151,12 @@ export default function SideNav() {
             aria-expanded={menuIsOpen}
           >
             <Menu size={20} role="presentation" focusable="false" />{" "}
-            <span className="has-black-text">Explore</span>
+            <span className="has-black-text-color">Explore</span>
           </button>
         </div>
 
         <nav data-accordion="side-nav-accordion" className={menuClasses()} id="side-nav-wrapper">
-          <p className="version-text has-no-padding has-gray800-text is-xsmall-12 column">
+          <p className="version-text has-no-p has-gray800-text-color is-xs-12 column">
             Version {pkg.version}
           </p>
           {renderNavAccordion()}

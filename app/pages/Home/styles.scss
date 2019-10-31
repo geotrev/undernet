@@ -11,7 +11,7 @@
   width: 100%;
 
   .animations {
-    background-color: $brand-dark-blue;
+    background-color: $color-dark-blue;
 
     .animated-icon {
       width: 125px;
@@ -21,7 +21,7 @@
     p {
       margin: 0 8px;
 
-      @include net-breakpoint-down(large) {
+      @include create-bp-down(lg) {
         margin-bottom: 24px;
       }
     }
@@ -46,7 +46,7 @@
     }
 
     .un-version {
-      color: $gray800;
+      color: $color-gray800;
     }
 
     .badges {

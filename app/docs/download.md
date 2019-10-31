@@ -1,4 +1,4 @@
-Grab whichever source code best suits your project. Learn how to link your scripts and styles in the [Branding](/docs/overview/branding) and [JavaScript](/docs/overview/javascript) articles for the below assets.
+Grab whichever source code best suits your project. Learn how to link your scripts and styles in the [CSS](/docs/overview/css) and [JavaScript](/docs/overview/javascript) articles for the below assets.
 
 ## CDN
 
