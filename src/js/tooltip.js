@@ -14,8 +14,8 @@ const Selectors = {
   ROLE: "role",
   ARIA_DESCRIBEDBY: "aria-describedby",
   // classes
-  DROP_LEFT_CLASS: "is-drop-start",
-  DROP_RIGHT_CLASS: "is-drop-end",
+  DROP_INLINE_START_CLASS: "is-drop-inline-start",
+  DROP_INLINE_END_CLASS: "is-drop-inline-end",
 }
 
 const Events = {
@@ -187,6 +187,10 @@ export default class Tooltip {
   }
 
   _isLeftOrRight() {
-    return dom.hasClass(this._activeTooltip, Selectors.DROP_LEFT_CLASS, Selectors.DROP_RIGHT_CLASS)
+    return dom.hasClass(
+      this._activeTooltip,
+      Selectors.DROP_INLINE_START_CLASS,
+      Selectors.DROP_INLINE_END_CLASS
+    )
   }
 }
