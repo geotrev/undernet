@@ -87,7 +87,7 @@ $global-outline: none !default;
 $global-outline-using-keyboard: 2px solid $secondary-color !default;
 
 $global-space: 16px !default;
-$spacing-increments: (
+$global-spacing-increments: (
   "1": $global-space * 0.5,
   "2": $global-space * 0.75,
   "3": $global-space * 1.5,
@@ -95,7 +95,7 @@ $spacing-increments: (
 ) !default;
 
 // Arrow used for dropdowns and tooltips
-$arrow-size: 7px !default;
+$global-arrow-size: 7px !default;
 
 // z-index values for overlay elements, e.g. dropdowns and modals.
 $modal-index: 2000 !default;
@@ -760,7 +760,7 @@ $dropdown-menu-header-color: $gray800 !default;
 $tooltip-arrows-enabled: true !default;
 
 $tooltip-padding: 4px 8px !default;
-$tooltip-margin: 0 0 $arrow-size !default;
+$tooltip-margin: 0 0 $global-arrow-size !default;
 
 $tooltip-transition: $global-transition !default;
 

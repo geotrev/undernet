@@ -158,7 +158,7 @@ $flow-map: (
 // 1. `margin` and `padding` modifiers on all sides, for each spacing increment
 // 2. `margin` and `padding` modifiers on a single side only, for each spacing increment
 
-@each $spacing-size, $spacing-value in $spacing-increments {
+@each $spacing-size, $spacing-value in $global-spacing-increments {
   // 1
   .has-padding-#{$spacing-size} {
     padding: $spacing-value !important;
