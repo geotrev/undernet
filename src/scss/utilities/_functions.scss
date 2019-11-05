@@ -1,6 +1,6 @@
 @import "../vendor/functions";
 
-@function bp-value($name) {
+@function breakpoint-value($name) {
   @return map-get($grid-breakpoints, $name);
 }
 

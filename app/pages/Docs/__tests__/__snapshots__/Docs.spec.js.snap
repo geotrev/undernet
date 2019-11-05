@@ -34,7 +34,7 @@ exports[`<Docs /> renders 1`] = `
         >
           <SideNav />
           <div
-            className="column is-xs-12 is-xl-10 has-p--lg"
+            className="column is-xs-12 is-xl-10 has-p-lg"
           >
             <DocsRoutes />
           </div>

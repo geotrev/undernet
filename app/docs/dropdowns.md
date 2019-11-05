@@ -85,7 +85,7 @@ You can use any button style with a dropdown. Just add the appropriate class to 
 
 All dropdowns, by default, are aligned inline-start, as shown in previous examples.
 
-You can let it align inline-end using `is-aligned-inline-end`, or from block-end using `is-aligned-block-end` on the `dropdown-menu` element. Note that this only works for viewports above a specific width, as defined using the variable `$dropdown-menu-direction-bp` (sorry mobile viewers). Set this var to `'xsmall'` to remove the breakpoint.
+You can let it align inline-end using `is-aligned-inline-end`, or from block-end using `is-aligned-block-end` on the `dropdown-menu` element. Note that this only works for viewports above a specific width, as defined using the variable `$dropdown-menu-direction-breakpoint` (sorry mobile viewers). Set this var to `'xsmall'` to remove the breakpoint.
 
 <div data-dropdown="dropdown5" class="dropdown">
   <button id="dropdown-button-id5" data-parent="dropdown5" data-target="dropdown-menu-id5">Open Dropdown</button>
@@ -113,7 +113,7 @@ You can let it align inline-end using `is-aligned-inline-end`, or from block-end
 
 All dropdowns, by default, drop block-end, as shown in previous examples.
 
-You can let it drop block-start, inline-start, and inline-end using `is-drop-block-start`, `is-drop-inline-start`, and `is-drop-inline-end`, respectively. Note that this only works for viewports above a specific width, as defined using the variable `$dropdown-menu-direction-bp` (sorry mobile viewers). Again, set this var to `'xsmall'` to remove the breakpoint.
+You can let it drop block-start, inline-start, and inline-end using `is-drop-block-start`, `is-drop-inline-start`, and `is-drop-inline-end`, respectively. Note that this only works for viewports above a specific width, as defined using the variable `$dropdown-menu-direction-breakpoint` (sorry mobile viewers). Again, set this var to `'xsmall'` to remove the breakpoint.
 
 <div data-dropdown="dropdown9" class="dropdown">
   <button id="dropdown-button-id9" data-parent="dropdown9" data-target="dropdown-menu-id9">Drop Block-Start</button>
@@ -288,7 +288,7 @@ Paragraph text will wrap like it does everywhere else. Use spacing utilities to 
 <div data-dropdown="dropdown8" class="dropdown">
   <button id="dropdown-button-id8" data-parent="dropdown8" data-target="dropdown-menu-id8">Open Dropdown</button>
   <ul id="dropdown-menu-id8" class="dropdown-menu">
-    <li class="has-p--sm has-gray800-text-color">
+    <li class="has-p-sm has-gray800-text-color">
       Would you like to receive newsletters from Cool Company, Inc?
     </li>
     <li><a href="#">Sure!</a></li>
@@ -302,7 +302,7 @@ Paragraph text will wrap like it does everywhere else. Use spacing utilities to 
     Open Dropdown
   </button>
   <ul id="dropdown-menu-id" class="dropdown-menu">
-    <li class="has-p--sm has-gray800-text-color">
+    <li class="has-p-sm has-gray800-text-color">
       Would you like to receive newsletters from Cool Company, Inc?
     </li>
     <li><a href="#">Sure!</a></li>

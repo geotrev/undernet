@@ -12,7 +12,7 @@ export default function Footer(props) {
   }
 
   return (
-    <div className="footer-wrapper is-section--sm is-fluid grid">
+    <div className="footer-wrapper is-section-sm is-fluid grid">
       <div className="row">
         <div className="has-no-p column">
           <p className="has-no-m-block-end has-text-center has-gray900-text-color">

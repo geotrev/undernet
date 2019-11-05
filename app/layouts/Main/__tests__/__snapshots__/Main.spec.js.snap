@@ -303,7 +303,7 @@ exports[`<Main /> #render renders 1`] = `
           }
         >
           <div
-            className="footer-wrapper is-section--sm is-fluid grid"
+            className="footer-wrapper is-section-sm is-fluid grid"
           >
             <div
               className="row"

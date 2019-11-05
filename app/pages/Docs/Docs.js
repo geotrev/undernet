@@ -9,7 +9,7 @@ export default function Docs() {
     <div id="docs" className="grid is-fluid has-no-p">
       <div className="row">
         <SideNav />
-        <div className="column is-xs-12 is-xl-10 has-p--lg">
+        <div className="column is-xs-12 is-xl-10 has-p-lg">
           <DocsRoutes />
         </div>
       </div>

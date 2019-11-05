@@ -54,7 +54,7 @@
 // `font-size` modifiers
 
 @each $name, $size in $global-font-increments {
-  .has-font-size--#{$name} {
+  .has-font-size-#{$name} {
     font-size: $size !important;
   }
 }
@@ -74,7 +74,7 @@
 }
 
 @each $size, $_ in $grid-breakpoints {
-  @include create-bp($size) {
+  @include create-breakpoint($size) {
     .is-#{$size}-d-flex {
       display: flex !important;
     }
@@ -178,11 +178,11 @@ $spacing-map: (
 
 @each $increment-size, $increment-value in $global-spacing-increments {
   // 1
-  .has-p--#{$increment-size} {
+  .has-p-#{$increment-size} {
     padding: $increment-value !important;
   }
 
-  .has-m--#{$increment-size} {
+  .has-m-#{$increment-size} {
     margin: $increment-value !important;
   }
 
@@ -190,14 +190,14 @@ $spacing-map: (
   @each $spacing-key, $spacing-name in $spacing-map {
     @each $flow-name, $flow-value in $flow-map {
       @if $flow-value == "left" or $flow-value == "right" {
-        .has-#{$spacing-key}-#{$flow-name}--#{$increment-size} {
+        .has-#{$spacing-key}-#{$flow-name}-#{$increment-size} {
           @include create-flow-property(
             "#{$spacing-name}-#{$flow-value}",
             $increment-value !important
           );
         }
       } @else {
-        .has-#{$spacing-key}-#{$flow-name}--#{$increment-size} {
+        .has-#{$spacing-key}-#{$flow-name}-#{$increment-size} {
           #{$spacing-name}-#{$flow-value}: $increment-value !important;
         }
       }

@@ -27,7 +27,7 @@ exports[`<SideNav /> #handleMenuToggleClick toggles menu when button is clicked 
     </button>
   </div>
   <nav
-    className="row side-nav-menu accordion has-p--lg"
+    className="row side-nav-menu accordion has-p-lg"
     data-accordion="side-nav-accordion"
     id="side-nav-wrapper"
   >
@@ -128,7 +128,7 @@ exports[`<SideNav /> #handleMenuVisibility hides menu at or below 1199 1`] = `
     </button>
   </div>
   <nav
-    className="row side-nav-menu accordion has-p--lg is-d-none"
+    className="row side-nav-menu accordion has-p-lg is-d-none"
     data-accordion="side-nav-accordion"
     id="side-nav-wrapper"
   >
@@ -229,7 +229,7 @@ exports[`<SideNav /> #handleMenuVisibility shows menu above 1199 1`] = `
     </button>
   </div>
   <nav
-    className="row side-nav-menu accordion has-p--lg"
+    className="row side-nav-menu accordion has-p-lg"
     data-accordion="side-nav-accordion"
     id="side-nav-wrapper"
   >
@@ -335,7 +335,7 @@ exports[`<SideNav /> #render renders 1`] = `
         </button>
       </div>
       <nav
-        className="row side-nav-menu accordion has-p--lg is-d-none"
+        className="row side-nav-menu accordion has-p-lg is-d-none"
         data-accordion="side-nav-accordion"
         id="side-nav-wrapper"
       >

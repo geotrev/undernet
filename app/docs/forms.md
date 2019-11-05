@@ -79,7 +79,7 @@ Combine it with grid and spacing helper classes to create an intuitive layout fo
         <label for="fieldset-check" class="has-check">
           <input id="fieldset-check" type="checkbox" /> Send me occasional marketing and product updates.
         </label>
-        <input class="button is-primary has-m-block-end--xs" type="submit" value="Send Me the Goods!" />
+        <input class="button is-primary has-m-block-end-xs" type="submit" value="Send Me the Goods!" />
       </div>
     </div>
   </fieldset>
@@ -109,7 +109,7 @@ Combine it with grid and spacing helper classes to create an intuitive layout fo
         <label for="fieldset-check" class="has-check">
           <input id="fieldset-check" type="checkbox" /> Send me occasional marketing and product updates.
         </label>
-        <input class="button is-primary has-m-block-end--xs" type="submit" value="Send Me the Goods!" />
+        <input class="button is-primary has-m-block-end-xs" type="submit" value="Send Me the Goods!" />
       </div>
     </div>
   </fieldset>

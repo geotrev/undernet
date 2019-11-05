@@ -74,7 +74,7 @@ exports[`<Home /> renders 1`] = `
               title="A modular, configuration-first front-end framework. No strings."
             />
             <div
-              className="is-section--md is-fluid grid hero"
+              className="is-section-md is-fluid grid hero"
             >
               <div
                 className="row"
@@ -144,7 +144,7 @@ exports[`<Home /> renders 1`] = `
               </div>
             </div>
             <div
-              className="is-section--md is-fluid grid animations"
+              className="is-section-md is-fluid grid animations"
             >
               <div
                 className="row has-no-p"
@@ -240,7 +240,7 @@ exports[`<Home /> renders 1`] = `
               </div>
             </div>
             <div
-              className="is-section--md is-narrow grid"
+              className="is-section-md is-narrow grid"
             >
               <div
                 className="row"

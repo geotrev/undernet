@@ -80,7 +80,7 @@ export default function Home() {
         description="Undernet is a highly customizable web framework for building websites."
       />
 
-      <div className="is-section--md is-fluid grid hero">
+      <div className="is-section-md is-fluid grid hero">
         <div className="row">
           <div className="is-xs-12 column has-text-center">
             <PageHeader className="h3">{pkg.description}</PageHeader>
@@ -105,7 +105,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="is-section--md is-fluid grid animations">
+      <div className="is-section-md is-fluid grid animations">
         <div className="row has-no-p">
           <div className="column has-no-p">
             <div className="wide grid">
@@ -115,7 +115,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="is-section--md is-narrow grid">
+      <div className="is-section-md is-narrow grid">
         <div className="row">
           <div className="is-xs-12 column has-text-center">
             <h2 className="h6">Painless Setup</h2>

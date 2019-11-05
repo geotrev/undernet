@@ -51,7 +51,7 @@ ol {
 
     // Else add a media query
   } @else {
-    @include create-bp($size) {
+    @include create-breakpoint($size) {
       @include create-headers($headers);
     }
   }

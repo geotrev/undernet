@@ -3,7 +3,7 @@
 @mixin align-nav-item($justify) {
   justify-content: center;
 
-  @include create-bp(sm) {
+  @include create-breakpoint(sm) {
     justify-content: $justify;
   }
 }

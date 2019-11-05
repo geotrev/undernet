@@ -21,7 +21,7 @@
     p {
       margin: 0 8px;
 
-      @include create-bp-down(lg) {
+      @include create-breakpoint-down(lg) {
         margin-bottom: 24px;
       }
     }

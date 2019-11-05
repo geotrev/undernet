@@ -19,7 +19,7 @@ Add padding or margin to all sides of an element. Value defaults to `$global-spa
   </div>
 </div>
 
-Add padding or margin to one side. E.g. `has-m--X`, where `X` is a logical direction. Value defaults to `$global-space`.
+Add padding or margin to one side. E.g. `has-m-X`, where `X` is a logical direction. Value defaults to `$global-space`.
 
 <div class="filler-bg has-p-inline-start has-no-p-block-start has-no-p-inline-end has-no-p-block-end">
   .has-p-inline-start
@@ -30,12 +30,12 @@ Add padding or margin to one side. E.g. `has-m--X`, where `X` is a logical direc
 
 ### Custom Sizes
 
-If the default value of `$global-space` isn't the right size, don't worry, there are more sizes to choose from. E.g. `has-p--X`, where `X` is the size as defined in `$global-spacing-increments`.
+If the default value of `$global-space` isn't the right size, don't worry, there are more sizes to choose from. E.g. `has-p-X`, where `X` is the size as defined in `$global-spacing-increments`.
 
-<div class="filler-bg has-p--xs">
-  .has-p--xs
-  <div class="filler has-m--xl has-p can-grow">
-    .has-m--xl
+<div class="filler-bg has-p-xs">
+  .has-p-xs
+  <div class="filler has-m-xl has-p can-grow">
+    .has-m-xl
   </div>
 </div>
 
@@ -43,10 +43,10 @@ If the default value of `$global-space` isn't the right size, don't worry, there
 
 Define a spacing size with a side. E.g. `has-p-X--Y`, where `X` is the logical direction and `Y` is the size.
 
-<div class="filler-bg has-p-inline-start--xs has-no-p-block-start has-no-p-inline-end has-no-p-block-end">
-  .has-p-inline-start--xs
-  <div class="filler has-m-block-start--xl has-p can-grow">
-    .has-m-block-start--xl
+<div class="filler-bg has-p-inline-start-xs has-no-p-block-start has-no-p-inline-end has-no-p-block-end">
+  .has-p-inline-start-xs
+  <div class="filler has-m-block-start-xl has-p can-grow">
+    .has-m-block-start-xl
   </div>
 </div>
 

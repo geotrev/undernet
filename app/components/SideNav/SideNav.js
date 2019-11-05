@@ -16,28 +16,27 @@ export default function SideNav() {
   // set up effects and state
 
   const getWindowInnerWidth = () => window.innerWidth
+  const isLargerThanCollapseWidth = () => getWindowInnerWidth() > MENU_COLLAPSE_WIDTH
+  const [menuIsOpen, setMenuIsOpen] = useState(isLargerThanCollapseWidth())
 
-  const isLargerThanCollapseWidth = getWindowInnerWidth() > MENU_COLLAPSE_WIDTH
-  const [menuIsOpen, setMenuIsOpen] = useState(isLargerThanCollapseWidth)
-
-  let handleMenuVisibility = () => {
-    if (isLargerThanCollapseWidth) {
+  const handleMenuVisibility = () => {
+    if (isLargerThanCollapseWidth()) {
       setMenuIsOpen(true)
     }
   }
 
-  handleMenuVisibility = throttle(handleMenuVisibility, 50)
+  const handleMenuVisibilityThrottled = throttle(handleMenuVisibility, 50)
 
   const componentUnmountFunction = () => {
-    window.removeEventListener("resize", handleMenuVisibility)
+    window.removeEventListener("resize", handleMenuVisibilityThrottled)
     Accordions.stop()
   }
 
   const observedStateOnMount = []
   useEffect(() => {
     Accordions.start()
-    window.addEventListener("resize", handleMenuVisibility)
-    setMenuIsOpen(isLargerThanCollapseWidth)
+    window.addEventListener("resize", handleMenuVisibilityThrottled)
+    setMenuIsOpen(isLargerThanCollapseWidth())
 
     return componentUnmountFunction
   }, observedStateOnMount)
@@ -68,7 +67,7 @@ export default function SideNav() {
   }
 
   const menuClasses = () => {
-    return classNames("row side-nav-menu accordion has-p--lg", {
+    return classNames("row side-nav-menu accordion has-p-lg", {
       "is-d-none": !menuIsOpen,
     })
   }
