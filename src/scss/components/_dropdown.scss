@@ -36,7 +36,7 @@
       $dropdown-arrow-border-color
     );
 
-    @include create-bp($dropdown-menu-direction-bp) {
+    @include create-breakpoint($dropdown-menu-direction-breakpoint) {
       &.is-drop-block-start {
         bottom: 100%;
         top: auto;

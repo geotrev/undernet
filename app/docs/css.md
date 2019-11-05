@@ -1,10 +1,9 @@
-Undernet's CSS is the backbone of the framework. It's written in Sass and compiled to regular ol' CSS.
+Undernet's CSS is the backbone of the framework. It's written in a module format and precompiled using Sass.
 
-The framework adopts a few conventions which provide a predictable workflow. 
+The framework adopts a few conventions which help provide a predictable workflow. 
 
-- CSS classes use a Root-Variant-Modifier syntax (RVM for short). It's similar to BEM, if that is in your toolkit.
 - All direction-based properties are named based on their text flow, rather than physical left vs. right, or top vs. bottom, vernacular. [You can read more about logical properties here.](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Logical_Properties)
-- All Sass utilities (variables, mixins, functions) adopt specific naming conventions to make them more predictable and easier to learn, so you can extend them yourself.
+- All classes and Sass utilities adopt specific naming patterns to make them more predictable and easier to learn, so you can work faster.
 
 ## Configuration
 
@@ -16,19 +15,19 @@ Configure all Sass using `_config.scss`, included in the source code. You can cu
 
 ## Naming Patterns
 
-Variables, functions, mixins, and classes each follow a naming pattern to provide better understanding of the utility's intention.
+Variables, functions, mixins, and classes each follow patterns to provide better understanding of the utility's intention.
 
 ### Variables
 
-All Sass variables are constructed with the pattern of `grouping-element-property-value-state`. `grouping` is the only piece consistent in every variable, all others use some combination of the rest, but always in the correct order.
+All Sass variables are constructed with the pattern of `grouping-noun-property-value-state`. `grouping` is the only piece consistent in every variable, all others use some combination of the rest, but always in the correct order.
 
 Here's a few examples:
 
 - `$grid-padding`: Grouping = `grid`; Property = `padding`
-- `$type-p-margin-bottom`:  Grouping = `type`; Element = `p`; Property = `margin-bottom`
+- `$type-p-margin-bottom`:  Grouping = `type`; Noun = `p`; Property = `margin-bottom`
 - `$button-base-states`: Grouping = `button`; Noun = `base-styles`
 - `$link-text-decoration-hover`: Grouping = `link`; Property = `text-decoration`; State = `hover`
-- `$modal-dialog-margin-narrow`: Grouping = `modal`; Element = `container`; Property = `margin`; State = `narrow`
+- `$modal-dialog-margin-narrow`: Grouping = `modal`; Noun = `container`; Property = `margin`; State = `narrow`
 
 See the variables available in `_config.scss`.
 
@@ -46,29 +45,27 @@ See the mixins available in `utilities/_mixins.scss`.
 
 ### Classes
 
-All classes in Undernet follow a naming pattern similar to the likes of BEM or other frameworks. All classes can be broken down as either a Root, Variant, or Modifier.
+Classes are a bit more unique compared to variables or other Sass utilities. Classes take one of two forms, a **Root** or a **Modifier**. Within that scope, they are named using a pattern similar to that of Sass variables.
 
 See the classes available in `utilities/_classes.scss`.
 
 #### Roots
 
-An example of a root class would be `button`, `dropdown-menu`, or `modal-dialog`. These classes define the main object in which styles are scoped to.
-
-#### Variants
-
-Variants are either scoped to a root, or act as generic utilities that any element can adopt. Their structure includes a verb prefix, followed by the noun or property being changed.
-
-For example, the class `button` has simple variants, e.g., `is-primary` or `is-lg`. These define one change and nothing else.
-
-Variants can also take form with respect to responsive classes. In grid columns and display utility classes, for example, the breakpoint is added immediately following the verb: `is-xl-8` or `is-md-d-none`. This is to differentiate the breakpoints from size modifiers.
+A root class is one that describes what it _is_. For example, `dropdown-menu`, or `modal-dialog`. Nothing particularly special here.
 
 #### Modifiers
 
-In Undernet, modifiers will use a preceeding `--`. For example, `padding`, `margin`, and `font-size` modifiers all add `--xs`, `--sm`, `--md`, `--lg`, or `--xl` to describe increases or decreases in the value desired.
+Modifiers are a bit more complex. Their primary role is to _modify_ an element's existing styles in some way. Sometimes modifiers are only able to be used in the context of another root, and sometimes they can be used more generally like utilities.
 
-In the case of spacing, these modifiers will differ from the default `has-m` or `has-p` classes, which apply the `$global-spacing` variable (defaults to `16px`).
+A modifier class will have a structure like so: `verb-breakpoint-property-value-size`. All modifiers have a verb prefix, but not all modifiers have the other pieces, but the order is always consistent.
 
-An example class would be `has-font-size--lg` or `has-p-block-start--sm`.
+Here's a few examples:
+
+- `is-lg`: modifies a `button` to make it `lg` in size.
+- `is-xl-8`: modifies a `column` to make it 8 columns across at the `xl` breakpoint.
+- `has-font-size-sm`: modifies the element to have a `sm` font-size.
+- `has-padding-block-start-md`: modifies the element to have `md` spacing from the `block-start` position.
+- `is-drop-inline-end`: modifies a `dropdown-menu` to "drop" from the `inline-end` position.
 
 ## Scope
 
@@ -154,10 +151,10 @@ First, import in a new global SCSS file: 1) functions, 2) default config, and 3)
 
 You can import this file in other stylesheets to get access to the mixin and variable definitions while not risking duplication of selector definitions.
 
-```css
-/* myConfig.scss */
+```scss
+// custom-undernet-config.scss
 @import "~undernet/src/scss/utilities/functions";
-/* Add config overrides here! */
+// Add config overrides here!
 @import "~undernet/src/scss/config";
 @import "~undernet/src/scss/utilities/mixins";
 ```
@@ -168,39 +165,45 @@ _NOTE: Only import the below **one time** in your application!_
 
 _NOTE #2: The below imports have a `~` preceeding the import path; this is a Webpack feature. If you're not using webpack, you will need to use another package like css-import or import straight from the `node_modules` directory in your project._
 
-```css
-@import "path/to/myConfig";
-/* Scope is defined in the config. Remove the scope wrapper if you aren't needing it. */
-/* .#{$style-scope} { */
-/* Reset within scope is optional */
-@import "~undernet/src/scss/elements/reset";
-@import "~undernet/src/scss/utilities/classes";
-@import "~undernet/src/scss/layout/grid";
-@import "~undernet/src/scss/elements/typography";
-@import "~undernet/src/scss/elements/button";
-@import "~undernet/src/scss/elements/form";
-@import "~undernet/src/scss/components/modal";
-@import "~undernet/src/scss/components/accordion";
-@import "~undernet/src/scss/components/dropdown";
-@import "~undernet/src/scss/components/tooltips";
-/* } */
-/* Remove the overrides if you aren't using a scope. */
-@import "~undernet/src/scss/utilities/scope-overrides";
+```scss
+// custom-undernet.scss
+@import "utilities/functions";
+@import "config";
+@import "utilities/mixins";
+// Enable a scope in _config.scss
+// Read more here: https://www.undernet.io/docs/overview/css
+//
+// .#{$style-scope} {
+//
+// Reset within scope is optional
+@import "utilities/reset";
+@import "layout/grid";
+@import "elements/typography";
+@import "elements/button";
+@import "elements/form";
+@import "components/dropdown";
+@import "components/modal";
+@import "components/accordion";
+@import "components/tooltip";
+@import "utilities/classes";
+// }
+@import "utilities/scope-overrides";
 ```
 
-Finally, import `undernet.scss` in your global stylesheet.
+Finally, import `custom-undernet.scss` in your global Sass stylesheet. Again, only once.
 
 ```css
-@import "path/to/undernet";
+@import "path/to/custom-undernet";
 ```
 
 ... or link to the _compiled_ CSS in your layout.
 
 ```html
-<link rel="stylesheet" ref="path/to/undernet.css" />
+<link rel="stylesheet" ref="path/to/custom-undernet.css" />
 ```
 
 With that, you should be good to go!
 
-<hr />
+---
+
 <p class="has-text-end">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/app/docs/css.md">Edit this page on Github!</a></p>

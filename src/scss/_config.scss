@@ -55,7 +55,7 @@ $global-font-size: 16px !default;
 
 // Font size increments are used in utilities/_classes.scss
 // They provide various sizes in addition to header helper classes.
-// E.g., `has-font-size--lg
+// E.g., `has-font-size-lg
 
 $global-font-increments: (
   "xs": $global-font-size * 0.75,
@@ -192,7 +192,7 @@ $grid-widths: (
 ) !default;
 
 // Creates classes to be used on elements with the `grid` class
-// E.g., `is-section--md`
+// E.g., `is-section-md`
 
 $grid-sections: (
   "sm": 48px,
@@ -789,8 +789,8 @@ $modal-footer-border: 1px solid $color-gray900 !default;
 // Define at which breakpoint modal styling kicks in.
 // E.g., `sm` and below.
 
-$modal-horizontal-bp: sm !default;
-$modal-vertical-bp: sm !default;
+$modal-breakpoint-inline: sm !default;
+$modal-breakpoint-block: sm !default;
 
 // 12. Accordions
 // --------------
@@ -828,7 +828,7 @@ $dropdown-arrow-border-color: $color-gray900 !default;
 // Below it, dropdowns always open inline-start, block-end.
 // Set to `xs` to effectively disable the behavior.
 
-$dropdown-menu-direction-bp: md !default;
+$dropdown-menu-direction-breakpoint: md !default;
 
 $dropdown-menu-transition: opacity $global-transition !default;
 $dropdown-menu-padding: 8px 0 !default;

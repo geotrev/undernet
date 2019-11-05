@@ -32,7 +32,7 @@ $column: map-get($grid-classes, column);
   }
 
   @each $name, $padding in $grid-sections {
-    &.is-section--#{$name} {
+    &.is-section-#{$name} {
       padding-top: $padding;
       padding-bottom: $padding;
     }
@@ -84,7 +84,7 @@ $column: map-get($grid-classes, column);
 
     // Else add a media query
   } @else {
-    @include create-bp($name) {
+    @include create-breakpoint($name) {
       @include create-grid-classes($name);
     }
   }

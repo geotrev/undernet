@@ -49,22 +49,22 @@
   }
 }
 
-@mixin create-bp($size) {
-  @media screen and (min-width: #{net-bp-value($size)}) {
+@mixin create-breakpoint($size) {
+  @media screen and (min-width: #{breakpoint-value($size)}) {
     @content;
   }
 }
 
-@mixin create-bp-down($size) {
-  @media screen and (max-width: #{net-bp-value($size) - 1}) {
+@mixin create-breakpoint-down($size) {
+  @media screen and (max-width: #{breakpoint-value($size) - 1}) {
     @content;
   }
 }
 
-@mixin create-bp-between($min, $max) {
+@mixin create-breakpoint-between($min, $max) {
   @media screen
-    and (min-width: #{net-bp-value($min)})
-    and (max-width: #{net-bp-value($max) - 1}) {
+    and (min-width: #{breakpoint-value($min)})
+    and (max-width: #{breakpoint-value($max) - 1}) {
     @content;
   }
 }

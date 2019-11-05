@@ -60,25 +60,25 @@ These are modifiers to the grid container that change its `max-width`.
 
 Sections do the same, but add top and bottom padding. This can be helpful for creating content folds with colored backgrounds (i.e., for marketing pages).
 
-<div class="grid is-section--sm has-text-center filler">
+<div class="grid is-section-sm has-text-center filler">
   .grid.small-section
 </div>
-<div class="grid is-section--md has-text-center filler">
+<div class="grid is-section-md has-text-center filler">
   .grid.medium-section
 </div>
-<div class="grid is-section--lg has-text-center filler">
+<div class="grid is-section-lg has-text-center filler">
   .grid.large-section
 </div>
 
 ```html
-<div class="grid is-section--sm">
-  .grid.is-section--sm
+<div class="grid is-section-sm">
+  .grid.is-section-sm
 </div>
-<div class="grid is-section--md">
-  .grid.is-section--md
+<div class="grid is-section-md">
+  .grid.is-section-md
 </div>
-<div class="grid is-section--lg">
-  .grid.is-section--lg
+<div class="grid is-section-lg">
+  .grid.is-section-lg
 </div>
 ```
 

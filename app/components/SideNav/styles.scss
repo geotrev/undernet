@@ -11,11 +11,11 @@
     .side-nav-expand {
       background: $color-white;
 
-      @include create-bp(xs) {
+      @include create-breakpoint(xs) {
         border-bottom: 1px solid $color-gray900;
       }
 
-      @include create-bp(xl) {
+      @include create-breakpoint(xl) {
         border-bottom: none;
       }
 
@@ -26,6 +26,7 @@
         margin: $global-border-width;
         border: none;
         color: $color-primary;
+        border-radius: 0;
 
         &.rotate-180 {
           svg {
