@@ -38,5 +38,5 @@ Make your font bold or italic.
 <p class="has-font-italic">I'm italic!</p>
 ```
 
-<hr />
+---
 <p class="has-text-end">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/app/docs/text.md">Edit this page on Github!</a></p>

@@ -25,11 +25,11 @@ export default function Main() {
     ContextUtil.disableFocusOutline()
   }
 
-  const observedStateOnMount = []
+  const observedState = []
   useEffect(() => {
     ContextUtil.enableFocusOutline()
     return componentUnmountFunction
-  }, observedStateOnMount)
+  }, observedState)
 
   const handleRefocusClick = ref => {
     ref.current.setAttribute(Attributes.TABINDEX, FOCUSABLE_TABINDEX)

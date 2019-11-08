@@ -1,0 +1,13 @@
+.no-scroll {
+  overflow: hidden !important;
+}
+
+$inputs: "";
+
+@each $type in $form-input-field-types {
+  $inputs: $inputs + ":not([type='#{$type}'])";
+}
+
+.using-keyboard *#{$inputs}:not(textarea):not(select):focus {
+  box-shadow: $global-focus-ring !important;
+}

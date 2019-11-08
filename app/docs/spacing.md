@@ -70,5 +70,5 @@ Further, remove padding or margin from specifically one side using `has-no-p-X`,
   </div>
 </div>
 
-<hr />
+---
 <p class="has-text-end">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/app/docs/spacing.md">Edit this page on Github!</a></p>

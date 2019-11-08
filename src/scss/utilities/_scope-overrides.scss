@@ -1,8 +1,0 @@
-// If $style-scope is not defined, the original locations of these helpers are...
-// --> no-scroll: components/_modal.scss
-// --> using-keyboard: helpers/_classes.scss
-
-@if $style-scope != "" {
-  @include create-no-scroll-class;
-  @include create-using-keyboard-class;
-}
