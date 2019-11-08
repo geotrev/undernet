@@ -7,7 +7,7 @@ import { FOCUSABLE_TABINDEX, UNFOCUSABLE_TABINDEX } from "./constants"
 const PageHeader = props => {
   const [tabIndex, setTabIndex] = useState(FOCUSABLE_TABINDEX)
   const headerRef = useRef(null)
-  const observedStateOnMount = []
+  const observedState = []
 
   useEffect(() => {
     if (props.lastLocation) {
@@ -15,7 +15,7 @@ const PageHeader = props => {
     } else {
       setTabIndex(UNFOCUSABLE_TABINDEX)
     }
-  }, observedStateOnMount)
+  }, observedState)
 
   const handleBlur = () => {
     if (tabIndex === UNFOCUSABLE_TABINDEX) return

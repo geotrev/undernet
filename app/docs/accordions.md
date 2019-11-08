@@ -213,5 +213,5 @@ Undernet.start()
 Undernet.Accordions.start()
 ```
 
-<hr />
+---
 <p class="has-text-end">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/app/docs/accordions.md">Edit this page on Github!</a></p>

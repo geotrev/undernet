@@ -141,6 +141,7 @@ Add more rows within your columns for more advanced layouts. Just make sure the 
 <div class="grid filler-bg">
   <div class="row">
     <div class="column">
+      <p class="has-black-text-color">.row</p>
       <div class="row">
         <div class="column filler has-p">
           <p class="has-white-text-color">.column</p>
@@ -197,6 +198,7 @@ $grid-breakpoints: (
 <div class="grid filler-bg">
   <div class="row">
     <div class="column is-xs-12 is-lg-8">
+      <p class="has-black-text-color">.row</p>
       <div class="row">
         <div class="column filler has-p">
           <p class="has-white-text-color">.column.is-xs-12.is-lg-8</p>
@@ -310,5 +312,5 @@ By default, a row will be vertically centered. To make the row top-aligned, add 
 
 [Learn more about alignment utilities.](/docs/layout/alignment)
 
-<hr />
+---
 <p class="has-text-end">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/app/docs/grid.md">Edit this page on Github!</a></p>

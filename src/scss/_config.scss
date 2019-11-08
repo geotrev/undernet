@@ -1,7 +1,6 @@
-// Undernet
-// A modular, configuration-first front-end framework. No strings.
-
-// Table of Contents:
+// Table of Contents
+// -----------------
+//
 // ---------------
 // --> GLOBALS <--
 // ---------------
@@ -10,6 +9,7 @@
 //  3. Colors
 //  4. Z-Index
 //  5. Misc. Globals
+//
 // ----------------
 // --> ELEMENTS <--
 // ----------------
@@ -18,6 +18,7 @@
 //  8. Buttons
 //  9. Links (anchors)
 // 10. Forms
+//
 // ------------------
 // --> COMPONENTS <--
 // ------------------
@@ -25,7 +26,6 @@
 // 12. Accordions
 // 13. Dropdowns
 // 14. Tooltips
-// ------------------
 
 // -------------------------
 
@@ -684,9 +684,9 @@ $form-radius: $global-border-radius !default;
 // Define which input tag types to target for styling.
 // E.g., type="text"
 
-$input-button-types: ("submit", "file", "reset", "button") !default;
-$input-check-types: ("checkbox", "radio") !default;
-$input-field-types: (
+$form-input-button-types: ("submit", "file", "reset", "button") !default;
+$form-input-check-types: ("checkbox", "radio") !default;
+$form-input-field-types: (
   "text",
   "password",
   "email",
@@ -704,56 +704,56 @@ $input-field-types: (
 // User input tag styling.
 // E.g., <input>, <textarea>
 
-$input-font-size: $global-font-size !default;
-$input-font-family: $form-font-family !default;
-$input-box-shadow: none !default;
-$input-border: $global-border-width solid $color-gray800 !default;
-$input-padding: 12px !default;
-$input-margin: 8px 0 $global-space 0 !default;
-$input-border-radius: $form-radius !default;
-$input-bg: $color-white !default;
-$input-resize: vertical !default;
+$form-input-font-size: $global-font-size !default;
+$form-input-font-family: $form-font-family !default;
+$form-input-box-shadow: none !default;
+$form-input-border: $global-border-width solid $color-gray800 !default;
+$form-input-padding: 12px !default;
+$form-input-margin: 8px 0 $global-space 0 !default;
+$form-input-border-radius: $form-radius !default;
+$form-input-bg: $color-white !default;
+$form-input-resize: vertical !default;
 
-$input-hover-bg: $input-bg !default;
-$input-hover-border: $global-border-width solid $color-gray600 !default;
-$input-hover-box-shadow: $input-box-shadow !default;
+$form-input-hover-bg: $form-input-bg !default;
+$form-input-hover-border: $global-border-width solid $color-gray600 !default;
+$form-input-hover-box-shadow: $form-input-box-shadow !default;
 
-$input-focus-bg: $input-bg !default;
-$input-focus-border: $global-border-width solid $color-primary !default;
-$input-focus-box-shadow: $input-box-shadow !default;
+$form-input-focus-bg: $form-input-bg !default;
+$form-input-focus-border: $global-border-width solid $color-primary !default;
+$form-input-focus-box-shadow: $form-input-box-shadow !default;
 
-$input-disabled-bg: $color-gray900 !default;
-$input-disabled-color: $color-gray400 !default;
-$input-disabled-border: $global-border-width solid $input-disabled-bg !default;
-$input-disabled-resize: none !default;
+$form-input-disabled-bg: $color-gray900 !default;
+$form-input-disabled-color: $color-gray400 !default;
+$form-input-disabled-border: $global-border-width solid $form-input-disabled-bg !default;
+$form-input-disabled-resize: none !default;
 
 // Check-style input type base styling.
 // E.g., type="radio", type="checkbox"
 
-$input-check-label-padding: 0 0 $global-space 0 !default;
-$input-check-padding: 0 !default;
-$input-check-margin: 0 12px 0 0 !default;
+$form-input-check-label-padding: 0 0 $global-space 0 !default;
+$form-input-check-padding: 0 !default;
+$form-input-check-margin: 0 12px 0 0 !default;
 
 // <fieldset> tag base styling.
 
-$fieldset-border: $global-border-width solid $color-gray900 !default;
-$fieldset-border-radius: $form-radius !default;
-$fieldset-box-shadow: none !default;
-$fieldset-bg: transparent !default;
-$fieldset-margin: 0 0 $global-space 0 !default;
-$fieldset-padding: 8px !default;
+$form-fieldset-border: $global-border-width solid $color-gray900 !default;
+$form-fieldset-border-radius: $form-radius !default;
+$form-fieldset-box-shadow: none !default;
+$form-fieldset-bg: transparent !default;
+$form-fieldset-margin: 0 0 $global-space 0 !default;
+$form-fieldset-padding: 8px !default;
 
 // <legend> tag base styling.
 
-$fieldset-legend-font-family: $form-font-family !default;
-$fieldset-legend-font-size: $global-font-size !default;
-$fieldset-legend-padding: 6px 12px !default;
-$fieldset-legend-margin: 0 8px !default;
-$fieldset-legend-color: $color-gray200 !default;
-$fieldset-legend-bg: $color-white !default;
-$fieldset-legend-box-shadow: none !default;
-$fieldset-legend-border: 2px solid $color-gray900 !default;
-$fieldset-legend-border-radius: $global-border-radius !default;
+$form-fieldset-legend-font-family: $form-font-family !default;
+$form-fieldset-legend-font-size: $global-font-size !default;
+$form-fieldset-legend-padding: 6px 12px !default;
+$form-fieldset-legend-margin: 0 8px !default;
+$form-fieldset-legend-color: $color-gray200 !default;
+$form-fieldset-legend-bg: $color-white !default;
+$form-fieldset-legend-box-shadow: none !default;
+$form-fieldset-legend-border: 2px solid $color-gray900 !default;
+$form-fieldset-legend-border-radius: $global-border-radius !default;
 
 // ------------------
 // --> COMPONENTS <--

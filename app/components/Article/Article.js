@@ -14,14 +14,14 @@ export default function Article(props) {
     COMPONENTS.forEach(Component => Component.stop())
   }
 
-  const observedStateOnMount = []
+  const observedState = []
   useEffect(() => {
     Prism.highlightAll()
     COMPONENTS.forEach(Component => Component.start())
     setDomIsLoaded(true)
 
     return componentUnmountFunction
-  }, observedStateOnMount)
+  }, observedState)
 
   return (
     <article className={classNames("article-wrapper has-no-p column", { fadeIn: domIsLoaded })}>

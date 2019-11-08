@@ -191,15 +191,15 @@ $arrow-border-position: $global-arrow-size * -2;
 }
 
 @mixin create-input-field-base-styles {
-  background: $input-bg;
+  background: $form-input-bg;
   appearance: none;
-  border-radius: $input-border-radius;
-  border: $input-border;
-  box-shadow: $input-box-shadow;
-  font-family: $input-font-family;
-  font-size: $input-font-size;
-  margin: $input-margin;
-  padding: $input-padding;
+  border-radius: $form-input-border-radius;
+  border: $form-input-border;
+  box-shadow: $form-input-box-shadow;
+  font-family: $form-input-font-family;
+  font-size: $form-input-font-size;
+  margin: $form-input-margin;
+  padding: $form-input-padding;
 }
 
 @mixin create-input-field-interactive-styles {
@@ -207,31 +207,31 @@ $arrow-border-position: $global-arrow-size * -2;
 
   &:focus,
   &:active {
-    background: $input-focus-bg !important;
-    border: $input-focus-border !important;
-    box-shadow: $input-focus-box-shadow !important;
+    background: $form-input-focus-bg !important;
+    border: $form-input-focus-border !important;
+    box-shadow: $form-input-focus-box-shadow !important;
   }
 
   &:hover {
-    background: $input-hover-bg;
-    border: $input-hover-border;
-    box-shadow: $input-hover-box-shadow;
+    background: $form-input-hover-bg;
+    border: $form-input-hover-border;
+    box-shadow: $form-input-hover-box-shadow;
     transition: $global-transition;
   }
 }
 
 @mixin create-input-disabled-styles {
-  background: $input-disabled-bg !important;
-  border: $input-disabled-border !important;
-  color: $input-disabled-color !important;
+  background: $form-input-disabled-bg !important;
+  border: $form-input-disabled-border !important;
+  color: $form-input-disabled-color !important;
   cursor: not-allowed;
-  resize: $input-disabled-resize !important;
+  resize: $form-input-disabled-resize !important;
   opacity: 1;
 
   &:hover {
-    background: $input-disabled-bg !important;
-    border: $input-disabled-border !important;
-    color: $input-disabled-color !important;
+    background: $form-input-disabled-bg !important;
+    border: $form-input-disabled-border !important;
+    color: $form-input-disabled-color !important;
   }
 }
 
@@ -239,23 +239,5 @@ $arrow-border-position: $global-arrow-size * -2;
   input[type="#{$type}"]:disabled,
   input[type="#{$type}"].is-disabled {
     @include create-input-disabled-styles;
-  }
-}
-
-@mixin create-no-scroll-class {
-  .no-scroll {
-    overflow: hidden !important;
-  }
-}
-
-@mixin create-using-keyboard-class {
-  $inputs: "";
-
-  @each $type in $input-field-types {
-    $inputs: $inputs + ":not([type='#{$type}'])";
-  }
-
-  .using-keyboard *#{$inputs}:not(textarea):not(select):focus {
-    box-shadow: $global-focus-ring !important;
   }
 }

@@ -14,10 +14,7 @@
 // Read more here: https://www.undernet.io/docs/overview/css
 //
 // .#{$style-scope} {
-//
-// Reset within scope is optional
 @import "utilities/reset";
-
 @import "layout/grid";
 @import "elements/typography";
 @import "elements/button";
@@ -29,4 +26,4 @@
 @import "utilities/classes";
 // }
 
-@import "utilities/scope-overrides";
+@import "utilities/globals";
