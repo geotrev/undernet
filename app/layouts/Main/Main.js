@@ -22,12 +22,12 @@ export default function Main() {
   const getMainTabIndex = () => mainRef.current.getAttribute(Attributes.TABINDEX)
 
   const componentUnmountFunction = () => {
-    ContextUtil.disableFocusOutline()
+    ContextUtil.unsetFocusRing()
   }
 
   const observedState = []
   useEffect(() => {
-    ContextUtil.enableFocusOutline()
+    ContextUtil.setFocusRing()
     return componentUnmountFunction
   }, observedState)
 

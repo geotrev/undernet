@@ -26,6 +26,32 @@ Check out this example dropdown:
 </div>
 ```
 
+## Using Button Tags
+
+You can also use `<button>` tags if you don't wish to use `<a>` tags.
+
+<div data-dropdown="dropdown24" class="dropdown">
+  <button id="dropdown-button-id24" data-parent="dropdown24" data-target="dropdown-menu-id24">Open Dropdown</button>
+  <ul id="dropdown-menu-id24" class="dropdown-menu">
+    <li><button href="#">Button tag is used</button></li>
+    <li><button href="#">It looks identical!</button></li>
+    <li><button href="#">Semantics matter, choose wisely</button></li>
+  </ul>
+</div>
+
+```html
+<div data-dropdown="dropdown-id" class="dropdown">
+  <button id="dropdown-button-id" data-parent="dropdown-id" data-target="dropdown-menu-id">
+    Open Dropdown
+  </button>
+  <ul id="dropdown-menu-id" class="dropdown-menu">
+    <li><button href="#">Button tag is used</button></li>
+    <li><button href="#">It looks identical!</button></li>
+    <li><button href="#">Semantics matter, choose wisely</button></li>
+  </ul>
+</div>
+```
+
 ## Disable Dropdown Menu Arrow
 
 If you don't want to include the little arrow pointing toward your dropdown button, you can flip it off using the variable `$dropdown-arrow-enabled`. It is set to `true` by default.
@@ -207,7 +233,7 @@ You can also combine direction with alignment to get even more customization!
     ...
   </ul>
 </div>
-<!-- drop inline-tart & aligned block-end -->
+<!-- drop inline-start & aligned block-end -->
 <div data-dropdown="dropdown-id3" class="dropdown">
   <button id="dropdown-button-id" data-parent="dropdown-id3" data-target="dropdown-menu-id">
     Drop Inline-Start, Aligned Block-End

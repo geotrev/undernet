@@ -13,6 +13,7 @@ const KeyCodes = {
 const Selectors = {
   // unique
   DATA_DROPDOWN: "data-dropdown",
+  DROPDOWN_MENU_CLASS: "dropdown-menu",
   // common
   DATA_TARGET: "data-target",
   DATA_PARENT: "data-parent",
@@ -71,6 +72,7 @@ export default class Dropdown {
     // dropdown element selectors
     this._dropdownContainerAttr = `[${Selectors.DATA_DROPDOWN}]`
     this._dropdownTargetAttr = `[${Selectors.DATA_TARGET}]`
+    this._dropdownMenuClassName = `.${Selectors.DROPDOWN_MENU_CLASS}`
   }
 
   // public
@@ -118,7 +120,7 @@ export default class Dropdown {
       throw new Error(Messages.NO_PARENT_ERROR)
     }
 
-    const dropdownMenu = dom.find(`${dropdownAttr} > ul`)
+    const dropdownMenu = dom.find(`${dropdownAttr} > ${this._dropdownMenuClassName}`)
 
     if (!dropdownMenu) {
       throw new Error(Messages.NO_MENU_ERROR(dropdownAttr))
@@ -130,7 +132,7 @@ export default class Dropdown {
     dom.setAttr(dropdownButton, Selectors.ARIA_HASPOPUP, "true")
     dom.setAttr(dropdownButton, Selectors.ARIA_EXPANDED, "false")
 
-    const dropdownMenuItemsAttr = `${dropdownAttr} > ul > li`
+    const dropdownMenuItemsAttr = `${dropdownAttr} > ${this._dropdownMenuClassName} > li`
     const dropdownMenuListItems = dom.findAll(dropdownMenuItemsAttr)
 
     if (!dropdownMenuListItems.length) {
@@ -179,7 +181,7 @@ export default class Dropdown {
 
     if (iOSMobile) dom.css(document.body, "cursor", "auto")
 
-    ContextUtil.releaseFocus()
+    ContextUtil.unsetFocusTrap()
     this._handleHideState()
     this._listenToRender()
 
@@ -235,7 +237,9 @@ export default class Dropdown {
       link.addEventListener(Events.CLICK, this._handleClose)
     })
 
-    ContextUtil.captureFocus(`${this._activeDropdownAttr} > ul`, { useArrows: true })
+    ContextUtil.setFocusTrap(`${this._activeDropdownAttr} > ${this._dropdownMenuClassName}`, {
+      useArrows: true,
+    })
   }
 
   _listenToClose() {
@@ -309,6 +313,8 @@ export default class Dropdown {
   }
 
   _getDropdownLinks(attr) {
-    return dom.findAll(`${attr} > ul > li > a, ${attr} > ul > li > button`)
+    return dom.findAll(
+      `${attr} > ${this._dropdownMenuClassName} > li > a, ${attr} > ${this._dropdownMenuClassName} > li > button`
+    )
   }
 }

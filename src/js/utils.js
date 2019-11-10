@@ -86,7 +86,7 @@ export default class ContextUtil {
 
   // public
 
-  captureFocus(container, options) {
+  setFocusTrap(container, options = {}) {
     if (!browserEnv) return
 
     this._focusContainerSelector = container
@@ -94,17 +94,15 @@ export default class ContextUtil {
     this._focusableFirstChild = this._focusableChildren[0]
     this._focusableLastChild = this._focusableChildren[this._focusableChildren.length - 1]
 
-    if (options) {
-      if (options.useArrows) {
-        this._trapFocusWithArrows = options.useArrows || this._trapFocusWithArrows
-        document.addEventListener(Events.KEYDOWN, this._handleFocusTrapWithArrows)
-      }
+    if (options.useArrows) {
+      this._trapFocusWithArrows = options.useArrows || this._trapFocusWithArrows
+      document.addEventListener(Events.KEYDOWN, this._handleFocusTrapWithArrows)
     } else {
       document.addEventListener(Events.KEYDOWN, this._handleFocusTrapWithTab)
     }
   }
 
-  releaseFocus() {
+  unsetFocusTrap() {
     if (!browserEnv) return
 
     if (this._trapFocusWithArrows) {
@@ -115,12 +113,12 @@ export default class ContextUtil {
     }
   }
 
-  enableFocusOutline() {
+  setFocusRing() {
     if (!browserEnv) return
     document.addEventListener(Events.KEYDOWN, this._listenForKeyboard)
   }
 
-  disableFocusOutline() {
+  unsetFocusRing() {
     if (!browserEnv) return
 
     if (this._listeningForKeydown) {

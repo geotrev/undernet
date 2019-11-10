@@ -1,4 +1,4 @@
-Use an accordion to hide and show content in a collapsable fashion.
+Use an accordion to arrange collapsible content as a group, with multiple triggers/content.
 
 ## Basic Accordion
 
