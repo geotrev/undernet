@@ -7,7 +7,7 @@
 textarea {
   @include create-input-field-base-styles;
   @include create-input-field-interactive-styles;
-  resize: $form-input-resize;
+  resize: $form-textarea-resize;
 }
 
 fieldset {

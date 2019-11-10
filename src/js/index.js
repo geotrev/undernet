@@ -23,7 +23,7 @@ Undernet.start = () => {
   Undernet.Accordions.start()
   Undernet.Dropdowns.start()
   Undernet.Tooltips.start()
-  ContextUtil.enableFocusOutline()
+  ContextUtil.setFocusRing()
 }
 
 Undernet.stop = () => {
@@ -31,7 +31,7 @@ Undernet.stop = () => {
   Undernet.Accordions.stop()
   Undernet.Dropdowns.stop()
   Undernet.Tooltips.stop()
-  ContextUtil.disableFocusOutline()
+  ContextUtil.unsetFocusRing()
 }
 
 export default Undernet

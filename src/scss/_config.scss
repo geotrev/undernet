@@ -166,7 +166,7 @@ $global-border-width: 2px !default;
 // The focus ring is made up of two box-shadows, one light and one dark,
 // to enable visibility on both dark and light backgrounds, respectively.
 
-$global-focus-ring: 0 0 0 1px rgba($color-white, 1), 0 0 0 3px rgba($color-secondary, 1) !default;
+$global-focus-ring: 0 0 0 1px rgba($color-white, 0.8), 0 0 0 3px rgba($color-secondary, 0.8) !default;
 
 // 6. Grid
 // -------
@@ -704,6 +704,8 @@ $form-input-field-types: (
 // User input tag styling.
 // E.g., <input>, <textarea>
 
+$form-textarea-resize: vertical !default;
+
 $form-input-font-size: $global-font-size !default;
 $form-input-font-family: $form-font-family !default;
 $form-input-box-shadow: none !default;
@@ -712,7 +714,6 @@ $form-input-padding: 12px !default;
 $form-input-margin: 8px 0 $global-space 0 !default;
 $form-input-border-radius: $form-radius !default;
 $form-input-bg: $color-white !default;
-$form-input-resize: vertical !default;
 
 $form-input-hover-bg: $form-input-bg !default;
 $form-input-hover-border: $global-border-width solid $color-gray600 !default;
