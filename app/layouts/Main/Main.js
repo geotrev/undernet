@@ -22,14 +22,14 @@ export default function Main() {
   const getMainTabIndex = () => mainRef.current.getAttribute(Attributes.TABINDEX)
 
   const componentUnmountFunction = () => {
-    ContextUtil.disableFocusOutline()
+    ContextUtil.unsetFocusRing()
   }
 
-  const observedStateOnMount = []
+  const observedState = []
   useEffect(() => {
-    ContextUtil.enableFocusOutline()
+    ContextUtil.setFocusRing()
     return componentUnmountFunction
-  }, observedStateOnMount)
+  }, observedState)
 
   const handleRefocusClick = ref => {
     ref.current.setAttribute(Attributes.TABINDEX, FOCUSABLE_TABINDEX)

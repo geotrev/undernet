@@ -60,26 +60,26 @@ Combine it with grid and spacing helper classes to create an intuitive layout fo
   <fieldset>
     <legend>Sign Up For Our Newsletter</legend>
     <div class="row">
-      <div class="column is-xsmall-12 is-medium-6 has-no-padding-block-end">
+      <div class="column is-xs-12 is-md-6 has-no-p-block-end">
         <label for="fieldset-email">
           Email: <input id="fieldset-email" type="email" value="" placeholder="person@example.com" />
         </label>
       </div>
-      <div class="column is-xsmall-12 is-medium-6 has-no-padding-block-end">
+      <div class="column is-xs-12 is-md-6 has-no-p-block-end">
         <label for="fieldset-name">
           Name: <input id="fieldset-name" type="text" value="" placeholder="Dr. Thomas Light" />
         </label>
       </div>
-      <div class="column is-xsmall-12 has-no-padding-block-end">
+      <div class="column is-xs-12 has-no-p-block-end">
         <label for="fieldset-textarea">
           Tell us about yourself: <textarea id="fieldset-textarea" placeholder="I'm a big fan of..."></textarea>
         </label>
       </div>
-      <div class="column has-no-padding-block-end">
+      <div class="column has-no-p-block-end">
         <label for="fieldset-check" class="has-check">
           <input id="fieldset-check" type="checkbox" /> Send me occasional marketing and product updates.
         </label>
-        <input class="button is-primary has-margin-block-end-1" type="submit" value="Send Me the Goods!" />
+        <input class="button is-primary has-m-block-end-xs" type="submit" value="Send Me the Goods!" />
       </div>
     </div>
   </fieldset>
@@ -90,26 +90,26 @@ Combine it with grid and spacing helper classes to create an intuitive layout fo
   <fieldset>
     <legend>Sign Up For Our Newsletter</legend>
     <div class="row">
-      <div class="column is-xsmall-12 is-medium-6 has-no-padding-block-end">
+      <div class="column is-xs-12 is-md-6 has-no-p-block-end">
         <label for="fieldset-email">
           Email: <input id="fieldset-email" type="email" value="" placeholder="person@example.com" />
         </label>
       </div>
-      <div class="column is-xsmall-12 is-medium-6 has-no-padding-block-end">
+      <div class="column is-xs-12 is-md-6 has-no-p-block-end">
         <label for="fieldset-name">
           Name: <input id="fieldset-name" type="text" value="" placeholder="Dr. Thomas Light" />
         </label>
       </div>
-      <div class="column is-xsmall-12 has-no-padding-block-end">
+      <div class="column is-xs-12 has-no-p-block-end">
         <label for="fieldset-textarea">
           Tell us about yourself: <textarea id="fieldset-textarea" placeholder="I'm a big fan of..."></textarea>
         </label>
       </div>
-      <div class="column has-no-padding-block-end">
+      <div class="column has-no-p-block-end">
         <label for="fieldset-check" class="has-check">
           <input id="fieldset-check" type="checkbox" /> Send me occasional marketing and product updates.
         </label>
-        <input class="button is-primary has-margin-block-end-1" type="submit" value="Send Me the Goods!" />
+        <input class="button is-primary has-m-block-end-xs" type="submit" value="Send Me the Goods!" />
       </div>
     </div>
   </fieldset>
@@ -122,7 +122,7 @@ Using the `disabled` attribute will visually and functionally disable the contro
 
 The `disabled` class will visually dim the control, but not disable it completely. The input must return `false` in JavaScript, have `aria-disabled='true'`, and still receive focus to disable the element in an accessible way.
 
-<button disabled class="has-no-margin-block-end">Disabled Button</button>
+<button disabled class="has-no-m-block-end">Disabled Button</button>
 
 <input type="text" disabled value="Disabled Text Input" />
 
@@ -148,5 +148,5 @@ The `disabled` class will visually dim the control, but not disable it completel
 </label>
 ```
 
-<hr />
+---
 <p class="has-text-end">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/app/docs/forms.md">Edit this page on Github!</a></p>

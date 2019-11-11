@@ -12,38 +12,38 @@ export default function Footer(props) {
   }
 
   return (
-    <div className="footer-wrapper is-small-section is-fluid grid">
+    <div className="footer-wrapper is-section-sm is-fluid grid">
       <div className="row">
-        <div className="has-no-padding column">
-          <p className="has-no-margin-block-end has-text-center has-gray900-text">
+        <div className="has-no-p column">
+          <p className="has-no-m-block-end has-text-center has-gray900-text-color">
             Undernet is a front-end framework created and maintained by{" "}
-            <a className="has-white-text" href="http://www.geotrev.com">
+            <a className="has-white-text-color" href="http://www.geotrev.com">
               George Treviranus
             </a>
             .
           </p>
-          <p className="has-no-margin-block-end has-text-center has-gray900-text">
+          <p className="has-no-m-block-end has-text-center has-gray900-text-color">
             Animations provided by{" "}
-            <a className="has-white-text" href="https://folgert.com/">
+            <a className="has-white-text-color" href="https://folgert.com/">
               Gavin Folgert
             </a>
             . ❤️
           </p>
-          <ul className="has-text-center has-no-padding has-gray900-text has-unstyled-list has-direction-row has-display-flex has-justify-content-center">
-            <li className="has-no-padding" role="none">
+          <ul className="has-text-center has-no-p has-gray900-text-color has-unstyled-list has-direction-row is-d-flex has-justify-content-center">
+            <li className="has-no-p" role="none">
               <a
                 role="menuitem"
-                className="has-white-text has-feather"
+                className="has-white-text-color has-feather"
                 href="https://www.twitter.com/gwtrev"
               >
                 <Twitter role="presentation" focusable="false" />
                 <span className="is-visually-hidden">Open link to www.twitter.com/gwtrev</span>
               </a>
             </li>
-            <li className="has-no-padding" role="none">
+            <li className="has-no-p" role="none">
               <a
                 role="menuitem"
-                className="has-white-text has-feather"
+                className="has-white-text-color has-feather"
                 href="https://www.github.com/geotrev/undernet"
               >
                 <Github role="presentation" focusable="false" />
@@ -52,7 +52,7 @@ export default function Footer(props) {
                 </span>
               </a>
             </li>
-            <li className="has-no-padding" role="none">
+            <li className="has-no-p" role="none">
               <button
                 className="is-visually-hidden-focusable"
                 onClick={handleClick}

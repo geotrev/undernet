@@ -1,97 +1,91 @@
-Using Undernet's JS requires knowing its API. Luckily it's very simple! To see options for bundling the scripts in your project, scroll down to the **Bundling Options** section.
+The API for Undernet's JS is very simple. 
 
-## Available Components & Plugins
+Initiating the JS requires the DOM being ready to search. For this reason, ensure you only use it in the appropriate state of page load. 
 
-A number of components are available for you to use in your site:
+For an inline `<script>` tag, this means only using the script in a `DOMContentLoaded` event listener, or in React's `componentDidMount` lifecycle method, just to name two examples. See the [download page](/docs/overview/download) for more detailed examples.
 
-1. Modals
-2. Tooltips
-3. Dropdowns
-4. Accordions
+## Importing Options
 
-Additionally, there are two utilities you can use to manipulate certain behavior outside of components using the `ContextUtil` plugin:
+The default export is the `Undernet` object. Importing this gives you everything, including all JS components and utilities.
 
-1. **Focus Trap**: Use `ContextUtil.captureFocus(selector)` to trap focus within a given container. `selector` can be any valid class, id, attribute, or other identifier in the DOM. E.g., `.my-cool-class`. To release focus, use `ContextUtil.releaseFocus()`; it assumes you are releasing focus on the same element you captured focus on, so don't call `captureFocus` twice in a row!
-2. **Focus Outline**: Use `ContextUtil.enableFocusOutline()` to enable a focus outline when keyboard navigation activity is detected (tab, shift, spacebar, enter, escape, arrow keys, etc). Use `ContextUtil.disableFocusOutline()` to manually turn it off.
+You can also do a named import of just one component or the `ContextUtil` helper, which controls things like the global focus outline and focus trapper.
 
-## API Pattern
+### Components
 
-Undernet's components and focus outline plugin can all be enabled using a one line "start" method:
+Whether you're using `Undernet`, or one of the named modules, there are two ways to enable the components on a page. 
+
+Using the "start" method, you can enable components. This also turns on the focus outline utility.
 
 ```js
+import Undernet from "undernet"
 Undernet.start()
 ```
 
-2. The components can conversely be stopped by using the "stop" method.
+The components can conversely be stopped by using the "stop" method.
 
 ```js
+import Undernet from "undernet"
 Undernet.stop()
 ```
 
-3. If you're using Webpack and are importing individual components, you can start or stop the component in a similar fashion.
+If you're using named imports, you can start or stop the component in an identical fashion.
 
 ```js
+import { Modals } from "undernet"
 Modals.start()
-// or...
-Modals.stop()
 ```
 
-## Bundle & Install Options
-
-There's two main ways to gain access to the JavaScript: the static assets and NPM package.
-
-### CDN or Static Assets
-
-The fastest way forward is using the CDN. Alternatively, if you want to get access to the raw distribution files, download them and then link them in your layout.
-
-```html
-<!DOCTYPE html>
-<html>
-  <head>
-    ...
-  </head>
-  <body>
-    ...
-    <script type="text/javascript" src="/path/to/undernet.bundle.min.js"></script>
-    <script type="text/javascript">
-      document.addEventListener("DOMContentLoaded", Undernet.start())
-    </script>
-  </body>
-</html>
-```
-
-Both the minified and source code files are available via the [download article](/docs/overview/download).
-
-### NPM
-
-_NOTE: The plugin uses global variables such as `window` and `document`, which can break server-side rendering. To avoid issues, the scripts internally guard against these globals. This should not affect SEO in any meaningful way, provided your HTML is semantically structured._
-
-Easily import with npm. First, install the dependency:
-
-```sh
-$ npm i -D undernet
-```
-
-Then whip it up:
+Because using a singular component leaves out the focus outline, you can start (or stop, if you wish) that separately too.
 
 ```js
-import Undernet from "undernet"
-Undernet.start()
+import { Modals, ContextUtil } from "undernet"
+Modals.start()
+ContextUtil.setFocusRing()
 ```
 
-The above is useful if you need all the components at once on a single page. If you only need one or two, you can target that component script directly:
+### Utilities
+
+As mentioned, there's an optional `ContextUtil` helper which allows you to extend some of the tools used by components.
+
+#### Focus Trap
+
+The focus trap utility is used in [Modals](/docs/components/modals) and [Dropdowns](/docs/components/dropdowns) to constrain keyboard navigation to a given container.
+
+In this case, `tab` and `shift+tab` will never let the user exit the container.
+
+Pass in the container's unique `id`, `class`, or other `attribute` as the target for the trap:
 
 ```js
-import Undernet from "undernet"
-Undernet.Modals.start()
+ContextUtil.setFocusTrap("#element-id")
 ```
 
-[Tree shaking](https://webpack.js.org/guides/tree-shaking/) is also available for more precise dependency control if you're using a module bundler like Webpack or Rollup:
+To disable the focus trap, you can use:
 
 ```js
-import { Tooltips } from "undernet"
-Tooltips.start()
+ContextUtil.unsetFocusTrap()
 ```
 
-<hr />
+Notice that you don't need to pass in a selector on the `unset` method. The utility expects to track one focus trap at a time. This means you should use the same instance of `ContextUtil` to set and unset the trap.
+
+As a side note, make sure that if you use this utility, you allow the user to escape focus by some other means, such as with the `escape` key.
+
+#### Focus Ring
+
+A key factor in accessibility is the focus ring, which in the case of Undernet, appears when a user starts using their keyboard to navigate a page (tab, shift, spacebar, escape, enter, etc). If you try it now, you'll see a blue box-shadow (or white, on dark background) applied to elements.
+
+The utility creates global event listeners to achieve this effect. A class, `using-keyboard` is added to `<body>`.
+
+To enable it:
+
+```js
+ContextUtil.setFocusRing()
+```
+
+To disable:
+
+```js
+ContextUtil.unsetFocusRing()
+```
+
+---
 <p class="has-text-end">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/app/docs/javascript.md">Edit this page on Github!</a></p>

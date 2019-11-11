@@ -1,8 +1,0 @@
-// If $scope is not defined, the original locations of these helpers are...
-// --> no-scroll: components/_modal.scss
-// --> using-keyboard: helpers/_classes.scss
-
-@if $scope != "" {
-  @include net-create-no-scroll-class;
-  @include net-create-using-keyboard-class;
-}

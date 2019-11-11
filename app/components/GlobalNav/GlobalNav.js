@@ -16,13 +16,13 @@ export default function GlobalNav(props) {
 
   return (
     <nav id="global-nav" className="is-fluid grid">
-      <ul className="nav-list row has-no-padding">
-        <li className="is-small-5 is-xsmall-12 column" role="none">
+      <ul className="nav-list row has-no-p">
+        <li className="is-sm-5 is-xs-12 column" role="none">
           <Link to={rootPath} className="logo" role="menuitem">
             <img src={Logo} alt="Undernet" />
           </Link>
         </li>
-        <li className="is-small-7 is-xsmall-12 column">
+        <li className="is-sm-7 is-xs-12 column">
           <ul className="row">
             <li role="none">
               <button

@@ -1,14 +1,7 @@
-// Scroll stopper modifier - only included if $scope is left empty.
-// If $scope is defined, no-scroll is included via `_scope-overrides.scss`
-
-@if $scope == "" {
-  @include net-create-no-scroll-class;
-}
-
 .modal-overlay {
   display: block;
   background: $modal-overlay-color;
-  z-index: $modal-index;
+  z-index: $z-index-modal;
   overflow-y: auto;
   overflow-x: hidden;
   opacity: 0;
@@ -28,71 +21,43 @@
   }
 
   .modal-dialog {
-    background: $modal-container-background-color;
-    width: $modal-container-width-small;
-    max-width: $modal-container-max-width;
+    background: $modal-dialog-bg-color;
+    width: $modal-dialog-width-narrow;
+    max-width: $modal-dialog-max-width;
     position: relative;
     flex-flow: column nowrap;
     display: flex;
     cursor: default;
-    margin: $modal-container-margin-small;
-    border-radius: $modal-container-border-radius;
+    margin: $modal-dialog-margin-narrow;
+    border-radius: $modal-dialog-border-radius;
 
     // windows high contrast mode
     border: 1px solid transparent;
 
-    @media screen and (min-width: $modal-horizontal-breakpoint) and (min-height: $modal-vertical-breakpoint) {
-      width: $modal-container-width;
-      margin: $modal-container-margin;
+    @media screen and (min-width: breakpoint-value($modal-breakpoint-inline)) and (min-height: breakpoint-value($modal-breakpoint-block)) {
+      width: $modal-dialog-width;
+      margin: $modal-dialog-margin;
     }
 
     header {
-      h1,
-      h2,
-      h3,
-      h4,
-      h5,
-      h6 {
-        font-size: $modal-header-font-size;
-        display: inline-flex;
-        margin-bottom: 0;
+      @if str-index($modal-header-border-position, "end") {
+        border-bottom: $modal-header-border;
+      } @else {
+        border-top: $modal-header-border;
       }
-    }
-
-    header > button[data-close],
-    header > a[data-close] {
-      font-size: 32px;
-      text-decoration: none;
-      padding: 0 8px;
-      position: absolute;
-      right: 8px;
-      top: 2px;
     }
 
     header,
     section,
     footer {
-      padding: $modal-container-padding;
-    }
-
-    header,
-    section {
-      border-bottom: $modal-header-border;
+      padding: $modal-dialog-padding;
     }
 
     footer {
-      display: flex;
-      flex-flow: row nowrap;
-      justify-content: $modal-footer-button-alignment;
-
-      a,
-      button {
-        margin-bottom: 0;
-      }
-
-      a:first-child,
-      button:first-child {
-        @include net-set-flow("margin-right", $global-space);
+      @if str-index($modal-footer-border-position, "end") {
+        border-bottom: $modal-footer-border;
+      } @else {
+        border-top: $modal-footer-border;
       }
     }
   }

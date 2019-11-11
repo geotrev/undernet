@@ -2,7 +2,7 @@ import React from "react"
 import Article from "app/components/Article"
 import PageHeader from "app/components/PageHeader"
 import SetMeta from "app/components/SetMeta"
-import BrandingMd from "app/docs/branding.md"
+import CssMd from "app/docs/css.md"
 
 const Branding = () => {
   return (
@@ -11,8 +11,8 @@ const Branding = () => {
         title="Branding"
         description="Strategies for customizing the CSS' look and feel using Undernet's SCSS."
       />
-      <PageHeader>Branding</PageHeader>
-      <Article>{BrandingMd}</Article>
+      <PageHeader>CSS</PageHeader>
+      <Article>{CssMd}</Article>
     </React.Fragment>
   )
 }

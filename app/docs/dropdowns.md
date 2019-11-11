@@ -26,9 +26,35 @@ Check out this example dropdown:
 </div>
 ```
 
-## Disable Dropdown Arrow
+## Using Button Tags
 
-If you don't want to include the little arrow pointing toward your dropdown button, you can flip it off using the variable `$dropdown-arrows-enabled`. It is set to `true` by default.
+You can also use `<button>` tags if you don't wish to use `<a>` tags.
+
+<div data-dropdown="dropdown24" class="dropdown">
+  <button id="dropdown-button-id24" data-parent="dropdown24" data-target="dropdown-menu-id24">Open Dropdown</button>
+  <ul id="dropdown-menu-id24" class="dropdown-menu">
+    <li><button href="#">Button tag is used</button></li>
+    <li><button href="#">It looks identical!</button></li>
+    <li><button href="#">Semantics matter, choose wisely</button></li>
+  </ul>
+</div>
+
+```html
+<div data-dropdown="dropdown-id" class="dropdown">
+  <button id="dropdown-button-id" data-parent="dropdown-id" data-target="dropdown-menu-id">
+    Open Dropdown
+  </button>
+  <ul id="dropdown-menu-id" class="dropdown-menu">
+    <li><button href="#">Button tag is used</button></li>
+    <li><button href="#">It looks identical!</button></li>
+    <li><button href="#">Semantics matter, choose wisely</button></li>
+  </ul>
+</div>
+```
+
+## Disable Dropdown Menu Arrow
+
+If you don't want to include the little arrow pointing toward your dropdown button, you can flip it off using the variable `$dropdown-arrow-enabled`. It is set to `true` by default.
 
 Alternatively, you can force the arrow to hide using the `has-no-arrow` class on the `dropdown-menu` element
 
@@ -207,7 +233,7 @@ You can also combine direction with alignment to get even more customization!
     ...
   </ul>
 </div>
-<!-- drop inline-tart & aligned block-end -->
+<!-- drop inline-start & aligned block-end -->
 <div data-dropdown="dropdown-id3" class="dropdown">
   <button id="dropdown-button-id" data-parent="dropdown-id3" data-target="dropdown-menu-id">
     Drop Inline-Start, Aligned Block-End
@@ -288,7 +314,7 @@ Paragraph text will wrap like it does everywhere else. Use spacing utilities to 
 <div data-dropdown="dropdown8" class="dropdown">
   <button id="dropdown-button-id8" data-parent="dropdown8" data-target="dropdown-menu-id8">Open Dropdown</button>
   <ul id="dropdown-menu-id8" class="dropdown-menu">
-    <li class="has-padding-2 has-gray800-text">
+    <li class="has-p-sm has-gray800-text-color">
       Would you like to receive newsletters from Cool Company, Inc?
     </li>
     <li><a href="#">Sure!</a></li>
@@ -302,7 +328,7 @@ Paragraph text will wrap like it does everywhere else. Use spacing utilities to 
     Open Dropdown
   </button>
   <ul id="dropdown-menu-id" class="dropdown-menu">
-    <li class="has-padding-2 has-gray800-text">
+    <li class="has-p-sm has-gray800-text-color">
       Would you like to receive newsletters from Cool Company, Inc?
     </li>
     <li><a href="#">Sure!</a></li>
@@ -400,5 +426,5 @@ Undernet.start()
 Undernet.Dropdowns.start()
 ```
 
-<hr />
+---
 <p class="has-text-end">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/app/docs/dropdowns.md">Edit this page on Github!</a></p>

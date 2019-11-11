@@ -1,11 +1,11 @@
 import { useEffect } from "react"
 
 export default function ScrollUpOnMount() {
-  const observedStateOnMount = []
+  const observedState = []
 
   useEffect(() => {
     window.scrollTo(0, 0)
-  }, observedStateOnMount)
+  }, observedState)
 
   return null
 }

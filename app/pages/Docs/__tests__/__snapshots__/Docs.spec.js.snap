@@ -26,7 +26,7 @@ exports[`<Docs /> renders 1`] = `
   >
     <Docs>
       <div
-        className="fluid is-grid has-no-padding"
+        className="grid is-fluid has-no-p"
         id="docs"
       >
         <div
@@ -34,7 +34,7 @@ exports[`<Docs /> renders 1`] = `
         >
           <SideNav />
           <div
-            className="is-xsmall-12 is-xlarge-10 column has-padding-3"
+            className="column is-xs-12 is-xl-10 has-p-lg"
           >
             <DocsRoutes />
           </div>

@@ -11,15 +11,10 @@
 @import "utilities/mixins";
 
 // Enable a scope in _config.scss
-// Read more here: https://www.undernet.io/docs/overview/branding
+// Read more here: https://www.undernet.io/docs/overview/css
 //
-// .#{$scope} {
-//
-// Reset within scope is optional
+// .#{$style-scope} {
 @import "utilities/reset";
-
-@import "utilities/classes";
-
 @import "layout/grid";
 @import "elements/typography";
 @import "elements/button";
@@ -28,6 +23,7 @@
 @import "components/modal";
 @import "components/accordion";
 @import "components/tooltip";
+@import "utilities/classes";
 // }
 
-@import "utilities/scope-overrides";
+@import "utilities/globals";

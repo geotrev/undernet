@@ -27,7 +27,7 @@ $ yarn add -D undernet
 
 ### Styles
 
-See [branding documentation](https://www.undernet.io/docs/overview/branding) to setup a custom pipeline with Undernet's SCSS.
+See [CSS documentation](https://www.undernet.io/docs/overview/css) to setup a custom pipeline with Undernet's SCSS.
 
 ### Components / JS
 

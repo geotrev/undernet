@@ -47,7 +47,7 @@ exports[`Accordions #render -> Accordion Button Click (no toggle multiple) opens
         
         
         <p
-          class="has-margin"
+          class="has-m"
         >
           
           Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
@@ -106,7 +106,7 @@ exports[`Accordions #render -> Accordion Button Click (no toggle multiple) opens
         
         
         <p
-          class="has-margin"
+          class="has-m"
         >
           
           Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
@@ -182,7 +182,7 @@ exports[`Accordions #render -> Accordion Button Click (toggle multiple) opens cl
         
         
         <p
-          class="has-margin"
+          class="has-m"
         >
           
           Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
@@ -241,7 +241,7 @@ exports[`Accordions #render -> Accordion Button Click (toggle multiple) opens cl
         
         
         <p
-          class="has-margin"
+          class="has-m"
         >
           
           Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
@@ -316,7 +316,7 @@ exports[`Accordions API start sets attributes 1`] = `
         
         
         <p
-          class="has-margin"
+          class="has-m"
         >
           
           Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
@@ -374,7 +374,7 @@ exports[`Accordions API start sets attributes 1`] = `
         
         
         <p
-          class="has-margin"
+          class="has-m"
         >
           
           Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
@@ -412,7 +412,7 @@ exports[`Accordions API stop -> Accordion Button Click does not open accordion 1
   
         
   <p
-    class="has-margin"
+    class="has-m"
   >
     
           Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna

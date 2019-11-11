@@ -73,7 +73,7 @@ Tooltips will always automatically center to the middle of whichever element you
 
 ## Disable Tooltip Arrow
 
-If you don't want to include the little arrow pointing toward your tooltip trigger, you can change it using the variable `$tooltip-arrows-enabled`. It is set to `true` by default.
+If you don't want to include the little arrow pointing toward your tooltip trigger, you can change it using the variable `$tooltip-arrow-enabled`. It is set to `true` by default.
 
 Alternatively, you can force the arrow to hide using the `has-no-arrow` class on the `tooltip-box` element.
 
@@ -98,7 +98,7 @@ Alternatively, you can force the arrow to hide using the `has-no-arrow` class on
 Tooltips can be used with any element. Even traditionally non-interactive elements, such as `div`s. You should add `tabindex="0"` to elements that don't naturally receive keyboard focus. This includes anything that isn't a button, input, or the like.
 
 <span class="tooltip" data-tooltip="new-tooltip3">
-  <span tabindex="0" class="tooltip-trigger has-display-block has-secondary-color-bg has-white-text has-padding-2" data-target="new-tooltip3">Tooltip (not a) Button</span>
+  <span tabindex="0" class="tooltip-trigger is-d-block has-secondary-bg-color has-white-text-color has-p-sm" data-target="new-tooltip3">Tooltip (not a) Button</span>
   <div class="tooltip-box" id="new-tooltip3">
     This is a tooltip.
   </div>
@@ -106,7 +106,7 @@ Tooltips can be used with any element. Even traditionally non-interactive elemen
 
 ```html
 <span class="tooltip" data-tooltip="tooltip-id">
-  <span tabindex="0" class="tooltip-trigger has-display-block has-secondary-color-bg has-white-text has-padding-2" data-target="tooltip-id">Tooltip (not a) Button</span>
+  <span tabindex="0" class="tooltip-trigger is-d-block has-secondary-bg-color has-white-text-color has-p-sm" data-target="tooltip-id">Tooltip (not a) Button</span>
   <div class="tooltip-box" id="tooltip-id">
     This is a tooltip.
   </div>
@@ -122,7 +122,7 @@ _CAUTION: If you go this route, you need to ensure the element behaves functiona
 Because `disabled` elements aren't focusable, you will need to instead place any appropriate tooltip attributes onto a `span` or `div` wrapping the disabled element.
 
 <span class="tooltip" data-tooltip="new-tooltip9">
-  <span tabindex="0" class="tooltip-trigger has-display-block" data-target="new-tooltip9">
+  <span tabindex="0" class="tooltip-trigger is-d-block" data-target="new-tooltip9">
     <button disabled>Disabled Tooltip Button</button>
   </span>
   <div class="tooltip-box" id="new-tooltip9">
@@ -132,7 +132,7 @@ Because `disabled` elements aren't focusable, you will need to instead place any
 
 ```html
 <span class="tooltip" data-tooltip="tooltip-id">
-  <span tabindex="0" class="tooltip-trigger has-display-block" data-target="tooltip-id">
+  <span tabindex="0" class="tooltip-trigger is-d-block" data-target="tooltip-id">
     <button disabled>Tooltip Button</button>
   </span>
   <div class="tooltip-box" id="tooltip-id">
@@ -233,5 +233,5 @@ Undernet.start()
 Undernet.Tooltips.start()
 ```
 
-<hr />
+---
 <p class="has-text-end">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/app/docs/dropdowns.md">Edit this page on Github!</a></p>

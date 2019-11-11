@@ -1,19 +1,15 @@
 @import "../vendor/functions";
 
-@function net-status-color($color) {
-  @return map-get($status-palette, $color);
+@function breakpoint-value($name) {
+  @return map-get($grid-breakpoints, $name);
 }
 
-@function net-breakpoint-value($name) {
-  @return map-get($breakpoints, $name);
-}
+$px-to-em-base-font-size: 16px !default;
 
-$base-em-font-size: 16px !default;
-
-@function net-px-to-em($numerator, $divisor: $base-em-font-size) {
+@function px-to-em($numerator, $divisor: $px-to-em-base-font-size) {
   @return #{$numerator / $divisor}em;
 }
 
-@function net-spacing-value($increment) {
+@function spacing-value($increment) {
   @return map-get($global-spacing-increments, "#{$increment}");
 }

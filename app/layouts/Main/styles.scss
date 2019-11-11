@@ -1,23 +1,20 @@
 @charset "UTF-8";
 @import "app/global";
 
-// .#{$scope} {
+// .#{$style-scope} {
 @import "src/scss/utilities/reset";
-@import "src/scss/utilities/classes";
-
 @import "src/scss/layout/grid";
-
 @import "src/scss/elements/typography";
 @import "src/scss/elements/button";
 @import "src/scss/elements/form";
-
 @import "src/scss/components/dropdown";
 @import "src/scss/components/modal";
 @import "src/scss/components/accordion";
 @import "src/scss/components/tooltip";
+@import "src/scss/utilities/classes";
 // }
 
-@import "src/scss/utilities/scope-overrides";
+@import "src/scss/utilities/globals";
 
 // Layout styles:
 
@@ -31,6 +28,6 @@ main {
   align-items: center;
 
   svg {
-    @include net-set-flow("margin-left", 5px);
+    @include create-flow-property("margin-left", 5px);
   }
 }

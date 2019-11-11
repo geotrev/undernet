@@ -1,111 +1,180 @@
-// Undernet
-// A modular, configuration-first front-end framework. No strings.
-
-// ******************
-
-// Contents:
+// Table of Contents
+// -----------------
+//
+// ---------------
+// --> GLOBALS <--
+// ---------------
+//  1. Font
+//  2. Spacing
+//  3. Colors
+//  4. Z-Index
+//  5. Misc. Globals
+//
 // ----------------
 // --> ELEMENTS <--
 // ----------------
-// 1. Globals
-// 2. Grid
-// 3. Typography
-// 4. Buttons
-// 5. Forms
+//  6. Grid
+//  7. Typography
+//  8. Buttons
+//  9. Links (anchors)
+// 10. Forms
+//
 // ------------------
 // --> COMPONENTS <--
 // ------------------
-// 6. Modals
-// 7. Accordions
-// 8. Dropdowns
-// 9. Tooltips
-// ------------------
+// 11. Modals
+// 12. Accordions
+// 13. Dropdowns
+// 14. Tooltips
 
-// ******************
+// -------------------------
 
-// 1. Globals
-// ----------
+// ---------------
+// --> GLOBALS <--
+// ---------------
 
-// Uncomment the scope wrapper in undernet.scss if you use this!
-$scope: "" !default;
+// `$style-scope` will add a parent class selector to Undernet's CSS.
+// Read more here: https://www.undernet.io/docs/overview/branding
+//
+// Uncomment the scope wrapper in undernet.scss if you use this.
+$style-scope: "" !default;
+
+// 1. Font
+// -------
 
 $global-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu,
   Cantarell, "Helvetica Neue", sans-serif !default;
 $global-font-serif: Constantia, "Lucida Bright", Lucidabright, "Lucida Serif", Lucida,
   "DejaVu Serif", "Bitstream Vera Serif", "Liberation Serif", Georgia, serif !default;
-$global-monospace: monospace, monospace !default;
-$global-font-size: 16px !default;
+$global-font-monospace: Consolas, "Lucida Console", Monaco, "Courier New", Courier, monospace !default;
 $global-font-weight-normal: normal !default;
 $global-font-weight-bold: bold !default;
 $global-font-style-normal: normal !default;
 $global-font-style-italic: italic !default;
-$global-line-height: 1.5 !default;
+$global-font-size: 16px !default;
+
+// Font size increments are used in utilities/_classes.scss
+// They provide various sizes in addition to header helper classes.
+// E.g., `has-font-size-lg
+
+$global-font-increments: (
+  "xs": $global-font-size * 0.75,
+  "sm": $global-font-size * 0.875,
+  "md": $global-font-size * 1,
+  "lg": $global-font-size * 1.5,
+  "xl": $global-font-size * 3
+) !default;
+
+// 2. Spacing
+// ----------
+
+$global-space: 16px !default;
+
+// Spacing increments are used in utilities/_classes.scss
+// They provide various sizes used for margin and padding utility classes.
+
+$global-spacing-increments: (
+  "xs": $global-space * 0.5,
+  "sm": $global-space * 0.75,
+  "md": $global-space * 0.9,
+  "lg": $global-space * 1.5,
+  "xl": $global-space * 2
+) !default;
+
+// 3. Colors
+// ---------
+
+// Branding
+
+$color-primary: #d15ded !default;
+$color-secondary: #3e46af !default;
+$color-tertiary: teal !default;
+
+// Status
+
+$color-success: #66cc00 !default;
+$color-warning: khaki !default;
+$color-destroy: #fc6868 !default;
+$color-notice: steelblue !default;
+
+// Black, white, and shades of gray
+
+$color-black: #000111 !default;
+$color-gray100: #111111 !default;
+$color-gray200: #222222 !default;
+$color-gray400: #444444 !default;
+$color-gray600: #666666 !default;
+$color-gray800: #888888 !default;
+$color-gray900: #dedede !default;
+$color-white: white !default;
+
+// This map is only used in utilities/_classes.scss
+// The keys are used in the text and bg color helper class names.
+// If you add a new color variable above, add it here too.
+
+$color-full-palette: (
+  "primary": $color-primary,
+  "secondary": $color-secondary,
+  "tertiary": $color-tertiary,
+  "warning": $color-warning,
+  "success": $color-success,
+  "destroy": $color-destroy,
+  "notice": $color-notice,
+  "black": $color-black,
+  "gray100": $color-gray100,
+  "gray200": $color-gray200,
+  "gray400": $color-gray400,
+  "gray600": $color-gray600,
+  "gray800": $color-gray800,
+  "gray900": $color-gray900,
+  "white": $color-white
+) !default;
+
+// 4. Z-Index
+// ----------
+
+// All `z-index` values are used solely in interactive components.
+//
+// WARNING: There may be unintended side-effects if you change these.
+
+$z-index-modal: 2000 !default;
+$z-index-dropdown-menu: 1998 !default;
+$z-index-dropdown-menu-in-modal: 2001 !default;
+$z-index-tooltip: 1999 !default;
+$z-index-tooltip-in-modal: 2002 !default;
+
+// 5. Misc. Globals
+// ----------------
+
+// Arrow size used for dropdowns and tooltips.
+
+$global-arrow-size: 7px !default;
+// NOTE: To disable the arrow in dropdowns or tooltips,
+//       look for the variables ending in `-enabled` in
+//       either component's relevant sections in this file.
+
+// `line-height` increments are used in utilities/_classes.scss
+// They provide extra flexibility when using `font-size` modifiers.
+
+$global-line-height: 1.3 !default;
 $global-ease: cubic-bezier(0.12, 0.72, 0.58, 1.03) !default;
 $global-transition: $global-ease 0.1s !default;
-
-$primary-color: #d15ded !default;
-$secondary-color: #3e46af !default;
-$tertiary-color: teal !default;
-$black: #000111 !default;
-$gray100: #111111 !default;
-$gray200: #222222 !default;
-$gray400: #444444 !default;
-$gray600: #666666 !default;
-$gray800: #888888 !default;
-$gray900: #dedede !default;
-$white: white !default;
-
-$status-palette: (
-  "warning": khaki,
-  "success": #66cc00,
-  "destroy": #fc6868,
-  "notice": steelblue
-) !default;
-
-// Used for text and bg color utilities in helpers/_classes.scss
-$full-palette: map-merge(
-  (
-    "primary-color": $primary-color,
-    "secondary-color": $secondary-color,
-    "tertiary-color": $tertiary-color,
-    "black": $black,
-    "gray100": $gray100,
-    "gray200": $gray200,
-    "gray400": $gray400,
-    "gray600": $gray600,
-    "gray800": $gray800,
-    "gray900": $gray900,
-    "white": $white
-  ),
-  $status-palette
-) !default;
 
 $global-border-radius: 4px !default;
 $global-border-width: 2px !default;
 
-$global-outline: none !default;
-$global-outline-using-keyboard: 2px solid $secondary-color !default;
+// The focus ring is made up of two box-shadows, one light and one dark,
+// to enable visibility on both dark and light backgrounds, respectively.
 
-$global-space: 16px !default;
-$global-spacing-increments: (
-  "1": $global-space * 0.5,
-  "2": $global-space * 0.75,
-  "3": $global-space * 1.5,
-  "4": $global-space * 2
-) !default;
+$global-focus-ring: 0 0 0 1px rgba($color-white, 0.8), 0 0 0 3px rgba($color-secondary, 0.8) !default;
 
-// Arrow used for dropdowns and tooltips
-$global-arrow-size: 7px !default;
-
-// z-index values for overlay elements, e.g. dropdowns and modals.
-$modal-index: 2000 !default;
-$dropdown-menu-index: 1998 !default;
-$dropdown-menu-index-in-modal: 2001 !default;
-$tooltip-index: 1999 !default;
-$tooltip-index-in-modal: 2002 !default;
-
-// 2. Grid
+// 6. Grid
 // -------
+
+// Define the class names for each part of the grid.
+// E.g., `grid` === contains rows and columns
+//       `row` === contains columns
+//       `column` === contains content
 
 $grid-classes: (
   "grid": "grid",
@@ -113,44 +182,108 @@ $grid-classes: (
   "column": "column"
 ) !default;
 
+// Creates classes to be used on elements with the `grid` class
+// E.g., `is-narrow`
+
 $grid-widths: (
   "fluid": 100%,
   "narrow": 768px,
   "wide": 1200px
 ) !default;
 
+// Creates classes to be used on elements with the `grid` class
+// E.g., `is-section-md`
+
 $grid-sections: (
-  "small": 48px,
-  "medium": 96px,
-  "large": 144px
+  "sm": 48px,
+  "md": 96px,
+  "lg": 144px
 ) !default;
 
-$breakpoints: (
-  "xsmall": 0,
-  "small": 576px,
-  "medium": 768px,
-  "large": 992px,
-  "xlarge": 1200px
+// Breakpoint keys and values are used in:
+// - Flex grid
+// - Spacing utility classes
+// - Display utility classes
+// - Header tags and utility classes
+
+$grid-breakpoints: (
+  "xs": 0,
+  "sm": 576px,
+  "md": 768px,
+  "lg": 992px,
+  "xl": 1200px
 ) !default;
 
-$grid-gutter: $global-space !default;
+// Define various aspects of the grid and its column helper classes
+
+$grid-padding: 0 ($global-space / 2) !default;
 $grid-width: 992px !default;
 
-$columns: 12 !default;
-$column-padding-top: 0 !default;
-$column-padding-bottom: $global-space !default;
-$column-gutter: $global-space / 2 !default;
+$grid-columns: 12 !default;
+$grid-column-padding-block-start: 0 !default;
+$grid-column-padding-block-end: $global-space !default;
+$grid-column-padding-inline: $global-space / 2 !default;
 
-$column-offset-classes: true !default;
-$column-order-classes: true !default;
+$grid-column-offset-classes-enabled: true !default;
+$grid-column-order-classes-enabled: true !default;
 
-// 3. Typography
+// ----------------
+// --> ELEMENTS <--
+// ----------------
+
+// 7. Typography
 // -------------
 
-// NOTE: You can treat this map as CSS proper, but in `key: value` format.
-// Add more breakpoints from `$breakpoints` to increase font scaling fidelity.
+// Header tag and class utility base styling.
+// E.g., <h1> thru <h6>
+//
+// NOTE: You can treat this map as CSS proper, but in a sass-map key-value format.
+
+$type-header-styles: (
+  "h1": (
+    "color": $color-gray200,
+    "font-style": normal,
+    "font-weight": bold,
+    "line-height": $global-line-height
+  ),
+  "h2": (
+    "color": $color-gray200,
+    "font-style": normal,
+    "font-weight": bold,
+    "line-height": $global-line-height
+  ),
+  "h3": (
+    "color": $color-gray200,
+    "font-style": normal,
+    "font-weight": bold,
+    "line-height": $global-line-height
+  ),
+  "h4": (
+    "color": $color-gray200,
+    "font-style": normal,
+    "font-weight": bold,
+    "line-height": $global-line-height
+  ),
+  "h5": (
+    "color": $color-gray200,
+    "font-style": normal,
+    "font-weight": bold,
+    "line-height": $global-line-height
+  ),
+  "h6": (
+    "color": $color-gray200,
+    "font-style": normal,
+    "font-weight": bold,
+    "line-height": $global-line-height
+  )
+) !default;
+
+// Header tag responsive properties.
+//
+// NOTE 1: The size keys must match the keys in `$grid-breakpoints`.
+// NOTE 2: You can treat this map as CSS proper, but in a sass-map key-value format.
 $type-header-sizes: (
-  "xsmall": (
+  "xs": (
     "h1": (
       "font-size": 28px,
       "margin": 0 0 $global-space 0
@@ -176,7 +309,7 @@ $type-header-sizes: (
       "margin": 0 0 $global-space 0
     )
   ),
-  "medium": (
+  "md": (
     "h1": (
       "font-size": 32px,
       "margin": 0 0 $global-space 0
@@ -202,7 +335,7 @@ $type-header-sizes: (
       "margin": 0 0 $global-space 0
     )
   ),
-  "large": (
+  "lg": (
     "h1": (
       "font-size": 36px,
       "margin": 0 0 $global-space 0
@@ -230,58 +363,30 @@ $type-header-sizes: (
   )
 ) !default;
 
-// NOTE: You can treat this map as CSS proper, but in `key: value` format.
-$type-header-styles: (
-  "h1": (
-    "color": $gray200,
-    "font-style": normal,
-    "font-weight": bold
-  ),
-  "h2": (
-    "color": $gray200,
-    "font-style": normal,
-    "font-weight": bold
-  ),
-  "h3": (
-    "color": $gray200,
-    "font-style": normal,
-    "font-weight": bold
-  ),
-  "h4": (
-    "color": $gray200,
-    "font-style": normal,
-    "font-weight": bold
-  ),
-  "h5": (
-    "color": $gray200,
-    "font-style": normal,
-    "font-weight": bold
-  ),
-  "h6": (
-    "color": $gray200,
-    "font-style": normal,
-    "font-weight": bold
-  )
-) !default;
+// <p> tag base styling.
 
-$type-header-line-height: 1.3 !default;
-
-$type-p-color: $gray200 !default;
+$type-p-color: $color-gray200 !default;
 $type-p-font-size: $global-font-size !default;
 $type-p-font-style: normal !default;
 $type-p-font-weight: normal !default;
 $type-p-line-height: $global-line-height !default;
 $type-p-margin-bottom: $global-font-size !default;
 
-$type-code-font: $global-monospace !default;
+// Monospace text tag base styling.
+// E.g., <pre>, <code>, <kbd>, <samp>, <tt>
+
+$type-code-font: $global-font-monospace !default;
 $type-code-font-size: $global-font-size !default;
-$type-code-color: $gray600 !default;
-$type-code-background: lighten($gray900, 10%) !default;
+$type-code-color: $color-gray600 !default;
+$type-code-bg: lighten($color-gray900, 10%) !default;
 $type-code-border: none !default;
 $type-code-radius: $global-border-radius !default;
 $type-code-padding: 0 !default;
 
 $type-pre-padding: $global-space !default;
+
+// Font modifier tags.
+// E.g., <strong>, <em>, <small>, <mark>
 
 $type-strong-font-style: normal !default;
 $type-strong-font-weight: bold !default;
@@ -293,28 +398,35 @@ $type-small-font-size: 75% !default;
 $type-small-font-weight: inherit !default;
 
 $type-mark-padding: 0 !default;
-$type-mark-color: $gray200 !default;
-$type-mark-background: net-status-color(warning) !default;
+$type-mark-color: $color-gray200 !default;
+$type-mark-bg: $color-warning !default;
 
-$underline-text-decoration: underline !default;
+$type-underline-text-decoration: underline !default;
 
-$hr-border: 1px solid $gray900 !default;
-$hr-margin: net-spacing-value(4) 0 !default;
+// List tag base styling.
+// E.g., <ol>, <ul>
 
-$ul-list-style: disc !default;
-$ol-list-style: decimal !default;
+$type-ul-list-style: disc !default;
+$type-ol-list-style: decimal !default;
 
-$list-padding-bottom: $global-space !default;
-$list-padding-start: 22px !default;
-$list-margin: 0 !default;
-$list-font: $global-font-sans !default;
-$list-item-margin: 0 !default;
-$list-item-padding: 8px 0 !default;
+$type-list-padding-bottom: $global-space !default;
+$type-list-padding-start: 22px !default;
+$type-list-margin: 0 !default;
+$type-list-font: $global-font-sans !default;
+$type-list-item-margin: 0 !default;
+$type-list-item-padding: 8px 0 !default;
 
-// 4. Buttons
+// <hr> base styling.
+
+$hr-border: 1px solid $color-gray900 !default;
+$hr-margin: spacing-value(xl) 0 !default;
+
+// 8. Buttons
 // ----------
 
-// Base button styling
+// <button> tag base styling.
+//
+// NOTE: All other buttons inherit these values.
 
 $button-padding: 6px 18px !default;
 $button-margin: 0 0 $global-space 0 !default;
@@ -325,278 +437,256 @@ $button-font-size: $global-font-size !default;
 $button-font-style: normal !default;
 $button-font-weight: normal !default;
 $button-font: $global-font-sans !default;
-$button-decoration: none !default;
+$button-text-decoration: none !default;
 
-// Base button state styling
-// NOTE: You can treat this map as CSS proper, but in `key: value` format.
-$button-base: (
+// Base button state styling.
+//
+// NOTE: You can treat this map as CSS proper, but in a sass-map key-value format.
+
+$button-base-states: (
   "default": (
-    "background": $white,
-    "color": $gray200,
-    "border-color": $gray800
+    "background": $color-white,
+    "color": $color-gray200,
+    "border-color": $color-gray800
   ),
   "hover": (
-    "background": $white,
-    "color": $gray200,
-    "border-color": $gray600,
+    "background": $color-white,
+    "color": $color-gray200,
+    "border-color": $color-gray600,
     "text-decoration": none
   ),
   "active": (
-    "background": lighten($gray900, 10%),
-    "color": $gray200,
-    "border-color": $gray400,
+    "background": lighten($color-gray900, 10%),
+    "color": $color-gray200,
+    "border-color": $color-gray400,
     "text-decoration": none
   ),
   "focus": (
-    "background": lighten($gray900, 10%),
-    "color": $gray200,
-    "border-color": $gray600,
+    "color": $color-gray200,
     "text-decoration": none
   )
 ) !default;
 
-// Button size modifier styling
-// NOTE: You can treat this map as CSS proper, but in `key: value` format.
+// Button size modifier styling.
+// E.g., `is-lg`
+//
+// Sizes do NOT correlate to breakpoints.
+// You can add any size key for your own buttons.
+//
+// NOTE: You can treat this map as CSS proper, but in a sass-map key-value format.
+
 $button-sizes: (
-  "is-small": (
+  "sm": (
     "padding": 4px 14px,
     "font-size": 14px
   ),
-  "is-medium": (
+  "md": (
     "padding": 8px 20px,
     "font-size": $global-font-size
   ),
-  "is-large": (
+  "lg": (
     "padding": 10px 30px,
     "font-size": 20px
   ),
-  "is-huge": (
+  "xl": (
     "padding": 10px 34px,
     "font-size": 24px
   )
 ) !default;
 
 // Specialized button modifier styling
-// NOTE: You can treat this map as CSS proper, but in `key: value` format.
+// E.g., `is-tertiary`
+//
+// NOTE: You can treat this map as CSS proper, but in a sass-map key-value format.
+
 $button-types: (
-  "is-primary": (
+  "primary": (
     "default": (
-      "background": lighten($primary-color, 5%),
-      "color": $white,
+      "background": lighten($color-primary, 5%),
+      "color": $color-white,
       "border-color": transparent
     ),
     "hover": (
-      "background": $primary-color,
-      "color": $white,
+      "background": $color-primary,
+      "color": $color-white,
       "border-color": transparent
     ),
     "active": (
-      "background": darken($primary-color, 2%),
-      "color": $white,
-      "border-color": transparent
-    ),
-    "focus": (
-      "background": darken($primary-color, 2%),
-      "color": $white,
+      "background": darken($color-primary, 2%),
+      "color": $color-white,
       "border-color": transparent
     )
   ),
-  "is-secondary": (
+  "secondary": (
     "default": (
       "background": transparent,
-      "color": lighten($primary-color, 5%),
-      "border-color": lighten($primary-color, 5%)
+      "color": lighten($color-primary, 5%),
+      "border-color": lighten($color-primary, 5%)
     ),
     "hover": (
       "background": transparent,
-      "color": $primary-color,
-      "border-color": $primary-color
+      "color": $color-primary,
+      "border-color": $color-primary
     ),
     "active": (
       "background": transparent,
-      "color": darken($primary-color, 2%),
-      "border-color": darken($primary-color, 2%)
-    ),
-    "focus": (
-      "background": transparent,
-      "color": darken($primary-color, 2%),
-      "border-color": darken($primary-color, 2%)
+      "color": darken($color-primary, 2%),
+      "border-color": darken($color-primary, 2%)
     )
   ),
-  "is-tertiary": (
+  "tertiary": (
     "default": (
       "background": transparent,
-      "color": $primary-color,
+      "color": $color-primary,
       "border-color": transparent
     ),
     "hover": (
-      "background": rgba($gray900, 0.2),
-      "color": $primary-color,
+      "background": rgba($color-gray900, 0.2),
+      "color": $color-primary,
       "border-color": transparent
     ),
     "active": (
-      "background": rgba($gray900, 0.3),
-      "color": $primary-color,
-      "border-color": transparent
-    ),
-    "focus": (
-      "background": rgba($gray900, 0.3),
-      "color": $primary-color,
+      "background": rgba($color-gray900, 0.3),
+      "color": $color-primary,
       "border-color": transparent
     )
   ),
-  "is-inverted": (
+  "inverted": (
     "default": (
-      "background": lighten($gray900, 5%),
-      "color": $gray200,
+      "background": lighten($color-gray900, 5%),
+      "color": $color-gray200,
       "border-color": transparent
     ),
     "hover": (
-      "background": $white,
-      "color": $gray200,
+      "background": $color-white,
+      "color": $color-gray200,
       "border-color": transparent
     ),
     "active": (
-      "background": $gray900,
-      "color": $gray200,
-      "border-color": transparent
-    ),
-    "focus": (
-      "background": $gray900,
-      "color": $gray200,
+      "background": $color-gray900,
+      "color": $color-gray200,
       "border-color": transparent
     )
   ),
-  "is-inverted-outline": (
+  "inverted-outline": (
     "default": (
       "background": transparent,
-      "color": $white,
-      "border-color": $gray900
+      "color": $color-white,
+      "border-color": $color-gray900
     ),
     "hover": (
       "background": transparent,
-      "color": $white,
-      "border-color": $white
+      "color": $color-white,
+      "border-color": $color-white
     ),
     "active": (
       "background": transparent,
-      "color": $white,
-      "border-color": darken($gray900, 2%)
-    ),
-    "focus": (
-      "background": transparent,
-      "color": $white,
-      "border-color": darken($gray900, 2%)
+      "color": $color-white,
+      "border-color": darken($color-gray900, 2%)
     )
   ),
-  "is-warning": (
+  "warning": (
     "default": (
-      "background": darken(net-status-color(warning), 5%),
-      "color": $black,
+      "background": darken($color-warning, 5%),
+      "color": $color-black,
       "border-color": transparent
     ),
     "hover": (
-      "background": net-status-color(warning),
-      "color": $black,
+      "background": $color-warning,
+      "color": $color-black,
       "border-color": transparent
     ),
     "active": (
-      "background": darken(net-status-color(warning), 2%),
-      "color": $black,
-      "border-color": transparent
-    ),
-    "focus": (
-      "background": darken(net-status-color(warning), 2%),
-      "color": $black,
+      "background": darken($color-warning, 2%),
+      "color": $color-black,
       "border-color": transparent
     )
   ),
-  "is-success": (
+  "success": (
     "default": (
-      "background": darken(net-status-color(success), 5%),
-      "color": $white,
+      "background": darken($color-success, 5%),
+      "color": $color-white,
       "border-color": transparent
     ),
     "hover": (
-      "background": net-status-color(success),
-      "color": $white,
+      "background": $color-success,
+      "color": $color-white,
       "border-color": transparent
     ),
     "active": (
-      "background": darken(net-status-color(success), 2%),
-      "color": $white,
-      "border-color": transparent
-    ),
-    "focus": (
-      "background": darken(net-status-color(success), 2%),
-      "color": $white,
+      "background": darken($color-success, 2%),
+      "color": $color-white,
       "border-color": transparent
     )
   ),
-  "is-destroy": (
+  "destroy": (
     "default": (
-      "background": darken(net-status-color(destroy), 5%),
-      "color": $white,
+      "background": darken($color-destroy, 5%),
+      "color": $color-white,
       "border-color": transparent
     ),
     "hover": (
-      "background": net-status-color(destroy),
-      "color": $white,
+      "background": $color-destroy,
+      "color": $color-white,
       "border-color": transparent
     ),
     "active": (
-      "background": darken(net-status-color(destroy), 2%),
-      "color": $white,
-      "border-color": transparent
-    ),
-    "focus": (
-      "background": darken(net-status-color(destroy), 2%),
-      "color": $white,
+      "background": darken($color-destroy, 2%),
+      "color": $color-white,
       "border-color": transparent
     )
   ),
-  "is-notice": (
+  "notice": (
     "default": (
-      "background": darken(net-status-color(notice), 5%),
-      "color": $white,
+      "background": darken($color-notice, 5%),
+      "color": $color-white,
       "border-color": transparent
     ),
     "hover": (
-      "background": net-status-color(notice),
-      "color": $white,
+      "background": $color-notice,
+      "color": $color-white,
       "border-color": transparent
     ),
     "active": (
-      "background": darken(net-status-color(notice), 2%),
-      "color": $white,
-      "border-color": transparent
-    ),
-    "focus": (
-      "background": darken(net-status-color(notice), 2%),
-      "color": $white,
+      "background": darken($color-notice, 2%),
+      "color": $color-white,
       "border-color": transparent
     )
   )
 ) !default;
 
-// Text links
+// 9. Links
+// --------
 
-$link-color: lighten($primary-color, 10%) !default;
-$link-decoration: none !default;
-$link-decoration-hover: underline !default;
+$link-color: lighten($color-primary, 10%) !default;
+$link-text-decoration: none !default;
+$link-text-decoration-hover: underline !default;
 $link-font: $global-font-sans !default;
 $link-style: normal !default;
 $link-weight: normal !default;
 $link-font-size: $global-font-size !default;
-$link-hover: $primary-color !default;
+$link-hover: $color-primary !default;
 $link-active: $link-hover !default;
 
-// 5. Forms
+// 10. Forms
 // --------
 
-$input-button-types: ("submit", "file", "reset", "button") !default;
-$input-check-types: ("checkbox", "radio") !default;
-$input-field-types: (
+// <form> tag base styling.
+
+$form-margin: 0 !default;
+$form-padding: 0 !default;
+$form-bg: transparent !default;
+$form-box-shadow: none !default;
+$form-border: none !default;
+$form-font-family: $global-font-sans !default;
+$form-radius: $global-border-radius !default;
+
+// Define which input tag types to target for styling.
+// E.g., type="text"
+
+$form-input-button-types: ("submit", "file", "reset", "button") !default;
+$form-input-check-types: ("checkbox", "radio") !default;
+$form-input-field-types: (
   "text",
   "password",
   "email",
@@ -611,104 +701,110 @@ $input-field-types: (
   "week"
 ) !default;
 
-// Form tag
+// User input tag styling.
+// E.g., <input>, <textarea>
 
-$form-margin: 0 !default;
-$form-padding: 0 !default;
-$form-background: transparent !default;
-$form-box-shadow: none !default;
-$form-border: none !default;
-$form-font-family: $global-font-sans !default;
-$form-radius: $global-border-radius !default;
+$form-textarea-resize: vertical !default;
 
-// Input + Textarea
+$form-input-font-size: $global-font-size !default;
+$form-input-font-family: $form-font-family !default;
+$form-input-box-shadow: none !default;
+$form-input-border: $global-border-width solid $color-gray800 !default;
+$form-input-padding: 12px !default;
+$form-input-margin: 8px 0 $global-space 0 !default;
+$form-input-border-radius: $form-radius !default;
+$form-input-bg: $color-white !default;
 
-$input-font-size: $global-font-size !default;
-$input-font-family: $form-font-family !default;
-$input-box-shadow: none !default;
-$input-border: $global-border-width solid $gray800 !default;
-$input-padding: 12px !default;
-$input-margin: 8px 0 $global-space 0 !default;
-$input-border-radius: $form-radius !default;
-$input-background: $white !default;
-$input-resize: vertical !default;
+$form-input-hover-bg: $form-input-bg !default;
+$form-input-hover-border: $global-border-width solid $color-gray600 !default;
+$form-input-hover-box-shadow: $form-input-box-shadow !default;
 
-$input-hover-background: $input-background !default;
-$input-hover-border: $global-border-width solid $gray600 !default;
-$input-hover-box-shadow: $input-box-shadow !default;
+$form-input-focus-bg: $form-input-bg !default;
+$form-input-focus-border: $global-border-width solid $color-primary !default;
+$form-input-focus-box-shadow: $form-input-box-shadow !default;
 
-$input-focus-background: $input-background !default;
-$input-focus-border: $global-border-width solid $primary-color !default;
-$input-focus-box-shadow: $input-box-shadow !default;
+$form-input-disabled-bg: $color-gray900 !default;
+$form-input-disabled-color: $color-gray400 !default;
+$form-input-disabled-border: $global-border-width solid $form-input-disabled-bg !default;
+$form-input-disabled-resize: none !default;
 
-$input-disabled-background: $gray900 !default;
-$input-disabled-color: $gray400 !default;
-$input-disabled-border: $global-border-width solid $input-disabled-background !default;
-$input-disabled-resize: none !default;
+// Check-style input type base styling.
+// E.g., type="radio", type="checkbox"
 
-// Radio and Checkbox
+$form-input-check-label-padding: 0 0 $global-space 0 !default;
+$form-input-check-padding: 0 !default;
+$form-input-check-margin: 0 12px 0 0 !default;
 
-$input-check-label-padding: 0 0 $global-space 0 !default;
-$input-check-padding: 0 !default;
-$input-check-margin: 0 12px 0 0 !default;
+// <fieldset> tag base styling.
 
-// Fieldset
+$form-fieldset-border: $global-border-width solid $color-gray900 !default;
+$form-fieldset-border-radius: $form-radius !default;
+$form-fieldset-box-shadow: none !default;
+$form-fieldset-bg: transparent !default;
+$form-fieldset-margin: 0 0 $global-space 0 !default;
+$form-fieldset-padding: 8px !default;
 
-$fieldset-border: $global-border-width solid $gray900 !default;
-$fieldset-border-radius: $form-radius !default;
-$fieldset-box-shadow: none !default;
-$fieldset-background: transparent !default;
-$fieldset-margin: 0 0 $global-space 0 !default;
-$fieldset-padding: 8px !default;
+// <legend> tag base styling.
 
-// Fieldset Legend
+$form-fieldset-legend-font-family: $form-font-family !default;
+$form-fieldset-legend-font-size: $global-font-size !default;
+$form-fieldset-legend-padding: 6px 12px !default;
+$form-fieldset-legend-margin: 0 8px !default;
+$form-fieldset-legend-color: $color-gray200 !default;
+$form-fieldset-legend-bg: $color-white !default;
+$form-fieldset-legend-box-shadow: none !default;
+$form-fieldset-legend-border: 2px solid $color-gray900 !default;
+$form-fieldset-legend-border-radius: $global-border-radius !default;
 
-$fieldset-legend-font-family: $form-font-family !default;
-$fieldset-legend-font-size: $global-font-size !default;
-$fieldset-legend-padding: 6px 12px !default;
-$fieldset-legend-color: $gray200 !default;
-$fieldset-legend-background: $white !default;
-$fieldset-legend-box-shadow: none !default;
-$fieldset-legend-border: 2px solid $gray900 !default;
-$fieldset-legend-border-radius: $global-border-radius !default;
+// ------------------
+// --> COMPONENTS <--
+// ------------------
 
-// 6. Modals
-// ---------
+// 11. Modals
+// ----------
 
 $modal-overlay-color: rgba(0, 0, 0, 0.5) !default;
 $modal-transition-duration: 0.3s !default;
 $modal-transition-ease: $global-ease !default;
 
-$modal-container-background-color: $white !default;
-$modal-container-border-radius: $global-border-radius !default;
-$modal-container-padding: $global-space !default;
-$modal-container-width: net-px-to-em(450px) !default;
-$modal-container-width-small: 95% !default;
-$modal-container-max-width: 95vw !default;
-$modal-container-margin: 40px auto !default;
-$modal-container-margin-small: $global-space auto !default;
+$modal-dialog-bg-color: $color-white !default;
+$modal-dialog-border-radius: $global-border-radius !default;
+$modal-dialog-padding: $global-space !default;
+$modal-dialog-width: px-to-em(450px) !default;
+$modal-dialog-width-narrow: 95% !default;
+$modal-dialog-max-width: 95vw !default;
+$modal-dialog-margin: 40px auto !default;
+$modal-dialog-margin-narrow: $global-space auto !default;
 
-$modal-header-font-size: 20px !default;
-$modal-header-border: 1px solid $gray900 !default;
+// Define the position of header and footer borders.
+// This should be a logical property.
 
-$modal-footer-border: 1px solid $gray900 !default;
-$modal-footer-button-alignment: flex-end !default;
+$modal-header-border-position: block-end !default;
+$modal-footer-border-position: block-start !default;
 
-$modal-horizontal-breakpoint: net-breakpoint-value(small) !default;
-$modal-vertical-breakpoint: net-breakpoint-value(small) !default;
+// Define the separators for modal <header> and <footer> elements.
 
-// 7. Accordions
-// -------------
+$modal-header-border: 1px solid $color-gray900 !default;
+$modal-footer-border: 1px solid $color-gray900 !default;
 
-$accordion-border: $global-border-width solid $gray900 !default;
+// Define at which breakpoint modal styling kicks in.
+// E.g., `sm` and below.
+
+$modal-breakpoint-inline: sm !default;
+$modal-breakpoint-block: sm !default;
+
+// 12. Accordions
+// --------------
+
+$accordion-border: $global-border-width solid $color-gray900 !default;
 $accordion-border-radius: $global-border-radius !default;
 $accordion-transition-duration: 0.5s !default;
 $accordion-transition-ease: $global-ease !default;
 
-$accordion-button-color: $primary-color !default;
-$accordion-button-background: $white !default;
-$accordion-button-color-hover: darken($primary-color, 2%) !default;
-$accordion-button-background-hover: lighten($gray900, 10%) !default;
+$accordion-button-color: $color-primary !default;
+$accordion-button-bg: $color-white !default;
+$accordion-button-color-hover: darken($color-primary, 2%) !default;
+$accordion-button-bg-hover: lighten($color-gray900, 10%) !default;
 $accordion-button-padding: $global-space !default;
 
 $accordion-expand-arrow: "\25B2" !default;
@@ -717,47 +813,52 @@ $accordion-row-divider: $accordion-border !default;
 
 $accordion-content-margin: $global-space !default;
 $accordion-content-font-size: $global-font-size !default;
-$accordion-content-background: $white !default;
+$accordion-content-bg: $color-white !default;
 
-// 8. Dropdowns
-// ------------
+// 13. Dropdowns
+// -------------
 
-$dropdown-arrows-enabled: true !default;
-$dropdown-border-color: $gray900 !default;
+// Enables arrow pointing to trigger element.
 
-$dropdown-button-arrow: "\25bc" !default;
-$dropdown-button-arrow-padding-start: 8px !default;
-$dropdown-button-arrow-font-size: 12px !default;
+$dropdown-arrow-enabled: true !default;
+$dropdown-arrow-offset: 12px !default;
+$dropdown-arrow-fill-color: $color-white !default;
+$dropdown-arrow-border-color: $color-gray900 !default;
 
-$dropdown-menu-direction-breakpoint: medium !default;
+// Breakpoint at which dropdowns can open in custom directions using modifier classes.
+// Below it, dropdowns always open inline-start, block-end.
+// Set to `xs` to effectively disable the behavior.
+
+$dropdown-menu-direction-breakpoint: md !default;
 
 $dropdown-menu-transition: opacity $global-transition !default;
 $dropdown-menu-padding: 8px 0 !default;
 $dropdown-menu-border-radius: $global-border-radius !default;
-$dropdown-menu-background-color: $white !default;
-$dropdown-menu-width: net-px-to-em(200px) !default;
+$dropdown-menu-bg-color: $color-white !default;
+$dropdown-menu-width: px-to-em(200px) !default;
 $dropdown-menu-max-width: 95vw !default;
-$dropdown-menu-border: 1px solid $dropdown-border-color !default;
-
-$dropdown-arrow-offset: 12px !default;
-$dropdown-arrow-fill-color: $dropdown-menu-background-color !default;
-$dropdown-arrow-border-color: $dropdown-border-color !default;
+$dropdown-menu-border: 1px solid $color-gray900 !default;
 
 $dropdown-menu-button-padding: 8px 12px !default;
-$dropdown-menu-button-text-color: $gray400 !default;
+$dropdown-menu-button-text-color: $color-gray400 !default;
 
 $dropdown-menu-rule-height: 1px !default;
-$dropdown-menu-rule-color: $gray900 !default;
+$dropdown-menu-rule-color: $color-gray900 !default;
 $dropdown-menu-rule-margin: 8px 0 !default;
 
 $dropdown-menu-header-font-size: 14px !default;
 $dropdown-menu-header-padding: 12px !default;
-$dropdown-menu-header-color: $gray800 !default;
+$dropdown-menu-header-color: $color-gray800 !default;
 
-// 9. Tooltips
-// -----------
+// 14. Tooltips
+// ------------
 
-$tooltip-arrows-enabled: true !default;
+// Enables arrow pointing to trigger element.
+
+$tooltip-arrow-enabled: true !default;
+$tooltip-arrow-offset: calc(50% - #{$global-arrow-size}) !default;
+$tooltip-arrow-fill-color: $color-gray100 !default;
+$tooltip-arrow-border-color: $color-gray100 !default;
 
 $tooltip-padding: 4px 8px !default;
 $tooltip-margin: 0 0 $global-arrow-size !default;
@@ -766,6 +867,6 @@ $tooltip-transition: $global-transition !default;
 
 $tooltip-font-size: 14px !default;
 $tooltip-border-radius: $global-border-radius !default;
-$tooltip-border: 1px solid $gray100 !default;
-$tooltip-color: $white !default;
-$tooltip-background: $gray100 !default;
+$tooltip-border: 1px solid $color-gray100 !default;
+$tooltip-color: $color-white !default;
+$tooltip-bg: $color-gray100 !default;
