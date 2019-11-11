@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import { Switch, Route } from "react-router-dom"
-import { ContextUtil } from "undernet"
+import { createFocusRing } from "undernet"
 
 import { rootPath, docsPath } from "app/routes"
 import GlobalNav from "app/components/GlobalNav"
@@ -13,6 +13,7 @@ import { FOCUSABLE_TABINDEX, UNFOCUSABLE_TABINDEX } from "./constants"
 import "./styles.scss"
 
 export default function Main() {
+  const focusRing = createFocusRing()
   const headerRef = React.useRef(null)
   const mainRef = React.useRef(null)
   const Attributes = {
@@ -22,12 +23,12 @@ export default function Main() {
   const getMainTabIndex = () => mainRef.current.getAttribute(Attributes.TABINDEX)
 
   const componentUnmountFunction = () => {
-    ContextUtil.unsetFocusRing()
+    focusRing.stop()
   }
 
   const observedState = []
   useEffect(() => {
-    ContextUtil.setFocusRing()
+    focusRing.start()
     return componentUnmountFunction
   }, observedState)
 

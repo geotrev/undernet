@@ -537,7 +537,7 @@ exports[`Modals API start sets attributes 1`] = `
 </body>
 `;
 
-exports[`Modals API stop -> Modal Button Click does not open modal 1`] = `
+exports[`Modals API stop + handleClick does not open modal 1`] = `
 <body>
   
   

@@ -38,8 +38,8 @@ exports[`<SideNav /> #handleMenuToggleClick toggles menu when button is clicked 
       9.9.9
     </p>
     <div
-      className="accordion-row is-xs-12 column has-no-p"
-      data-accordion-row="nav-acc-content0"
+      className="collapsible is-xs-12 column has-no-p"
+      data-collapsible="nav-collapsible-content0"
       data-visible="false"
       key="#"
     >
@@ -47,17 +47,17 @@ exports[`<SideNav /> #handleMenuToggleClick toggles menu when button is clicked 
         className="paragraph"
       >
         <button
-          className="accordion-button"
+          className="collapsible-trigger"
           data-parent="side-nav-accordion"
-          data-target="nav-acc-content0"
-          id="nav-acc-button0"
+          data-target="nav-collapsible-content0"
+          id="nav-collapsible-trigger0"
         >
           Test Header
         </button>
       </h4>
       <ul
-        className="accordion-content"
-        id="nav-acc-content0"
+        className="collapsible-content"
+        id="nav-collapsible-content0"
       >
         <li
           key="Test 1"
@@ -139,8 +139,8 @@ exports[`<SideNav /> #handleMenuVisibility hides menu at or below 1199 1`] = `
       9.9.9
     </p>
     <div
-      className="accordion-row is-xs-12 column has-no-p"
-      data-accordion-row="nav-acc-content0"
+      className="collapsible is-xs-12 column has-no-p"
+      data-collapsible="nav-collapsible-content0"
       data-visible="false"
       key="#"
     >
@@ -148,17 +148,17 @@ exports[`<SideNav /> #handleMenuVisibility hides menu at or below 1199 1`] = `
         className="paragraph"
       >
         <button
-          className="accordion-button"
+          className="collapsible-trigger"
           data-parent="side-nav-accordion"
-          data-target="nav-acc-content0"
-          id="nav-acc-button0"
+          data-target="nav-collapsible-content0"
+          id="nav-collapsible-trigger0"
         >
           Test Header
         </button>
       </h4>
       <ul
-        className="accordion-content"
-        id="nav-acc-content0"
+        className="collapsible-content"
+        id="nav-collapsible-content0"
       >
         <li
           key="Test 1"
@@ -240,8 +240,8 @@ exports[`<SideNav /> #handleMenuVisibility shows menu above 1199 1`] = `
       9.9.9
     </p>
     <div
-      className="accordion-row is-xs-12 column has-no-p"
-      data-accordion-row="nav-acc-content0"
+      className="collapsible is-xs-12 column has-no-p"
+      data-collapsible="nav-collapsible-content0"
       data-visible="false"
       key="#"
     >
@@ -249,17 +249,17 @@ exports[`<SideNav /> #handleMenuVisibility shows menu above 1199 1`] = `
         className="paragraph"
       >
         <button
-          className="accordion-button"
+          className="collapsible-trigger"
           data-parent="side-nav-accordion"
-          data-target="nav-acc-content0"
-          id="nav-acc-button0"
+          data-target="nav-collapsible-content0"
+          id="nav-collapsible-trigger0"
         >
           Test Header
         </button>
       </h4>
       <ul
-        className="accordion-content"
-        id="nav-acc-content0"
+        className="collapsible-content"
+        id="nav-collapsible-content0"
       >
         <li
           key="Test 1"
@@ -346,8 +346,8 @@ exports[`<SideNav /> #render renders 1`] = `
           9.9.9
         </p>
         <div
-          className="accordion-row is-xs-12 column has-no-p"
-          data-accordion-row="nav-acc-content0"
+          className="collapsible is-xs-12 column has-no-p"
+          data-collapsible="nav-collapsible-content0"
           data-visible="false"
           key="#"
         >
@@ -355,17 +355,17 @@ exports[`<SideNav /> #render renders 1`] = `
             className="paragraph"
           >
             <button
-              className="accordion-button"
+              className="collapsible-trigger"
               data-parent="side-nav-accordion"
-              data-target="nav-acc-content0"
-              id="nav-acc-button0"
+              data-target="nav-collapsible-content0"
+              id="nav-collapsible-trigger0"
             >
               Test Header
             </button>
           </h4>
           <ul
-            className="accordion-content"
-            id="nav-acc-content0"
+            className="collapsible-content"
+            id="nav-collapsible-content0"
           >
             <li
               key="Test 1"

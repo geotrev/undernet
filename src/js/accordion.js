@@ -1,251 +1,132 @@
-import { getFocusableElements, dom, browserEnv } from "./utils"
+import Collapsible from "./collapsible"
+import { dom } from "./utils"
 
 const Selectors = {
   // unique
   DATA_ACCORDION: "data-accordion",
-  DATA_ACCORDION_ROW: "data-accordion-row",
+  DATA_COLLAPSIBLE: "data-collapsible",
+  DATA_TOGGLE_MULTIPLE: "data-toggle-multiple",
   // common
+  DATA_PARENT: "data-parent",
   DATA_VISIBLE: "data-visible",
   DATA_TARGET: "data-target",
-  DATA_TOGGLE_MULTIPLE: "data-toggle-multiple",
-  DATA_PARENT: "data-parent",
   // accessibility
   ARIA_EXPANDED: "aria-expanded",
-  ARIA_CONTROLS: "aria-controls",
   ARIA_HIDDEN: "aria-hidden",
-  ARIA_LABELLEDBY: "aria-labelledby",
-  TABINDEX: "tabindex",
-}
-
-const Events = {
-  CLICK: "click",
-  KEYDOWN: "keydown",
 }
 
 const Messages = {
-  NO_VISIBLE_ERROR: id =>
-    `Could not find accordion row with [data-visible] attribute associated with [data-target='${id}'].`,
-  NO_ROW_ERROR: id => `Could not find [data-accordion-row] associated with [data-target='${id}'].`,
-  NO_HEADER_ID_ERROR: attr => `Could not find an id on your header associated with ${attr}.`,
-  NO_ACCORDION_ID_ERROR: id =>
-    `Could not find [data-accordion] attribute associated with [data-target='${id}'].`,
-  NO_CONTENT_ERROR: id =>
-    `Could not find accordion content block with id '${id}'; should match trigger with [data-target='${id}'].`,
+  NO_ACCORDION_ID_ERROR:
+    "Could not initialize accordion; you must include a value for the 'data-accordion' attribute.",
+  NO_ACCORDION_ERROR: id => `Could not find element matching [data-accordion='${id}']`,
 }
 
-const BASE_FONT_SIZE = 16
-
-export default class Accordion {
+/**
+ * Class that instantiates or destroys all instances of accordion components on a page.
+ *
+ * @module Accordion
+ * @extends Collapsible
+ */
+export default class Accordion extends Collapsible {
   constructor() {
+    super()
+
     // events
-    this._render = this._render.bind(this)
+    this._handleClick = this._handleClick.bind(this)
 
     // all accordions
-    this._accordionButtons = []
-    this._accordionContentsAttr = ""
-    this._accordionContents = []
+    this._accordions = []
 
     // active accordion
-    this._activeContainer = {}
-    this._activeButton = {}
-    this._activeAccordionRowId = ""
-    this._activeRowAttr = ""
-    this._activeRow = ""
-    this._activeContainerId = ""
-    this._activeContainerAttr = ""
-    this._activeContent = {}
-    this._activeButtonExpandState = ""
-    this._activeContentHiddenState = ""
-
-    // other data
-    this._headers = ["h1", "h2", "h3", "h4", "h5", "h6"]
+    this._activeAccordionId = ""
+    this._activeAccordion = {}
+    this._toggleMultipleEnabled = false
   }
 
   // public
 
   start() {
-    if (!browserEnv) return
+    this._accordions = dom.findAll(`[${Selectors.DATA_ACCORDION}]`)
 
-    const accordionButtonSelector = this._getAccordionButtonSelector(
-      `[${Selectors.DATA_ACCORDION}]`
-    )
-    this._accordionButtons = dom.findAll(accordionButtonSelector)
-
-    if (this._accordionButtons.length) {
-      this._accordionButtons.forEach(instance => {
-        this._setup(instance)
-        instance.addEventListener(Events.CLICK, this._render)
-      })
+    if (this._accordions) {
+      super.start({ controlled: true, onClick: this._handleClick })
     }
-  }
-
-  stop() {
-    if (!browserEnv) return
-
-    this._accordionButtons.forEach(instance => {
-      instance.removeEventListener(Events.CLICK, this._render)
-    })
   }
 
   // private
 
-  _setup(instance) {
-    const buttonTargetId = dom.getAttr(instance, Selectors.DATA_TARGET)
-    const accordionId = dom.getAttr(instance, Selectors.DATA_PARENT)
-    const buttonContent = dom.find(`#${buttonTargetId}`)
+  _handleClick(event) {
+    const activeTrigger = event.target
 
-    if (!accordionId) {
-      throw new Error(Messages.NO_ACCORDION_ID_ERROR(buttonTargetId))
+    super._handleClick(event)
+
+    this._setActiveAccordionId(activeTrigger)
+
+    if (!this._activeAccordionId) {
+      console.warn(Messages.NO_ACCORDION_ID_ERROR)
+      return
     }
 
-    if (!buttonContent) {
-      throw new Error(Messages.NO_CONTENT_ERROR(buttonTargetId))
+    this._setActiveAccordion()
+
+    if (!this._activeAccordion) {
+      console.warn(Messages.NO_ACCORDION_ERROR(this._activeAccordionId))
+      return
     }
 
-    const accordionRowAttr = this._getAccordionRowAttr(buttonTargetId)
-    const accordionRow = dom.find(accordionRowAttr)
+    this._setToggleMultiple()
 
-    if (!accordionRow) {
-      throw new Error(Messages.NO_ROW_ERROR(buttonTargetId))
-    }
+    this._closeAllCollapsibles(activeTrigger)
+  }
 
-    const buttonId = instance.id
+  _closeAllCollapsibles(activeTrigger) {
+    if (this._toggleMultipleEnabled) return
 
-    if (!buttonId) {
-      throw new Error(Messages.NO_HEADER_ID_ERROR(accordionRowAttr))
-    }
+    const collapsibleTriggerAttr = `[${Selectors.DATA_ACCORDION}='${this._activeAccordionId}'] [${Selectors.DATA_PARENT}='${this._activeAccordionId}']`
+    const openCollapsibles = dom
+      .findAll(collapsibleTriggerAttr, this._activeAccordion)
+      .filter(trigger => trigger !== activeTrigger && this._isExpanded(trigger))
 
-    const buttonContentChildren = getFocusableElements(`#${buttonContent.id}`)
-
-    dom.setAttr(instance, Selectors.ARIA_CONTROLS, buttonTargetId)
-    dom.setAttr(buttonContent, Selectors.ARIA_LABELLEDBY, buttonId)
-
-    const contentShouldExpand = dom.getAttr(accordionRow, Selectors.DATA_VISIBLE)
-
-    if (!contentShouldExpand) {
-      throw new Error(Messages.NO_VISIBLE_ERROR(buttonTargetId))
-    }
-
-    if (contentShouldExpand === "true") {
-      dom.css(buttonContent, "maxHeight", `${buttonContent.scrollHeight / BASE_FONT_SIZE}em`)
-      dom.setAttr(instance, Selectors.ARIA_EXPANDED, "true")
-      dom.setAttr(buttonContent, Selectors.ARIA_HIDDEN, "false")
-
-      buttonContentChildren.forEach(element => {
-        dom.setAttr(element, Selectors.TABINDEX, "0")
-      })
-    } else {
-      dom.setAttr(instance, Selectors.ARIA_EXPANDED, "false")
-      dom.setAttr(buttonContent, Selectors.ARIA_HIDDEN, "true")
-
-      buttonContentChildren.forEach(element => {
-        dom.setAttr(element, Selectors.TABINDEX, "-1")
-      })
+    if (openCollapsibles.length && this._isExpanded(activeTrigger)) {
+      openCollapsibles.forEach(this._closeCollapsible)
     }
   }
 
-  _render(event) {
-    event.preventDefault()
+  _closeCollapsible(trigger) {
+    const id = dom.getAttr(trigger, Selectors.DATA_TARGET)
+    const collapsible = dom.find(`[${Selectors.DATA_COLLAPSIBLE}='${id}']`)
+    const content = dom.find(`#${id}`, collapsible)
+    const nextAriaExpandState = "false"
+    const nextAriaHiddenState = "true"
 
-    this._activeButton = event.target
-
-    this._setIds()
-    this._setActiveRow()
-    this._setActiveContainer()
-    this._setActiveContent()
-    this._setVisibleState()
-
-    const canExpandMultiple = dom.hasAttr(this._activeContainer, Selectors.DATA_TOGGLE_MULTIPLE)
-
-    if (!canExpandMultiple) this._closeAllIfToggleable()
-
-    this._toggleSelectedAccordion()
-
-    this._activeRow = null
-    this._activeButton = null
-    this._activeContent = null
-    this._activeContainer = null
-  }
-
-  _setActiveContent() {
-    this._activeContent = dom.find(`#${this._activeAccordionRowId}`)
-  }
-
-  _setVisibleState() {
-    const accordionButtonState = dom.getAttr(this._activeRow, Selectors.DATA_VISIBLE)
-    this._nextButtonExpandState = accordionButtonState === "true" ? "false" : "true"
-    this._nextContentHiddenState = this._nextButtonExpandState === "false" ? "true" : "false"
-  }
-
-  _setIds() {
-    this._activeContainerId = dom.getAttr(this._activeButton, Selectors.DATA_PARENT)
-    this._activeAccordionRowId = dom.getAttr(this._activeButton, Selectors.DATA_TARGET)
-  }
-
-  _setActiveContainer() {
-    this._activeContainerAttr = `[${Selectors.DATA_ACCORDION}='${this._activeContainerId}']`
-    this._activeContainer = dom.find(this._activeContainerAttr)
-  }
-
-  _setActiveRow() {
-    this._activeRowAttr = this._getAccordionRowAttr(this._activeAccordionRowId)
-    this._activeRow = dom.find(this._activeRowAttr)
-  }
-
-  _getAccordionButtonSelector(attr) {
-    return this._headers
-      .map(header => {
-        return `${attr} > [${Selectors.DATA_ACCORDION_ROW}] > ${header} [${Selectors.DATA_TARGET}]`
-      })
-      .join(", ")
-  }
-
-  _getAccordionRowAttr(id) {
-    return `[${Selectors.DATA_ACCORDION_ROW}='${id}']`
-  }
-
-  _closeAllIfToggleable() {
-    const allContentAttr = `${this._activeContainerAttr} > [${Selectors.DATA_ACCORDION_ROW}] > [${Selectors.ARIA_HIDDEN}]`
-    const allContent = dom.findAll(allContentAttr)
-    const accordionButtonSelector = this._getAccordionButtonSelector(this._activeContainerAttr)
-    const allButtons = dom.findAll(accordionButtonSelector)
-    const allRows = dom.findAll(`${this._activeContainerAttr} > [${Selectors.DATA_ACCORDION_ROW}]`)
-
-    allContent
-      .filter(content => content !== this._activeContent)
-      .forEach(content => dom.css(content, "maxHeight", null))
-
-    getFocusableElements(allContentAttr).forEach(element => {
-      element.setAttribute(Selectors.TABINDEX, "-1")
+    super.toggleCollapsible({
+      id,
+      collapsible,
+      trigger,
+      content,
+      nextAriaExpandState,
+      nextAriaHiddenState,
     })
-
-    this._toggleAttributeInCollection(allRows, Selectors.DATA_VISIBLE, "false")
-    this._toggleAttributeInCollection(allButtons, Selectors.ARIA_EXPANDED, "false")
-    this._toggleAttributeInCollection(allContent, Selectors.ARIA_HIDDEN, "true")
   }
 
-  _toggleSelectedAccordion() {
-    dom.setAttr(this._activeRow, Selectors.DATA_VISIBLE, this._nextButtonExpandState)
-    dom.setAttr(this._activeButton, Selectors.ARIA_EXPANDED, this._nextButtonExpandState)
-    dom.setAttr(this._activeContent, Selectors.ARIA_HIDDEN, this._nextContentHiddenState)
+  _isExpanded(trigger) {
+    const id = dom.getAttr(trigger, Selectors.DATA_TARGET)
+    const collapsible = dom.find(
+      `[${Selectors.DATA_ACCORDION}='${this._activeAccordionId}'] [${Selectors.DATA_COLLAPSIBLE}='${id}']`
+    )
 
-    getFocusableElements(`#${this._activeAccordionRowId}`).forEach(element => {
-      const value = this._nextButtonExpandState === "true" ? "0" : "-1"
-      dom.setAttr(element, Selectors.TABINDEX, value)
-    })
-
-    if (dom.css(this._activeContent, "maxHeight")) {
-      dom.css(this._activeContent, "maxHeight", null)
-    } else {
-      dom.css(
-        this._activeContent,
-        "maxHeight",
-        `${this._activeContent.scrollHeight / BASE_FONT_SIZE}em`
-      )
-    }
+    return dom.getAttr(collapsible, Selectors.DATA_VISIBLE) === "true"
   }
 
-  _toggleAttributeInCollection(elements, attributeName, value) {
-    elements.forEach(element => dom.setAttr(element, attributeName, value))
+  _setActiveAccordionId(trigger) {
+    this._activeAccordionId = dom.getAttr(trigger, Selectors.DATA_PARENT)
+  }
+
+  _setActiveAccordion() {
+    this._activeAccordion = dom.find(`[${Selectors.DATA_ACCORDION}='${this._activeAccordionId}']`)
+  }
+
+  _setToggleMultiple() {
+    this._toggleMultipleEnabled = dom.hasAttr(this._activeAccordion, Selectors.DATA_TOGGLE_MULTIPLE)
   }
 }

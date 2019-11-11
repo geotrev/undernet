@@ -15,6 +15,7 @@ export const buttonsPath = "/docs/elements/buttons"
 export const formsPath = "/docs/elements/forms"
 export const typographyPath = "/docs/elements/typography"
 
+export const collapsiblesPath = "/docs/components/collapsibles"
 export const accordionsPath = "/docs/components/accordions"
 export const dropdownsPath = "/docs/components/dropdowns"
 export const modalsPath = "/docs/components/modals"

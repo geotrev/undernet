@@ -1,28 +1,28 @@
 import Undernet from "../"
 
 const dom = `
-  <div data-accordion="accordion-1" class="accordion">
-    <div class="accordion-row" data-visible="true" data-accordion-row="content-1">
+  <div data-accordion="accordion-id" class="accordion">
+    <div class="collapsible" data-collapsible="collapsible-id-1">
       <h5>
-        <button id="button-1" data-parent="accordion-1" class="accordion-button" data-target="content-1">
-          Accordion Button 1
+        <button id="collapsible-trigger-id" class="collapsible-trigger" data-parent="accordion-id" data-target="collapsible-id-1">
+          Collapsible Trigger
         </button>
       </h5>
-      <div class="accordion-content" id="content-1">
-        <p class="has-m">
+      <div class="collapsible-content" id="collapsible-id-1">
+        <p class="has-p">
           Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
           ipsum ut voluptate. <a href="#">E pluribus unum.</a>
         </p>
       </div>
     </div>
-    <div class="accordion-row" data-visible="false" data-accordion-row="content-2">
+    <div class="collapsible" data-collapsible="collapsible-id-2" data-visible="false">
       <h5>
-        <button id="button-2" data-parent="accordion-1" class="accordion-button" data-target="content-2">
-          Accordion Button 2
+        <button id="collapsible-trigger-id" class="collapsible-trigger" data-parent="accordion-id" data-target="collapsible-id-2">
+          Collapsible Trigger
         </button>
       </h5>
-      <div class="accordion-content" id="content-2">
-        <p class="has-m">
+      <div class="collapsible-content" id="collapsible-id-2">
+        <p class="has-p">
           Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
           ipsum ut voluptate. <a href="#">E pluribus unum.</a>
         </p>
@@ -31,79 +31,152 @@ const dom = `
   </div>
 `
 
-describe("Accordions", () => {
-  afterEach(() => {
-    Undernet.Accordions.stop()
+describe("Accordion", () => {
+  let wrapper
+
+  beforeEach(() => {
+    wrapper = () => document.querySelector("[data-accordion='accordion-id']")
   })
 
+  afterEach(() => Undernet.Accordions.stop())
+
   describe("API start", () => {
-    it("sets attributes", () => {
-      // Given
+    beforeEach(() => {
       document.body.innerHTML = dom
+    })
+
+    it("sets attributes on collapsibles", () => {
+      Undernet.Accordions.start()
+      expect(wrapper()).toMatchSnapshot()
+    })
+
+    it("can open multiple collapsibles initially", () => {
+      // Given
+      document
+        .querySelector("[data-collapsible='collapsible-id-2']")
+        .removeAttribute("data-visible")
       // When
       Undernet.Accordions.start()
       // Then
-      expect(document.body).toMatchSnapshot()
+      expect(wrapper()).toMatchSnapshot()
     })
   })
 
-  describe("API stop -> Accordion Button Click", () => {
-    it("does not open accordion", () => {
+  describe("API stop -> handleClick", () => {
+    it("does not toggle collapsible", () => {
       // Given
       document.body.innerHTML = dom
-      const trigger = document.querySelector("#button-2")
-      const content = document.querySelector("#content-2")
+      const trigger = document.querySelector("[data-target='collapsible-id-2']")
       // When
       Undernet.Accordions.start()
       Undernet.Accordions.stop()
       trigger.click()
       // Then
-      expect(content).toMatchSnapshot()
+      expect(wrapper()).toMatchSnapshot()
     })
   })
 
-  describe("#render -> Accordion Button Click (no toggle multiple)", () => {
-    it("opens clicked accordion and closes all others", () => {
+  describe("#handleClick", () => {
+    it("opens closed collapsible", () => {
       // Given
       document.body.innerHTML = dom
-      const trigger = document.querySelector("#button-2")
+      const trigger = document.querySelector("[data-target='collapsible-id-2']")
       // When
       Undernet.Accordions.start()
       trigger.click()
       // Then
-      expect(document.body).toMatchSnapshot()
+      expect(wrapper()).toMatchSnapshot()
     })
-  })
 
-  describe("#render -> Accordion Button Click (toggle multiple)", () => {
-    it("opens clicked accordion and doesn't close the others", () => {
+    it("closes open collapsible", () => {
       // Given
       document.body.innerHTML = dom
-      const trigger = document.querySelector("#button-2")
-      document
-        .querySelector("[data-accordion='accordion-1']")
-        .setAttribute("data-toggle-multiple", null)
+      const trigger = document.querySelector("[data-target='collapsible-id-1']")
       // When
       Undernet.Accordions.start()
       trigger.click()
       // Then
-      expect(document.body).toMatchSnapshot()
+      expect(wrapper()).toMatchSnapshot()
+    })
+
+    describe("Multiple visible by default", () => {
+      beforeEach(() => {
+        document.body.innerHTML = dom
+        wrapper()
+          .querySelector("[data-collapsible='collapsible-id-2']")
+          .removeAttribute("data-visible")
+      })
+
+      describe("open collapsible click", () => {
+        it("keeps other collapsibles open", () => {
+          // Given
+          const trigger = document.querySelector("[data-target='collapsible-id-1']")
+          Undernet.Accordions.start()
+          // When
+          trigger.click()
+          // Then
+          expect(wrapper()).toMatchSnapshot()
+        })
+      })
+
+      describe("closed collapsible click", () => {
+        it("closes other collapsibles", () => {
+          // Given
+          const trigger = document.querySelector("[data-target='collapsible-id-1']")
+          Undernet.Accordions.start()
+          // When
+          // close collapsible
+          trigger.click()
+          // re-open collapsible
+          trigger.click()
+          // Then
+          expect(wrapper()).toMatchSnapshot()
+        })
+      })
+    })
+  })
+
+  describe("#setToggleMultiple", () => {
+    beforeEach(() => {
+      document.body.innerHTML = dom
+      wrapper().setAttribute("data-toggle-multiple", null)
+    })
+
+    it("retains visible state of unselected collapsibles on click", () => {
+      // Given
+      const trigger = document.querySelector("[data-target='collapsible-id-2']")
+      Undernet.Accordions.start()
+      // When
+      trigger.click()
+      // Then
+      expect(wrapper()).toMatchSnapshot()
     })
   })
 })
 
-const errorDom = (accordion, accordionRow, headerId, target, parent, contentId, visible = true) => `
-  <div data-accordion="${accordion}" class="accordion">
-    <div class="accordion-row" ${
-      visible ? 'data-visible="false" ' : ""
-    }data-accordion-row="${accordionRow}">
+const errorDom = (accordionId = "", parentId = "") => `
+  <div data-accordion="${accordionId}" class="accordion">
+    <div class="collapsible" data-collapsible="collapsible-id-1">
       <h5>
-        <button id="${headerId}" data-parent='${parent}' class="accordion-button" data-target="${target}">
-          Accordion Button 1
+        <button id="collapsible-trigger-id" class="collapsible-trigger" data-parent="${parentId}" data-target="collapsible-id-1">
+          Collapsible Trigger
         </button>
       </h5>
-      <div class="accordion-content" id="${contentId}">
-        <p class="has-m">
+      <div class="collapsible-content" id="collapsible-id-1">
+        <p class="has-p">
+          Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
+          ipsum ut voluptate. <a href="#">E pluribus unum.</a>
+        </p>
+      </div>
+    </div>
+    <div class="collapsible" data-collapsible="collapsible-id-2">
+      <h5>
+        <button id="collapsible-trigger-id" class="collapsible-trigger" data-parent="accordion-id" data-target="collapsible-id-2">
+          Collapsible Trigger
+        </button>
+      </h5>
+      <div class="collapsible-content" id="collapsible-id-2">
+        <p class="has-p">
           Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
           ipsum ut voluptate. <a href="#">E pluribus unum.</a>
         </p>
@@ -113,101 +186,36 @@ const errorDom = (accordion, accordionRow, headerId, target, parent, contentId, 
 `
 
 describe("Accordion Error Handling", () => {
-  it("throws error if [data-visible] attribute can't be found", () => {
-    document.body.innerHTML = errorDom(
-      "new-accordion",
-      "content",
-      "button",
-      "content",
-      "new-accordion",
-      "content",
-      false
-    )
-
-    try {
-      Undernet.Accordions.start()
-    } catch (e) {
-      expect(e.message).toEqual(
-        "Could not find accordion row with [data-visible] attribute associated with [data-target='content']."
-      )
-    }
+  beforeEach(() => {
+    console.warn = jest.fn()
   })
 
-  it("throws error if [data-accordion-row] attribute can't be found", () => {
-    document.body.innerHTML = errorDom(
-      "new-accordion",
-      "",
-      "button",
-      "content",
-      "new-accordion",
-      "content"
-    )
-
-    try {
-      Undernet.Accordions.start()
-    } catch (e) {
-      expect(e.message).toEqual(
-        "Could not find [data-accordion-row] associated with [data-target='content']."
-      )
-    }
+  afterEach(() => {
+    Undernet.Accordions.stop()
   })
 
-  it("throws error if button header id can't be found", () => {
-    document.body.innerHTML = errorDom(
-      "new-accordion",
-      "content",
-      "",
-      "content",
-      "new-accordion",
-      "content"
-    )
-
-    try {
-      Undernet.Accordions.start()
-    } catch (e) {
-      expect(e.message).toEqual(
-        "Could not find an id on your header associated with [data-accordion-row='content']."
-      )
-    }
+  it("logs warning if accordion id can't be found", () => {
+    // Given
+    const noIdWarning =
+      "Could not initialize accordion; you must include a value for the 'data-accordion' attribute."
+    document.body.innerHTML = errorDom("accordion-id", "")
+    const trigger = document.querySelector("[data-target='collapsible-id-1']")
+    // When
+    Undernet.Accordions.start()
+    trigger.click()
+    // Then
+    expect(console.warn).toBeCalledWith(noIdWarning)
   })
 
-  // Why won't these pass?
-
-  it("throws error if [data-parent] on trigger can't be found", () => {
-    document.body.innerHTML = errorDom(
-      "new-accordion",
-      "content",
-      "button",
-      "content",
-      "",
-      "content"
-    )
-
-    try {
-      Undernet.Accordions.start()
-    } catch (e) {
-      expect(e.message).toEqual(
-        "Could not find [data-accordion] attribute associated with [data-target='content']."
-      )
-    }
-  })
-
-  it("throws error if content can't be found", () => {
-    document.body.innerHTML = errorDom(
-      "new-accordion",
-      "content",
-      "button",
-      "content",
-      "new-accordion",
-      ""
-    )
-
-    try {
-      Undernet.Accordions.start()
-    } catch (e) {
-      expect(e.message).toEqual(
-        "Could not find accordion content block with id 'content'; should match trigger with [data-target='content']."
-      )
-    }
+  it("logs warning if accordion element can't be found", () => {
+    // Given
+    const noAccordionWarning = "Could not find element matching [data-accordion='accordion-id']"
+    document.body.innerHTML = errorDom("", "accordion-id")
+    const trigger = document.querySelector("[data-target='collapsible-id-1']")
+    // When
+    Undernet.Accordions.start()
+    trigger.click()
+    // Then
+    expect(console.warn).toBeCalledWith(noAccordionWarning)
   })
 })
