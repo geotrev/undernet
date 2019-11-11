@@ -35,7 +35,7 @@ describe("Tooltips", () => {
     })
   })
 
-  describe("API stop -> Tooltip Focus/MouseOver", () => {
+  describe("API stop + Focus/Mouseover", () => {
     let trigger
     let tooltip
 
@@ -60,7 +60,7 @@ describe("Tooltips", () => {
     })
   })
 
-  describe("#render -> Tooltip Focus/MouseOver", () => {
+  describe("#render + Focus/Mouseover", () => {
     let trigger
     let tooltip
 
@@ -84,7 +84,7 @@ describe("Tooltips", () => {
     })
   })
 
-  describe("#handleClose -> Tooltip Blur/MouseOut", () => {
+  describe("#handleClose + Blur/Mouseout", () => {
     let trigger1
     let trigger2
     let tooltip
@@ -147,7 +147,48 @@ describe("Tooltips", () => {
     })
   })
 
-  describe("#isLeftOrRight", () => {})
+  describe("Drop Direction", () => {
+    let trigger1
+    let tooltip
+    let wrapper
+
+    beforeEach(() => {
+      document.body.innerHTML = dom
+
+      wrapper = document.querySelector("[data-tooltip='new-tooltip']")
+      trigger1 = document.querySelector("[data-target='new-tooltip']")
+      tooltip = document.getElementById("new-tooltip")
+
+      Undernet.Tooltips.start()
+    })
+
+    it("renders left", () => {
+      // Given
+      tooltip.classList.add("is-drop-inline-start")
+      // When
+      trigger1.focus()
+      // Then
+      expect(wrapper).toMatchSnapshot()
+    })
+
+    it("renders right", () => {
+      // Given
+      tooltip.classList.add("is-drop-inline-end")
+      // When
+      trigger1.focus()
+      // Then
+      expect(wrapper).toMatchSnapshot()
+    })
+
+    it("renders bottom", () => {
+      // Given
+      tooltip.classList.add("is-drop-block-end")
+      // When
+      trigger1.focus()
+      // Then
+      expect(wrapper).toMatchSnapshot()
+    })
+  })
 })
 
 const errorDom = (target, tooltip, id) => `
@@ -159,34 +200,37 @@ const errorDom = (target, tooltip, id) => `
   </span>
 `
 
-describe("Tooltip Error Handling", () => {
-  it("throws error if [data-tooltip] is empty", () => {
-    document.body.innerHTML = errorDom("new-tooltip", "", "new-tooltip")
+describe("Tooltip Warnings", () => {
+  beforeAll(() => {
+    console.warning = jest.fn()
+  })
 
-    try {
-      Undernet.Tooltips.start()
-    } catch (e) {
-      expect(e.message).toEqual("Could not find your tooltip's id.")
-    }
+  it("throws error if [data-tooltip] is empty", () => {
+    // Given
+    document.body.innerHTML = errorDom("new-tooltip", "", "new-tooltip")
+    // When
+    Undernet.Tooltips.start()
+    // Then
+    expect(console.warning).toHaveBeenCalledWith("Could not find tooltip id.")
   })
 
   it("throws error if [data-target] attribute does not match its parent [data-tooltip]", () => {
+    // Given
     document.body.innerHTML = errorDom("", "new-tooltip", "new-tooltip")
-
-    try {
-      Undernet.Tooltips.start()
-    } catch (e) {
-      expect(e.message).toEqual("Could not find a tooltip trigger with id of new-tooltip.")
-    }
+    // When
+    Undernet.Tooltips.start()
+    // Then
+    expect(console.warning).toHaveBeenCalledWith(
+      "Could not find a tooltip trigger with id of new-tooltip."
+    )
   })
 
   it("throws error if tooltip container's [id] does not match its parent [data-tooltip]", () => {
+    // Given
     document.body.innerHTML = errorDom("new-tooltip", "new-tooltip", "")
-
-    try {
-      Undernet.Tooltips.start()
-    } catch (e) {
-      expect(e.message).toEqual("Could not find a tooltip with id of new-tooltip.")
-    }
+    // When
+    Undernet.Tooltips.start()
+    // Then
+    expect(console.warning).toHaveBeenCalledWith("Could not find a tooltip with id of new-tooltip.")
   })
 })

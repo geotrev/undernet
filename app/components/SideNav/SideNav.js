@@ -13,8 +13,6 @@ const pkg = require("projectRoot/package.json")
 const MENU_COLLAPSE_WIDTH = 1199
 
 export default function SideNav() {
-  // set up effects and state
-
   const getWindowInnerWidth = () => window.innerWidth
   const isLargerThanCollapseWidth = () => getWindowInnerWidth() > MENU_COLLAPSE_WIDTH
   const [menuIsOpen, setMenuIsOpen] = useState(isLargerThanCollapseWidth())
@@ -86,7 +84,7 @@ export default function SideNav() {
 
   // render content
 
-  const renderAccordionChildLink = item => {
+  const renderCollapsibleChildLink = item => {
     return (
       <li key={item.name} role="none">
         <NavLink
@@ -102,38 +100,38 @@ export default function SideNav() {
     )
   }
 
-  const renderAccordionRow = (section, index) => {
-    const listItems = section.links.map(renderAccordionChildLink)
+  const renderCollapsible = (section, index) => {
+    const listItems = section.links.map(renderCollapsibleChildLink)
 
     return (
       <React.Fragment key={section.header}>
         <h4 className="paragraph">
           <button
-            id={`nav-acc-button${index}`}
+            id={`nav-collapsible-trigger${index}`}
             data-parent="side-nav-accordion"
-            className="accordion-button"
-            data-target={`nav-acc-content${index}`}
+            className="collapsible-trigger"
+            data-target={`nav-collapsible-content${index}`}
           >
             {section.header}
           </button>
         </h4>
-        <ul className="accordion-content" id={`nav-acc-content${index}`}>
+        <ul className="collapsible-content" id={`nav-collapsible-content${index}`}>
           {listItems}
         </ul>
       </React.Fragment>
     )
   }
 
-  const renderNavAccordion = () => {
+  const renderNavCollapsibleWrapper = () => {
     return NAV_DATA.map((section, i) => {
       return (
         <div
           data-visible={accordionIsActive(section.links) ? "true" : "false"}
-          data-accordion-row={`nav-acc-content${i}`}
-          className="accordion-row is-xs-12 column has-no-p"
+          data-collapsible={`nav-collapsible-content${i}`}
+          className="collapsible is-xs-12 column has-no-p"
           key={section.links[0].url}
         >
-          {renderAccordionRow(section, i)}
+          {renderCollapsible(section, i)}
         </div>
       )
     })
@@ -158,7 +156,7 @@ export default function SideNav() {
           <p className="version-text has-no-p has-gray800-text-color is-xs-12 column">
             Version {pkg.version}
           </p>
-          {renderNavAccordion()}
+          {renderNavCollapsibleWrapper()}
         </nav>
       </div>
     </div>

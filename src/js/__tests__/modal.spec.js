@@ -48,7 +48,7 @@ describe("Modals", () => {
     })
   })
 
-  describe("API stop -> Modal Button Click", () => {
+  describe("API stop + handleClick", () => {
     it("does not open modal", () => {
       // Given
       document.body.innerHTML = dom
@@ -223,38 +223,39 @@ const errorDom = (target, modal, parent) => `
   </div>
 `
 
-describe("Modal Error Handling", () => {
-  it("throws error if modal button isn't found", () => {
-    document.body.innerHTML = errorDom("", "new-modal", "new-modal")
-
-    try {
-      Undernet.Modals.start()
-    } catch (e) {
-      expect(e.message).toEqual("Could not find modal trigger with id new-modal.")
-    }
+describe("Modal Warnings", () => {
+  beforeAll(() => {
+    console.warning = jest.fn()
   })
 
-  it("throws error if [data-modal] attribute is empty", () => {
-    document.body.innerHTML = errorDom("new-modal", "", "new-modal")
+  it("throws error if modal button isn't found", () => {
+    // Given
+    document.body.innerHTML = errorDom("", "new-modal", "new-modal")
+    // When
+    Undernet.Modals.start()
+    // Then
+    expect(console.warning).toHaveBeenCalledWith("Could not find modal trigger with id new-modal.")
+  })
 
-    try {
-      Undernet.Modals.start()
-    } catch (e) {
-      expect(e.message).toEqual(
-        "Could not detect an id on your [data-modal] element. Please add a value matching the modal trigger's [data-parent] attribute."
-      )
-    }
+  it("throws error if modal id isn't found", () => {
+    // Given
+    document.body.innerHTML = errorDom("new-modal", "", "new-modal")
+    // When
+    Undernet.Modals.start()
+    // Then
+    expect(console.warning).toHaveBeenCalledWith(
+      "Could not detect an id on your [data-modal] element. Please add a value matching the modal trigger's [data-parent] attribute."
+    )
   })
 
   it("throws error if [data-parent] attribute does not match its parent [data-modal]", () => {
+    // Given
     document.body.innerHTML = errorDom("new-modal", "new-modal", "")
-
-    try {
-      Undernet.Modals.start()
-    } catch (e) {
-      expect(e.message).toEqual(
-        `Could not find a [data-parent='new-modal'] attribute within your [data-modal='new-modal'] element.`
-      )
-    }
+    // When
+    Undernet.Modals.start()
+    // Then
+    expect(console.warning).toHaveBeenCalledWith(
+      `Could not find a [data-parent='new-modal'] attribute within your [data-modal='new-modal'] element.`
+    )
   })
 })

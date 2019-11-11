@@ -12,8 +12,8 @@
   "style": "dist/undernet.css",
   "scripts": {
     "setup": "npm i && npm run build:dist",
-    "watch": "npm run js:build && webpack-dev-server --config webpack.dev.js --progress",
-    "build": "npm run js:build && webpack --config webpack.prod.js",
+    "watch": "npm run js:build:esm && webpack-dev-server --config webpack.dev.js --progress",
+    "build": "npm run js:build:esm && webpack --config webpack.prod.js",
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "npm run scss:lint && npm run js:lint",

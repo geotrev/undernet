@@ -8,6 +8,7 @@ import {
   buttonsPath,
   formsPath,
   modalsPath,
+  collapsiblesPath,
   accordionsPath,
   dropdownsPath,
   tooltipsPath,
@@ -49,6 +50,7 @@ export const NAV_DATA = [
   {
     header: "Components",
     links: [
+      { name: "Collapsibles", url: collapsiblesPath },
       { name: "Accordions", url: accordionsPath },
       { name: "Dropdowns", url: dropdownsPath },
       { name: "Modals", url: modalsPath },

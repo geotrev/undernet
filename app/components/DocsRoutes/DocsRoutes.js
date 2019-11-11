@@ -15,26 +15,8 @@ const getComponent = component =>
     loading: Loading,
   })
 
-const docRoutes = [
-  "introductionPath",
-  "downloadPath",
-  "cssPath",
-  "javascriptPath",
-  "gridPath",
-  "typographyPath",
-  "buttonsPath",
-  "formsPath",
-  "modalsPath",
-  "accordionsPath",
-  "dropdownsPath",
-  "tooltipsPath",
-  "alignmentPath",
-  "offsetOrderPath",
-  "textPath",
-  "displayPath",
-  "colorPath",
-  "spacingPath",
-]
+const isADocsPage = route => route !== "rootPath" && route !== "docsPath"
+const docRoutes = Object.keys(routes).filter(isADocsPage)
 
 export default function DocsRoutes() {
   return (

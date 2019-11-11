@@ -32,14 +32,12 @@
       margin-top: 28px;
     }
 
-    h4,
-    h5,
-    h6 {
+    h4 {
       margin-top: 18px;
     }
 
     // override accordion examples
-    .accordion-row {
+    .collapse {
       > h1,
       > h2,
       > h3,

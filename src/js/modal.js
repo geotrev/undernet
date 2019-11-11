@@ -1,6 +1,4 @@
-import _ContextUtil, { iOSMobile, getFocusableElements, dom, browserEnv } from "./utils"
-
-const ContextUtil = new _ContextUtil()
+import { iOSMobile, getFocusableElements, dom, isBrowserEnv, createFocusTrap } from "./utils"
 
 const KeyCodes = {
   ESCAPE: 27,
@@ -23,6 +21,12 @@ const Selectors = {
   NO_SCROLL: "no-scroll",
 }
 
+const CssProperties = {
+  PADDING_RIGHT: "paddingRight",
+  PADDING_LEFT: "paddingLeft",
+  CURSOR: "cursor",
+}
+
 const Events = {
   KEYDOWN: "keydown",
   CLICK: "click",
@@ -37,13 +41,20 @@ const Messages = {
     `Could not find a [data-parent='${id}'] attribute within your [data-modal='${id}'] element.`,
 }
 
+const COMPONENT_ROLE = "dialog"
+
+/**
+ * Class that instantiates or destroys all instances of modal components on a page.
+ *
+ * @module Modal
+ */
 export default class Modal {
   constructor() {
-    // events
-    this._render = this._render.bind(this)
-    this._handleClose = this._handleClose.bind(this)
+    this._handleClick = this._handleClick.bind(this)
+    this._handleCloseClick = this._handleCloseClick.bind(this)
     this._handleOverlayClick = this._handleOverlayClick.bind(this)
     this._handleEscapeKeyPress = this._handleEscapeKeyPress.bind(this)
+    this._setup = this._setup.bind(this)
 
     // all modals
     this._modals = []
@@ -56,8 +67,9 @@ export default class Modal {
     this._activeModalId = ""
     this._activeModalSelector = ""
     this._activeModalCloseButtons = []
-    this._originalPagePaddingRight = ""
+    this._originalPagePadding = ""
     this._scrollbarOffset = 0
+    this._focusTrap = () => {}
 
     // attribute helpers
     this._modalContainerAttr = `[${Selectors.DATA_MODAL}]`
@@ -66,33 +78,23 @@ export default class Modal {
   // public
 
   start() {
-    if (!browserEnv) return
+    if (!isBrowserEnv) return
 
     this._modals = dom.findAll(this._modalContainerAttr)
 
-    getFocusableElements(this._modalContainerAttr).forEach(element => {
-      dom.setAttr(element, Selectors.TABINDEX, "-1")
-    })
-
     if (this._modals.length) {
-      this._modals.forEach(instance => {
-        this._setup(instance)
-      })
+      this._modals.forEach(this._setup)
     }
   }
 
   stop() {
-    if (!browserEnv) return
+    if (!isBrowserEnv) return
 
     this._modals.forEach(instance => {
       const id = dom.getAttr(instance, Selectors.DATA_MODAL)
       const button = dom.find(`[${Selectors.DATA_TARGET}='${id}']`)
 
-      if (!button) {
-        throw new Error(Messages.NO_BUTTON_ERROR(id))
-      }
-
-      button.removeEventListener(Events.CLICK, this._render)
+      button.removeEventListener(Events.CLICK, this._handleClick)
     })
   }
 
@@ -102,32 +104,40 @@ export default class Modal {
     const modalId = dom.getAttr(instance, Selectors.DATA_MODAL)
 
     if (!modalId) {
-      throw new Error(Messages.NO_MODAL_ID_ERROR)
+      console.warning(Messages.NO_MODAL_ID_ERROR)
+      return
     }
+
+    const modalWrapperAttr = `[${Selectors.DATA_MODAL}='${modalId}']`
+    const modalWrapper = dom.find(modalWrapperAttr)
+
+    getFocusableElements(modalWrapperAttr).forEach(element =>
+      dom.setAttr(element, Selectors.TABINDEX, "-1")
+    )
 
     const modal = dom.find(`[${Selectors.DATA_PARENT}='${modalId}']`, instance)
 
     if (!modal) {
-      throw new Error(Messages.NO_MODAL_ERROR(modalId))
+      console.warning(Messages.NO_MODAL_ERROR(modalId))
+      return
     }
-
-    const modalWrapper = dom.find(`[${Selectors.DATA_MODAL}='${modalId}']`)
 
     dom.setAttr(modalWrapper, Selectors.ARIA_HIDDEN, "true")
     dom.setAttr(modalWrapper, Selectors.DATA_VISIBLE, "false")
     dom.setAttr(modal, Selectors.ARIA_MODAL, "true")
-    dom.setAttr(modal, Selectors.ROLE, "dialog")
+    dom.setAttr(modal, Selectors.ROLE, COMPONENT_ROLE)
 
     const modalButton = dom.find(`[${Selectors.DATA_TARGET}='${modalId}']`)
 
     if (!modalButton) {
-      throw new Error(Messages.NO_BUTTON_ERROR(modalId))
+      console.warning(Messages.NO_BUTTON_ERROR(modalId))
+      return
     }
 
-    modalButton.addEventListener(Events.CLICK, this._render)
+    modalButton.addEventListener(Events.CLICK, this._handleClick)
   }
 
-  _render(event) {
+  _handleClick(event) {
     event.preventDefault()
 
     this._activeModalButton = event.target
@@ -138,7 +148,10 @@ export default class Modal {
     this._enableFocusOnChildren()
     this._handleScrollbarOffset()
     this._handleScrollStop()
-    ContextUtil.setFocusTrap(this._activeModalSelector)
+
+    this._focusTrap = createFocusTrap(this._activeModalSelector)
+    this._focusTrap.start()
+
     this._setAttributes()
     this._setCloseButtons()
     this._handleModalFocus()
@@ -146,18 +159,20 @@ export default class Modal {
     this._startEvents()
   }
 
-  _handleClose(event) {
+  _handleCloseClick(event) {
     event.preventDefault()
 
     this._stopEvents()
     this._handleReturnFocus()
     this._removeAttributes()
-    ContextUtil.unsetFocusTrap()
+
+    this._focusTrap.stop()
+
     this._handleScrollRestore()
     this._removeScrollbarOffset()
     this._disableFocusOnChildren()
 
-    if (iOSMobile) dom.css(this._activeModalOverlay, "cursor", "auto")
+    if (iOSMobile) dom.setStyle(this._activeModalOverlay, "cursor", "auto")
 
     this._activeModalId = null
     this._activeModalButton = null
@@ -195,7 +210,7 @@ export default class Modal {
     document.removeEventListener(Events.CLICK, this._handleOverlayClick)
 
     this._activeModalCloseButtons.forEach(button => {
-      button.removeEventListener(Events.CLICK, this._handleClose)
+      button.removeEventListener(Events.CLICK, this._handleCloseClick)
     })
   }
 
@@ -207,7 +222,7 @@ export default class Modal {
   _setAttributes() {
     dom.setAttr(this._activeModalOverlay, Selectors.ARIA_HIDDEN, "false")
     dom.setAttr(this._activeModalOverlay, Selectors.DATA_VISIBLE, "true")
-    if (iOSMobile) dom.css(this._activeModalOverlay, "cursor", "pointer")
+    if (iOSMobile) dom.setStyle(this._activeModalOverlay, CssProperties.CURSOR, "pointer")
   }
 
   _startEvents() {
@@ -215,7 +230,7 @@ export default class Modal {
     document.addEventListener(Events.CLICK, this._handleOverlayClick)
 
     this._activeModalCloseButtons.forEach(button => {
-      button.addEventListener(Events.CLICK, this._handleClose)
+      button.addEventListener(Events.CLICK, this._handleCloseClick)
     })
   }
 
@@ -238,8 +253,8 @@ export default class Modal {
     if (!this._scrollbarIsVisible()) return
 
     this._scrollbarOffset = this._getScrollbarOffset()
-    this._originalPagePaddingRight = dom.css(document.body, "paddingRight")
-    dom.css(document.body, "paddingRight", `${this._scrollbarOffset}px`)
+    this._originalPagePadding = dom.getStyle(document.body, CssProperties.PADDING_RIGHT)
+    dom.setStyle(document.body, CssProperties.PADDING_RIGHT, `${this._scrollbarOffset}px`)
   }
 
   _scrollbarIsVisible() {
@@ -249,27 +264,31 @@ export default class Modal {
   }
 
   _removeScrollbarOffset() {
-    const originalPadding = this._originalPagePaddingRight
+    const originalPadding = this._originalPagePadding
+    const DISMISS_SCROLLBAR_PADDING_DELAY = 500
 
-    dom.css(this._activeModalOverlay, "paddingLeft", `${this._scrollbarOffset}px`)
-    setTimeout(() => dom.css(this._activeModalOverlay, "paddingLeft", ""), 500)
+    dom.setStyle(this._activeModalOverlay, CssProperties.PADDING_LEFT, `${this._scrollbarOffset}px`)
+    setTimeout(
+      () => dom.setStyle(this._activeModalOverlay, CssProperties.PADDING_LEFT, ""),
+      DISMISS_SCROLLBAR_PADDING_DELAY
+    )
 
     if (originalPadding) {
-      dom.css(document.body, "paddingRight", `${originalPadding}px`)
+      dom.setStyle(document.body, CssProperties.PADDING_RIGHT, `${originalPadding}px`)
     } else {
-      dom.css(document.body, "paddingRight", "")
+      dom.setStyle(document.body, CssProperties.PADDING_RIGHT, "")
     }
   }
 
   _handleOverlayClick(event) {
     if (event.target === this._activeModalOverlay) {
-      this._handleClose(event)
+      this._handleCloseClick(event)
     }
   }
 
   _handleEscapeKeyPress(event) {
     if (event.which === KeyCodes.ESCAPE) {
-      this._handleClose(event)
+      this._handleCloseClick(event)
     }
   }
 

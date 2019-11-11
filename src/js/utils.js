@@ -17,43 +17,67 @@ const Events = {
 }
 
 /**
- * Check if window exists. If it doesn't, we're probably in a node environment.
+ * Check if window exists. If it doesn't, we're probably in a non-test node environment.
  */
-export const browserEnv = typeof window !== "undefined"
+export const isBrowserEnv = typeof window !== "undefined"
 
 /**
- * Simple DOM manipulator methods. NOTE: These aren't chainable.
+ * Simple DOM manipulator methods. These aren't chainable.
  */
 export const dom = {
-  getAttr: (element, attr) => element.getAttribute(attr),
-  setAttr: (element, attr, value) => element.setAttribute(attr, value),
-  removeAttr: (element, attr) => element.removeAttribute(attr),
-  hasAttr: (element, attr) => element.hasAttribute(attr),
+  exists: element => element !== null,
+  getAttr(element, attr) {
+    return element.getAttribute(attr)
+  },
+  setAttr(element, attr, value) {
+    return dom.exists(element) && element.setAttribute(attr, value)
+  },
+  removeAttr(element, attr) {
+    return dom.exists(element) && element.removeAttribute(attr)
+  },
+  hasAttr(element, attr) {
+    return dom.exists(element) && element.hasAttribute(attr)
+  },
 
-  find: (selector, parent = document) => parent.querySelector(selector),
-  findAll: (selector, parent = document) => [...parent.querySelectorAll(selector)],
+  find(selector, parent = document) {
+    return dom.exists(parent) && parent.querySelector(selector)
+  },
+  findAll(selector, parent = document) {
+    return dom.exists(parent) && [...parent.querySelectorAll(selector)]
+  },
 
-  css: (element, property, value) => {
-    if (typeof value === "string" || value === null) {
-      element.style[property] = value
-      return
-    }
-
+  setStyle(element, property, value) {
+    element.style[property] = value
+  },
+  getStyle(element, property) {
     return element.style[property]
   },
 
-  addClass: (element, ...classes) => element.classList.add(...classes),
-  removeClass: (element, ...classes) => element.classList.remove(...classes),
-  hasClass: (element, ...classes) =>
-    classes.filter(givenClassName => element.classList.contains(givenClassName)).length > 0,
+  addClass(element, ...classes) {
+    element.classList.add(...classes)
+  },
+  removeClass(element, ...classes) {
+    element.classList.remove(...classes)
+  },
+  hasClass(element, ...classes) {
+    return classes.filter(givenClassName => element.classList.contains(givenClassName)).length > 0
+  },
 }
 
 /**
- * Return an array literal of elements matching focusable elements within a given container.
+ * Search for elements matching a given selector.
+ *
+ * ```js
+ * const elements = getFocusableElements(".wrapper .link")
+ * elements.forEach(element => element.classList.add("focusable"))
+ * ```
+ *
+ * @param {String} element
+ * @returns {Array} Static array of HTML elements
  */
-export const getFocusableElements = container => {
+export const getFocusableElements = element => {
   const focusables = Selectors.FOCUSABLE_TAGS.map(
-    element => `${container} ${element}${Selectors.NOT_VISUALLY_HIDDEN_CLASS}`
+    tag => `${element} ${tag}${Selectors.NOT_VISUALLY_HIDDEN_CLASS}`
   ).join(", ")
 
   return dom.findAll(focusables)
@@ -61,95 +85,72 @@ export const getFocusableElements = container => {
 
 /**
  * Check if the current browser session is within an Apple device.
+ *
+ * ```js
+ * if (iOSMobile) {
+ *   console.log("This is on iOS!")
+ * }
+ * ```
+ *
+ * @returns {Boolean}
  */
-export const iOSMobile = browserEnv ? /(iphone|ipod|ipad)/i.test(navigator.userAgent) : false
+export const iOSMobile = isBrowserEnv ? /(iphone|ipod|ipad)/i.test(navigator.userAgent) : false
 
 /**
- * Utility class to help with focus trapping and keyboard outline management.
+ * Create a focus trap instance.
+ *
+ * ```js
+ * const focusTrap = createFocusTrap("#element-id")
+ * focusTrap.start()
+ * focusTrap.stop()
+ * ```
+ *
+ * Pass an object in the second param to trap focus with up and down arrows.
+ *
+ * ```js
+ * const focusTrap = createFocusTrap("#element-id", { useArrows: true })
+ * focusTrap.start()
+ * ```
+ *
+ * @param {String} container
+ * @param {Object} options - options object. Default: {}
+ * @returns {Object} - { start: fn, stop: fn }
  */
-export default class ContextUtil {
-  constructor() {
-    // events
-    this._listenForKeyboard = this._listenForKeyboard.bind(this)
-    this._listenForClick = this._listenForClick.bind(this)
-    this._handleFocusTrapWithTab = this._handleFocusTrapWithTab.bind(this)
-    this._handleFocusTrapWithArrows = this._handleFocusTrapWithArrows.bind(this)
+export const createFocusTrap = (container, options = {}) => {
+  if (!isBrowserEnv) return
 
-    // instance data
-    this._focusContainerSelector = ""
-    this._focusableChildren = []
-    this._focusableFirstChild = {}
-    this._focusableLastChild = {}
-    this._listeningForKeydown = false
-    this._trapFocusWithArrows = false
-  }
+  const { useArrows } = options
+  const focusContainerSelector = container
+  const focusableChildren = getFocusableElements(focusContainerSelector)
+  const focusableFirstChild = focusableChildren[0]
+  const focusableLastChild = focusableChildren[focusableChildren.length - 1]
 
-  // public
-
-  setFocusTrap(container, options = {}) {
-    if (!browserEnv) return
-
-    this._focusContainerSelector = container
-    this._focusableChildren = getFocusableElements(this._focusContainerSelector)
-    this._focusableFirstChild = this._focusableChildren[0]
-    this._focusableLastChild = this._focusableChildren[this._focusableChildren.length - 1]
-
-    if (options.useArrows) {
-      this._trapFocusWithArrows = options.useArrows || this._trapFocusWithArrows
-      document.addEventListener(Events.KEYDOWN, this._handleFocusTrapWithArrows)
-    } else {
-      document.addEventListener(Events.KEYDOWN, this._handleFocusTrapWithTab)
+  const focusNextChild = () => {
+    for (let i = 0; i < focusableChildren.length; i++) {
+      if (focusableChildren[i] === document.activeElement) {
+        focusableChildren[i + 1].focus()
+        break
+      }
     }
   }
 
-  unsetFocusTrap() {
-    if (!browserEnv) return
-
-    if (this._trapFocusWithArrows) {
-      document.removeEventListener(Events.KEYDOWN, this._handleFocusTrapWithArrows)
-      this._trapFocusWithArrows = false
-    } else {
-      document.removeEventListener(Events.KEYDOWN, this._handleFocusTrapWithTab)
+  const focusLastChild = () => {
+    for (let i = 0; i < focusableChildren.length; i++) {
+      if (focusableChildren[i] === document.activeElement) {
+        focusableChildren[i - 1].focus()
+        break
+      }
     }
   }
 
-  setFocusRing() {
-    if (!browserEnv) return
-    document.addEventListener(Events.KEYDOWN, this._listenForKeyboard)
-  }
-
-  unsetFocusRing() {
-    if (!browserEnv) return
-
-    if (this._listeningForKeydown) {
-      document.removeEventListener(Events.KEYDOWN, this._listenForKeyboard)
-    } else {
-      document.body.classList.remove(Selectors.KEYBOARD_CLASS)
-      document.removeEventListener(Events.CLICK, this._listenForClick)
-    }
-  }
-
-  // private
-
-  _listenForKeyboard() {
-    document.body.classList.add(Selectors.KEYBOARD_CLASS)
-    document.removeEventListener(Events.KEYDOWN, this._listenForKeyboard)
-    document.addEventListener(Events.CLICK, this._listenForClick)
-    this._listeningForKeydown = false
-  }
-
-  _listenForClick() {
-    document.body.classList.remove(Selectors.KEYBOARD_CLASS)
-    document.removeEventListener(Events.CLICK, this._listenForClick)
-    document.addEventListener(Events.KEYDOWN, this._listenForKeyboard)
-    this._listeningForKeydown = true
-  }
-
-  _handleFocusTrapWithTab(event) {
-    const containerElement = dom.find(this._focusContainerSelector)
+  const handleFocusTrapWithTab = event => {
+    const containerElement = dom.find(focusContainerSelector)
     const containerActive = document.activeElement === containerElement
-    const firstActive = document.activeElement === this._focusableFirstChild
-    const lastActive = document.activeElement === this._focusableLastChild
+    const firstActive = document.activeElement === focusableFirstChild
+    const lastActive = document.activeElement === focusableLastChild
+
+    if (!containerActive && !firstActive && !lastActive) return
+
     const tabKey = event.which === KeyCodes.TAB
     const shiftKey = event.which === KeyCodes.SHIFT || event.shiftKey
     const hasShift = shiftKey && tabKey
@@ -157,16 +158,16 @@ export default class ContextUtil {
 
     if (hasShift && (firstActive || containerActive)) {
       event.preventDefault()
-      this._focusableLastChild.focus()
+      focusableLastChild.focus()
     } else if (noShift && lastActive) {
       event.preventDefault()
-      this._focusableFirstChild.focus()
+      focusableFirstChild.focus()
     }
   }
 
-  _handleFocusTrapWithArrows(event) {
-    const firstActive = document.activeElement === this._focusableFirstChild
-    const lastActive = document.activeElement === this._focusableLastChild
+  const handleFocusTrapWithArrows = event => {
+    const firstActive = document.activeElement === focusableFirstChild
+    const lastActive = document.activeElement === focusableLastChild
     const arrowUp = event.which === KeyCodes.ARROW_UP
     const arrowDown = event.which === KeyCodes.ARROW_DOWN
 
@@ -174,32 +175,107 @@ export default class ContextUtil {
       event.preventDefault()
 
       if (firstActive && arrowUp) {
-        this._focusableLastChild.focus()
+        focusableLastChild.focus()
       } else if (lastActive && arrowDown) {
-        this._focusableFirstChild.focus()
+        focusableFirstChild.focus()
       } else if (arrowDown) {
-        this._focusNextChild()
+        focusNextChild()
       } else if (arrowUp) {
-        this._focusLastChild()
+        focusLastChild()
       }
     }
   }
 
-  _focusNextChild() {
-    for (let i = 0; i < this._focusableChildren.length; i++) {
-      if (this._focusableChildren[i] === document.activeElement) {
-        this._focusableChildren[i + 1].focus()
-        break
+  return {
+    start() {
+      if (useArrows) {
+        document.addEventListener(Events.KEYDOWN, handleFocusTrapWithArrows)
+      } else {
+        document.addEventListener(Events.KEYDOWN, handleFocusTrapWithTab)
       }
-    }
+    },
+    stop() {
+      if (useArrows) {
+        document.removeEventListener(Events.KEYDOWN, handleFocusTrapWithArrows)
+      } else {
+        document.removeEventListener(Events.KEYDOWN, handleFocusTrapWithTab)
+      }
+    },
+  }
+}
+
+/**
+ * Create a focus ring instance.
+ *
+ * ```js
+ * const focusRing = createFocusRing()
+ * focusRing.start()
+ * focusRing.stop()
+ * ```
+ *
+ * @returns {Object} - { start: fn, stop: fn }
+ */
+export const createFocusRing = () => {
+  if (!isBrowserEnv) return
+
+  let listeningForKeydown
+
+  const listenForKeyboard = () => {
+    document.body.classList.add(Selectors.KEYBOARD_CLASS)
+    document.removeEventListener(Events.KEYDOWN, listenForKeyboard)
+    // eslint-disable-next-line no-use-before-define
+    document.addEventListener(Events.CLICK, listenForClick)
+    listeningForKeydown = false
   }
 
-  _focusLastChild() {
-    for (let i = 0; i < this._focusableChildren.length; i++) {
-      if (this._focusableChildren[i] === document.activeElement) {
-        this._focusableChildren[i - 1].focus()
-        break
-      }
-    }
+  const listenForClick = () => {
+    document.body.classList.remove(Selectors.KEYBOARD_CLASS)
+    document.removeEventListener(Events.CLICK, listenForClick)
+    document.addEventListener(Events.KEYDOWN, listenForKeyboard)
+    listeningForKeydown = true
   }
+
+  return {
+    start() {
+      document.addEventListener(Events.KEYDOWN, listenForKeyboard)
+    },
+    stop() {
+      if (listeningForKeydown) {
+        document.removeEventListener(Events.KEYDOWN, listenForKeyboard)
+      } else {
+        document.body.classList.remove(Selectors.KEYBOARD_CLASS)
+        document.removeEventListener(Events.CLICK, listenForClick)
+      }
+    },
+  }
+}
+
+/**
+ * Get the computed font-size of the page body as a number.
+ *
+ * ```js
+ * const size = getPageBaseFontSize()
+ * element.style.lineHeight = `${size * 2}px`
+ * ```
+ *
+ * @returns {Number}
+ */
+export const getPageBaseFontSize = () => {
+  if (!isBrowserEnv) return
+
+  const BODY_TAG = "body"
+  const FONT_SIZE_PROPERTY = "font-size"
+  const PX_SUBSTRING = "px"
+  const FONT_SIZE_VALUE_FALLBACK = 16
+
+  const body = dom.find(BODY_TAG)
+  const computedFontSize = window.getComputedStyle(body).getPropertyValue(FONT_SIZE_PROPERTY)
+  let bodySize = FONT_SIZE_VALUE_FALLBACK
+
+  if (computedFontSize) {
+    const indexOfPx = computedFontSize.indexOf(PX_SUBSTRING)
+    bodySize = parseFloat(computedFontSize.slice(0, indexOfPx))
+  }
+
+  return bodySize
 }
