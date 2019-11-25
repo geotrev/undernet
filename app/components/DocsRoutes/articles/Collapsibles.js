@@ -9,7 +9,7 @@ const Collapsibles = () => {
     <React.Fragment>
       <SetMeta
         title="Collapsibles"
-        description="A component for hiding and showing content in an accordion-style user interface."
+        description="A component for hiding or showing content in a collapsible container."
       />
       <PageHeader>Collapsibles</PageHeader>
       <Article>{CollapsiblesMd}</Article>
