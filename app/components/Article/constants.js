@@ -1,3 +1,3 @@
-import { Tooltips, Accordions, Modals, Dropdowns } from "undernet"
+import { Tooltips, Accordions, Collapsibles, Modals, Dropdowns } from "undernet"
 
-export const COMPONENTS = [Tooltips, Accordions, Modals, Dropdowns]
+export const COMPONENTS = [Tooltips, Accordions, Collapsibles, Modals, Dropdowns]

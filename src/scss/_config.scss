@@ -23,9 +23,10 @@
 // --> COMPONENTS <--
 // ------------------
 // 11. Modals
-// 12. Accordions
-// 13. Dropdowns
-// 14. Tooltips
+// 12. Collapse
+// 13. Accordions
+// 14. Dropdowns
+// 15. Tooltips
 
 // -------------------------
 
@@ -793,29 +794,54 @@ $modal-footer-border: 1px solid $color-gray900 !default;
 $modal-breakpoint-inline: sm !default;
 $modal-breakpoint-block: sm !default;
 
-// 12. Accordions
+// 12. Collapse
 // --------------
+
+// Use and HTML character code to visually convey collapse state.
+// By default, it will spin 180 degrees to indicate visible state.
+// Most useful for arrows.
+
+$collapsible-indicator: "\25B2" !default;
+
+// OPTION: Comment out the indicator variable above, then uncomment
+//         the two below to declare different icons for visible state.
+//
+//         Try:
+//           - "\002B" for open
+//           - "\2212" for closed
+//
+// WARNING: If you use words, make sure to set
+//          `$collapsible-indicator-transform` to "none".
+
+$collapsible-indicator-open: "" !default;
+$collapsible-indicator-closed: "" !default;
+
+$collapsible-indicator-transform: rotate(180deg) !default;
+$collapsible-indicator-weight: bold !default;
+
+// Transition duration and easing function during visible state change.
+
+$collapsible-transition-duration: 0.5s !default;
+$collapsible-transition-ease: $global-ease !default;
+
+$collapsible-trigger-color: $color-primary !default;
+$collapsible-trigger-color-hover: darken($color-primary, 2%) !default;
+$collapsible-trigger-bg: lighten($color-gray900, 10%) !default;
+$collapsible-trigger-bg-hover: lighten($color-gray900, 8%) !default;
+$collapsible-trigger-padding: $global-space !default;
+$collapsible-trigger-font-size: $global-font-size !default;
+
+// 13. Accordions
 
 $accordion-border: $global-border-width solid $color-gray900 !default;
 $accordion-border-radius: $global-border-radius !default;
-$accordion-transition-duration: 0.5s !default;
-$accordion-transition-ease: $global-ease !default;
+$accordion-collapse-divider: $accordion-border !default;
 
-$accordion-button-color: $color-primary !default;
-$accordion-button-bg: $color-white !default;
-$accordion-button-color-hover: darken($color-primary, 2%) !default;
-$accordion-button-bg-hover: lighten($color-gray900, 10%) !default;
-$accordion-button-padding: $global-space !default;
+// Create space between each collapse within the accordion.
 
-$accordion-expand-arrow: "\25B2" !default;
+$accordion-collapse-gap: 0 !default;
 
-$accordion-row-divider: $accordion-border !default;
-
-$accordion-content-margin: $global-space !default;
-$accordion-content-font-size: $global-font-size !default;
-$accordion-content-bg: $color-white !default;
-
-// 13. Dropdowns
+// 14. Dropdowns
 // -------------
 
 // Enables arrow pointing to trigger element.
@@ -829,28 +855,28 @@ $dropdown-arrow-border-color: $color-gray900 !default;
 // Below it, dropdowns always open inline-start, block-end.
 // Set to `xs` to effectively disable the behavior.
 
-$dropdown-menu-direction-breakpoint: md !default;
+$dropdown-direction-breakpoint: md !default;
 
-$dropdown-menu-transition: opacity $global-transition !default;
-$dropdown-menu-padding: 8px 0 !default;
-$dropdown-menu-border-radius: $global-border-radius !default;
-$dropdown-menu-bg-color: $color-white !default;
-$dropdown-menu-width: px-to-em(200px) !default;
-$dropdown-menu-max-width: 95vw !default;
-$dropdown-menu-border: 1px solid $color-gray900 !default;
+$dropdown-transition: opacity $global-transition !default;
+$dropdown-padding: 8px 0 !default;
+$dropdown-border-radius: $global-border-radius !default;
+$dropdown-bg-color: $color-white !default;
+$dropdown-width: px-to-em(200px) !default;
+$dropdown-max-width: 95vw !default;
+$dropdown-border: 1px solid $color-gray900 !default;
 
-$dropdown-menu-button-padding: 8px 12px !default;
-$dropdown-menu-button-text-color: $color-gray400 !default;
+$dropdown-button-padding: 8px 12px !default;
+$dropdown-button-text-color: $color-gray400 !default;
 
-$dropdown-menu-rule-height: 1px !default;
-$dropdown-menu-rule-color: $color-gray900 !default;
-$dropdown-menu-rule-margin: 8px 0 !default;
+$dropdown-rule-height: 1px !default;
+$dropdown-rule-color: $color-gray900 !default;
+$dropdown-rule-margin: 8px 0 !default;
 
-$dropdown-menu-header-font-size: 14px !default;
-$dropdown-menu-header-padding: 12px !default;
-$dropdown-menu-header-color: $color-gray800 !default;
+$dropdown-header-font-size: 14px !default;
+$dropdown-header-padding: 12px !default;
+$dropdown-header-color: $color-gray800 !default;
 
-// 14. Tooltips
+// 15. Tooltips
 // ------------
 
 // Enables arrow pointing to trigger element.

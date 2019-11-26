@@ -180,38 +180,29 @@ describe("dom", () => {
     })
   })
 
-  describe(".css(element, property, value = undefined)", () => {
-    it("returns css property value", () => {
+  describe(".getStyle(element, property)", () => {
+    it("returns css property values", () => {
       // Given
       document.body.innerHTML = testDom
       const element = document.querySelector(".hello.world")
       // When
-      const received = dom.css(element, "height")
+      const received = dom.getStyle(element, "height")
       // Then
       expect(received).toEqual("32px")
     })
+  })
 
-    it("can set css property as a string", () => {
+  describe(".setStyle(element, property, value)", () => {
+    it("can set a css property", () => {
       // Given
       document.body.innerHTML = testDom
       const element = document.querySelector(".hello.world")
       const newHeight = "60px"
       // When
-      dom.css(element, "height", newHeight)
+      dom.setStyle(element, "height", newHeight)
       // Then
       const received = element.style.height
       expect(received).toEqual(newHeight)
-    })
-
-    it("can set css property as null", () => {
-      // Given
-      document.body.innerHTML = testDom
-      const element = document.querySelector(".hello.world")
-      const newHeight = null
-      // When
-      dom.css(element, "height", newHeight)
-      // Then
-      expect(element.style.height).toEqual("")
     })
   })
 })
@@ -223,5 +214,3 @@ describe("getFocusableElements(container)", () => {
     expect(elements).toHaveLength(2)
   })
 })
-
-// describe("ContextUtil", () => {})

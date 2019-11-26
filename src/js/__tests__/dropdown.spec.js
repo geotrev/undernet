@@ -41,7 +41,7 @@ describe("Dropdowns", () => {
     })
   })
 
-  describe("API stop -> Dropdown Button Click", () => {
+  describe("API stop + handleClick", () => {
     it("does not open dropdown", () => {
       // Given
       document.body.innerHTML = dom
@@ -267,20 +267,24 @@ const errorDom = (
   </div>
 `
 
-describe("Dropdown Error Handling", () => {
-  it("throws error if dropdown id can't be found", () => {
-    document.body.innerHTML = errorDom("", "button", "dropdown", "new-dropdown", "new-dropdown")
+describe("Dropdown Warnings", () => {
+  beforeAll(() => {
+    console.warning = jest.fn()
+  })
 
-    try {
-      Undernet.Dropdowns.start()
-    } catch (e) {
-      expect(e.message).toEqual(
-        "Could not setup dropdown. Make sure it has a valid [data-dropdown] attribute with a unique id as its value."
-      )
-    }
+  it("throws error if dropdown id can't be found", () => {
+    // Given
+    document.body.innerHTML = errorDom("", "button", "dropdown", "new-dropdown", "new-dropdown")
+    // When
+    Undernet.Dropdowns.start()
+    // Then
+    expect(console.warning).toHaveBeenCalledWith(
+      "Could not setup dropdown. Make sure it has a valid [data-dropdown] attribute with a unique id as its value."
+    )
   })
 
   it("throws error if dropdown menu can't be found", () => {
+    // Given
     document.body.innerHTML = errorDom(
       "dropdown",
       "button",
@@ -289,15 +293,16 @@ describe("Dropdown Error Handling", () => {
       "new-dropdown",
       false
     )
-
-    try {
-      Undernet.Dropdowns.start()
-    } catch (e) {
-      expect(e.message).toEqual('Could not find menu associated with [data-dropdown="dropdown"].')
-    }
+    // When
+    Undernet.Dropdowns.start()
+    // Then
+    expect(console.warning).toHaveBeenCalledWith(
+      'Could not find menu associated with [data-dropdown="dropdown"].'
+    )
   })
 
   it("throws error if dropdown items can't be found", () => {
+    // Given
     document.body.innerHTML = errorDom(
       "dropdown",
       "button",
@@ -307,17 +312,16 @@ describe("Dropdown Error Handling", () => {
       true,
       false
     )
-
-    try {
-      Undernet.Dropdowns.start()
-    } catch (e) {
-      expect(e.message).toEqual(
-        'Could not find any list items associated with [data-dropdown="dropdown"].'
-      )
-    }
+    // When
+    Undernet.Dropdowns.start()
+    // Then
+    expect(console.warning).toHaveBeenCalledWith(
+      'Could not find any list items associated with [data-dropdown="dropdown"].'
+    )
   })
 
   it("throws error if dropdown buttons or links can't be found", () => {
+    // Given
     document.body.innerHTML = errorDom(
       "dropdown",
       "button",
@@ -328,23 +332,22 @@ describe("Dropdown Error Handling", () => {
       true,
       false
     )
-
-    try {
-      Undernet.Dropdowns.start()
-    } catch (e) {
-      expect(e.message).toEqual(
-        'Could not find any button or anchor elements associated with [data-dropdown="dropdown"].'
-      )
-    }
+    // When
+    Undernet.Dropdowns.start()
+    // Then
+    expect(console.warning).toHaveBeenCalledWith(
+      'Could not find any button or anchor elements associated with [data-dropdown="dropdown"].'
+    )
   })
 
   it("throws error if dropdown trigger's [data-target] attribute cant' be found", () => {
+    // Given
     document.body.innerHTML = errorDom("dropdown", "button", "", "new-dropdown", "new-dropdown")
-
-    try {
-      Undernet.Dropdowns.start()
-    } catch (e) {
-      expect(e.message).toEqual("Could not find dropdown button's [data-parent] attribute.")
-    }
+    // When
+    Undernet.Dropdowns.start()
+    // Then
+    expect(console.warning).toHaveBeenCalledWith(
+      "Could not find dropdown button's [data-parent] attribute."
+    )
   })
 })

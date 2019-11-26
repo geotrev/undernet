@@ -1,7 +1,6 @@
 import React from "react"
 import SideNav from "../SideNav"
 import { BrowserRouter as Router } from "react-router-dom"
-import { Accordions } from "undernet"
 
 jest.mock("react-feather/dist/icons/chevron-right", () => global.simpleMock("ChevronRight"))
 jest.mock("react-feather/dist/icons/menu", () => global.simpleMock("Menu"))
@@ -14,9 +13,6 @@ jest.mock("../constants", () => ({
     },
   ],
 }))
-
-Accordions.start = jest.fn()
-Accordions.stop = jest.fn()
 
 const MENU_COLLAPSE_WIDTH = 1199
 const MENU_EXPAND_WIDTH = MENU_COLLAPSE_WIDTH + 1

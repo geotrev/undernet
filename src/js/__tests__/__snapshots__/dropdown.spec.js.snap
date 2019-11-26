@@ -847,7 +847,7 @@ exports[`Dropdowns API start sets attributes 1`] = `
 </body>
 `;
 
-exports[`Dropdowns API stop -> Dropdown Button Click does not open dropdown 1`] = `
+exports[`Dropdowns API stop + handleClick does not open dropdown 1`] = `
 <body>
   
   

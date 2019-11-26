@@ -8,11 +8,11 @@ For an inline `<script>` tag, this means only using the script in a `DOMContentL
 
 The default export is the `Undernet` object. Importing this gives you everything, including all JS components and utilities.
 
-You can also do a named import of just one component or the `ContextUtil` helper, which controls things like the global focus outline and focus trapper.
+You can also do a named import of just one component (bonus: it's tree-shakable in the npm module!).
 
 ### Components
 
-Whether you're using `Undernet`, or one of the named modules, there are two ways to enable the components on a page. 
+Whether you're using `Undernet`, or one of the named modules, there are two ways to enable the components on a page. Note: the below examples use npm for the examples, as that is where the most flexibility exists. **You won't be able to do named imports if you're using a CDN or hosting the minified files.**
 
 Using the "start" method, you can enable components. This also turns on the focus outline utility.
 
@@ -35,56 +35,13 @@ import { Modals } from "undernet"
 Modals.start()
 ```
 
-Because using a singular component leaves out the focus outline, you can start (or stop, if you wish) that separately too.
+Because using a singular component leaves out the focus ring functionality included with `Undernet.start()`, you can start (or stop, if you wish) that separately to retain that feature, if desired..
 
 ```js
-import { Modals, ContextUtil } from "undernet"
+import { Modals, createFocusRing } from "undernet"
 Modals.start()
-ContextUtil.setFocusRing()
-```
-
-### Utilities
-
-As mentioned, there's an optional `ContextUtil` helper which allows you to extend some of the tools used by components.
-
-#### Focus Trap
-
-The focus trap utility is used in [Modals](/docs/components/modals) and [Dropdowns](/docs/components/dropdowns) to constrain keyboard navigation to a given container.
-
-In this case, `tab` and `shift+tab` will never let the user exit the container.
-
-Pass in the container's unique `id`, `class`, or other `attribute` as the target for the trap:
-
-```js
-ContextUtil.setFocusTrap("#element-id")
-```
-
-To disable the focus trap, you can use:
-
-```js
-ContextUtil.unsetFocusTrap()
-```
-
-Notice that you don't need to pass in a selector on the `unset` method. The utility expects to track one focus trap at a time. This means you should use the same instance of `ContextUtil` to set and unset the trap.
-
-As a side note, make sure that if you use this utility, you allow the user to escape focus by some other means, such as with the `escape` key.
-
-#### Focus Ring
-
-A key factor in accessibility is the focus ring, which in the case of Undernet, appears when a user starts using their keyboard to navigate a page (tab, shift, spacebar, escape, enter, etc). If you try it now, you'll see a blue box-shadow (or white, on dark background) applied to elements.
-
-The utility creates global event listeners to achieve this effect. A class, `using-keyboard` is added to `<body>`.
-
-To enable it:
-
-```js
-ContextUtil.setFocusRing()
-```
-
-To disable:
-
-```js
-ContextUtil.unsetFocusRing()
+const newRing = createFocusRing()
+newRing.start()
 ```
 
 ---
