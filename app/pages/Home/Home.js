@@ -7,13 +7,15 @@ import ChevronRight from "react-feather/dist/icons/chevron-right"
 import ScrollUpOnMount from "app/components/ScrollUpOnMount"
 import SetMeta from "app/components/SetMeta"
 import PageHeader from "app/components/PageHeader"
-import { downloadPath, introductionPath } from "app/routes"
+import { docPages } from "app/routes"
 
 import pkg from "projectRoot/package.json"
 import { StatusBadges, InstallNpm, InstallAssets } from "./markdownContent"
 import { ANIMATION_DATA } from "./animations"
 
 import "./styles.scss"
+
+const { download, introduction } = docPages
 
 export default function Home() {
   const loadAnimations = () => {
@@ -87,16 +89,18 @@ export default function Home() {
           </div>
 
           <div className="is-xs-12 column has-text-center">
-            <Link to={downloadPath} className="button has-feather">
-              Download <ChevronRight size={20} role="presentation" focusable="false" />
+            <Link to={download} className="button has-feather">
+              {"Download"}
+              <ChevronRight size={20} role="presentation" focusable="false" />
             </Link>
-            <Link to={introductionPath} className="button is-primary has-gradient has-feather">
-              Learn More <ChevronRight size={20} role="presentation" focusable="false" />
+            <Link to={introduction} className="button is-primary has-gradient has-feather">
+              {"Learn More"}
+              <ChevronRight size={20} role="presentation" focusable="false" />
             </Link>
           </div>
 
           <div className="is-xs-12 column has-text-center">
-            <p className="un-version has-no-m">Version {pkg.version}</p>
+            <p className="un-version has-no-m">{`Version ${pkg.version}`}</p>
           </div>
 
           <div className="is-xs-12 column badges">
@@ -118,18 +122,19 @@ export default function Home() {
       <div className="is-section-md is-narrow grid">
         <div className="row">
           <div className="is-xs-12 column has-text-center">
-            <h2 className="h6">Painless Setup</h2>
-            <p>Install with npm:</p>
+            <h2 className="h6">{"Painless Setup"}</h2>
+            <p>{"Install with npm:"}</p>
             <InstallNpm />
           </div>
           <div className="is-xs-12 column has-text-center">
-            <p>Or simply link to minified assets:</p>
+            <p>{"Or simply link to minified assets:"}</p>
             <InstallAssets />
           </div>
           <div className="is-xs-12 column has-text-center">
-            <p>See how Undernet can improve your developer experience!</p>
-            <Link to={introductionPath} className="is-primary button has-gradient has-feather">
-              Learn More <ChevronRight size={20} role="presentation" focusable="false" />
+            <p>{"See how Undernet can improve your developer experience!"}</p>
+            <Link to={introduction} className="is-primary button has-gradient has-feather">
+              {"Learn More"}
+              <ChevronRight size={20} role="presentation" focusable="false" />
             </Link>
           </div>
         </div>

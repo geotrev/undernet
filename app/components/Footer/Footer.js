@@ -16,18 +16,18 @@ export default function Footer(props) {
       <div className="row">
         <div className="has-no-p column">
           <p className="has-no-m-block-end has-text-center has-gray900-text-color">
-            Undernet is a front-end framework created and maintained by{" "}
-            <a className="has-white-text-color" href="http://www.geotrev.com">
-              George Treviranus
+            {"Undernet is a front-end framework created and maintained by "}
+            <a className="has-white-text-color" href="https://geotrev.com">
+              {"George Treviranus"}
             </a>
-            .
+            {"."}
           </p>
           <p className="has-no-m-block-end has-text-center has-gray900-text-color">
-            Animations provided by{" "}
+            {"Animations provided by "}
             <a className="has-white-text-color" href="https://folgert.com/">
-              Gavin Folgert
+              {"Gavin Folgert"}
             </a>
-            . ❤️
+            {". ❤️"}
           </p>
           <ul className="has-text-center has-no-p has-gray900-text-color has-unstyled-list has-direction-row is-d-flex has-justify-content-center">
             <li className="has-no-p" role="none">
@@ -37,7 +37,7 @@ export default function Footer(props) {
                 href="https://www.twitter.com/gwtrev"
               >
                 <Twitter role="presentation" focusable="false" />
-                <span className="is-visually-hidden">Open link to www.twitter.com/gwtrev</span>
+                <span className="is-visually-hidden">{"Open link to www.twitter.com/gwtrev"}</span>
               </a>
             </li>
             <li className="has-no-p" role="none">
@@ -48,7 +48,7 @@ export default function Footer(props) {
               >
                 <Github role="presentation" focusable="false" />
                 <span className="is-visually-hidden">
-                  Open link to www.github.com/geotrev/undernet
+                  {"Open link to www.github.com/geotrev/undernet"}
                 </span>
               </a>
             </li>
@@ -59,7 +59,7 @@ export default function Footer(props) {
                 role="menuitem"
                 type="button"
               >
-                Return to top of page
+                {"Return to top of page"}
               </button>
             </li>
           </ul>

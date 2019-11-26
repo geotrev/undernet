@@ -100,7 +100,7 @@ exports[`<Home /> renders 1`] = `
                       href="/docs/overview/download"
                       onClick={[Function]}
                     >
-                      Download 
+                      Download
                       <ChevronRight
                         focusable="false"
                         role="presentation"
@@ -117,7 +117,7 @@ exports[`<Home /> renders 1`] = `
                       href="/docs/overview/introduction"
                       onClick={[Function]}
                     >
-                      Learn More 
+                      Learn More
                       <ChevronRight
                         focusable="false"
                         role="presentation"
@@ -132,8 +132,7 @@ exports[`<Home /> renders 1`] = `
                   <p
                     className="un-version has-no-m"
                   >
-                    Version 
-                    9.9.9
+                    Version 9.9.9
                   </p>
                 </div>
                 <div
@@ -281,7 +280,7 @@ exports[`<Home /> renders 1`] = `
                       href="/docs/overview/introduction"
                       onClick={[Function]}
                     >
-                      Learn More 
+                      Learn More
                       <ChevronRight
                         focusable="false"
                         role="presentation"
