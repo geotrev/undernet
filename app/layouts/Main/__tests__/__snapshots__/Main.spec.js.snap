@@ -314,11 +314,10 @@ exports[`<Main /> #render renders 1`] = `
                 <p
                   className="has-no-m-block-end has-text-center has-gray900-text-color"
                 >
-                  Undernet is a front-end framework created and maintained by
-                   
+                  Undernet is a front-end framework created and maintained by 
                   <a
                     className="has-white-text-color"
-                    href="http://www.geotrev.com"
+                    href="https://geotrev.com"
                   >
                     George Treviranus
                   </a>
@@ -327,8 +326,7 @@ exports[`<Main /> #render renders 1`] = `
                 <p
                   className="has-no-m-block-end has-text-center has-gray900-text-color"
                 >
-                  Animations provided by
-                   
+                  Animations provided by 
                   <a
                     className="has-white-text-color"
                     href="https://folgert.com/"

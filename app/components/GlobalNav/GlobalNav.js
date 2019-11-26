@@ -4,7 +4,7 @@ import Twitter from "react-feather/dist/icons/twitter"
 import { Link } from "react-router-dom"
 import PropTypes from "prop-types"
 
-import { introductionPath, rootPath } from "app/routes"
+import { docPages, rootPath } from "app/routes"
 import Logo from "app/assets/images/un-logo.png"
 import "./styles.scss"
 
@@ -31,13 +31,13 @@ export default function GlobalNav(props) {
                 onClick={handleClick}
                 type="button"
               >
-                Skip to main content
+                {"Skip to main content"}
               </button>
             </li>
             <li role="none">
               <a className="has-feather" href="https://www.twitter.com/gwtrev" role="menuitem">
                 <Twitter role="presentation" focusable="false" />
-                <span className="is-visually-hidden">Open link to www.twitter.com/gwtrev</span>
+                <span className="is-visually-hidden">{"Open link to www.twitter.com/gwtrev"}</span>
               </a>
             </li>
             <li role="none">
@@ -48,13 +48,13 @@ export default function GlobalNav(props) {
               >
                 <Github role="presentation" focusable="false" />
                 <span className="is-visually-hidden">
-                  Open link to www.github.com/geotrev/undernet
+                  {"Open link to www.github.com/geotrev/undernet"}
                 </span>
               </a>
             </li>
             <li role="none">
-              <a href={introductionPath} role="menuitem">
-                Documentation
+              <a href={docPages.introduction} role="menuitem">
+                {"Documentation"}
               </a>
             </li>
           </ul>
