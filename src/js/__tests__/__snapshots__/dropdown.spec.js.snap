@@ -1,372 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Dropdowns #handleClose -> Dropdown Menu Link Click closes dropdown 1`] = `
-<div
-  class="dropdown"
-  data-dropdown="dropdown1"
-  data-visible="false"
->
-  
-    
-  <button
-    aria-controls="new-dropdown"
-    aria-expanded="false"
-    aria-haspopup="true"
-    data-parent="dropdown1"
-    data-target="new-dropdown"
-    id="dropdown-button"
-  >
-    Open Dropdown
-  </button>
-  
-    
-  <ul
-    aria-labelledby="dropdown-button"
-    class="dropdown-menu"
-    id="new-dropdown"
-  >
-    
-      
-    <li
-      role="none"
-    >
-      <a
-        href="#"
-        role="menuitem"
-        tabindex="-1"
-      >
-        Item 1
-      </a>
-    </li>
-    
-      
-    <li
-      role="none"
-    >
-      <a
-        href="#"
-        role="menuitem"
-        tabindex="-1"
-      >
-        Item 2
-      </a>
-    </li>
-    
-      
-    <li
-      role="none"
-    >
-      <a
-        href="#"
-        role="menuitem"
-        tabindex="-1"
-      >
-        Item 3
-      </a>
-    </li>
-    
-    
-  </ul>
-  
-  
-</div>
-`;
-
-exports[`Dropdowns #handleEscapeKeyPress -> Escape Key Press closes dropdown 1`] = `
-<div
-  class="dropdown"
-  data-dropdown="dropdown1"
-  data-visible="false"
->
-  
-    
-  <button
-    aria-controls="new-dropdown"
-    aria-expanded="false"
-    aria-haspopup="true"
-    data-parent="dropdown1"
-    data-target="new-dropdown"
-    id="dropdown-button"
-  >
-    Open Dropdown
-  </button>
-  
-    
-  <ul
-    aria-labelledby="dropdown-button"
-    class="dropdown-menu"
-    id="new-dropdown"
-  >
-    
-      
-    <li
-      role="none"
-    >
-      <a
-        href="#"
-        role="menuitem"
-        tabindex="-1"
-      >
-        Item 1
-      </a>
-    </li>
-    
-      
-    <li
-      role="none"
-    >
-      <a
-        href="#"
-        role="menuitem"
-        tabindex="-1"
-      >
-        Item 2
-      </a>
-    </li>
-    
-      
-    <li
-      role="none"
-    >
-      <a
-        href="#"
-        role="menuitem"
-        tabindex="-1"
-      >
-        Item 3
-      </a>
-    </li>
-    
-    
-  </ul>
-  
-  
-</div>
-`;
-
-exports[`Dropdowns #handleFirstTabClose & #handleLastTabClose opens dropdown if shift + tab key is pressed in open menu 1`] = `
-<div
-  class="dropdown"
-  data-dropdown="dropdown1"
-  data-visible="false"
->
-  
-    
-  <button
-    aria-controls="new-dropdown"
-    aria-expanded="false"
-    aria-haspopup="true"
-    data-parent="dropdown1"
-    data-target="new-dropdown"
-    id="dropdown-button"
-  >
-    Open Dropdown
-  </button>
-  
-    
-  <ul
-    aria-labelledby="dropdown-button"
-    class="dropdown-menu"
-    id="new-dropdown"
-  >
-    
-      
-    <li
-      role="none"
-    >
-      <a
-        href="#"
-        role="menuitem"
-        tabindex="-1"
-      >
-        Item 1
-      </a>
-    </li>
-    
-      
-    <li
-      role="none"
-    >
-      <a
-        href="#"
-        role="menuitem"
-        tabindex="-1"
-      >
-        Item 2
-      </a>
-    </li>
-    
-      
-    <li
-      role="none"
-    >
-      <a
-        href="#"
-        role="menuitem"
-        tabindex="-1"
-      >
-        Item 3
-      </a>
-    </li>
-    
-    
-  </ul>
-  
-  
-</div>
-`;
-
-exports[`Dropdowns #handleFirstTabClose & #handleLastTabClose opens dropdown if tab key is pressed in open menu 1`] = `
-<div
-  class="dropdown"
-  data-dropdown="dropdown1"
-  data-visible="false"
->
-  
-    
-  <button
-    aria-controls="new-dropdown"
-    aria-expanded="false"
-    aria-haspopup="true"
-    data-parent="dropdown1"
-    data-target="new-dropdown"
-    id="dropdown-button"
-  >
-    Open Dropdown
-  </button>
-  
-    
-  <ul
-    aria-labelledby="dropdown-button"
-    class="dropdown-menu"
-    id="new-dropdown"
-  >
-    
-      
-    <li
-      role="none"
-    >
-      <a
-        href="#"
-        role="menuitem"
-        tabindex="-1"
-      >
-        Item 1
-      </a>
-    </li>
-    
-      
-    <li
-      role="none"
-    >
-      <a
-        href="#"
-        role="menuitem"
-        tabindex="-1"
-      >
-        Item 2
-      </a>
-    </li>
-    
-      
-    <li
-      role="none"
-    >
-      <a
-        href="#"
-        role="menuitem"
-        tabindex="-1"
-      >
-        Item 3
-      </a>
-    </li>
-    
-    
-  </ul>
-  
-  
-</div>
-`;
-
-exports[`Dropdowns #handleOffMenuClick -> Off-Dropdown Close Click closes dropdown 1`] = `
-<div
-  class="dropdown"
-  data-dropdown="dropdown1"
-  data-visible="false"
->
-  
-    
-  <button
-    aria-controls="new-dropdown"
-    aria-expanded="false"
-    aria-haspopup="true"
-    data-parent="dropdown1"
-    data-target="new-dropdown"
-    id="dropdown-button"
-  >
-    Open Dropdown
-  </button>
-  
-    
-  <ul
-    aria-labelledby="dropdown-button"
-    class="dropdown-menu"
-    id="new-dropdown"
-  >
-    
-      
-    <li
-      role="none"
-    >
-      <a
-        href="#"
-        role="menuitem"
-        tabindex="-1"
-      >
-        Item 1
-      </a>
-    </li>
-    
-      
-    <li
-      role="none"
-    >
-      <a
-        href="#"
-        role="menuitem"
-        tabindex="-1"
-      >
-        Item 2
-      </a>
-    </li>
-    
-      
-    <li
-      role="none"
-    >
-      <a
-        href="#"
-        role="menuitem"
-        tabindex="-1"
-      >
-        Item 3
-      </a>
-    </li>
-    
-    
-  </ul>
-  
-  
-</div>
-`;
-
-exports[`Dropdowns #render -> Dropdown Button Click opens clicked dropdown 1`] = `
+exports[`Dropdown #handleArrowKeyPress opens dropdown on down arrow key press 1`] = `
 <body>
   
   
   <div
     class="dropdown"
-    data-dropdown="dropdown1"
+    data-dropdown="dropdown-id-1"
     data-visible="true"
   >
     
@@ -375,16 +15,16 @@ exports[`Dropdowns #render -> Dropdown Button Click opens clicked dropdown 1`] =
       aria-controls="new-dropdown"
       aria-expanded="true"
       aria-haspopup="true"
-      data-parent="dropdown1"
+      data-parent="dropdown-id-1"
       data-target="new-dropdown"
-      id="dropdown-button"
+      id="trigger-id-1"
     >
       Open Dropdown
     </button>
     
     
     <ul
-      aria-labelledby="dropdown-button"
+      aria-labelledby="trigger-id-1"
       class="dropdown-menu"
       id="new-dropdown"
     >
@@ -442,21 +82,21 @@ exports[`Dropdowns #render -> Dropdown Button Click opens clicked dropdown 1`] =
     
     
     <button
-      aria-controls="new-dropdown2"
+      aria-controls="dropdown-id-2"
       aria-expanded="false"
       aria-haspopup="true"
       data-parent="dropdown2"
-      data-target="new-dropdown2"
-      id="dropdown-button2"
+      data-target="dropdown-id-2"
+      id="trigger-id-2"
     >
       Open Dropdown 2
     </button>
     
     
     <ul
-      aria-labelledby="dropdown-button2"
+      aria-labelledby="trigger-id-2"
       class="dropdown-menu"
-      id="new-dropdown2"
+      id="dropdown-id-2"
     >
       
       
@@ -482,13 +122,13 @@ exports[`Dropdowns #render -> Dropdown Button Click opens clicked dropdown 1`] =
 </body>
 `;
 
-exports[`Dropdowns #renderWithKeys -> Arrow Down or Up Key Press opens dropdown on down arrow key press 1`] = `
+exports[`Dropdown #handleArrowKeyPress opens dropdown on up arrow key press 1`] = `
 <body>
   
   
   <div
     class="dropdown"
-    data-dropdown="dropdown1"
+    data-dropdown="dropdown-id-1"
     data-visible="true"
   >
     
@@ -497,16 +137,16 @@ exports[`Dropdowns #renderWithKeys -> Arrow Down or Up Key Press opens dropdown 
       aria-controls="new-dropdown"
       aria-expanded="true"
       aria-haspopup="true"
-      data-parent="dropdown1"
+      data-parent="dropdown-id-1"
       data-target="new-dropdown"
-      id="dropdown-button"
+      id="trigger-id-1"
     >
       Open Dropdown
     </button>
     
     
     <ul
-      aria-labelledby="dropdown-button"
+      aria-labelledby="trigger-id-1"
       class="dropdown-menu"
       id="new-dropdown"
     >
@@ -564,21 +204,21 @@ exports[`Dropdowns #renderWithKeys -> Arrow Down or Up Key Press opens dropdown 
     
     
     <button
-      aria-controls="new-dropdown2"
+      aria-controls="dropdown-id-2"
       aria-expanded="false"
       aria-haspopup="true"
       data-parent="dropdown2"
-      data-target="new-dropdown2"
-      id="dropdown-button2"
+      data-target="dropdown-id-2"
+      id="trigger-id-2"
     >
       Open Dropdown 2
     </button>
     
     
     <ul
-      aria-labelledby="dropdown-button2"
+      aria-labelledby="trigger-id-2"
       class="dropdown-menu"
-      id="new-dropdown2"
+      id="dropdown-id-2"
     >
       
       
@@ -604,13 +244,13 @@ exports[`Dropdowns #renderWithKeys -> Arrow Down or Up Key Press opens dropdown 
 </body>
 `;
 
-exports[`Dropdowns #renderWithKeys -> Arrow Down or Up Key Press opens dropdown on up arrow key press 1`] = `
+exports[`Dropdown #handleClick opens clicked dropdown 1`] = `
 <body>
   
   
   <div
     class="dropdown"
-    data-dropdown="dropdown1"
+    data-dropdown="dropdown-id-1"
     data-visible="true"
   >
     
@@ -619,16 +259,16 @@ exports[`Dropdowns #renderWithKeys -> Arrow Down or Up Key Press opens dropdown 
       aria-controls="new-dropdown"
       aria-expanded="true"
       aria-haspopup="true"
-      data-parent="dropdown1"
+      data-parent="dropdown-id-1"
       data-target="new-dropdown"
-      id="dropdown-button"
+      id="trigger-id-1"
     >
       Open Dropdown
     </button>
     
     
     <ul
-      aria-labelledby="dropdown-button"
+      aria-labelledby="trigger-id-1"
       class="dropdown-menu"
       id="new-dropdown"
     >
@@ -686,21 +326,21 @@ exports[`Dropdowns #renderWithKeys -> Arrow Down or Up Key Press opens dropdown 
     
     
     <button
-      aria-controls="new-dropdown2"
+      aria-controls="dropdown-id-2"
       aria-expanded="false"
       aria-haspopup="true"
       data-parent="dropdown2"
-      data-target="new-dropdown2"
-      id="dropdown-button2"
+      data-target="dropdown-id-2"
+      id="trigger-id-2"
     >
       Open Dropdown 2
     </button>
     
     
     <ul
-      aria-labelledby="dropdown-button2"
+      aria-labelledby="trigger-id-2"
       class="dropdown-menu"
-      id="new-dropdown2"
+      id="dropdown-id-2"
     >
       
       
@@ -726,255 +366,13 @@ exports[`Dropdowns #renderWithKeys -> Arrow Down or Up Key Press opens dropdown 
 </body>
 `;
 
-exports[`Dropdowns API start sets attributes 1`] = `
+exports[`Dropdown #handleClose closes dropdown 1`] = `
 <body>
   
   
   <div
     class="dropdown"
-    data-dropdown="dropdown1"
-  >
-    
-    
-    <button
-      aria-controls="new-dropdown"
-      aria-expanded="false"
-      aria-haspopup="true"
-      data-parent="dropdown1"
-      data-target="new-dropdown"
-      id="dropdown-button"
-    >
-      Open Dropdown
-    </button>
-    
-    
-    <ul
-      aria-labelledby="dropdown-button"
-      class="dropdown-menu"
-      id="new-dropdown"
-    >
-      
-      
-      <li
-        role="none"
-      >
-        <a
-          href="#"
-          role="menuitem"
-          tabindex="-1"
-        >
-          Item 1
-        </a>
-      </li>
-      
-      
-      <li
-        role="none"
-      >
-        <a
-          href="#"
-          role="menuitem"
-          tabindex="-1"
-        >
-          Item 2
-        </a>
-      </li>
-      
-      
-      <li
-        role="none"
-      >
-        <a
-          href="#"
-          role="menuitem"
-          tabindex="-1"
-        >
-          Item 3
-        </a>
-      </li>
-      
-    
-    </ul>
-    
-  
-  </div>
-  
-  
-  <div
-    class="dropdown"
-    data-dropdown="dropdown2"
-  >
-    
-    
-    <button
-      aria-controls="new-dropdown2"
-      aria-expanded="false"
-      aria-haspopup="true"
-      data-parent="dropdown2"
-      data-target="new-dropdown2"
-      id="dropdown-button2"
-    >
-      Open Dropdown 2
-    </button>
-    
-    
-    <ul
-      aria-labelledby="dropdown-button2"
-      class="dropdown-menu"
-      id="new-dropdown2"
-    >
-      
-      
-      <li
-        role="none"
-      >
-        <a
-          href="#"
-          role="menuitem"
-          tabindex="-1"
-        >
-          Item 1
-        </a>
-      </li>
-      
-    
-    </ul>
-    
-  
-  </div>
-  
-
-</body>
-`;
-
-exports[`Dropdowns API stop + handleClick does not open dropdown 1`] = `
-<body>
-  
-  
-  <div
-    class="dropdown"
-    data-dropdown="dropdown1"
-  >
-    
-    
-    <button
-      aria-controls="new-dropdown"
-      aria-expanded="false"
-      aria-haspopup="true"
-      data-parent="dropdown1"
-      data-target="new-dropdown"
-      id="dropdown-button"
-    >
-      Open Dropdown
-    </button>
-    
-    
-    <ul
-      aria-labelledby="dropdown-button"
-      class="dropdown-menu"
-      id="new-dropdown"
-    >
-      
-      
-      <li
-        role="none"
-      >
-        <a
-          href="#"
-          role="menuitem"
-          tabindex="-1"
-        >
-          Item 1
-        </a>
-      </li>
-      
-      
-      <li
-        role="none"
-      >
-        <a
-          href="#"
-          role="menuitem"
-          tabindex="-1"
-        >
-          Item 2
-        </a>
-      </li>
-      
-      
-      <li
-        role="none"
-      >
-        <a
-          href="#"
-          role="menuitem"
-          tabindex="-1"
-        >
-          Item 3
-        </a>
-      </li>
-      
-    
-    </ul>
-    
-  
-  </div>
-  
-  
-  <div
-    class="dropdown"
-    data-dropdown="dropdown2"
-  >
-    
-    
-    <button
-      aria-controls="new-dropdown2"
-      aria-expanded="false"
-      aria-haspopup="true"
-      data-parent="dropdown2"
-      data-target="new-dropdown2"
-      id="dropdown-button2"
-    >
-      Open Dropdown 2
-    </button>
-    
-    
-    <ul
-      aria-labelledby="dropdown-button2"
-      class="dropdown-menu"
-      id="new-dropdown2"
-    >
-      
-      
-      <li
-        role="none"
-      >
-        <a
-          href="#"
-          role="menuitem"
-          tabindex="-1"
-        >
-          Item 1
-        </a>
-      </li>
-      
-    
-    </ul>
-    
-  
-  </div>
-  
-
-</body>
-`;
-
-exports[`Dropdowns Multiple Dropdowns closes first dropdown if second dropdown is clicked 1`] = `
-<body>
-  
-  
-  <div
-    class="dropdown"
-    data-dropdown="dropdown1"
+    data-dropdown="dropdown-id-1"
     data-visible="false"
   >
     
@@ -983,16 +381,873 @@ exports[`Dropdowns Multiple Dropdowns closes first dropdown if second dropdown i
       aria-controls="new-dropdown"
       aria-expanded="false"
       aria-haspopup="true"
-      data-parent="dropdown1"
+      data-parent="dropdown-id-1"
       data-target="new-dropdown"
-      id="dropdown-button"
+      id="trigger-id-1"
+      tabindex="-1"
     >
       Open Dropdown
     </button>
     
     
     <ul
-      aria-labelledby="dropdown-button"
+      aria-labelledby="trigger-id-1"
+      class="dropdown-menu"
+      id="new-dropdown"
+    >
+      
+      
+      <li
+        role="none"
+      >
+        <a
+          href="#"
+          role="menuitem"
+          tabindex="-1"
+        >
+          Item 1
+        </a>
+      </li>
+      
+      
+      <li
+        role="none"
+      >
+        <a
+          href="#"
+          role="menuitem"
+          tabindex="-1"
+        >
+          Item 2
+        </a>
+      </li>
+      
+      
+      <li
+        role="none"
+      >
+        <a
+          href="#"
+          role="menuitem"
+          tabindex="-1"
+        >
+          Item 3
+        </a>
+      </li>
+      
+    
+    </ul>
+    
+  
+  </div>
+  
+  
+  <div
+    class="dropdown"
+    data-dropdown="dropdown2"
+  >
+    
+    
+    <button
+      aria-controls="dropdown-id-2"
+      aria-expanded="false"
+      aria-haspopup="true"
+      data-parent="dropdown2"
+      data-target="dropdown-id-2"
+      id="trigger-id-2"
+    >
+      Open Dropdown 2
+    </button>
+    
+    
+    <ul
+      aria-labelledby="trigger-id-2"
+      class="dropdown-menu"
+      id="dropdown-id-2"
+    >
+      
+      
+      <li
+        role="none"
+      >
+        <a
+          href="#"
+          role="menuitem"
+          tabindex="-1"
+        >
+          Item 1
+        </a>
+      </li>
+      
+    
+    </ul>
+    
+  
+  </div>
+  
+
+</body>
+`;
+
+exports[`Dropdown #handleEscapeKeyPress closes dropdown 1`] = `
+<body>
+  
+  
+  <div
+    class="dropdown"
+    data-dropdown="dropdown-id-1"
+    data-visible="false"
+  >
+    
+    
+    <button
+      aria-controls="new-dropdown"
+      aria-expanded="false"
+      aria-haspopup="true"
+      data-parent="dropdown-id-1"
+      data-target="new-dropdown"
+      id="trigger-id-1"
+      tabindex="-1"
+    >
+      Open Dropdown
+    </button>
+    
+    
+    <ul
+      aria-labelledby="trigger-id-1"
+      class="dropdown-menu"
+      id="new-dropdown"
+    >
+      
+      
+      <li
+        role="none"
+      >
+        <a
+          href="#"
+          role="menuitem"
+          tabindex="-1"
+        >
+          Item 1
+        </a>
+      </li>
+      
+      
+      <li
+        role="none"
+      >
+        <a
+          href="#"
+          role="menuitem"
+          tabindex="-1"
+        >
+          Item 2
+        </a>
+      </li>
+      
+      
+      <li
+        role="none"
+      >
+        <a
+          href="#"
+          role="menuitem"
+          tabindex="-1"
+        >
+          Item 3
+        </a>
+      </li>
+      
+    
+    </ul>
+    
+  
+  </div>
+  
+  
+  <div
+    class="dropdown"
+    data-dropdown="dropdown2"
+  >
+    
+    
+    <button
+      aria-controls="dropdown-id-2"
+      aria-expanded="false"
+      aria-haspopup="true"
+      data-parent="dropdown2"
+      data-target="dropdown-id-2"
+      id="trigger-id-2"
+    >
+      Open Dropdown 2
+    </button>
+    
+    
+    <ul
+      aria-labelledby="trigger-id-2"
+      class="dropdown-menu"
+      id="dropdown-id-2"
+    >
+      
+      
+      <li
+        role="none"
+      >
+        <a
+          href="#"
+          role="menuitem"
+          tabindex="-1"
+        >
+          Item 1
+        </a>
+      </li>
+      
+    
+    </ul>
+    
+  
+  </div>
+  
+
+</body>
+`;
+
+exports[`Dropdown #handleFirstTabClose & #handleLastTabClose closes dropdown if shift + tab key is pressed in open menu 1`] = `
+<body>
+  
+  
+  <div
+    class="dropdown"
+    data-dropdown="dropdown-id-1"
+    data-visible="false"
+  >
+    
+    
+    <button
+      aria-controls="new-dropdown"
+      aria-expanded="false"
+      aria-haspopup="true"
+      data-parent="dropdown-id-1"
+      data-target="new-dropdown"
+      id="trigger-id-1"
+      tabindex="-1"
+    >
+      Open Dropdown
+    </button>
+    
+    
+    <ul
+      aria-labelledby="trigger-id-1"
+      class="dropdown-menu"
+      id="new-dropdown"
+    >
+      
+      
+      <li
+        role="none"
+      >
+        <a
+          href="#"
+          role="menuitem"
+          tabindex="-1"
+        >
+          Item 1
+        </a>
+      </li>
+      
+      
+      <li
+        role="none"
+      >
+        <a
+          href="#"
+          role="menuitem"
+          tabindex="-1"
+        >
+          Item 2
+        </a>
+      </li>
+      
+      
+      <li
+        role="none"
+      >
+        <a
+          href="#"
+          role="menuitem"
+          tabindex="-1"
+        >
+          Item 3
+        </a>
+      </li>
+      
+    
+    </ul>
+    
+  
+  </div>
+  
+  
+  <div
+    class="dropdown"
+    data-dropdown="dropdown2"
+  >
+    
+    
+    <button
+      aria-controls="dropdown-id-2"
+      aria-expanded="false"
+      aria-haspopup="true"
+      data-parent="dropdown2"
+      data-target="dropdown-id-2"
+      id="trigger-id-2"
+    >
+      Open Dropdown 2
+    </button>
+    
+    
+    <ul
+      aria-labelledby="trigger-id-2"
+      class="dropdown-menu"
+      id="dropdown-id-2"
+    >
+      
+      
+      <li
+        role="none"
+      >
+        <a
+          href="#"
+          role="menuitem"
+          tabindex="-1"
+        >
+          Item 1
+        </a>
+      </li>
+      
+    
+    </ul>
+    
+  
+  </div>
+  
+
+</body>
+`;
+
+exports[`Dropdown #handleFirstTabClose & #handleLastTabClose closes dropdown if tab key is pressed in open menu 1`] = `
+<body>
+  
+  
+  <div
+    class="dropdown"
+    data-dropdown="dropdown-id-1"
+    data-visible="false"
+  >
+    
+    
+    <button
+      aria-controls="new-dropdown"
+      aria-expanded="false"
+      aria-haspopup="true"
+      data-parent="dropdown-id-1"
+      data-target="new-dropdown"
+      id="trigger-id-1"
+      tabindex="-1"
+    >
+      Open Dropdown
+    </button>
+    
+    
+    <ul
+      aria-labelledby="trigger-id-1"
+      class="dropdown-menu"
+      id="new-dropdown"
+    >
+      
+      
+      <li
+        role="none"
+      >
+        <a
+          href="#"
+          role="menuitem"
+          tabindex="-1"
+        >
+          Item 1
+        </a>
+      </li>
+      
+      
+      <li
+        role="none"
+      >
+        <a
+          href="#"
+          role="menuitem"
+          tabindex="-1"
+        >
+          Item 2
+        </a>
+      </li>
+      
+      
+      <li
+        role="none"
+      >
+        <a
+          href="#"
+          role="menuitem"
+          tabindex="-1"
+        >
+          Item 3
+        </a>
+      </li>
+      
+    
+    </ul>
+    
+  
+  </div>
+  
+  
+  <div
+    class="dropdown"
+    data-dropdown="dropdown2"
+  >
+    
+    
+    <button
+      aria-controls="dropdown-id-2"
+      aria-expanded="false"
+      aria-haspopup="true"
+      data-parent="dropdown2"
+      data-target="dropdown-id-2"
+      id="trigger-id-2"
+    >
+      Open Dropdown 2
+    </button>
+    
+    
+    <ul
+      aria-labelledby="trigger-id-2"
+      class="dropdown-menu"
+      id="dropdown-id-2"
+    >
+      
+      
+      <li
+        role="none"
+      >
+        <a
+          href="#"
+          role="menuitem"
+          tabindex="-1"
+        >
+          Item 1
+        </a>
+      </li>
+      
+    
+    </ul>
+    
+  
+  </div>
+  
+
+</body>
+`;
+
+exports[`Dropdown #handleOffMenuClick closes dropdown 1`] = `
+<body>
+  
+  
+  <div
+    class="dropdown"
+    data-dropdown="dropdown-id-1"
+    data-visible="false"
+  >
+    
+    
+    <button
+      aria-controls="new-dropdown"
+      aria-expanded="false"
+      aria-haspopup="true"
+      data-parent="dropdown-id-1"
+      data-target="new-dropdown"
+      id="trigger-id-1"
+      tabindex="-1"
+    >
+      Open Dropdown
+    </button>
+    
+    
+    <ul
+      aria-labelledby="trigger-id-1"
+      class="dropdown-menu"
+      id="new-dropdown"
+    >
+      
+      
+      <li
+        role="none"
+      >
+        <a
+          href="#"
+          role="menuitem"
+          tabindex="-1"
+        >
+          Item 1
+        </a>
+      </li>
+      
+      
+      <li
+        role="none"
+      >
+        <a
+          href="#"
+          role="menuitem"
+          tabindex="-1"
+        >
+          Item 2
+        </a>
+      </li>
+      
+      
+      <li
+        role="none"
+      >
+        <a
+          href="#"
+          role="menuitem"
+          tabindex="-1"
+        >
+          Item 3
+        </a>
+      </li>
+      
+    
+    </ul>
+    
+  
+  </div>
+  
+  
+  <div
+    class="dropdown"
+    data-dropdown="dropdown2"
+  >
+    
+    
+    <button
+      aria-controls="dropdown-id-2"
+      aria-expanded="false"
+      aria-haspopup="true"
+      data-parent="dropdown2"
+      data-target="dropdown-id-2"
+      id="trigger-id-2"
+    >
+      Open Dropdown 2
+    </button>
+    
+    
+    <ul
+      aria-labelledby="trigger-id-2"
+      class="dropdown-menu"
+      id="dropdown-id-2"
+    >
+      
+      
+      <li
+        role="none"
+      >
+        <a
+          href="#"
+          role="menuitem"
+          tabindex="-1"
+        >
+          Item 1
+        </a>
+      </li>
+      
+    
+    </ul>
+    
+  
+  </div>
+  
+
+</body>
+`;
+
+exports[`Dropdown API start sets attributes 1`] = `
+<body>
+  
+  
+  <div
+    class="dropdown"
+    data-dropdown="dropdown-id-1"
+  >
+    
+    
+    <button
+      aria-controls="new-dropdown"
+      aria-expanded="false"
+      aria-haspopup="true"
+      data-parent="dropdown-id-1"
+      data-target="new-dropdown"
+      id="trigger-id-1"
+    >
+      Open Dropdown
+    </button>
+    
+    
+    <ul
+      aria-labelledby="trigger-id-1"
+      class="dropdown-menu"
+      id="new-dropdown"
+    >
+      
+      
+      <li
+        role="none"
+      >
+        <a
+          href="#"
+          role="menuitem"
+          tabindex="-1"
+        >
+          Item 1
+        </a>
+      </li>
+      
+      
+      <li
+        role="none"
+      >
+        <a
+          href="#"
+          role="menuitem"
+          tabindex="-1"
+        >
+          Item 2
+        </a>
+      </li>
+      
+      
+      <li
+        role="none"
+      >
+        <a
+          href="#"
+          role="menuitem"
+          tabindex="-1"
+        >
+          Item 3
+        </a>
+      </li>
+      
+    
+    </ul>
+    
+  
+  </div>
+  
+  
+  <div
+    class="dropdown"
+    data-dropdown="dropdown2"
+  >
+    
+    
+    <button
+      aria-controls="dropdown-id-2"
+      aria-expanded="false"
+      aria-haspopup="true"
+      data-parent="dropdown2"
+      data-target="dropdown-id-2"
+      id="trigger-id-2"
+    >
+      Open Dropdown 2
+    </button>
+    
+    
+    <ul
+      aria-labelledby="trigger-id-2"
+      class="dropdown-menu"
+      id="dropdown-id-2"
+    >
+      
+      
+      <li
+        role="none"
+      >
+        <a
+          href="#"
+          role="menuitem"
+          tabindex="-1"
+        >
+          Item 1
+        </a>
+      </li>
+      
+    
+    </ul>
+    
+  
+  </div>
+  
+
+</body>
+`;
+
+exports[`Dropdown API stop + #handleClick does not open dropdown 1`] = `
+<body>
+  
+  
+  <div
+    class="dropdown"
+    data-dropdown="dropdown-id-1"
+  >
+    
+    
+    <button
+      aria-controls="new-dropdown"
+      aria-expanded="false"
+      aria-haspopup="true"
+      data-parent="dropdown-id-1"
+      data-target="new-dropdown"
+      id="trigger-id-1"
+    >
+      Open Dropdown
+    </button>
+    
+    
+    <ul
+      aria-labelledby="trigger-id-1"
+      class="dropdown-menu"
+      id="new-dropdown"
+    >
+      
+      
+      <li
+        role="none"
+      >
+        <a
+          href="#"
+          role="menuitem"
+          tabindex="-1"
+        >
+          Item 1
+        </a>
+      </li>
+      
+      
+      <li
+        role="none"
+      >
+        <a
+          href="#"
+          role="menuitem"
+          tabindex="-1"
+        >
+          Item 2
+        </a>
+      </li>
+      
+      
+      <li
+        role="none"
+      >
+        <a
+          href="#"
+          role="menuitem"
+          tabindex="-1"
+        >
+          Item 3
+        </a>
+      </li>
+      
+    
+    </ul>
+    
+  
+  </div>
+  
+  
+  <div
+    class="dropdown"
+    data-dropdown="dropdown2"
+  >
+    
+    
+    <button
+      aria-controls="dropdown-id-2"
+      aria-expanded="false"
+      aria-haspopup="true"
+      data-parent="dropdown2"
+      data-target="dropdown-id-2"
+      id="trigger-id-2"
+    >
+      Open Dropdown 2
+    </button>
+    
+    
+    <ul
+      aria-labelledby="trigger-id-2"
+      class="dropdown-menu"
+      id="dropdown-id-2"
+    >
+      
+      
+      <li
+        role="none"
+      >
+        <a
+          href="#"
+          role="menuitem"
+          tabindex="-1"
+        >
+          Item 1
+        </a>
+      </li>
+      
+    
+    </ul>
+    
+  
+  </div>
+  
+
+</body>
+`;
+
+exports[`Dropdown Multiple Dropdowns closes first dropdown if second dropdown is clicked 1`] = `
+<body>
+  
+  
+  <div
+    class="dropdown"
+    data-dropdown="dropdown-id-1"
+    data-visible="false"
+  >
+    
+    
+    <button
+      aria-controls="new-dropdown"
+      aria-expanded="false"
+      aria-haspopup="true"
+      data-parent="dropdown-id-1"
+      data-target="new-dropdown"
+      id="trigger-id-1"
+    >
+      Open Dropdown
+    </button>
+    
+    
+    <ul
+      aria-labelledby="trigger-id-1"
       class="dropdown-menu"
       id="new-dropdown"
     >
@@ -1051,21 +1306,21 @@ exports[`Dropdowns Multiple Dropdowns closes first dropdown if second dropdown i
     
     
     <button
-      aria-controls="new-dropdown2"
+      aria-controls="dropdown-id-2"
       aria-expanded="true"
       aria-haspopup="true"
       data-parent="dropdown2"
-      data-target="new-dropdown2"
-      id="dropdown-button2"
+      data-target="dropdown-id-2"
+      id="trigger-id-2"
     >
       Open Dropdown 2
     </button>
     
     
     <ul
-      aria-labelledby="dropdown-button2"
+      aria-labelledby="trigger-id-2"
       class="dropdown-menu"
-      id="new-dropdown2"
+      id="dropdown-id-2"
     >
       
       
