@@ -1,10 +1,11 @@
 import Undernet from "../"
+import { find, renderDOM, simulateKeyboardEvent } from "./helpers"
 
 const dom = `
-  <button data-target="new-modal">Open modal</button>
+  <button data-target="modal-id">Open modal</button>
 
-  <div className="modal-overlay" data-modal="new-modal">
-    <div className="modal-dialog" data-parent="new-modal" aria-labelledby="header-id">
+  <div className="modal-overlay" data-modal="modal-id">
+    <div className="modal-dialog" data-parent="modal-id" aria-labelledby="header-id">
       <header>
         <h2 className="h6 has-no-m-block-start" id="header-id">
           Modal Header
@@ -32,7 +33,9 @@ const KeyCodes = {
   ESCAPE: 27,
 }
 
-describe("Modals", () => {
+const activeElement = () => document.activeElement
+
+describe("Modal", () => {
   afterEach(() => {
     Undernet.Modals.stop()
   })
@@ -40,57 +43,60 @@ describe("Modals", () => {
   describe("API start", () => {
     it("sets attributes", () => {
       // Given
-      document.body.innerHTML = dom
+      const wrapper = renderDOM(dom)
       // When
       Undernet.Modals.start()
       // Then
-      expect(document.body).toMatchSnapshot()
+      expect(wrapper()).toMatchSnapshot()
     })
   })
 
-  describe("API stop + handleClick", () => {
+  describe("API stop + #handleClick", () => {
     it("does not open modal", () => {
       // Given
-      document.body.innerHTML = dom
-      const trigger = document.querySelector("[data-target]")
+      const wrapper = renderDOM(dom)
+      const trigger = find("[data-target='modal-id']")
       // When
       Undernet.Modals.start()
       Undernet.Modals.stop()
       trigger.click()
       // Then
-      expect(document.body).toMatchSnapshot()
+      expect(wrapper()).toMatchSnapshot()
     })
   })
 
-  describe("#render -> Modal Button Click", () => {
-    beforeEach(() => {
-      document.body.innerHTML = dom
+  describe("#handleClick", () => {
+    let wrapper
 
-      const trigger = document.querySelector("[data-target]")
+    beforeEach(() => {
+      wrapper = renderDOM(dom)
+
+      const trigger = find("[data-target='modal-id']")
 
       Undernet.Modals.start()
       trigger.click()
     })
 
     it("opens modal", () => {
-      expect(document.body).toMatchSnapshot()
+      expect(wrapper()).toMatchSnapshot()
     })
 
     it("sets focus to modal dialog", () => {
-      const modalDialog = document.querySelector("[data-parent]")
-      expect(document.activeElement).toEqual(modalDialog)
+      const modalDialog = find("[data-parent]")
+      expect(activeElement()).toEqual(modalDialog)
     })
   })
 
-  describe("#handleClose -> Modal Close Button Click", () => {
+  describe("#handleClose", () => {
+    let wrapper
     let trigger
     let closeButton
 
     beforeEach(() => {
-      document.body.innerHTML = dom
+      wrapper = renderDOM(dom)
 
-      trigger = document.querySelector("[data-target]")
-      closeButton = document.querySelector("[data-close]")
+      trigger = find("[data-target='modal-id']")
+      closeButton = find("header [data-close]")
 
       Undernet.Modals.start()
       trigger.click()
@@ -98,68 +104,71 @@ describe("Modals", () => {
     })
 
     it("closes modal", () => {
-      expect(document.body).toMatchSnapshot()
+      expect(wrapper()).toMatchSnapshot()
     })
 
     it("sets focus to modal trigger", () => {
-      expect(document.activeElement).toEqual(trigger)
+      expect(activeElement()).toEqual(trigger)
+    })
+
+    it("removes tabindex when trigger loses focus", () => {
+      trigger.blur()
+      expect(trigger.hasAttribute("tabindex")).toEqual(false)
     })
   })
 
-  describe("#handleOverlayClick -> Modal Overlay Click", () => {
+  describe("#handleOverlayClick", () => {
     it("closes modal", () => {
       // Given
-      document.body.innerHTML = dom
-      const trigger = document.querySelector("[data-target]")
-      const modalOverlay = document.querySelector("[data-modal]")
+      const wrapper = renderDOM(dom)
+      const trigger = find("[data-target='modal-id']")
       // When
       Undernet.Modals.start()
       trigger.click()
-      modalOverlay.click()
+      find("[data-modal='modal-id']").click()
       // Then
-      expect(modalOverlay).toMatchSnapshot()
+      expect(wrapper()).toMatchSnapshot()
     })
   })
 
-  describe("#handleEscapeKeyPress -> Escape Key Press", () => {
+  describe("#handleEscapeKeyPress", () => {
     it("closes modal", () => {
       // Given
-      document.body.innerHTML = dom
-      const trigger = document.querySelector("[data-target]")
-      const modalOverlay = document.querySelector("[data-modal]")
+      const wrapper = renderDOM(dom)
+      const trigger = find("[data-target='modal-id']")
       // When
       Undernet.Modals.start()
       trigger.click()
-      global.simulateKeyPress(KeyCodes.ESCAPE)
+      simulateKeyboardEvent(KeyCodes.ESCAPE)
       // Then
-      expect(modalOverlay).toMatchSnapshot()
+      expect(wrapper()).toMatchSnapshot()
     })
   })
 
-  describe("#handleReturnFocus -> Modal Close Button Click", () => {
+  describe("#handleReturnFocus", () => {
     it("sets focus back to modal trigger", () => {
       // Given
-      document.body.innerHTML = dom
-      const trigger = document.querySelector("[data-target]")
-      const closeButton = document.querySelector("[data-close]")
+      renderDOM(dom)
+      const trigger = find("[data-target='modal-id']")
+      const closeButton = find("header [data-close]")
       // When
       Undernet.Modals.start()
       trigger.click()
       closeButton.click()
       // Then
-      expect(document.activeElement).toEqual(trigger)
+      expect(activeElement()).toEqual(trigger)
     })
   })
 
-  describe("#handleScrollRestore -> Modal Close Button Click", () => {
+  describe("#handleScrollRestore", () => {
     let trigger
     let closeButton
 
     beforeEach(() => {
-      document.body.innerHTML = dom
+      renderDOM(dom)
 
-      trigger = document.querySelector("[data-target]")
-      closeButton = document.querySelector("[data-close]")
+      trigger = find("[data-target='modal-id']")
+      closeButton = find("header [data-close]")
 
       Undernet.Modals.start()
       trigger.click()
@@ -167,30 +176,29 @@ describe("Modals", () => {
     })
 
     it("removes 'no-scroll' class from <body>", () => {
-      expect(document.body.className).toEqual("")
+      expect(find("body").className).toEqual("")
     })
 
     it("removes 'no-scroll' class from <html>", () => {
-      expect(document.documentElement.className).toEqual("")
+      expect(find("html").className).toEqual("")
     })
   })
 
-  describe("#handleScrollStop -> Modal Button Click", () => {
+  describe("#handleScrollStop", () => {
     beforeEach(() => {
-      document.body.innerHTML = dom
-
-      const trigger = document.querySelector("[data-target]")
+      renderDOM(dom)
+      const trigger = find("[data-target='modal-id']")
 
       Undernet.Modals.start()
       trigger.click()
     })
 
     it("sets 'no-scroll' class to <body>", () => {
-      expect(document.body.className).toEqual("no-scroll")
+      expect(find("body").className).toEqual("no-scroll")
     })
 
     it("sets 'no-scroll' class to <html>", () => {
-      expect(document.documentElement.className).toEqual("no-scroll")
+      expect(find("html").className).toEqual("no-scroll")
     })
   })
 })
@@ -230,32 +238,32 @@ describe("Modal Warnings", () => {
 
   it("throws error if modal button isn't found", () => {
     // Given
-    document.body.innerHTML = errorDom("", "new-modal", "new-modal")
+    renderDOM(errorDom("", "modal-id", "modal-id"))
     // When
     Undernet.Modals.start()
     // Then
-    expect(console.warning).toHaveBeenCalledWith("Could not find modal trigger with id new-modal.")
+    expect(console.warning).toBeCalledWith("Could not find modal trigger with id modal-id.")
   })
 
   it("throws error if modal id isn't found", () => {
     // Given
-    document.body.innerHTML = errorDom("new-modal", "", "new-modal")
+    renderDOM(errorDom("modal-id", "", "modal-id"))
     // When
     Undernet.Modals.start()
     // Then
-    expect(console.warning).toHaveBeenCalledWith(
+    expect(console.warning).toBeCalledWith(
       "Could not detect an id on your [data-modal] element. Please add a value matching the modal trigger's [data-parent] attribute."
     )
   })
 
   it("throws error if [data-parent] attribute does not match its parent [data-modal]", () => {
     // Given
-    document.body.innerHTML = errorDom("new-modal", "new-modal", "")
+    renderDOM(errorDom("modal-id", "modal-id", ""))
     // When
     Undernet.Modals.start()
     // Then
-    expect(console.warning).toHaveBeenCalledWith(
-      `Could not find a [data-parent='new-modal'] attribute within your [data-modal='new-modal'] element.`
+    expect(console.warning).toBeCalledWith(
+      `Could not find element with attribute [data-parent='modal-id'].`
     )
   })
 })

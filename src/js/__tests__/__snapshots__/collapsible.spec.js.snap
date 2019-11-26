@@ -194,32 +194,67 @@ exports[`Collapsible API start sets attributes 1`] = `
 </body>
 `;
 
-exports[`Collapsible API stop + handleClick does not toggle collapsible on click 1`] = `
-<div
-  aria-hidden="false"
-  aria-labelledby="collapsible-trigger-id"
-  class="collapsible-content"
-  id="collapsible-id"
-  style="max-height: 0em;"
->
+exports[`Collapsible API stop + #handleClick does not toggle collapsible on click 1`] = `
+<body>
   
-      
-  <p
-    class="has-p"
+  
+  <div
+    class="collapsible"
+    data-collapsible="collapsible-id"
+    data-visible="true"
   >
     
+    
+    <h5>
+      
+      
+      <button
+        aria-controls="collapsible-id"
+        aria-expanded="true"
+        class="collapsible-trigger"
+        data-target="collapsible-id"
+        id="collapsible-trigger-id"
+      >
+        
+        Collapsible Trigger
+      
+      </button>
+      
+    
+    </h5>
+    
+    
+    <div
+      aria-hidden="false"
+      aria-labelledby="collapsible-trigger-id"
+      class="collapsible-content"
+      id="collapsible-id"
+      style="max-height: 0em;"
+    >
+      
+      
+      <p
+        class="has-p"
+      >
+        
         Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
         ipsum ut voluptate. 
-    <a
-      href="#"
-      tabindex="0"
-    >
-      E pluribus unum.
-    </a>
-    
+        <a
+          href="#"
+          tabindex="0"
+        >
+          E pluribus unum.
+        </a>
+        
       
-  </p>
-  
+      </p>
+      
     
-</div>
+    </div>
+    
+  
+  </div>
+  
+
+</body>
 `;

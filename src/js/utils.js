@@ -25,25 +25,24 @@ export const isBrowserEnv = typeof window !== "undefined"
  * Simple DOM manipulator methods. These aren't chainable.
  */
 export const dom = {
-  exists: element => element !== null,
   getAttr(element, attr) {
     return element.getAttribute(attr)
   },
   setAttr(element, attr, value) {
-    return dom.exists(element) && element.setAttribute(attr, value)
+    element.setAttribute(attr, value)
   },
   removeAttr(element, attr) {
-    return dom.exists(element) && element.removeAttribute(attr)
+    element.removeAttribute(attr)
   },
   hasAttr(element, attr) {
-    return dom.exists(element) && element.hasAttribute(attr)
+    return element.hasAttribute(attr)
   },
 
   find(selector, parent = document) {
-    return dom.exists(parent) && parent.querySelector(selector)
+    return parent.querySelector(selector)
   },
   findAll(selector, parent = document) {
-    return dom.exists(parent) && [...parent.querySelectorAll(selector)]
+    return [...parent.querySelectorAll(selector)]
   },
 
   setStyle(element, property, value) {
