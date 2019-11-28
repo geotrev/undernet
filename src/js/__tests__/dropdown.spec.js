@@ -184,7 +184,7 @@ describe("Dropdown", () => {
 
     it("removes tabindex when trigger loses focus", () => {
       trigger.blur()
-      expect(trigger.hasAttribute("tabindex")).toEqual(false)
+      expect(trigger.hasAttribute("tabindex")).toBe(false)
     })
   })
 

@@ -9,11 +9,13 @@ const Selectors = {
   FOCUSABLE_TAGS: ["a", "button", "input", "object", "select", "textarea", "[tabindex]"],
   KEYBOARD_CLASS: "using-keyboard",
   NOT_VISUALLY_HIDDEN_CLASS: ":not(.is-visually-hidden)",
+  TABINDEX: "tabindex",
 }
 
 const Events = {
   KEYDOWN: "keydown",
   CLICK: "click",
+  BLUR: "blur",
 }
 
 /**
@@ -277,4 +279,15 @@ export const getPageBaseFontSize = () => {
   }
 
   return bodySize
+}
+
+export const focusOnce = element => {
+  const handleBlur = ({ target }) => {
+    dom.removeAttr(target, Selectors.TABINDEX)
+    target.removeEventListener(Events.BLUR, handleBlur)
+  }
+
+  dom.setAttr(element, Selectors.TABINDEX, "-1")
+  element.focus()
+  element.addEventListener(Events.BLUR, handleBlur)
 }

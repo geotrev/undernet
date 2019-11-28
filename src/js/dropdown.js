@@ -1,4 +1,4 @@
-import { iOSMobile, dom, isBrowserEnv, createFocusTrap } from "./utils"
+import { iOSMobile, dom, isBrowserEnv, createFocusTrap, focusOnce } from "./utils"
 
 const KeyCodes = {
   TAB: 9,
@@ -56,7 +56,6 @@ export default class Dropdown {
     this._handleCloseClick = this._handleCloseClick.bind(this)
     this._handleEscapeKeyPress = this._handleEscapeKeyPress.bind(this)
     this._handleOffMenuClick = this._handleOffMenuClick.bind(this)
-    this._handleTriggerBlur = this._handleTriggerBlur.bind(this)
     this._setup = this._setup.bind(this)
 
     // all dropdowns
@@ -318,14 +317,7 @@ export default class Dropdown {
   }
 
   _handleReturnFocus() {
-    dom.setAttr(this._activeDropdownTrigger, Selectors.TABINDEX, "-1")
-    this._activeDropdownTrigger.focus()
-    this._activeDropdownTrigger.addEventListener(Events.BLUR, this._handleTriggerBlur)
-  }
-
-  _handleTriggerBlur({ target }) {
-    dom.removeAttr(target, Selectors.TABINDEX)
-    target.removeEventListener(Events.BLUR, this._handleTriggerBlur)
+    focusOnce(this._activeDropdownTrigger)
   }
 
   _getDropdownActions(attr) {
