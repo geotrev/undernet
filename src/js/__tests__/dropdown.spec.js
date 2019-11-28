@@ -1,9 +1,10 @@
 import Undernet from "../"
 import { getFocusableElements } from "../utils"
+import { find, renderDOM, simulateKeyboardEvent } from "./helpers"
 
 const dom = `
-  <div data-dropdown="dropdown1" class="dropdown">
-    <button id="dropdown-button" data-parent="dropdown1" data-target="new-dropdown">Open Dropdown</button>
+  <div data-dropdown="dropdown-id-1" class="dropdown">
+    <button id="trigger-id-1" data-parent="dropdown-id-1" data-target="new-dropdown">Open Dropdown</button>
     <ul id="new-dropdown" class="dropdown-menu">
       <li><a href="#">Item 1</a></li>
       <li><a href="#">Item 2</a></li>
@@ -11,8 +12,8 @@ const dom = `
     </ul>
   </div>
   <div data-dropdown="dropdown2" class="dropdown">
-    <button id="dropdown-button2" data-parent="dropdown2" data-target="new-dropdown2">Open Dropdown 2</button>
-    <ul id="new-dropdown2" class="dropdown-menu">
+    <button id="trigger-id-2" data-parent="dropdown2" data-target="dropdown-id-2">Open Dropdown 2</button>
+    <ul id="dropdown-id-2" class="dropdown-menu">
       <li><a href="#">Item 1</a></li>
     </ul>
   </div>
@@ -25,7 +26,9 @@ const KeyCodes = {
   TAB: 9,
 }
 
-describe("Dropdowns", () => {
+const activeElement = () => document.activeElement
+
+describe("Dropdown", () => {
   afterEach(() => {
     Undernet.Dropdowns.stop()
   })
@@ -33,134 +36,137 @@ describe("Dropdowns", () => {
   describe("API start", () => {
     it("sets attributes", () => {
       // Given
-      document.body.innerHTML = dom
+      const wrapper = renderDOM(dom)
       // When
       Undernet.Dropdowns.start()
       // Then
-      expect(document.body).toMatchSnapshot()
+      expect(wrapper()).toMatchSnapshot()
     })
   })
 
-  describe("API stop + handleClick", () => {
+  describe("API stop + #handleClick", () => {
     it("does not open dropdown", () => {
       // Given
-      document.body.innerHTML = dom
-      const trigger = document.querySelector("#dropdown-button")
+      const wrapper = renderDOM(dom)
+      const trigger = find("#trigger-id-1")
       // When
       Undernet.Dropdowns.start()
       Undernet.Dropdowns.stop()
       trigger.click()
       // Then
-      expect(document.body).toMatchSnapshot()
+      expect(wrapper()).toMatchSnapshot()
     })
   })
 
-  describe("#render -> Dropdown Button Click", () => {
-    beforeEach(() => {
-      document.body.innerHTML = dom
+  describe("#handleClick", () => {
+    let wrapper
 
-      const trigger = document.querySelector("#dropdown-button")
+    beforeEach(() => {
+      wrapper = renderDOM(dom)
+
+      const trigger = find("#trigger-id-1")
 
       Undernet.Dropdowns.start()
       trigger.click()
     })
 
     it("opens clicked dropdown", () => {
-      expect(document.body).toMatchSnapshot()
+      expect(wrapper()).toMatchSnapshot()
     })
 
     it("sets focus to the first dropdown link", () => {
       const focusableElements = getFocusableElements("#new-dropdown")
-      expect(document.activeElement).toEqual(focusableElements[0])
+      expect(activeElement()).toEqual(focusableElements[0])
     })
   })
 
-  describe("#renderWithKeys -> Arrow Down or Up Key Press", () => {
+  describe("#handleArrowKeyPress", () => {
+    let wrapper
     let trigger
-    let firstDropdownItem
-    let lastDropdownItem
+    let focusableElements
 
     beforeEach(() => {
-      document.body.innerHTML = dom
+      wrapper = renderDOM(dom)
 
-      trigger = document.getElementById("dropdown-button")
-      const focusableElements = getFocusableElements("#new-dropdown")
-      firstDropdownItem = focusableElements[0]
-      lastDropdownItem = focusableElements[focusableElements.length - 1]
+      trigger = find("#trigger-id-1")
+      focusableElements = getFocusableElements("#new-dropdown")
 
       Undernet.Dropdowns.start()
     })
 
     it("opens dropdown on down arrow key press", () => {
       // When
-      global.simulateKeyPress(KeyCodes.ARROW_DOWN, false, trigger)
+      simulateKeyboardEvent(KeyCodes.ARROW_DOWN, false, trigger)
       // Then
-      expect(document.body).toMatchSnapshot()
+      expect(wrapper()).toMatchSnapshot()
     })
 
     it("opens dropdown on up arrow key press", () => {
       // When
-      global.simulateKeyPress(KeyCodes.ARROW_UP, false, trigger)
+      simulateKeyboardEvent(KeyCodes.ARROW_UP, false, trigger)
       // Then
-      expect(document.body).toMatchSnapshot()
+      expect(wrapper()).toMatchSnapshot()
     })
 
     it("sets focus to first item in dropdown menu on down arrow key press", () => {
+      // Given
+      const firstDropdownItem = focusableElements[0]
       // When
-      global.simulateKeyPress(KeyCodes.ARROW_DOWN, false, trigger)
+      simulateKeyboardEvent(KeyCodes.ARROW_DOWN, false, trigger)
       // Then
-      expect(document.activeElement).toEqual(firstDropdownItem)
+      expect(activeElement()).toEqual(firstDropdownItem)
     })
 
     it("sets focus to first item in dropdown menu on up arrow key press", () => {
+      // Given
+      const lastDropdownItem = focusableElements[focusableElements.length - 1]
       // When
-      global.simulateKeyPress(KeyCodes.ARROW_UP, false, trigger)
+      simulateKeyboardEvent(KeyCodes.ARROW_UP, false, trigger)
       // Then
-      expect(document.activeElement).toEqual(lastDropdownItem)
+      expect(activeElement()).toEqual(lastDropdownItem)
     })
   })
 
   describe("#handleFirstTabClose & #handleLastTabClose", () => {
-    let dropdownWrapper
-    let firstDropdownItem
-    let lastDropdownItem
+    let wrapper
 
     beforeEach(() => {
-      document.body.innerHTML = dom
+      wrapper = renderDOM(dom)
 
-      const trigger = document.getElementById("dropdown-button")
-      dropdownWrapper = document.querySelector("[data-dropdown='dropdown1']")
-      firstDropdownItem = getFocusableElements("#new-dropdown")[0]
-      lastDropdownItem = getFocusableElements("#new-dropdown")[2]
+      const trigger = find("#trigger-id-1")
 
       Undernet.Dropdowns.start()
       trigger.click()
     })
 
-    it("opens dropdown if shift + tab key is pressed in open menu", () => {
+    it("closes dropdown if shift + tab key is pressed in open menu", () => {
+      // Given
+      const firstDropdownItem = getFocusableElements("#new-dropdown")[0]
       // When
-      global.simulateKeyPress(KeyCodes.TAB, true, firstDropdownItem)
+      simulateKeyboardEvent(KeyCodes.TAB, true, firstDropdownItem)
       // Then
-      expect(dropdownWrapper).toMatchSnapshot()
+      expect(wrapper()).toMatchSnapshot()
     })
 
-    it("opens dropdown if tab key is pressed in open menu", () => {
+    it("closes dropdown if tab key is pressed in open menu", () => {
+      // Given
+      const dropdownMenuItems = getFocusableElements("#new-dropdown")
+      const lastDropdownItem = dropdownMenuItems[dropdownMenuItems.length - 1]
       // When
-      global.simulateKeyPress(KeyCodes.TAB, false, lastDropdownItem)
+      simulateKeyboardEvent(KeyCodes.TAB, false, lastDropdownItem)
       // Then
-      expect(dropdownWrapper).toMatchSnapshot()
+      expect(wrapper()).toMatchSnapshot()
     })
   })
 
-  describe("#handleClose -> Dropdown Menu Link Click", () => {
+  describe("#handleClose", () => {
+    let wrapper
     let trigger
-    let dropdownWrapper
 
     beforeEach(() => {
-      document.body.innerHTML = dom
+      wrapper = renderDOM(dom)
 
-      trigger = document.getElementById("dropdown-button")
-      dropdownWrapper = document.querySelector("[data-dropdown='dropdown1']")
+      trigger = find("#trigger-id-1")
       const focusableElements = getFocusableElements("#new-dropdown")
 
       Undernet.Dropdowns.start()
@@ -169,64 +175,69 @@ describe("Dropdowns", () => {
     })
 
     it("closes dropdown", () => {
-      expect(dropdownWrapper).toMatchSnapshot()
+      expect(wrapper()).toMatchSnapshot()
     })
 
     it("sets focus back to dropdown button", () => {
-      expect(document.activeElement).toEqual(trigger)
+      expect(activeElement()).toEqual(trigger)
+    })
+
+    it("removes tabindex when trigger loses focus", () => {
+      trigger.blur()
+      expect(trigger.hasAttribute("tabindex")).toEqual(false)
     })
   })
 
-  describe("#handleEscapeKeyPress -> Escape Key Press", () => {
+  describe("#handleEscapeKeyPress", () => {
     it("closes dropdown", () => {
       // Given
-      document.body.innerHTML = dom
-      const trigger = document.querySelector("#dropdown-button")
-      const dropdownWrapper = document.querySelector("[data-dropdown='dropdown1']")
+      const wrapper = renderDOM(dom)
+      const trigger = find("#trigger-id-1")
       // When
       Undernet.Dropdowns.start()
       trigger.click()
-      global.simulateKeyPress(KeyCodes.ESCAPE)
+      simulateKeyboardEvent(KeyCodes.ESCAPE)
       // Then
-      expect(dropdownWrapper).toMatchSnapshot()
+      expect(wrapper()).toMatchSnapshot()
     })
   })
 
-  describe("#handleOffMenuClick -> Off-Dropdown Close Click", () => {
+  describe("#handleOffMenuClick", () => {
     it("closes dropdown", () => {
       // Given
-      document.body.innerHTML = dom
-      const trigger = document.querySelector("#dropdown-button")
+      const wrapper = renderDOM(dom)
+      const trigger = find("#trigger-id-1")
       // When
-      const dropdownWrapper = document.querySelector("[data-dropdown='dropdown1']")
       Undernet.Dropdowns.start()
       trigger.click()
-      document.body.click()
+      find("body").click()
       // Then
-      expect(dropdownWrapper).toMatchSnapshot()
+      expect(wrapper()).toMatchSnapshot()
     })
   })
 
-  describe("#handleReturnFocus -> Dropdown Close Click", () => {
+  describe("#handleReturnFocus", () => {
     it("sets focus to dropdown trigger", () => {
       // Given
-      document.body.innerHTML = dom
-      const trigger = document.querySelector("#dropdown-button")
+      renderDOM(dom)
+      const trigger = find("#trigger-id-1")
       // When
       Undernet.Dropdowns.start()
       trigger.click()
-      global.simulateKeyPress(KeyCodes.ESCAPE)
+      simulateKeyboardEvent(KeyCodes.ESCAPE)
       // Then
-      expect(document.activeElement).toEqual(trigger)
+      expect(activeElement()).toEqual(trigger)
     })
   })
 
   describe("Multiple Dropdowns", () => {
-    beforeEach(() => {
-      document.body.innerHTML = dom
+    let wrapper
 
-      const trigger1 = document.querySelector("#dropdown-button")
-      const trigger2 = document.querySelector("#dropdown-button2")
+    beforeEach(() => {
+      wrapper = renderDOM(dom)
+
+      const trigger1 = find("#trigger-id-1")
+      const trigger2 = find("#trigger-id-2")
 
       Undernet.Dropdowns.start()
       trigger1.click()
@@ -234,12 +245,12 @@ describe("Dropdowns", () => {
     })
 
     it("closes first dropdown if second dropdown is clicked", () => {
-      expect(document.body).toMatchSnapshot()
+      expect(wrapper()).toMatchSnapshot()
     })
 
     it("sets focus to first dropdown item of second dropdown", () => {
-      const dropdown2Focusables = getFocusableElements("#new-dropdown2")
-      expect(document.activeElement).toEqual(dropdown2Focusables[0])
+      const dropdown2Focusables = getFocusableElements("#dropdown-id-2")
+      expect(activeElement()).toEqual(dropdown2Focusables[0])
     })
   })
 })
@@ -272,81 +283,61 @@ describe("Dropdown Warnings", () => {
     console.warning = jest.fn()
   })
 
-  it("throws error if dropdown id can't be found", () => {
+  it("prints warning if dropdown id can't be found", () => {
     // Given
-    document.body.innerHTML = errorDom("", "button", "dropdown", "new-dropdown", "new-dropdown")
+    renderDOM(errorDom("", "trigger-id", "dropdown-id", "menu-id", "menu-id"))
     // When
     Undernet.Dropdowns.start()
     // Then
-    expect(console.warning).toHaveBeenCalledWith(
+    expect(console.warning).toBeCalledWith(
       "Could not setup dropdown. Make sure it has a valid [data-dropdown] attribute with a unique id as its value."
     )
   })
 
-  it("throws error if dropdown menu can't be found", () => {
+  it("prints warning if dropdown menu can't be found", () => {
     // Given
-    document.body.innerHTML = errorDom(
-      "dropdown",
-      "button",
-      "dropdown",
-      "new-dropdown",
-      "new-dropdown",
-      false
-    )
+    renderDOM(errorDom("dropdown-id", "trigger-id", "dropdown-id", "menu-id", "menu-id", false))
     // When
     Undernet.Dropdowns.start()
     // Then
-    expect(console.warning).toHaveBeenCalledWith(
-      'Could not find menu associated with [data-dropdown="dropdown"].'
+    expect(console.warning).toBeCalledWith(
+      'Could not find menu associated with [data-dropdown="dropdown-id"].'
     )
   })
 
-  it("throws error if dropdown items can't be found", () => {
+  it("prints warning if dropdown items can't be found", () => {
     // Given
-    document.body.innerHTML = errorDom(
-      "dropdown",
-      "button",
-      "dropdown",
-      "new-dropdown",
-      "new-dropdown",
-      true,
-      false
+    renderDOM(
+      errorDom("dropdown-id", "trigger-id", "dropdown-id", "menu-id", "menu-id", true, false)
     )
     // When
     Undernet.Dropdowns.start()
     // Then
-    expect(console.warning).toHaveBeenCalledWith(
-      'Could not find any list items associated with [data-dropdown="dropdown"].'
+    expect(console.warning).toBeCalledWith(
+      'Could not find any list items associated with [data-dropdown="dropdown-id"].'
     )
   })
 
-  it("throws error if dropdown buttons or links can't be found", () => {
+  it("prints warning if dropdown buttons or links can't be found", () => {
     // Given
-    document.body.innerHTML = errorDom(
-      "dropdown",
-      "button",
-      "dropdown",
-      "new-dropdown",
-      "new-dropdown",
-      true,
-      true,
-      false
+    renderDOM(
+      errorDom("dropdown-id", "trigger-id", "dropdown-id", "menu-id", "menu-id", true, true, false)
     )
     // When
     Undernet.Dropdowns.start()
     // Then
-    expect(console.warning).toHaveBeenCalledWith(
-      'Could not find any button or anchor elements associated with [data-dropdown="dropdown"].'
+    expect(console.warning).toBeCalledWith(
+      'Could not find any button or anchor elements associated with [data-dropdown="dropdown-id"].'
     )
   })
 
-  it("throws error if dropdown trigger's [data-target] attribute cant' be found", () => {
+  it("prints warning if dropdown trigger's [data-target] attribute cant' be found", () => {
     // Given
-    document.body.innerHTML = errorDom("dropdown", "button", "", "new-dropdown", "new-dropdown")
+    renderDOM(errorDom("dropdown-id", "trigger-id", "", "menu-id", "menu-id"))
     // When
     Undernet.Dropdowns.start()
     // Then
-    expect(console.warning).toHaveBeenCalledWith(
+    expect(console.warning).toBeCalledWith(
       "Could not find dropdown button's [data-parent] attribute."
     )
   })

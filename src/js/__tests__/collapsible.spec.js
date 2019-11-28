@@ -1,4 +1,5 @@
 import Undernet from "../"
+import { find, renderDOM } from "./helpers"
 
 const dom = `
   <div class="collapsible" data-collapsible="collapsible-id">
@@ -17,12 +18,14 @@ const dom = `
 `
 
 describe("Collapsible", () => {
-  afterEach(() => {
-    Undernet.Collapsibles.stop()
-  })
+  let wrapper
 
   beforeEach(() => {
-    document.body.innerHTML = dom
+    wrapper = renderDOM(dom)
+  })
+
+  afterEach(() => {
+    Undernet.Collapsibles.stop()
   })
 
   describe("API start", () => {
@@ -30,39 +33,38 @@ describe("Collapsible", () => {
       // When
       Undernet.Collapsibles.start()
       // Then
-      expect(document.body).toMatchSnapshot()
+      expect(wrapper()).toMatchSnapshot()
     })
 
     it("does not open collapsible by default if [data-visible='false'] is set", () => {
-      document.querySelector("[data-collapsible]").setAttribute("data-visible", "false")
+      find("[data-collapsible]").setAttribute("data-visible", "false")
       // When
       Undernet.Collapsibles.start()
       // Then
-      expect(document.body).toMatchSnapshot()
+      expect(wrapper()).toMatchSnapshot()
     })
   })
 
-  describe("API stop + handleClick", () => {
+  describe("API stop + #handleClick", () => {
     it("does not toggle collapsible on click", () => {
-      const trigger = document.querySelector("button")
-      const content = document.querySelector("#collapsible-id")
+      const trigger = find("button")
       // When
       Undernet.Collapsibles.start()
       Undernet.Collapsibles.stop()
       trigger.click()
       // Then
-      expect(content).toMatchSnapshot()
+      expect(wrapper()).toMatchSnapshot()
     })
   })
 
   describe("#handleClick", () => {
     it("toggles collapsible on click", () => {
-      const trigger = document.querySelector("button")
+      const trigger = find("button")
       // When
       Undernet.Collapsibles.start()
       trigger.click()
       // Then
-      expect(document.body).toMatchSnapshot()
+      expect(wrapper()).toMatchSnapshot()
     })
   })
 })
@@ -98,54 +100,44 @@ describe("Collapsible Warnings", () => {
 
   it("throws error if [data-collapsible] attribute is missing its value", () => {
     // Given
-    document.body.innerHTML = errorDom("", unMatchedCollapsibleId, triggerId, collapsibleId)
+    renderDOM(errorDom("", unMatchedCollapsibleId, triggerId, collapsibleId))
     // When
     Undernet.Collapsibles.start()
     // Then
-    expect(console.warning).toHaveBeenCalledWith(
+    expect(console.warning).toBeCalledWith(
       "Could not initialize collapsible; you must include a value for the 'data-collapsible' attribute."
     )
   })
 
   it("throws error if [data-trigger] attribute can't be found", () => {
     // Given
-    document.body.innerHTML = errorDom(
-      collapsibleId,
-      unMatchedCollapsibleId,
-      triggerId,
-      collapsibleId
-    )
+    renderDOM(errorDom(collapsibleId, unMatchedCollapsibleId, triggerId, collapsibleId))
     // When
     Undernet.Collapsibles.start()
     // Then
-    expect(console.warning).toHaveBeenCalledWith(
+    expect(console.warning).toBeCalledWith(
       `Could not find collapsible trigger with [data-target='${collapsibleId}']; you can't have a collapsible without a trigger.`
     )
   })
 
   it("throws error if trigger id can't be found", () => {
     // Given
-    document.body.innerHTML = errorDom(collapsibleId, collapsibleId, "", collapsibleId)
+    renderDOM(errorDom(collapsibleId, collapsibleId, "", collapsibleId))
     // When
     Undernet.Collapsibles.start()
     // Then
-    expect(console.warning).toHaveBeenCalledWith(
+    expect(console.warning).toBeCalledWith(
       `Could not find id on collapsible trigger with [data-target='${collapsibleId}'].`
     )
   })
 
   it("throws error if collapsible content can't be found", () => {
     // Given
-    document.body.innerHTML = errorDom(
-      collapsibleId,
-      collapsibleId,
-      triggerId,
-      unMatchedCollapsibleId
-    )
+    renderDOM(errorDom(collapsibleId, collapsibleId, triggerId, unMatchedCollapsibleId))
     // When
     Undernet.Collapsibles.start()
     // Then
-    expect(console.warning).toHaveBeenCalledWith(
+    expect(console.warning).toBeCalledWith(
       `Could not find collapsible content with id '${collapsibleId}'; you can't have a collapsible without content.`
     )
   })

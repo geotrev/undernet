@@ -37,8 +37,8 @@ const Events = {
 
 const Messages = {
   NO_ID_ERROR: "Could not find tooltip id.",
-  NO_TRIGGER_ERROR: id => `Could not find a tooltip trigger with id of ${id}.`,
-  NO_TOOLTIP_ERROR: id => `Could not find a tooltip with id of ${id}.`,
+  NO_TRIGGER_ERROR: id => `Could not find a tooltip trigger with attribute [data-target='${id}'].`,
+  NO_TOOLTIP_ERROR: id => `Could not find a tooltip with id '${id}'.`,
 }
 
 const COMPONENT_ROLE = "tooltip"
@@ -50,7 +50,7 @@ const COMPONENT_ROLE = "tooltip"
  */
 export default class Tooltip {
   constructor() {
-    this._handleClick = this._handleClick.bind(this)
+    this._handleEvent = this._handleEvent.bind(this)
     this._handleClose = this._handleClose.bind(this)
     this._handleEscapeKeyPress = this._handleEscapeKeyPress.bind(this)
     this._setup = this._setup.bind(this)
@@ -83,8 +83,8 @@ export default class Tooltip {
         this._handleClose()
       }
 
-      trigger.removeEventListener(Events.MOUSEOVER, this._handleClick)
-      trigger.removeEventListener(Events.FOCUS, this._handleClick)
+      trigger.removeEventListener(Events.MOUSEOVER, this._handleEvent)
+      trigger.removeEventListener(Events.FOCUS, this._handleEvent)
     })
   }
 
@@ -101,12 +101,12 @@ export default class Tooltip {
     const trigger = dom.find(this._getTrigger(tooltipId), instance)
     const tooltip = dom.find(`#${tooltipId}`, instance)
 
-    if (!dom.exists(trigger)) {
+    if (!trigger) {
       console.warning(Messages.NO_TRIGGER_ERROR(tooltipId))
       return
     }
 
-    if (!dom.exists(tooltip)) {
+    if (!tooltip) {
       console.warning(Messages.NO_TOOLTIP_ERROR(tooltipId))
       return
     }
@@ -114,11 +114,11 @@ export default class Tooltip {
     dom.setAttr(trigger, Selectors.ARIA_DESCRIBEDBY, tooltipId)
     dom.setAttr(tooltip, Selectors.ROLE, COMPONENT_ROLE)
 
-    trigger.addEventListener(Events.MOUSEOVER, this._handleClick)
-    trigger.addEventListener(Events.FOCUS, this._handleClick)
+    trigger.addEventListener(Events.MOUSEOVER, this._handleEvent)
+    trigger.addEventListener(Events.FOCUS, this._handleEvent)
   }
 
-  _handleClick(event) {
+  _handleEvent(event) {
     if (this._activeTooltip || this._activeTrigger) this._handleClose()
 
     this._activeTrigger = event.target
@@ -153,8 +153,8 @@ export default class Tooltip {
   }
 
   _startCloseEvents() {
-    this._activeTrigger.removeEventListener(Events.MOUSEOVER, this._handleClick)
-    this._activeTrigger.removeEventListener(Events.FOCUS, this._handleClick)
+    this._activeTrigger.removeEventListener(Events.MOUSEOVER, this._handleEvent)
+    this._activeTrigger.removeEventListener(Events.FOCUS, this._handleEvent)
     this._activeTrigger.addEventListener(Events.MOUSEOUT, this._handleClose)
     this._activeTrigger.addEventListener(Events.BLUR, this._handleClose)
     document.addEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
@@ -171,8 +171,8 @@ export default class Tooltip {
   _startOpenEvents() {
     this._activeTrigger.removeEventListener(Events.MOUSEOUT, this._handleClose)
     this._activeTrigger.removeEventListener(Events.BLUR, this._handleClose)
-    this._activeTrigger.addEventListener(Events.MOUSEOVER, this._handleClick)
-    this._activeTrigger.addEventListener(Events.FOCUS, this._handleClick)
+    this._activeTrigger.addEventListener(Events.MOUSEOVER, this._handleEvent)
+    this._activeTrigger.addEventListener(Events.FOCUS, this._handleEvent)
     document.removeEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
 
     if (iOSMobile) dom.setStyle(document.body, CssProperties.CURSOR, "auto")

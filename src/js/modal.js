@@ -31,14 +31,14 @@ const Events = {
   KEYDOWN: "keydown",
   CLICK: "click",
   RESIZE: "resize",
+  BLUR: "blur",
 }
 
 const Messages = {
-  NO_BUTTON_ERROR: id => `Could not find modal trigger with id ${id}.`,
-  NO_MODAL_ID_ERROR:
+  NO_TRIGGER_ERROR: id => `Could not find modal trigger with id ${id}.`,
+  NO_ID_ERROR:
     "Could not detect an id on your [data-modal] element. Please add a value matching the modal trigger's [data-parent] attribute.",
-  NO_MODAL_ERROR: id =>
-    `Could not find a [data-parent='${id}'] attribute within your [data-modal='${id}'] element.`,
+  NO_MODAL_DIALOG_ERROR: id => `Could not find element with attribute [data-parent='${id}'].`,
 }
 
 const COMPONENT_ROLE = "dialog"
@@ -54,19 +54,19 @@ export default class Modal {
     this._handleCloseClick = this._handleCloseClick.bind(this)
     this._handleOverlayClick = this._handleOverlayClick.bind(this)
     this._handleEscapeKeyPress = this._handleEscapeKeyPress.bind(this)
+    this._handleTriggerBlur = this._handleTriggerBlur.bind(this)
     this._setup = this._setup.bind(this)
 
     // all modals
     this._modals = []
-    this._modalButtons = []
 
     // active modal
-    this._activeModalButton = {}
+    this._activeModalTrigger = {}
     this._activeModalOverlay = {}
     this._activeModal = {}
     this._activeModalId = ""
     this._activeModalSelector = ""
-    this._activeModalCloseButtons = []
+    this._activeModalCloseTriggers = []
     this._originalPagePadding = ""
     this._scrollbarOffset = 0
     this._focusTrap = () => {}
@@ -92,9 +92,9 @@ export default class Modal {
 
     this._modals.forEach(instance => {
       const id = dom.getAttr(instance, Selectors.DATA_MODAL)
-      const button = dom.find(`[${Selectors.DATA_TARGET}='${id}']`)
+      const trigger = dom.find(`[${Selectors.DATA_TARGET}='${id}']`)
 
-      button.removeEventListener(Events.CLICK, this._handleClick)
+      trigger.removeEventListener(Events.CLICK, this._handleClick)
     })
   }
 
@@ -104,7 +104,7 @@ export default class Modal {
     const modalId = dom.getAttr(instance, Selectors.DATA_MODAL)
 
     if (!modalId) {
-      console.warning(Messages.NO_MODAL_ID_ERROR)
+      console.warning(Messages.NO_ID_ERROR)
       return
     }
 
@@ -118,7 +118,7 @@ export default class Modal {
     const modal = dom.find(`[${Selectors.DATA_PARENT}='${modalId}']`, instance)
 
     if (!modal) {
-      console.warning(Messages.NO_MODAL_ERROR(modalId))
+      console.warning(Messages.NO_MODAL_DIALOG_ERROR(modalId))
       return
     }
 
@@ -127,20 +127,20 @@ export default class Modal {
     dom.setAttr(modal, Selectors.ARIA_MODAL, "true")
     dom.setAttr(modal, Selectors.ROLE, COMPONENT_ROLE)
 
-    const modalButton = dom.find(`[${Selectors.DATA_TARGET}='${modalId}']`)
+    const trigger = dom.find(`[${Selectors.DATA_TARGET}='${modalId}']`)
 
-    if (!modalButton) {
-      console.warning(Messages.NO_BUTTON_ERROR(modalId))
+    if (!trigger) {
+      console.warning(Messages.NO_TRIGGER_ERROR(modalId))
       return
     }
 
-    modalButton.addEventListener(Events.CLICK, this._handleClick)
+    trigger.addEventListener(Events.CLICK, this._handleClick)
   }
 
   _handleClick(event) {
     event.preventDefault()
 
-    this._activeModalButton = event.target
+    this._activeModalTrigger = event.target
 
     this._setActiveModalId()
     this._setActiveModalOverlay()
@@ -153,7 +153,7 @@ export default class Modal {
     this._focusTrap.start()
 
     this._setAttributes()
-    this._setCloseButtons()
+    this._setCloseTriggers()
     this._handleModalFocus()
     this._activeModalOverlay.scrollTop = 0
     this._startEvents()
@@ -175,18 +175,18 @@ export default class Modal {
     if (iOSMobile) dom.setStyle(this._activeModalOverlay, "cursor", "auto")
 
     this._activeModalId = null
-    this._activeModalButton = null
+    this._activeModalTrigger = null
     this._activeModal = null
   }
 
-  _setCloseButtons() {
-    this._activeModalCloseButtons = dom.findAll(
+  _setCloseTriggers() {
+    this._activeModalCloseTriggers = dom.findAll(
       `${this._activeModalSelector} [${Selectors.DATA_CLOSE}]`
     )
   }
 
   _setActiveModalId() {
-    this._activeModalId = dom.getAttr(this._activeModalButton, Selectors.DATA_TARGET)
+    this._activeModalId = dom.getAttr(this._activeModalTrigger, Selectors.DATA_TARGET)
   }
 
   _setActiveModalOverlay() {
@@ -209,8 +209,8 @@ export default class Modal {
     document.removeEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
     document.removeEventListener(Events.CLICK, this._handleOverlayClick)
 
-    this._activeModalCloseButtons.forEach(button => {
-      button.removeEventListener(Events.CLICK, this._handleCloseClick)
+    this._activeModalCloseTriggers.forEach(trigger => {
+      trigger.removeEventListener(Events.CLICK, this._handleCloseClick)
     })
   }
 
@@ -229,8 +229,8 @@ export default class Modal {
     document.addEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
     document.addEventListener(Events.CLICK, this._handleOverlayClick)
 
-    this._activeModalCloseButtons.forEach(button => {
-      button.addEventListener(Events.CLICK, this._handleCloseClick)
+    this._activeModalCloseTriggers.forEach(trigger => {
+      trigger.addEventListener(Events.CLICK, this._handleCloseClick)
     })
   }
 
@@ -293,9 +293,14 @@ export default class Modal {
   }
 
   _handleReturnFocus() {
-    dom.setAttr(this._activeModalButton, Selectors.TABINDEX, "-1")
-    this._activeModalButton.focus()
-    dom.removeAttr(this._activeModalButton, Selectors.TABINDEX)
+    dom.setAttr(this._activeModalTrigger, Selectors.TABINDEX, "-1")
+    this._activeModalTrigger.focus()
+    this._activeModalTrigger.addEventListener(Events.BLUR, this._handleTriggerBlur)
+  }
+
+  _handleTriggerBlur({ target }) {
+    dom.removeAttr(target, Selectors.TABINDEX)
+    target.removeEventListener(Events.BLUR, this._handleTriggerBlur)
   }
 
   _handleScrollRestore() {

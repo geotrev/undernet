@@ -1,317 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Modals #handleClose -> Modal Close Button Click closes modal 1`] = `
-<body
-  class=""
-  style="padding-right: 1024px;"
->
-  
-  
-  <button
-    data-target="new-modal"
-  >
-    Open modal
-  </button>
-  
-
-  
-  <div
-    aria-hidden="true"
-    classname="modal-overlay"
-    data-modal="new-modal"
-    data-visible="false"
-    style="padding-left: 1024px;"
-  >
-    
-    
-    <div
-      aria-labelledby="header-id"
-      aria-modal="true"
-      classname="modal-dialog"
-      data-parent="new-modal"
-      role="dialog"
-    >
-      
-      
-      <header>
-        
-        
-        <h2
-          classname="h6 has-no-m-block-start"
-          id="header-id"
-        >
-          
-          Modal Header
-        
-        </h2>
-        
-        
-        <a
-          data-close=""
-          href="#"
-          tabindex="-1"
-        >
-          
-          
-          <span
-            aria-hidden="true"
-          >
-            ×
-          </span>
-          
-        
-        </a>
-        
-      
-      </header>
-      
-      
-      <section>
-        
-        
-        <p>
-          Some modal content here
-        </p>
-        
-      
-      </section>
-      
-      
-      <footer>
-        
-        
-        <a
-          classname="button"
-          data-close=""
-          href="#"
-          tabindex="-1"
-        >
-          
-          Cancel
-        
-        </a>
-        
-        
-        <a
-          classname="primary button"
-          href="#"
-          tabindex="-1"
-        >
-          
-          OK
-        
-        </a>
-        
-      
-      </footer>
-      
-    
-    </div>
-    
-  
-  </div>
-  
-
-</body>
-`;
-
-exports[`Modals #handleEscapeKeyPress -> Escape Key Press closes modal 1`] = `
-<div
-  aria-hidden="true"
-  classname="modal-overlay"
-  data-modal="new-modal"
-  data-visible="false"
-  style="padding-left: 1024px;"
->
-  
-    
-  <div
-    aria-labelledby="header-id"
-    aria-modal="true"
-    classname="modal-dialog"
-    data-parent="new-modal"
-    role="dialog"
-  >
-    
-      
-    <header>
-      
-        
-      <h2
-        classname="h6 has-no-m-block-start"
-        id="header-id"
-      >
-        
-          Modal Header
-        
-      </h2>
-      
-        
-      <a
-        data-close=""
-        href="#"
-        tabindex="-1"
-      >
-        
-          
-        <span
-          aria-hidden="true"
-        >
-          ×
-        </span>
-        
-        
-      </a>
-      
-      
-    </header>
-    
-      
-    <section>
-      
-        
-      <p>
-        Some modal content here
-      </p>
-      
-      
-    </section>
-    
-      
-    <footer>
-      
-        
-      <a
-        classname="button"
-        data-close=""
-        href="#"
-        tabindex="-1"
-      >
-        
-          Cancel
-        
-      </a>
-      
-        
-      <a
-        classname="primary button"
-        href="#"
-        tabindex="-1"
-      >
-        
-          OK
-        
-      </a>
-      
-      
-    </footer>
-    
-    
-  </div>
-  
-  
-</div>
-`;
-
-exports[`Modals #handleOverlayClick -> Modal Overlay Click closes modal 1`] = `
-<div
-  aria-hidden="true"
-  classname="modal-overlay"
-  data-modal="new-modal"
-  data-visible="false"
-  style="padding-left: 1024px;"
->
-  
-    
-  <div
-    aria-labelledby="header-id"
-    aria-modal="true"
-    classname="modal-dialog"
-    data-parent="new-modal"
-    role="dialog"
-  >
-    
-      
-    <header>
-      
-        
-      <h2
-        classname="h6 has-no-m-block-start"
-        id="header-id"
-      >
-        
-          Modal Header
-        
-      </h2>
-      
-        
-      <a
-        data-close=""
-        href="#"
-        tabindex="-1"
-      >
-        
-          
-        <span
-          aria-hidden="true"
-        >
-          ×
-        </span>
-        
-        
-      </a>
-      
-      
-    </header>
-    
-      
-    <section>
-      
-        
-      <p>
-        Some modal content here
-      </p>
-      
-      
-    </section>
-    
-      
-    <footer>
-      
-        
-      <a
-        classname="button"
-        data-close=""
-        href="#"
-        tabindex="-1"
-      >
-        
-          Cancel
-        
-      </a>
-      
-        
-      <a
-        classname="primary button"
-        href="#"
-        tabindex="-1"
-      >
-        
-          OK
-        
-      </a>
-      
-      
-    </footer>
-    
-    
-  </div>
-  
-  
-</div>
-`;
-
-exports[`Modals #render -> Modal Button Click opens modal 1`] = `
+exports[`Modal #handleClick opens modal 1`] = `
 <body
   class="no-scroll"
   style="padding-right: 1024px;"
@@ -319,7 +8,7 @@ exports[`Modals #render -> Modal Button Click opens modal 1`] = `
   
   
   <button
-    data-target="new-modal"
+    data-target="modal-id"
   >
     Open modal
   </button>
@@ -329,7 +18,7 @@ exports[`Modals #render -> Modal Button Click opens modal 1`] = `
   <div
     aria-hidden="false"
     classname="modal-overlay"
-    data-modal="new-modal"
+    data-modal="modal-id"
     data-visible="true"
   >
     
@@ -338,7 +27,7 @@ exports[`Modals #render -> Modal Button Click opens modal 1`] = `
       aria-labelledby="header-id"
       aria-modal="true"
       classname="modal-dialog"
-      data-parent="new-modal"
+      data-parent="modal-id"
       role="dialog"
       tabindex="-1"
     >
@@ -426,12 +115,16 @@ exports[`Modals #render -> Modal Button Click opens modal 1`] = `
 </body>
 `;
 
-exports[`Modals API start sets attributes 1`] = `
-<body>
+exports[`Modal #handleClose closes modal 1`] = `
+<body
+  class=""
+  style="padding-right: 1024px;"
+>
   
   
   <button
-    data-target="new-modal"
+    data-target="modal-id"
+    tabindex="-1"
   >
     Open modal
   </button>
@@ -441,8 +134,9 @@ exports[`Modals API start sets attributes 1`] = `
   <div
     aria-hidden="true"
     classname="modal-overlay"
-    data-modal="new-modal"
+    data-modal="modal-id"
     data-visible="false"
+    style="padding-left: 1024px;"
   >
     
     
@@ -450,7 +144,7 @@ exports[`Modals API start sets attributes 1`] = `
       aria-labelledby="header-id"
       aria-modal="true"
       classname="modal-dialog"
-      data-parent="new-modal"
+      data-parent="modal-id"
       role="dialog"
     >
       
@@ -537,12 +231,16 @@ exports[`Modals API start sets attributes 1`] = `
 </body>
 `;
 
-exports[`Modals API stop + handleClick does not open modal 1`] = `
-<body>
+exports[`Modal #handleEscapeKeyPress closes modal 1`] = `
+<body
+  class=""
+  style="padding-right: 1024px;"
+>
   
   
   <button
-    data-target="new-modal"
+    data-target="modal-id"
+    tabindex="-1"
   >
     Open modal
   </button>
@@ -552,7 +250,235 @@ exports[`Modals API stop + handleClick does not open modal 1`] = `
   <div
     aria-hidden="true"
     classname="modal-overlay"
-    data-modal="new-modal"
+    data-modal="modal-id"
+    data-visible="false"
+    style="padding-left: 1024px;"
+  >
+    
+    
+    <div
+      aria-labelledby="header-id"
+      aria-modal="true"
+      classname="modal-dialog"
+      data-parent="modal-id"
+      role="dialog"
+    >
+      
+      
+      <header>
+        
+        
+        <h2
+          classname="h6 has-no-m-block-start"
+          id="header-id"
+        >
+          
+          Modal Header
+        
+        </h2>
+        
+        
+        <a
+          data-close=""
+          href="#"
+          tabindex="-1"
+        >
+          
+          
+          <span
+            aria-hidden="true"
+          >
+            ×
+          </span>
+          
+        
+        </a>
+        
+      
+      </header>
+      
+      
+      <section>
+        
+        
+        <p>
+          Some modal content here
+        </p>
+        
+      
+      </section>
+      
+      
+      <footer>
+        
+        
+        <a
+          classname="button"
+          data-close=""
+          href="#"
+          tabindex="-1"
+        >
+          
+          Cancel
+        
+        </a>
+        
+        
+        <a
+          classname="primary button"
+          href="#"
+          tabindex="-1"
+        >
+          
+          OK
+        
+        </a>
+        
+      
+      </footer>
+      
+    
+    </div>
+    
+  
+  </div>
+  
+
+</body>
+`;
+
+exports[`Modal #handleOverlayClick closes modal 1`] = `
+<body
+  class=""
+  style="padding-right: 1024px;"
+>
+  
+  
+  <button
+    data-target="modal-id"
+    tabindex="-1"
+  >
+    Open modal
+  </button>
+  
+
+  
+  <div
+    aria-hidden="true"
+    classname="modal-overlay"
+    data-modal="modal-id"
+    data-visible="false"
+    style="padding-left: 1024px;"
+  >
+    
+    
+    <div
+      aria-labelledby="header-id"
+      aria-modal="true"
+      classname="modal-dialog"
+      data-parent="modal-id"
+      role="dialog"
+    >
+      
+      
+      <header>
+        
+        
+        <h2
+          classname="h6 has-no-m-block-start"
+          id="header-id"
+        >
+          
+          Modal Header
+        
+        </h2>
+        
+        
+        <a
+          data-close=""
+          href="#"
+          tabindex="-1"
+        >
+          
+          
+          <span
+            aria-hidden="true"
+          >
+            ×
+          </span>
+          
+        
+        </a>
+        
+      
+      </header>
+      
+      
+      <section>
+        
+        
+        <p>
+          Some modal content here
+        </p>
+        
+      
+      </section>
+      
+      
+      <footer>
+        
+        
+        <a
+          classname="button"
+          data-close=""
+          href="#"
+          tabindex="-1"
+        >
+          
+          Cancel
+        
+        </a>
+        
+        
+        <a
+          classname="primary button"
+          href="#"
+          tabindex="-1"
+        >
+          
+          OK
+        
+        </a>
+        
+      
+      </footer>
+      
+    
+    </div>
+    
+  
+  </div>
+  
+
+</body>
+`;
+
+exports[`Modal API start sets attributes 1`] = `
+<body>
+  
+  
+  <button
+    data-target="modal-id"
+  >
+    Open modal
+  </button>
+  
+
+  
+  <div
+    aria-hidden="true"
+    classname="modal-overlay"
+    data-modal="modal-id"
     data-visible="false"
   >
     
@@ -561,7 +487,118 @@ exports[`Modals API stop + handleClick does not open modal 1`] = `
       aria-labelledby="header-id"
       aria-modal="true"
       classname="modal-dialog"
-      data-parent="new-modal"
+      data-parent="modal-id"
+      role="dialog"
+    >
+      
+      
+      <header>
+        
+        
+        <h2
+          classname="h6 has-no-m-block-start"
+          id="header-id"
+        >
+          
+          Modal Header
+        
+        </h2>
+        
+        
+        <a
+          data-close=""
+          href="#"
+          tabindex="-1"
+        >
+          
+          
+          <span
+            aria-hidden="true"
+          >
+            ×
+          </span>
+          
+        
+        </a>
+        
+      
+      </header>
+      
+      
+      <section>
+        
+        
+        <p>
+          Some modal content here
+        </p>
+        
+      
+      </section>
+      
+      
+      <footer>
+        
+        
+        <a
+          classname="button"
+          data-close=""
+          href="#"
+          tabindex="-1"
+        >
+          
+          Cancel
+        
+        </a>
+        
+        
+        <a
+          classname="primary button"
+          href="#"
+          tabindex="-1"
+        >
+          
+          OK
+        
+        </a>
+        
+      
+      </footer>
+      
+    
+    </div>
+    
+  
+  </div>
+  
+
+</body>
+`;
+
+exports[`Modal API stop + #handleClick does not open modal 1`] = `
+<body>
+  
+  
+  <button
+    data-target="modal-id"
+  >
+    Open modal
+  </button>
+  
+
+  
+  <div
+    aria-hidden="true"
+    classname="modal-overlay"
+    data-modal="modal-id"
+    data-visible="false"
+  >
+    
+    
+    <div
+      aria-labelledby="header-id"
+      aria-modal="true"
+      classname="modal-dialog"
+      data-parent="modal-id"
       role="dialog"
     >
       

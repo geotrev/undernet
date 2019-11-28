@@ -1,19 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Tooltips #handleClose + Blur/Mouseout hides first tooltip if second is focused 1`] = `
+exports[`Tooltip #handleClose (Blur/Mouseout) hides first tooltip if second is focused 1`] = `
 <body>
   
   
   <span
     class="tooltip"
-    data-tooltip="new-tooltip"
+    data-tooltip="tooltip-id-1"
   >
     
     
     <button
-      aria-describedby="new-tooltip"
+      aria-describedby="tooltip-id-1"
       class="tooltip-trigger"
-      data-target="new-tooltip"
+      data-target="tooltip-id-1"
     >
       Tooltip Button
     </button>
@@ -22,7 +22,7 @@ exports[`Tooltips #handleClose + Blur/Mouseout hides first tooltip if second is 
     <div
       class="tooltip-box"
       data-visible="false"
-      id="new-tooltip"
+      id="tooltip-id-1"
       role="tooltip"
       style="left: 0px;"
     >
@@ -37,14 +37,14 @@ exports[`Tooltips #handleClose + Blur/Mouseout hides first tooltip if second is 
   
   <span
     class="tooltip"
-    data-tooltip="new-tooltip10"
+    data-tooltip="tooltip-id-2"
   >
     
     
     <button
-      aria-describedby="new-tooltip10"
+      aria-describedby="tooltip-id-2"
       class="tooltip-trigger"
-      data-target="new-tooltip10"
+      data-target="tooltip-id-2"
     >
       Tooltip Button
     </button>
@@ -53,7 +53,7 @@ exports[`Tooltips #handleClose + Blur/Mouseout hides first tooltip if second is 
     <div
       class="tooltip-box"
       data-visible="true"
-      id="new-tooltip10"
+      id="tooltip-id-2"
       role="tooltip"
       style="left: 0px;"
     >
@@ -69,34 +69,20 @@ exports[`Tooltips #handleClose + Blur/Mouseout hides first tooltip if second is 
 </body>
 `;
 
-exports[`Tooltips #handleClose + Blur/Mouseout hides tooltip on mouseout event 1`] = `
-<div
-  class="tooltip-box"
-  data-visible="false"
-  id="new-tooltip"
-  role="tooltip"
-  style="left: 0px;"
->
-  
-      This is a tooltip.
-    
-</div>
-`;
-
-exports[`Tooltips #handleClose + Blur/Mouseout will hide focused tooltip if second is hovered at the same time 1`] = `
+exports[`Tooltip #handleClose (Blur/Mouseout) hides tooltip on mouseout event 1`] = `
 <body>
   
   
   <span
     class="tooltip"
-    data-tooltip="new-tooltip"
+    data-tooltip="tooltip-id-1"
   >
     
     
     <button
-      aria-describedby="new-tooltip"
+      aria-describedby="tooltip-id-1"
       class="tooltip-trigger"
-      data-target="new-tooltip"
+      data-target="tooltip-id-1"
     >
       Tooltip Button
     </button>
@@ -105,7 +91,7 @@ exports[`Tooltips #handleClose + Blur/Mouseout will hide focused tooltip if seco
     <div
       class="tooltip-box"
       data-visible="false"
-      id="new-tooltip"
+      id="tooltip-id-1"
       role="tooltip"
       style="left: 0px;"
     >
@@ -120,14 +106,14 @@ exports[`Tooltips #handleClose + Blur/Mouseout will hide focused tooltip if seco
   
   <span
     class="tooltip"
-    data-tooltip="new-tooltip10"
+    data-tooltip="tooltip-id-2"
   >
     
     
     <button
-      aria-describedby="new-tooltip10"
+      aria-describedby="tooltip-id-2"
       class="tooltip-trigger"
-      data-target="new-tooltip10"
+      data-target="tooltip-id-2"
     >
       Tooltip Button
     </button>
@@ -135,10 +121,8 @@ exports[`Tooltips #handleClose + Blur/Mouseout will hide focused tooltip if seco
     
     <div
       class="tooltip-box"
-      data-visible="true"
-      id="new-tooltip10"
+      id="tooltip-id-2"
       role="tooltip"
-      style="left: 0px;"
     >
       
       This is a tooltip.
@@ -152,20 +136,20 @@ exports[`Tooltips #handleClose + Blur/Mouseout will hide focused tooltip if seco
 </body>
 `;
 
-exports[`Tooltips #handleClose + Blur/Mouseout will hide hovered tooltip if second is focused at the same time 1`] = `
+exports[`Tooltip #handleClose (Blur/Mouseout) will hide focused tooltip when second is hovered 1`] = `
 <body>
   
   
   <span
     class="tooltip"
-    data-tooltip="new-tooltip"
+    data-tooltip="tooltip-id-1"
   >
     
     
     <button
-      aria-describedby="new-tooltip"
+      aria-describedby="tooltip-id-1"
       class="tooltip-trigger"
-      data-target="new-tooltip"
+      data-target="tooltip-id-1"
     >
       Tooltip Button
     </button>
@@ -174,7 +158,7 @@ exports[`Tooltips #handleClose + Blur/Mouseout will hide hovered tooltip if seco
     <div
       class="tooltip-box"
       data-visible="false"
-      id="new-tooltip"
+      id="tooltip-id-1"
       role="tooltip"
       style="left: 0px;"
     >
@@ -189,14 +173,14 @@ exports[`Tooltips #handleClose + Blur/Mouseout will hide hovered tooltip if seco
   
   <span
     class="tooltip"
-    data-tooltip="new-tooltip10"
+    data-tooltip="tooltip-id-2"
   >
     
     
     <button
-      aria-describedby="new-tooltip10"
+      aria-describedby="tooltip-id-2"
       class="tooltip-trigger"
-      data-target="new-tooltip10"
+      data-target="tooltip-id-2"
     >
       Tooltip Button
     </button>
@@ -205,7 +189,7 @@ exports[`Tooltips #handleClose + Blur/Mouseout will hide hovered tooltip if seco
     <div
       class="tooltip-box"
       data-visible="true"
-      id="new-tooltip10"
+      id="tooltip-id-2"
       role="tooltip"
       style="left: 0px;"
     >
@@ -221,62 +205,20 @@ exports[`Tooltips #handleClose + Blur/Mouseout will hide hovered tooltip if seco
 </body>
 `;
 
-exports[`Tooltips #handleClose -> Escape Key Press closes tooltip 1`] = `
-<div
-  class="tooltip-box"
-  data-visible="false"
-  id="new-tooltip"
-  role="tooltip"
-  style="left: 0px;"
->
-  
-      This is a tooltip.
-    
-</div>
-`;
-
-exports[`Tooltips #render + Focus/Mouseover opens tooltip on focus 1`] = `
-<div
-  class="tooltip-box"
-  data-visible="true"
-  id="new-tooltip"
-  role="tooltip"
-  style="left: 0px;"
->
-  
-      This is a tooltip.
-    
-</div>
-`;
-
-exports[`Tooltips #render + Focus/Mouseover opens tooltip on mouseover 1`] = `
-<div
-  class="tooltip-box"
-  data-visible="true"
-  id="new-tooltip"
-  role="tooltip"
-  style="left: 0px;"
->
-  
-      This is a tooltip.
-    
-</div>
-`;
-
-exports[`Tooltips API start sets attributes 1`] = `
+exports[`Tooltip #handleClose (Blur/Mouseout) will hide hovered tooltip when second is focused 1`] = `
 <body>
   
   
   <span
     class="tooltip"
-    data-tooltip="new-tooltip"
+    data-tooltip="tooltip-id-1"
   >
     
     
     <button
-      aria-describedby="new-tooltip"
+      aria-describedby="tooltip-id-1"
       class="tooltip-trigger"
-      data-target="new-tooltip"
+      data-target="tooltip-id-1"
     >
       Tooltip Button
     </button>
@@ -284,8 +226,10 @@ exports[`Tooltips API start sets attributes 1`] = `
     
     <div
       class="tooltip-box"
-      id="new-tooltip"
+      data-visible="false"
+      id="tooltip-id-1"
       role="tooltip"
+      style="left: 0px;"
     >
       
       This is a tooltip.
@@ -298,14 +242,14 @@ exports[`Tooltips API start sets attributes 1`] = `
   
   <span
     class="tooltip"
-    data-tooltip="new-tooltip10"
+    data-tooltip="tooltip-id-2"
   >
     
     
     <button
-      aria-describedby="new-tooltip10"
+      aria-describedby="tooltip-id-2"
       class="tooltip-trigger"
-      data-target="new-tooltip10"
+      data-target="tooltip-id-2"
     >
       Tooltip Button
     </button>
@@ -313,7 +257,76 @@ exports[`Tooltips API start sets attributes 1`] = `
     
     <div
       class="tooltip-box"
-      id="new-tooltip10"
+      data-visible="true"
+      id="tooltip-id-2"
+      role="tooltip"
+      style="left: 0px;"
+    >
+      
+      This is a tooltip.
+    
+    </div>
+    
+  
+  </span>
+  
+
+</body>
+`;
+
+exports[`Tooltip #handleEscapeKeyPress closes tooltip 1`] = `
+<body>
+  
+  
+  <span
+    class="tooltip"
+    data-tooltip="tooltip-id-1"
+  >
+    
+    
+    <button
+      aria-describedby="tooltip-id-1"
+      class="tooltip-trigger"
+      data-target="tooltip-id-1"
+    >
+      Tooltip Button
+    </button>
+    
+    
+    <div
+      class="tooltip-box"
+      data-visible="false"
+      id="tooltip-id-1"
+      role="tooltip"
+      style="left: 0px;"
+    >
+      
+      This is a tooltip.
+    
+    </div>
+    
+  
+  </span>
+  
+  
+  <span
+    class="tooltip"
+    data-tooltip="tooltip-id-2"
+  >
+    
+    
+    <button
+      aria-describedby="tooltip-id-2"
+      class="tooltip-trigger"
+      data-target="tooltip-id-2"
+    >
+      Tooltip Button
+    </button>
+    
+    
+    <div
+      class="tooltip-box"
+      id="tooltip-id-2"
       role="tooltip"
     >
       
@@ -328,122 +341,532 @@ exports[`Tooltips API start sets attributes 1`] = `
 </body>
 `;
 
-exports[`Tooltips API stop + Focus/Mouseover does not open tooltip on focus 1`] = `
-<div
-  class="tooltip-box"
-  id="new-tooltip"
-  role="tooltip"
->
+exports[`Tooltip #handleEvent opens tooltip on focus 1`] = `
+<body>
   
+  
+  <span
+    class="tooltip"
+    data-tooltip="tooltip-id-1"
+  >
+    
+    
+    <button
+      aria-describedby="tooltip-id-1"
+      class="tooltip-trigger"
+      data-target="tooltip-id-1"
+    >
+      Tooltip Button
+    </button>
+    
+    
+    <div
+      class="tooltip-box"
+      data-visible="true"
+      id="tooltip-id-1"
+      role="tooltip"
+      style="left: 0px;"
+    >
+      
       This is a tooltip.
     
-</div>
+    </div>
+    
+  
+  </span>
+  
+  
+  <span
+    class="tooltip"
+    data-tooltip="tooltip-id-2"
+  >
+    
+    
+    <button
+      aria-describedby="tooltip-id-2"
+      class="tooltip-trigger"
+      data-target="tooltip-id-2"
+    >
+      Tooltip Button
+    </button>
+    
+    
+    <div
+      class="tooltip-box"
+      id="tooltip-id-2"
+      role="tooltip"
+    >
+      
+      This is a tooltip.
+    
+    </div>
+    
+  
+  </span>
+  
+
+</body>
 `;
 
-exports[`Tooltips API stop + Focus/Mouseover does not open tooltip on mouseover 1`] = `
-<div
-  class="tooltip-box"
-  id="new-tooltip"
-  role="tooltip"
->
+exports[`Tooltip #handleEvent opens tooltip on mouseover 1`] = `
+<body>
   
+  
+  <span
+    class="tooltip"
+    data-tooltip="tooltip-id-1"
+  >
+    
+    
+    <button
+      aria-describedby="tooltip-id-1"
+      class="tooltip-trigger"
+      data-target="tooltip-id-1"
+    >
+      Tooltip Button
+    </button>
+    
+    
+    <div
+      class="tooltip-box"
+      data-visible="true"
+      id="tooltip-id-1"
+      role="tooltip"
+      style="left: 0px;"
+    >
+      
       This is a tooltip.
     
-</div>
+    </div>
+    
+  
+  </span>
+  
+  
+  <span
+    class="tooltip"
+    data-tooltip="tooltip-id-2"
+  >
+    
+    
+    <button
+      aria-describedby="tooltip-id-2"
+      class="tooltip-trigger"
+      data-target="tooltip-id-2"
+    >
+      Tooltip Button
+    </button>
+    
+    
+    <div
+      class="tooltip-box"
+      id="tooltip-id-2"
+      role="tooltip"
+    >
+      
+      This is a tooltip.
+    
+    </div>
+    
+  
+  </span>
+  
+
+</body>
 `;
 
-exports[`Tooltips Drop Direction renders bottom 1`] = `
-<span
-  class="tooltip"
-  data-tooltip="new-tooltip"
->
+exports[`Tooltip API start sets attributes 1`] = `
+<body>
   
-    
-  <button
-    aria-describedby="new-tooltip"
-    class="tooltip-trigger"
-    data-target="new-tooltip"
-  >
-    Tooltip Button
-  </button>
   
-    
-  <div
-    class="tooltip-box is-drop-block-end"
-    data-visible="true"
-    id="new-tooltip"
-    role="tooltip"
-    style="left: 0px;"
+  <span
+    class="tooltip"
+    data-tooltip="tooltip-id-1"
   >
     
+    
+    <button
+      aria-describedby="tooltip-id-1"
+      class="tooltip-trigger"
+      data-target="tooltip-id-1"
+    >
+      Tooltip Button
+    </button>
+    
+    
+    <div
+      class="tooltip-box"
+      id="tooltip-id-1"
+      role="tooltip"
+    >
+      
       This is a tooltip.
     
-  </div>
+    </div>
+    
+  
+  </span>
   
   
-</span>
+  <span
+    class="tooltip"
+    data-tooltip="tooltip-id-2"
+  >
+    
+    
+    <button
+      aria-describedby="tooltip-id-2"
+      class="tooltip-trigger"
+      data-target="tooltip-id-2"
+    >
+      Tooltip Button
+    </button>
+    
+    
+    <div
+      class="tooltip-box"
+      id="tooltip-id-2"
+      role="tooltip"
+    >
+      
+      This is a tooltip.
+    
+    </div>
+    
+  
+  </span>
+  
+
+</body>
 `;
 
-exports[`Tooltips Drop Direction renders left 1`] = `
-<span
-  class="tooltip"
-  data-tooltip="new-tooltip"
->
+exports[`Tooltip API stop + Focus/Mouseover does not open tooltip on focus 1`] = `
+<body>
   
-    
-  <button
-    aria-describedby="new-tooltip"
-    class="tooltip-trigger"
-    data-target="new-tooltip"
-  >
-    Tooltip Button
-  </button>
   
-    
-  <div
-    class="tooltip-box is-drop-inline-start"
-    data-visible="true"
-    id="new-tooltip"
-    role="tooltip"
-    style="top: 0px;"
+  <span
+    class="tooltip"
+    data-tooltip="tooltip-id-1"
   >
     
+    
+    <button
+      aria-describedby="tooltip-id-1"
+      class="tooltip-trigger"
+      data-target="tooltip-id-1"
+    >
+      Tooltip Button
+    </button>
+    
+    
+    <div
+      class="tooltip-box"
+      id="tooltip-id-1"
+      role="tooltip"
+    >
+      
       This is a tooltip.
     
-  </div>
+    </div>
+    
+  
+  </span>
   
   
-</span>
+  <span
+    class="tooltip"
+    data-tooltip="tooltip-id-2"
+  >
+    
+    
+    <button
+      aria-describedby="tooltip-id-2"
+      class="tooltip-trigger"
+      data-target="tooltip-id-2"
+    >
+      Tooltip Button
+    </button>
+    
+    
+    <div
+      class="tooltip-box"
+      id="tooltip-id-2"
+      role="tooltip"
+    >
+      
+      This is a tooltip.
+    
+    </div>
+    
+  
+  </span>
+  
+
+</body>
 `;
 
-exports[`Tooltips Drop Direction renders right 1`] = `
-<span
-  class="tooltip"
-  data-tooltip="new-tooltip"
->
+exports[`Tooltip API stop + Focus/Mouseover does not open tooltip on mouseover 1`] = `
+<body>
   
-    
-  <button
-    aria-describedby="new-tooltip"
-    class="tooltip-trigger"
-    data-target="new-tooltip"
-  >
-    Tooltip Button
-  </button>
   
-    
-  <div
-    class="tooltip-box is-drop-inline-end"
-    data-visible="true"
-    id="new-tooltip"
-    role="tooltip"
-    style="top: 0px;"
+  <span
+    class="tooltip"
+    data-tooltip="tooltip-id-1"
   >
     
+    
+    <button
+      aria-describedby="tooltip-id-1"
+      class="tooltip-trigger"
+      data-target="tooltip-id-1"
+    >
+      Tooltip Button
+    </button>
+    
+    
+    <div
+      class="tooltip-box"
+      id="tooltip-id-1"
+      role="tooltip"
+    >
+      
       This is a tooltip.
     
-  </div>
+    </div>
+    
+  
+  </span>
   
   
-</span>
+  <span
+    class="tooltip"
+    data-tooltip="tooltip-id-2"
+  >
+    
+    
+    <button
+      aria-describedby="tooltip-id-2"
+      class="tooltip-trigger"
+      data-target="tooltip-id-2"
+    >
+      Tooltip Button
+    </button>
+    
+    
+    <div
+      class="tooltip-box"
+      id="tooltip-id-2"
+      role="tooltip"
+    >
+      
+      This is a tooltip.
+    
+    </div>
+    
+  
+  </span>
+  
+
+</body>
+`;
+
+exports[`Tooltip Drop Direction renders bottom 1`] = `
+<body>
+  
+  
+  <span
+    class="tooltip"
+    data-tooltip="tooltip-id-1"
+  >
+    
+    
+    <button
+      aria-describedby="tooltip-id-1"
+      class="tooltip-trigger"
+      data-target="tooltip-id-1"
+    >
+      Tooltip Button
+    </button>
+    
+    
+    <div
+      class="tooltip-box is-drop-block-end"
+      data-visible="true"
+      id="tooltip-id-1"
+      role="tooltip"
+      style="left: 0px;"
+    >
+      
+      This is a tooltip.
+    
+    </div>
+    
+  
+  </span>
+  
+  
+  <span
+    class="tooltip"
+    data-tooltip="tooltip-id-2"
+  >
+    
+    
+    <button
+      aria-describedby="tooltip-id-2"
+      class="tooltip-trigger"
+      data-target="tooltip-id-2"
+    >
+      Tooltip Button
+    </button>
+    
+    
+    <div
+      class="tooltip-box"
+      id="tooltip-id-2"
+      role="tooltip"
+    >
+      
+      This is a tooltip.
+    
+    </div>
+    
+  
+  </span>
+  
+
+</body>
+`;
+
+exports[`Tooltip Drop Direction renders left 1`] = `
+<body>
+  
+  
+  <span
+    class="tooltip"
+    data-tooltip="tooltip-id-1"
+  >
+    
+    
+    <button
+      aria-describedby="tooltip-id-1"
+      class="tooltip-trigger"
+      data-target="tooltip-id-1"
+    >
+      Tooltip Button
+    </button>
+    
+    
+    <div
+      class="tooltip-box is-drop-inline-start"
+      data-visible="true"
+      id="tooltip-id-1"
+      role="tooltip"
+      style="top: 0px;"
+    >
+      
+      This is a tooltip.
+    
+    </div>
+    
+  
+  </span>
+  
+  
+  <span
+    class="tooltip"
+    data-tooltip="tooltip-id-2"
+  >
+    
+    
+    <button
+      aria-describedby="tooltip-id-2"
+      class="tooltip-trigger"
+      data-target="tooltip-id-2"
+    >
+      Tooltip Button
+    </button>
+    
+    
+    <div
+      class="tooltip-box"
+      id="tooltip-id-2"
+      role="tooltip"
+    >
+      
+      This is a tooltip.
+    
+    </div>
+    
+  
+  </span>
+  
+
+</body>
+`;
+
+exports[`Tooltip Drop Direction renders right 1`] = `
+<body>
+  
+  
+  <span
+    class="tooltip"
+    data-tooltip="tooltip-id-1"
+  >
+    
+    
+    <button
+      aria-describedby="tooltip-id-1"
+      class="tooltip-trigger"
+      data-target="tooltip-id-1"
+    >
+      Tooltip Button
+    </button>
+    
+    
+    <div
+      class="tooltip-box is-drop-inline-end"
+      data-visible="true"
+      id="tooltip-id-1"
+      role="tooltip"
+      style="top: 0px;"
+    >
+      
+      This is a tooltip.
+    
+    </div>
+    
+  
+  </span>
+  
+  
+  <span
+    class="tooltip"
+    data-tooltip="tooltip-id-2"
+  >
+    
+    
+    <button
+      aria-describedby="tooltip-id-2"
+      class="tooltip-trigger"
+      data-target="tooltip-id-2"
+    >
+      Tooltip Button
+    </button>
+    
+    
+    <div
+      class="tooltip-box"
+      id="tooltip-id-2"
+      role="tooltip"
+    >
+      
+      This is a tooltip.
+    
+    </div>
+    
+  
+  </span>
+  
+
+</body>
 `;
