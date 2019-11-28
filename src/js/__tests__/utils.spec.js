@@ -1,17 +1,18 @@
-import { dom, getFocusableElements } from "../utils"
+import { find, renderDOM } from "./helpers"
+import { dom, getFocusableElements, focusOnce, getPageBaseFontSize } from "../utils"
 
 const testDom = `<div data-tester="true" data-removable class="wrapper">
     <p>Hello world! <a href="#">this link is focusable</a> </p>
     <p style="height: 32px;" class="hello world test">Hello world again! <button type="button">I too, am focusable!</button></p>
-  </div>\
+  </div>
 `
 
 describe("dom", () => {
   describe(".addClass(element, ...classes)", () => {
     it("can add a class", () => {
       // Given
-      document.body.innerHTML = testDom
-      const element = document.querySelector(".hello.world")
+      renderDOM(testDom)
+      const element = find(".hello.world")
       const newClass = "test-class"
       // When
       dom.addClass(element, newClass)
@@ -22,8 +23,8 @@ describe("dom", () => {
 
     it("can add multiple classes", () => {
       // Given
-      document.body.innerHTML = testDom
-      const element = document.querySelector(".hello.world")
+      renderDOM(testDom)
+      const element = find(".hello.world")
       const newClass1 = "test-class-1"
       const newClass2 = "test-class-2"
       // When
@@ -37,8 +38,8 @@ describe("dom", () => {
   describe(".removeClass(element, ...classes)", () => {
     it("can remove a class from an element", () => {
       // Given
-      document.body.innerHTML = testDom
-      const element = document.querySelector(".hello.world")
+      renderDOM(testDom)
+      const element = find(".hello.world")
       const removedClass = "test"
       // When
       dom.removeClass(element, removedClass)
@@ -49,8 +50,8 @@ describe("dom", () => {
 
     it("can remove multiple classes from an element", () => {
       // Given
-      document.body.innerHTML = testDom
-      const element = document.querySelector(".hello.world")
+      renderDOM(testDom)
+      const element = find(".hello.world")
       const newClass1 = "hello"
       const newClass2 = "world"
       // When
@@ -64,106 +65,106 @@ describe("dom", () => {
   describe(".hasClass(element, ...classes)", () => {
     it("returns false if class can't be found", () => {
       // Given
-      document.body.innerHTML = testDom
-      const element = document.querySelector(".hello.world")
+      renderDOM(testDom)
+      const element = find(".hello.world")
       const classNameToDetect = "test-class"
       // When
       const received = dom.hasClass(element, classNameToDetect)
       // Then
-      expect(received).toEqual(false)
+      expect(received).toBe(false)
     })
 
     it("returns true if class can be found", () => {
       // Given
-      document.body.innerHTML = testDom
-      const element = document.querySelector(".hello.world")
+      renderDOM(testDom)
+      const element = find(".hello.world")
       const classNameToDetect = "hello"
       // When
       const received = dom.hasClass(element, classNameToDetect)
       // Then
-      expect(received).toEqual(true)
+      expect(received).toBe(true)
     })
 
     it("returns false if class can't be found among given classes", () => {
       // Given
-      document.body.innerHTML = testDom
-      const element = document.querySelector(".hello.world")
+      renderDOM(testDom)
+      const element = find(".hello.world")
       const classNameToDetect1 = "not-in-class-list"
       const classNameToDetect2 = "not-in-class-list-either"
       // When
       const received = dom.hasClass(element, classNameToDetect1, classNameToDetect2)
       // Then
-      expect(received).toEqual(false)
+      expect(received).toBe(false)
     })
 
     it("returns true if class can be found among given classes", () => {
       // Given
-      document.body.innerHTML = testDom
-      const element = document.querySelector(".hello.world")
+      renderDOM(testDom)
+      const element = find(".hello.world")
       const classNameToDetect1 = "hello"
       const classNameToDetect2 = "not-in-class-list"
       // When
       const received = dom.hasClass(element, classNameToDetect1, classNameToDetect2)
       // Then
-      expect(received).toEqual(true)
+      expect(received).toBe(true)
     })
   })
 
   describe(".getAttr(element, attr)", () => {
     it("returns an attribute", () => {
       // Given
-      document.body.innerHTML = testDom
-      const wrapper = document.querySelector(".wrapper")
+      renderDOM(testDom)
+      const wrapper = find(".wrapper")
       // When
       const received = dom.getAttr(wrapper, "data-tester")
       // Then
-      expect(received).toEqual("true")
+      expect(received).toBe("true")
     })
   })
 
   describe(".setAttr(element, attr, value)", () => {
     it("can set an attribute", () => {
       // Given
-      document.body.innerHTML = testDom
-      const wrapper = document.querySelector(".wrapper")
+      renderDOM(testDom)
+      const wrapper = find(".wrapper")
       // When
       dom.setAttr(wrapper, "data-tester", "false")
       // Then
       const received = wrapper.dataset.tester
-      expect(received).toEqual("false")
+      expect(received).toBe("false")
     })
   })
 
   describe(".removeAttr(element, attr)", () => {
     it("can remove an attribute", () => {
       // Given
-      document.body.innerHTML = testDom
-      const wrapper = document.querySelector(".wrapper")
+      renderDOM(testDom)
+      const wrapper = find(".wrapper")
       // When
       dom.removeAttr(wrapper, "data-tester")
       // Then
       const received = wrapper.dataset.tester
-      expect(received).toEqual(undefined)
+      expect(received).toBe(undefined)
     })
   })
 
   describe(".hasAttr(element, attr)", () => {
     it("can detect an attribute", () => {
       // Given
-      document.body.innerHTML = testDom
-      const wrapper = document.querySelector(".wrapper")
+      renderDOM(testDom)
+      const wrapper = find(".wrapper")
       // When
       const received = dom.hasAttr(wrapper, "data-tester")
       // Then
-      expect(received).toEqual(true)
+      expect(received).toBe(true)
     })
   })
 
   describe(".find(element, parent = document)", () => {
     it("returns an element", () => {
       // Given
-      document.body.innerHTML = testDom
-      const element = document.querySelector(".hello.world")
+      renderDOM(testDom)
+      const element = find(".hello.world")
       const received = dom.find(".hello.world")
       // Then
       expect(received).toEqual(element)
@@ -173,7 +174,7 @@ describe("dom", () => {
   describe(".findAll(element, parent = document)", () => {
     it("returns a collection of elements", () => {
       // Given
-      document.body.innerHTML = testDom
+      renderDOM(testDom)
       const received = dom.findAll("p")
       // Then
       expect(received).toHaveLength(2)
@@ -183,34 +184,61 @@ describe("dom", () => {
   describe(".getStyle(element, property)", () => {
     it("returns css property values", () => {
       // Given
-      document.body.innerHTML = testDom
-      const element = document.querySelector(".hello.world")
+      renderDOM(testDom)
+      const element = find(".hello.world")
       // When
       const received = dom.getStyle(element, "height")
       // Then
-      expect(received).toEqual("32px")
+      expect(received).toBe("32px")
     })
   })
 
   describe(".setStyle(element, property, value)", () => {
     it("can set a css property", () => {
       // Given
-      document.body.innerHTML = testDom
-      const element = document.querySelector(".hello.world")
+      renderDOM(testDom)
+      const element = find(".hello.world")
       const newHeight = "60px"
       // When
       dom.setStyle(element, "height", newHeight)
       // Then
       const received = element.style.height
-      expect(received).toEqual(newHeight)
+      expect(received).toBe(newHeight)
     })
   })
 })
 
 describe("getFocusableElements(container)", () => {
   it("returns all focusable elements within a given element", () => {
-    document.body.innerHTML = testDom
+    renderDOM(testDom)
     const elements = getFocusableElements(".wrapper")
     expect(elements).toHaveLength(2)
+  })
+})
+
+describe("getPageBaseFontSize", () => {
+  it("returns body font size as number literal", () => {
+    renderDOM(testDom)
+    find("body").style.fontSize = "16px"
+    expect(getPageBaseFontSize()).toBe(16)
+  })
+})
+
+describe("focusOnce(element)", () => {
+  let element
+
+  beforeEach(() => {
+    renderDOM(testDom)
+    element = find(".wrapper")
+    focusOnce(element)
+  })
+
+  it("focuses the element", () => {
+    expect(document.activeElement).toEqual(element)
+  })
+
+  it("removes tabindex from focused element when blurred", () => {
+    element.blur()
+    expect(element.hasAttribute("tabindex")).toBe(false)
   })
 })
