@@ -113,7 +113,7 @@ describe("Modal", () => {
 
     it("removes tabindex when trigger loses focus", () => {
       trigger.blur()
-      expect(trigger.hasAttribute("tabindex")).toEqual(false)
+      expect(trigger.hasAttribute("tabindex")).toBe(false)
     })
   })
 
@@ -176,11 +176,11 @@ describe("Modal", () => {
     })
 
     it("removes 'no-scroll' class from <body>", () => {
-      expect(find("body").className).toEqual("")
+      expect(find("body").className).toBe("")
     })
 
     it("removes 'no-scroll' class from <html>", () => {
-      expect(find("html").className).toEqual("")
+      expect(find("html").className).toBe("")
     })
   })
 
@@ -194,11 +194,11 @@ describe("Modal", () => {
     })
 
     it("sets 'no-scroll' class to <body>", () => {
-      expect(find("body").className).toEqual("no-scroll")
+      expect(find("body").className).toBe("no-scroll")
     })
 
     it("sets 'no-scroll' class to <html>", () => {
-      expect(find("html").className).toEqual("no-scroll")
+      expect(find("html").className).toBe("no-scroll")
     })
   })
 })

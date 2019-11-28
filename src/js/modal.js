@@ -1,4 +1,11 @@
-import { iOSMobile, getFocusableElements, dom, isBrowserEnv, createFocusTrap } from "./utils"
+import {
+  iOSMobile,
+  getFocusableElements,
+  dom,
+  isBrowserEnv,
+  createFocusTrap,
+  focusOnce,
+} from "./utils"
 
 const KeyCodes = {
   ESCAPE: 27,
@@ -54,7 +61,6 @@ export default class Modal {
     this._handleCloseClick = this._handleCloseClick.bind(this)
     this._handleOverlayClick = this._handleOverlayClick.bind(this)
     this._handleEscapeKeyPress = this._handleEscapeKeyPress.bind(this)
-    this._handleTriggerBlur = this._handleTriggerBlur.bind(this)
     this._setup = this._setup.bind(this)
 
     // all modals
@@ -293,14 +299,7 @@ export default class Modal {
   }
 
   _handleReturnFocus() {
-    dom.setAttr(this._activeModalTrigger, Selectors.TABINDEX, "-1")
-    this._activeModalTrigger.focus()
-    this._activeModalTrigger.addEventListener(Events.BLUR, this._handleTriggerBlur)
-  }
-
-  _handleTriggerBlur({ target }) {
-    dom.removeAttr(target, Selectors.TABINDEX)
-    target.removeEventListener(Events.BLUR, this._handleTriggerBlur)
+    focusOnce(this._activeModalTrigger)
   }
 
   _handleScrollRestore() {
