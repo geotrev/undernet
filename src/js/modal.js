@@ -241,7 +241,7 @@ export default class Modal {
 
   _enableFocusOnChildren() {
     getFocusableElements(this._activeModalSelector).forEach(element => {
-      element.setAttribute(Selectors.TABINDEX, "0")
+      dom.setAttr(element, Selectors.TABINDEX, "0")
     })
   }
 
