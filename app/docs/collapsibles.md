@@ -66,7 +66,7 @@ Any given collapsible's content will be expanded by default. To force the conten
 
 ## Focusable Content
 
-If you include links, buttons, or other focusable elements within collapsible content, it will get `tabindex="-1"` put on it to prevent focus by keyboards.
+If you include links, buttons, or other focusable elements within collapsible content, `tabindex="-1"` is added to those elements while the content is not visible to ensure keyboard navigation remains on visible elements only.
 
 ## Requirements
 
@@ -99,12 +99,11 @@ A collapsible needs a few attributes and classes to work correctly. A strict HTM
 
 A few key attributes are added for you when the accordion is instantiated. These help assistive technologies know how to treat and navigate through the component.
 
+- **Header:** The collapsible trigger must have a header element that reflects the correct hierarchy of the page (`h1`, `h2`, etc...).
 - `aria-labelledby`: an attribute added to collapsible content, telling assistive technologies the content is associated with its corresponding trigger.
 - `aria-controls`: an attribute added to a trigger, telling assistive technologies which content block corresponds to it.
 - `aria-expanded`: an attribute added to a trigger, telling assistive technologies if collapsible content is visible.
 - `aria-hidden`: an attribute added to collapsible content, telling assistive technologies that the element can be ignored if it's set to `true`.
-
-In addition, a header tag must wrap the collapsible trigger. The trigger must be a `button` element.
 
 [See WAI-ARIA documentation](https://www.w3.org/TR/wai-aria-practices-1.1/examples/accordion/accordion.html) on best-practices for the collapse UI pattern.
 
