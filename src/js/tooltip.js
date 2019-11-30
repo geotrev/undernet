@@ -18,12 +18,17 @@ const Selectors = {
   DROP_INLINE_END_CLASS: "is-drop-inline-end",
 }
 
-const CssProperties = {
+const CssMetadata = {
+  // properties
   HEIGHT: "height",
   WIDTH: "width",
   CURSOR: "cursor",
   TOP: "top",
   LEFT: "left",
+
+  // values
+  POINTER: "pointer",
+  AUTO: "auto",
 }
 
 const Events = {
@@ -127,9 +132,9 @@ export default class Tooltip {
     this._activeTooltip = document.getElementById(tooltipId)
 
     if (this._hasInlineClass()) {
-      this._alignTooltip(CssProperties.HEIGHT)
+      this._alignTooltip(CssMetadata.HEIGHT)
     } else {
-      this._alignTooltip(CssProperties.WIDTH)
+      this._alignTooltip(CssMetadata.WIDTH)
     }
 
     this._setVisibleState()
@@ -159,7 +164,7 @@ export default class Tooltip {
     this._activeTrigger.addEventListener(Events.BLUR, this._handleClose)
     document.addEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
 
-    if (iOSMobile) dom.setStyle(document.body, CssProperties.CURSOR, "pointer")
+    if (iOSMobile) dom.setStyle(document.body, CssMetadata.CURSOR, CssMetadata.POINTER)
   }
 
   _handleEscapeKeyPress(event) {
@@ -175,7 +180,7 @@ export default class Tooltip {
     this._activeTrigger.addEventListener(Events.FOCUS, this._handleEvent)
     document.removeEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
 
-    if (iOSMobile) dom.setStyle(document.body, CssProperties.CURSOR, "auto")
+    if (iOSMobile) dom.setStyle(document.body, CssMetadata.CURSOR, CssMetadata.AUTO)
   }
 
   _alignTooltip(property) {
@@ -187,10 +192,10 @@ export default class Tooltip {
       ? (triggerSize - tooltipSize) / 2
       : (tooltipSize - triggerSize) / -2
 
-    if (property === CssProperties.HEIGHT) {
-      dom.setStyle(this._activeTooltip, CssProperties.TOP, `${offset}px`)
+    if (property === CssMetadata.HEIGHT) {
+      dom.setStyle(this._activeTooltip, CssMetadata.TOP, `${offset}px`)
     } else {
-      dom.setStyle(this._activeTooltip, CssProperties.LEFT, `${offset}px`)
+      dom.setStyle(this._activeTooltip, CssMetadata.LEFT, `${offset}px`)
     }
   }
 

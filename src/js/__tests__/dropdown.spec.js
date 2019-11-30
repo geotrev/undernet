@@ -139,7 +139,7 @@ describe("Dropdown", () => {
       trigger.click()
     })
 
-    it("closes dropdown if shift + tab key is pressed in open menu", () => {
+    it("closes dropdown if shift + tab key is pressed in open menu while first child is focused", () => {
       // Given
       const firstDropdownItem = getFocusableElements("#new-dropdown")[0]
       // When
@@ -148,7 +148,7 @@ describe("Dropdown", () => {
       expect(wrapper()).toMatchSnapshot()
     })
 
-    it("closes dropdown if tab key is pressed in open menu", () => {
+    it("closes dropdown if tab key is pressed in open menu while last child is focused", () => {
       // Given
       const dropdownMenuItems = getFocusableElements("#new-dropdown")
       const lastDropdownItem = dropdownMenuItems[dropdownMenuItems.length - 1]
@@ -268,10 +268,8 @@ const errorDom = (
 ) => `
   <div data-dropdown="${dropdown}" class="dropdown">
     <button id="${buttonId}" data-parent="${parent}" data-target="${target}">Open Dropdown 2</button>
-    ${hasUl &&
-      `<ul id="${menuId}" class="dropdown-menu">
-      ${hasItems &&
-        `<li>
+    ${hasUl && `<ul id="${menuId}" class="dropdown-menu">
+      ${hasItems && `<li>
         ${hasButtons && `<a href="#">Item 1</a>` || ""}
       </li>` || ""}
     </ul>` || ""}
