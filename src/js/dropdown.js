@@ -165,7 +165,7 @@ export default class Dropdown {
   _handleClick(event, key) {
     event.preventDefault()
     event.stopPropagation()
-    this._handleOpenDropdown(event)
+    this._closeOpenDropdowns(event)
 
     this._activeDropdownTrigger = event.target
 
@@ -272,7 +272,7 @@ export default class Dropdown {
     this._activeDropdown = dom.find(this._activeDropdownAttr)
   }
 
-  _handleOpenDropdown(event) {
+  _closeOpenDropdowns(event) {
     if (!this._activeDropdownTrigger) return
 
     this._allowFocusReturn = false
