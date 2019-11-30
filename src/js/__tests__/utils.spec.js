@@ -1,8 +1,9 @@
 import { find, renderDOM } from "./helpers"
-import { dom, getFocusableElements, focusOnce, getPageBaseFontSize } from "../utils"
+import { dom, getFocusableElements, createFocusTrap, focusOnce, getPageBaseFontSize } from "../utils"
 
 const testDom = `<div data-tester="true" data-removable class="wrapper">
-    <p>Hello world! <a href="#">this link is focusable</a> </p>
+    <p>Hello world! <a href="#">this link is focusable</a></p>
+    <input type="input" placeholder="just a little input" />
     <p style="height: 32px;" class="hello world test">Hello world again! <button type="button">I too, am focusable!</button></p>
   </div>
 `
@@ -208,11 +209,13 @@ describe("dom", () => {
   })
 })
 
+describe("createFocusTrap(container, options = {})", () => { })
+
 describe("getFocusableElements(container)", () => {
   it("returns all focusable elements within a given element", () => {
     renderDOM(testDom)
     const elements = getFocusableElements(".wrapper")
-    expect(elements).toHaveLength(2)
+    expect(elements).toHaveLength(3)
   })
 })
 
