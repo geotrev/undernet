@@ -69,17 +69,24 @@ export const dom = {
  * Search for elements matching a given selector.
  *
  * ```js
- * const elements = getFocusableElements(".wrapper .link")
+ * const elements = getFocusableElements(".wrapper")
  * elements.forEach(element => element.classList.add("focusable"))
  * ```
  *
+ * Use a custom pattern to select only specific elements:
+ *
+ * ```js
+ * const elements = getFocusableElements(".wrapper", [".my-button"])
+ * ```
+ *
  * @param {String} element
- * @returns {Array} Static array of HTML elements
+ * @param {Array<String>} patterns - Optional pattern override. Defaults to common focusable selectors.
+ * @returns {Array<Element>} Static array of HTML elements
  */
-export const getFocusableElements = element => {
-  const focusables = Selectors.FOCUSABLE_TAGS.map(
-    tag => `${element} ${tag}${Selectors.NOT_VISUALLY_HIDDEN_CLASS}`
-  ).join(", ")
+export const getFocusableElements = (element, patterns = Selectors.FOCUSABLE_TAGS) => {
+  const focusables = patterns
+    .map(selector => `${element} ${selector}${Selectors.NOT_VISUALLY_HIDDEN_CLASS}`)
+    .join(", ")
 
   return dom.findAll(focusables)
 }
@@ -115,7 +122,7 @@ export const iOSMobile = isBrowserEnv ? /(iphone|ipod|ipad)/i.test(navigator.use
  *
  * @param {String} container
  * @param {Object} options - options object. Default: {}
- * @returns {Object} - { start: fn, stop: fn }
+ * @returns {{ start: Function, stop: Function }} - { start, stop }
  */
 export const createFocusTrap = (container, options = {}) => {
   if (!isBrowserEnv) return
@@ -214,7 +221,7 @@ export const createFocusTrap = (container, options = {}) => {
  * focusRing.stop()
  * ```
  *
- * @returns {Object} - { start: fn, stop: fn }
+ * @returns {{ start: Function, stop: Function }} - { start: fn, stop: fn }
  */
 export const createFocusRing = () => {
   if (!isBrowserEnv) return

@@ -1,5 +1,11 @@
 import { find, renderDOM, simulateKeyboardEvent } from "./helpers"
-import { dom, getFocusableElements, createFocusTrap, focusOnce, getPageBaseFontSize } from "../utils"
+import {
+  dom,
+  getFocusableElements,
+  createFocusTrap,
+  focusOnce,
+  getPageBaseFontSize,
+} from "../utils"
 
 const testDom = `<div data-tester="true" tabindex="-1" data-removable class="wrapper">
     <p>Hello world! <a tabindex="-1" class="first-focusable" href="#">this link is focusable</a></p>
@@ -15,7 +21,7 @@ const KeyCodes = {
 }
 
 const Selectors = {
-  TABINDEX: "tabindex"
+  TABINDEX: "tabindex",
 }
 
 const activeElement = () => document.activeElement
@@ -227,7 +233,6 @@ describe.only("createFocusTrap(container, options = {})", () => {
   let lastFocusableElement
   let trapper
 
-
   describe("options.useArrows = false", () => {
     beforeEach(() => {
       renderDOM(testDom)
@@ -240,7 +245,7 @@ describe.only("createFocusTrap(container, options = {})", () => {
       trapper.stop()
     })
 
-    it('focuses last element when tab + shift is pressed on container', () => {
+    it("focuses last element when tab + shift is pressed on container", () => {
       // Given
       const containerElement = find(CONTAINER_SELECTOR)
       containerElement.setAttribute(Selectors.TABINDEX, "-1")
@@ -272,7 +277,6 @@ describe.only("createFocusTrap(container, options = {})", () => {
       expect(activeElement()).toEqual(lastFocusableElement)
     })
   })
-
 
   describe("options.useArrows = true", () => {
     beforeEach(() => {
