@@ -71,7 +71,7 @@ export default class Collapsible {
     const { controlled, onClick } = options
 
     this._setCollapsibles(controlled)
-    this._handleClickFn = onClick || this._handleClick
+    this._handleClickFn = onClick || this._handleClick.bind(this)
 
     if (this._collapsibles.length) {
       this._collapsibles.forEach(this._setup)
