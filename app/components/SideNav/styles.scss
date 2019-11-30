@@ -96,7 +96,7 @@
         border-radius: 0;
 
         [data-target] {
-          @include colored-link($color-gray400);
+          @include create-link-color($color-gray400);
           background: transparent;
           padding: 8px 0;
           font-weight: bold;

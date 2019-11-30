@@ -2,12 +2,22 @@
   border: $accordion-border;
   border-radius: $accordion-border-radius;
 
-  @if $accordion-border-radius {
-    overflow: hidden;
-  }
-
   .collapsible {
     .collapsible-trigger {
+      border-radius: 0;
+    }
+
+    $accordion-trigger-border-radius: $accordion-border-radius / 2;
+
+    &:first-child .collapsible-trigger {
+      border-radius: $accordion-trigger-border-radius $accordion-trigger-border-radius 0 0;
+    }
+
+    &:last-child .collapsible-trigger {
+      border-radius: 0 0 $accordion-trigger-border-radius $accordion-trigger-border-radius;
+    }
+
+    &[data-visible='true']:last-child .collapsible-trigger {
       border-radius: 0;
     }
 
