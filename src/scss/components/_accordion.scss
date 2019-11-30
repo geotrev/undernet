@@ -17,7 +17,7 @@
       border-radius: 0 0 $accordion-trigger-border-radius $accordion-trigger-border-radius;
     }
 
-    &[data-visible='true']:last-child .collapsible-trigger {
+    &[data-visible="true"]:last-child .collapsible-trigger {
       border-radius: 0;
     }
 
