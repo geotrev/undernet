@@ -1,12 +1,24 @@
-import { find, renderDOM } from "./helpers"
+import { find, renderDOM, simulateKeyboardEvent } from "./helpers"
 import { dom, getFocusableElements, createFocusTrap, focusOnce, getPageBaseFontSize } from "../utils"
 
-const testDom = `<div data-tester="true" data-removable class="wrapper">
-    <p>Hello world! <a href="#">this link is focusable</a></p>
+const testDom = `<div data-tester="true" tabindex="-1" data-removable class="wrapper">
+    <p>Hello world! <a tabindex="-1" class="first-focusable" href="#">this link is focusable</a></p>
     <input type="input" placeholder="just a little input" />
-    <p style="height: 32px;" class="hello world test">Hello world again! <button type="button">I too, am focusable!</button></p>
+    <p style="height: 32px;" class="hello world test">Hello world again! <button tabindex="-1" class="last-focusable" type="button">I too, am focusable!</button></p>
   </div>
 `
+
+const KeyCodes = {
+  TAB: 9,
+  ARROW_UP: 38,
+  ARROW_DOWN: 40,
+}
+
+const Selectors = {
+  TABINDEX: "tabindex"
+}
+
+const activeElement = () => document.activeElement
 
 describe("dom", () => {
   describe(".addClass(element, ...classes)", () => {
@@ -209,7 +221,92 @@ describe("dom", () => {
   })
 })
 
-describe("createFocusTrap(container, options = {})", () => { })
+describe.only("createFocusTrap(container, options = {})", () => {
+  const CONTAINER_SELECTOR = ".wrapper"
+  let firstFocusableElement
+  let lastFocusableElement
+  let trapper
+
+
+  describe("options.useArrows = false", () => {
+    beforeEach(() => {
+      renderDOM(testDom)
+      trapper = createFocusTrap(CONTAINER_SELECTOR)
+      firstFocusableElement = find(".first-focusable")
+      lastFocusableElement = find(".last-focusable")
+    })
+
+    afterEach(() => {
+      trapper.stop()
+    })
+
+    it('focuses last element when tab + shift is pressed on container', () => {
+      // Given
+      const containerElement = find(CONTAINER_SELECTOR)
+      containerElement.setAttribute(Selectors.TABINDEX, "-1")
+      containerElement.focus()
+      trapper.start()
+      // When
+      simulateKeyboardEvent(KeyCodes.TAB, true)
+      // Then
+      expect(activeElement()).toEqual(lastFocusableElement)
+    })
+
+    it("focuses first element when tab is pressed on last element", () => {
+      // Given
+      lastFocusableElement.focus()
+      trapper.start()
+      // When
+      simulateKeyboardEvent(KeyCodes.TAB, false)
+      // Then
+      expect(activeElement()).toEqual(firstFocusableElement)
+    })
+
+    it("focuses last element when tab + shift is pressed on first element", () => {
+      // Given
+      firstFocusableElement.focus()
+      trapper.start()
+      // When
+      simulateKeyboardEvent(KeyCodes.TAB, true)
+      // Then
+      expect(activeElement()).toEqual(lastFocusableElement)
+    })
+  })
+
+
+  describe("options.useArrows = true", () => {
+    beforeEach(() => {
+      renderDOM(testDom)
+      trapper = createFocusTrap(CONTAINER_SELECTOR, { useArrows: true })
+      firstFocusableElement = find(".first-focusable")
+      lastFocusableElement = find(".last-focusable")
+    })
+
+    afterEach(() => {
+      trapper.stop()
+    })
+
+    it("focuses first element when down arrow is pressed on last element", () => {
+      // Given
+      lastFocusableElement.focus()
+      trapper.start()
+      // When
+      simulateKeyboardEvent(KeyCodes.ARROW_DOWN, false)
+      // Then
+      expect(activeElement()).toEqual(firstFocusableElement)
+    })
+
+    it("focuses last element when up arrow is pressed on first element", () => {
+      // Given
+      firstFocusableElement.focus()
+      trapper.start()
+      // When
+      simulateKeyboardEvent(KeyCodes.ARROW_UP, false)
+      // Then
+      expect(activeElement()).toEqual(lastFocusableElement)
+    })
+  })
+})
 
 describe("getFocusableElements(container)", () => {
   it("returns all focusable elements within a given element", () => {
