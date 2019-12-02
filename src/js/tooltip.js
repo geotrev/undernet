@@ -65,7 +65,7 @@ export default class Tooltip {
     this._activeTooltip = null
 
     // all tooltips
-    this._allTooltips = []
+    this._tooltips = []
   }
 
   // public
@@ -73,14 +73,14 @@ export default class Tooltip {
   start() {
     if (!isBrowserEnv) return
 
-    this._allTooltips = dom.findAll(`[${Selectors.DATA_TOOLTIP}]`)
-    this._allTooltips.forEach(this._setup)
+    this._tooltips = dom.findAll(`[${Selectors.DATA_TOOLTIP}]`)
+    this._tooltips.forEach(this._setup)
   }
 
   stop() {
     if (!isBrowserEnv) return
 
-    this._allTooltips.forEach(instance => {
+    this._tooltips.forEach(instance => {
       const id = dom.getAttr(instance, Selectors.DATA_TOOLTIP)
       const trigger = dom.find(this._getTrigger(id), instance)
 

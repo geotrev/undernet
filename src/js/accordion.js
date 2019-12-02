@@ -1,5 +1,5 @@
 import Collapsible from "./collapsible"
-import { dom } from "./utils"
+import { dom, createFocusTrap } from "./utils"
 
 const Selectors = {
   // unique
@@ -19,6 +19,8 @@ const Messages = {
   NO_ACCORDION_ID_ERROR:
     "Could not initialize accordion; you must include a value for the 'data-accordion' attribute.",
   NO_ACCORDION_ERROR: id => `Could not find element matching [data-accordion='${id}']`,
+  TRIGGERS_TO_COLLAPSIBLES_LENGTH_ERROR: (id, triggersLength, collapsiblesLength) =>
+    `Your accordion with id '${id}' has ${triggersLength} triggers and ${collapsiblesLength} collapsibles; make sure there is a trigger for each collapsible!`,
 }
 
 /**
@@ -33,9 +35,11 @@ export default class Accordion extends Collapsible {
 
     // events
     this._handleClick = this._handleClick.bind(this)
+    this._setFocusTraps = this._setFocusTraps.bind(this)
 
     // all accordions
     this._accordions = []
+    this._focusTraps = []
 
     // active accordion
     this._activeAccordionId = ""
@@ -50,16 +54,56 @@ export default class Accordion extends Collapsible {
 
     if (this._accordions) {
       super.start({ controlled: true, onClick: this._handleClick })
+      this._accordions.forEach(this._setFocusTraps)
+    }
+  }
+
+  stop() {
+    if (this._accordions) {
+      this._accordions.forEach(instance => {
+        super.stop()
+        this._unsetFocusTraps(instance)
+      })
     }
   }
 
   // private
 
+  _unsetFocusTraps(instance) {
+    const id = dom.getAttr(instance, Selectors.DATA_ACCORDION)
+
+    if (this._focusTraps[id]) this._focusTraps[id].stop()
+  }
+
+  _setFocusTraps(instance) {
+    const id = dom.getAttr(instance, Selectors.DATA_ACCORDION)
+
+    if (!id) {
+      console.warn(Messages.NO_ACCORDION_ID_ERROR)
+      return
+    }
+
+    const triggers = dom.findAll(`[${Selectors.DATA_PARENT}='${id}']`, instance)
+    const collapsibles = dom.findAll(`[${Selectors.DATA_COLLAPSIBLE}]`, instance)
+
+    if (triggers.length !== collapsibles.length) {
+      console.warn(
+        Messages.TRIGGERS_TO_COLLAPSIBLES_LENGTH_ERROR(id, triggers.length, collapsibles.length)
+      )
+    }
+
+    this._focusTraps[id] = createFocusTrap(null, {
+      children: triggers,
+      useArrows: true,
+    })
+
+    this._focusTraps[id].start()
+  }
+
   _handleClick(event) {
     const activeTrigger = event.target
 
     super._handleClick(event)
-
     this._setActiveAccordionId(activeTrigger)
 
     if (!this._activeAccordionId) {
@@ -75,16 +119,14 @@ export default class Accordion extends Collapsible {
     }
 
     this._setToggleMultiple()
-
     this._closeAllCollapsibles(activeTrigger)
   }
 
   _closeAllCollapsibles(activeTrigger) {
     if (this._toggleMultipleEnabled) return
 
-    const collapsibleTriggerAttr = `[${Selectors.DATA_ACCORDION}='${this._activeAccordionId}'] [${Selectors.DATA_PARENT}='${this._activeAccordionId}']`
     const openCollapsibles = dom
-      .findAll(collapsibleTriggerAttr, this._activeAccordion)
+      .findAll(`[${Selectors.DATA_PARENT}='${this._activeAccordionId}']`, this._activeAccordion)
       .filter(trigger => trigger !== activeTrigger && this._isExpanded(trigger))
 
     if (openCollapsibles.length && this._isExpanded(activeTrigger)) {

@@ -62,7 +62,7 @@
         }
 
         li a {
-          @include colored-link;
+          @include create-link-color;
           display: block;
           font-size: 16px;
           line-height: 36px;

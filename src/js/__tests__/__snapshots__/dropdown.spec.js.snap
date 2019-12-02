@@ -612,7 +612,7 @@ exports[`Dropdown #handleEscapeKeyPress closes dropdown 1`] = `
 </body>
 `;
 
-exports[`Dropdown #handleFirstTabClose & #handleLastTabClose closes dropdown if shift + tab key is pressed in open menu 1`] = `
+exports[`Dropdown #handleFirstTabClose & #handleLastTabClose closes dropdown if shift + tab key is pressed in open menu while first child is focused 1`] = `
 <body>
   
   
@@ -735,7 +735,7 @@ exports[`Dropdown #handleFirstTabClose & #handleLastTabClose closes dropdown if 
 </body>
 `;
 
-exports[`Dropdown #handleFirstTabClose & #handleLastTabClose closes dropdown if tab key is pressed in open menu 1`] = `
+exports[`Dropdown #handleFirstTabClose & #handleLastTabClose closes dropdown if tab key is pressed in open menu while last child is focused 1`] = `
 <body>
   
   
