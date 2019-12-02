@@ -121,15 +121,14 @@ export const iOSMobile = isBrowserEnv ? /(iphone|ipod|ipad)/i.test(navigator.use
  * ```
  *
  * @param {String} container
- * @param {Object} options - options object. Default: {}
+ * @param {{ useArrows: Boolean, children: Array<Element> }} options - options object. Default: {}
  * @returns {{ start: Function, stop: Function }} - { start, stop }
  */
 export const createFocusTrap = (container, options = {}) => {
   if (!isBrowserEnv) return
 
-  const { useArrows } = options
-  const focusContainerSelector = container
-  const focusableChildren = getFocusableElements(focusContainerSelector)
+  const { useArrows, children } = options
+  const focusableChildren = children || getFocusableElements(container)
   const focusableFirstChild = focusableChildren[0]
   const focusableLastChild = focusableChildren[focusableChildren.length - 1]
 
@@ -152,7 +151,7 @@ export const createFocusTrap = (container, options = {}) => {
   }
 
   const handleFocusTrapWithTab = event => {
-    const containerElement = dom.find(focusContainerSelector)
+    const containerElement = dom.find(container)
     const containerActive = document.activeElement === containerElement
     const firstActive = document.activeElement === focusableFirstChild
     const lastActive = document.activeElement === focusableLastChild

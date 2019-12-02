@@ -6,7 +6,6 @@ import Menu from "react-feather/dist/icons/menu"
 import ChevronRight from "react-feather/dist/icons/chevron-right"
 
 import { NAV_DATA } from "./constants"
-import { Accordions } from "undernet"
 import "./styles.scss"
 
 const pkg = require("projectRoot/package.json")
@@ -27,23 +26,15 @@ export default function SideNav() {
 
   const componentUnmountFunction = () => {
     window.removeEventListener("resize", handleMenuVisibilityThrottled)
-    Accordions.stop()
   }
 
   const observedStateOnMount = []
   useEffect(() => {
-    Accordions.start()
     window.addEventListener("resize", handleMenuVisibilityThrottled)
     setMenuIsOpen(isLargerThanCollapseWidth())
 
     return componentUnmountFunction
   }, observedStateOnMount)
-
-  const observedStateOnUpdate = [menuIsOpen]
-  useEffect(() => {
-    Accordions.stop()
-    Accordions.start()
-  }, observedStateOnUpdate)
 
   // set up handlers and other helper methods
 

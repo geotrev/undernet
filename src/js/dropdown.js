@@ -31,6 +31,11 @@ const Events = {
   BLUR: "blur",
 }
 
+const CssMetadata = {
+  CURSOR: "cursor",
+  POINTER: "pointer",
+}
+
 const Messages = {
   NO_DROPDOWN_ID_ERROR:
     "Could not setup dropdown. Make sure it has a valid [data-dropdown] attribute with a unique id as its value.",
@@ -59,21 +64,21 @@ export default class Dropdown {
     this._setup = this._setup.bind(this)
 
     // all dropdowns
-    this._dropdownTriggers = []
     this._dropdowns = []
+    this._dropdownTriggers = []
 
     // active dropdown
-    this._activeDropdown = {}
+    this._activeDropdown = null
     this._activeDropdownTrigger = null
-    this._activeDropdownMenu = {}
+    this._activeDropdownMenu = null
     this._activeDropdownActions = []
     this._allowFocusReturn = true
     this._activeDropdownId = ""
     this._activeDropdownAttr = ""
     this._activeDropdownMenuId = ""
-    this._firstDropdownAction = {}
-    this._lastDropdownAction = {}
-    this._focusTrap = {}
+    this._firstDropdownAction = null
+    this._lastDropdownAction = null
+    this._focusTrap = null
 
     // dropdown element selectors
     this._dropdownContainerAttr = `[${Selectors.DATA_DROPDOWN}]`
@@ -99,10 +104,14 @@ export default class Dropdown {
   stop() {
     if (!isBrowserEnv) return
 
-    this._dropdownTriggers.forEach(trigger => {
-      trigger.removeEventListener(Events.CLICK, this._handleClick)
-      trigger.removeEventListener(Events.KEYDOWN, this._handleArrowKeyPress)
-    })
+    if (this._dropdownTriggers.length) {
+      this._dropdownTriggers.forEach(trigger => {
+        trigger.removeEventListener(Events.CLICK, this._handleClick)
+        trigger.removeEventListener(Events.KEYDOWN, this._handleArrowKeyPress)
+      })
+    }
+
+    this._closeActiveDropdownMenu()
   }
 
   // private
@@ -173,8 +182,7 @@ export default class Dropdown {
     this._setActiveDropdown()
     this._setActiveDropdownMenu()
     this._setVisibleState()
-    this._listenToCloseClick()
-    this._startEvents()
+    this._startActiveDropdownEvents()
 
     if (key && key === KeyCodes.ARROW_UP) {
       this._lastDropdownAction.focus()
@@ -182,54 +190,79 @@ export default class Dropdown {
       this._firstDropdownAction.focus()
     }
 
-    if (iOSMobile) dom.setStyle(document.body, "cursor", "pointer")
+    if (iOSMobile) dom.setStyle(document.body, CssMetadata.CURSOR, CssMetadata.POINTER)
   }
 
   _handleCloseClick(event) {
     event.preventDefault()
 
-    if (iOSMobile) dom.setStyle(document.body, "cursor", "auto")
+    this._closeActiveDropdownMenu()
+  }
 
-    this._focusTrap.stop()
-    this._handleHideState()
-    this._listenToOpenClick()
-
-    this._stopEvents()
-
+  _closeActiveDropdownMenu() {
     if (this._allowFocusReturn) {
       this._handleReturnFocus()
     }
 
-    this._activeDropdownTrigger = null
-    this._activeDropdownId = null
+    this._resetActiveDropdown()
+    this._cleanActiveProperties()
+  }
+
+  _cleanActiveProperties() {
     this._activeDropdown = null
+    this._activeDropdownId = null
+    this._activeDropdownTrigger = null
+    this._activeDropdownActions = []
+    this._firstDropdownAction = null
+    this._lastDropdownAction = null
   }
 
-  _listenToOpenClick() {
-    this._activeDropdownTrigger.removeEventListener(Events.CLICK, this._handleCloseClick)
-    this._activeDropdownTrigger.addEventListener(Events.CLICK, this._handleClick)
-  }
+  _resetActiveDropdown() {
+    if (this._activeDropdown) {
+      if (iOSMobile) dom.setStyle(document.body, CssMetadata.CURSOR, CssMetadata.POINTER)
 
-  _handleHideState() {
-    dom.setAttr(this._activeDropdownTrigger, Selectors.ARIA_EXPANDED, "false")
-    dom.setAttr(this._activeDropdown, Selectors.DATA_VISIBLE, "false")
+      dom.setAttr(this._activeDropdown, Selectors.DATA_VISIBLE, "false")
+    }
 
-    this._activeDropdownActions.forEach(action => {
-      dom.setAttr(action, Selectors.TABINDEX, "-1")
-      action.removeEventListener(Events.CLICK, this._handleCloseClick)
-    })
-  }
+    if (this._activeDropdownTrigger) {
+      dom.setAttr(this._activeDropdownTrigger, Selectors.ARIA_EXPANDED, "false")
+      this._activeDropdownTrigger.removeEventListener(Events.CLICK, this._handleCloseClick)
+      this._activeDropdownTrigger.addEventListener(Events.CLICK, this._handleClick)
+    }
 
-  _stopEvents() {
-    document.removeEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
-    document.removeEventListener(Events.CLICK, this._handleOffMenuClick)
+    if (this._activeDropdown) {
+      document.removeEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
+      document.removeEventListener(Events.CLICK, this._handleOffMenuClick)
+    }
+
+    if (this._activeDropdownActions.length) {
+      this._activeDropdownActions.forEach(action => {
+        dom.setAttr(action, Selectors.TABINDEX, "-1")
+        action.removeEventListener(Events.CLICK, this._handleCloseClick)
+      })
+    }
+
+    if (this._firstDropdownAction) {
+      this._firstDropdownAction.removeEventListener(Events.KEYDOWN, this._handleFirstTabClose)
+    }
+
+    if (this._lastDropdownAction) {
+      this._lastDropdownAction.removeEventListener(Events.KEYDOWN, this._handleLastTabClose)
+    }
+
+    if (this._focusTrap) {
+      this._focusTrap.stop()
+      this._focusTrap = null
+    }
   }
 
   _setActiveDropdownId() {
     this._activeDropdownId = dom.getAttr(this._activeDropdownTrigger, Selectors.DATA_PARENT)
   }
 
-  _startEvents() {
+  _startActiveDropdownEvents() {
+    this._activeDropdownTrigger.removeEventListener(Events.CLICK, this._handleClick)
+    this._activeDropdownTrigger.addEventListener(Events.CLICK, this._handleCloseClick)
     document.addEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
     document.addEventListener(Events.CLICK, this._handleOffMenuClick)
 
@@ -248,13 +281,12 @@ export default class Dropdown {
 
     const contaienrSelector = `${this._activeDropdownAttr} > ${this._dropdownMenuClassName}`
 
+    if (this._focusTrap) {
+      this._focusTrap.stop()
+    }
+
     this._focusTrap = createFocusTrap(contaienrSelector, { useArrows: true })
     this._focusTrap.start()
-  }
-
-  _listenToCloseClick() {
-    this._activeDropdownTrigger.removeEventListener(Events.CLICK, this._handleClick)
-    this._activeDropdownTrigger.addEventListener(Events.CLICK, this._handleCloseClick)
   }
 
   _setVisibleState() {
@@ -317,6 +349,7 @@ export default class Dropdown {
   }
 
   _handleReturnFocus() {
+    if (!this._activeDropdownTrigger) return
     focusOnce(this._activeDropdownTrigger)
   }
 

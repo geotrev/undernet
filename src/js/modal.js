@@ -80,7 +80,7 @@ export default class Modal {
     this._activeModalCloseTriggers = []
     this._originalPagePadding = ""
     this._scrollbarOffset = 0
-    this._focusTrap = {}
+    this._focusTrap = null
 
     // attribute helpers
     this._modalContainerAttr = `[${Selectors.DATA_MODAL}]`
@@ -178,6 +178,7 @@ export default class Modal {
     this._hideDialog()
 
     this._focusTrap.stop()
+    this._focusTrap = null
 
     this._unsetScrollStop()
     this._unsetScrollbarOffset()
