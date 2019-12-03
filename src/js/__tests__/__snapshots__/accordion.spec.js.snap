@@ -42,7 +42,7 @@ exports[`Accordion #handleClick Multiple visible by default closed collapsible c
         aria-labelledby="collapsible-trigger-id"
         class="collapsible-content"
         id="collapsible-id-1"
-        style="max-height: 0em;"
+        style="max-height: 0rem;"
       >
         
         
@@ -235,7 +235,7 @@ exports[`Accordion #handleClick Multiple visible by default open collapsible cli
         aria-labelledby="collapsible-trigger-id"
         class="collapsible-content"
         id="collapsible-id-2"
-        style="max-height: 0em;"
+        style="max-height: 0rem;"
       >
         
         
@@ -502,7 +502,7 @@ exports[`Accordion #handleClick opens closed collapsible 1`] = `
         aria-labelledby="collapsible-trigger-id"
         class="collapsible-content"
         id="collapsible-id-2"
-        style="max-height: 0em;"
+        style="max-height: 0rem;"
       >
         
         
@@ -638,7 +638,7 @@ exports[`Accordion #setToggleMultiple retains visible state of unselected collap
         aria-labelledby="collapsible-trigger-id"
         class="collapsible-content"
         id="collapsible-id-2"
-        style="max-height: 0em;"
+        style="max-height: 0rem;"
       >
         
         
@@ -713,7 +713,7 @@ exports[`Accordion API start can open multiple collapsibles initially 1`] = `
         aria-labelledby="collapsible-trigger-id"
         class="collapsible-content"
         id="collapsible-id-1"
-        style="max-height: 0em;"
+        style="max-height: 0rem;"
       >
         
         
@@ -772,7 +772,7 @@ exports[`Accordion API start can open multiple collapsibles initially 1`] = `
         aria-labelledby="collapsible-trigger-id"
         class="collapsible-content"
         id="collapsible-id-2"
-        style="max-height: 0em;"
+        style="max-height: 0rem;"
       >
         
         
@@ -847,7 +847,7 @@ exports[`Accordion API start sets attributes on collapsibles 1`] = `
         aria-labelledby="collapsible-trigger-id"
         class="collapsible-content"
         id="collapsible-id-1"
-        style="max-height: 0em;"
+        style="max-height: 0rem;"
       >
         
         
@@ -980,7 +980,7 @@ exports[`Accordion API stop + #handleClick does not toggle collapsible 1`] = `
         aria-labelledby="collapsible-trigger-id"
         class="collapsible-content"
         id="collapsible-id-1"
-        style="max-height: 0em;"
+        style="max-height: 0rem;"
       >
         
         

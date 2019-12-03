@@ -197,7 +197,7 @@ describe("Tooltip Warnings", () => {
     console.warning = jest.fn()
   })
 
-  it("throws error if [data-tooltip] is empty", () => {
+  it("prints console warning if [data-tooltip] is empty", () => {
     // Given
     renderDOM(errorDom("tooltip-id", "", "tooltip-id"))
     // When
@@ -206,7 +206,7 @@ describe("Tooltip Warnings", () => {
     expect(console.warning).toBeCalledWith("Could not find tooltip id.")
   })
 
-  it("throws error if [data-target] attribute does not match its parent [data-tooltip]", () => {
+  it("prints console warning if [data-target] attribute does not match its parent [data-tooltip]", () => {
     // Given
     renderDOM(errorDom("", "tooltip-id", "tooltip-id"))
     // When
@@ -217,7 +217,7 @@ describe("Tooltip Warnings", () => {
     )
   })
 
-  it("throws error if tooltip container's [id] does not match its parent [data-tooltip]", () => {
+  it("prints console warning if tooltip container's [id] does not match its parent [data-tooltip]", () => {
     // Given
     renderDOM(errorDom("tooltip-id", "tooltip-id", ""))
     // When

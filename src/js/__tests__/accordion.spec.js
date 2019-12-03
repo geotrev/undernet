@@ -186,7 +186,7 @@ describe("Accordion Error Handling", () => {
     Undernet.Accordions.stop()
   })
 
-  it("logs warning if accordion id can't be found", () => {
+  it("prints console warning if accordion id can't be found", () => {
     // Given
     const noIdWarning =
       "Could not initialize accordion; you must include a value for the 'data-accordion' attribute."
@@ -199,7 +199,7 @@ describe("Accordion Error Handling", () => {
     expect(console.warn).toBeCalledWith(noIdWarning)
   })
 
-  it("logs warning if accordion element can't be found", () => {
+  it("prints console warning if accordion element can't be found", () => {
     // Given
     const noAccordionWarning = "Could not find element matching [data-accordion='accordion-id']"
     renderDOM(errorDom("", "accordion-id"))

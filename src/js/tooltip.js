@@ -18,15 +18,15 @@ const Selectors = {
   DROP_INLINE_END_CLASS: "is-drop-inline-end",
 }
 
-const CssMetadata = {
-  // properties
+const CssProperties = {
   HEIGHT: "height",
   WIDTH: "width",
   CURSOR: "cursor",
   TOP: "top",
   LEFT: "left",
+}
 
-  // values
+const CssValues = {
   POINTER: "pointer",
   AUTO: "auto",
 }
@@ -80,13 +80,11 @@ export default class Tooltip {
   stop() {
     if (!isBrowserEnv) return
 
+    if (this._activeTooltip) this._handleClose()
+
     this._tooltips.forEach(instance => {
       const id = dom.getAttr(instance, Selectors.DATA_TOOLTIP)
       const trigger = dom.find(this._getTrigger(id), instance)
-
-      if (this._activeTooltip || this._activeTrigger) {
-        this._handleClose()
-      }
 
       trigger.removeEventListener(Events.MOUSEOVER, this._handleEvent)
       trigger.removeEventListener(Events.FOCUS, this._handleEvent)
@@ -132,9 +130,9 @@ export default class Tooltip {
     this._activeTooltip = document.getElementById(tooltipId)
 
     if (this._hasInlineClass()) {
-      this._alignTooltip(CssMetadata.HEIGHT)
+      this._alignTooltip(CssProperties.HEIGHT)
     } else {
-      this._alignTooltip(CssMetadata.WIDTH)
+      this._alignTooltip(CssProperties.WIDTH)
     }
 
     this._setVisibleState()
@@ -142,9 +140,13 @@ export default class Tooltip {
   }
 
   _handleClose() {
-    this._setHideState()
-    this._startOpenEvents()
+    if (this._activeTooltip) this._setHideState()
 
+    this._startOpenEvents()
+    this._resetProperties()
+  }
+
+  _resetProperties() {
     this._activeTrigger = null
     this._activeTooltip = null
   }
@@ -164,7 +166,7 @@ export default class Tooltip {
     this._activeTrigger.addEventListener(Events.BLUR, this._handleClose)
     document.addEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
 
-    if (iOSMobile) dom.setStyle(document.body, CssMetadata.CURSOR, CssMetadata.POINTER)
+    if (iOSMobile) dom.setStyle(document.body, CssProperties.CURSOR, CssValues.POINTER)
   }
 
   _handleEscapeKeyPress(event) {
@@ -174,13 +176,15 @@ export default class Tooltip {
   }
 
   _startOpenEvents() {
+    if (!this._activeTrigger) return
+
     this._activeTrigger.removeEventListener(Events.MOUSEOUT, this._handleClose)
     this._activeTrigger.removeEventListener(Events.BLUR, this._handleClose)
     this._activeTrigger.addEventListener(Events.MOUSEOVER, this._handleEvent)
     this._activeTrigger.addEventListener(Events.FOCUS, this._handleEvent)
     document.removeEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
 
-    if (iOSMobile) dom.setStyle(document.body, CssMetadata.CURSOR, CssMetadata.AUTO)
+    if (iOSMobile) dom.setStyle(document.body, CssProperties.CURSOR, CssValues.AUTO)
   }
 
   _alignTooltip(property) {
@@ -192,10 +196,10 @@ export default class Tooltip {
       ? (triggerSize - tooltipSize) / 2
       : (tooltipSize - triggerSize) / -2
 
-    if (property === CssMetadata.HEIGHT) {
-      dom.setStyle(this._activeTooltip, CssMetadata.TOP, `${offset}px`)
+    if (property === CssProperties.HEIGHT) {
+      dom.setStyle(this._activeTooltip, CssProperties.TOP, `${offset}px`)
     } else {
-      dom.setStyle(this._activeTooltip, CssMetadata.LEFT, `${offset}px`)
+      dom.setStyle(this._activeTooltip, CssProperties.LEFT, `${offset}px`)
     }
   }
 

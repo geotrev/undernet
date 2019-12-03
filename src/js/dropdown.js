@@ -31,8 +31,11 @@ const Events = {
   BLUR: "blur",
 }
 
-const CssMetadata = {
+const CssProperties = {
   CURSOR: "cursor",
+}
+
+const CssValues = {
   POINTER: "pointer",
 }
 
@@ -103,6 +106,7 @@ export default class Dropdown {
 
   stop() {
     if (!isBrowserEnv) return
+    if (this._activeDropdown) this._closeActiveDropdownMenu()
 
     if (this._dropdownTriggers.length) {
       this._dropdownTriggers.forEach(trigger => {
@@ -110,8 +114,6 @@ export default class Dropdown {
         trigger.removeEventListener(Events.KEYDOWN, this._handleArrowKeyPress)
       })
     }
-
-    this._closeActiveDropdownMenu()
   }
 
   // private
@@ -190,7 +192,7 @@ export default class Dropdown {
       this._firstDropdownAction.focus()
     }
 
-    if (iOSMobile) dom.setStyle(document.body, CssMetadata.CURSOR, CssMetadata.POINTER)
+    if (iOSMobile) dom.setStyle(document.body, CssProperties.CURSOR, CssValues.POINTER)
   }
 
   _handleCloseClick(event) {
@@ -200,60 +202,46 @@ export default class Dropdown {
   }
 
   _closeActiveDropdownMenu() {
-    if (this._allowFocusReturn) {
-      this._handleReturnFocus()
-    }
-
-    this._resetActiveDropdown()
-    this._cleanActiveProperties()
+    if (this._allowFocusReturn) this._handleReturnFocus()
+    this._closeActiveDropdown()
   }
 
-  _cleanActiveProperties() {
+  _closeActiveDropdown() {
+    if (iOSMobile) dom.setStyle(document.body, CssProperties.CURSOR, CssValues.POINTER)
+
+    dom.setAttr(this._activeDropdown, Selectors.DATA_VISIBLE, "false")
+    dom.setAttr(this._activeDropdownTrigger, Selectors.ARIA_EXPANDED, "false")
+
+    this._activeDropdownTrigger.removeEventListener(Events.CLICK, this._handleCloseClick)
+    this._activeDropdownTrigger.addEventListener(Events.CLICK, this._handleClick)
+    document.removeEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
+    document.removeEventListener(Events.CLICK, this._handleOffMenuClick)
+    this._firstDropdownAction.removeEventListener(Events.KEYDOWN, this._handleFirstTabClose)
+    this._lastDropdownAction.removeEventListener(Events.KEYDOWN, this._handleLastTabClose)
+
+    this._activeDropdownActions.forEach(action => {
+      dom.setAttr(action, Selectors.TABINDEX, "-1")
+      action.removeEventListener(Events.CLICK, this._handleCloseClick)
+    })
+
+    this._focusTrap.stop()
+    this._focusTrap = null
+
+    this._resetProperties()
+  }
+
+  _resetProperties() {
     this._activeDropdown = null
-    this._activeDropdownId = null
     this._activeDropdownTrigger = null
+    this._activeDropdownMenu = null
     this._activeDropdownActions = []
+    this._allowFocusReturn = true
+    this._activeDropdownId = ""
+    this._activeDropdownAttr = ""
+    this._activeDropdownMenuId = ""
     this._firstDropdownAction = null
     this._lastDropdownAction = null
-  }
-
-  _resetActiveDropdown() {
-    if (this._activeDropdown) {
-      if (iOSMobile) dom.setStyle(document.body, CssMetadata.CURSOR, CssMetadata.POINTER)
-
-      dom.setAttr(this._activeDropdown, Selectors.DATA_VISIBLE, "false")
-    }
-
-    if (this._activeDropdownTrigger) {
-      dom.setAttr(this._activeDropdownTrigger, Selectors.ARIA_EXPANDED, "false")
-      this._activeDropdownTrigger.removeEventListener(Events.CLICK, this._handleCloseClick)
-      this._activeDropdownTrigger.addEventListener(Events.CLICK, this._handleClick)
-    }
-
-    if (this._activeDropdown) {
-      document.removeEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
-      document.removeEventListener(Events.CLICK, this._handleOffMenuClick)
-    }
-
-    if (this._activeDropdownActions.length) {
-      this._activeDropdownActions.forEach(action => {
-        dom.setAttr(action, Selectors.TABINDEX, "-1")
-        action.removeEventListener(Events.CLICK, this._handleCloseClick)
-      })
-    }
-
-    if (this._firstDropdownAction) {
-      this._firstDropdownAction.removeEventListener(Events.KEYDOWN, this._handleFirstTabClose)
-    }
-
-    if (this._lastDropdownAction) {
-      this._lastDropdownAction.removeEventListener(Events.KEYDOWN, this._handleLastTabClose)
-    }
-
-    if (this._focusTrap) {
-      this._focusTrap.stop()
-      this._focusTrap = null
-    }
+    this._focusTrap = null
   }
 
   _setActiveDropdownId() {

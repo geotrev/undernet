@@ -164,7 +164,7 @@ exports[`Collapsible API start sets attributes 1`] = `
       aria-labelledby="collapsible-trigger-id"
       class="collapsible-content"
       id="collapsible-id"
-      style="max-height: 0em;"
+      style="max-height: 0rem;"
     >
       
       
@@ -229,7 +229,7 @@ exports[`Collapsible API stop + #handleClick does not toggle collapsible on clic
       aria-labelledby="collapsible-trigger-id"
       class="collapsible-content"
       id="collapsible-id"
-      style="max-height: 0em;"
+      style="max-height: 0rem;"
     >
       
       

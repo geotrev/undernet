@@ -240,6 +240,6 @@ export default class Collapsible {
   }
 
   _getFontSizeEm(pixels) {
-    return `${pixels / getPageBaseFontSize()}em`
+    return `${pixels / getPageBaseFontSize()}rem`
   }
 }

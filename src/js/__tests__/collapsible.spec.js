@@ -98,7 +98,7 @@ describe("Collapsible Warnings", () => {
     Undernet.Collapsibles.stop()
   })
 
-  it("throws error if [data-collapsible] attribute is missing its value", () => {
+  it("prints console warning if [data-collapsible] attribute is missing its value", () => {
     // Given
     renderDOM(errorDom("", unMatchedCollapsibleId, triggerId, collapsibleId))
     // When
@@ -109,7 +109,7 @@ describe("Collapsible Warnings", () => {
     )
   })
 
-  it("throws error if [data-trigger] attribute can't be found", () => {
+  it("prints console warning if [data-trigger] attribute can't be found", () => {
     // Given
     renderDOM(errorDom(collapsibleId, unMatchedCollapsibleId, triggerId, collapsibleId))
     // When
@@ -120,7 +120,7 @@ describe("Collapsible Warnings", () => {
     )
   })
 
-  it("throws error if trigger id can't be found", () => {
+  it("prints console warning if trigger id can't be found", () => {
     // Given
     renderDOM(errorDom(collapsibleId, collapsibleId, "", collapsibleId))
     // When
@@ -131,7 +131,7 @@ describe("Collapsible Warnings", () => {
     )
   })
 
-  it("throws error if collapsible content can't be found", () => {
+  it("prints console warning if collapsible content can't be found", () => {
     // Given
     renderDOM(errorDom(collapsibleId, collapsibleId, triggerId, unMatchedCollapsibleId))
     // When
