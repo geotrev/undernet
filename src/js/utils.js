@@ -84,6 +84,18 @@ export const dom = {
  * @returns {Array<Element>} Static array of HTML elements
  */
 export const getFocusableElements = (element, patterns = Selectors.FOCUSABLE_TAGS) => {
+  if (!element) {
+    console.error("No `element` parameter given to `getFocusableElements`.")
+    return
+  }
+
+  if (!Array.isArray(patterns)) {
+    console.error(
+      "Invalid data type given in second parameter for `getFocusableElements`, expected: Array."
+    )
+    return
+  }
+
   const focusables = patterns
     .map(selector => `${element} ${selector}${Selectors.NOT_VISUALLY_HIDDEN_CLASS}`)
     .join(", ")

@@ -281,7 +281,7 @@ describe("Dropdown Warnings", () => {
     console.warning = jest.fn()
   })
 
-  it("prints warning if dropdown id can't be found", () => {
+  it("prints console warning if dropdown id can't be found", () => {
     // Given
     renderDOM(errorDom("", "trigger-id", "dropdown-id", "menu-id", "menu-id"))
     // When
@@ -292,7 +292,7 @@ describe("Dropdown Warnings", () => {
     )
   })
 
-  it("prints warning if dropdown menu can't be found", () => {
+  it("prints console warning if dropdown menu can't be found", () => {
     // Given
     renderDOM(errorDom("dropdown-id", "trigger-id", "dropdown-id", "menu-id", "menu-id", false))
     // When
@@ -303,7 +303,7 @@ describe("Dropdown Warnings", () => {
     )
   })
 
-  it("prints warning if dropdown items can't be found", () => {
+  it("prints console warning if dropdown items can't be found", () => {
     // Given
     renderDOM(
       errorDom("dropdown-id", "trigger-id", "dropdown-id", "menu-id", "menu-id", true, false)
@@ -316,7 +316,7 @@ describe("Dropdown Warnings", () => {
     )
   })
 
-  it("prints warning if dropdown buttons or links can't be found", () => {
+  it("prints console warning if dropdown buttons or links can't be found", () => {
     // Given
     renderDOM(
       errorDom("dropdown-id", "trigger-id", "dropdown-id", "menu-id", "menu-id", true, true, false)
@@ -329,7 +329,7 @@ describe("Dropdown Warnings", () => {
     )
   })
 
-  it("prints warning if dropdown trigger's [data-target] attribute cant' be found", () => {
+  it("prints console warning if dropdown trigger's [data-target] attribute cant' be found", () => {
     // Given
     renderDOM(errorDom("dropdown-id", "trigger-id", "", "menu-id", "menu-id"))
     // When

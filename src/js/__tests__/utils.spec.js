@@ -227,7 +227,7 @@ describe("dom", () => {
   })
 })
 
-describe.only("createFocusTrap(container, options = {})", () => {
+describe("createFocusTrap(container, options = {})", () => {
   const CONTAINER_SELECTOR = ".wrapper"
   let firstFocusableElement
   let lastFocusableElement
@@ -314,16 +314,41 @@ describe.only("createFocusTrap(container, options = {})", () => {
 
 describe("getFocusableElements(container)", () => {
   it("returns all focusable elements within a given element", () => {
+    // Given
     renderDOM(testDom)
+    // When
     const elements = getFocusableElements(".wrapper")
+    // Then
     expect(elements).toHaveLength(3)
+  })
+
+  it("prints console error if first parameter is not given", () => {
+    // Given
+    console.error = jest.fn()
+    // When
+    getFocusableElements()
+    // Then
+    expect(console.error).toBeCalledWith("No `element` parameter given to `getFocusableElements`.")
+  })
+
+  it("prints console error if first parameter is not given", () => {
+    // Given
+    console.error = jest.fn()
+    // When
+    getFocusableElements(".wrapper", { not: "array" })
+    // Then
+    expect(console.error).toBeCalledWith(
+      "Invalid data type given in second parameter for `getFocusableElements`, expected: Array."
+    )
   })
 })
 
 describe("getPageBaseFontSize", () => {
   it("returns body font size as number literal", () => {
+    // Given
     renderDOM(testDom)
     find("body").style.fontSize = "16px"
+    // Then
     expect(getPageBaseFontSize()).toBe(16)
   })
 })
@@ -342,7 +367,9 @@ describe("focusOnce(element)", () => {
   })
 
   it("removes tabindex from focused element when blurred", () => {
+    // When
     element.blur()
+    // Then
     expect(element.hasAttribute("tabindex")).toBe(false)
   })
 })
