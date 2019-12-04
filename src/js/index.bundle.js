@@ -1,6 +1,6 @@
 import Undernet from "./index"
-import { browserEnv } from "./utils"
+import { isBrowserEnv } from "./utils"
 
-if (browserEnv) {
+if (isBrowserEnv) {
   window.Undernet = Undernet
 }

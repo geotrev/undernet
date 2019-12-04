@@ -236,7 +236,7 @@ describe("Modal Warnings", () => {
     console.warning = jest.fn()
   })
 
-  it("throws error if modal button isn't found", () => {
+  it("prints console warning if modal button isn't found", () => {
     // Given
     renderDOM(errorDom("", "modal-id", "modal-id"))
     // When
@@ -245,7 +245,7 @@ describe("Modal Warnings", () => {
     expect(console.warning).toBeCalledWith("Could not find modal trigger with id modal-id.")
   })
 
-  it("throws error if modal id isn't found", () => {
+  it("prints console warning if modal id isn't found", () => {
     // Given
     renderDOM(errorDom("modal-id", "", "modal-id"))
     // When
@@ -256,7 +256,7 @@ describe("Modal Warnings", () => {
     )
   })
 
-  it("throws error if [data-parent] attribute does not match its parent [data-modal]", () => {
+  it("prints console warning if [data-parent] attribute does not match its parent [data-modal]", () => {
     // Given
     renderDOM(errorDom("modal-id", "modal-id", ""))
     // When

@@ -55,7 +55,7 @@
   }
 
   li a {
-    @include colored-link($color-white);
+    @include create-link-color($color-white);
     display: flex;
     text-decoration: none;
     padding: $global-space;

@@ -139,7 +139,7 @@ describe("Dropdown", () => {
       trigger.click()
     })
 
-    it("closes dropdown if shift + tab key is pressed in open menu", () => {
+    it("closes dropdown if shift + tab key is pressed in open menu while first child is focused", () => {
       // Given
       const firstDropdownItem = getFocusableElements("#new-dropdown")[0]
       // When
@@ -148,7 +148,7 @@ describe("Dropdown", () => {
       expect(wrapper()).toMatchSnapshot()
     })
 
-    it("closes dropdown if tab key is pressed in open menu", () => {
+    it("closes dropdown if tab key is pressed in open menu while last child is focused", () => {
       // Given
       const dropdownMenuItems = getFocusableElements("#new-dropdown")
       const lastDropdownItem = dropdownMenuItems[dropdownMenuItems.length - 1]
@@ -268,10 +268,8 @@ const errorDom = (
 ) => `
   <div data-dropdown="${dropdown}" class="dropdown">
     <button id="${buttonId}" data-parent="${parent}" data-target="${target}">Open Dropdown 2</button>
-    ${hasUl &&
-      `<ul id="${menuId}" class="dropdown-menu">
-      ${hasItems &&
-        `<li>
+    ${hasUl && `<ul id="${menuId}" class="dropdown-menu">
+      ${hasItems && `<li>
         ${hasButtons && `<a href="#">Item 1</a>` || ""}
       </li>` || ""}
     </ul>` || ""}
@@ -283,7 +281,7 @@ describe("Dropdown Warnings", () => {
     console.warning = jest.fn()
   })
 
-  it("prints warning if dropdown id can't be found", () => {
+  it("prints console warning if dropdown id can't be found", () => {
     // Given
     renderDOM(errorDom("", "trigger-id", "dropdown-id", "menu-id", "menu-id"))
     // When
@@ -294,7 +292,7 @@ describe("Dropdown Warnings", () => {
     )
   })
 
-  it("prints warning if dropdown menu can't be found", () => {
+  it("prints console warning if dropdown menu can't be found", () => {
     // Given
     renderDOM(errorDom("dropdown-id", "trigger-id", "dropdown-id", "menu-id", "menu-id", false))
     // When
@@ -305,7 +303,7 @@ describe("Dropdown Warnings", () => {
     )
   })
 
-  it("prints warning if dropdown items can't be found", () => {
+  it("prints console warning if dropdown items can't be found", () => {
     // Given
     renderDOM(
       errorDom("dropdown-id", "trigger-id", "dropdown-id", "menu-id", "menu-id", true, false)
@@ -318,7 +316,7 @@ describe("Dropdown Warnings", () => {
     )
   })
 
-  it("prints warning if dropdown buttons or links can't be found", () => {
+  it("prints console warning if dropdown buttons or links can't be found", () => {
     // Given
     renderDOM(
       errorDom("dropdown-id", "trigger-id", "dropdown-id", "menu-id", "menu-id", true, true, false)
@@ -331,7 +329,7 @@ describe("Dropdown Warnings", () => {
     )
   })
 
-  it("prints warning if dropdown trigger's [data-target] attribute cant' be found", () => {
+  it("prints console warning if dropdown trigger's [data-target] attribute cant' be found", () => {
     // Given
     renderDOM(errorDom("dropdown-id", "trigger-id", "", "menu-id", "menu-id"))
     // When

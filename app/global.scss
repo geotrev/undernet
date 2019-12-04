@@ -5,7 +5,7 @@
 
 $color-dark-blue: #191b34;
 
-@mixin colored-link($color: null) {
+@mixin create-link-color($color: null) {
   color: $color;
   opacity: 0.8;
 

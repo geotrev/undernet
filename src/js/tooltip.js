@@ -26,6 +26,11 @@ const CssProperties = {
   LEFT: "left",
 }
 
+const CssValues = {
+  POINTER: "pointer",
+  AUTO: "auto",
+}
+
 const Events = {
   CLICK: "click",
   MOUSEOVER: "mouseover",
@@ -60,7 +65,7 @@ export default class Tooltip {
     this._activeTooltip = null
 
     // all tooltips
-    this._allTooltips = []
+    this._tooltips = []
   }
 
   // public
@@ -68,20 +73,18 @@ export default class Tooltip {
   start() {
     if (!isBrowserEnv) return
 
-    this._allTooltips = dom.findAll(`[${Selectors.DATA_TOOLTIP}]`)
-    this._allTooltips.forEach(this._setup)
+    this._tooltips = dom.findAll(`[${Selectors.DATA_TOOLTIP}]`)
+    this._tooltips.forEach(this._setup)
   }
 
   stop() {
     if (!isBrowserEnv) return
 
-    this._allTooltips.forEach(instance => {
+    if (this._activeTooltip) this._handleClose()
+
+    this._tooltips.forEach(instance => {
       const id = dom.getAttr(instance, Selectors.DATA_TOOLTIP)
       const trigger = dom.find(this._getTrigger(id), instance)
-
-      if (this._activeTooltip || this._activeTrigger) {
-        this._handleClose()
-      }
 
       trigger.removeEventListener(Events.MOUSEOVER, this._handleEvent)
       trigger.removeEventListener(Events.FOCUS, this._handleEvent)
@@ -137,9 +140,13 @@ export default class Tooltip {
   }
 
   _handleClose() {
-    this._setHideState()
-    this._startOpenEvents()
+    if (this._activeTooltip) this._setHideState()
 
+    this._startOpenEvents()
+    this._resetProperties()
+  }
+
+  _resetProperties() {
     this._activeTrigger = null
     this._activeTooltip = null
   }
@@ -159,7 +166,7 @@ export default class Tooltip {
     this._activeTrigger.addEventListener(Events.BLUR, this._handleClose)
     document.addEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
 
-    if (iOSMobile) dom.setStyle(document.body, CssProperties.CURSOR, "pointer")
+    if (iOSMobile) dom.setStyle(document.body, CssProperties.CURSOR, CssValues.POINTER)
   }
 
   _handleEscapeKeyPress(event) {
@@ -169,13 +176,15 @@ export default class Tooltip {
   }
 
   _startOpenEvents() {
+    if (!this._activeTrigger) return
+
     this._activeTrigger.removeEventListener(Events.MOUSEOUT, this._handleClose)
     this._activeTrigger.removeEventListener(Events.BLUR, this._handleClose)
     this._activeTrigger.addEventListener(Events.MOUSEOVER, this._handleEvent)
     this._activeTrigger.addEventListener(Events.FOCUS, this._handleEvent)
     document.removeEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
 
-    if (iOSMobile) dom.setStyle(document.body, CssProperties.CURSOR, "auto")
+    if (iOSMobile) dom.setStyle(document.body, CssProperties.CURSOR, CssValues.AUTO)
   }
 
   _alignTooltip(property) {

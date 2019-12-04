@@ -15,7 +15,7 @@ Undernet can both be a prototyping tool or the basis for your web app. You can e
 ### Core Principles
 
 - 🧩 **Configuration:** The framework comes with a configuration file enabling full brand control, from global to element-specific styling.
-- ♿ **Accessibility:** All examples recommend [semantic HTML](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5#Semantics), and **always include accessibility considerations** where necessary. Interactive components have the necessary `aria-*` attributes baked-in.
+- ♿ **Accessibility:** Accessibility is baked in to interactive components like dropdowns and modals, to ensure everyone can use your interface.
 - 📦 **Modularity:** Undernet can act independently from your core stylesheet and can be added to to existing projects using [scopes](/docs/overview/css).
 - 🚲 **Agility:** Installation options range from CDN to hosting the source files yourself.
 

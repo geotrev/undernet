@@ -64,14 +64,14 @@ export default class Collapsible {
   /**
    * Starts component instances.
    *
-   * @param {Object} options - if given controlled and onClick, will control how the collapsible is used. E.g., Accordion.
+   * @param {{ controlled: Boolean, onClick: Function }} options
    */
   start(options = {}) {
     if (!isBrowserEnv) return
     const { controlled, onClick } = options
 
     this._setCollapsibles(controlled)
-    this._handleClickFn = onClick || this._handleClick
+    this._handleClickFn = onClick || this._handleClick.bind(this)
 
     if (this._collapsibles.length) {
       this._collapsibles.forEach(this._setup)
@@ -89,10 +89,10 @@ export default class Collapsible {
   /**
    * Toggles the collapsible.
    *
-   * @param {Object} meta - a configuration object passed if the collapsible is controlled via an accordion instance.
+   * @param {{ collapsible: Element, trigger: Element, content: Element, id: String, nextAriaExpandState: Boolean, nextAriaHiddenState: Boolean }} metadata
    */
-  toggleCollapsible(meta = {}) {
-    const { collapsible, trigger, content, id, nextAriaExpandState, nextAriaHiddenState } = meta
+  toggleCollapsible(metadata = {}) {
+    const { collapsible, trigger, content, id, nextAriaExpandState, nextAriaHiddenState } = metadata
 
     const collapsibleId = id || this._activeCollapsibleId
     const collapsibleInstance = collapsible || this._activeCollapsible
@@ -240,6 +240,6 @@ export default class Collapsible {
   }
 
   _getFontSizeEm(pixels) {
-    return `${pixels / getPageBaseFontSize()}em`
+    return `${pixels / getPageBaseFontSize()}rem`
   }
 }
