@@ -1,7 +1,7 @@
 @import "true";
 @import "test-globals";
 
-@include describe("layout#grid") {
+@include describe("mixins#create-grid-classes-generator") {
   @include it("generates responsive column classes") {
     @include assert {
       @include output(false) {
