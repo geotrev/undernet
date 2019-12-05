@@ -51,7 +51,7 @@ describe("<Article />", () => {
     })
 
     COMPONENTS.forEach(Component => {
-      it(`calls ${Component}.start`, () => {
+      it(`calls ${Component.constructor.name}.start`, () => {
         // Given
         mountComponent()
         // Then
@@ -62,7 +62,7 @@ describe("<Article />", () => {
 
   describe("#componentWillUnmount", () => {
     COMPONENTS.forEach(Component => {
-      it(`calls ${Component}.stop`, () => {
+      it(`calls ${Component.constructor.name}.stop`, () => {
         // Given
         const wrapper = mountComponent()
         // When
