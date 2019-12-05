@@ -177,7 +177,7 @@ const errorDom = (accordionId = "", parentId = "") => `
   </div>
 `
 
-describe("Accordion Error Handling", () => {
+describe("Accordion Warnings", () => {
   beforeEach(() => {
     console.warn = jest.fn()
   })
