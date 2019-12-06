@@ -133,23 +133,50 @@ Similarly, if you are in a UI framework such as React, the appropriate lifecycle
 componentDidMount() {
   Undernet.start()
 }
-
 componentWillUnmount() {
   Undernet.stop()
 }
 ```
 
-In the case of React hooks, you can use `useEffect`:
+In the case of React hooks, you can use `useState`:
 
 ```js
 const observedState = []
+const componentUnmountFn = Undernet.stop
 const componentMountFn = () => {
   Undernet.start()
-  const componentUnmountFn = Undernet.stop
   return componentUnmountFn
 }
 useEffect(componentMountFn, observedState)
 ```
+
+If you're using a framework to affect DOM state (including removing nodes from the DOM), you might want to be careful. Undernet isn't smart enough to know that your DOM changed, so you should "stop" right before changing state, and "start" once the DOM is rendered and ready again.
+
+Let's look at a real world example, again using React hooks:
+
+```js
+const [showSidebar, setShowSidebar] = useState(true)
+handleClick(e) {
+  e.preventDefault()
+  // stop accordions if sidebar is visible, right before we close it!
+  if (showSidebar) {
+    Accordion.stop(".sidebar-wrapper")
+  }
+  setShowSidebar(false)
+}
+useEffect(() => {
+  // if sidebar has become visible, start accordions again
+  if (showSidebar) {
+    Accordion.start(".sidebar-wrapper")
+  }
+}, [showSidebar])
+```
+
+In this example, we have a `handleClick` function that is connected to a button to hide a sidebar containing an accordion.
+
+We want to "stop" accordions from the DOM by checking if `showsidebar` is currently `true`, before `setShowSidebar` is called.
+
+Then, to "start" accordions again, an effect is implemented re-checking `showSidebar`; if it's `true`, we know the sidebar has been re-expanded, so we can start them again. 
 
 ---
 <p class="has-text-end">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/app/docs/download.md">Edit this page on Github!</a></p>
