@@ -74,4 +74,4 @@ $column: map-get($grid-classes, column);
   word-wrap: break-word;
 }
 
-@include create-grid-classes-generator();
+@include create-grid-classes-generator;

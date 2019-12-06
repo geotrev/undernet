@@ -5,7 +5,7 @@
   @include it("generates responsive column classes") {
     @include assert {
       @include output(false) {
-        @include create-grid-classes-generator();
+        @include create-grid-classes-generator;
       }
 
       // stylelint-disable
