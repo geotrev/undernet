@@ -79,25 +79,25 @@ export const dom = {
  * const elements = getFocusableElements(".wrapper", [".my-button"])
  * ```
  *
- * @param {String} element
- * @param {Array<String>} patterns - Optional pattern override. Defaults to common focusable selectors.
+ * @param {String} container
+ * @param {Array<String>} matchers - Optional matchers override. Defaults to common focusable selectors.
  * @returns {Array<Element>} Static array of HTML elements
  */
-export const getFocusableElements = (element, patterns = Selectors.FOCUSABLE_TAGS) => {
-  if (!element) {
-    console.error("No `element` parameter given to `getFocusableElements`.")
+export const getFocusableElements = (container, matchers = Selectors.FOCUSABLE_TAGS) => {
+  if (!container) {
+    console.error("No `container` parameter given to `getFocusableElements`.")
     return
   }
 
-  if (!Array.isArray(patterns)) {
+  if (!Array.isArray(matchers)) {
     console.error(
       "Invalid data type given in second parameter for `getFocusableElements`, expected: Array."
     )
     return
   }
 
-  const focusables = patterns
-    .map(selector => `${element} ${selector}${Selectors.NOT_VISUALLY_HIDDEN_CLASS}`)
+  const focusables = matchers
+    .map(selector => `${container} ${selector}${Selectors.NOT_VISUALLY_HIDDEN_CLASS}`)
     .join(", ")
 
   return dom.findAll(focusables)
@@ -139,28 +139,13 @@ export const iOSMobile = isBrowserEnv ? /(iphone|ipod|ipad)/i.test(navigator.use
 export const createFocusTrap = (container, options = {}) => {
   if (!isBrowserEnv) return
 
-  const { useArrows, children } = options
-  const focusableChildren = children || getFocusableElements(container)
+  const { useArrows, children, matchers = Selectors.FOCUSABLE_TAGS } = options
+  const focusableChildren =
+    Array.isArray(children) && children.length
+      ? children
+      : getFocusableElements(container, matchers)
   const focusableFirstChild = focusableChildren[0]
   const focusableLastChild = focusableChildren[focusableChildren.length - 1]
-
-  const focusNextChild = () => {
-    for (let i = 0; i < focusableChildren.length; i++) {
-      if (focusableChildren[i] === document.activeElement) {
-        focusableChildren[i + 1].focus()
-        break
-      }
-    }
-  }
-
-  const focusLastChild = () => {
-    for (let i = 0; i < focusableChildren.length; i++) {
-      if (focusableChildren[i] === document.activeElement) {
-        focusableChildren[i - 1].focus()
-        break
-      }
-    }
-  }
 
   const handleFocusTrapWithTab = event => {
     const containerElement = dom.find(container)
@@ -181,6 +166,24 @@ export const createFocusTrap = (container, options = {}) => {
     } else if (noShift && lastActive) {
       event.preventDefault()
       focusableFirstChild.focus()
+    }
+  }
+
+  const focusNextChild = () => {
+    for (let i = 0; i < focusableChildren.length; i++) {
+      if (focusableChildren[i] === document.activeElement) {
+        focusableChildren[i + 1].focus()
+        break
+      }
+    }
+  }
+
+  const focusLastChild = () => {
+    for (let i = 0; i < focusableChildren.length; i++) {
+      if (focusableChildren[i] === document.activeElement) {
+        focusableChildren[i - 1].focus()
+        break
+      }
     }
   }
 

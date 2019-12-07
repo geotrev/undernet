@@ -4,10 +4,10 @@ The framework adopts a few conventions which help provide a predictable workflow
 
 ## Configuration
 
-Configure all Sass using `_config.scss`, included in the Sass files root. You can customize three categories of framework styling:
+You can customize three categories of framework styling:
 
 1. **Globals** - Fonts, sizing, colors, spacing, etc; universal styles inherited by the rest of the framework.
-2. **Elements** - Styles tags such as buttons, inputs, and headers; limited only to single HTML elements.
+2. **Elements** - Styles on tags such as buttons, inputs, and headers; limited only to single HTML elements.
 3. **Components** - Composed HTML for UI patterns, some of which are interactive with JavaScript.
 
 ## Naming Patterns
@@ -16,7 +16,7 @@ Variables, functions, mixins, and classes each follow patterns to provide better
 
 ### Variables
 
-All Sass variable names are constructed with the pattern of `grouping-noun-property-value-state`. `grouping` is the only piece consistent in every variable, with a combination of the rest, and always in the correct order.
+All Sass variables have names with a pattern of: `grouping-noun-property-value-state`. `grouping` is the only piece consistent in every variable, with a combination of the rest, and always in the same order.
 
 Here's a few examples:
 
@@ -30,19 +30,19 @@ See the variables available in `_config.scss`.
 
 ### Functions
 
-There are only a handful of functions. Each is written as `noun-value`. A function name always describes the thing it returns. E.g., `spacing-value` takes a size, such as `xs` or `lg`, and returns the value (from `$global-spacing-increments`). 
+There are only a handful of functions. Each is written as `noun-value`. A function name always describes the thing it returns. E.g., `spacing-value` takes a size, such as `xs` or `lg`, and returns the value from the `$global-spacing-increments` map.
 
 See the functions available in `utilities/_functions.scss`.
 
 ### Mixins
 
-Mixins use the prefix `create-`. What is described after is a noun, describing the properties or elements returned. E.g., `create-grid-column-classes` (generates column helpers), `create-header-sizes` (generates header tag selectors), etc. 
+Mixins use the prefix `create-`. What is described after is a noun, describing the properties or elements returned. E.g., `create-grid-column-classes`, `create-header-sizes` (generates header tag selectors), etc.
 
 See the mixins available in `utilities/_mixins.scss`.
 
 ### Classes
 
-Classes are a bit more unique compared to variables or other Sass utilities. Classes take one of two forms, a **Root** or a **Modifier**. Within that scope, they are named using a pattern similar to that of Sass variables.
+Classes are a bit more unique compared to variables or other Sass utilities. Classes take one of two flavors, a **Root** or a **Modifier**. They are named using a pattern similar to that of Sass variables.
 
 - Root classes use nouns.
 - Modifier classes have the structure `verb-breakpoint-property-value-size`. A verb prefix is _always_ present. E.g., `is-*`, or `has-*`.
@@ -55,7 +55,7 @@ Examples include `dropdown-menu`, `button`, or `grid`.
 
 #### Modifiers
 
-Modifiers are a bit more complex. Their primary role is to _modify_ element or root styling in some way. Sometimes modifiers are only able to be used in the context of another root, and sometimes they can be used more generally like global utilities.
+Modifier's primary role is to, you guessed it, _modify_ styling in some way.
 
 Here's a few examples:
 
@@ -76,6 +76,14 @@ As an example, let's say we enable the scope:
 $style-scope: "using-undernet";
 ```
 
+Next, enable the scope wrapper in `undernet.scss`:
+
+```css
+.#{$style-scope} {
+  /* Undernet file imports here */
+}
+```
+
 Now we can distinguish where HTML will use framework styling, and ignore the rest of the page.
 
 ```html
@@ -85,7 +93,7 @@ Now we can distinguish where HTML will use framework styling, and ignore the res
 <button>I have native browser button</button>
 ```
 
-By default, the `$style-scope` variable is set to an empty string, disabling it. It can be changed in `_config.scss`.
+By default, the `$style-scope` variable is set to an empty string, disabling it.
 
 ---
 <p class="has-text-end">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/app/docs/css.md">Edit this page on Github!</a></p>

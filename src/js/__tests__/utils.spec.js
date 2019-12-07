@@ -322,16 +322,18 @@ describe("getFocusableElements(container)", () => {
     expect(elements).toHaveLength(3)
   })
 
-  it("prints console error if first parameter is not given", () => {
+  it("prints console error if first parameter is invalid", () => {
     // Given
     console.error = jest.fn()
     // When
     getFocusableElements()
     // Then
-    expect(console.error).toBeCalledWith("No `element` parameter given to `getFocusableElements`.")
+    expect(console.error).toBeCalledWith(
+      "No `container` parameter given to `getFocusableElements`."
+    )
   })
 
-  it("prints console error if first parameter is not given", () => {
+  it("prints console error if second parameter is invalid", () => {
     // Given
     console.error = jest.fn()
     // When

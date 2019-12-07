@@ -19,13 +19,11 @@ const Undernet = {
   Accordions,
   Dropdowns,
   Tooltips,
-  Utils: {
-    createFocusTrap: _createFocusTrap,
-    createFocusRing: _createFocusRing,
-  },
+  createFocusTrap: _createFocusTrap,
+  createFocusRing: _createFocusRing,
 }
 
-const focusRing = Undernet.Utils.createFocusRing()
+const focusRing = Undernet.createFocusRing()
 
 Undernet.start = () => {
   Undernet.Modals.start()
