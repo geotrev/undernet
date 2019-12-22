@@ -32,6 +32,9 @@ const dom = `
   </div>
 `
 
+console.warn = jest.fn()
+console.error = jest.fn()
+
 describe("Accordion", () => {
   afterEach(() => Undernet.Accordions.stop())
 
@@ -178,10 +181,6 @@ const errorDom = (accordionId = "", parentId = "") => `
 `
 
 describe("Accordion Warnings", () => {
-  beforeEach(() => {
-    console.warn = jest.fn()
-  })
-
   afterEach(() => {
     Undernet.Accordions.stop()
   })
@@ -196,6 +195,17 @@ describe("Accordion Warnings", () => {
     Undernet.Accordions.start()
     trigger.click()
     // Then
+    expect(console.error).toBeCalledWith(noIdWarning)
+  })
+
+  it("prints console warning if there is a mismatch between the number of triggers and collapsibles when trapping focus", () => {
+    // Given
+    const noIdWarning =
+      "Your accordion with id 'accordion-id' has 1 triggers and 2 collapsibles; make sure there is a trigger for each collapsible!"
+    renderDOM(errorDom("accordion-id", ""))
+    // When
+    Undernet.Accordions.start()
+    // Then
     expect(console.warn).toBeCalledWith(noIdWarning)
   })
 
@@ -208,6 +218,6 @@ describe("Accordion Warnings", () => {
     Undernet.Accordions.start()
     trigger.click()
     // Then
-    expect(console.warn).toBeCalledWith(noAccordionWarning)
+    expect(console.error).toBeCalledWith(noAccordionWarning)
   })
 })

@@ -25,22 +25,24 @@ const Undernet = {
 
 const focusRing = Undernet.createFocusRing()
 
-Undernet.start = () => {
-  Undernet.Modals.start()
-  Undernet.Accordions.start()
-  Undernet.Collapsibles.start()
-  Undernet.Dropdowns.start()
-  Undernet.Tooltips.start()
-  focusRing.start()
+Undernet.start = (scopeId, enableFocusRing = false) => {
+  Undernet.Modals.start(scopeId)
+  Undernet.Accordions.start(scopeId)
+  Undernet.Collapsibles.start(scopeId)
+  Undernet.Dropdowns.start(scopeId)
+  Undernet.Tooltips.start(scopeId)
+
+  if (enableFocusRing) focusRing.start()
 }
 
-Undernet.stop = () => {
-  Undernet.Modals.stop()
-  Undernet.Accordions.stop()
-  Undernet.Collapsibles.stop()
-  Undernet.Dropdowns.stop()
-  Undernet.Tooltips.stop()
-  focusRing.stop()
+Undernet.stop = (scopeId, enableFocusRing = false) => {
+  Undernet.Modals.stop(scopeId)
+  Undernet.Accordions.stop(scopeId)
+  Undernet.Collapsibles.stop(scopeId)
+  Undernet.Dropdowns.stop(scopeId)
+  Undernet.Tooltips.stop(scopeId)
+
+  if (enableFocusRing) focusRing.stop()
 }
 
 export default Undernet

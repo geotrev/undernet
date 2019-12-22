@@ -1,56 +1,58 @@
-The API for Undernet's scripts is straightforward. The main rule of thumb is to use the scripts when you know the DOM (or VDOM) is fully rendered.
+The API for Undernet's scripts is straightforward. The main rule of thumb is to use the scripts when you know the DOM is fully rendered.
 
 Enabling Undernet, including all its component plugins, is as easy as this:
 
 ```html
 <script src="path/to/undernet.js"></script>
 <script>
-  // Undernet is now attached to the `window`
-  if (document) document.addEventListener("DOMContentLoaded", Undernet.start
+  // Undernet will be attached to the `window`
+  if (document) document.addEventListener("DOMContentLoaded", Undernet.start)
 </script>
 ```
 
-The `Undernet` object will be attached to `window`. It gives you these components:
+## Core API
+
+There are a few ways to use Undernet. The most direct way is using the `start` and `stop` methods off the default `Undernet` object:
+
+### start
 
 ```js
-Undernet.Modals
-Undernet.Collapsibles
-Undernet.Accordions
-Undernet.Tooltips
-Undernet.Dropdowns
+Undernet.start(scopeString, enableFocusRing)
 ```
 
-And a couple utilities:
+#### `scopeString` (string)
+
+Default: `undefined`
+
+Limits Undernet's initialization to a specific DOM with selector string `scopeString`. E.g., `#my-element-id`.
+
+#### `enableFocusRing` (boolean)
+
+Default: `false`
+
+Enables a utility which adds a distinct focus ring on elements focused while using a keyboard.
+
+### stop
 
 ```js
-Undernet.createFocusRing
-Undernet.createFocusTrap
+Undernet.stop(scopeString, enableFocusRing)
 ```
 
-There are the ways to enable or stop any given plugin, using `.start()` and `.stop()`, respectively. Like so:
+#### `scopeString` (string)
 
-```js
-Undernet.Modals.start()
-```
+Default: `undefined`
 
-You might be wondering what the difference is between enabling all of Undernet vs. just one component? By using `Undernet.start()`, the following scripts are initialized:
+Runs a teardown of components previously initialized via `start(scopeString)`.
 
-```js
-Undernet.Modals.start()
-Undernet.Collapsibles.start()
-Undernet.Accordions.start()
-Undernet.Tooltips.start()
-Undernet.Dropdowns.start()
+#### `enableFocusRing` (boolean)
 
-const focusRing = Undernet.createFocusRing()
-focusRing.start()
-```
+Default: `false`
 
-The main difference here is that you get a focus ring, in addition to the component plugins. Head down to the Utilities section on this page to learn how it works.
+Disables the focus ring utility.
 
 ## Using Modules
 
-If you use npm, the default export is the `Undernet` object, same as if you use the CDN. Importing this gives you everything, including all JS components and utilities.
+If you use npm, the default export is the `Undernet` object. Importing this gives you everything, including all JS components and utilities.
 
 ```js
 import Undernet from "undernet" 
@@ -64,125 +66,70 @@ import { Modals, createFocusRing } from "undernet"
 
 ## Scope
 
-Undernet is a global framework by default. This means it will capture the entire document when searching for its component instances. This won't mesh well when you're using React, for example, where React components could be tapping into Undernet with redundancy. If you do this in the ways described in the sections above, you'll inadvertently reset Undernet component instances outside the scope of your React, Vue, etc., component. Not good.
+Undernet is a global framework by default. This means it will capture the entire document when searching for its component instances. Sadly that won't mesh well when you're using UI frameworks like React, for example, where React components could be tapping into Undernet with redundancy. If you do this in the ways described in the sections above, you'll inadvertently reset Undernet's internal trackers, resulting in components being changed outside the scope of your given React component.
 
-The solution? **You can limit Undernet instances to a DOM fragment with a scope option.** We'll achieve this by passing an element to the `start` and `stop` methods. Everything within that element is where Undernet will search for component instances.
+The solution? **Force initialization to a DOM fragment.** You can achieve this by passing a selector string to the `start` and `stop` methods of Undernet or one of its components. The selector string will be queried and Undernet will limit its search to within that element.
 
-Let's look at some examples, using React to demonstrate how scope works.
+Let's look at some examples, using React with hooks to demonstrate how scope works.
 
-As described, the DOM must be ready before Undernet can run. Initialize in `componentDidMount`. Likewise, when the component is about to removed from the DOM or VDOM, stop Undernet in `componentWillUnmount`. 
+---
 
-Since you need the real DOM node, you can use `ref.current` and pass it to `.start()`.
+As described, the DOM must be ready before Undernet can run. Run `.start` in a `useEffect` block with no dependencies (empty array) so it only runs once. Likewise, when the component(s) are about to removed from the DOM, stop Undernet by returning a function which calls `.stop`. Use the outer-most element's id as your scope string.
 
 ```js
-class Sidebar extends React.Component {
-  constructor() {
-    super()
-    this.sidebarRef = React.createRef()
-  }
-  componentDidMount() {
-    Collapsibles.start(this.sidebarRef.current)
-  }
-  componentWillUnmount() {
-    Collapsibles.stop(this.sidebarRef.current)
-  }
-  render() {
-    return <div ref={this.sidebarRef}> ... </div>
-  }
+export default function Sidebar(props) {
+  useEffect(() => {
+    Collapsibles.start("#sidebar-wrapper")
+    return () => Collapsibles.stop("#sidebar-wrapper")
+  }, [])
+  return (
+    <div id="sidebar-wrapper"> ... </div>
+  )
 }
 ```
 
 Now all Collapsibles used are scoped to the markup defined in `<Sidebar />`.
 
-One thing to note, however, is having a React, Vue, etc. component with child components that depend on the same Undernet instance. If this happens, you should pass down the exact Undernet (or Undernet component) instance and element ref as props to `start`/`stop`. 
-
-Extending the previous example, here's how that might look:
-
-```js
-class Sidebar extends React.Component {
-  ...
-  // Sidebar passes down the instance and element ref
-  render() {
-    return (
-      <div ref={this.sidebarRef}>
-        <SidebarSection collapse={Collapsibles} collapseElementRef={this.sidebarRef}>
-      </div>
-    )
-  }
-}
-```
-
-Then, in the new child component called `SidebarSection`:
-
-```js
-class SidebarSection extends React.Component {
-  ...
-  static propTypes = {
-    collapse: types.func.isRequired,
-    collapseElementRef: PropTypes.shape({ current: PropTypes.element }),
-  }
-  componentDidUpdate() {
-    collapse.stop(collapseElementRef.current)
-  }
-  render() {
-    return (...)
-  }
-}
-```
-
-It's not ideal, but otherwise you may run into behavior oddities due to the duplication in events.
+NOTE: Don't initialize an Undernet scope within a child React component. This will duplicate events and cause unexpected behavior.
 
 ### Handling DOM State
 
-If you're specifically removing nodes from the DOM or virtual DOM, you'll need to be careful. Undernet isn't smart enough to know that your DOM changed, but luckily most UI frameworks provide lifecycle methods that tell us the DOM is rendered or about to re-render.
+If you're specifically removing nodes from the DOM or virtual DOM, you'll need to be careful. Undernet isn't smart enough to know that your DOM changed, but luckily most UI frameworks provide lifecycle methods that tell us the DOM is rendered or about to re-render, so we can piggy-back off that!
 
 Let's extend the sidebar example from before, but this time we'll toggle its visibility using a button:
 
 ```js
-class Sidebar extends React.Component {
-  constructor() {
-    super()
-    this.sidebarRef = React.createRef()
-    this.state = { sidebarIsVisible: true }
+export default function Sidebar(props) {
+  const [sidebarIsVisible, setSidebarIsVisible] = useState(true)
+  // This time, we'll remove `.start` and have this `.stop` during component unmount.
+  useEffect(() => {
+    return () => Collapsibles.stop("#sidebar-wrapper")
+  }, [])
+  // Whenever sidebarIsVisible changes, we'll check its value
+  // If it's not visible, do nothing and return;
+  // Else, it's visible, so start collapsibles in the sidebar scope
+  useEffect(() => {
+    if (sidebarIsVisible) Collapsibles.start("#sidebar-wrapper")
+  }, [sidebarIsVisible])
+  // If the sidebar is visible, stop collapsibles before the sidebar is removed from the DOM
+  const handleClick = (e) => {
+    if (sidebarIsVisible) Collapsibles.stop("#sidebar-wrapper")
+    setSidebarIsVisible(!sidebarIsVisible)
   }
-  componentDidMount() {
-    Collapsibles.start(this.sidebarRef.current)
-  }
-  componentWillUnmount() {
-    Collapsibles.stop(this.sidebarRef.current)
-  }
-  // whenever state updates, check if the sidebar is visible
-  // if it's visible, start collapsibles in the sidebar scope
-  // otherwise, do nothing
-  componentDidUpdate() {
-    if (this.state.sidebarIsVisible) {
-      Collapsibles.start(this.sidebarRef.current)
-    }
-  }
-  // if the sidebar is visible, stop collapsibles before the sidebar is removed from the DOM
-  handleClick(e) {
-    e.preventDefault()
-    if (this.state.sidebarIsVisible) {
-      Collapsibles.stop(this.sidebarRef.current)
-    }
-    this.setState({ sidebarIsVisible: !this.state.sidebarIsVisible })
-  }
-  render() {
-    return (
-      <React.Fragment>
-        <button onClick={this.handleClick}>Toggle Sidebar</button>
-        {this.state.sidebarIsVisible && <div ref={this.sidebarRef}> ... </div>}
-      </React.Fragment>
-    )
-  }
+  return (
+    <>
+      <button onClick={handleClick}>Toggle Sidebar</button>
+      {sidebarIsVisible && <div id="sidebar-wrapper"> ... </div>}
+    </>
+  )
 }
 ```
 
-In this component, we have a button that, when clicked, toggles visibility of the sidebar just beneath it, which we'll presume has collapsible instances within it.
+In this component, we have a button that when clicked will toggle visibility of the sidebar, which has some collapsible instances inside it.
 
-When the button is clicked, we want to "stop" collapsibles in the DOM by checking if `sidebarIsVisible` is currently `true`, before `setState` is called.
+When the button is clicked, we want to stop collapsibles in the DOM by checking if `sidebarIsVisible` is currently `true`, before its setter is called. If they are, set visibility to `false`.
 
-Then, to "start" collapsibles again, we re-check `sidebarIsVisible` in `componentDidUpdate`; if it's `true`, we know the sidebar has been re-rendered, so we can start collapsibles again. 
+Then, when `sidebarIsVisible` is `true` again (sometime in the future), we know the sidebar DOM is ready, so we can start collapsibles again. 
 
 ## Utilities
 
@@ -212,7 +159,7 @@ focusTrap.start(selector, options)
 
 Using it is slightly different than in previous APIs.
 
-#### selector (string)
+#### `selector` (string)
 
 **Required**
 
@@ -222,13 +169,13 @@ A string to be queried in the DOM; it's the "container" of possible focusable el
 focusTrap.start(".my-element")
 ```
 
-#### options (object)
+#### `options` (object)
 
 Default: `{}`
 
 Change how focus behavior works or what elements to search for.
 
-##### options.useArrows (boolean)
+##### `options.useArrows` (boolean)
 
 Default: `false`
 
@@ -238,7 +185,7 @@ Trap focus using up and down arrows.
 focusRing.start(".my-element", { useArrows: true })
 ```
 
-##### options.children (array)
+##### `options.children` (array)
 
 Default: `undefined`
 
@@ -249,7 +196,7 @@ const children = document.querySelectorAll(".special-button")
 focusTrap.start(null, { children })
 ```
 
-##### options.matchers (array)
+##### `options.matchers` (array)
 
 Default: `["a", "button", "input", "object", "select", "textarea", "[tabindex]"]`
 

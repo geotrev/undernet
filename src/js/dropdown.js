@@ -1,4 +1,12 @@
-import { iOSMobile, dom, isBrowserEnv, createFocusTrap, focusOnce } from "./utils"
+import {
+  iOSMobile,
+  dom,
+  isBrowserEnv,
+  createFocusTrap,
+  focusOnce,
+  log,
+  setComponents,
+} from "./utils"
 
 const KeyCodes = {
   TAB: 9,
@@ -65,10 +73,11 @@ export default class Dropdown {
     this._handleEscapeKeyPress = this._handleEscapeKeyPress.bind(this)
     this._handleOffMenuClick = this._handleOffMenuClick.bind(this)
     this._setup = this._setup.bind(this)
+    this._teardown = this._teardown.bind(this)
 
     // all dropdowns
     this._dropdowns = []
-    this._dropdownTriggers = []
+    this._scopes = new Map()
 
     // active dropdown
     this._activeDropdown = null
@@ -91,28 +100,44 @@ export default class Dropdown {
 
   // public
 
-  start() {
+  start(scopeId) {
     if (!isBrowserEnv) return
 
-    this._dropdowns = dom.findAll(`${this._dropdownContainerAttr}`)
-    this._dropdownTriggers = dom.findAll(
-      `${this._dropdownContainerAttr} > ${this._dropdownTargetAttr}`
-    )
+    setComponents({
+      thisArg: this,
+      scopeId,
+      scopeKey: "_scopes",
+      componentAttribute: Selectors.DATA_DROPDOWN,
+      globalKey: "_dropdowns",
+      errorMessage: Messages.NO_DROPDOWN_ID_ERROR,
+    })
 
-    if (this._dropdowns.length) {
+    if (scopeId && this._scopes.has(scopeId)) {
+      this._scopes.get(scopeId).elements.forEach(this._setup)
+    } else if (this._dropdowns.length) {
       this._dropdowns.forEach(this._setup)
     }
   }
 
-  stop() {
+  stop(scopeId) {
     if (!isBrowserEnv) return
-    if (this._activeDropdown) this._closeActiveDropdownMenu()
 
-    if (this._dropdownTriggers.length) {
-      this._dropdownTriggers.forEach(trigger => {
-        trigger.removeEventListener(Events.CLICK, this._handleClick)
-        trigger.removeEventListener(Events.KEYDOWN, this._handleArrowKeyPress)
+    if (scopeId && this._scopes.has(scopeId)) {
+      const { elements } = this._scopes.get(scopeId)
+
+      elements.forEach(instance => {
+        const dropdown = dom.find(`${this._dropdownMenuClassName}`, instance)
+
+        if (dom.getAttr(dropdown, Selectors.DATA_VISIBLE) === "true") {
+          this._closeActiveDropdownMenu()
+        }
       })
+
+      elements.forEach(this._teardown)
+      this._scopes.delete(scopeId)
+    } else if (!scopeId && this._dropdowns.length) {
+      if (this._activeDropdown) this._closeActiveDropdownMenu()
+      this._dropdowns.forEach(this._teardown)
     }
   }
 
@@ -122,7 +147,7 @@ export default class Dropdown {
     const dropdownId = instance.getAttribute(Selectors.DATA_DROPDOWN)
 
     if (!dropdownId) {
-      console.warning(Messages.NO_DROPDOWN_ID_ERROR)
+      log(Messages.NO_DROPDOWN_ID_ERROR)
       return
     }
 
@@ -130,14 +155,14 @@ export default class Dropdown {
     const dropdownTrigger = dom.find(`${dropdownAttr} > ${this._dropdownTargetAttr}`)
 
     if (!dom.getAttr(dropdownTrigger, Selectors.DATA_PARENT)) {
-      console.warning(Messages.NO_PARENT_ERROR)
+      log(Messages.NO_PARENT_ERROR)
       return
     }
 
     const dropdownMenu = dom.find(`${dropdownAttr} > ${this._dropdownMenuClassName}`)
 
     if (!dropdownMenu) {
-      console.warning(Messages.NO_MENU_ERROR(dropdownAttr))
+      log(Messages.NO_MENU_ERROR(dropdownAttr))
       return
     }
 
@@ -151,7 +176,7 @@ export default class Dropdown {
     const dropdownMenuListItems = dom.findAll(dropdownMenuItemsAttr)
 
     if (!dropdownMenuListItems.length) {
-      console.warning(Messages.NO_DROPDOWN_ITEMS_ERROR(dropdownAttr))
+      log(Messages.NO_DROPDOWN_ITEMS_ERROR(dropdownAttr))
       return
     }
 
@@ -160,7 +185,7 @@ export default class Dropdown {
     const dropdownMenuTriggers = this._getDropdownActions(dropdownAttr)
 
     if (!dropdownMenuTriggers.length) {
-      console.warning(Messages.NO_DROPDOWN_ACTIONS_ERROR(dropdownAttr))
+      log(Messages.NO_DROPDOWN_ACTIONS_ERROR(dropdownAttr))
       return
     }
 
@@ -171,6 +196,14 @@ export default class Dropdown {
 
     dropdownTrigger.addEventListener(Events.CLICK, this._handleClick)
     dropdownTrigger.addEventListener(Events.KEYDOWN, this._handleArrowKeyPress)
+  }
+
+  _teardown(instance) {
+    const id = dom.getAttr(instance, Selectors.DATA_DROPDOWN)
+    const trigger = dom.find(`[${Selectors.DATA_PARENT}='${id}']`, instance)
+
+    trigger.removeEventListener(Events.CLICK, this._handleClick)
+    trigger.removeEventListener(Events.KEYDOWN, this._handleArrowKeyPress)
   }
 
   _handleClick(event, key) {
@@ -195,9 +228,7 @@ export default class Dropdown {
     if (iOSMobile) dom.setStyle(document.body, CssProperties.CURSOR, CssValues.POINTER)
   }
 
-  _handleCloseClick(event) {
-    event.preventDefault()
-
+  _handleCloseClick() {
     this._closeActiveDropdownMenu()
   }
 
@@ -267,13 +298,13 @@ export default class Dropdown {
       action.addEventListener(Events.CLICK, this._handleCloseClick)
     })
 
-    const contaienrSelector = `${this._activeDropdownAttr} > ${this._dropdownMenuClassName}`
+    const containerSelector = `${this._activeDropdownAttr} > ${this._dropdownMenuClassName}`
 
     if (this._focusTrap) {
       this._focusTrap.stop()
     }
 
-    this._focusTrap = createFocusTrap(contaienrSelector, { useArrows: true })
+    this._focusTrap = createFocusTrap(containerSelector, { useArrows: true })
     this._focusTrap.start()
   }
 

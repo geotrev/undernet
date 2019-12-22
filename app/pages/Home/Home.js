@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { Link } from "react-router-dom"
 import Prism from "prismjs"
 import lottie from "lottie-web"
@@ -8,6 +8,7 @@ import ScrollUpOnMount from "app/components/ScrollUpOnMount"
 import SetMeta from "app/components/SetMeta"
 import PageHeader from "app/components/PageHeader"
 import { docPages } from "app/routes"
+import { useDidMount, useWillUnmount } from "app/helpers"
 
 import pkg from "projectRoot/package.json"
 import { StatusBadges, InstallNpm, InstallAssets } from "./markdownContent"
@@ -39,17 +40,14 @@ export default function Home() {
     }, 1500)
   }
 
-  const componentUnmountFunction = () => {
-    ANIMATION_DATA.forEach(instance => instance.animation.destroy())
-  }
-
-  const observedState = []
-  useEffect(() => {
+  useDidMount(() => {
     Prism.highlightAll()
     loadAnimations()
+  })
 
-    return componentUnmountFunction
-  }, observedState)
+  useWillUnmount(() => {
+    ANIMATION_DATA.forEach(instance => instance.animation.destroy())
+  })
 
   const renderAnimations = () => {
     return ANIMATION_DATA.map(animation => {

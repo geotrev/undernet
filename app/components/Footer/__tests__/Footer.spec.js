@@ -1,8 +1,10 @@
 import React from "react"
 import Footer from "../Footer"
 
-jest.mock("react-feather/dist/icons/twitter", () => global.simpleMock("Twitter"))
-jest.mock("react-feather/dist/icons/github", () => global.simpleMock("Github"))
+jest.mock("react-feather", () => ({
+  GitHub: global.simpleMock("Github"),
+  Twitter: global.simpleMock("Twitter"),
+}))
 
 describe("<Footer />", () => {
   const baseProps = {
@@ -29,6 +31,6 @@ describe("<Footer />", () => {
     // When
     wrapper.find(".is-visually-hidden-focusable").simulate("click")
     // Then
-    expect(baseProps.handleRefocusClick).toHaveBeenCalledWith(baseProps.headerRef)
+    expect(baseProps.handleRefocusClick).toBeCalledWith(baseProps.headerRef)
   })
 })

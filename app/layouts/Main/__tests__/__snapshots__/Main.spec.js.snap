@@ -55,17 +55,24 @@ exports[`<Main /> #render renders 1`] = `
                   role="menuitem"
                   to="/"
                 >
-                  <a
+                  <LinkAnchor
                     className="logo"
                     href="/"
-                    onClick={[Function]}
+                    navigate={[Function]}
                     role="menuitem"
                   >
-                    <img
-                      alt="Undernet"
-                      src={Object {}}
-                    />
-                  </a>
+                    <a
+                      className="logo"
+                      href="/"
+                      onClick={[Function]}
+                      role="menuitem"
+                    >
+                      <img
+                        alt="Undernet"
+                        src={Object {}}
+                      />
+                    </a>
+                  </LinkAnchor>
                 </Link>
               </li>
               <li

@@ -2,7 +2,7 @@ Use modals to focus the user experience on a critical task or set of information
 
 Try to keep the modal dialog as high in the document tree as possible. While the dialog is styled in a way to make it mostly capable of being nested in divs or other wrappers, doing so comes with a risk of interfering with the fullscreen effect of the dialog.
 
-Worth noting: there can only be one modal open at a time. Stacking modals are not supported.
+Worth noting: there can only be one modal open at a time. Stacked modals are not supported.
 
 ## Basic Modal
 

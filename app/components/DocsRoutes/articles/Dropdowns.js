@@ -6,14 +6,14 @@ import DropdownsMd from "app/docs/dropdowns.md"
 
 const Dropdowns = () => {
   return (
-    <React.Fragment>
+    <>
       <SetMeta
         title="Dropdowns"
         description="A component for nesting menu buttons within a menu button user interface."
       />
       <PageHeader>Dropdowns</PageHeader>
       <Article>{DropdownsMd}</Article>
-    </React.Fragment>
+    </>
   )
 }
 

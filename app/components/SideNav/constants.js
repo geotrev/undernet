@@ -1,70 +1,48 @@
 import { docPages } from "app/routes"
 
-const {
-  introduction,
-  download,
-  css,
-  javascript,
-  grid,
-  typography,
-  buttons,
-  forms,
-  modals,
-  collapsibles,
-  accordions,
-  dropdowns,
-  tooltips,
-  alignment,
-  offsetOrder,
-  text,
-  display,
-  color,
-  spacing,
-} = docPages
-
 export const NAV_DATA = [
   {
     header: "Overview",
     links: [
-      { name: "Introduction", url: introduction },
-      { name: "Download", url: download },
-      { name: "CSS", url: css },
-      { name: "JavaScript", url: javascript },
+      { name: "Introduction", url: docPages.introduction },
+      { name: "Download", url: docPages.download },
+      { name: "CSS", url: docPages.css },
+      { name: "JavaScript", url: docPages.javascript },
     ],
   },
   {
     header: "Layout",
     links: [
-      { name: "Flex Grid", url: grid },
-      { name: "Alignment", url: alignment },
-      { name: "Offset / Order", url: offsetOrder },
-      { name: "Spacing", url: spacing },
+      { name: "Flex Grid", url: docPages.grid },
+      { name: "Alignment", url: docPages.alignment },
+      { name: "Offset / Order", url: docPages.offsetOrder },
+      { name: "Spacing", url: docPages.spacing },
     ],
   },
   {
     header: "Elements",
     links: [
-      { name: "Buttons", url: buttons },
-      { name: "Forms", url: forms },
-      { name: "Typography", url: typography },
+      { name: "Buttons", url: docPages.buttons },
+      { name: "Forms", url: docPages.forms },
+      { name: "Typography", url: docPages.typography },
     ],
   },
   {
     header: "Components",
     links: [
-      { name: "Collapsibles", url: collapsibles },
-      { name: "Accordions", url: accordions },
-      { name: "Dropdowns", url: dropdowns },
-      { name: "Modals", url: modals },
-      { name: "Tooltips", url: tooltips },
+      { name: "Collapsibles", url: docPages.collapsibles },
+      { name: "Accordions", url: docPages.accordions },
+      { name: "Dropdowns", url: docPages.dropdowns },
+      { name: "Modals", url: docPages.modals },
+      { name: "Tooltips", url: docPages.tooltips },
     ],
   },
   {
     header: "Utilities",
     links: [
-      { name: "Color", url: color },
-      { name: "Display", url: display },
-      { name: "Text", url: text },
+      { name: "Color", url: docPages.color },
+      { name: "Display", url: docPages.display },
+      { name: "Text", url: docPages.text },
     ],
   },
 ]

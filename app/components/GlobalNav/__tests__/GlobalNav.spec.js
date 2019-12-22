@@ -2,6 +2,11 @@ import React from "react"
 import GlobalNav from "../GlobalNav"
 import { BrowserRouter as Router } from "react-router-dom"
 
+jest.mock("react-feather", () => ({
+  GitHub: global.simpleMock("Github"),
+  Twitter: global.simpleMock("Twitter"),
+}))
+
 describe("<Nav />", () => {
   const baseProps = {
     handleRefocusClick: jest.fn(),
@@ -31,6 +36,6 @@ describe("<Nav />", () => {
     // When
     wrapper.find(".is-visually-hidden-focusable").simulate("click")
     // Then
-    expect(baseProps.handleRefocusClick).toHaveBeenCalledWith(baseProps.mainRef)
+    expect(baseProps.handleRefocusClick).toBeCalledWith(baseProps.mainRef)
   })
 })

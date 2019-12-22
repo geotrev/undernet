@@ -7,10 +7,9 @@ const TerserPlugin = require("terser-webpack-plugin")
 
 module.exports = merge(common, {
   optimization: {
-    splitChunks: { chunks: "all" },
+    minimize: true,
     minimizer: [
       new TerserPlugin({
-        cache: true,
         parallel: true,
         terserOptions: {
           output: {
@@ -19,6 +18,9 @@ module.exports = merge(common, {
         },
       }),
     ],
+    splitChunks: {
+      chunks: "all",
+    },
     runtimeChunk: {
       name: "manifest",
     },
@@ -35,7 +37,14 @@ module.exports = merge(common, {
     new CleanWebpackPlugin(),
     new OptimizeCSSAssetsPlugin({
       cssProcessorPluginOptions: {
-        preset: ["default", { discardComments: { removeAll: true } }],
+        preset: [
+          "default",
+          {
+            discardComments: {
+              removeAll: true,
+            },
+          },
+        ],
       },
     }),
     new CompressionPlugin({

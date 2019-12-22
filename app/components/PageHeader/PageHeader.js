@@ -1,21 +1,21 @@
-import React, { useRef, useState, useEffect } from "react"
+import React, { useRef, useState } from "react"
 import { withLastLocation } from "react-router-last-location"
 import PropTypes from "prop-types"
+import { useDidMount } from "app/helpers"
 
 import { FOCUSABLE_TABINDEX, UNFOCUSABLE_TABINDEX } from "./constants"
 
 const PageHeader = props => {
   const [tabIndex, setTabIndex] = useState(FOCUSABLE_TABINDEX)
   const headerRef = useRef(null)
-  const observedState = []
 
-  useEffect(() => {
+  useDidMount(() => {
     if (props.lastLocation) {
       headerRef.current.focus()
     } else {
       setTabIndex(UNFOCUSABLE_TABINDEX)
     }
-  }, observedState)
+  })
 
   const handleBlur = () => {
     if (tabIndex === UNFOCUSABLE_TABINDEX) return

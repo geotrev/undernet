@@ -6,14 +6,14 @@ import CssMd from "app/docs/css.md"
 
 const Branding = () => {
   return (
-    <React.Fragment>
+    <>
       <SetMeta
         title="Branding"
         description="Strategies for customizing the CSS' look and feel using Undernet's SCSS."
       />
       <PageHeader>CSS</PageHeader>
       <Article>{CssMd}</Article>
-    </React.Fragment>
+    </>
   )
 }
 

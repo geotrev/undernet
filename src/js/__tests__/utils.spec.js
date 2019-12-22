@@ -1,3 +1,8 @@
+import {
+  TestComponent,
+  GoodExtendedComponent,
+  BadExtendedComponent,
+} from "./test-fixtures/set-components-fixtures"
 import { find, renderDOM, simulateKeyboardEvent } from "./helpers"
 import {
   dom,
@@ -7,7 +12,7 @@ import {
   getPageBaseFontSize,
 } from "../utils"
 
-const testDom = `<div data-tester="true" tabindex="-1" data-removable class="wrapper">
+const testDOM = `<div data-tester="true" tabindex="-1" data-removable class="wrapper">
     <p>Hello world! <a tabindex="-1" class="first-focusable" href="#">this link is focusable</a></p>
     <input type="input" placeholder="just a little input" />
     <p style="height: 32px;" class="hello world test">Hello world again! <button tabindex="-1" class="last-focusable" type="button">I too, am focusable!</button></p>
@@ -24,13 +29,15 @@ const Selectors = {
   TABINDEX: "tabindex",
 }
 
+console.error = jest.fn()
+
 const activeElement = () => document.activeElement
 
 describe("dom", () => {
   describe(".addClass(element, ...classes)", () => {
     it("can add a class", () => {
       // Given
-      renderDOM(testDom)
+      renderDOM(testDOM)
       const element = find(".hello.world")
       const newClass = "test-class"
       // When
@@ -42,7 +49,7 @@ describe("dom", () => {
 
     it("can add multiple classes", () => {
       // Given
-      renderDOM(testDom)
+      renderDOM(testDOM)
       const element = find(".hello.world")
       const newClass1 = "test-class-1"
       const newClass2 = "test-class-2"
@@ -57,7 +64,7 @@ describe("dom", () => {
   describe(".removeClass(element, ...classes)", () => {
     it("can remove a class from an element", () => {
       // Given
-      renderDOM(testDom)
+      renderDOM(testDOM)
       const element = find(".hello.world")
       const removedClass = "test"
       // When
@@ -69,7 +76,7 @@ describe("dom", () => {
 
     it("can remove multiple classes from an element", () => {
       // Given
-      renderDOM(testDom)
+      renderDOM(testDOM)
       const element = find(".hello.world")
       const newClass1 = "hello"
       const newClass2 = "world"
@@ -84,7 +91,7 @@ describe("dom", () => {
   describe(".hasClass(element, ...classes)", () => {
     it("returns false if class can't be found", () => {
       // Given
-      renderDOM(testDom)
+      renderDOM(testDOM)
       const element = find(".hello.world")
       const classNameToDetect = "test-class"
       // When
@@ -95,7 +102,7 @@ describe("dom", () => {
 
     it("returns true if class can be found", () => {
       // Given
-      renderDOM(testDom)
+      renderDOM(testDOM)
       const element = find(".hello.world")
       const classNameToDetect = "hello"
       // When
@@ -106,7 +113,7 @@ describe("dom", () => {
 
     it("returns false if class can't be found among given classes", () => {
       // Given
-      renderDOM(testDom)
+      renderDOM(testDOM)
       const element = find(".hello.world")
       const classNameToDetect1 = "not-in-class-list"
       const classNameToDetect2 = "not-in-class-list-either"
@@ -118,7 +125,7 @@ describe("dom", () => {
 
     it("returns true if class can be found among given classes", () => {
       // Given
-      renderDOM(testDom)
+      renderDOM(testDOM)
       const element = find(".hello.world")
       const classNameToDetect1 = "hello"
       const classNameToDetect2 = "not-in-class-list"
@@ -132,7 +139,7 @@ describe("dom", () => {
   describe(".getAttr(element, attr)", () => {
     it("returns an attribute", () => {
       // Given
-      renderDOM(testDom)
+      renderDOM(testDOM)
       const wrapper = find(".wrapper")
       // When
       const received = dom.getAttr(wrapper, "data-tester")
@@ -144,7 +151,7 @@ describe("dom", () => {
   describe(".setAttr(element, attr, value)", () => {
     it("can set an attribute", () => {
       // Given
-      renderDOM(testDom)
+      renderDOM(testDOM)
       const wrapper = find(".wrapper")
       // When
       dom.setAttr(wrapper, "data-tester", "false")
@@ -157,7 +164,7 @@ describe("dom", () => {
   describe(".removeAttr(element, attr)", () => {
     it("can remove an attribute", () => {
       // Given
-      renderDOM(testDom)
+      renderDOM(testDOM)
       const wrapper = find(".wrapper")
       // When
       dom.removeAttr(wrapper, "data-tester")
@@ -170,7 +177,7 @@ describe("dom", () => {
   describe(".hasAttr(element, attr)", () => {
     it("can detect an attribute", () => {
       // Given
-      renderDOM(testDom)
+      renderDOM(testDOM)
       const wrapper = find(".wrapper")
       // When
       const received = dom.hasAttr(wrapper, "data-tester")
@@ -182,7 +189,7 @@ describe("dom", () => {
   describe(".find(element, parent = document)", () => {
     it("returns an element", () => {
       // Given
-      renderDOM(testDom)
+      renderDOM(testDOM)
       const element = find(".hello.world")
       const received = dom.find(".hello.world")
       // Then
@@ -193,7 +200,7 @@ describe("dom", () => {
   describe(".findAll(element, parent = document)", () => {
     it("returns a collection of elements", () => {
       // Given
-      renderDOM(testDom)
+      renderDOM(testDOM)
       const received = dom.findAll("p")
       // Then
       expect(received).toHaveLength(2)
@@ -203,7 +210,7 @@ describe("dom", () => {
   describe(".getStyle(element, property)", () => {
     it("returns css property values", () => {
       // Given
-      renderDOM(testDom)
+      renderDOM(testDOM)
       const element = find(".hello.world")
       // When
       const received = dom.getStyle(element, "height")
@@ -215,7 +222,7 @@ describe("dom", () => {
   describe(".setStyle(element, property, value)", () => {
     it("can set a css property", () => {
       // Given
-      renderDOM(testDom)
+      renderDOM(testDOM)
       const element = find(".hello.world")
       const newHeight = "60px"
       // When
@@ -235,7 +242,7 @@ describe("createFocusTrap(container, options = {})", () => {
 
   describe("options.useArrows = false", () => {
     beforeEach(() => {
-      renderDOM(testDom)
+      renderDOM(testDOM)
       trapper = createFocusTrap(CONTAINER_SELECTOR)
       firstFocusableElement = find(".first-focusable")
       lastFocusableElement = find(".last-focusable")
@@ -280,7 +287,7 @@ describe("createFocusTrap(container, options = {})", () => {
 
   describe("options.useArrows = true", () => {
     beforeEach(() => {
-      renderDOM(testDom)
+      renderDOM(testDOM)
       trapper = createFocusTrap(CONTAINER_SELECTOR, { useArrows: true })
       firstFocusableElement = find(".first-focusable")
       lastFocusableElement = find(".last-focusable")
@@ -310,45 +317,38 @@ describe("createFocusTrap(container, options = {})", () => {
       expect(activeElement()).toEqual(lastFocusableElement)
     })
   })
+
+  describe("logging", () => {
+    it("logs console error if neither first parameter or options.children are given", () => {
+      // Given
+      renderDOM(testDOM)
+      // When
+      createFocusTrap(null, { children: [] })
+      // Then
+      expect(console.error).toBeCalledWith(
+        "createFocusTrap must be given one or both of: first parameter, options.children (array of elements)."
+      )
+    })
+  })
 })
 
 describe("getFocusableElements(container)", () => {
   it("returns all focusable elements within a given element", () => {
     // Given
-    renderDOM(testDom)
+    renderDOM(testDOM)
     // When
     const elements = getFocusableElements(".wrapper")
     // Then
     expect(elements).toHaveLength(3)
   })
 
-  it("prints console error if first parameter is invalid", () => {
-    // Given
-    console.error = jest.fn()
-    // When
-    getFocusableElements()
-    // Then
-    expect(console.error).toBeCalledWith(
-      "No `container` parameter given to `getFocusableElements`."
-    )
-  })
-
-  it("prints console error if second parameter is invalid", () => {
-    // Given
-    console.error = jest.fn()
-    // When
-    getFocusableElements(".wrapper", { not: "array" })
-    // Then
-    expect(console.error).toBeCalledWith(
-      "Invalid data type given in second parameter for `getFocusableElements`, expected: Array."
-    )
-  })
+  it("returns custom list of elements if matchers given", () => {})
 })
 
 describe("getPageBaseFontSize", () => {
   it("returns body font size as number literal", () => {
     // Given
-    renderDOM(testDom)
+    renderDOM(testDOM)
     find("body").style.fontSize = "16px"
     // Then
     expect(getPageBaseFontSize()).toBe(16)
@@ -359,13 +359,13 @@ describe("focusOnce(element)", () => {
   let element
 
   beforeEach(() => {
-    renderDOM(testDom)
+    renderDOM(testDOM)
     element = find(".wrapper")
     focusOnce(element)
   })
 
   it("focuses the element", () => {
-    expect(document.activeElement).toEqual(element)
+    expect(activeElement()).toEqual(element)
   })
 
   it("removes tabindex from focused element when blurred", () => {
@@ -373,5 +373,159 @@ describe("focusOnce(element)", () => {
     element.blur()
     // Then
     expect(element.hasAttribute("tabindex")).toBe(false)
+  })
+})
+
+describe("setComponents(options = {})", () => {
+  const SCOPE_1 = "#scope-1"
+  const SCOPE_2 = "#scope-2"
+  const COMPONENT_ATTR = "data-test-component"
+  const EXTENDED_COMPONENT_ATTR = `${COMPONENT_ATTR}-extended`
+  const NO_ID_ERROR = "No ID found!"
+  const DUPLICATE_SCOPE_ERROR = `You tried to start an Undernet component with scope '${SCOPE_1}', but that scope is already active.\n\nYou must call COMPONENT_NAME.stop(scopeSelector) first, then.`
+
+  describe("Extended component", () => {
+    const extendedComponentDOM = `
+      <div id="scope-1">
+        <div ${EXTENDED_COMPONENT_ATTR}="test-id-extended">
+          <div ${COMPONENT_ATTR}="test-id-1"></div>
+          <div ${COMPONENT_ATTR}="test-id-2"></div>
+          <div ${COMPONENT_ATTR}="test-id-3"></div>
+        </div>
+      </div>
+    `
+
+    const GoodExtendedFixture = new GoodExtendedComponent()
+    const BadExtendedFixture = new BadExtendedComponent()
+
+    afterEach(() => {
+      GoodExtendedFixture.reset()
+      BadExtendedFixture.reset()
+    })
+
+    it("puts components into separate maps for extended vs. base component class", () => {
+      // Given
+      renderDOM(extendedComponentDOM)
+      GoodExtendedFixture.start(SCOPE_1)
+      // Then
+      expect(GoodExtendedFixture.scopes.get("#scope-1").elements).toHaveLength(3)
+      expect(GoodExtendedFixture.extendedScopes.get("#scope-1").elements).toHaveLength(1)
+    })
+
+    it("prints console error if extended class uses same scope property name as its base component class", () => {
+      // Given
+      BadExtendedFixture.start(SCOPE_1)
+      // Then
+      expect(console.error).toBeCalledWith(DUPLICATE_SCOPE_ERROR)
+    })
+  })
+
+  describe("Base component", () => {
+    const componentDOM = `
+      <div ${COMPONENT_ATTR}="test-id-1" class="exclude"></div>
+      <div ${COMPONENT_ATTR}="test-id-2"></div>
+      <div id="scope-1">
+        <div ${COMPONENT_ATTR}="test-id-3"></div>
+        <div ${COMPONENT_ATTR}="test-id-4"></div>
+        <div ${COMPONENT_ATTR}="test-id-5"></div>
+      </div>
+      <div id="scope-2">
+        <div ${COMPONENT_ATTR}="test-id-6"></div>
+        <div ${COMPONENT_ATTR}="test-id-7"></div>
+        <div ${COMPONENT_ATTR}="test-id-8" class="exclude"></div>
+      </div>
+    `
+
+    const BaseFixture = new TestComponent()
+
+    beforeEach(() => {
+      renderDOM(componentDOM)
+    })
+
+    afterEach(() => {
+      BaseFixture.reset()
+    })
+
+    it("sets elements to global components property if no scopeId is passed", () => {
+      // Given
+      BaseFixture.start()
+      // Then
+      expect(BaseFixture.globals).toHaveLength(8)
+    })
+
+    it("sets new entry to scope property if scopeId is passed and scope does not exist", () => {
+      // Given
+      BaseFixture.start(SCOPE_1)
+      // Then
+      expect(BaseFixture.scopes.get(SCOPE_1).elements).toHaveLength(3)
+    })
+
+    it("sets elements to global components property, but excludes existing scopes", () => {
+      // Given
+      const testAttrValue = element => element.getAttribute(COMPONENT_ATTR)
+      BaseFixture.start(SCOPE_1)
+      BaseFixture.start()
+
+      // Then
+      BaseFixture.scopes.get(SCOPE_1).elements.forEach(scopedElement => {
+        BaseFixture.globals.forEach(globalElement => {
+          expect(testAttrValue(scopedElement)).not.toEqual(testAttrValue(globalElement))
+        })
+      })
+    })
+
+    it("has correct length of elements when scoped elements are excluded from globals", () => {
+      // Given
+      BaseFixture.start(SCOPE_1)
+      BaseFixture.start()
+      // Then
+      expect(BaseFixture.globals).toHaveLength(5)
+    })
+
+    it("will use custom filter function on global components", () => {
+      // Given
+      BaseFixture.start(null, true)
+      // Then
+      expect(BaseFixture.globals).toHaveLength(6)
+    })
+
+    it("will use custom filter function on scoped components", () => {
+      // Given
+      BaseFixture.start(SCOPE_2, true)
+      // Then
+      expect(BaseFixture.scopes.get(SCOPE_2).elements).toHaveLength(2)
+    })
+
+    it("prints console error if no attribute value can be found on global component", () => {
+      // Given
+      document.querySelector(`[${COMPONENT_ATTR}='test-id-2']`).setAttribute(COMPONENT_ATTR, "")
+      BaseFixture.start()
+      // Then
+      expect(console.error).toBeCalledWith(NO_ID_ERROR)
+    })
+
+    it("prints console error if no attribute value can be found on scoped component", () => {
+      // Given
+      document.querySelector(`[${COMPONENT_ATTR}='test-id-8']`).setAttribute(COMPONENT_ATTR, "")
+      BaseFixture.start(SCOPE_2)
+      // Then
+      expect(console.error).toBeCalledWith(NO_ID_ERROR)
+    })
+
+    it("prints console error if scope already exists with global key", () => {
+      // Given
+      BaseFixture.start(SCOPE_1)
+      BaseFixture.start(SCOPE_1)
+      // Then
+      expect(console.error).toBeCalledWith(DUPLICATE_SCOPE_ERROR)
+    })
+
+    it("does not set a scope if it already exists", () => {
+      // Given
+      BaseFixture.start(SCOPE_1)
+      BaseFixture.start(SCOPE_1)
+      // Then
+      expect(BaseFixture.scopes.size).toBe(1)
+    })
   })
 })

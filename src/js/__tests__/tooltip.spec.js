@@ -20,6 +20,8 @@ const KeyCodes = {
   ESCAPE: 27,
 }
 
+console.error = jest.fn()
+
 describe("Tooltip", () => {
   afterEach(() => {
     Undernet.Tooltips.stop()
@@ -193,36 +195,32 @@ const errorDom = (target, tooltip, id) => `
 `
 
 describe("Tooltip Warnings", () => {
-  beforeAll(() => {
-    console.warning = jest.fn()
-  })
-
-  it("prints console warning if [data-tooltip] is empty", () => {
+  it("prints console error if [data-tooltip] is empty", () => {
     // Given
     renderDOM(errorDom("tooltip-id", "", "tooltip-id"))
     // When
     Undernet.Tooltips.start()
     // Then
-    expect(console.warning).toBeCalledWith("Could not find tooltip id.")
+    expect(console.error).toBeCalledWith("Could not find tooltip id.")
   })
 
-  it("prints console warning if [data-target] attribute does not match its parent [data-tooltip]", () => {
+  it("prints console error if [data-target] attribute does not match its parent [data-tooltip]", () => {
     // Given
     renderDOM(errorDom("", "tooltip-id", "tooltip-id"))
     // When
     Undernet.Tooltips.start()
     // Then
-    expect(console.warning).toBeCalledWith(
+    expect(console.error).toBeCalledWith(
       "Could not find a tooltip trigger with attribute [data-target='tooltip-id']."
     )
   })
 
-  it("prints console warning if tooltip container's [id] does not match its parent [data-tooltip]", () => {
+  it("prints console error if tooltip container's [id] does not match its parent [data-tooltip]", () => {
     // Given
     renderDOM(errorDom("tooltip-id", "tooltip-id", ""))
     // When
     Undernet.Tooltips.start()
     // Then
-    expect(console.warning).toBeCalledWith("Could not find a tooltip with id 'tooltip-id'.")
+    expect(console.error).toBeCalledWith("Could not find a tooltip with id 'tooltip-id'.")
   })
 })

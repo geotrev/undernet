@@ -1,4 +1,11 @@
-import { getFocusableElements, dom, isBrowserEnv, getPageBaseFontSize } from "./utils"
+import {
+  getFocusableElements,
+  dom,
+  isBrowserEnv,
+  getPageBaseFontSize,
+  log,
+  setComponents,
+} from "./utils"
 
 const Selectors = {
   // unique
@@ -43,12 +50,15 @@ const Messages = {
 export default class Collapsible {
   constructor() {
     // events
-    this._setup = this._setup.bind(this)
     this._handleClick = this._handleClick.bind(this)
+    this._setCollapsibles = this._setCollapsibles.bind(this)
+    this._setup = this._setup.bind(this)
+    this._teardown = this._teardown.bind(this)
 
     // all accordions
     this._collapsibles = []
     this._collapsibleTriggers = []
+    this._collapsibleScopes = new Map()
 
     // active accordion
     this._activeCollapsible = {}
@@ -66,24 +76,41 @@ export default class Collapsible {
    *
    * @param {{ controlled: Boolean, onClick: Function }} options
    */
-  start(options = {}) {
+  start(scopeId, options = {}) {
     if (!isBrowserEnv) return
-    const { controlled, onClick } = options
 
-    this._setCollapsibles(controlled)
+    const { controlled, onClick } = options
+    const filterFn = elements => this._setCollapsibles(elements, controlled)
+
+    setComponents({
+      thisArg: this,
+      scopeId,
+      scopeKey: "_collapsibleScopes",
+      componentAttribute: Selectors.DATA_COLLAPSIBLE,
+      globalKey: "_collapsibles",
+      errorMessage: Messages.NO_COLLAPSIBLE_ID_ERROR,
+      filterFn,
+    })
+
     this._handleClickFn = onClick || this._handleClick.bind(this)
 
-    if (this._collapsibles.length) {
+    if (scopeId && this._collapsibleScopes.has(scopeId)) {
+      this._collapsibleScopes.get(scopeId).elements.forEach(this._setup)
+    } else if (this._collapsibles.length) {
       this._collapsibles.forEach(this._setup)
     }
   }
 
-  stop() {
+  stop(scopeId) {
     if (!isBrowserEnv) return
 
-    this._collapsibleTriggers.forEach(trigger =>
-      trigger.removeEventListener(Events.CLICK, this._handleClickFn)
-    )
+    if (scopeId && this._collapsibleScopes.has(scopeId)) {
+      this._collapsibleScopes.get(scopeId).elements.forEach(this._teardown)
+      this._collapsibleScopes.delete(scopeId)
+    } else if (this._collapsibles.length) {
+      this._collapsibles.forEach(this._teardown)
+      this._collapsibles = []
+    }
   }
 
   /**
@@ -124,30 +151,28 @@ export default class Collapsible {
   // private
 
   _setup(instance) {
-    const collapsibleId = dom.getAttr(instance, Selectors.DATA_COLLAPSIBLE)
-    const collapseTriggerTargetAttr = this._getTargetAttr(collapsibleId)
-    const collapsibleTrigger = dom.find(collapseTriggerTargetAttr, instance)
-    const collapsibleContentId = `#${collapsibleId}`
+    const { trigger, id } = this._getCollapsibleData(instance)
+    const collapsibleContentId = `#${id}`
     const collapsibleContent = dom.find(collapsibleContentId, instance)
 
     if (!collapsibleContent) {
-      console.warning(Messages.NO_CONTENT_ERROR(collapsibleId))
+      log(Messages.NO_CONTENT_ERROR(id))
       return
     }
 
-    if (!collapsibleTrigger.id) {
-      console.warning(Messages.NO_TRIGGER_ID_ERROR(collapsibleId))
+    if (!trigger.id) {
+      log(Messages.NO_TRIGGER_ID_ERROR(id))
       return
     }
 
-    dom.setAttr(collapsibleTrigger, Selectors.ARIA_CONTROLS, collapsibleId)
-    dom.setAttr(collapsibleContent, Selectors.ARIA_LABELLEDBY, collapsibleTrigger.id)
+    dom.setAttr(trigger, Selectors.ARIA_CONTROLS, id)
+    dom.setAttr(collapsibleContent, Selectors.ARIA_LABELLEDBY, trigger.id)
 
     const collapsibleContentFocusableChildren = getFocusableElements(collapsibleContentId)
     const contentShouldExpand = dom.getAttr(instance, Selectors.DATA_VISIBLE)
 
     if (contentShouldExpand === "false") {
-      dom.setAttr(collapsibleTrigger, Selectors.ARIA_EXPANDED, "false")
+      dom.setAttr(trigger, Selectors.ARIA_EXPANDED, "false")
       dom.setAttr(collapsibleContent, Selectors.ARIA_HIDDEN, "true")
 
       collapsibleContentFocusableChildren.forEach(element => {
@@ -160,7 +185,7 @@ export default class Collapsible {
         CssProperties.MAX_HEIGHT,
         this._getFontSizeEm(collapsibleContent.scrollHeight)
       )
-      dom.setAttr(collapsibleTrigger, Selectors.ARIA_EXPANDED, "true")
+      dom.setAttr(trigger, Selectors.ARIA_EXPANDED, "true")
       dom.setAttr(collapsibleContent, Selectors.ARIA_HIDDEN, "false")
 
       collapsibleContentFocusableChildren.forEach(element => {
@@ -168,8 +193,13 @@ export default class Collapsible {
       })
     }
 
-    this._collapsibleTriggers.push(collapsibleTrigger)
-    collapsibleTrigger.addEventListener(Events.CLICK, this._handleClickFn)
+    this._collapsibleTriggers.push(trigger)
+    trigger.addEventListener(Events.CLICK, this._handleClickFn)
+  }
+
+  _teardown(instance) {
+    const { trigger } = this._getCollapsibleData(instance)
+    trigger.removeEventListener(Events.CLICK, this._handleClickFn)
   }
 
   _handleClick(event) {
@@ -188,22 +218,28 @@ export default class Collapsible {
     this._activeContent = null
   }
 
-  _setCollapsibles(controlled) {
-    const allCollapsibles = dom.findAll(`[${Selectors.DATA_COLLAPSIBLE}]`)
+  _getCollapsibleData(instance) {
+    const id = dom.getAttr(instance, Selectors.DATA_COLLAPSIBLE)
+    const collapsibleTriggerTargetAttr = this._getTargetAttr(id)
+    const trigger = dom.find(collapsibleTriggerTargetAttr, instance)
 
-    this._collapsibles = allCollapsibles.filter(instance => {
-      const collapsibleId = dom.getAttr(instance, Selectors.DATA_COLLAPSIBLE)
+    return { id, trigger }
+  }
 
-      if (!collapsibleId) {
-        console.warning(Messages.NO_COLLAPSIBLE_ID_ERROR)
+  _setCollapsibles(elements, controlled) {
+    return elements.filter(instance => {
+      const id = dom.getAttr(instance, Selectors.DATA_COLLAPSIBLE)
+
+      if (!id) {
+        log(Messages.NO_COLLAPSIBLE_ID_ERROR)
         return false
       }
 
-      const collapseTriggerTargetAttr = this._getTargetAttr(collapsibleId)
-      const trigger = dom.find(collapseTriggerTargetAttr, instance)
+      const collapsibleTriggerTargetAttr = this._getTargetAttr(id)
+      const trigger = dom.find(collapsibleTriggerTargetAttr, instance)
 
       if (!trigger) {
-        console.warning(Messages.NO_TRIGGER_ERROR(collapsibleId))
+        log(Messages.NO_TRIGGER_ERROR(id))
         return false
       }
 

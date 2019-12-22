@@ -15,14 +15,14 @@ exports[`<Badges /> renders 1`] = `
     transformLinkUri={[Function]}
   >
     <Root
-      key="root-1-1"
+      key="root-1-1-0"
     >
       <p
-        key="paragraph-1-1"
+        key="paragraph-1-1-0"
       >
         <TextRenderer
-          key="text-1-1"
-          nodeKey="text-1-1"
+          key="text-1-1-0"
+          nodeKey="text-1-1-0"
           value="some status content, converted from markdown to html/text!"
         >
           some status content, converted from markdown to html/text!

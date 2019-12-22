@@ -33,6 +33,8 @@ const KeyCodes = {
   ESCAPE: 27,
 }
 
+console.error = jest.fn()
+
 const activeElement = () => document.activeElement
 
 describe("Modal", () => {
@@ -232,37 +234,33 @@ const errorDom = (target, modal, parent) => `
 `
 
 describe("Modal Warnings", () => {
-  beforeAll(() => {
-    console.warning = jest.fn()
-  })
-
-  it("prints console warning if modal button isn't found", () => {
+  it("prints console error if modal button isn't found", () => {
     // Given
     renderDOM(errorDom("", "modal-id", "modal-id"))
     // When
     Undernet.Modals.start()
     // Then
-    expect(console.warning).toBeCalledWith("Could not find modal trigger with id modal-id.")
+    expect(console.error).toBeCalledWith("Could not find modal trigger with id modal-id.")
   })
 
-  it("prints console warning if modal id isn't found", () => {
+  it("prints console error if modal id isn't found", () => {
     // Given
     renderDOM(errorDom("modal-id", "", "modal-id"))
     // When
     Undernet.Modals.start()
     // Then
-    expect(console.warning).toBeCalledWith(
+    expect(console.error).toBeCalledWith(
       "Could not detect an id on your [data-modal] element. Please add a value matching the modal trigger's [data-parent] attribute."
     )
   })
 
-  it("prints console warning if [data-parent] attribute does not match its parent [data-modal]", () => {
+  it("prints console error if [data-parent] attribute does not match its parent [data-modal]", () => {
     // Given
     renderDOM(errorDom("modal-id", "modal-id", ""))
     // When
     Undernet.Modals.start()
     // Then
-    expect(console.warning).toBeCalledWith(
+    expect(console.error).toBeCalledWith(
       `Could not find element with attribute [data-parent='modal-id'].`
     )
   })

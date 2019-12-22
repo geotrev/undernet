@@ -7,9 +7,9 @@ Check out this example dropdown:
 <div data-dropdown="dropdown1" class="dropdown">
   <button id="dropdown-button-id" data-parent="dropdown1" data-target="dropdown-menu-id">Open Dropdown</button>
   <ul id="dropdown-menu-id" class="dropdown-menu">
-    <li><a href="#">Item 1</a></li>
-    <li><a href="#">Item 2</a></li>
-    <li><a href="#">Item 3</a></li>
+    <li><a>Item 1</a></li>
+    <li><a>Item 2</a></li>
+    <li><a>Item 3</a></li>
   </ul>
 </div>
 
@@ -28,14 +28,14 @@ Check out this example dropdown:
 
 ## Using Button Tags
 
-You can also use `<button>` tags if you don't wish to use `<a>` tags.
+You can also use `<button>` tags if you don't wish to use `<a>` tags in the menu itself.
 
 <div data-dropdown="dropdown24" class="dropdown">
   <button id="dropdown-button-id24" data-parent="dropdown24" data-target="dropdown-menu-id24">Open Dropdown</button>
   <ul id="dropdown-menu-id24" class="dropdown-menu">
-    <li><button href="#">Button tag is used</button></li>
-    <li><button href="#">It looks identical!</button></li>
-    <li><button href="#">Semantics matter, choose wisely</button></li>
+    <li><button>Button tag is used</button></li>
+    <li><button>It looks identical!</button></li>
+    <li><button>Semantics matter, choose wisely</button></li>
   </ul>
 </div>
 
@@ -45,9 +45,9 @@ You can also use `<button>` tags if you don't wish to use `<a>` tags.
     Open Dropdown
   </button>
   <ul id="dropdown-menu-id" class="dropdown-menu">
-    <li><button href="#">Button tag is used</button></li>
-    <li><button href="#">It looks identical!</button></li>
-    <li><button href="#">Semantics matter, choose wisely</button></li>
+    <li><button>Button tag is used</button></li>
+    <li><button>It looks identical!</button></li>
+    <li><button>Semantics matter, choose wisely</button></li>
   </ul>
 </div>
 ```
@@ -61,9 +61,9 @@ Alternatively, you can force the arrow to hide using the `has-no-arrow` class on
 <div data-dropdown="dropdown20" class="dropdown">
   <button id="dropdown-button-id20" data-parent="dropdown20" data-target="dropdown-menu-id20">Open Dropdown</button>
   <ul id="dropdown-menu-id20" class="dropdown-menu has-no-arrow">
-    <li><a href="#">Item 1</a></li>
-    <li><a href="#">Item 2</a></li>
-    <li><a href="#">Item 3</a></li>
+    <li><a>Item 1</a></li>
+    <li><a>Item 2</a></li>
+    <li><a>Item 3</a></li>
   </ul>
 </div>
 
@@ -87,23 +87,23 @@ You can use any button style with a dropdown. Just add the appropriate class to 
 <div data-dropdown="dropdown2" class="dropdown">
   <button class="is-primary" id="dropdown-button-id2" data-parent="dropdown2" data-target="dropdown-menu-id2">Primary Button</button>
   <ul id="dropdown-menu-id2" class="dropdown-menu">
-    <li><a href="#">Item 1</a></li>
-    <li><a href="#">Item 2</a></li>
-    <li><a href="#">Item 3</a></li>
+    <li><a>Item 1</a></li>
+    <li><a>Item 2</a></li>
+    <li><a>Item 3</a></li>
   </ul>
 </div> <div data-dropdown="dropdown3" class="dropdown">
   <button class="is-secondary" id="dropdown-button-id3" data-parent="dropdown3" data-target="dropdown-menu-id3">Secondary Button</button>
   <ul id="dropdown-menu-id3" class="dropdown-menu">
-    <li><a href="#">Item 1</a></li>
-    <li><a href="#">Item 2</a></li>
-    <li><a href="#">Item 3</a></li>
+    <li><a>Item 1</a></li>
+    <li><a>Item 2</a></li>
+    <li><a>Item 3</a></li>
   </ul>
 </div> <div data-dropdown="dropdown4" class="dropdown">
   <button class="is-tertiary" id="dropdown-button-id4" data-parent="dropdown4" data-target="dropdown-menu-id4">Tertiary Button</button>
   <ul id="dropdown-menu-id4" class="dropdown-menu">
-    <li><a href="#">Item 1</a></li>
-    <li><a href="#">Item 2</a></li>
-    <li><a href="#">Item 3</a></li>
+    <li><a>Item 1</a></li>
+    <li><a>Item 2</a></li>
+    <li><a>Item 3</a></li>
   </ul>
 </div>
 
@@ -117,8 +117,8 @@ You can let it align inline-end using `is-aligned-inline-end`, or from block-end
   <button id="dropdown-button-id5" data-parent="dropdown5" data-target="dropdown-menu-id5">Open Dropdown</button>
   <ul id="dropdown-menu-id5" class="dropdown-menu is-aligned-inline-end">
     <li><h6 class="dropdown-header">Aligned Block-End</h6></li>
-    <li><a href="#">Item 1</a></li>
-    <li><a href="#">Item 2</a></li>
+    <li><a>Item 1</a></li>
+    <li><a>Item 2</a></li>
   </ul>
 </div>
 
@@ -144,20 +144,20 @@ You can let it drop block-start, inline-start, and inline-end using `is-drop-blo
 <div data-dropdown="dropdown9" class="dropdown">
   <button id="dropdown-button-id9" data-parent="dropdown9" data-target="dropdown-menu-id9">Drop Block-Start</button>
   <ul id="dropdown-menu-id9" class="dropdown-menu is-drop-block-start">
-    <li><a href="#">Item 1</a></li>
-    <li><a href="#">Item 3</a></li>
+    <li><a>Item 1</a></li>
+    <li><a>Item 3</a></li>
   </ul>
 </div> <div data-dropdown="dropdown-id11" class="dropdown">
   <button id="dropdown-button-id11" data-parent="dropdown-id11" data-target="dropdown-menu-id30">Drop Inline-End</button>
   <ul id="dropdown-menu-id30" class="dropdown-menu is-drop-inline-end">
-    <li><a href="#">Item 1</a></li>
-    <li><a href="#">Item 2</a></li>
+    <li><a>Item 1</a></li>
+    <li><a>Item 2</a></li>
   </ul>
 </div> <div data-dropdown="dropdown10" class="dropdown">
   <button id="dropdown-button-id10" data-parent="dropdown10" data-target="dropdown-menu-id10">Drop Inline-Start</button>
   <ul id="dropdown-menu-id10" class="dropdown-menu is-drop-inline-start">
-    <li><a href="#">Item 1</a></li>
-    <li><a href="#">Item 2</a></li>
+    <li><a>Item 1</a></li>
+    <li><a>Item 2</a></li>
   </ul>
 </div>
 
@@ -192,25 +192,25 @@ You can let it drop block-start, inline-start, and inline-end using `is-drop-blo
 You can also combine direction with alignment to get even more customization!
 
 <div data-dropdown="dropdown21" class="dropdown">
-  <button id="dropdown-button-id21" data-parent="dropdown21" data-target="dropdown-menu-id21">Drop Block-Start, Aligned Inline-End</button>
+  <button id="dropdown-button-id21" data-parent="dropdown21" data-target="dropdown-menu-id21">Aligned Inline-End, Block Block-Start</button>
   <ul id="dropdown-menu-id21" class="dropdown-menu is-drop-block-start is-aligned-inline-end">
-    <li><a href="#">Item 1</a></li>
-    <li><a href="#">Item 2</a></li>
-    <li><a href="#">Item 3</a></li>
+    <li><a>Item 1</a></li>
+    <li><a>Item 2</a></li>
+    <li><a>Item 3</a></li>
   </ul>
 </div> <div data-dropdown="dropdown23" class="dropdown">
   <button id="dropdown-button-id23" data-parent="dropdown23" data-target="dropdown-menu-id23">Drop Inline-End, Aligned Block-End</button>
   <ul id="dropdown-menu-id23" class="dropdown-menu is-drop-inline-end is-aligned-block-end">
-    <li><a href="#">Item 1</a></li>
-    <li><a href="#">Item 2</a></li>
-    <li><a href="#">Item 3</a></li>
+    <li><a>Item 1</a></li>
+    <li><a>Item 2</a></li>
+    <li><a>Item 3</a></li>
   </ul>
 </div> <div data-dropdown="dropdown22" class="dropdown">
   <button id="dropdown-button-id22" data-parent="dropdown22" data-target="dropdown-menu-id22">Drop Inline-Start, Aligned Block-End</button>
   <ul id="dropdown-menu-id22" class="dropdown-menu is-drop-inline-start is-aligned-block-end">
-    <li><a href="#">Item 1</a></li>
-    <li><a href="#">Item 2</a></li>
-    <li><a href="#">Item 3</a></li>
+    <li><a>Item 1</a></li>
+    <li><a>Item 2</a></li>
+    <li><a>Item 3</a></li>
   </ul>
 </div>
 
@@ -251,9 +251,9 @@ Add an `<hr/>` to a dropdown list item to create a visual separator between butt
 <div data-dropdown="dropdown6" class="dropdown">
   <button id="dropdown-button-id6" data-parent="dropdown6" data-target="dropdown-menu-id6">Open Dropdown</button>
   <ul id="dropdown-menu-id6" class="dropdown-menu">
-    <li><a href="#">Item 1</a></li>
-    <li><a href="#">Item 2</a><hr /></li>
-    <li><a href="#">Item 3</a></li>
+    <li><a>Item 1</a></li>
+    <li><a>Item 2</a><hr /></li>
+    <li><a>Item 3</a></li>
   </ul>
 </div>
 
@@ -285,10 +285,10 @@ You can add any level of header to a dropdown menu.
   <button id="dropdown-button-id7" data-parent="dropdown7" data-target="dropdown-menu-id7">Open Dropdown</button>
   <ul id="dropdown-menu-id7" class="dropdown-menu">
     <li><h3 class="dropdown-header">Menu Header (h3)</h3></li>
-    <li><a href="#">Item 1</a></li>
-    <li><a href="#">Item 2</a></li>
+    <li><a>Item 1</a></li>
+    <li><a>Item 2</a></li>
     <li><h5 class="dropdown-header">Menu Header (h5)</h5></li>
-    <li><a href="#">Item 3</a></li>
+    <li><a>Item 3</a></li>
   </ul>
 </div>
 
@@ -317,8 +317,8 @@ Paragraph text will wrap like it does everywhere else. Use spacing utilities to 
     <li class="has-p-sm has-gray800-text-color">
       Would you like to receive newsletters from Cool Company, Inc?
     </li>
-    <li><a href="#">Sure!</a></li>
-    <li><a href="#">Nope</a></li>
+    <li><a>Sure!</a></li>
+    <li><a>Nope</a></li>
   </ul>
 </div>
 
@@ -380,9 +380,9 @@ The menu itself only needs one attribute.
 <div data-dropdown="dropdown1" class="dropdown">
   ...
   <ul id="dropdown-menu-id" class="dropdown-menu">
-    <li><a href="#">Item 1</a></li>
-    <li><a href="#">Item 2</a></li>
-    <li><a href="#">Item 3</a></li>
+    <li><a>Item 1</a></li>
+    <li><a>Item 2</a></li>
+    <li><a>Item 3</a></li>
   </ul>
 </div>
 ```

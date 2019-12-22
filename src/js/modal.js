@@ -5,6 +5,8 @@ import {
   isBrowserEnv,
   createFocusTrap,
   focusOnce,
+  log,
+  setComponents,
 } from "./utils"
 
 const KeyCodes = {
@@ -67,9 +69,11 @@ export default class Modal {
     this._handleOverlayClick = this._handleOverlayClick.bind(this)
     this._handleEscapeKeyPress = this._handleEscapeKeyPress.bind(this)
     this._setup = this._setup.bind(this)
+    this._teardown = this._teardown.bind(this)
 
     // all modals
     this._modals = []
+    this._scopes = new Map()
 
     // active modal
     this._activeModalTrigger = null
@@ -86,27 +90,42 @@ export default class Modal {
 
   // public
 
-  start() {
+  start(scopeId) {
     if (!isBrowserEnv) return
 
-    this._modals = dom.findAll(`[${Selectors.DATA_MODAL}]`)
+    setComponents({
+      thisArg: this,
+      scopeId,
+      scopeKey: "_scopes",
+      componentAttribute: Selectors.DATA_MODAL,
+      globalKey: "_modals",
+      errorMessage: Messages.NO_ID_ERROR,
+    })
 
-    if (this._modals.length) {
+    if (scopeId && this._scopes.has(scopeId)) {
+      this._scopes.get(scopeId).elements.forEach(this._setup)
+    } else if (this._modals.length) {
       this._modals.forEach(this._setup)
     }
   }
 
-  stop() {
+  stop(scopeId) {
     if (!isBrowserEnv) return
 
-    this._modals.forEach(instance => {
-      const id = dom.getAttr(instance, Selectors.DATA_MODAL)
-      const trigger = dom.find(`[${Selectors.DATA_TARGET}='${id}']`)
+    if (scopeId && this._scopes.has(scopeId)) {
+      const { elements } = this._scopes.get(scopeId)
 
-      trigger.removeEventListener(Events.CLICK, this._handleClick)
-    })
+      elements.forEach(instance => {
+        if (dom.getAttr(instance, Selectors.DATA_VISIBLE) !== "true") return
+        this._closeActiveModal()
+      })
 
-    if (this._activeModal) this._closeActiveModal()
+      elements.forEach(this._teardown)
+      this._scopes.delete(scopeId)
+    } else if (this._modals.length) {
+      if (this._activeModal) this._closeActiveModal()
+      this._modals.forEach(this._teardown)
+    }
   }
 
   // private
@@ -115,7 +134,7 @@ export default class Modal {
     const modalId = dom.getAttr(instance, Selectors.DATA_MODAL)
 
     if (!modalId) {
-      console.warning(Messages.NO_ID_ERROR)
+      log(Messages.NO_ID_ERROR)
       return
     }
 
@@ -129,7 +148,7 @@ export default class Modal {
     const modal = dom.find(`[${Selectors.DATA_PARENT}='${modalId}']`, instance)
 
     if (!modal) {
-      console.warning(Messages.NO_MODAL_DIALOG_ERROR(modalId))
+      log(Messages.NO_MODAL_DIALOG_ERROR(modalId))
       return
     }
 
@@ -141,11 +160,18 @@ export default class Modal {
     const trigger = dom.find(`[${Selectors.DATA_TARGET}='${modalId}']`)
 
     if (!trigger) {
-      console.warning(Messages.NO_TRIGGER_ERROR(modalId))
+      log(Messages.NO_TRIGGER_ERROR(modalId))
       return
     }
 
     trigger.addEventListener(Events.CLICK, this._handleClick)
+  }
+
+  _teardown(instance) {
+    const id = dom.getAttr(instance, Selectors.DATA_MODAL)
+    const trigger = dom.find(`[${Selectors.DATA_TARGET}='${id}']`)
+
+    trigger.removeEventListener(Events.CLICK, this._handleClick)
   }
 
   _handleClick(event) {

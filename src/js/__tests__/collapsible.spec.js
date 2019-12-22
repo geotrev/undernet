@@ -17,6 +17,8 @@ const dom = `
   </div>
 `
 
+console.error = jest.fn()
+
 describe("Collapsible", () => {
   let wrapper
 
@@ -90,54 +92,50 @@ describe("Collapsible Warnings", () => {
   const unMatchedCollapsibleId = "collapsible-id-no-match"
   const triggerId = "collapsible-trigger-id"
 
-  beforeAll(() => {
-    console.warning = jest.fn()
-  })
-
   afterEach(() => {
     Undernet.Collapsibles.stop()
   })
 
-  it("prints console warning if [data-collapsible] attribute is missing its value", () => {
+  it("prints console error if [data-collapsible] attribute is missing its value", () => {
     // Given
     renderDOM(errorDom("", unMatchedCollapsibleId, triggerId, collapsibleId))
     // When
     Undernet.Collapsibles.start()
     // Then
-    expect(console.warning).toBeCalledWith(
+    expect(console.error).toBeCalledWith(
       "Could not initialize collapsible; you must include a value for the 'data-collapsible' attribute."
     )
   })
 
-  it("prints console warning if [data-trigger] attribute can't be found", () => {
+  it("prints console error if [data-trigger] attribute can't be found", () => {
     // Given
     renderDOM(errorDom(collapsibleId, unMatchedCollapsibleId, triggerId, collapsibleId))
     // When
     Undernet.Collapsibles.start()
     // Then
-    expect(console.warning).toBeCalledWith(
+    expect(console.error).toBeCalledWith(
       `Could not find collapsible trigger with [data-target='${collapsibleId}']; you can't have a collapsible without a trigger.`
     )
   })
 
-  it("prints console warning if trigger id can't be found", () => {
+  it("prints console error if trigger id can't be found", () => {
     // Given
     renderDOM(errorDom(collapsibleId, collapsibleId, "", collapsibleId))
     // When
     Undernet.Collapsibles.start()
     // Then
-    expect(console.warning).toBeCalledWith(
+    expect(console.error).toBeCalledWith(
       `Could not find id on collapsible trigger with [data-target='${collapsibleId}'].`
     )
   })
 
-  it("prints console warning if collapsible content can't be found", () => {
+  it("prints console error if collapsible content can't be found", () => {
     // Given
     renderDOM(errorDom(collapsibleId, collapsibleId, triggerId, unMatchedCollapsibleId))
     // When
     Undernet.Collapsibles.start()
     // Then
-    expect(console.warning).toBeCalledWith(
+    expect(console.error).toBeCalledWith(
       `Could not find collapsible content with id '${collapsibleId}'; you can't have a collapsible without content.`
     )
   })

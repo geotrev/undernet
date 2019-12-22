@@ -6,14 +6,14 @@ import TextMd from "app/docs/text.md"
 
 const Text = () => {
   return (
-    <React.Fragment>
+    <>
       <SetMeta
         title="Text"
         description="Apply specific text style customizations using these class helpers."
       />
       <PageHeader>Text</PageHeader>
       <Article>{TextMd}</Article>
-    </React.Fragment>
+    </>
   )
 }
 

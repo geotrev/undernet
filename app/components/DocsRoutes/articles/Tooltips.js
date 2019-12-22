@@ -6,14 +6,14 @@ import TooltipsMd from "app/docs/tooltips.md"
 
 const Tooltips = () => {
   return (
-    <React.Fragment>
+    <>
       <SetMeta
         title="Tooltips"
         description="A component for showing basic text content in a small popup box."
       />
       <PageHeader>Tooltips</PageHeader>
       <Article>{TooltipsMd}</Article>
-    </React.Fragment>
+    </>
   )
 }
 

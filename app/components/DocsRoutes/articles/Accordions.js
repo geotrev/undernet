@@ -6,14 +6,14 @@ import AccordionsMd from "app/docs/accordions.md"
 
 const Accordions = () => {
   return (
-    <React.Fragment>
+    <>
       <SetMeta
         title="Accordions"
-        description="A component for hiding and showing content in an accordion-style user interface."
+        description="A component that composes a series of collapsible containers."
       />
       <PageHeader>Accordions</PageHeader>
       <Article>{AccordionsMd}</Article>
-    </React.Fragment>
+    </>
   )
 }
 

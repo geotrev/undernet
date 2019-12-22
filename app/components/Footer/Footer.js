@@ -1,6 +1,5 @@
 import React from "react"
-import Github from "react-feather/dist/icons/github"
-import Twitter from "react-feather/dist/icons/twitter"
+import { GitHub, Twitter } from "react-feather"
 import PropTypes from "prop-types"
 
 import "./styles.scss"
@@ -46,7 +45,7 @@ export default function Footer(props) {
                 className="has-white-text-color has-feather"
                 href="https://www.github.com/geotrev/undernet"
               >
-                <Github role="presentation" focusable="false" />
+                <GitHub role="presentation" focusable="false" />
                 <span className="is-visually-hidden">
                   {"Open link to www.github.com/geotrev/undernet"}
                 </span>

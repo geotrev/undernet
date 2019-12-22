@@ -1,8 +1,7 @@
 import React from "react"
-
 import SetMeta from "app/components/SetMeta"
 
-const PageNotFound = () => {
+export default function PageNotFound() {
   return (
     <div className="has-p-xl has-text-center">
       <SetMeta pageNotFound={true} />
@@ -11,5 +10,3 @@ const PageNotFound = () => {
     </div>
   )
 }
-
-export default PageNotFound

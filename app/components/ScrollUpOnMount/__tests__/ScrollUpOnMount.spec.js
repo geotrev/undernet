@@ -5,6 +5,6 @@ describe("<ScrollUpOnMount />", () => {
   it("calls window.scrollTo when mounted", () => {
     global.scrollTo = jest.fn()
     mount(<ScrollUpOnMount />)
-    expect(window.scrollTo).toHaveBeenCalledWith(0, 0)
+    expect(window.scrollTo).toBeCalledWith(0, 0)
   })
 })

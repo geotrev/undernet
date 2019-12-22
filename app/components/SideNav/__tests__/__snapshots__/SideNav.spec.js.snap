@@ -71,27 +71,46 @@ exports[`<SideNav /> #handleMenuToggleClick toggles menu when button is clicked 
             to="#"
           >
             <Link
-              aria-current={null}
-              className="side-nav-link-item has-black-text-color is-d-flex has-align-items-center"
+              aria-current="page"
+              className="side-nav-link-item has-black-text-color is-d-flex has-align-items-center active"
               onClick={[Function]}
               role="menuitem"
-              to="#"
+              style={Object {}}
+              to={
+                Object {
+                  "hash": "",
+                  "pathname": "/",
+                  "search": "",
+                  "state": null,
+                }
+              }
             >
-              <a
-                aria-current={null}
-                className="side-nav-link-item has-black-text-color is-d-flex has-align-items-center"
+              <LinkAnchor
+                aria-current="page"
+                className="side-nav-link-item has-black-text-color is-d-flex has-align-items-center active"
                 href="/"
+                navigate={[Function]}
                 onClick={[Function]}
                 role="menuitem"
+                style={Object {}}
               >
-                Test 1
-                 
-                <ChevronRight
-                  focusable="false"
-                  role="presentation"
-                  size={16}
-                />
-              </a>
+                <a
+                  aria-current="page"
+                  className="side-nav-link-item has-black-text-color is-d-flex has-align-items-center active"
+                  href="/"
+                  onClick={[Function]}
+                  role="menuitem"
+                  style={Object {}}
+                >
+                  Test 1
+                   
+                  <ChevronRight
+                    focusable="false"
+                    role="presentation"
+                    size={16}
+                  />
+                </a>
+              </LinkAnchor>
             </Link>
           </NavLink>
         </li>
@@ -172,27 +191,46 @@ exports[`<SideNav /> #handleMenuVisibility hides menu at or below 1199 1`] = `
             to="#"
           >
             <Link
-              aria-current={null}
-              className="side-nav-link-item has-black-text-color is-d-flex has-align-items-center"
+              aria-current="page"
+              className="side-nav-link-item has-black-text-color is-d-flex has-align-items-center active"
               onClick={[Function]}
               role="menuitem"
-              to="#"
+              style={Object {}}
+              to={
+                Object {
+                  "hash": "",
+                  "pathname": "/",
+                  "search": "",
+                  "state": null,
+                }
+              }
             >
-              <a
-                aria-current={null}
-                className="side-nav-link-item has-black-text-color is-d-flex has-align-items-center"
+              <LinkAnchor
+                aria-current="page"
+                className="side-nav-link-item has-black-text-color is-d-flex has-align-items-center active"
                 href="/"
+                navigate={[Function]}
                 onClick={[Function]}
                 role="menuitem"
+                style={Object {}}
               >
-                Test 1
-                 
-                <ChevronRight
-                  focusable="false"
-                  role="presentation"
-                  size={16}
-                />
-              </a>
+                <a
+                  aria-current="page"
+                  className="side-nav-link-item has-black-text-color is-d-flex has-align-items-center active"
+                  href="/"
+                  onClick={[Function]}
+                  role="menuitem"
+                  style={Object {}}
+                >
+                  Test 1
+                   
+                  <ChevronRight
+                    focusable="false"
+                    role="presentation"
+                    size={16}
+                  />
+                </a>
+              </LinkAnchor>
             </Link>
           </NavLink>
         </li>
@@ -273,27 +311,46 @@ exports[`<SideNav /> #handleMenuVisibility shows menu above 1199 1`] = `
             to="#"
           >
             <Link
-              aria-current={null}
-              className="side-nav-link-item has-black-text-color is-d-flex has-align-items-center"
+              aria-current="page"
+              className="side-nav-link-item has-black-text-color is-d-flex has-align-items-center active"
               onClick={[Function]}
               role="menuitem"
-              to="#"
+              style={Object {}}
+              to={
+                Object {
+                  "hash": "",
+                  "pathname": "/",
+                  "search": "",
+                  "state": null,
+                }
+              }
             >
-              <a
-                aria-current={null}
-                className="side-nav-link-item has-black-text-color is-d-flex has-align-items-center"
+              <LinkAnchor
+                aria-current="page"
+                className="side-nav-link-item has-black-text-color is-d-flex has-align-items-center active"
                 href="/"
+                navigate={[Function]}
                 onClick={[Function]}
                 role="menuitem"
+                style={Object {}}
               >
-                Test 1
-                 
-                <ChevronRight
-                  focusable="false"
-                  role="presentation"
-                  size={16}
-                />
-              </a>
+                <a
+                  aria-current="page"
+                  className="side-nav-link-item has-black-text-color is-d-flex has-align-items-center active"
+                  href="/"
+                  onClick={[Function]}
+                  role="menuitem"
+                  style={Object {}}
+                >
+                  Test 1
+                   
+                  <ChevronRight
+                    focusable="false"
+                    role="presentation"
+                    size={16}
+                  />
+                </a>
+              </LinkAnchor>
             </Link>
           </NavLink>
         </li>
@@ -379,27 +436,46 @@ exports[`<SideNav /> #render renders 1`] = `
                 to="#"
               >
                 <Link
-                  aria-current={null}
-                  className="side-nav-link-item has-black-text-color is-d-flex has-align-items-center"
+                  aria-current="page"
+                  className="side-nav-link-item has-black-text-color is-d-flex has-align-items-center active"
                   onClick={[Function]}
                   role="menuitem"
-                  to="#"
+                  style={Object {}}
+                  to={
+                    Object {
+                      "hash": "",
+                      "pathname": "/",
+                      "search": "",
+                      "state": null,
+                    }
+                  }
                 >
-                  <a
-                    aria-current={null}
-                    className="side-nav-link-item has-black-text-color is-d-flex has-align-items-center"
+                  <LinkAnchor
+                    aria-current="page"
+                    className="side-nav-link-item has-black-text-color is-d-flex has-align-items-center active"
                     href="/"
+                    navigate={[Function]}
                     onClick={[Function]}
                     role="menuitem"
+                    style={Object {}}
                   >
-                    Test 1
-                     
-                    <ChevronRight
-                      focusable="false"
-                      role="presentation"
-                      size={16}
-                    />
-                  </a>
+                    <a
+                      aria-current="page"
+                      className="side-nav-link-item has-black-text-color is-d-flex has-align-items-center active"
+                      href="/"
+                      onClick={[Function]}
+                      role="menuitem"
+                      style={Object {}}
+                    >
+                      Test 1
+                       
+                      <ChevronRight
+                        focusable="false"
+                        role="presentation"
+                        size={16}
+                      />
+                    </a>
+                  </LinkAnchor>
                 </Link>
               </NavLink>
             </li>

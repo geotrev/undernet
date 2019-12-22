@@ -34,7 +34,7 @@ Include the link tag before your custom CSS, and the script tag at the end of yo
 </html>
 ```
 
-Note that if you plan to link to and start Undernet via `<script>` tag, it's recommended to add an event listener for `DOMContentLoaded` to ensure the page is ready. Head over to the [JavaScript](/docs/overview/javascript) page to see more examples, including UI frameworks like React.
+Note that if you plan to link to and start Undernet via `<script>` tag, it's recommended to add an event listener for `DOMContentLoaded` to ensure the page is ready. Head over to the [JavaScript](/docs/overview/javascript) page to see more examples, including in UI frameworks like React.
 
 ```html
 <script>
@@ -45,9 +45,7 @@ Note that if you plan to link to and start Undernet via `<script>` tag, it's rec
 
 ## NPM or Yarn
 
-You can also install and setup with npm or yarn.
-
-### JavaScript
+Install and setup with npm or yarn.
 
 ```sh
 $ npm install -D undernet

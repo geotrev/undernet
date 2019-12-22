@@ -7,6 +7,8 @@ const modules = {
   emotion: "emotion",
 }
 
+const libIgnore = ["src/js/__tests__", "src/js/index.bundle.js"]
+
 module.exports = api => {
   const test = api.env("test")
   const cjs = api.env("cjs")
@@ -14,6 +16,7 @@ module.exports = api => {
 
   let presets = [modules.env, modules.react]
   let plugins = [modules.properties, modules.dynamicImport, modules.emotion]
+  let ignore = []
 
   if (test) {
     presets = [modules.react, [modules.env, { targets: { node: "current" } }]]
@@ -21,10 +24,12 @@ module.exports = api => {
   } else if (cjs) {
     presets = [modules.env]
     plugins = []
+    ignore = [...libIgnore]
   } else if (esm) {
     presets = [[modules.env, { modules: false }]]
     plugins = []
+    ignore = [...libIgnore]
   }
 
-  return { plugins, presets }
+  return { plugins, presets, ignore }
 }

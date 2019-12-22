@@ -1,4 +1,4 @@
-import { iOSMobile, dom, isBrowserEnv } from "./utils"
+import { iOSMobile, dom, isBrowserEnv, log, setComponents } from "./utils"
 
 const KeyCodes = {
   ESCAPE: 27,
@@ -59,36 +59,66 @@ export default class Tooltip {
     this._handleClose = this._handleClose.bind(this)
     this._handleEscapeKeyPress = this._handleEscapeKeyPress.bind(this)
     this._setup = this._setup.bind(this)
+    this._teardown = this._teardown.bind(this)
+
+    // all tooltips
+    this._tooltips = []
+    this._scopes = new Map()
 
     // active tooltip
     this._activeTrigger = null
     this._activeTooltip = null
-
-    // all tooltips
-    this._tooltips = []
   }
 
   // public
 
-  start() {
+  start(scopeId) {
     if (!isBrowserEnv) return
 
-    this._tooltips = dom.findAll(`[${Selectors.DATA_TOOLTIP}]`)
-    this._tooltips.forEach(this._setup)
+    setComponents({
+      thisArg: this,
+      scopeId,
+      scopeKey: "_scopes",
+      componentAttribute: Selectors.DATA_TOOLTIP,
+      globalKey: "_tooltips",
+      errorMessage: Messages.NO_ID_ERROR,
+    })
+
+    if (scopeId && this._scopes.has(scopeId)) {
+      this._scopes.get(scopeId).elements.forEach(this._setup)
+    } else if (this._tooltips.length) {
+      this._tooltips.forEach(this._setup)
+    }
   }
 
-  stop() {
+  stop(scopeId) {
     if (!isBrowserEnv) return
 
-    if (this._activeTooltip) this._handleClose()
+    if (scopeId && this._scopes.has(scopeId)) {
+      const { elements } = this._scopes.get(scopeId)
 
-    this._tooltips.forEach(instance => {
-      const id = dom.getAttr(instance, Selectors.DATA_TOOLTIP)
-      const trigger = dom.find(this._getTrigger(id), instance)
+      elements.forEach(instance => {
+        const id = dom.getAttr(instance, Selectors.DATA_TOOLTIP)
+        const tooltip = dom.find(`#${id}`)
 
-      trigger.removeEventListener(Events.MOUSEOVER, this._handleEvent)
-      trigger.removeEventListener(Events.FOCUS, this._handleEvent)
-    })
+        if (!tooltip) {
+          log(Messages.NO_TOOLTIP_ERROR(id))
+          return
+        }
+
+        if (dom.getAttr(tooltip, Selectors.DATA_VISIBLE) !== "true") return
+
+        this._handleClose()
+      })
+
+      elements.forEach(this._teardown)
+      this._scopes.delete(scopeId)
+    } else if (this._tooltips.length) {
+      if (this._activeTooltip) this._handleClose()
+
+      this._tooltips.forEach(this._teardown)
+      this._tooltips = []
+    }
   }
 
   // private
@@ -97,7 +127,7 @@ export default class Tooltip {
     const tooltipId = dom.getAttr(instance, Selectors.DATA_TOOLTIP)
 
     if (!tooltipId) {
-      console.warning(Messages.NO_ID_ERROR)
+      log(Messages.NO_ID_ERROR)
       return
     }
 
@@ -105,12 +135,12 @@ export default class Tooltip {
     const tooltip = dom.find(`#${tooltipId}`, instance)
 
     if (!trigger) {
-      console.warning(Messages.NO_TRIGGER_ERROR(tooltipId))
+      log(Messages.NO_TRIGGER_ERROR(tooltipId))
       return
     }
 
     if (!tooltip) {
-      console.warning(Messages.NO_TOOLTIP_ERROR(tooltipId))
+      log(Messages.NO_TOOLTIP_ERROR(tooltipId))
       return
     }
 
@@ -119,6 +149,14 @@ export default class Tooltip {
 
     trigger.addEventListener(Events.MOUSEOVER, this._handleEvent)
     trigger.addEventListener(Events.FOCUS, this._handleEvent)
+  }
+
+  _teardown(instance) {
+    const id = dom.getAttr(instance, Selectors.DATA_TOOLTIP)
+    const trigger = dom.find(this._getTrigger(id), instance)
+
+    trigger.removeEventListener(Events.MOUSEOVER, this._handleEvent)
+    trigger.removeEventListener(Events.FOCUS, this._handleEvent)
   }
 
   _handleEvent(event) {

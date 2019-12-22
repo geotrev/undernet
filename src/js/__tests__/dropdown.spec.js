@@ -26,6 +26,8 @@ const KeyCodes = {
   TAB: 9,
 }
 
+console.error = jest.fn()
+
 const activeElement = () => document.activeElement
 
 describe("Dropdown", () => {
@@ -277,33 +279,29 @@ const errorDom = (
 `
 
 describe("Dropdown Warnings", () => {
-  beforeAll(() => {
-    console.warning = jest.fn()
-  })
-
-  it("prints console warning if dropdown id can't be found", () => {
+  it("prints console error if dropdown id can't be found", () => {
     // Given
     renderDOM(errorDom("", "trigger-id", "dropdown-id", "menu-id", "menu-id"))
     // When
     Undernet.Dropdowns.start()
     // Then
-    expect(console.warning).toBeCalledWith(
+    expect(console.error).toBeCalledWith(
       "Could not setup dropdown. Make sure it has a valid [data-dropdown] attribute with a unique id as its value."
     )
   })
 
-  it("prints console warning if dropdown menu can't be found", () => {
+  it("prints console error if dropdown menu can't be found", () => {
     // Given
     renderDOM(errorDom("dropdown-id", "trigger-id", "dropdown-id", "menu-id", "menu-id", false))
     // When
     Undernet.Dropdowns.start()
     // Then
-    expect(console.warning).toBeCalledWith(
+    expect(console.error).toBeCalledWith(
       'Could not find menu associated with [data-dropdown="dropdown-id"].'
     )
   })
 
-  it("prints console warning if dropdown items can't be found", () => {
+  it("prints console error if dropdown items can't be found", () => {
     // Given
     renderDOM(
       errorDom("dropdown-id", "trigger-id", "dropdown-id", "menu-id", "menu-id", true, false)
@@ -311,12 +309,12 @@ describe("Dropdown Warnings", () => {
     // When
     Undernet.Dropdowns.start()
     // Then
-    expect(console.warning).toBeCalledWith(
+    expect(console.error).toBeCalledWith(
       'Could not find any list items associated with [data-dropdown="dropdown-id"].'
     )
   })
 
-  it("prints console warning if dropdown buttons or links can't be found", () => {
+  it("prints console error if dropdown buttons or links can't be found", () => {
     // Given
     renderDOM(
       errorDom("dropdown-id", "trigger-id", "dropdown-id", "menu-id", "menu-id", true, true, false)
@@ -324,18 +322,18 @@ describe("Dropdown Warnings", () => {
     // When
     Undernet.Dropdowns.start()
     // Then
-    expect(console.warning).toBeCalledWith(
+    expect(console.error).toBeCalledWith(
       'Could not find any button or anchor elements associated with [data-dropdown="dropdown-id"].'
     )
   })
 
-  it("prints console warning if dropdown trigger's [data-target] attribute cant' be found", () => {
+  it("prints console error if dropdown trigger's [data-target] attribute cant' be found", () => {
     // Given
     renderDOM(errorDom("dropdown-id", "trigger-id", "", "menu-id", "menu-id"))
     // When
     Undernet.Dropdowns.start()
     // Then
-    expect(console.warning).toBeCalledWith(
+    expect(console.error).toBeCalledWith(
       "Could not find dropdown button's [data-parent] attribute."
     )
   })

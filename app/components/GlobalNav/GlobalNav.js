@@ -1,6 +1,5 @@
 import React from "react"
-import Github from "react-feather/dist/icons/github"
-import Twitter from "react-feather/dist/icons/twitter"
+import { GitHub, Twitter } from "react-feather"
 import { Link } from "react-router-dom"
 import PropTypes from "prop-types"
 
@@ -46,7 +45,7 @@ export default function GlobalNav(props) {
                 href="https://www.github.com/geotrev/undernet"
                 role="menuitem"
               >
-                <Github role="presentation" focusable="false" />
+                <GitHub role="presentation" focusable="false" />
                 <span className="is-visually-hidden">
                   {"Open link to www.github.com/geotrev/undernet"}
                 </span>
