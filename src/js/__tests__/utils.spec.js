@@ -319,14 +319,47 @@ describe("createFocusTrap(container, options = {})", () => {
   })
 
   describe("logging", () => {
-    it("logs console error if neither first parameter or options.children are given", () => {
+    it("prints console error if neither first parameter or options.children are given", () => {
       // Given
       renderDOM(testDOM)
       // When
       createFocusTrap(null, { children: [] })
       // Then
       expect(console.error).toBeCalledWith(
-        "createFocusTrap must be given one or both of: first parameter, options.children (array of elements)."
+        "createFocusTrap must be given one or both of: first parameter (as selector string) and/or options.children (array of elements)."
+      )
+    })
+
+    it("prints console error if options.useArrow is not strictly a boolean", () => {
+      // Given
+      renderDOM(testDOM)
+      // When
+      createFocusTrap(CONTAINER_SELECTOR, { useArrows: "hello" })
+      // Then
+      expect(console.error).toBeCalledWith(
+        "Invalid data type given to options.useArrows for createFocusTrap. Expected: Boolean."
+      )
+    })
+
+    it("prints console error if options.children is not array-like", () => {
+      // Given
+      renderDOM(testDOM)
+      // When
+      createFocusTrap(CONTAINER_SELECTOR, { children: { hello: "there" } })
+      // Then
+      expect(console.error).toBeCalledWith(
+        "Invalid data type given to options.children for createFocusTrap. Expected: Array-Like."
+      )
+    })
+
+    it("prints console error if options.matchers is not strictly an array", () => {
+      // Given
+      renderDOM(testDOM)
+      // When
+      createFocusTrap(CONTAINER_SELECTOR, { matchers: true })
+      // Then
+      expect(console.error).toBeCalledWith(
+        "Invalid data type given to options.matchers for createFocusTrap. Expected: Array."
       )
     })
   })

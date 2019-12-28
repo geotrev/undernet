@@ -20,13 +20,13 @@ const Events = {
 
 const Messages = {
   NO_SELECTOR_STRING_OR_CHILDREN_ERROR:
-    "createFocusTrap must be given one or both of: first parameter, options.children (array of elements).",
-  OPTION_USE_ARROWS_DATA_TYPE_ERROR: selector =>
-    `Invalid data type given in options.useArrows for createFocusTrap. Expected: Boolean. Selector given: '${selector}'`,
-  OPTION_MATCHERS_DATA_TYPE_ERROR: selector =>
-    `Invalid data type given in options.matchers for createFocusTrap. Expected: Array. Selector given: '${selector}'`,
-  OPTION_CHILDREN_DATA_TYPE_ERROR: selector =>
-    `Invalid data type given in options.children for createFocusTrap. Expected: Array. Selector given: '${selector}'`,
+    "createFocusTrap must be given one or both of: first parameter (as selector string) and/or options.children (array of elements).",
+  OPTION_USE_ARROWS_DATA_TYPE_ERROR:
+    "Invalid data type given to options.useArrows for createFocusTrap. Expected: Boolean.",
+  OPTION_MATCHERS_DATA_TYPE_ERROR:
+    "Invalid data type given to options.matchers for createFocusTrap. Expected: Array.",
+  OPTION_CHILDREN_DATA_TYPE_ERROR:
+    "Invalid data type given to options.children for createFocusTrap. Expected: Array-Like.",
   NO_PARENT_FOUND_IN_SCOPE: id => `Element couldn't be found with selector string: '${id}'`,
   DUPLICATE_SCOPE_ERROR: id =>
     `You tried to start an Undernet component with scope '${id}', but that scope is already active.\n\nYou must call COMPONENT_NAME.stop(scopeSelector) first, then.`,
@@ -126,6 +126,11 @@ export const getFocusableElements = (selectorString, matchers = Selectors.FOCUSA
  */
 export const iOSMobile = isBrowserEnv ? /(iphone|ipod|ipad)/i.test(navigator.userAgent) : false
 
+const isElementCollection = value => {
+  if (!isBrowserEnv || !value.constructor) return false
+  return value.constructor.name === "NodeList" || value.constructor.name === "HTMLCollection"
+}
+
 /**
  * Factory function that creates focus trap helpers.
  *
@@ -146,8 +151,8 @@ export const iOSMobile = isBrowserEnv ? /(iphone|ipod|ipad)/i.test(navigator.use
  * focusTrap.start()
  * ```
  *
- * @param {String} container
- * @param {{ useArrows: Boolean, children: (Array<Element>|NodeList<Element>), matchers: Array<String> }} options
+ * @param {String} selectorString
+ * @param {{ useArrows: Boolean, children: (Array<Element>|NodeList), matchers: Array<String> }} options
  * @returns {{ start: Function, stop: Function }}
  */
 export const createFocusTrap = (selectorString, options = {}) => {
@@ -160,17 +165,17 @@ export const createFocusTrap = (selectorString, options = {}) => {
   }
 
   if (typeof useArrows !== "boolean") {
-    log(Messages.OPTION_USE_ARROWS_DATA_TYPE_ERROR(selectorString))
+    log(Messages.OPTION_USE_ARROWS_DATA_TYPE_ERROR)
     return
   }
 
   if (!Array.isArray(matchers)) {
-    log(Messages.OPTION_MATCHERS_DATA_TYPE_ERROR(selectorString))
+    log(Messages.OPTION_MATCHERS_DATA_TYPE_ERROR)
     return
   }
 
-  if (!Array.isArray(children)) {
-    log(Messages.OPTION_CHILDREN_DATA_TYPE_ERROR(selectorString))
+  if (!Array.isArray(children) && !isElementCollection(children)) {
+    log(Messages.OPTION_CHILDREN_DATA_TYPE_ERROR)
     return
   }
 
@@ -369,7 +374,7 @@ const filterByAttrValue = (elements, attribute, error) => {
 /**
  * Options necessary to set a library of components on a class instance.
  *
- * @typedef {Object} SetComponentsParams
+ * @typedef {Object} SetComponentsOptions
  * @param {Object} options.thisArg
  * @param {String} options.scopeId
  * @param {String} options.scopeKey
@@ -382,7 +387,7 @@ const filterByAttrValue = (elements, attribute, error) => {
 /**
  * Assigns queried elements to a scope.
  *
- * @param {SetComponentsParams} options
+ * @param {SetComponentsOptions} options
  */
 const assignScope = (options = {}) => {
   const {
@@ -426,16 +431,12 @@ const assignScope = (options = {}) => {
 /**
  * Assigns queried elements to the global scope.
  *
- * @param {SetComponentsParams} options
+ * @param {SetComponentsOptions} options
  */
 const assignGlobal = (options = {}) => {
   const { thisArg, scopeKey, componentAttribute, globalKey, errorMessage, filterFn } = options
-
-  // If no scopeId is given, search the whole document for
-  // components, then assign the elements to an instance property.
-
-  let elements = dom.findAll(`[${componentAttribute}]`)
   const scopes = thisArg[scopeKey]
+  let elements = dom.findAll(`[${componentAttribute}]`)
 
   if (typeof filterFn === "function") elements = filterFn(elements)
 
@@ -462,7 +463,7 @@ const assignGlobal = (options = {}) => {
 /**
  * Set either a scope or global component library on a class instance.
  *
- * @param {SetComponentsParams} options
+ * @param {SetComponentsOptions} options
  */
 export const setComponents = (options = {}) => {
   if (options.scopeId) {

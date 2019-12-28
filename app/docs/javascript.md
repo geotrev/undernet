@@ -1,41 +1,44 @@
-The API for Undernet's scripts is straightforward. The main rule of thumb is to use the scripts when you know the DOM is fully rendered.
+The JS API for Undernet is fairly straightforward. The main rule of thumb is to only use the JS when you know the DOM is fully parsed and ready.
 
 Enabling Undernet, including all its component plugins, is as easy as this:
 
 ```html
-<script src="path/to/undernet.js"></script>
-<script>
-  // Undernet will be attached to the `window`
-  if (document) document.addEventListener("DOMContentLoaded", Undernet.start)
-</script>
+<body>
+  <!-- at the end of the body tag -->
+  <script src="path/to/undernet.min.js"></script>
+  <script>
+    // Undernet will be attached to the `window`
+    if (document) document.addEventListener("DOMContentLoaded", Undernet.start)
+  </script>
+</body>
 ```
 
 ## Core API
 
-There are a few ways to use Undernet. The most direct way is using the `start` and `stop` methods off the default `Undernet` object:
+You can enable and disable all components on the global `Undernet` object using the `start` and `stop` methods.
 
 ### start
 
 ```js
-Undernet.start(scopeString, enableFocusRing)
+Undernet.start(scopeString, useFocusRing)
 ```
 
 #### `scopeString` (string)
 
 Default: `undefined`
 
-Limits Undernet's initialization to a specific DOM with selector string `scopeString`. E.g., `#my-element-id`.
+Limits Undernet's initialization to a specific DOM with selector string `scopeString`. E.g., `#my-element-id`. Scroll down to learn more.
 
-#### `enableFocusRing` (boolean)
+#### `useFocusRing` (boolean)
 
 Default: `false`
 
-Enables a utility which adds a distinct focus ring on elements focused while using a keyboard.
+Enables a utility which adds a distinct focus ring on elements focused while using a keyboard. Scroll down to learn more.
 
 ### stop
 
 ```js
-Undernet.stop(scopeString, enableFocusRing)
+Undernet.stop(scopeString, useFocusRing)
 ```
 
 #### `scopeString` (string)
@@ -44,37 +47,57 @@ Default: `undefined`
 
 Runs a teardown of components previously initialized via `start(scopeString)`.
 
-#### `enableFocusRing` (boolean)
+#### `useFocusRing` (boolean)
 
 Default: `false`
 
 Disables the focus ring utility.
 
-## Using Modules
+## Individual Components
 
-If you use npm, the default export is the `Undernet` object. Importing this gives you everything, including all JS components and utilities.
+You can use the same API above to enable or disable individual components, as well. The main difference is there isn't a second `useFocusRing` parameter. 
+
+### start
 
 ```js
-import Undernet from "undernet" 
+Undernet.Modals.start()
+Undernet.Accordions.start("#wrapper-element")
+// or, if you're using named imports via npm:
+Modals.start()
+Accordions.start("#wrapper-element")
 ```
 
-You can also do a named import of just one component. Bonus: it's tree-shakable if you use tools which enable it (webpack and rollup both offer it out of the box).
+### stop
 
 ```js
-import { Modals, createFocusRing } from "undernet"
+Undernet.Modals.stop()
+Undernet.Accordions.stop("#wrapper-element")
+// or, if you're using named imports via npm:
+Modals.stop()
+Accordions.stop("#wrapper-element")
+```
+
+## Using Modules
+
+If you use npm, the default export is the `Undernet` object, whose API is the same as above.
+
+```js
+import Undernet from "undernet"
+Undernet.start()
+```
+
+You can also do a named import of just one component or utility. Bonus: it's tree-shakable if you use tools which enable the feature (webpack and rollup, for example).
+
+```js
+import { Modals } from "undernet"
+Modals.start()
 ```
 
 ## Scope
 
-Undernet is a global framework by default. This means it will capture the entire document when searching for its component instances. Sadly that won't mesh well when you're using UI frameworks like React, for example, where React components could be tapping into Undernet with redundancy. If you do this in the ways described in the sections above, you'll inadvertently reset Undernet's internal trackers, resulting in components being changed outside the scope of your given React component.
+By default, the `start` and `stop` methods will search the entire DOM to enable/disable components. This is undesirable in frameworks like React, which are fragment-based. To work around this issue, you can pass a selector string which will keep track of Undernet only within the scope specified.
 
-The solution? **Force initialization to a DOM fragment.** You can achieve this by passing a selector string to the `start` and `stop` methods of Undernet or one of its components. The selector string will be queried and Undernet will limit its search to within that element.
-
-Let's look at some examples, using React with hooks to demonstrate how scope works.
-
----
-
-As described, the DOM must be ready before Undernet can run. Run `.start` in a `useEffect` block with no dependencies (empty array) so it only runs once. Likewise, when the component(s) are about to removed from the DOM, stop Undernet by returning a function which calls `.stop`. Use the outer-most element's id as your scope string.
+As a practical but simple example, `start` Undernet or a single component when the React component is mounted, and then `stop` if the React component will be unmounted. Use the ID selector (or class, attribute, etc) of the outermost element for the scope:
 
 ```js
 export default function Sidebar(props) {
@@ -88,30 +111,31 @@ export default function Sidebar(props) {
 }
 ```
 
-Now all Collapsibles used are scoped to the markup defined in `<Sidebar />`.
+Now all Collapsibles used are scoped to the `#sidebar-wrapper` element!
 
-NOTE: Don't initialize an Undernet scope within a child React component. This will duplicate events and cause unexpected behavior.
+NOTE: Be careful about using Undernet this way if you have child components; calling Undernet in a child will duplicate events and cause bugs.
 
 ### Handling DOM State
 
-If you're specifically removing nodes from the DOM or virtual DOM, you'll need to be careful. Undernet isn't smart enough to know that your DOM changed, but luckily most UI frameworks provide lifecycle methods that tell us the DOM is rendered or about to re-render, so we can piggy-back off that!
+If you're removing/adding nodes from/to the DOM, you'll need to be careful. Undernet isn't smart enough to know that your DOM changed. Luckily most UI frameworks provide lifecycle functionality that tells us the DOM is rendered or about to re-render, so we can piggy-back off that!
 
 Let's extend the sidebar example from before, but this time we'll toggle its visibility using a button:
 
 ```js
 export default function Sidebar(props) {
+  // We'll use a state dependency to determine when to `start` Collapsibles
   const [sidebarIsVisible, setSidebarIsVisible] = useState(true)
-  // This time, we'll remove `.start` and have this `.stop` during component unmount.
+  // No need to `start` here, but we do want to `stop` on unmount still
   useEffect(() => {
     return () => Collapsibles.stop("#sidebar-wrapper")
   }, [])
-  // Whenever sidebarIsVisible changes, we'll check its value
-  // If it's not visible, do nothing and return;
+  // Whenever sidebarIsVisible changes, we'll check its value:
+  // If it's not visible, do nothing
   // Else, it's visible, so start collapsibles in the sidebar scope
   useEffect(() => {
     if (sidebarIsVisible) Collapsibles.start("#sidebar-wrapper")
   }, [sidebarIsVisible])
-  // If the sidebar is visible, stop collapsibles before the sidebar is removed from the DOM
+  // If the sidebar is visible on click, stop collapsibles before the sidebar is removed from the DOM
   const handleClick = (e) => {
     if (sidebarIsVisible) Collapsibles.stop("#sidebar-wrapper")
     setSidebarIsVisible(!sidebarIsVisible)
@@ -127,29 +151,37 @@ export default function Sidebar(props) {
 
 In this component, we have a button that when clicked will toggle visibility of the sidebar, which has some collapsible instances inside it.
 
-When the button is clicked, we want to stop collapsibles in the DOM by checking if `sidebarIsVisible` is currently `true`, before its setter is called. If they are, set visibility to `false`.
+`Collapsibles.start` is now dependent on `sidebarIsVisible`, and will call on initial render (and subsequent re-renders) if the state is `true`.
 
-Then, when `sidebarIsVisible` is `true` again (sometime in the future), we know the sidebar DOM is ready, so we can start collapsibles again. 
+When the button is clicked, we want to stop collapsibles if `sidebarIsVisible` is currently `true`, but before state is flipped in the setter.
+
+The cycle continues for each time the button is clicked.
 
 ## Utilities
 
-Undernet comes with two utilities out of the box: `createFocusRing` and `createFocusTrap`. They can be initialized with `start` and `stop` methods like the rest of the component APIs. The only difference is there is no scope available.
+Undernet comes with two utilities out of the box: `createFocusRing` and `createFocusTrap`. They can be initialized with `start` and `stop` methods. The only difference is there is no scope available.
 
 ### createFocusRing
 
 This will create global event listeners on the page for keyboard and mouse behavior.
 
-If tab, space, or arrow keys are being used, you're in "keyboard mode" so a bright focus ring will show when elements are focused.
+```js
+import { createFocusRing } from "undernet"
+const focusRing = createFocusRing()
+focusRing.start()
+```
+
+If tab, space, or arrow keys are being used, you're in "keyboard mode," enabling a bright focus ring around the actively focused element.
 
 As soon as a mouse is in use again, the ring goes away.
 
-If you use the utility, whether through `Undernet.start()` or directly like in the previous examples, you should only initialize it once on a page. Enabling it multiple times will create inconsistent behavior between keyboard and mouse interactions, showing the ring when a mouse is used, and potentially hiding it for keyboard users.
+If you use the utility, whether through this utility or `Undernet.start` or `Undernet.stop`, only initialize it **once** on a page. Enabling it multiple times will create inconsistent results.
 
 ### createFocusTrap
 
-This is less of a common utility, and moreso offered to allow you the same focus trap behavior that the components use. Better to use a utility that's not implemented two times in different ways! 
+This utility is offered in case you need the functionality outside of the components provided in Undernet.
 
-It's instantiated the same way as `createFocusRing`:
+It's instantiated the same way as `createFocusRing`, but takes two parameters:
 
 ```js
 import { createFocusTrap } from "undernet"
@@ -157,23 +189,21 @@ const focusTrap = createFocusTrap()
 focusTrap.start(selector, options)
 ```
 
-Using it is slightly different than in previous APIs.
-
 #### `selector` (string)
 
 **Required**
 
-A string to be queried in the DOM; it's the "container" of possible focusable elements.
+A string to be queried in the DOM; it will be treated as the container of possible focusable elements. If this is the only parameter given, `tab` and `shift+tab` will be the key-bindings used for trapping.
 
 ```js
-focusTrap.start(".my-element")
+focusTrap.start(".wrapper-element")
 ```
 
 #### `options` (object)
 
 Default: `{}`
 
-Change how focus behavior works or what elements to search for.
+Customize trapping behavior using the below options.
 
 ##### `options.useArrows` (boolean)
 
@@ -182,28 +212,30 @@ Default: `false`
 Trap focus using up and down arrows.
 
 ```js
-focusRing.start(".my-element", { useArrows: true })
+focusRing.start(".wrapper-element", { useArrows: true })
 ```
 
 ##### `options.children` (array)
 
-Default: `undefined`
+Default: `[]`
 
-Provide an array the nodes to be used for the focus trap behavior.
+Provide a custom array of elements to trap focus within. This overrides the element querying functionality of the utility.
 
 ```js
-const children = document.querySelectorAll(".special-button")
-focusTrap.start(null, { children })
+const children = document.querySelectorAll(".my-focusable-element")
+focusTrap.start(".wrapper-element", { children })
 ```
+
+NOTE: You should still pass a selector string for the wrapper as a fallback, in case `children` comes back empty and you aren't using a guard for that case explicitly.
 
 ##### `options.matchers` (array)
 
 Default: `["a", "button", "input", "object", "select", "textarea", "[tabindex]"]`
 
-Override the default matchers for focusable elements. You can provide a new kind of matcher, a subset of the defaults, or both:
+Override the default matchers for focusable elements. Elements with `is-visually-hidden` are _always_ excluded from the resulting focusable elements.
 
 ```js
-focusRing.start(".my-element", { matchers: ["button", "input", ".elements-with-this-class"] })
+focusRing.start(".wrapper-element", { matchers: ["button", "input", ".elements-with-this-class"] })
 ```
 
 ---
