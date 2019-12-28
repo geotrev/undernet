@@ -1,4 +1,4 @@
-Undernet's CSS is the backbone of the framework. It's written in a module format and precompiled using Sass.
+Undernet's CSS is the backbone of the framework. It's written in a module format with [Sass](https://sass-lang.com/).
 
 The framework adopts a few conventions which help provide a predictable workflow. 
 
@@ -16,21 +16,21 @@ Variables, functions, mixins, and classes each follow patterns to provide better
 
 ### Variables
 
-All Sass variables have names with a pattern of: `grouping-noun-property-value-state`. `grouping` is the only piece consistent in every variable, with a combination of the rest, and always in the same order.
+All Sass variables have names with a pattern of: `grouping-noun-value-state`. `grouping` is the only piece consistent in every variable, with a combination of the rest, and always in the same order.
 
 Here's a few examples:
 
-- `$grid-padding`: Grouping = `grid`; Property = `padding`
-- `$type-p-margin-bottom`:  Grouping = `type`; Noun = `p`; Property = `margin-bottom`
+- `$grid-padding`: Grouping = `grid`; Noun = `padding`
+- `$type-p-margin-bottom`:  Grouping = `type`; Noun = `p`; Noun = `margin-bottom`
 - `$button-base-states`: Grouping = `button`; Noun = `base-states`
-- `$link-text-decoration-hover`: Grouping = `link`; Property = `text-decoration`; State = `hover`
-- `$modal-dialog-margin-narrow`: Grouping = `modal`; Noun = `container`; Property = `margin`; State = `narrow`
+- `$link-text-decoration-hover`: Grouping = `link`; Noun = `text-decoration`; State = `hover`
+- `$modal-dialog-margin-narrow`: Grouping = `modal-dialog`; Noun = `margin`; State = `narrow`
 
-See the variables available in `_config.scss`.
+See the variables available in `_config.scss`, organized from global to component-specific.
 
 ### Functions
 
-There are only a handful of functions. Each is written as `noun-value`. A function name always describes the thing it returns. E.g., `spacing-value` takes a size, such as `xs` or `lg`, and returns the value from the `$global-spacing-increments` map.
+There are only a handful of functions. Each is written as `noun-value`. Each function name always describes the thing it returns. E.g., `spacing-value` takes a size, such as `xs` or `lg`, and returns the value from the `$global-spacing-increments` map.
 
 See the functions available in `utilities/_functions.scss`.
 
@@ -45,11 +45,11 @@ See the mixins available in `utilities/_mixins.scss`.
 Classes are a bit more unique compared to variables or other Sass utilities. Classes take one of two flavors, a **Root** or a **Modifier**. They are named using a pattern similar to that of Sass variables.
 
 - Root classes use nouns.
-- Modifier classes have the structure `verb-breakpoint-property-value-size`. A verb prefix is _always_ present. E.g., `is-*`, or `has-*`.
+- Modifier classes have the structure `verb-breakpoint-noun-value-size`. A verb prefix is _always_ present. E.g., `is-*`, or `has-*`.
 
 #### Roots
 
-As explained, a Root class describes an object, so it's a noun.
+As explained, a Root class describes an object, e.g. a noun.
 
 Examples include `dropdown-menu`, `button`, or `grid`.
 
@@ -67,7 +67,7 @@ Here's a few examples:
 
 ## Style Scope
 
-Undernet has a special feature that helps you control where its styles are applied. When enabled, a scope will enforce that a pre-defined class exists around any elements using framework styling.
+Undernet has a special feature that helps you control where its styles are applied. When enabled, a scope will enforce that an element with a pre-defined class exists around any HTML in the document using framework styling.
 
 As an example, let's say we enable the scope:
 
