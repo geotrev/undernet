@@ -8,10 +8,6 @@ module.exports = {
     // CSS
     // https://github.com/stylelint/stylelint/blob/master/docs/user-guide/rules.md
 
-    // This will be flagged by the script `scss:lint:check`
-    // Please ignore the error :)
-    "rule-empty-line-before": [ALWAYS, { except: ["first-nested"], ignore: ["after-comment"] }],
-
     "at-rule-blacklist": ["debug"],
     "at-rule-name-space-after": ALWAYS,
     "at-rule-no-vendor-prefix": true,
@@ -59,8 +55,6 @@ module.exports = {
 
     "length-zero-no-unit": true,
 
-    linebreaks: "unix",
-
     "max-nesting-depth": [3, { ignore: ["pseudo-classes", "blockless-at-rules"] }],
 
     "media-feature-colon-space-after": ALWAYS,
@@ -75,7 +69,6 @@ module.exports = {
     "no-duplicate-at-import-rules": true,
     "no-duplicate-selectors": true,
     "no-empty-source": true,
-    "no-empty-first-line": true,
     "no-invalid-double-slash-comments": true,
     "no-unknown-animations": true,
 
