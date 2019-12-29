@@ -3,8 +3,9 @@
   <head>
     {{ include head.html }}
   </head>
+
   <body>
-    {% include global-navigation.html %} {{ content }}
+    {% include global-navigation.html %} {% include side-navigation.html %} {{ content }}
     <noscript>You need to enable JavaScript to view this website. :(</noscript>
   </body>
 </html>
