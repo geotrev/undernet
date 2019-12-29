@@ -21,12 +21,12 @@ const Events = {
 const Messages = {
   NO_SELECTOR_STRING_OR_CHILDREN_ERROR:
     "createFocusTrap must be given one or both of: first parameter (as selector string) and/or options.children (array of elements).",
-  OPTION_USE_ARROWS_DATA_TYPE_ERROR:
-    "Invalid data type given to options.useArrows for createFocusTrap. Expected: Boolean.",
   OPTION_MATCHERS_DATA_TYPE_ERROR:
     "Invalid data type given to options.matchers for createFocusTrap. Expected: Array.",
-  OPTION_CHILDREN_DATA_TYPE_ERROR:
-    "Invalid data type given to options.children for createFocusTrap. Expected: Array-Like.",
+  INCORRECT_MATCHER_TYPE_ERROR: type =>
+    `Invalid matcher given to options.matchers for createFocusTrap. Expected: String. Recieved: ${type}.`,
+  NO_MATCHER_LENGTH_ERROR:
+    "Invalid value given to options.matchers for createFocusTrap; value must be an array with at least one selector string",
   NO_PARENT_FOUND_IN_SCOPE: id => `Element couldn't be found with selector string: '${id}'`,
   DUPLICATE_SCOPE_ERROR: id =>
     `You tried to start an Undernet component with scope '${id}', but that scope is already active.\n\nYou must call COMPONENT_NAME.stop(scopeSelector) first, then.`,
@@ -102,8 +102,8 @@ export const dom = {
  * ```
  *
  * @param {String} selectorString - The selector string of the container element.
- * @param {Array<String>} matchers - Optional matchers override. Defaults to common focusable selectors.
- * @returns {Array<Element>} Static array of HTML elements
+ * @param {String[]} matchers - Optional matchers override. Defaults to common focusable selectors.
+ * @returns {Element[]} Static array of HTML elements
  */
 export const getFocusableElements = (selectorString, matchers = Selectors.FOCUSABLE_TAGS) => {
   const focusables = matchers
@@ -126,11 +126,6 @@ export const getFocusableElements = (selectorString, matchers = Selectors.FOCUSA
  */
 export const iOSMobile = isBrowserEnv ? /(iphone|ipod|ipad)/i.test(navigator.userAgent) : false
 
-const isElementCollection = value => {
-  if (!isBrowserEnv || !value.constructor) return false
-  return value.constructor.name === "NodeList" || value.constructor.name === "HTMLCollection"
-}
-
 /**
  * Factory function that creates focus trap helpers.
  *
@@ -152,36 +147,40 @@ const isElementCollection = value => {
  * ```
  *
  * @param {String} selectorString
- * @param {{ useArrows: Boolean, children: (Array<Element>|NodeList), matchers: Array<String> }} options
+ * @param {{ useArrows, children: (NodeList|Element[]), matchers: String[] }} options - useArrows is coerced to true/false.
  * @returns {{ start: Function, stop: Function }}
  */
 export const createFocusTrap = (selectorString, options = {}) => {
   if (!isBrowserEnv) return
-  const { useArrows = false, children = [], matchers = Selectors.FOCUSABLE_TAGS } = options
+  const { useArrows, children, matchers = Selectors.FOCUSABLE_TAGS } = options
 
   if (!selectorString && !children.length) {
     log(Messages.NO_SELECTOR_STRING_OR_CHILDREN_ERROR)
     return
   }
 
-  if (typeof useArrows !== "boolean") {
-    log(Messages.OPTION_USE_ARROWS_DATA_TYPE_ERROR)
-    return
-  }
-
   if (!Array.isArray(matchers)) {
     log(Messages.OPTION_MATCHERS_DATA_TYPE_ERROR)
     return
-  }
+  } else if (matchers.length) {
+    let hasBadMatcher = false
 
-  if (!Array.isArray(children) && !isElementCollection(children)) {
-    log(Messages.OPTION_CHILDREN_DATA_TYPE_ERROR)
+    matchers.forEach(matcher => {
+      const type = typeof matcher
+      if (type !== "string") {
+        log(Messages.INCORRECT_MATCHER_TYPE_ERROR(type))
+        hasBadMatcher = true
+      }
+    })
+
+    if (hasBadMatcher) return
+  } else if (!matchers.length) {
+    log(Messages.NO_MATCHER_LENGTH_ERROR)
     return
   }
 
-  const focusableChildren = children.length
-    ? children
-    : getFocusableElements(selectorString, matchers)
+  const focusableChildren =
+    children && children.length ? children : getFocusableElements(selectorString, matchers)
   const focusableFirstChild = focusableChildren[0]
   const focusableLastChild = focusableChildren[focusableChildren.length - 1]
 
@@ -354,7 +353,7 @@ export const focusOnce = element => {
 /**
  * Filters an array of elements by if a given attribute has a value.
  *
- * @param {Array<Element>} elements
+ * @param {Element[]} elements
  * @param {String} attribute
  * @param {String} errorMessage
  */

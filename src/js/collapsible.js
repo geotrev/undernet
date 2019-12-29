@@ -116,7 +116,7 @@ export default class Collapsible {
   /**
    * Toggles the collapsible.
    *
-   * @param {{ collapsible: Element, trigger: Element, content: Element, id: String, nextAriaExpandState: Boolean, nextAriaHiddenState: Boolean }} metadata
+   * @param {{ collapsible: Element, trigger: Element, content: Element, id: String, nextAriaExpandState: String, nextAriaHiddenState: String }} metadata
    */
   toggleCollapsible(metadata = {}) {
     const { collapsible, trigger, content, id, nextAriaExpandState, nextAriaHiddenState } = metadata
