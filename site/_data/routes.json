@@ -1,0 +1,27 @@
+{
+  "root": "/",
+
+  "introduction": "/overview/introduction/",
+  "download": "/overview/download/",
+  "css": "/overview/css/",
+  "javascript": "/overview/javascript/",
+
+  "grid": "/layout/grid/",
+  "alignment": "/layout/alignment/",
+  "offset_order": "/layout/offset-order/",
+  "spacing": "/layout/spacing/",
+
+  "buttons": "/elements/buttons/",
+  "forms": "/elements/forms/",
+  "typography": "/elements/typography/",
+
+  "collapsibles": "/components/collapsibles/",
+  "accordions": "/components/accordions/",
+  "dropdowns": "/components/dropdowns/",
+  "modals": "/components/modals/",
+  "tooltips": "/components/tooltips/",
+
+  "color": "/utilities/color/",
+  "display": "/utilities/display/",
+  "text": "/utilities/text/"
+}

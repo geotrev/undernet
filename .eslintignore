@@ -1,4 +1,11 @@
-/node_modules/
-/build/
-/dist/
-/lib/
+# npm
+node_modules/
+
+# lib
+lib/
+dist/
+
+# jekyll
+_site/
+.jekyll-cache
+site/assets/js/

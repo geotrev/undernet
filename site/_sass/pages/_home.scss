@@ -1,0 +1,82 @@
+@import "../globals";
+@import "../layout";
+
+@mixin bg-gradient {
+  background: #3f48af;
+  background: -webkit-linear-gradient(right, #3e46af, #d15ded);
+  background: -moz-linear-gradient(right, #3e46af, #d15ded);
+  background: linear-gradient(to left, #3e46af, #d15ded);
+}
+
+#home {
+  width: 100%;
+  display: block;
+
+  .icons {
+    background-color: $color-dark-blue;
+
+    p {
+      margin: 0 8px;
+
+      @include create-breakpoint-down(lg) {
+        margin-bottom: 24px;
+      }
+    }
+  }
+
+  .hero {
+    background-image: url("/assets/img/grid-bg.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
+    h1 {
+      margin-bottom: 0;
+    }
+
+    h2 {
+      font-weight: normal;
+    }
+
+    a {
+      margin: 8px;
+    }
+
+    .un-version {
+      color: $color-gray800;
+    }
+
+    .badges {
+      display: inline-flex;
+      margin: 0 auto;
+      flex: 0 1 auto;
+      flex-flow: row wrap;
+      justify-content: center;
+      padding: 5px 5px 0 5px;
+
+      p {
+        margin: 0;
+        text-align: center;
+      }
+
+      a {
+        margin: 0;
+      }
+    }
+  }
+
+  .has-gradient {
+    @include bg-gradient;
+    border-color: #3f48af;
+    border-width: 2px;
+    border-style: solid;
+    opacity: 0.75;
+    font-weight: bold;
+
+    &:hover,
+    &:focus,
+    &:active {
+      opacity: 1;
+    }
+  }
+}

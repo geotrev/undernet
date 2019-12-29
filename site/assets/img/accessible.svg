@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="50px" height="50px" viewBox="0 0 50 50" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <desc>Created with Lunacy</desc>
+  <defs>
+    <path d="M0 0L50 0L50 50L0 50L0 0Z" id="path_1" />
+    <rect width="50" height="50" id="artboard_1" />
+    <clipPath id="clip_1">
+      <use xlink:href="#artboard_1" clip-rule="evenodd" />
+    </clipPath>
+    <clipPath id="clip_2">
+      <use xlink:href="#path_1" />
+    </clipPath>
+  </defs>
+  <g id="accessible" clip-path="url(#clip_1)">
+    <use xlink:href="#artboard_1" stroke="none" fill="#FFFFFF" fill-opacity="0" />
+    <g id="Group-19" transform="translate(0 1)">
+      <g id="Group-5" transform="translate(2 5)">
+        <g id="heart-copy">
+          <path d="M41.5301 3.44788C39.3094 1.2403 36.2969 -1.89992e-15 33.1557 0C30.0145 9.49959e-16 27.002 1.2403 24.7814 3.44788L22.4994 5.71535L20.2175 3.44788C15.5924 -1.14777 8.09379 -1.14777 3.46877 3.44788C-1.15626 8.04354 -1.15626 15.4946 3.46877 20.0902L5.75073 22.3577L22.4994 39L39.2481 22.3577L41.5301 20.0902C43.7518 17.8837 45 14.8903 45 11.769C45 8.64778 43.7518 5.65443 41.5301 3.44788Z" id="Shape" fill="none" stroke="#3E46AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </g>
+        <g id="heart-copy" transform="translate(12.54871 12)">
+          <path d="M18.1199 1.43825C17.151 0.517379 15.8366 -7.92533e-16 14.4661 0C13.0955 3.96267e-16 11.7812 0.517379 10.8123 1.43825L9.81666 2.38411L8.82102 1.43825C6.80309 -0.478781 3.53138 -0.478781 1.51345 1.43825C-0.504483 3.35529 -0.504483 6.46342 1.51345 8.38045L2.50908 9.3263L9.81666 16.2685L17.1242 9.3263L18.1199 8.38045C19.0892 7.46001 19.6338 6.21136 19.6338 4.90935C19.6338 3.60734 19.0892 2.3587 18.1199 1.43825Z" id="Shape" fill="none" stroke="#D15DED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </g>
+      </g>
+      <g id="Rectangle-6-Copy">
+        <g clip-path="url(#clip_2)">
+          <use xlink:href="#path_1" fill="none" stroke="#979797" stroke-opacity="0" stroke-width="2" />
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

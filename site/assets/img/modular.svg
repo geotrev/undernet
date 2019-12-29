@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="50px" height="50px" viewBox="0 0 50 50" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <desc>Created with Lunacy</desc>
+  <defs>
+    <rect width="50" height="50" id="artboard_1" />
+    <clipPath id="clip_1">
+      <use xlink:href="#artboard_1" clip-rule="evenodd" />
+    </clipPath>
+  </defs>
+  <g id="modular" clip-path="url(#clip_1)">
+    <use xlink:href="#artboard_1" stroke="none" fill="#FFFFFF" fill-opacity="0" />
+    <g id="Group-16" transform="translate(2 3)">
+      <g id="Group-6">
+        <g id="box-copy-2" transform="translate(13 0)">
+          <path d="M10.89 0.208939L18.89 4.20894C19.5697 4.54667 19.9996 5.24 20 5.99894L20 15.5289C19.9996 16.2879 19.5697 16.9812 18.89 17.3189L10.89 21.3189C10.3267 21.6008 9.66342 21.6008 9.10005 21.3189L1.10005 17.3189C0.421041 16.9768 -0.00524264 16.2793 4.86972e-05 15.5189L4.86972e-05 5.99894C0.000451423 5.24 0.430391 4.54667 1.11005 4.20894L9.11005 0.208939C9.67068 -0.0696463 10.3294 -0.0696463 10.89 0.208939Z" transform="translate(-4.869719E-05 0.2410611)" id="Shape" fill="none" stroke="#D15DED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M0 0L9.68 4.84L19.36 0" transform="translate(0.32 5.16)" id="Shape" fill="none" stroke="#D15DED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M0 11.76L0 0" transform="translate(10 10)" id="Shape" fill="none" stroke="#D15DED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </g>
+        <g id="box" transform="translate(0 22)">
+          <path d="M10.89 0.208939L18.89 4.20894C19.5697 4.54667 19.9996 5.24 20 5.99894L20 15.5289C19.9996 16.2879 19.5697 16.9812 18.89 17.3189L10.89 21.3189C10.3267 21.6008 9.66342 21.6008 9.10005 21.3189L1.10005 17.3189C0.421041 16.9768 -0.00524264 16.2793 4.86972e-05 15.5189L4.86972e-05 5.99894C0.000451423 5.24 0.430391 4.54667 1.11005 4.20894L9.11005 0.208939C9.67068 -0.0696463 10.3294 -0.0696463 10.89 0.208939Z" transform="translate(-4.869719E-05 0.2410611)" id="Shape" fill="none" stroke="#3E46AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M0 0L9.68 4.84L19.36 0" transform="translate(0.32 5.16)" id="Shape" fill="none" stroke="#3E46AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M0 11.76L0 0" transform="translate(10 10)" id="Shape" fill="none" stroke="#3E46AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </g>
+        <g id="box-copy" transform="translate(26 22)">
+          <path d="M10.89 0.208939L18.89 4.20894C19.5697 4.54667 19.9996 5.24 20 5.99894L20 15.5289C19.9996 16.2879 19.5697 16.9812 18.89 17.3189L10.89 21.3189C10.3267 21.6008 9.66342 21.6008 9.10005 21.3189L1.10005 17.3189C0.421041 16.9768 -0.00524264 16.2793 4.86972e-05 15.5189L4.86972e-05 5.99894C0.000451423 5.24 0.430391 4.54667 1.11005 4.20894L9.11005 0.208939C9.67068 -0.0696463 10.3294 -0.0696463 10.89 0.208939Z" transform="translate(-4.869719E-05 0.2410611)" id="Shape" fill="none" stroke="#3E46AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M0 0L9.68 4.84L19.36 0" transform="translate(0.32 5.16)" id="Shape" fill="none" stroke="#3E46AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M0 11.76L0 0" transform="translate(10 10)" id="Shape" fill="none" stroke="#3E46AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

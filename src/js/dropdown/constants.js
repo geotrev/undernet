@@ -20,7 +20,6 @@ export const Selectors = {
   ARIA_CONTROLS: "aria-controls",
   ARIA_LABELLEDBY: "aria-labelledby",
   ARIA_EXPANDED: "aria-expanded",
-  ROLE: "role",
 }
 
 export const Events = {

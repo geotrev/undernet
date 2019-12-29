@@ -1,0 +1,76 @@
+<div id="home">
+  <div class="is-section-md is-fluid grid hero">
+    <div class="row">
+      <div class="is-xs-12 column has-text-center">
+        <h1 class="h3">{{ page.title }}</h1>
+      </div>
+
+      <div class="is-xs-12 column has-text-center">
+        <a href="{{ site.data.routes.download }}" class="button has-feather">
+          Download
+          {% include partials/icons/chevron-right.html %}
+        </a>
+        <a href="{{ site.data.routes.introduction }}" class="button is-primary has-gradient has-feather">
+          Learn More
+          {% include partials/icons/chevron-right.html %}
+        </a>
+      </div>
+
+      <div class="is-xs-12 column has-text-center">
+        <p class="un-version has-no-m">
+          Version:
+          {{ site.package.version }}
+        </p>
+      </div>
+
+      <div class="is-xs-12 column badges">
+        {% include partials/badges.html %}
+      </div>
+    </div>
+  </div>
+
+  <div class="is-section-md is-fluid grid icons">
+    <div class="row has-no-p">
+      <div class="column has-no-p">
+        <div class="wide grid">
+          <ul class="row has-unstyled-list has-no-p">
+            {% for icon in site.data.home_icons %}
+              <li class="is-lg-3 is-sm-6 is-xs-12 column has-text-center has-no-p-block-end">
+                <img alt="" role="presentation" src="{{ icon.src }}"/>
+                <h2 class="h6 has-white-text-color">{{ icon.title }}</h2>
+                <p class="has-white-text-color">{{ icon.subtitle }}</p>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="is-section-md is-narrow grid">
+    <div class="row">
+      <div class="is-xs-12 column has-text-center">
+        <h2 class="h4">Painless Setup</h2>
+        <p>Install with npm:</p>
+        <span class="has-text-start">
+          {% include partials/install-npm.html %}
+        </span>
+      </div>
+
+      <div class="is-xs-12 column has-text-center">
+        <p>Or link to minified assets:</p>
+        <span class="has-text-start">
+          {% include partials/install-cdn.html %}
+        </span>
+      </div>
+
+      <div class="is-xs-12 column has-text-center">
+        <p>See how Undernet can improve your developer experience!</p>
+        <a class="is-primary button has-gradient has-feather" href="{{ site.data.routes.introduction }}">
+          Learn More
+          {% include partials/icons/chevron-right.html %}
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

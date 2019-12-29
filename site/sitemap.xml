@@ -1,0 +1,66 @@
+---
+---
+
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>{{ site.url }}/components/accordions</loc>
+  </url>
+  <url>
+    <loc>{{ site.url }}/layout/alignment</loc>
+  </url>
+  <url>
+    <loc>{{ site.url }}/elements/buttons</loc>
+  </url>
+  <url>
+    <loc>{{ site.url }}/components/collapsibles</loc>
+  </url>
+  <url>
+    <loc>{{ site.url }}/utilities/color</loc>
+  </url>
+  <url>
+    <loc>{{ site.url }}/overview/css</loc>
+  </url>
+  <url>
+    <loc>{{ site.url }}/utilities/display</loc>
+  </url>
+  <url>
+    <loc>{{ site.url }}/overview/download</loc>
+  </url>
+  <url>
+    <loc>{{ site.url }}/components/dropdowns</loc>
+  </url>
+  <url>
+    <loc>{{ site.url }}/elements/forms</loc>
+  </url>
+  <url>
+    <loc>{{ site.url }}/layout/grid</loc>
+  </url>
+  <url>
+    <loc>{{ site.url }}/</loc>
+  </url>
+  <url>
+    <loc>{{ site.url }}/overview/introduction</loc>
+  </url>
+  <url>
+    <loc>{{ site.url }}/overview/javascript</loc>
+  </url>
+  <url>
+    <loc>{{ site.url }}/components/modals</loc>
+  </url>
+  <url>
+    <loc>{{ site.url }}/layout/offset-order</loc>
+  </url>
+  <url>
+    <loc>{{ site.url }}/layout/spacing</loc>
+  </url>
+  <url>
+    <loc>{{ site.url }}/utilities/text</loc>
+  </url>
+  <url>
+    <loc>{{ site.url }}/components/tooltips</loc>
+  </url>
+  <url>
+    <loc>{{ site.url }}/elements/typography</loc>
+  </url>
+</urlset>

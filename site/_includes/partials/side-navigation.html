@@ -1,0 +1,42 @@
+<div class="is-xs-12 is-xl-2 column has-no-p" id="side-nav">
+  <div class="side-nav-wrapper">
+    <div class="row is-d-flex is-xl-d-none side-nav-expand">
+      <button aria-controls="nav-accordion-menu" aria-expanded="false" class="has-justify-content-center has-align-items-center is-d-flex is-xl-d-none" id="side-nav-menu-button" type="button">
+        {% include partials/icons/menu.html %}
+        <span class="has-black-text-color">Explore</span>
+      </button>
+    </div>
+
+    <nav class="row side-nav-menu accordion has-p-lg" data-accordion="nav-accordion" id="nav-accordion-menu">
+      <p class="version-text has-no-p has-gray800-text-color is-xs-12 column">
+        Version
+        {{ site.package.version }}
+      </p>
+
+      {% for section in site.data.side_nav_sections %}
+        {% assign collapsible_id = "nav-collapsible--" | append: section.header | downcase %}
+
+        <div class="collapsible is-xs-12 column has-no-p" data-collapsible="{{ collapsible_id }}" data-visible="false">
+          <h4 class="paragraph">
+            <button class="collapsible-trigger" data-parent="nav-accordion" data-target="{{ collapsible_id }}" id="nav-collapsible-trigger-{{ forloop.index }}">
+              {{ section.header }}
+            </button>
+          </h4>
+
+          <ul class="collapsible-content" id="{{ collapsible_id }}">
+            {% for item in section.items %}
+              {% assign selector_string = item.name | replace: " / ", "-" | downcase %}
+
+              <li>
+                <a id="nav-link--{{ selector_string }}" class="side-nav-link-item has-black-text-color is-d-flex has-align-items-center" href="{{ item.url }}">
+                  {{item.name}}
+                  {% include partials/icons/chevron-right.html %}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endfor %}
+    </nav>
+  </div>
+</div>

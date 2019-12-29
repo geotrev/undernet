@@ -1,0 +1,39 @@
+<header>
+  <nav class="is-fluid has-no-p grid" id="page-header">
+    <ul class="nav-list row has-no-p">
+      <li class="is-sm-5 is-xs-12 column">
+        <a class="logo" href={{ site.data.routes.root }}>
+          <img alt="Undernet" src="/assets/img/un-logo.png"/>
+        </a>
+      </li>
+      <li class="is-sm-7 is-xs-12 column">
+        <ul class="row">
+          <li>
+            <button class="is-visually-hidden-focusable" type="button">
+              Skip to main content
+            </button>
+          </li>
+          <li>
+            <a class="has-feather" href="https://npmjs.com/package/undernet">
+              {% include partials/icons/npm-logo.html %}
+              <span class="is-visually-hidden">Open link to www.npmjs.com/package/undernet</span>
+            </a>
+          </li>
+          <li>
+            <a class="has-feather" href="https://www.github.com/geotrev/undernet">
+              {% include partials/icons/github.html %}
+              <span class="is-visually-hidden">
+                Open link to www.github.com/geotrev/undernet
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href={{ site.data.routes.introduction }}>
+              Documentation
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</header>

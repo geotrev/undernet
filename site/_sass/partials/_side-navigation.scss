@@ -1,0 +1,120 @@
+@import "../globals";
+
+#side-nav {
+  background: transparent;
+
+  @include create-breakpoint(xl) {
+    border-right: 3px solid $color-gray900;
+  }
+}
+
+.side-nav-wrapper {
+  padding: 0;
+
+  // Menu is fixed and width is relative to #side-nav
+
+  @include create-breakpoint(xl) {
+    position: sticky;
+    top: 0;
+  }
+
+  .side-nav-expand {
+    background: $color-white;
+
+    @include create-breakpoint(xs) {
+      border-bottom: 1px solid $color-gray900;
+    }
+
+    @include create-breakpoint(xl) {
+      border-bottom: none;
+    }
+
+    > button {
+      width: 100%;
+      padding: 20px;
+      text-decoration: none;
+      margin: $global-border-width;
+      border: none;
+      color: $color-primary;
+      border-radius: 0;
+
+      svg {
+        @include create-flow-property("margin-right", 8px);
+      }
+    }
+  }
+
+  .version-text {
+    font-size: 14px;
+    padding-bottom: 8px;
+  }
+
+  .side-nav-menu {
+    h4 {
+      color: $color-black;
+      font-weight: $global-font-weight-bold;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+      flex: 1 1 auto;
+
+      li {
+        padding: 0;
+      }
+
+      svg {
+        @include create-flow-property("margin-left", 4px);
+        transition: 150ms ease-out;
+        color: $color-gray800;
+      }
+    }
+
+    .side-nav-link-item {
+      @include create-link-color;
+      display: block;
+      font-size: 16px;
+      line-height: 36px;
+      text-decoration: none;
+
+      &:hover,
+      &:active,
+      &:focus {
+        svg {
+          @include create-flow-property("margin-left", 8px);
+          color: $color-primary;
+        }
+      }
+
+      &.active {
+        color: $color-primary !important;
+      }
+    }
+
+    // collapsible overrides
+
+    &[data-accordion] {
+      border: none;
+      border-radius: 0;
+    }
+
+    [data-target] {
+      @include create-link-color($color-gray400);
+      background: transparent;
+      padding: 8px 0;
+      font-weight: bold;
+    }
+
+    .collapsible-content {
+      background: transparent;
+      border: none;
+
+      a {
+        @include create-flow-property("padding-left", 8px);
+        margin: 4px;
+      }
+    }
+  }
+}

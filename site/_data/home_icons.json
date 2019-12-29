@@ -1,0 +1,22 @@
+[
+  {
+    "title": "Tiny",
+    "subtitle": "CSS and JS is 17kb minified + gzipped; you can be assured performance isn’t an issue.",
+    "src": "/assets/img/small.svg"
+  },
+  {
+    "title": "Modular",
+    "subtitle": "Remove and namespace pieces of the framework to prevent collisions and take only what you need.",
+    "src": "/assets/img/modular.svg"
+  },
+  {
+    "title": "Configurable",
+    "subtitle": "Built for a great developer experience, you can customize and extend the library with ease.",
+    "src": "/assets/img/configurable.svg"
+  },
+  {
+    "title": "Accessible",
+    "subtitle": "Interactive components are designed with WAI-ARIA guidelines in mind to ensure your HTML is accessible.",
+    "src": "/assets/img/accessible.svg"
+  }
+]

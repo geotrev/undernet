@@ -1,0 +1,15 @@
+@import "../globals";
+
+#page-footer {
+  background: $color-dark-blue;
+
+  .has-feather {
+    @include create-link-color($color-white);
+    display: inline-block;
+    padding: $global-space;
+
+    svg {
+      @include create-flow-property("margin-left", 0);
+    }
+  }
+}
