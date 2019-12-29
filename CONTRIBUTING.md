@@ -2,11 +2,11 @@
 
 All input is good input! Contributing to this project should be as easy and transparent as possible, whether it's:
 
-* Reporting a bug
-* Discussing the current state of the code
-* Submitting a fix
-* Proposing new features
-* Becoming a maintainer
+- Reporting a bug
+- Discussing the current state of the code
+- Submitting a fix
+- Proposing new features
+- Becoming a maintainer
 
 ## We Develop with Github
 
@@ -18,11 +18,11 @@ All code changes happen through pull requests
 
 Pull requests are the best way to propose changes to the codebase. Any kind of idea or change is welcome.
 
-1.  Fork the repo and create your branch from `develop`.
-2.  If you've added code that should be tested, add tests.
-3.  If you've changed APIs, update the documentation.
-4.  If you've added dependencies, note what they are and why they are needed.
-5.  Make sure your code and tests run without errors. It's also helpful if you've done a regression check against other areas of the framework, but not strictly required.
+1. Fork the repo and create your branch from `develop`.
+2. If you've added code that should be tested, add tests.
+3. If you've changed APIs, update the documentation.
+4. If you've added dependencies, note what they are and why they are needed.
+5. Make sure your code and tests run without errors. It's also helpful if you've done a regression check against other areas of the framework, but not strictly required.
 
 ## Any contributions you make will be under the MIT Software License
 
@@ -40,11 +40,9 @@ The more detail, the less confusion!
 
 ## Use a Consistent Coding Style
 
-Reference `.prettierrc` for code styling. Run `npm run lint` to apply styling to both css and javascript, or manually apply updates to files using `prettier`:
+If you're using a code editor, make sure it has plugins for prettier, eslint, and stylelint.
 
-```sh
-$ prettier --write path/to/folder/**/*
-```
+If you don't have plugins for your editor, run `npm run prettify && npm run lint` to apply styling to both css and javascript before you commit changes.
 
 ## References
 
