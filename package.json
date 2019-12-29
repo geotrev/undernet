@@ -128,7 +128,7 @@
   ],
   "files": [
     "dist/*.{css,js,map}",
-    "lib/{esm,cjs}/*.{js,map}",
+    "lib/{esm,cjs}/**/*.{js,map}",
     "src/scss/**/*.scss"
   ],
   "repository": {

@@ -18,7 +18,10 @@ npm-error.log*
 /coverage/
 /dist/*.zip
 /public/
-/src/js/__tests__/
+/src/__tests__/
+/src/js/index.bundle.js
+/src/js/**/__tests__/
+/src/js/helpers/test/
 /test/
 
 .browserslistrc
