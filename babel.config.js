@@ -7,7 +7,7 @@ const modules = {
   emotion: "emotion",
 }
 
-const libIgnore = ["src/js/__tests__", "src/js/index.bundle.js"]
+const libIgnore = ["src/js/**/__tests__", "src/js/index.bundle.js", "src/js/helpers/test"]
 
 module.exports = api => {
   const test = api.env("test")

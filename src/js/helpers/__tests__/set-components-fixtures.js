@@ -1,5 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import { setComponents } from "../../utils"
+import { setComponents } from "../utils"
 
 const ERROR_MESSAGE = "No ID found!"
 
@@ -45,6 +45,8 @@ export class TestComponent {
   }
 }
 
+// This mimics how an Undernet component should extend another component within
+// the framework. For example, Accordion extending Collapsible.
 export class GoodExtendedComponent extends TestComponent {
   constructor() {
     super()
@@ -60,7 +62,7 @@ export class GoodExtendedComponent extends TestComponent {
       scopeId,
       scopeKey: "_extendedScopes",
       componentAttribute: "data-test-component-extended",
-      globalKey: "_components",
+      globalKey: "_extendedComponents",
       errorMessage: ERROR_MESSAGE,
       filterFn: useFilterFn ? this.filterElements : undefined,
     })
@@ -82,6 +84,9 @@ export class GoodExtendedComponent extends TestComponent {
   }
 }
 
+// This mimics how an Undernet component should _not_ be extended. Note how
+// this._scopes is using the same property name as the base TestComponent,
+// and "_components" is given to `setComponents` instead of `_extendedComponents`.
 export class BadExtendedComponent extends TestComponent {
   constructor() {
     super()

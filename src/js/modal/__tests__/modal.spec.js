@@ -1,5 +1,6 @@
-import Undernet from "../"
-import { find, renderDOM, simulateKeyboardEvent } from "./helpers"
+import Undernet from "../../"
+import { find, renderDOM, simulateKeyboardEvent } from "../../helpers/test"
+import { KeyCodes, Messages } from "../constants"
 
 const dom = `
   <button data-target="modal-id">Open modal</button>
@@ -29,10 +30,6 @@ const dom = `
   </div>
 `
 
-const KeyCodes = {
-  ESCAPE: 27,
-}
-
 console.error = jest.fn()
 
 const activeElement = () => document.activeElement
@@ -49,7 +46,7 @@ describe("Modal", () => {
       // When
       Undernet.Modals.start()
       // Then
-      expect(wrapper()).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
   })
 
@@ -63,7 +60,7 @@ describe("Modal", () => {
       Undernet.Modals.stop()
       trigger.click()
       // Then
-      expect(wrapper()).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
   })
 
@@ -80,7 +77,7 @@ describe("Modal", () => {
     })
 
     it("opens modal", () => {
-      expect(wrapper()).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
 
     it("sets focus to modal dialog", () => {
@@ -106,7 +103,7 @@ describe("Modal", () => {
     })
 
     it("closes modal", () => {
-      expect(wrapper()).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
 
     it("sets focus to modal trigger", () => {
@@ -129,7 +126,7 @@ describe("Modal", () => {
       trigger.click()
       find("[data-modal='modal-id']").click()
       // Then
-      expect(wrapper()).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
   })
 
@@ -143,7 +140,7 @@ describe("Modal", () => {
       trigger.click()
       simulateKeyboardEvent(KeyCodes.ESCAPE)
       // Then
-      expect(wrapper()).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
   })
 
@@ -234,34 +231,32 @@ const errorDom = (target, modal, parent) => `
 `
 
 describe("Modal Warnings", () => {
-  it("prints console error if modal button isn't found", () => {
+  const MODAL_ID = "modal-id"
+
+  it("prints console error if modal trigger isn't found", () => {
     // Given
-    renderDOM(errorDom("", "modal-id", "modal-id"))
+    renderDOM(errorDom("", MODAL_ID, MODAL_ID))
     // When
     Undernet.Modals.start()
     // Then
-    expect(console.error).toBeCalledWith("Could not find modal trigger with id modal-id.")
+    expect(console.error).toBeCalledWith(Messages.NO_TRIGGER_ERROR(MODAL_ID))
   })
 
   it("prints console error if modal id isn't found", () => {
     // Given
-    renderDOM(errorDom("modal-id", "", "modal-id"))
+    renderDOM(errorDom(MODAL_ID, "", MODAL_ID))
     // When
     Undernet.Modals.start()
     // Then
-    expect(console.error).toBeCalledWith(
-      "Could not detect an id on your [data-modal] element. Please add a value matching the modal trigger's [data-parent] attribute."
-    )
+    expect(console.error).toBeCalledWith(Messages.NO_ID_ERROR)
   })
 
   it("prints console error if [data-parent] attribute does not match its parent [data-modal]", () => {
     // Given
-    renderDOM(errorDom("modal-id", "modal-id", ""))
+    renderDOM(errorDom(MODAL_ID, MODAL_ID, ""))
     // When
     Undernet.Modals.start()
     // Then
-    expect(console.error).toBeCalledWith(
-      `Could not find element with attribute [data-parent='modal-id'].`
-    )
+    expect(console.error).toBeCalledWith(Messages.NO_MODAL_DIALOG_ERROR(MODAL_ID))
   })
 })

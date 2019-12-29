@@ -2,8 +2,8 @@ import {
   TestComponent,
   GoodExtendedComponent,
   BadExtendedComponent,
-} from "./test-fixtures/set-components-fixtures"
-import { find, renderDOM, simulateKeyboardEvent } from "./helpers"
+} from "./set-components-fixtures"
+import { find, renderDOM, simulateKeyboardEvent } from "../test"
 import {
   dom,
   getFocusableElements,

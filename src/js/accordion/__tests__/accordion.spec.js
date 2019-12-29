@@ -1,5 +1,6 @@
-import Undernet from "../"
-import { find, renderDOM } from "./helpers"
+import Undernet from "../.."
+import { find, renderDOM } from "../../helpers/test"
+import { Messages } from "../constants"
 
 const dom = `
   <div data-accordion="accordion-id" class="accordion">
@@ -47,7 +48,7 @@ describe("Accordion", () => {
 
     it("sets attributes on collapsibles", () => {
       Undernet.Accordions.start()
-      expect(wrapper()).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
 
     it("can open multiple collapsibles initially", () => {
@@ -56,7 +57,7 @@ describe("Accordion", () => {
       // When
       Undernet.Accordions.start()
       // Then
-      expect(wrapper()).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
   })
 
@@ -70,7 +71,7 @@ describe("Accordion", () => {
       Undernet.Accordions.stop()
       trigger.click()
       // Then
-      expect(wrapper()).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
   })
 
@@ -83,7 +84,7 @@ describe("Accordion", () => {
       Undernet.Accordions.start()
       trigger.click()
       // Then
-      expect(wrapper()).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
 
     it("closes open collapsible", () => {
@@ -94,7 +95,7 @@ describe("Accordion", () => {
       Undernet.Accordions.start()
       trigger.click()
       // Then
-      expect(wrapper()).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
 
     describe("Multiple visible by default", () => {
@@ -113,7 +114,7 @@ describe("Accordion", () => {
           // When
           trigger.click()
           // Then
-          expect(wrapper()).toMatchSnapshot()
+          expect(wrapper).toMatchSnapshot()
         })
       })
 
@@ -128,7 +129,7 @@ describe("Accordion", () => {
           // re-open collapsible
           trigger.click()
           // Then
-          expect(wrapper()).toMatchSnapshot()
+          expect(wrapper).toMatchSnapshot()
         })
       })
     })
@@ -138,13 +139,13 @@ describe("Accordion", () => {
     it("retains visible state of unselected collapsibles on click", () => {
       // Given
       const wrapper = renderDOM(dom)
-      wrapper().setAttribute("data-toggle-multiple", null)
+      wrapper.setAttribute("data-toggle-multiple", null)
       const trigger = find("[data-target='collapsible-id-2']")
       Undernet.Accordions.start()
       // When
       trigger.click()
       // Then
-      expect(wrapper()).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
   })
 })
@@ -187,37 +188,34 @@ describe("Accordion Warnings", () => {
 
   it("prints console warning if accordion id can't be found", () => {
     // Given
-    const noIdWarning =
-      "Could not initialize accordion; you must include a value for the 'data-accordion' attribute."
     renderDOM(errorDom("accordion-id", ""))
     const trigger = find("[data-target='collapsible-id-1']")
     // When
     Undernet.Accordions.start()
     trigger.click()
     // Then
-    expect(console.error).toBeCalledWith(noIdWarning)
+    expect(console.error).toBeCalledWith(Messages.NO_ACCORDION_ID_ERROR)
   })
 
   it("prints console warning if there is a mismatch between the number of triggers and collapsibles when trapping focus", () => {
     // Given
-    const noIdWarning =
-      "Your accordion with id 'accordion-id' has 1 triggers and 2 collapsibles; make sure there is a trigger for each collapsible!"
     renderDOM(errorDom("accordion-id", ""))
     // When
     Undernet.Accordions.start()
     // Then
-    expect(console.warn).toBeCalledWith(noIdWarning)
+    expect(console.warn).toBeCalledWith(
+      Messages.TRIGGERS_TO_COLLAPSIBLES_LENGTH_WARNING("accordion-id", 1, 2)
+    )
   })
 
-  it("prints console warning if accordion element can't be found", () => {
+  it("prints console error if accordion element can't be found", () => {
     // Given
-    const noAccordionWarning = "Could not find element matching [data-accordion='accordion-id']"
     renderDOM(errorDom("", "accordion-id"))
     const trigger = find("[data-target='collapsible-id-1']")
     // When
     Undernet.Accordions.start()
     trigger.click()
     // Then
-    expect(console.error).toBeCalledWith(noAccordionWarning)
+    expect(console.error).toBeCalledWith(Messages.NO_ACCORDION_ERROR("accordion-id"))
   })
 })

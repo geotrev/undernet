@@ -3,7 +3,7 @@ import _Accordion from "./accordion"
 import _Dropdown from "./dropdown"
 import _Modals from "./modal"
 import _Tooltips from "./tooltip"
-import { createFocusRing as _createFocusRing, createFocusTrap as _createFocusTrap } from "./utils"
+import { createFocusRing as _createFocusRing, createFocusTrap as _createFocusTrap } from "./helpers"
 
 export const Collapsibles = new _Collapsible()
 export const Accordions = new _Accordion()

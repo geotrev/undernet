@@ -1,5 +1,6 @@
-import Undernet from "../"
-import { find, renderDOM, simulateMouseEvent, simulateKeyboardEvent } from "./helpers"
+import Undernet from "../../"
+import { find, renderDOM, simulateMouseEvent, simulateKeyboardEvent } from "../../helpers/test"
+import { KeyCodes, Messages, Selectors } from "../constants"
 
 const dom = `
   <span class="tooltip" data-tooltip="tooltip-id-1">
@@ -16,10 +17,6 @@ const dom = `
   </span>
 `
 
-const KeyCodes = {
-  ESCAPE: 27,
-}
-
 console.error = jest.fn()
 
 describe("Tooltip", () => {
@@ -34,7 +31,7 @@ describe("Tooltip", () => {
       // When
       Undernet.Tooltips.start()
       // Then
-      expect(wrapper()).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
   })
 
@@ -52,12 +49,12 @@ describe("Tooltip", () => {
 
     it("does not open tooltip on focus", () => {
       trigger.focus()
-      expect(wrapper()).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
 
     it("does not open tooltip on mouseover", () => {
       simulateMouseEvent("mouseover", trigger)
-      expect(wrapper()).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
   })
 
@@ -74,12 +71,12 @@ describe("Tooltip", () => {
 
     it("opens tooltip on focus", () => {
       trigger.focus()
-      expect(wrapper()).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
 
     it("opens tooltip on mouseover", () => {
       simulateMouseEvent("mouseover", trigger)
-      expect(wrapper()).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
   })
 
@@ -101,7 +98,7 @@ describe("Tooltip", () => {
       simulateMouseEvent("mouseover", trigger1)
       simulateMouseEvent("mouseout", trigger1)
       // Then
-      expect(wrapper()).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
 
     it("hides first tooltip if second is focused", () => {
@@ -109,7 +106,7 @@ describe("Tooltip", () => {
       trigger1.focus()
       trigger2.focus()
       // Then
-      expect(wrapper()).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
 
     it("will hide hovered tooltip when second is focused", () => {
@@ -117,7 +114,7 @@ describe("Tooltip", () => {
       simulateMouseEvent("mouseover", trigger1)
       trigger2.focus()
       // Then
-      expect(wrapper()).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
 
     it("will hide focused tooltip when second is hovered", () => {
@@ -125,7 +122,7 @@ describe("Tooltip", () => {
       trigger1.focus()
       simulateMouseEvent("mouseover", trigger2)
       // Then
-      expect(wrapper()).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
   })
 
@@ -139,7 +136,7 @@ describe("Tooltip", () => {
       trigger.focus()
       simulateKeyboardEvent(KeyCodes.ESCAPE)
       // Then
-      expect(wrapper()).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
   })
 
@@ -158,20 +155,20 @@ describe("Tooltip", () => {
 
     it("renders left", () => {
       // Given
-      tooltip.classList.add("is-drop-inline-start")
+      tooltip.classList.add(Selectors.DROP_INLINE_START_CLASS)
       // When
       trigger1.focus()
       // Then
-      expect(wrapper()).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
 
     it("renders right", () => {
       // Given
-      tooltip.classList.add("is-drop-inline-end")
+      tooltip.classList.add(Selectors.DROP_INLINE_END_CLASS)
       // When
       trigger1.focus()
       // Then
-      expect(wrapper()).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
 
     it("renders bottom", () => {
@@ -180,7 +177,7 @@ describe("Tooltip", () => {
       // When
       trigger1.focus()
       // Then
-      expect(wrapper()).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
   })
 })
@@ -195,32 +192,32 @@ const errorDom = (target, tooltip, id) => `
 `
 
 describe("Tooltip Warnings", () => {
+  const TOOLTIP_ID = "tooltip-id"
+
   it("prints console error if [data-tooltip] is empty", () => {
     // Given
-    renderDOM(errorDom("tooltip-id", "", "tooltip-id"))
+    renderDOM(errorDom(TOOLTIP_ID, "", TOOLTIP_ID))
     // When
     Undernet.Tooltips.start()
     // Then
-    expect(console.error).toBeCalledWith("Could not find tooltip id.")
+    expect(console.error).toBeCalledWith(Messages.NO_ID_ERROR)
   })
 
   it("prints console error if [data-target] attribute does not match its parent [data-tooltip]", () => {
     // Given
-    renderDOM(errorDom("", "tooltip-id", "tooltip-id"))
+    renderDOM(errorDom("", TOOLTIP_ID, TOOLTIP_ID))
     // When
     Undernet.Tooltips.start()
     // Then
-    expect(console.error).toBeCalledWith(
-      "Could not find a tooltip trigger with attribute [data-target='tooltip-id']."
-    )
+    expect(console.error).toBeCalledWith(Messages.NO_TRIGGER_ERROR(TOOLTIP_ID))
   })
 
   it("prints console error if tooltip container's [id] does not match its parent [data-tooltip]", () => {
     // Given
-    renderDOM(errorDom("tooltip-id", "tooltip-id", ""))
+    renderDOM(errorDom(TOOLTIP_ID, TOOLTIP_ID, ""))
     // When
     Undernet.Tooltips.start()
     // Then
-    expect(console.error).toBeCalledWith("Could not find a tooltip with id 'tooltip-id'.")
+    expect(console.error).toBeCalledWith(Messages.NO_TOOLTIP_ERROR(TOOLTIP_ID))
   })
 })

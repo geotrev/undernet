@@ -1,6 +1,7 @@
-import Undernet from "../"
-import { getFocusableElements } from "../utils"
-import { find, renderDOM, simulateKeyboardEvent } from "./helpers"
+import Undernet from "../../"
+import { getFocusableElements } from "../../helpers"
+import { find, renderDOM, simulateKeyboardEvent } from "../../helpers/test"
+import { KeyCodes, Messages } from "../constants"
 
 const dom = `
   <div data-dropdown="dropdown-id-1" class="dropdown">
@@ -19,13 +20,6 @@ const dom = `
   </div>
 `
 
-const KeyCodes = {
-  ARROW_UP: 38,
-  ARROW_DOWN: 40,
-  ESCAPE: 27,
-  TAB: 9,
-}
-
 console.error = jest.fn()
 
 const activeElement = () => document.activeElement
@@ -42,7 +36,7 @@ describe("Dropdown", () => {
       // When
       Undernet.Dropdowns.start()
       // Then
-      expect(wrapper()).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
   })
 
@@ -56,7 +50,7 @@ describe("Dropdown", () => {
       Undernet.Dropdowns.stop()
       trigger.click()
       // Then
-      expect(wrapper()).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
   })
 
@@ -73,7 +67,7 @@ describe("Dropdown", () => {
     })
 
     it("opens clicked dropdown", () => {
-      expect(wrapper()).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
 
     it("sets focus to the first dropdown link", () => {
@@ -100,14 +94,14 @@ describe("Dropdown", () => {
       // When
       simulateKeyboardEvent(KeyCodes.ARROW_DOWN, false, trigger)
       // Then
-      expect(wrapper()).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
 
     it("opens dropdown on up arrow key press", () => {
       // When
       simulateKeyboardEvent(KeyCodes.ARROW_UP, false, trigger)
       // Then
-      expect(wrapper()).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
 
     it("sets focus to first item in dropdown menu on down arrow key press", () => {
@@ -147,7 +141,7 @@ describe("Dropdown", () => {
       // When
       simulateKeyboardEvent(KeyCodes.TAB, true, firstDropdownItem)
       // Then
-      expect(wrapper()).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
 
     it("closes dropdown if tab key is pressed in open menu while last child is focused", () => {
@@ -157,7 +151,7 @@ describe("Dropdown", () => {
       // When
       simulateKeyboardEvent(KeyCodes.TAB, false, lastDropdownItem)
       // Then
-      expect(wrapper()).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
   })
 
@@ -177,7 +171,7 @@ describe("Dropdown", () => {
     })
 
     it("closes dropdown", () => {
-      expect(wrapper()).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
 
     it("sets focus back to dropdown button", () => {
@@ -200,7 +194,7 @@ describe("Dropdown", () => {
       trigger.click()
       simulateKeyboardEvent(KeyCodes.ESCAPE)
       // Then
-      expect(wrapper()).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
   })
 
@@ -214,7 +208,7 @@ describe("Dropdown", () => {
       trigger.click()
       find("body").click()
       // Then
-      expect(wrapper()).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
   })
 
@@ -247,7 +241,7 @@ describe("Dropdown", () => {
     })
 
     it("closes first dropdown if second dropdown is clicked", () => {
-      expect(wrapper()).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
 
     it("sets focus to first dropdown item of second dropdown", () => {
@@ -279,15 +273,15 @@ const errorDom = (
 `
 
 describe("Dropdown Warnings", () => {
+  const DROPDOWN_ATTR = '[data-dropdown="dropdown-id"]'
+
   it("prints console error if dropdown id can't be found", () => {
     // Given
     renderDOM(errorDom("", "trigger-id", "dropdown-id", "menu-id", "menu-id"))
     // When
     Undernet.Dropdowns.start()
     // Then
-    expect(console.error).toBeCalledWith(
-      "Could not setup dropdown. Make sure it has a valid [data-dropdown] attribute with a unique id as its value."
-    )
+    expect(console.error).toBeCalledWith(Messages.NO_DROPDOWN_ID_ERROR)
   })
 
   it("prints console error if dropdown menu can't be found", () => {
@@ -296,9 +290,7 @@ describe("Dropdown Warnings", () => {
     // When
     Undernet.Dropdowns.start()
     // Then
-    expect(console.error).toBeCalledWith(
-      'Could not find menu associated with [data-dropdown="dropdown-id"].'
-    )
+    expect(console.error).toBeCalledWith(Messages.NO_MENU_ERROR(DROPDOWN_ATTR))
   })
 
   it("prints console error if dropdown items can't be found", () => {
@@ -309,9 +301,7 @@ describe("Dropdown Warnings", () => {
     // When
     Undernet.Dropdowns.start()
     // Then
-    expect(console.error).toBeCalledWith(
-      'Could not find any list items associated with [data-dropdown="dropdown-id"].'
-    )
+    expect(console.error).toBeCalledWith(Messages.NO_DROPDOWN_ITEMS_ERROR(DROPDOWN_ATTR))
   })
 
   it("prints console error if dropdown buttons or links can't be found", () => {
@@ -322,9 +312,7 @@ describe("Dropdown Warnings", () => {
     // When
     Undernet.Dropdowns.start()
     // Then
-    expect(console.error).toBeCalledWith(
-      'Could not find any button or anchor elements associated with [data-dropdown="dropdown-id"].'
-    )
+    expect(console.error).toBeCalledWith(Messages.NO_DROPDOWN_ACTIONS_ERROR(DROPDOWN_ATTR))
   })
 
   it("prints console error if dropdown trigger's [data-target] attribute cant' be found", () => {
@@ -333,8 +321,6 @@ describe("Dropdown Warnings", () => {
     // When
     Undernet.Dropdowns.start()
     // Then
-    expect(console.error).toBeCalledWith(
-      "Could not find dropdown button's [data-parent] attribute."
-    )
+    expect(console.error).toBeCalledWith(Messages.NO_PARENT_ERROR)
   })
 })

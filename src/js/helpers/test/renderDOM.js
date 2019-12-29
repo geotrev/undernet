@@ -8,6 +8,5 @@ import { find } from "./find"
  */
 export const renderDOM = dom => {
   document.body.innerHTML = dom
-
-  return () => find("body")
+  return find("body")
 }

@@ -1,5 +1,6 @@
-import Undernet from "../"
-import { find, renderDOM } from "./helpers"
+import Undernet from "../.."
+import { find, renderDOM } from "../../helpers/test"
+import { Messages } from "../constants"
 
 const dom = `
   <div class="collapsible" data-collapsible="collapsible-id">
@@ -35,7 +36,7 @@ describe("Collapsible", () => {
       // When
       Undernet.Collapsibles.start()
       // Then
-      expect(wrapper()).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
 
     it("does not open collapsible by default if [data-visible='false'] is set", () => {
@@ -43,7 +44,7 @@ describe("Collapsible", () => {
       // When
       Undernet.Collapsibles.start()
       // Then
-      expect(wrapper()).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
   })
 
@@ -55,7 +56,7 @@ describe("Collapsible", () => {
       Undernet.Collapsibles.stop()
       trigger.click()
       // Then
-      expect(wrapper()).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
   })
 
@@ -66,7 +67,7 @@ describe("Collapsible", () => {
       Undernet.Collapsibles.start()
       trigger.click()
       // Then
-      expect(wrapper()).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
   })
 })
@@ -88,9 +89,9 @@ const errorDom = (collapsibleId, collapsibleTriggerId, triggerId, contentId) => 
 `
 
 describe("Collapsible Warnings", () => {
-  const collapsibleId = "collapsible-id"
-  const unMatchedCollapsibleId = "collapsible-id-no-match"
-  const triggerId = "collapsible-trigger-id"
+  const COLLAPSIBLE_ID = "collapsible-id"
+  const UNMATCHED_COLLAPSIBLE_ID = "collapsible-id-no-match"
+  const COLLAPSIBLE_TRIGGER_ID = "collapsible-trigger-id"
 
   afterEach(() => {
     Undernet.Collapsibles.stop()
@@ -98,45 +99,41 @@ describe("Collapsible Warnings", () => {
 
   it("prints console error if [data-collapsible] attribute is missing its value", () => {
     // Given
-    renderDOM(errorDom("", unMatchedCollapsibleId, triggerId, collapsibleId))
+    renderDOM(errorDom("", UNMATCHED_COLLAPSIBLE_ID, COLLAPSIBLE_TRIGGER_ID, COLLAPSIBLE_ID))
     // When
     Undernet.Collapsibles.start()
     // Then
-    expect(console.error).toBeCalledWith(
-      "Could not initialize collapsible; you must include a value for the 'data-collapsible' attribute."
-    )
+    expect(console.error).toBeCalledWith(Messages.NO_COLLAPSIBLE_ID_ERROR)
   })
 
   it("prints console error if [data-trigger] attribute can't be found", () => {
     // Given
-    renderDOM(errorDom(collapsibleId, unMatchedCollapsibleId, triggerId, collapsibleId))
+    renderDOM(
+      errorDom(COLLAPSIBLE_ID, UNMATCHED_COLLAPSIBLE_ID, COLLAPSIBLE_TRIGGER_ID, COLLAPSIBLE_ID)
+    )
     // When
     Undernet.Collapsibles.start()
     // Then
-    expect(console.error).toBeCalledWith(
-      `Could not find collapsible trigger with [data-target='${collapsibleId}']; you can't have a collapsible without a trigger.`
-    )
+    expect(console.error).toBeCalledWith(Messages.NO_TRIGGER_ERROR(COLLAPSIBLE_ID))
   })
 
   it("prints console error if trigger id can't be found", () => {
     // Given
-    renderDOM(errorDom(collapsibleId, collapsibleId, "", collapsibleId))
+    renderDOM(errorDom(COLLAPSIBLE_ID, COLLAPSIBLE_ID, "", COLLAPSIBLE_ID))
     // When
     Undernet.Collapsibles.start()
     // Then
-    expect(console.error).toBeCalledWith(
-      `Could not find id on collapsible trigger with [data-target='${collapsibleId}'].`
-    )
+    expect(console.error).toBeCalledWith(Messages.NO_TRIGGER_ID_ERROR(COLLAPSIBLE_ID))
   })
 
   it("prints console error if collapsible content can't be found", () => {
     // Given
-    renderDOM(errorDom(collapsibleId, collapsibleId, triggerId, unMatchedCollapsibleId))
+    renderDOM(
+      errorDom(COLLAPSIBLE_ID, COLLAPSIBLE_ID, COLLAPSIBLE_TRIGGER_ID, UNMATCHED_COLLAPSIBLE_ID)
+    )
     // When
     Undernet.Collapsibles.start()
     // Then
-    expect(console.error).toBeCalledWith(
-      `Could not find collapsible content with id '${collapsibleId}'; you can't have a collapsible without content.`
-    )
+    expect(console.error).toBeCalledWith(Messages.NO_CONTENT_ERROR(COLLAPSIBLE_ID))
   })
 })
