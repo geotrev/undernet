@@ -13,8 +13,8 @@ Include the link tag before your custom CSS to get styles, and the script tag at
   <head>
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/undernet@6.0.0/dist/undernet.min.css"
-      integrity="sha256-CCXHgVlt68r/j/PKF3UN+LRGsKMI1Xlsvi2O2zjRupA="
+      href="https://cdn.jsdelivr.net/npm/undernet@7.0.0/dist/undernet.min.css"
+      integrity="sha256-OYn11NyOqD3KbdKfAnxKDQ0EvklZ3pxaTrYEteHYXdc="
       crossorigin="anonymous"
     />
     <!-- add other styles here -->
@@ -23,8 +23,8 @@ Include the link tag before your custom CSS to get styles, and the script tag at
     <!-- add page content here -->
     <script
       type="text/javascript"
-      src="https://cdn.jsdelivr.net/npm/undernet@6.0.0/dist/undernet.bundle.min.js"
-      integrity="sha256-/7qzKFwnWrXFElITB8gG0RLFvunoxxi0wDfyLfDTpgo="
+      src="https://cdn.jsdelivr.net/npm/undernet@7.0.0/dist/undernet.bundle.min.js"
+      integrity="sha256-75AwV7FxQ2TcN8zeJwq/s+g0/WEqW0jUE2d7Sb0A0hs="
       crossorigin="anonymous"
     ></script>
     <script type="text/javascript">
