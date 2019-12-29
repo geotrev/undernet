@@ -1,16 +1,14 @@
 import React from "react"
-import Article from "../Article"
 import Prism from "prismjs"
-import { COMPONENTS } from "../constants"
+import Undernet from "undernet"
+import Article from "../Article"
 
 jest.mock("app/components/ScrollUpOnMount", () => global.simpleMock("ScrollUpOnMount"))
 
 global.scrollTo = jest.fn()
 
-COMPONENTS.forEach(Component => {
-  Component.start = jest.fn()
-  Component.stop = jest.fn()
-})
+Undernet.start = jest.fn()
+Undernet.stop = jest.fn()
 
 jest.mock("prismjs", () => ({
   highlightAll: jest.fn(),
@@ -47,29 +45,25 @@ describe("<Article />", () => {
       // Given
       mountComponent()
       // Then
-      expect(Prism.highlightAll).toHaveBeenCalled()
+      expect(Prism.highlightAll).toBeCalled()
     })
 
-    COMPONENTS.forEach(Component => {
-      it(`calls ${Component}.start`, () => {
-        // Given
-        mountComponent()
-        // Then
-        expect(Component.start).toHaveBeenCalled()
-      })
+    it("calls Undernet.start", () => {
+      // Given
+      mountComponent()
+      // Then
+      expect(Undernet.start).toBeCalled()
     })
   })
 
   describe("#componentWillUnmount", () => {
-    COMPONENTS.forEach(Component => {
-      it(`calls ${Component}.stop`, () => {
-        // Given
-        const wrapper = mountComponent()
-        // When
-        wrapper.unmount()
-        // Then
-        expect(Component.stop).toHaveBeenCalled()
-      })
+    it("calls Undernet.stop", () => {
+      // Given
+      const wrapper = mountComponent()
+      // When
+      wrapper.unmount()
+      // Then
+      expect(Undernet.stop).toBeCalled()
     })
   })
 })

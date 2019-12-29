@@ -4,11 +4,8 @@
 }
 
 .tooltip-trigger {
-  display: inline-block;
-  cursor: pointer;
-
   > *:disabled,
-  > .disabled {
+  > .is-disabled {
     pointer-events: none;
   }
 }
@@ -17,7 +14,7 @@
   padding: $tooltip-padding;
   border-radius: $global-border-radius;
   border: $tooltip-border;
-  background: $gray100;
+  background: $tooltip-bg;
   position: absolute;
   display: block;
   opacity: 0;
@@ -26,7 +23,7 @@
   word-wrap: break-word;
   white-space: nowrap;
   text-align: center;
-  z-index: $tooltip-index;
+  z-index: $z-index-tooltip;
   color: $tooltip-color;
   font-size: $tooltip-font-size;
   margin: $tooltip-margin;
@@ -37,41 +34,61 @@
   }
 
   .modal-dialog & {
-    z-index: $tooltip-index-in-modal;
+    z-index: $z-index-tooltip-in-modal;
   }
 
-  @if $tooltip-arrows-enabled {
+  @if $tooltip-arrow-enabled {
+    @include create-flow-property("left", 0); // This is a fallback.
     bottom: 100%;
-    left: 0; // Overriden in javascript. This is a fallback.
 
-    @include down-arrow(calc(50% - #{$arrow-size}), $gray100, $gray100);
+    @include create-down-arrow(
+      $tooltip-arrow-offset,
+      $tooltip-arrow-fill-color,
+      $tooltip-arrow-border-color
+    );
 
-    &.is-drop-right {
-      left: 100%;
-      margin: 0 0 0 $arrow-size;
+    &.is-drop-inline-end {
+      @include create-flow-property("left", 100%);
+      @include create-flow-property("margin-left", $global-arrow-size);
+      margin-top: 0;
+      margin-bottom: 0;
       bottom: auto;
-      top: 0; // Overriden in javascript. This is a fallback.
+      top: 0; // This is a fallback.
 
-      @include left-arrow(calc(50% - #{$arrow-size}), $gray100, $gray100);
+      @include create-left-arrow(
+        $tooltip-arrow-offset,
+        $tooltip-arrow-fill-color,
+        $tooltip-arrow-border-color
+      );
     }
 
-    &.is-drop-left {
-      right: 100%;
-      margin: 0 $arrow-size 0 0;
+    &.is-drop-inline-start {
+      @include create-flow-property("right", 100%);
+      @include create-flow-property("left", auto);
+      @include create-flow-property("margin-right", $global-arrow-size);
+      margin-top: 0;
+      margin-bottom: 0;
       bottom: auto;
-      left: auto;
-      top: 0; // Overriden in javascript. This is a fallback.
+      top: 0; // This is a fallback.
 
-      @include right-arrow(calc(50% - #{$arrow-size}), $gray100, $gray100);
+      @include create-right-arrow(
+        $tooltip-arrow-offset,
+        $tooltip-arrow-fill-color,
+        $tooltip-arrow-border-color
+      );
     }
 
-    &.is-drop-down {
+    &.is-drop-block-end {
+      @include create-flow-property("left", 0); // This is a fallback.
       top: 100%;
-      margin: -$arrow-size 0 0 0;
+      margin: -$global-arrow-size 0 0 0;
       bottom: auto;
-      left: 0; // Overriden in javascript. This is a fallback.
 
-      @include up-arrow(calc(50% - #{$arrow-size}), $gray100, $gray100);
+      @include create-up-arrow(
+        $tooltip-arrow-offset,
+        $tooltip-arrow-fill-color,
+        $tooltip-arrow-border-color
+      );
     }
   }
 }

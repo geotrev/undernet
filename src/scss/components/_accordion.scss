@@ -1,61 +1,31 @@
 .accordion {
   border: $accordion-border;
-  overflow: hidden;
   border-radius: $accordion-border-radius;
 
-  .accordion-button {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    text-decoration: none;
-    align-items: center;
-    width: 100%;
-    border: none;
-    color: $accordion-button-color;
-    background: $accordion-button-background;
-    padding: $accordion-button-padding;
-    margin: 0;
-    border-radius: 0;
-    font-size: $accordion-content-font-size;
-
-    &:hover,
-    &:focus {
-      color: $accordion-button-color-hover;
-      background: $accordion-button-background-hover;
+  .collapsible {
+    .collapsible-trigger {
+      border-radius: 0;
     }
 
-    &::after {
-      content: $accordion-expand-arrow;
-      font-size: 12px;
-      transition: $accordion-transition-duration $accordion-transition-ease;
-    }
-  }
+    $accordion-trigger-border-radius: $accordion-border-radius / 2;
 
-  [data-visible="false"] .accordion-button::after {
-    transform: rotate(180deg);
-  }
-
-  .accordion-row {
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      padding: 0;
-      margin: 0;
+    &:first-child .collapsible-trigger {
+      border-radius: $accordion-trigger-border-radius $accordion-trigger-border-radius 0 0;
     }
 
-    .accordion-content {
-      overflow: hidden;
-      padding: 0;
-      max-height: 0;
-      background: $accordion-content-background;
-      transition: max-height $accordion-transition-duration $accordion-transition-ease;
-      border-bottom: $accordion-row-divider;
+    &:last-child .collapsible-trigger {
+      border-radius: 0 0 $accordion-trigger-border-radius $accordion-trigger-border-radius;
     }
 
-    &:last-child .accordion-content {
+    &[data-visible="true"]:last-child .collapsible-trigger {
+      border-radius: 0;
+    }
+
+    .collapsible-content {
+      border-bottom: $accordion-collapse-divider;
+    }
+
+    &:last-child .collapsible-content {
       border-bottom: none;
     }
   }

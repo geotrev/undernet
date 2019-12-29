@@ -1,0 +1,33 @@
+@import "true";
+@import "test-globals";
+
+@include describe("mixins#create-flow-property") {
+  @include it("returns rtl equivalents with left or right directional properties") {
+    @include assert {
+      @include output(false) {
+        .wrapper {
+          @include create-flow-property(text-align, left);
+          @include create-flow-property(margin-left, 16px);
+        }
+      }
+
+      @include expect(false) {
+        html:not([dir="rtl"]) .wrapper {
+          text-align: left;
+        }
+
+        html[dir="rtl"] .wrapper {
+          text-align: right;
+        }
+
+        html:not([dir="rtl"]) .wrapper {
+          margin-left: 16px;
+        }
+
+        html[dir="rtl"] .wrapper {
+          margin-right: 16px;
+        }
+      }
+    }
+  }
+}

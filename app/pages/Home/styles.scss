@@ -11,7 +11,7 @@
   width: 100%;
 
   .animations {
-    background-color: $brand-dark-blue;
+    background-color: $color-dark-blue;
 
     .animated-icon {
       width: 125px;
@@ -21,7 +21,7 @@
     p {
       margin: 0 8px;
 
-      @include breakpoint-down(large) {
+      @include create-breakpoint-down(lg) {
         margin-bottom: 24px;
       }
     }
@@ -46,7 +46,7 @@
     }
 
     .un-version {
-      color: $gray800;
+      color: $color-gray800;
     }
 
     .badges {
@@ -68,8 +68,9 @@
 
   .has-gradient {
     @include bg-gradient;
-    border: none;
-    padding: 14px 18px;
+    border-color: #3f48af;
+    border-width: 2px;
+    border-style: solid;
     opacity: 0.75;
     font-weight: bold;
 

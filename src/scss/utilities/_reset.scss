@@ -1,13 +1,16 @@
-// Modified minireset.css
-
-/*! minireset.css v0.0.5 | MIT License | github.com/jgthms/minireset.css */
-// This file doesn't need to worry about linting or being pretty.
-
-// stylelint-disable
+// Modified - minireset.css v0.0.5 | MIT License | github.com/jgthms/minireset.css
 
 html,
 body,
 p,
+em,
+small,
+mark,
+u,
+code,
+kbd,
+samp,
+tt,
 ol,
 ul,
 li,
@@ -100,7 +103,7 @@ body {
   line-height: $global-line-height;
 
   *:focus {
-    outline: $global-outline;
+    outline: none;
   }
 }
 

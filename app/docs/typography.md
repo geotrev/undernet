@@ -4,27 +4,27 @@ Undernet also comes with each text style in class form, so if you need a header 
 
 ## Headers
 
-Headers can vary a lot within a project. For that reason, headers use a scss map consisting of sizing by breakpoint (small, medium, large by default, but you can add more), as well as a separate map for color, weight, and margin.
+Headers can vary a lot within a project. For that reason, headers use a sass-map consisting of sizing by breakpoint (small, medium, large by default, but you can add more), as well as a separate map for color, weight, and margin.
 
 These maps output their keys and values as css properties. This means you can add any `property: value` normally found in CSS into these maps.
 
 <div class="row">
-  <div class="xsmall-12 medium-6 columns has-no-padding-bottom">
+  <div class="is-xs-12 is-md-6 column has-no-p-block-end">
     <p class="h1">Header 1</p>
   </div>
-  <div class="xsmall-12 medium-6 columns has-no-padding-bottom">
+  <div class="is-xs-12 is-md-6 column has-no-p-block-end">
     <p class="h2">Header 2</p>
   </div>
-  <div class="xsmall-12 medium-6 columns has-no-padding-bottom">
+  <div class="is-xs-12 is-md-6 column has-no-p-block-end">
     <p class="h3">Header 3</p>
   </div>
-  <div class="xsmall-12 medium-6 columns has-no-padding-bottom">
+  <div class="is-xs-12 is-md-6 column has-no-p-block-end">
     <p class="h4">Header 4</p>
   </div>
-  <div class="xsmall-12 medium-6 columns has-no-padding-bottom">
+  <div class="is-xs-12 is-md-6 column has-no-p-block-end">
     <p class="h5">Header 5</p>
   </div>
-  <div class="xsmall-12 medium-6 columns has-no-padding-bottom">
+  <div class="is-xs-12 is-md-6 column has-no-p-block-end">
     <p class="h6">Header 6</p>
   </div>
 </div>
@@ -90,16 +90,12 @@ Use inline text tags as well:
 
 Ordered and unordered lists can be styled as well. You can change the bullet style for each, if you don't like the default `disc` and `decimal` variants.
 
-<div class="row">
-  <div class="xsmall-12 medium-6 columns">
-    <p><strong>Unordered List</strong></p>
-    <ul>
-      <li>Unordered item</li>
-      <li>Unordered item</li>
-      <li>Unordered item</li>
-    </ul>
-  </div>
-</div>
+<p><strong>Unordered List</strong></p>
+<ul>
+  <li>Unordered item</li>
+  <li>Unordered item</li>
+  <li>Unordered item</li>
+</ul>
 
 ```html
 <ul>
@@ -109,16 +105,12 @@ Ordered and unordered lists can be styled as well. You can change the bullet sty
 </ul>
 ```
 
-<div class="row">
-  <div class="xsmall-12 medium-6 columns">
-    <p><strong>Ordered List</strong></p>
-    <ol>
-      <li>Item #1</li>
-      <li>Item #2</li>
-      <li>Item #3</li>
-    </ol>
-  </div>
-</div>
+<p><strong>Ordered List</strong></p>
+<ol>
+  <li>Item #1</li>
+  <li>Item #2</li>
+  <li>Item #3</li>
+</ol>
 
 ```html
 <ol>
@@ -128,5 +120,5 @@ Ordered and unordered lists can be styled as well. You can change the bullet sty
 </ol>
 ```
 
-<hr />
-<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/app/docs/typography.md">Edit this page on Github!</a></p>
+---
+<p class="has-text-end">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/app/docs/typography.md">Edit this page on Github!</a></p>

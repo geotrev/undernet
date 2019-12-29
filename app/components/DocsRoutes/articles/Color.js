@@ -6,14 +6,14 @@ import ColorMd from "app/docs/color.md"
 
 const Color = () => {
   return (
-    <React.Fragment>
+    <>
       <SetMeta
         title="Color"
         description="Utilities for adding custom colored text and backgrounds using class helpers."
       />
       <PageHeader>Color</PageHeader>
       <Article>{ColorMd}</Article>
-    </React.Fragment>
+    </>
   )
 }
 

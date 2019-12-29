@@ -1,66 +1,48 @@
-import {
-  introductionPath,
-  downloadPath,
-  brandingPath,
-  javascriptPath,
-  gridPath,
-  typographyPath,
-  buttonsPath,
-  formsPath,
-  modalsPath,
-  accordionsPath,
-  dropdownsPath,
-  tooltipsPath,
-  alignmentPath,
-  offsetOrderPath,
-  textPath,
-  displayPath,
-  colorPath,
-  spacingPath,
-} from "app/routes"
+import { docPages } from "app/routes"
 
 export const NAV_DATA = [
   {
     header: "Overview",
     links: [
-      { name: "Introduction", url: introductionPath },
-      { name: "Download", url: downloadPath },
-      { name: "Branding", url: brandingPath },
-      { name: "JavaScript", url: javascriptPath },
+      { name: "Introduction", url: docPages.introduction },
+      { name: "Download", url: docPages.download },
+      { name: "CSS", url: docPages.css },
+      { name: "JavaScript", url: docPages.javascript },
     ],
   },
   {
     header: "Layout",
     links: [
-      { name: "Flex Grid", url: gridPath },
-      { name: "Alignment", url: alignmentPath },
-      { name: "Offset / Order", url: offsetOrderPath },
-      { name: "Spacing", url: spacingPath },
+      { name: "Flex Grid", url: docPages.grid },
+      { name: "Alignment", url: docPages.alignment },
+      { name: "Offset / Order", url: docPages.offsetOrder },
+      { name: "Spacing", url: docPages.spacing },
     ],
   },
   {
     header: "Elements",
     links: [
-      { name: "Buttons", url: buttonsPath },
-      { name: "Forms", url: formsPath },
-      { name: "Typography", url: typographyPath },
+      { name: "Buttons", url: docPages.buttons },
+      { name: "Forms", url: docPages.forms },
+      { name: "Typography", url: docPages.typography },
     ],
   },
   {
     header: "Components",
     links: [
-      { name: "Accordions", url: accordionsPath },
-      { name: "Dropdowns", url: dropdownsPath },
-      { name: "Modals", url: modalsPath },
-      { name: "Tooltips", url: tooltipsPath },
+      { name: "Collapsibles", url: docPages.collapsibles },
+      { name: "Accordions", url: docPages.accordions },
+      { name: "Dropdowns", url: docPages.dropdowns },
+      { name: "Modals", url: docPages.modals },
+      { name: "Tooltips", url: docPages.tooltips },
     ],
   },
   {
     header: "Utilities",
     links: [
-      { name: "Color", url: colorPath },
-      { name: "Display", url: displayPath },
-      { name: "Text", url: textPath },
+      { name: "Color", url: docPages.color },
+      { name: "Display", url: docPages.display },
+      { name: "Text", url: docPages.text },
     ],
   },
 ]

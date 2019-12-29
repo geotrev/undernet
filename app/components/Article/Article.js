@@ -1,33 +1,30 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import Markdown from "react-markdown"
 import Prism from "prismjs"
 import classNames from "classnames"
 import PropTypes from "prop-types"
+import Undernet from "undernet"
 
-import { COMPONENTS } from "./constants"
 import ScrollUpOnMount from "app/components/ScrollUpOnMount"
+import { useDidMount, useWillUnmount } from "app/helpers"
+
+const SCOPE = "#article"
 
 export default function Article(props) {
   const [domIsLoaded, setDomIsLoaded] = useState(false)
 
-  const componentUnmountFunction = () => {
-    COMPONENTS.forEach(Component => Component.stop())
-  }
+  useWillUnmount(() => Undernet.stop(SCOPE))
 
-  const observedStateOnMount = []
-  useEffect(() => {
+  useDidMount(() => {
     Prism.highlightAll()
-    COMPONENTS.forEach(Component => Component.start())
+    Undernet.start(SCOPE)
     setDomIsLoaded(true)
-
-    return componentUnmountFunction
-  }, observedStateOnMount)
+  })
 
   return (
     <article
-      className={classNames("article-wrapper has-no-padding column", {
-        fadeIn: domIsLoaded,
-      })}
+      id="article"
+      className={classNames("article-wrapper has-no-p column", { fadeIn: domIsLoaded })}
     >
       <ScrollUpOnMount />
       <Markdown source={props.children} escapeHtml={false} />

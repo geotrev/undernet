@@ -6,14 +6,14 @@ import TypographyMd from "app/docs/typography.md"
 
 const Typography = () => {
   return (
-    <React.Fragment>
+    <>
       <SetMeta
         title="Typography"
         description="Use typography elements for displaying readable content."
       />
       <PageHeader>Typography</PageHeader>
       <Article>{TypographyMd}</Article>
-    </React.Fragment>
+    </>
   )
 }
 

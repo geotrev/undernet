@@ -2,101 +2,97 @@
   position: relative;
   display: inline-block;
 
-  [data-target] {
+  > [data-target] {
     display: inline-flex;
     align-items: center;
-
-    &::after {
-      content: $dropdown-button-arrow;
-      padding: $dropdown-button-arrow-padding;
-      font-size: $dropdown-button-arrow-font-size;
-    }
   }
 
-  .dropdown-menu {
+  > .dropdown-menu {
     position: absolute;
     display: block;
     opacity: 0;
-    transition: $dropdown-menu-transition;
+    transition: $dropdown-transition;
     pointer-events: none;
     list-style-type: none;
     margin: 0;
-    padding: $dropdown-menu-padding;
-    border-radius: $dropdown-menu-border-radius;
-    background: $dropdown-menu-background-color;
-    width: $dropdown-menu-width;
-    max-width: $dropdown-menu-max-width;
-    border: $dropdown-menu-border;
-    z-index: $dropdown-menu-index;
+    padding: $dropdown-padding;
+    border-radius: $dropdown-border-radius;
+    background: $dropdown-bg-color;
+    width: $dropdown-width;
+    max-width: $dropdown-max-width;
+    border: $dropdown-border;
+    z-index: $z-index-dropdown-menu;
+    top: 100%;
 
     .modal-dialog & {
-      z-index: $dropdown-menu-index-in-modal;
+      z-index: $z-index-dropdown-menu-in-modal;
     }
 
-    @if $dropdown-arrows-enabled {
-      @include up-arrow(
+    @if $dropdown-arrow-enabled {
+      @include create-up-arrow(
         $dropdown-arrow-offset,
         $dropdown-arrow-fill-color,
         $dropdown-arrow-border-color
       );
 
-      @include breakpoint-up($dropdown-menu-direction-breakpoint) {
-        &.is-drop-up {
+      @include create-breakpoint($dropdown-direction-breakpoint) {
+        &.is-drop-block-start {
           bottom: 100%;
+          top: auto;
           margin-bottom: $global-space;
 
-          @include down-arrow(
+          @include create-down-arrow(
             $dropdown-arrow-offset,
             $dropdown-arrow-fill-color,
             $dropdown-arrow-border-color
           );
         }
 
-        &.is-drop-left {
-          right: 100%;
-          margin-right: $global-space;
+        &.is-drop-inline-start {
+          @include create-flow-property("right", 100%);
+          @include create-flow-property("margin-right", $global-space);
           top: 0;
 
-          @include right-arrow(
+          @include create-right-arrow(
             $dropdown-arrow-offset,
             $dropdown-arrow-fill-color,
             $dropdown-arrow-border-color
           );
         }
 
-        &.is-drop-right {
-          left: 100%;
-          margin-left: $global-space;
+        &.is-drop-inline-end {
+          @include create-flow-property("left", 100%);
+          @include create-flow-property("margin-left", $global-space);
           top: 0;
 
-          @include left-arrow(
+          @include create-left-arrow(
             $dropdown-arrow-offset,
             $dropdown-arrow-fill-color,
             $dropdown-arrow-border-color
           );
         }
 
-        &.is-aligned-right {
-          right: 0;
+        &.is-aligned-inline-end {
+          @include create-flow-property("right", 0);
 
-          @include if-has-arrow {
+          @include with-arrow-enabled {
             &::after {
-              left: auto;
-              right: $dropdown-arrow-offset;
+              @include create-flow-property("right", $dropdown-arrow-offset);
+              @include create-flow-property("left", auto);
             }
 
             &::before {
-              left: auto;
-              right: $dropdown-arrow-offset;
+              @include create-flow-property("right", $dropdown-arrow-offset);
+              @include create-flow-property("left", auto);
             }
           }
         }
 
-        &.is-aligned-bottom {
+        &.is-aligned-block-end {
           top: auto;
           bottom: $global-space;
 
-          @include if-has-arrow {
+          @include with-arrow-enabled {
             &::after {
               top: auto;
               bottom: $dropdown-arrow-offset;
@@ -113,51 +109,53 @@
 
     li {
       padding: 0;
-      display: block;
+      display: flex;
+      flex-flow: row wrap;
       position: relative;
 
       hr {
         border: none;
-        height: $dropdown-menu-rule-height;
-        background: $dropdown-menu-rule-color;
-        margin: $dropdown-menu-rule-margin;
-      }
-
-      a {
-        display: flex;
-        position: relative;
-        padding: $dropdown-menu-button-padding;
+        height: $dropdown-rule-height;
+        background: $dropdown-rule-color;
+        margin: $dropdown-rule-margin;
         flex: 0 0 100%;
         max-width: 100%;
+      }
+
+      a,
+      button {
+        @include create-flow-property("text-align", left);
+        background: transparent;
+        border-radius: 0;
+        border: none;
+        color: $dropdown-button-text-color;
+        flex: 0 0 100%;
+        margin: 0;
+        max-width: 100%;
+        padding: $dropdown-button-padding;
+        position: relative;
         text-decoration: none;
-        color: $dropdown-menu-button-text-color;
 
         &:hover {
-          background: lighten($gray900, 10%);
+          background: lighten($color-gray900, 10%);
         }
 
         &:active {
-          background: lighten($gray900, 8%);
+          background: lighten($color-gray900, 8%);
         }
       }
 
       .dropdown-header {
-        font-size: $dropdown-menu-header-font-size;
+        font-size: $dropdown-header-font-size;
         margin: 0;
-        padding: $dropdown-menu-header-padding;
-        color: $dropdown-menu-header-color;
+        padding: $dropdown-header-padding;
+        color: $dropdown-header-color;
       }
     }
   }
 
-  &[data-visible="true"] {
-    .dropdown-menu {
-      opacity: 1;
-      pointer-events: auto;
-
-      [data-close] {
-        display: flex;
-      }
-    }
+  &[data-visible="true"] > .dropdown-menu {
+    opacity: 1;
+    pointer-events: auto;
   }
 }

@@ -1,8 +1,6 @@
 import Undernet from "./index"
-import { browserEnv } from "./utils"
+import { isBrowserEnv } from "./helpers"
 
-if (browserEnv) {
+if (isBrowserEnv) {
   window.Undernet = Undernet
 }
-
-export { default as Undernet, Modals, Accordions, Dropdowns, Tooltips, ContextUtil } from "./index"

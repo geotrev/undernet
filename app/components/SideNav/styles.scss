@@ -9,13 +9,13 @@
     padding: 0;
 
     .side-nav-expand {
-      background: $white;
+      background: $color-white;
 
-      @include breakpoint-up(xsmall) {
-        border-bottom: 1px solid $gray900;
+      @include create-breakpoint(xs) {
+        border-bottom: 1px solid $color-gray900;
       }
 
-      @include breakpoint-up(xlarge) {
+      @include create-breakpoint(xl) {
         border-bottom: none;
       }
 
@@ -25,7 +25,8 @@
         text-decoration: none;
         margin: $global-border-width;
         border: none;
-        color: $primary-color;
+        color: $color-primary;
+        border-radius: 0;
 
         &.rotate-180 {
           svg {
@@ -34,7 +35,7 @@
         }
 
         svg {
-          margin-right: 8px;
+          @include create-flow-property("margin-right", 8px);
         }
       }
     }
@@ -46,7 +47,7 @@
 
     .side-nav-menu {
       h4 {
-        color: $black;
+        color: $color-black;
         font-weight: $global-font-weight-bold;
       }
 
@@ -61,51 +62,53 @@
         }
 
         li a {
-          @include colored-link;
+          @include create-link-color;
           display: block;
           font-size: 16px;
           line-height: 36px;
           text-decoration: none;
 
           svg {
-            margin-left: 4px;
+            @include create-flow-property("margin-left", 4px);
             transition: 0.1s ease-out;
-            color: $gray800;
+            color: $color-gray800;
           }
 
           &:hover,
           &:active,
           &:focus {
             svg {
-              margin-left: 8px;
-              color: $primary-color;
+              @include create-flow-property("margin-left", 8px);
+              color: $color-primary;
             }
           }
 
           &.active {
-            color: $primary-color !important;
+            color: $color-primary !important;
           }
         }
       }
+
+      // collapsible overrides
 
       &[data-accordion] {
         border: none;
         border-radius: 0;
 
         [data-target] {
-          @include colored-link($black);
+          @include create-link-color($color-gray400);
           background: transparent;
           padding: 8px 0;
           font-weight: bold;
         }
 
-        .accordion-content {
+        .collapsible-content {
           background: transparent;
           border: none;
 
           a {
-            margin: 2px;
-            padding-left: 8px;
+            @include create-flow-property("padding-left", 8px);
+            margin: 4px;
           }
         }
       }

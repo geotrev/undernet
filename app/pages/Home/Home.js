@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { Link } from "react-router-dom"
 import Prism from "prismjs"
 import lottie from "lottie-web"
@@ -7,13 +7,16 @@ import ChevronRight from "react-feather/dist/icons/chevron-right"
 import ScrollUpOnMount from "app/components/ScrollUpOnMount"
 import SetMeta from "app/components/SetMeta"
 import PageHeader from "app/components/PageHeader"
-import { downloadPath, introductionPath } from "app/routes"
+import { docPages } from "app/routes"
+import { useDidMount, useWillUnmount } from "app/helpers"
 
 import pkg from "projectRoot/package.json"
 import { StatusBadges, InstallNpm, InstallAssets } from "./markdownContent"
 import { ANIMATION_DATA } from "./animations"
 
 import "./styles.scss"
+
+const { download, introduction } = docPages
 
 export default function Home() {
   const loadAnimations = () => {
@@ -37,17 +40,14 @@ export default function Home() {
     }, 1500)
   }
 
-  const componentUnmountFunction = () => {
-    ANIMATION_DATA.forEach(instance => instance.animation.destroy())
-  }
-
-  const observedStateOnMount = []
-  useEffect(() => {
+  useDidMount(() => {
     Prism.highlightAll()
     loadAnimations()
+  })
 
-    return componentUnmountFunction
-  }, observedStateOnMount)
+  useWillUnmount(() => {
+    ANIMATION_DATA.forEach(instance => instance.animation.destroy())
+  })
 
   const renderAnimations = () => {
     return ANIMATION_DATA.map(animation => {
@@ -55,12 +55,12 @@ export default function Home() {
 
       return (
         <li
-          className="large-3 small-6 xsmall-12 columns has-center-text has-no-padding-bottom"
+          className="is-lg-3 is-sm-6 is-xs-12 column has-text-center has-no-p-block-end"
           key={animation.title}
         >
           <div className="animated-icon" id={`animated-${animationName}`} />
-          <h2 className="h6 has-white-text">{animation.title}</h2>
-          <p className="has-white-text">{animation.subtitle}</p>
+          <h2 className="h6 has-white-text-color">{animation.title}</h2>
+          <p className="has-white-text-color">{animation.subtitle}</p>
         </li>
       )
     })
@@ -73,63 +73,66 @@ export default function Home() {
       {/*
        * Title is set here _and_ in public/index.html...
        * Doing so prevents title changes on other pages from
-       * persisting if a visitor return to the home page.
+       * persisting if a visitor returns to the home page.
        */}
       <SetMeta
         title="A modular, configuration-first front-end framework. No strings."
         description="Undernet is a highly customizable web framework for building websites."
       />
 
-      <div className="medium-section fluid grid hero">
+      <div className="is-section-md is-fluid grid hero">
         <div className="row">
-          <div className="xsmall-12 columns has-center-text">
+          <div className="is-xs-12 column has-text-center">
             <PageHeader className="h3">{pkg.description}</PageHeader>
           </div>
 
-          <div className="xsmall-12 columns has-center-text">
-            <Link to={downloadPath} className="medium button has-feather">
-              Download <ChevronRight size={20} role="presentation" focusable="false" />
+          <div className="is-xs-12 column has-text-center">
+            <Link to={download} className="button has-feather">
+              {"Download"}
+              <ChevronRight size={20} role="presentation" focusable="false" />
             </Link>
-            <Link to={introductionPath} className="primary medium button has-gradient has-feather">
-              Learn More <ChevronRight size={20} role="presentation" focusable="false" />
+            <Link to={introduction} className="button is-primary has-gradient has-feather">
+              {"Learn More"}
+              <ChevronRight size={20} role="presentation" focusable="false" />
             </Link>
           </div>
 
-          <div className="xsmall-12 columns has-center-text">
-            <p className="un-version has-no-margin">Version {pkg.version}</p>
+          <div className="is-xs-12 column has-text-center">
+            <p className="un-version has-no-m">{`Version ${pkg.version}`}</p>
           </div>
 
-          <div className="xsmall-12 columns badges">
+          <div className="is-xs-12 column badges">
             <StatusBadges />
           </div>
         </div>
       </div>
 
-      <div className="medium-section fluid grid animations">
-        <div className="row has-no-padding">
-          <div className="column has-no-padding">
+      <div className="is-section-md is-fluid grid animations">
+        <div className="row has-no-p">
+          <div className="column has-no-p">
             <div className="wide grid">
-              <ul className="row is-unstyled-list has-no-padding">{renderAnimations()}</ul>
+              <ul className="row has-unstyled-list has-no-p">{renderAnimations()}</ul>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="medium-section narrow grid">
+      <div className="is-section-md is-narrow grid">
         <div className="row">
-          <div className="xsmall-12 columns has-center-text">
-            <h2 className="h6">Painless Setup</h2>
-            <p>Install with npm:</p>
+          <div className="is-xs-12 column has-text-center">
+            <h2 className="h6">{"Painless Setup"}</h2>
+            <p>{"Install with npm:"}</p>
             <InstallNpm />
           </div>
-          <div className="xsmall-12 columns has-center-text">
-            <p>Or simply link to minified assets:</p>
+          <div className="is-xs-12 column has-text-center">
+            <p>{"Or simply link to minified assets:"}</p>
             <InstallAssets />
           </div>
-          <div className="xsmall-12 columns has-center-text">
-            <p>See how Undernet can improve your developer experience!</p>
-            <Link to={introductionPath} className="primary medium button has-gradient has-feather">
-              Learn More <ChevronRight size={20} role="presentation" focusable="false" />
+          <div className="is-xs-12 column has-text-center">
+            <p>{"See how Undernet can improve your developer experience!"}</p>
+            <Link to={introduction} className="is-primary button has-gradient has-feather">
+              {"Learn More"}
+              <ChevronRight size={20} role="presentation" focusable="false" />
             </Link>
           </div>
         </div>

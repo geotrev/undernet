@@ -6,10 +6,10 @@ import "./styles.scss"
 
 export default function Docs() {
   return (
-    <div id="docs" className="fluid grid has-no-padding">
+    <div id="docs" className="grid is-fluid has-no-p">
       <div className="row">
         <SideNav />
-        <div className="xsmall-12 xlarge-10 columns has-padding-3">
+        <div className="column is-xs-12 is-xl-10 has-p-lg">
           <DocsRoutes />
         </div>
       </div>

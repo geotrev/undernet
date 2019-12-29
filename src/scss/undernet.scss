@@ -1,30 +1,30 @@
 /*!
 * @license MIT (https://github.com/geotrev/undernet/blob/master/LICENSE)
-* Undernet v5.1.0 (https://undernet.io)
+* undernet@7.0.0 (https://undernet.io)
 * Copyright 2017-2019 George Treviranus
 */
+
 @charset "UTF-8";
 
 @import "utilities/functions";
 @import "config";
 @import "utilities/mixins";
 
-// .#{$scope} {
-// Reset within scope is optional
+// Enable a scope in _config.scss
+// Read more here: https://www.undernet.io/docs/overview/css
+//
+// .#{$style-scope} {
 @import "utilities/reset";
-
-@import "utilities/classes";
-
 @import "layout/grid";
-
 @import "elements/typography";
 @import "elements/button";
 @import "elements/form";
-
+@import "components/collapsible";
+@import "components/accordion";
 @import "components/dropdown";
 @import "components/modal";
-@import "components/accordion";
 @import "components/tooltip";
+@import "utilities/classes";
 // }
 
-@import "utilities/scope-overrides";
+@import "utilities/globals";

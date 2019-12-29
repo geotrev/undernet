@@ -7,9 +7,7 @@ $column: map-get($grid-classes, column);
 .#{$grid} .#{$row}::before,
 .#{$grid} .#{$row}::after,
 .#{$row} .#{$column}::before,
-.#{$row} .#{$column}::after,
-.#{$row} .#{$column}s::before,
-.#{$row} .#{$column}s::after {
+.#{$row} .#{$column}::after {
   display: block;
   height: 0;
   width: 0;
@@ -18,71 +16,62 @@ $column: map-get($grid-classes, column);
 }
 
 .#{$grid} {
-  @include flex(flex, column, nowrap, 1, 1, 0);
+  display: flex;
+  flex-flow: column nowrap;
+  flex: 1 1 0;
   box-sizing: border-box;
   margin: 0 auto;
   max-width: $grid-width;
-  padding-left: $grid-gutter;
-  padding-right: $grid-gutter;
+  padding: $grid-padding;
   position: relative;
 
   @each $name, $width in $grid-widths {
-    &.#{$name} {
+    &.is-#{$name} {
       max-width: $width;
     }
   }
 
   @each $name, $padding in $grid-sections {
-    &.#{$name}-section {
+    &.is-section-#{$name} {
       padding-top: $padding;
       padding-bottom: $padding;
     }
   }
 
-  &.fullscreen {
+  &.is-fullscreen {
     box-sizing: border-box;
     height: 100vh;
     max-width: initial;
     width: 100vw;
 
     .#{$row} {
-      @include flex($grow: 1, $shrink: 1, $basis: auto);
+      flex: 1 1 0;
       align-items: center;
-      align-content: center;
     }
   }
 }
 
 .#{$row} {
-  @include flex(flex, row, wrap, 1, 1, auto);
+  box-sizing: border-box;
+  display: flex;
+  flex-flow: row wrap;
+  flex: 1 1 auto;
   position: relative;
   max-width: 100%;
   min-height: 1px;
+  padding: 0;
+  margin: 0;
 }
 
-.#{$column}s,
 .#{$column} {
-  @include flex($grow: 1, $shrink: 1, $basis: auto);
   box-sizing: border-box;
+  flex: 1 1 auto;
   max-width: 100%;
   min-height: 1px;
-  min-width: 0;
-  padding: $column-padding-top $column-gutter $column-padding-bottom $column-gutter;
+  min-width: 1px;
+  padding: $grid-column-padding-block-start $grid-column-padding-inline
+    $grid-column-padding-block-end $grid-column-padding-inline;
   word-wrap: break-word;
 }
 
-@each $name, $value in $breakpoints {
-  // Returns index of the current $key + $value pair
-  $breakpoint-index: index($breakpoints, ($name $value));
-
-  // If the index is on the first item in $breakpoints
-  @if $breakpoint-index == 1 {
-    @include grid-classes($name);
-
-    // Else add a media query
-  } @else {
-    @include breakpoint-up($name) {
-      @include grid-classes($name);
-    }
-  }
-}
+@include create-grid-classes-generator;

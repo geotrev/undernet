@@ -6,14 +6,14 @@ import ModalsMd from "app/docs/modals.md"
 
 const Modals = () => {
   return (
-    <React.Fragment>
+    <>
       <SetMeta
         title="Modals"
         description="A component for showing content in a modal dialog user interface."
       />
       <PageHeader>Modals</PageHeader>
       <Article>{ModalsMd}</Article>
-    </React.Fragment>
+    </>
   )
 }
 

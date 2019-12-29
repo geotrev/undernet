@@ -34,13 +34,17 @@ module.exports = {
           MiniCssExtractPlugin.loader,
           {
             loader: "css-loader",
-            options: { importLoaders: 2 },
+            options: {
+              importLoaders: 2,
+            },
           },
           "postcss-loader",
           {
             loader: "sass-loader?sourceMap",
             options: {
-              includePaths: ["src/", "app/"],
+              sassOptions: {
+                includePaths: ["src/", "app/"],
+              },
             },
           },
         ],
@@ -62,7 +66,10 @@ module.exports = {
         use: [
           {
             loader: "file-loader",
-            options: { name: "[name].[ext]", outputPath: "assets/" },
+            options: {
+              name: "[name].[ext]",
+              outputPath: "assets/",
+            },
           },
         ],
       },

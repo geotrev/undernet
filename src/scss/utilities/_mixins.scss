@@ -1,63 +1,93 @@
-@mixin flex(
-  $display: null,
-  $direction: null,
-  $wrap: null,
-  $grow: null,
-  $shrink: null,
-  $basis: null,
-  $align: null
-) {
-  display: $display;
-  flex-flow: $direction $wrap;
-  flex: $grow $shrink $basis;
-  align-items: $align;
+@mixin create-flow-property($property, $value) {
+  $rtl-property: $property;
+  $rtl-value: $value;
+
+  @if type-of($value) == string {
+    @if str-index($value, "left") {
+      $rtl-value: str-replace($value, "left", "right");
+    } @else if str-index($value, "right") {
+      $rtl-value: str-replace($value, "right", "left");
+    }
+  }
+
+  @if str-index($property, "left") {
+    $rtl-property: str-replace($property, "left", "right");
+  } @else if str-index($property, "right") {
+    $rtl-property: str-replace($property, "right", "left");
+  }
+
+  html:not([dir="rtl"]) & {
+    #{$property}: $value;
+  }
+
+  html[dir="rtl"] & {
+    #{$rtl-property}: $rtl-value;
+  }
 }
 
-@mixin grid-classes($size) {
-  @for $i from 1 through $columns {
-    .#{$size}-#{$i} {
-      @include flex($grow: 0, $shrink: 0, $basis: percentage($i / $columns));
-      max-width: percentage($i / $columns);
+@mixin create-breakpoint($size) {
+  @media screen and (min-width: #{breakpoint-value($size)}) {
+    @content;
+  }
+}
+
+@mixin create-breakpoint-down($size) {
+  @media screen and (max-width: #{breakpoint-value($size) - 1}) {
+    @content;
+  }
+}
+
+@mixin create-breakpoint-between($min, $max) {
+  @media screen
+    and (min-width: #{breakpoint-value($min)})
+    and (max-width: #{breakpoint-value($max) - 1}) {
+    @content;
+  }
+}
+
+@mixin create-grid-classes($size) {
+  @for $i from 1 through $grid-columns {
+    .is-#{$size}-#{$i} {
+      flex: 0 0 percentage($i / $grid-columns);
+      max-width: percentage($i / $grid-columns);
     }
 
-    @if $column-offset-classes == true {
-      .#{$size}-offset-#{$i} {
-        margin-left: percentage($i / $columns);
+    @if $grid-column-offset-classes-enabled {
+      .is-#{$size}-offset-#{$i} {
+        @include create-flow-property("margin-left", percentage($i / $grid-columns));
       }
     }
 
-    @if $column-order-classes == true {
+    @if $grid-column-order-classes-enabled {
       // order-1 = -12
       // order-2 = -11
       // etc...
-      .#{$size}-order-#{$i} {
-        order: $i - 1 - $columns;
+      .is-#{$size}-order-#{$i} {
+        order: $i - 1 - $grid-columns;
       }
     }
   }
 }
 
-@mixin breakpoint-up($size) {
-  @media screen and (min-width: #{breakpoint($size)}) {
-    @content;
+@mixin create-grid-classes-generator() {
+  @each $name, $value in $grid-breakpoints {
+    // Returns index of the current $key + $value pair
+    $bp-index: index($grid-breakpoints, ($name $value));
+
+    // If the index is on the first item in $grid-breakpoints
+    @if $bp-index == 1 {
+      @include create-grid-classes($name);
+
+      // Else add a media query
+    } @else {
+      @include create-breakpoint($name) {
+        @include create-grid-classes($name);
+      }
+    }
   }
 }
 
-@mixin breakpoint-down($size) {
-  @media screen and (max-width: #{breakpoint($size) - 1}) {
-    @content;
-  }
-}
-
-@mixin breakpoint-between($min, $max) {
-  @media screen
-    and (min-width: #{breakpoint($min)})
-    and (max-width: #{breakpoint($max) - 1}) {
-    @content;
-  }
-}
-
-@mixin header-sizes($headers) {
+@mixin create-headers($headers) {
   @each $header, $properties in $headers {
     #{$header},
     .#{$header} {
@@ -69,195 +99,163 @@
 }
 
 // this mixin is used for arrow mixins/CSS below and in src/scss/components/_dropdown.scss
-@mixin if-has-arrow {
+@mixin with-arrow-enabled {
   &:not(.has-no-arrow) {
     @content;
   }
 }
 
 // These values calculate a consistent arrow fill (inner) and arrow border (outer),
-// given any value of $arrow-size from _config.scss
+// given any value of $global-arrow-size from _config.scss
 // partial pixel values are used to prevent some browsers from clipping the edge
-$arrow-fill-position: $arrow-size * -2 + 1.5px;
-$arrow-border-position: $arrow-size * -2;
+$arrow-fill-position: $global-arrow-size * -2 + 1.5px;
+$arrow-border-position: $global-arrow-size * -2;
 
-@mixin arrow-base {
+@mixin create-arrow-base-styles {
+  border-left: $global-arrow-size solid transparent;
+  border-right: $global-arrow-size solid transparent;
+  border-bottom: $global-arrow-size solid transparent;
+  border-top: $global-arrow-size solid transparent;
   content: "";
-  border-bottom: $arrow-size solid transparent;
-  border-top: $arrow-size solid transparent;
-  border-left: $arrow-size solid transparent;
-  border-right: $arrow-size solid transparent;
   position: absolute;
 }
 
-@mixin up-arrow($edge-offset, $fill-color, $border-color) {
-  @include if-has-arrow {
+@mixin create-up-arrow($edge-offset, $fill-color, $border-color) {
+  @include with-arrow-enabled {
     &::after {
-      @include arrow-base;
-      border-bottom: $arrow-size solid $fill-color;
+      @include create-arrow-base-styles;
+      @include create-flow-property("left", $edge-offset);
+      @include create-flow-property("right", auto);
       top: $arrow-fill-position;
-      left: $edge-offset;
-      right: auto;
       bottom: auto;
+      border-bottom: $global-arrow-size solid $fill-color;
     }
 
     &::before {
-      @include arrow-base;
-      border-bottom: $arrow-size solid $border-color;
+      @include create-arrow-base-styles;
+      @include create-flow-property("left", $edge-offset);
+      @include create-flow-property("right", auto);
       top: $arrow-border-position;
-      left: $edge-offset;
-      right: auto;
       bottom: auto;
+      border-bottom: $global-arrow-size solid $border-color;
     }
   }
 }
 
-@mixin down-arrow($edge-offset, $fill-color, $border-color) {
-  @include if-has-arrow {
+@mixin create-down-arrow($edge-offset, $fill-color, $border-color) {
+  @include with-arrow-enabled {
     &::after {
-      @include arrow-base;
-      border-top: $arrow-size solid $fill-color;
+      @include create-arrow-base-styles;
+      @include create-flow-property("left", $edge-offset);
+      @include create-flow-property("right", auto);
       bottom: $arrow-fill-position;
-      left: $edge-offset;
       top: auto;
-      right: auto;
+      border-top: $global-arrow-size solid $fill-color;
     }
 
     &::before {
-      @include arrow-base;
-      border-top: $arrow-size solid $border-color;
+      @include create-arrow-base-styles;
+      @include create-flow-property("left", $edge-offset);
+      @include create-flow-property("right", auto);
       bottom: $arrow-border-position;
-      left: $edge-offset;
       top: auto;
-      right: auto;
+      border-top: $global-arrow-size solid $border-color;
     }
   }
 }
 
-@mixin right-arrow($edge-offset, $fill-color, $border-color) {
-  @include if-has-arrow {
+@mixin create-right-arrow($edge-offset, $fill-color, $border-color) {
+  @include with-arrow-enabled {
     &::after {
-      @include arrow-base;
-      border-left: $arrow-size solid $fill-color;
-      right: $arrow-fill-position;
+      @include create-arrow-base-styles;
+      @include create-flow-property("border-left", $global-arrow-size solid $fill-color);
+      @include create-flow-property("right", $arrow-fill-position);
+      @include create-flow-property("left", auto);
       top: $edge-offset;
-      left: auto;
       bottom: auto;
     }
 
     &::before {
-      @include arrow-base;
-      border-left: $arrow-size solid $border-color;
-      right: $arrow-border-position;
+      @include create-arrow-base-styles;
+      @include create-flow-property("border-left", $global-arrow-size solid $border-color);
+      @include create-flow-property("right", $arrow-border-position);
+      @include create-flow-property("left", auto);
       top: $edge-offset;
-      left: auto;
       bottom: auto;
     }
   }
 }
 
-@mixin left-arrow($edge-offset, $fill-color, $border-color) {
-  @include if-has-arrow {
+@mixin create-left-arrow($edge-offset, $fill-color, $border-color) {
+  @include with-arrow-enabled {
     &::after {
-      @include arrow-base;
-      border-right: $arrow-size solid $fill-color;
-      left: $arrow-fill-position;
+      @include create-arrow-base-styles;
+      @include create-flow-property("border-right", $global-arrow-size solid $fill-color);
+      @include create-flow-property("left", $arrow-fill-position);
+      @include create-flow-property("right", auto);
       top: $edge-offset;
       bottom: auto;
-      right: auto;
     }
 
     &::before {
-      @include arrow-base;
-      border-right: $arrow-size solid $border-color;
-      left: $arrow-border-position;
+      @include create-arrow-base-styles;
+      @include create-flow-property("border-right", $global-arrow-size solid $border-color);
+      @include create-flow-property("left", $arrow-border-position);
+      @include create-flow-property("right", auto);
       top: $edge-offset;
       bottom: auto;
-      right: auto;
     }
   }
 }
 
-@mixin visibility($size) {
-  .is-flex-#{$size} {
-    display: flex !important;
-  }
-
-  .is-block-#{$size} {
-    display: block !important;
-  }
-
-  .is-hidden-#{$size} {
-    display: none !important;
-  }
-}
-
-@mixin input-field-base-properties {
-  background: $input-background;
+@mixin create-input-field-base-styles {
+  background: $form-input-bg;
   appearance: none;
-  border-radius: $input-border-radius;
-  border: $input-border;
-  box-shadow: $input-box-shadow;
-  font-family: $input-font-family;
-  font-size: $input-font-size;
-  margin: $input-margin;
-  padding: $input-padding;
+  border-radius: $form-input-border-radius;
+  border: $form-input-border;
+  box-shadow: $form-input-box-shadow;
+  font-family: $form-input-font-family;
+  font-size: $form-input-font-size;
+  margin: $form-input-margin;
+  padding: $form-input-padding;
 }
 
-@mixin input-field-interacted-properties {
+@mixin create-input-field-interactive-styles {
   transition: $global-transition;
 
   &:focus,
   &:active {
-    background: $input-focus-background !important;
-    border: $input-focus-border !important;
-    box-shadow: $input-focus-box-shadow !important;
+    background: $form-input-focus-bg !important;
+    border: $form-input-focus-border !important;
+    box-shadow: $form-input-focus-box-shadow !important;
   }
 
   &:hover {
-    background: $input-hover-background;
-    border: $input-hover-border;
-    box-shadow: $input-hover-box-shadow;
+    background: $form-input-hover-bg;
+    border: $form-input-hover-border;
+    box-shadow: $form-input-hover-box-shadow;
     transition: $global-transition;
   }
 }
 
-@mixin input-element-disabled-properties {
-  background: $input-disabled-background !important;
-  border: $input-disabled-border !important;
-  color: $input-disabled-color !important;
+@mixin create-input-disabled-styles {
+  background: $form-input-disabled-bg !important;
+  border: $form-input-disabled-border !important;
+  color: $form-input-disabled-color !important;
   cursor: not-allowed;
-  resize: $input-disabled-resize !important;
+  resize: $form-input-disabled-resize !important;
   opacity: 1;
 
   &:hover {
-    background: $input-disabled-background !important;
-    border: $input-disabled-border !important;
-    color: $input-disabled-color !important;
+    background: $form-input-disabled-bg !important;
+    border: $form-input-disabled-border !important;
+    color: $form-input-disabled-color !important;
   }
 }
 
-@mixin input-of-type-disabled($type) {
+@mixin create-input-of-type-disabled($type) {
   input[type="#{$type}"]:disabled,
-  input[type="#{$type}"].disabled {
-    @include input-element-disabled-properties;
-  }
-}
-
-@mixin no-scroll {
-  .no-scroll {
-    overflow: hidden !important;
-  }
-}
-
-@mixin using-keyboard {
-  $inputs: "";
-
-  @each $type in $input-field-types {
-    $inputs: $inputs + ':not([type="#{$type}"])';
-  }
-
-  .using-keyboard *#{$inputs}:not(textarea):not(select):focus {
-    outline: $global-outline-using-keyboard !important;
+  input[type="#{$type}"].is-disabled {
+    @include create-input-disabled-styles;
   }
 }

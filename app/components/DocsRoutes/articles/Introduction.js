@@ -6,14 +6,14 @@ import IntroductionMd from "app/docs/introduction.md"
 
 const Introduction = () => {
   return (
-    <React.Fragment>
+    <>
       <SetMeta
         title="Introduction"
         description="Introduction to Undernet, its story, and guiding principles."
       />
       <PageHeader>Introduction</PageHeader>
       <Article>{IntroductionMd}</Article>
-    </React.Fragment>
+    </>
   )
 }
 

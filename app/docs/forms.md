@@ -10,17 +10,17 @@ Use consistently styled text and textarea elements. They should be wrapped in a 
 </label>
 <label for="fieldset-textarea-1">
   Tell us about yourself:
-  <textarea id="fieldset-textarea-1" placeholder="I'm a big fan of..."></textarea>
+  <textarea id="fieldset-textarea-1" placeholder="Tell me about yourself..."></textarea>
 </label>
 
 ```html
-<label for="example-name-1">
+<label for="example-name">
   Name
-  <input id="example-name-1" type="text" value="" placeholder="Dr. Thomas Light" />
+  <input id="example-name" type="text" value="" placeholder="Dr. Thomas Light" />
 </label>
-<label for="example-textarea-1">
+<label for="example-textarea">
   Tell us about yourself:
-  <textarea id="example-textarea-1" placeholder="I'm a big fan of..."></textarea>
+  <textarea id="example-textarea" placeholder="Tell me about yourself..."></textarea>
 </label>
 ```
 
@@ -52,36 +52,34 @@ Checkboxes and radios are inconsistent across browsers, so Undernet has a needed
 
 ## Fieldset
 
-Use the fieldset tag to group form elements together. It should sit inside a form tag and contain a legend element describing the form.
+Use the fieldset tag to group form elements together. It should sit inside a form tag and contain a legend element describing the container. 
+
+Combine it with grid and spacing helper classes to create an intuitive layout for the form.
 
 <form>
   <fieldset>
     <legend>Sign Up For Our Newsletter</legend>
     <div class="row">
-      <div class="xsmall-12 medium-6 columns has-no-padding-bottom">
+      <div class="column is-xs-12 is-md-6 has-no-p-block-end">
         <label for="fieldset-email">
-          Email
-          <input id="fieldset-email" type="email" value="" placeholder="person@example.com" />
+          Email: <input id="fieldset-email" type="email" value="" placeholder="person@example.com" />
         </label>
       </div>
-      <div class="xsmall-12 medium-6 columns has-no-padding-bottom">
+      <div class="column is-xs-12 is-md-6 has-no-p-block-end">
         <label for="fieldset-name">
-          Name
-          <input id="fieldset-name" type="text" value="" placeholder="Dr. Thomas Light" />
+          Name: <input id="fieldset-name" type="text" value="" placeholder="Dr. Thomas Light" />
         </label>
       </div>
-      <div class="xsmall-12 columns has-no-padding-bottom">
-        <label for="fieldset-textarea-3">
-          Tell us about yourself:
-          <textarea id="fieldset-textarea-3" placeholder="I'm a big fan of..."></textarea>
+      <div class="column is-xs-12 has-no-p-block-end">
+        <label for="fieldset-textarea">
+          Tell us about yourself: <textarea id="fieldset-textarea" placeholder="I'm a big fan of..."></textarea>
         </label>
       </div>
-      <div class="column has-no-padding-bottom">
+      <div class="column has-no-p-block-end">
         <label for="fieldset-check" class="has-check">
-          <input id="fieldset-check" type="checkbox" /> Send me occasional marketing and product
-          updates.
+          <input id="fieldset-check" type="checkbox" /> Send me occasional marketing and product updates.
         </label>
-        <input class="primary button" type="submit" value="Send Me the Goods!" />
+        <input class="button is-primary has-m-block-end-xs" type="submit" value="Send Me the Goods!" />
       </div>
     </div>
   </fieldset>
@@ -92,43 +90,39 @@ Use the fieldset tag to group form elements together. It should sit inside a for
   <fieldset>
     <legend>Sign Up For Our Newsletter</legend>
     <div class="row">
-      <div class="xsmall-12 medium-6 columns has-no-padding-bottom">
+      <div class="column is-xs-12 is-md-6 has-no-p-block-end">
         <label for="fieldset-email">
-          Email
-          <input id="fieldset-email" type="email" value="" placeholder="person@example.com" />
+          Email: <input id="fieldset-email" type="email" value="" placeholder="person@example.com" />
         </label>
       </div>
-      <div class="xsmall-12 medium-6 columns has-no-padding-bottom">
+      <div class="column is-xs-12 is-md-6 has-no-p-block-end">
         <label for="fieldset-name">
-          Name
-          <input id="fieldset-name" type="text" value="" placeholder="Dr. Thomas Light" />
+          Name: <input id="fieldset-name" type="text" value="" placeholder="Dr. Thomas Light" />
         </label>
       </div>
-      <div class="xsmall-12 columns has-no-padding-bottom">
-        <label for="fieldset-textarea-3">
-          Tell us about yourself:
-          <textarea id="fieldset-textarea-3" placeholder="I'm a big fan of..."></textarea>
+      <div class="column is-xs-12 has-no-p-block-end">
+        <label for="fieldset-textarea">
+          Tell us about yourself: <textarea id="fieldset-textarea" placeholder="I'm a big fan of..."></textarea>
         </label>
       </div>
-      <div class="column has-no-padding-bottom">
+      <div class="column has-no-p-block-end">
         <label for="fieldset-check" class="has-check">
-          <input id="fieldset-check" type="checkbox" /> Send me occasional marketing and product
-          updates.
+          <input id="fieldset-check" type="checkbox" /> Send me occasional marketing and product updates.
         </label>
-        <input class="primary button" type="submit" value="Send Me the Goods!" />
+        <input class="button is-primary has-m-block-end-xs" type="submit" value="Send Me the Goods!" />
       </div>
     </div>
   </fieldset>
 </form>
 ```
 
-## Disabled State
+## Disabled States
 
-Using the `[disabled]` attribute will visually and functionally disable the control.
+Using the `disabled` attribute will visually and functionally disable the control.
 
-The `disabled` class will visually dim the control, but not disable it functionally. The input must return `false` in JavaScript but still receive focus to truly disable clicks and other forms of input if you use the class. Useful for disabling anchor tag buttons.
+The `disabled` class will visually dim the control, but not disable it completely. The input must return `false` in JavaScript, have `aria-disabled='true'`, and still receive focus to disable the element in an accessible way.
 
-<button disabled class="has-no-margin-bottom">Disabled Button</button>
+<button disabled class="has-no-m-block-end">Disabled Button</button>
 
 <input type="text" disabled value="Disabled Text Input" />
 
@@ -154,5 +148,5 @@ The `disabled` class will visually dim the control, but not disable it functiona
 </label>
 ```
 
-<hr />
-<p class="has-right-text">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/app/docs/forms.md">Edit this page on Github!</a></p>
+---
+<p class="has-text-end">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/app/docs/forms.md">Edit this page on Github!</a></p>

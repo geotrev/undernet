@@ -1,59 +1,44 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import classNames from "classnames"
 import throttle from "lodash/throttle"
 import { NavLink } from "react-router-dom"
 import Menu from "react-feather/dist/icons/menu"
 import ChevronRight from "react-feather/dist/icons/chevron-right"
-
-import { NAV_DATA } from "./constants"
 import { Accordions } from "undernet"
+
+import { useDidMount, useWillUnmount } from "app/helpers"
+import { NAV_DATA } from "./constants"
 import "./styles.scss"
 
 const pkg = require("projectRoot/package.json")
 const MENU_COLLAPSE_WIDTH = 1199
+const SCOPE = "#side-nav"
 
 export default function SideNav() {
-  // set up effects and state
-
   const getWindowInnerWidth = () => window.innerWidth
+  const isLargerThanCollapseWidth = () => getWindowInnerWidth() > MENU_COLLAPSE_WIDTH
+  const [menuIsOpen, setMenuIsOpen] = useState(isLargerThanCollapseWidth())
 
-  const isLargerThanCollapseWidth = getWindowInnerWidth() > MENU_COLLAPSE_WIDTH
-  const [menuIsOpen, setMenuIsOpen] = useState(isLargerThanCollapseWidth)
-
-  let handleMenuVisibility = () => {
-    if (isLargerThanCollapseWidth) {
-      setMenuIsOpen(true)
-    }
+  const handleMenuVisibility = () => {
+    if (isLargerThanCollapseWidth()) setMenuIsOpen(true)
   }
 
-  handleMenuVisibility = throttle(handleMenuVisibility, 50)
+  const handleMenuVisibilityThrottled = throttle(handleMenuVisibility, 50)
 
-  const componentUnmountFunction = () => {
-    window.removeEventListener("resize", handleMenuVisibility)
-    Accordions.stop()
-  }
+  useDidMount(() => {
+    window.addEventListener("resize", handleMenuVisibilityThrottled)
+    setMenuIsOpen(isLargerThanCollapseWidth())
+    Accordions.start(SCOPE)
+  })
 
-  const observedStateOnMount = []
-  useEffect(() => {
-    Accordions.start()
-    window.addEventListener("resize", handleMenuVisibility)
-    setMenuIsOpen(isLargerThanCollapseWidth)
-
-    return componentUnmountFunction
-  }, observedStateOnMount)
-
-  const observedStateOnUpdate = [menuIsOpen]
-  useEffect(() => {
-    Accordions.stop()
-    Accordions.start()
-  }, observedStateOnUpdate)
-
-  // set up handlers and other helper methods
+  useWillUnmount(() => {
+    window.removeEventListener("resize", handleMenuVisibilityThrottled)
+    Accordions.stop(SCOPE)
+  })
 
   const handleCollapseClick = () => {
-    if (getWindowInnerWidth() <= MENU_COLLAPSE_WIDTH) {
-      setMenuIsOpen(false)
-    }
+    if (getWindowInnerWidth() > MENU_COLLAPSE_WIDTH) return
+    setMenuIsOpen(false)
   }
 
   const handleMenuToggleClick = event => {
@@ -62,15 +47,13 @@ export default function SideNav() {
   }
 
   const buttonClasses = () => {
-    return classNames("is-justified-center is-aligned-center is-flex is-hidden-xlarge", {
+    return classNames("has-justify-content-center has-align-items-center is-d-flex is-xl-d-none", {
       "rotate-180": !menuIsOpen,
     })
   }
 
   const menuClasses = () => {
-    return classNames("row side-nav-menu accordion has-padding-3", {
-      "is-hidden": !menuIsOpen,
-    })
+    return classNames("row side-nav-menu accordion has-p-lg", { "is-d-none": !menuIsOpen })
   }
 
   const accordionIsActive = items => {
@@ -85,14 +68,12 @@ export default function SideNav() {
     return isActive
   }
 
-  // render content
-
-  const renderAccordionChildLink = item => {
+  const renderCollapsibleChildLink = item => {
     return (
       <li key={item.name} role="none">
         <NavLink
-          role="listitem"
-          className="side-nav-link-item has-black-text is-flex is-aligned-center"
+          role="menuitem"
+          className="side-nav-link-item has-black-text-color is-d-flex has-align-items-center"
           activeClassName="active"
           onClick={handleCollapseClick}
           to={item.url}
@@ -103,63 +84,61 @@ export default function SideNav() {
     )
   }
 
-  const renderAccordionRow = (section, index) => {
-    const listItems = section.links.map(renderAccordionChildLink)
-
-    return (
-      <React.Fragment key={section.header}>
-        <h4 className="paragraph">
-          <button
-            id={`nav-acc-button${index}`}
-            data-parent="side-nav-accordion"
-            className="accordion-button"
-            data-target={`nav-acc-content${index}`}
-          >
-            {section.header}
-          </button>
-        </h4>
-        <ul className="accordion-content" id={`nav-acc-content${index}`}>
-          {listItems}
-        </ul>
-      </React.Fragment>
-    )
-  }
-
-  const renderNavAccordion = () => {
-    return NAV_DATA.map((section, i) => {
-      return (
-        <div
-          data-visible={accordionIsActive(section.links) ? "true" : "false"}
-          data-accordion-row={`nav-acc-content${i}`}
-          className="accordion-row xsmall-12 columns has-no-padding"
-          key={section.links[0].url}
+  const renderCollapsible = (section, index) => (
+    <React.Fragment key={section.header}>
+      <h4 className="paragraph">
+        <button
+          id={`nav-collapsible-trigger${index}`}
+          data-parent="side-nav-accordion"
+          className="collapsible-trigger"
+          data-target={`nav-collapsible-content${index}`}
         >
-          {renderAccordionRow(section, i)}
-        </div>
-      )
-    })
+          {section.header}
+        </button>
+      </h4>
+      <ul className="collapsible-content" id={`nav-collapsible-content${index}`}>
+        {section.links.map(renderCollapsibleChildLink)}
+      </ul>
+    </React.Fragment>
+  )
+
+  const renderNavCollapsibleWrapper = () => {
+    return NAV_DATA.map((section, i) => (
+      <div
+        data-visible={accordionIsActive(section.links) ? "true" : "false"}
+        data-collapsible={`nav-collapsible-content${i}`}
+        className="collapsible is-xs-12 column has-no-p"
+        key={section.links[0].url}
+      >
+        {renderCollapsible(section, i)}
+      </div>
+    ))
   }
+
+  const renderMenuToggle = () => (
+    <div className="row is-d-flex is-xl-d-none side-nav-expand">
+      <button
+        onClick={handleMenuToggleClick}
+        className={buttonClasses()}
+        aria-controls="side-nav-wrapper"
+        aria-expanded={menuIsOpen}
+      >
+        <Menu size={20} role="presentation" focusable="false" />{" "}
+        <span className="has-black-text-color">Explore</span>
+      </button>
+    </div>
+  )
 
   return (
-    <div className="xsmall-12 xlarge-2 columns has-no-padding" id="side-nav">
-      <div className="fluid grid side-nav-wrapper">
-        <div className="row is-flex is-hidden-xlarge side-nav-expand">
-          <button
-            onClick={handleMenuToggleClick}
-            className={buttonClasses()}
-            aria-controls="side-nav-wrapper"
-            aria-expanded={menuIsOpen}
-          >
-            <Menu size={20} role="presentation" focusable="false" />{" "}
-            <span className="has-black-text">Explore</span>
-          </button>
-        </div>
+    <div className="is-xs-12 is-xl-2 column has-no-p" id="side-nav">
+      <div className="is-fluid grid side-nav-wrapper">
+        {renderMenuToggle()}
 
         <nav data-accordion="side-nav-accordion" className={menuClasses()} id="side-nav-wrapper">
-          <p className="version-text has-no-padding has-gray800-text xsmall-12 columns">
+          <p className="version-text has-no-p has-gray800-text-color is-xs-12 column">
             Version {pkg.version}
           </p>
-          {renderNavAccordion()}
+          {renderNavCollapsibleWrapper()}
         </nav>
       </div>
     </div>

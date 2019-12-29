@@ -1,6 +1,6 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { Switch, Route } from "react-router-dom"
-import { ContextUtil } from "undernet"
+import { createFocusRing } from "undernet"
 
 import { rootPath, docsPath } from "app/routes"
 import GlobalNav from "app/components/GlobalNav"
@@ -8,29 +8,22 @@ import Footer from "app/components/Footer"
 import PageNotFound from "app/components/PageNotFound"
 import Home from "app/pages/Home"
 import Docs from "app/pages/Docs"
+import { useDidMount, useWillUnmount } from "app/helpers"
+import { FOCUSABLE_TABINDEX, UNFOCUSABLE_TABINDEX } from "./constants"
 
 import "./styles.scss"
 
-import { FOCUSABLE_TABINDEX, UNFOCUSABLE_TABINDEX } from "./constants"
-
 export default function Main() {
+  const focusRing = createFocusRing()
+  const Attributes = { TABINDEX: "tabindex" }
+
   const headerRef = React.useRef(null)
   const mainRef = React.useRef(null)
-  const Attributes = {
-    TABINDEX: "tabindex",
-  }
   const getHeaderTabIndex = () => headerRef.current.getAttribute(Attributes.TABINDEX)
   const getMainTabIndex = () => mainRef.current.getAttribute(Attributes.TABINDEX)
 
-  const componentUnmountFunction = () => {
-    ContextUtil.disableFocusOutline()
-  }
-
-  const observedStateOnMount = []
-  useEffect(() => {
-    ContextUtil.enableFocusOutline()
-    return componentUnmountFunction
-  }, observedStateOnMount)
+  useDidMount(focusRing.start)
+  useWillUnmount(focusRing.stop)
 
   const handleRefocusClick = ref => {
     ref.current.setAttribute(Attributes.TABINDEX, FOCUSABLE_TABINDEX)
@@ -48,7 +41,7 @@ export default function Main() {
   }
 
   return (
-    <React.Fragment>
+    <>
       <header ref={headerRef} onBlur={handleHeaderBlur} role="banner">
         <GlobalNav handleRefocusClick={handleRefocusClick} mainRef={mainRef} />
       </header>
@@ -64,6 +57,6 @@ export default function Main() {
       <footer>
         <Footer handleRefocusClick={handleRefocusClick} headerRef={headerRef} />
       </footer>
-    </React.Fragment>
+    </>
   )
 }
