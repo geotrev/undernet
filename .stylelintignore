@@ -1,4 +1,4 @@
 dist/
-app/docs/*
 src/scss/utilities/_reset.scss
 src/__tests__/
+_site/

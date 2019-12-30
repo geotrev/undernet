@@ -16,3 +16,4 @@ dist/*.css.map
 
 .sass-cache
 .eslint-output
+.jekyll-cache
