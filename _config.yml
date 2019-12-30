@@ -4,6 +4,16 @@ defaults:
     values:
       image: true
 
+exclude:
+  - babel.config.js
+  - jest.config.js
+  - package-lock.json
+  - postcss.config.js
+  - rollup.config.js
+  - src
+  - dist
+  - bin
+
 sass:
   sass_dir: _sass
   style: compressed
@@ -23,3 +33,5 @@ autoprefixer:
     - safari >= 10
     - ios >= 9
     - opera >= 38
+
+baseurl: "/undernet"

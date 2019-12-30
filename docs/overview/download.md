@@ -109,7 +109,7 @@ Finally, import `_undernet.scss` to your app's Sass entry file, wherever that mi
 ... or link to the compiled CSS in your layout, before your app-specific styles..
 
 ```html
-<link rel="stylesheet" ref="path/to/custom-undernet.css" />
+<link href="path/to/custom-undernet.css" rel="stylesheet" />
 <!-- all your other stylesheets/style tags after -->
 ```
 
