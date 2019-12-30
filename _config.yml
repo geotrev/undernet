@@ -18,9 +18,6 @@ sass:
   sass_dir: _sass
   style: compressed
 
-gems:
-  - jekyll-autoprefixer
-
 # this echoes .browserslistrc
 autoprefixer:
   only_production: true
@@ -35,3 +32,6 @@ autoprefixer:
     - opera >= 38
 
 baseurl: "/undernet"
+
+plugins:
+  - jekyll-autoprefixer
