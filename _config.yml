@@ -3,3 +3,23 @@ defaults:
       path: assets/img
     values:
       image: true
+
+sass:
+  sass_dir: _sass
+  style: compressed
+
+gems:
+  - jekyll-autoprefixer
+
+# this echoes .browserslistrc
+autoprefixer:
+  only_production: true
+  browsers:
+    - last major version
+    - ie 11
+    - edge >= 15
+    - firefox >= 54
+    - chrome >= 51
+    - safari >= 10
+    - ios >= 9
+    - opera >= 38

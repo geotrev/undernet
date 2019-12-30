@@ -2,9 +2,12 @@
 <html lang="en">
   <head>
     {% include head.html %}
+    <link rel="stylesheet" href="{{ site.url }}/assets/css/undernet.css">
   </head>
   <body>
-    {% include global-navigation.html %}
+    <header>
+      {% include global-navigation.html %}
+    </header>
     <main>
       {% include side-navigation.html %}
       {{ content }}
