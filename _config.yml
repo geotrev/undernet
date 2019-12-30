@@ -1,8 +1,5 @@
-- include: ["src/"]
-- sass:
-    - style: compressed
-- defaults:
-    - scope:
-        path: "assets/img"
-      values:
-        image: true
+defaults:
+  - scope:
+      path: assets/img
+    values:
+      image: true
