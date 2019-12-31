@@ -12,7 +12,9 @@ const Tooltips = () => {
         description="A component for showing basic text content in a small popup box."
       />
       <PageHeader>Tooltips</PageHeader>
-      <Article>{TooltipsMd}</Article>
+      <Article name="Tooltips" hasAPI>
+        {TooltipsMd}
+      </Article>
     </>
   )
 }

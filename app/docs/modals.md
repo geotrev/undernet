@@ -201,18 +201,3 @@ The below attributes you should add to elements yourself. They increase the cont
 - `modal-dialog`: the container for dialog content.
 
 Edit much of the styling within `_config.scss`.
-
-### API
-
-Call one of the following scripts from Undernet's JavaScript (not both!). This should happen _only once_ on page load/component mount/etc.
-
-```js
-Undernet.start()
-```
-
-```js
-Undernet.Modals.start()
-```
-
----
-<p class="has-text-end">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/app/docs/modals.md">Edit this page on Github!</a></p>

@@ -166,21 +166,3 @@ This component currently does not handle trapping of focus using arrow keys betw
 #### Styling Classes
 
 - `accordion`: adds styling to the accordion wrapper.
-
-### API
-
-Call one of the following scripts from Undernet's JavaScript (not both!). This should happen _only once_ on page load/component mount/etc.
-
-Note: You _must_ call both `Accordions` and `Collapsibles` to use this component.
-
-```js
-Undernet.start()
-```
-
-```js
-Undernet.Collapsibles.start()
-Undernet.Accordions.start()
-```
-
----
-<p class="has-text-end">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/app/docs/accordions.md">Edit this page on Github!</a></p>

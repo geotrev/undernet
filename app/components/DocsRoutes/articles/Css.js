@@ -12,7 +12,7 @@ const Branding = () => {
         description="Strategies for customizing the CSS' look and feel using Undernet's SCSS."
       />
       <PageHeader>CSS</PageHeader>
-      <Article>{CssMd}</Article>
+      <Article name="Css">{CssMd}</Article>
     </>
   )
 }

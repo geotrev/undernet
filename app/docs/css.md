@@ -94,6 +94,3 @@ Now we can distinguish where HTML will use framework styling, and ignore the res
 ```
 
 By default, the `$style-scope` variable is set to an empty string, disabling it.
-
----
-<p class="has-text-end">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/app/docs/css.md">Edit this page on Github!</a></p>

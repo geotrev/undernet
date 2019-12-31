@@ -175,6 +175,3 @@ To manually set elements in a container to grow or shrink, add the class `has-X-
     </div>
   </div>
 </div>
-
----
-<p class="has-text-end">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/app/docs/alignment.md">Edit this page on Github!</a></p>

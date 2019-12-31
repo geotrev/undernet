@@ -147,6 +147,3 @@ The `disabled` class will visually dim the control, but not disable it completel
   <input id="disabled-checkbox" disabled type="checkbox" /> Disabled Checkbox Input
 </label>
 ```
-
----
-<p class="has-text-end">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/app/docs/forms.md">Edit this page on Github!</a></p>

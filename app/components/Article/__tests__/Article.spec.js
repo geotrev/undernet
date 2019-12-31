@@ -4,6 +4,7 @@ import Undernet from "undernet"
 import Article from "../Article"
 
 jest.mock("app/components/ScrollUpOnMount", () => global.simpleMock("ScrollUpOnMount"))
+jest.mock("app/components/ArticleFooter", () => global.simpleMock("ArticleFooter"))
 
 global.scrollTo = jest.fn()
 
@@ -16,7 +17,7 @@ jest.mock("prismjs", () => ({
 
 const mountComponent = () => {
   const md = "# Test header \n So neat"
-  return mount(<Article>{md}</Article>)
+  return mount(<Article name="Test">{md}</Article>)
 }
 
 describe("<Article />", () => {

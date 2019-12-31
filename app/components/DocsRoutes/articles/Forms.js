@@ -12,7 +12,7 @@ const Forms = () => {
         description="Use form elements and helper classes for consistent user input and textual feedback."
       />
       <PageHeader>Forms</PageHeader>
-      <Article>{FormsMd}</Article>
+      <Article name="Forms">{FormsMd}</Article>
     </>
   )
 }

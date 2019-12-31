@@ -12,7 +12,7 @@ const Color = () => {
         description="Utilities for adding custom colored text and backgrounds using class helpers."
       />
       <PageHeader>Color</PageHeader>
-      <Article>{ColorMd}</Article>
+      <Article name="Color">{ColorMd}</Article>
     </>
   )
 }

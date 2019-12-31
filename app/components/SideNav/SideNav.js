@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import classNames from "classnames"
 import throttle from "lodash/throttle"
 import { NavLink } from "react-router-dom"
@@ -28,13 +28,19 @@ export default function SideNav() {
   useDidMount(() => {
     window.addEventListener("resize", handleMenuVisibilityThrottled)
     setMenuIsOpen(isLargerThanCollapseWidth())
-    Accordions.start(SCOPE)
   })
 
   useWillUnmount(() => {
     window.removeEventListener("resize", handleMenuVisibilityThrottled)
-    Accordions.stop(SCOPE)
   })
+
+  useEffect(() => {
+    if (menuIsOpen) {
+      Accordions.start(SCOPE)
+    } else {
+      Accordions.stop(SCOPE)
+    }
+  }, [menuIsOpen])
 
   const handleCollapseClick = () => {
     if (getWindowInnerWidth() > MENU_COLLAPSE_WIDTH) return

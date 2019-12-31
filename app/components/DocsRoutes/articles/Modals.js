@@ -12,7 +12,9 @@ const Modals = () => {
         description="A component for showing content in a modal dialog user interface."
       />
       <PageHeader>Modals</PageHeader>
-      <Article>{ModalsMd}</Article>
+      <Article name="Modals" hasAPI>
+        {ModalsMd}
+      </Article>
     </>
   )
 }

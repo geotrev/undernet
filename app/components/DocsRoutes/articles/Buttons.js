@@ -12,7 +12,7 @@ const Buttons = () => {
         description="Use button elements and class helpers for consistent interactions."
       />
       <PageHeader>Buttons</PageHeader>
-      <Article>{ButtonsMd}</Article>
+      <Article name="Buttons">{ButtonsMd}</Article>
     </>
   )
 }

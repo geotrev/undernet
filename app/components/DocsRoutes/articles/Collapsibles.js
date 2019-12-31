@@ -12,7 +12,9 @@ const Collapsibles = () => {
         description="A component for hiding or showing content in a collapsible container."
       />
       <PageHeader>Collapsibles</PageHeader>
-      <Article>{CollapsiblesMd}</Article>
+      <Article name="Collapsibles" hasAPI>
+        {CollapsiblesMd}
+      </Article>
     </>
   )
 }

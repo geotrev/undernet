@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Article /> #render renders 1`] = `
-<Article>
+<Article
+  name="Test"
+>
   <article
     className="article-wrapper has-no-p column fadeIn"
     id="article"
@@ -50,6 +52,9 @@ exports[`<Article /> #render renders 1`] = `
         </p>
       </Root>
     </ReactMarkdown>
+    <ArticleFooter
+      name="Test"
+    />
   </article>
 </Article>
 `;

@@ -12,7 +12,7 @@ const Display = () => {
         description="Utilities for customizing the display of page elements using class helpers."
       />
       <PageHeader>Display</PageHeader>
-      <Article>{DisplayMd}</Article>
+      <Article name="Display">{DisplayMd}</Article>
     </>
   )
 }
