@@ -7,15 +7,16 @@ const path = require("path")
 
 const packageFilePath = path.resolve(__dirname, "../package.json")
 const pkg = require(packageFilePath)
+const downloadFilePath = "/docs/overview/download.md"
 
 const undernetScssFilePath = path.resolve(__dirname, "../src/scss/undernet.scss")
-const downloadArticleFilePath = path.resolve(__dirname, "../app/docs/download.md")
+const downloadArticleFilePath = path.resolve(__dirname, `..${downloadFilePath}`)
 const readFormat = "utf-8"
 
 const versionRegEx = /undernet@[0-9]+\.[0-9]+\.[0-9]+/g
 const newVersion = `undernet@${pkg.version}`
 
-// get update for scss/undernet.scss
+// get update for src/scss/undernet.scss
 
 function setNewScssVersion() {
   const undernetScssFile = fs.readFileSync(undernetScssFilePath, readFormat)
@@ -35,4 +36,4 @@ fs.writeFileSync(undernetScssFilePath, setNewScssVersion(), readFormat)
 console.log(`-> src/scss/undernet.scss version updated to ${newVersion}!`)
 
 fs.writeFileSync(downloadArticleFilePath, setNewDlArticleVersion(), readFormat)
-console.log(`-> app/docs/download.md version updated to ${newVersion}!`)
+console.log(`-> ${downloadFilePath} version updated to ${newVersion}!`)

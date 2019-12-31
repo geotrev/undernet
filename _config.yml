@@ -1,37 +1,30 @@
-defaults:
-  - scope:
-      path: assets/img
-    values:
-      image: true
-
-exclude:
-  - babel.config.js
-  - jest.config.js
-  - package-lock.json
-  - postcss.config.js
-  - rollup.config.js
-  - src
-  - dist
-  - bin
+baseurl: "/undernet"
 
 sass:
   sass_dir: _sass
   style: compressed
 
-# this echoes .browserslistrc
-autoprefixer:
-  only_production: true
-  browsers:
-    - last major version
-    - ie 11
-    - edge >= 15
-    - firefox >= 54
-    - chrome >= 51
-    - safari >= 10
-    - ios >= 9
-    - opera >= 38
+exclude:
+  # jekyll stuff
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
 
-baseurl: "/undernet"
-
-plugins:
-  - jekyll-autoprefixer
+  # undernet stuff
+  - package.json
+  - package-lock.json
+  - postcss.config.js
+  - rollup.config.js
+  - babel.config.js
+  - jest.config.js
+  - src/
+  - dist/
+  - bin/
+  - lib/

@@ -1,0 +1,1 @@
+{"version":3,"file":"side-navigation.js","sources":["../../_scripts/side-navigation.js"],"sourcesContent":["const sideNavigation = () => {\n  console.log(\"Hello world from Jekyll scripts!\")\n}\n\ndocument.addEventListener(\"DOMContentLoaded\", sideNavigation)\n"],"names":["document","addEventListener","console","log"],"mappings":"2FAIAA,SAASC,iBAAiB,oBAJH,WACrBC,QAAQC,IAAI"}
