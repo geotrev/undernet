@@ -28,12 +28,10 @@ export default function SideNav() {
   useDidMount(() => {
     window.addEventListener("resize", handleMenuVisibilityThrottled)
     setMenuIsOpen(isLargerThanCollapseWidth())
-    Accordions.start(SCOPE)
   })
 
   useWillUnmount(() => {
     window.removeEventListener("resize", handleMenuVisibilityThrottled)
-    Accordions.stop(SCOPE)
   })
 
   useEffect(() => {
