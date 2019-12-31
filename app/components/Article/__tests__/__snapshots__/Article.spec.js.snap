@@ -54,19 +54,7 @@ exports[`<Article /> #render renders 1`] = `
     </ReactMarkdown>
     <ArticleFooter
       name="Test"
-    >
-      <hr />
-      <p
-        className="has-text-end"
-      >
-        Is this article inaccurate? 
-        <a
-          href="https://github.com/geotrev/undernet/tree/master/app/docs/test.md"
-        >
-          Edit this page on Github!
-        </a>
-      </p>
-    </ArticleFooter>
+    />
   </article>
 </Article>
 `;

@@ -4,6 +4,7 @@ import Undernet from "undernet"
 import Article from "../Article"
 
 jest.mock("app/components/ScrollUpOnMount", () => global.simpleMock("ScrollUpOnMount"))
+jest.mock("app/components/ArticleFooter", () => global.simpleMock("ArticleFooter"))
 
 global.scrollTo = jest.fn()
 
