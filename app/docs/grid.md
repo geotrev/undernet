@@ -311,6 +311,3 @@ By default, a row will be vertically centered. To make the row top-aligned, add 
 ```
 
 [Learn more about alignment utilities.](/docs/layout/alignment)
-
----
-<p class="has-text-end">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/app/docs/grid.md">Edit this page on Github!</a></p>

@@ -12,7 +12,7 @@ const OffsetOrder = () => {
         description="Change the grid and re-order content using offset and flex order class helpers."
       />
       <PageHeader>Offset & Order</PageHeader>
-      <Article>{OffsetOrderMd}</Article>
+      <Article name="Offset">{OffsetOrderMd}</Article>
     </>
   )
 }

@@ -12,7 +12,7 @@ const Typography = () => {
         description="Use typography elements for displaying readable content."
       />
       <PageHeader>Typography</PageHeader>
-      <Article>{TypographyMd}</Article>
+      <Article name="Typography">{TypographyMd}</Article>
     </>
   )
 }

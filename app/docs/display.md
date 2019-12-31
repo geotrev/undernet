@@ -17,6 +17,3 @@ Using the breakpoints defined in `$grid-breakpoints`, you can add them to the di
   I'm not displayed at xs, use flex at md, and become block-level at xl
 </p>
 ```
-
----
-<p class="has-text-end">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/app/docs/display.md">Edit this page on Github!</a></p>

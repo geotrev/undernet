@@ -16,7 +16,7 @@ jest.mock("prismjs", () => ({
 
 const mountComponent = () => {
   const md = "# Test header \n So neat"
-  return mount(<Article>{md}</Article>)
+  return mount(<Article name="Test">{md}</Article>)
 }
 
 describe("<Article />", () => {

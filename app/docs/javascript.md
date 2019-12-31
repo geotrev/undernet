@@ -237,6 +237,3 @@ Override the default matchers for focusable elements. Elements with `is-visually
 ```js
 focusRing.start(".wrapper-element", { matchers: ["button", "input", ".elements-with-this-class"] })
 ```
-
----
-<p class="has-text-end">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/app/docs/javascript.md">Edit this page on Github!</a></p>

@@ -377,7 +377,7 @@ $type-p-margin-bottom: $global-font-size !default;
 // E.g., <pre>, <code>, <kbd>, <samp>, <tt>
 
 $type-code-font: $global-font-monospace !default;
-$type-code-font-size: $global-font-size !default;
+$type-code-font-size: inherit !default;
 $type-code-color: $color-gray600 !default;
 $type-code-bg: lighten($color-gray900, 10%) !default;
 $type-code-border: none !default;

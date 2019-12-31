@@ -12,7 +12,7 @@ const Text = () => {
         description="Apply specific text style customizations using these class helpers."
       />
       <PageHeader>Text</PageHeader>
-      <Article>{TextMd}</Article>
+      <Article name="Text">{TextMd}</Article>
     </>
   )
 }

@@ -12,7 +12,9 @@ const Dropdowns = () => {
         description="A component for nesting menu buttons within a menu button user interface."
       />
       <PageHeader>Dropdowns</PageHeader>
-      <Article>{DropdownsMd}</Article>
+      <Article name="Dropdowns" hasAPI>
+        {DropdownsMd}
+      </Article>
     </>
   )
 }

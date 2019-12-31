@@ -12,7 +12,7 @@ const Download = () => {
         description="Download using cdn, npm, or get the raw source code assets for your static website."
       />
       <PageHeader>Download</PageHeader>
-      <Article>{DownloadMd}</Article>
+      <Article name="Download">{DownloadMd}</Article>
     </>
   )
 }

@@ -119,6 +119,3 @@ Ordered and unordered lists can be styled as well. You can change the bullet sty
   <li>Item #3</li>
 </ol>
 ```
-
----
-<p class="has-text-end">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/app/docs/typography.md">Edit this page on Github!</a></p>

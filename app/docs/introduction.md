@@ -33,7 +33,3 @@ The framework is also tested in and supports **Internet Explorer 11** and **Edge
 ## Contribute
 
 Undernet supports a FOSS methodology ([free and open source](https://en.wikipedia.org/wiki/Free_and_open-source_software)). You can contribute on [Github](https://www.github.com/geotrev/undernet/) if you have questions or a want to file a bug report. Be sure to [read about contributing](https://github.com/geotrev/undernet/blob/master/CONTRIBUTING.md) before filing a bug or pull request.
-
----
-
-<p class="has-text-end">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/app/docs/introduction.md">Edit this page on Github!</a></p>

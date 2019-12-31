@@ -12,7 +12,7 @@ const Introduction = () => {
         description="Introduction to Undernet, its story, and guiding principles."
       />
       <PageHeader>Introduction</PageHeader>
-      <Article>{IntroductionMd}</Article>
+      <Article name="Introduction">{IntroductionMd}</Article>
     </>
   )
 }

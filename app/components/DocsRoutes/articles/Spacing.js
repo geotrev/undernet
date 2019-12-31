@@ -12,7 +12,7 @@ const Spacing = () => {
         description="Create custom spaced paddings and margins for page elements using spacing class helpers."
       />
       <PageHeader>Spacing</PageHeader>
-      <Article>{SpacingMd}</Article>
+      <Article name="Spacing">{SpacingMd}</Article>
     </>
   )
 }

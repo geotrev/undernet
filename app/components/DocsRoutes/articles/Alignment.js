@@ -12,7 +12,7 @@ const Alignment = () => {
         description="Utilities for creating custom alignment in web layouts."
       />
       <PageHeader>Alignment</PageHeader>
-      <Article>{AlignmentMd}</Article>
+      <Article name="Alignment">{AlignmentMd}</Article>
     </>
   )
 }

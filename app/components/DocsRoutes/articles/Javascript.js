@@ -12,7 +12,7 @@ const JavaScript = () => {
         description="Strategies for importing and using Undernet's JavaScript components."
       />
       <PageHeader>JavaScript</PageHeader>
-      <Article>{JavaScriptMd}</Article>
+      <Article name="JavaScript">{JavaScriptMd}</Article>
     </>
   )
 }

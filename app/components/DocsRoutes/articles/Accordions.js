@@ -12,7 +12,9 @@ const Accordions = () => {
         description="A component that composes a series of collapsible containers."
       />
       <PageHeader>Accordions</PageHeader>
-      <Article>{AccordionsMd}</Article>
+      <Article name="Accordions" hasAPI>
+        {AccordionsMd}
+      </Article>
     </>
   )
 }

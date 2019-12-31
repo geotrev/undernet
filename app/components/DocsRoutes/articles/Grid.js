@@ -12,7 +12,7 @@ const Grid = () => {
         description="Use the flex grid utility classes for creating responsive, complex layouts with minimal effort."
       />
       <PageHeader>Grid</PageHeader>
-      <Article>{GridMd}</Article>
+      <Article name="Grid">{GridMd}</Article>
     </>
   )
 }

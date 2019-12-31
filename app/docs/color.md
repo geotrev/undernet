@@ -27,6 +27,3 @@ Similar to text, use `has-X-bg` to modify an element's `background-color`, where
 <p class="has-gray800-bg-color">I'm using $color-gray800!</p>
 <p class="has-success-bg-color">I'm using $color-success!</p>
 ```
-
----
-<p class="has-text-end">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/app/docs/color.md">Edit this page on Github!</a></p>

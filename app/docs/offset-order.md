@@ -55,6 +55,3 @@ You can also use traditional offset if you need to break out of the grid. Switch
   </div>
 </div>
 ```
-
----
-<p class="has-text-end">Is this article inaccurate? <a href="https://github.com/geotrev/undernet/tree/master/app/docs/offset-order.md">Edit this page on Github!</a></p>
