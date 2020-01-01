@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     {% include head.html %}
-    <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/docs.css"/>
+    <link rel="stylesheet" href="{% link assets/css/docs.scss %}"/>
   </head>
   <body>
     <header>
@@ -12,7 +12,7 @@
       {% include side-navigation.html %}
       {{ content }}
     </main>
-    <script src="{{ site.baseurl }}/assets/js/side-navigation.js" type="text/javascript"></script>
-    <script src="{{ site.baseurl }}/assets/js/undernet.js" type="text/javascript"></script>
+    <script src="{% link assets/js/side-navigation.js %}" type="text/javascript"></script>
+    <script src="{% link assets/js/undernet.js %}" type="text/javascript"></script>
   </body>
 </html>
