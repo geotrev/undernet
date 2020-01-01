@@ -10,7 +10,7 @@ module.exports = api => {
   const esm = api.env("esm")
 
   let presets = [modules.env]
-  let plugins = []
+  // let plugins = []
   let ignore = []
 
   if (test) {
@@ -23,5 +23,5 @@ module.exports = api => {
     ignore = [...libIgnore]
   }
 
-  return { plugins, presets, ignore }
+  return { /* plugins, */ presets, ignore }
 }

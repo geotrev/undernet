@@ -3,3 +3,4 @@ dist/
 lib/
 _site/
 .jekyll-cache
+assets/js/

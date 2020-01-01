@@ -5,11 +5,9 @@ const READONLY = "readonly"
 const OFF = "off"
 const ALWAYS = "always"
 
-const appPath = path.resolve(__dirname, "app")
 const srcPath = path.resolve(__dirname, "src/js")
 const binPath = path.resolve(__dirname, "bin")
 const nodeModulesPath = path.resolve(__dirname, "node_modules")
-const webpackConfigPath = path.resolve(__dirname, "webpack.common.js")
 
 module.exports = {
   env: {
@@ -21,47 +19,29 @@ module.exports = {
   },
   parser: "babel-eslint",
   parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
-    },
     ecmaVersion: 2018,
     sourceType: "module",
     babelOptions: {
       configFile: "babel.config.js",
     },
   },
-  extends: [
-    "plugin:react/recommended",
-    "plugin:jsx-a11y/strict",
-    "prettier",
-    "prettier/react",
-    "prettier/babel",
-  ],
-  plugins: ["react", "jsx-a11y"],
+  extends: ["prettier", "prettier/babel"],
   globals: {
     Atomics: READONLY,
     SharedArrayBuffer: READONLY,
 
     // framework
     Undernet: "writable",
-
-    // tests
-    mount: READONLY,
-    render: READONLY,
-    shallow: READONLY,
   },
   settings: {
     "import/resolver": {
       node: {
         extensions: [".js"],
-        paths: [appPath, srcPath, binPath],
+        paths: [srcPath, binPath],
         moduleDirectory: [nodeModulesPath],
       },
-      webpack: { config: webpackConfigPath },
     },
     "import/ignore": [".(scss|less|css|md)$"],
-    react: { version: "detect" },
-    linkComponents: [{ name: "Link", linkAttribute: "to" }],
   },
   rules: {
     // errors
@@ -201,12 +181,5 @@ module.exports = {
     "prefer-spread": ERROR,
     "prefer-template": ERROR,
     "require-yield": ERROR,
-
-    // react
-    "react/display-name": ERROR,
-
-    // jsx-a11y
-    "jsx-a11y/no-noninteractive-element-interactions": OFF,
-    "jsx-a11y/no-interactive-element-to-noninteractive-role": OFF,
   },
 }

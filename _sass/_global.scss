@@ -1,5 +1,4 @@
-$black: #000;
-
 header {
-  background: #ddd;
+  $bg: #dddddd;
+  background: $bg;
 }

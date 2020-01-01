@@ -1,16 +1,10 @@
-# Javascript Node CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-javascript/ for more details
-#
-# This is really just needed to run website + framework tests. Nothing complex really.
-#
 version: 2
 jobs:
-  build:
+  test:
     docker:
       - image: circleci/node:12.5.0
-
     working_directory: ~/undernet
+
     steps:
       - checkout
       - restore_cache:
@@ -27,3 +21,38 @@ jobs:
       - run: npm run lint
       - run: npm run js:build
       - run: npm test
+
+  deploy:
+    docker:
+      - image: circleci/ruby:2.6.5-node-browsers
+
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+      - run: npm i
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      - run: gem install bundler:2.1.2
+      - run: bundle install && bundle clean
+
+      - run: npm run js:build:esm
+      - run: npm run build
+      - deploy:
+          name: Deploy to GitHub
+          command: |
+            if [ $CIRCLE_BRANCH == 'use-gh-pages' ]; then
+              bash .circleci/setup-github.sh
+            fi
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - test
+      - deploy
