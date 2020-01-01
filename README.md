@@ -48,7 +48,7 @@ See CONTRIBUTING.md for more details on git flow and recommendations for pull re
 
 ### Fork and clone for development / contributing
 
-First fork the project on Github. Then set up locally. Note that NPM is used for all scripts.
+To develop Undernet, you'll need node, npm, and ruby. Make sure you have the version specified in `.ruby-version`. I recommend installing with `rvm`, or a combination of tools like `chruby` and `ruby-install`.
 
 ```sh
 $ git clone git@github.com:USER_NAME/undernet.git
