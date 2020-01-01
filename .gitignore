@@ -6,6 +6,7 @@ lib/
 _site/
 coverage/
 node_modules/
+assets/js/
 
 # don't include umd files in git - only in npm for cdn access
 dist/*.js
