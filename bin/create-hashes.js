@@ -6,7 +6,7 @@ const Hashes = require("jshashes")
 
 // set up for operations
 
-const downloadFilePath = "/docs/overview/download.md"
+const downloadFilePath = "/docs/overview/download/index.md"
 
 const distJsFilePath = path.resolve(__dirname, "../dist/undernet.bundle.min.js")
 const distCssFilePath = path.resolve(__dirname, "../dist/undernet.min.css")
@@ -34,7 +34,7 @@ const distJsFile = fs.readFileSync(distJsFilePath, readFormat)
 const newCssHash = `"sha256-${createNewHash(distCssFile)}"`
 const newJsHash = `"sha256-${createNewHash(distJsFile)}"`
 
-// get new hashes and inject them into docs/download.md
+// get new hashes and inject them into docs/overview/download/index.md
 function getNewIntroductionArticle() {
   const currentCssHash = b64Strings[0]
   const currentJsHash = b64Strings[1]

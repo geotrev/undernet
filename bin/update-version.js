@@ -7,7 +7,7 @@ const path = require("path")
 
 const packageFilePath = path.resolve(__dirname, "../package.json")
 const pkg = require(packageFilePath)
-const downloadFilePath = "/docs/overview/download.md"
+const downloadFilePath = "/docs/overview/download/index.md"
 
 const undernetScssFilePath = path.resolve(__dirname, "../src/scss/undernet.scss")
 const downloadArticleFilePath = path.resolve(__dirname, `..${downloadFilePath}`)

@@ -40,7 +40,7 @@
     "css:package": "npm run css:build && npm run css:minify",
     "css:prepublish": "npm run css:package && cd dist/ && zip -r undernet.css.zip . -x *.js *.zip *.js.map",
     "scss:prettify": "prettier --write 'src/scss/**/*.scss'",
-    "scss:prepublish": "cd src/scss/ && zip -r ../../dist/undernet.scss.zip .",
+    "scss:prepublish": "cd src/scss/ && zip -r ../../dist/undernet.scss.zip . -x __tests__",
     "node:update-version": "node bin/update-version.js",
     "node:create-hashes": "node bin/create-hashes.js",
     "preversion": "npm run js:build && npm test",
