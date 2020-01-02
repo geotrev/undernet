@@ -1,5 +1,5 @@
 dist/
 src/scss/utilities/_reset.scss
-src/__tests__/
+src/scss/__tests__
 _site/
 assets/css/

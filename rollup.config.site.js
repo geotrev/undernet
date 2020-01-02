@@ -2,16 +2,23 @@ import { terser } from "rollup-plugin-terser"
 import path from "path"
 import resolve from "rollup-plugin-node-resolve"
 import babel from "rollup-plugin-babel"
+import glob from "glob"
 
-const inputs = {
-  sideNav: path.resolve(__dirname, "_scripts/side-navigation.js"),
-  undernet: path.resolve(__dirname, "_scripts/undernet.js"),
-}
+const scriptFiles = glob.sync("_scripts/**/!(_)*.js")
 
-const outputs = {
-  sideNav: path.resolve(__dirname, "assets/js/side-navigation.js"),
-  undernet: path.resolve(__dirname, "assets/js/undernet.js"),
-}
+const inputs = scriptFiles.reduce((files, input) => {
+  const parts = input.split("/")
+  const fileKey = parts[parts.length - 1]
+  return { [fileKey]: path.resolve(__dirname, input), ...files }
+}, {})
+
+const outputs = Object.keys(inputs).reduce((files, file) => {
+  const inputPath = inputs[file]
+  const parts = inputPath.split("/")
+  const pathIndex = parts.indexOf("_scripts") + 1
+  const outputPath = parts.slice(pathIndex).join("/")
+  return { [file]: path.resolve(__dirname, `assets/js/${outputPath}`), ...files }
+}, {})
 
 const bundles = Object.keys(inputs).map(key => {
   return {

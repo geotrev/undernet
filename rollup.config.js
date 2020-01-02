@@ -3,7 +3,7 @@ import path from "path"
 import resolve from "rollup-plugin-node-resolve"
 import babel from "rollup-plugin-babel"
 
-const banner = require("./bin/banner")
+const banner = require("./.bin/banner")
 const pkg = require("./package.json")
 
 // Base configurations for all bundles

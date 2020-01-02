@@ -48,11 +48,10 @@ jobs:
             - "38:69:6d:27:55:79:cb:de:fe:3d:b1:ca:45:b6:73:74"
       - run: gem install bundler:2.1.2
       - run: bundle install
-      - run: npm run js:build
       - run: npm run build
       - deploy:
           name: Deploy to Github Pages
-          command: bash .circleci/deploy.sh
+          command: bash .bin/deploy.sh
 
 workflows:
   version: 2
