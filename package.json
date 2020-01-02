@@ -11,7 +11,7 @@
   "sass": "src/scss/undernet.scss",
   "style": "dist/undernet.css",
   "scripts": {
-    "setup": "npm i && bundle install",
+    "setup": "npm i && npm run js:build && bundle install",
     "watch": "bundle exec jekyll serve --baseurl ''",
     "build": "npm run build:scripts && bundle exec jekyll build",
     "build:scripts": "BABEL_ENV=cjs rollup -c rollup.config.site.js",
