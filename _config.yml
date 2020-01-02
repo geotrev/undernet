@@ -4,6 +4,9 @@ sass:
   sass_dir: _sass
   style: compressed
 
+plugins:
+  - jekyll-gzip
+
 exclude:
   - README.md
   - package.json
