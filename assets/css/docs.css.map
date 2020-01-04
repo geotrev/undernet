@@ -1,0 +1,14 @@
+{
+	"version": 3,
+	"file": "docs.css",
+	"sources": [
+		"docs.scss",
+		"_sass/_docs.scss"
+	],
+	"sourcesContent": [
+		"@import \"docs\";\n",
+		"// Styles for /docs pages go here.\n"
+	],
+	"names": [],
+	"mappings": ""
+}

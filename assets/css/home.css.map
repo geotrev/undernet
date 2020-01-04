@@ -1,0 +1,14 @@
+{
+	"version": 3,
+	"file": "home.css",
+	"sources": [
+		"home.scss",
+		"_sass/_home.scss"
+	],
+	"sourcesContent": [
+		"@import \"home\";\n",
+		"// Styles for home page (root) go here.\n"
+	],
+	"names": [],
+	"mappings": ""
+}

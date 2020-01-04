@@ -1,0 +1,14 @@
+{
+	"version": 3,
+	"file": "global.css",
+	"sources": [
+		"global.scss",
+		"_sass/_global.scss"
+	],
+	"sourcesContent": [
+		"@import \"global\";\n",
+		"header {\n  $bg: #dddddd;\n  background: $bg;\n}\n"
+	],
+	"names": [],
+	"mappings": "ACAA,AAAA,MAAM,AAAC,CAEL,UAAU,CADL,IAAO,CAEb"
+}
