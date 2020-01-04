@@ -7,6 +7,12 @@ sass:
 plugins:
   - jekyll-gzip
 
+gzip:
+  extensions:
+    - ".html"
+    - ".css"
+    - ".js"
+
 exclude:
   - README.md
   - package.json

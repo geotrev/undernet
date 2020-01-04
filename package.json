@@ -12,9 +12,9 @@
   "style": "dist/undernet.css",
   "scripts": {
     "setup": "npm i && npm run js:build && bundle install",
-    "watch": "npm run build:scripts && bundle exec jekyll serve --baseurl ''",
     "build": "npm run build:scripts && JEKYLL_ENV=production bundle exec jekyll build",
     "build:scripts": "npm run js:build && BABEL_ENV=cjs rollup -c rollup.config.site.js",
+    "watch": "npm run build:scripts && bundle exec jekyll serve --baseurl ''",
     "watch:scripts": "npm run js:build && npm run build:scripts -- -w",
     "test": "jest",
     "test:watch": "jest --watch",
