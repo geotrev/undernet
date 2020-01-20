@@ -10,7 +10,7 @@ Welcome! Undernet is a fully modular, highly configurable set of base CSS styles
 
 The framework is extremely light, carrying no external dependencies. It's available via CDN, [NPM](https://www.npmjs.org/package/undernet), and as a raw download.
 
-Head over to the [download page]({{ site.data.routes.download }} to see how you can add Undernet to your project, then learn the [JavaScript]({{ site.data.routes.javascript }}) and [CSS]({{ site.data.routes.css }}) patterns that make using the framework a breeze.
+Head over to the [download page]({{ site.data.routes.download }}) to see how you can add Undernet to your project, then learn the [JavaScript]({{ site.data.routes.javascript }}) and [CSS]({{ site.data.routes.css }}) patterns that make using the framework a breeze.
 
 ## About Undernet
 
