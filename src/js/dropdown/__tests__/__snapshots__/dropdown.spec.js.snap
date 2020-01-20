@@ -30,12 +30,9 @@ exports[`Dropdown #handleArrowKeyPress opens dropdown on down arrow key press 1`
     >
       
       
-      <li
-        role="none"
-      >
+      <li>
         <a
           href="#"
-          role="menuitem"
           tabindex="0"
         >
           Item 1
@@ -43,12 +40,9 @@ exports[`Dropdown #handleArrowKeyPress opens dropdown on down arrow key press 1`
       </li>
       
       
-      <li
-        role="none"
-      >
+      <li>
         <a
           href="#"
-          role="menuitem"
           tabindex="0"
         >
           Item 2
@@ -56,12 +50,9 @@ exports[`Dropdown #handleArrowKeyPress opens dropdown on down arrow key press 1`
       </li>
       
       
-      <li
-        role="none"
-      >
+      <li>
         <a
           href="#"
-          role="menuitem"
           tabindex="0"
         >
           Item 3
@@ -100,12 +91,9 @@ exports[`Dropdown #handleArrowKeyPress opens dropdown on down arrow key press 1`
     >
       
       
-      <li
-        role="none"
-      >
+      <li>
         <a
           href="#"
-          role="menuitem"
           tabindex="-1"
         >
           Item 1
@@ -152,12 +140,9 @@ exports[`Dropdown #handleArrowKeyPress opens dropdown on up arrow key press 1`] 
     >
       
       
-      <li
-        role="none"
-      >
+      <li>
         <a
           href="#"
-          role="menuitem"
           tabindex="0"
         >
           Item 1
@@ -165,12 +150,9 @@ exports[`Dropdown #handleArrowKeyPress opens dropdown on up arrow key press 1`] 
       </li>
       
       
-      <li
-        role="none"
-      >
+      <li>
         <a
           href="#"
-          role="menuitem"
           tabindex="0"
         >
           Item 2
@@ -178,12 +160,9 @@ exports[`Dropdown #handleArrowKeyPress opens dropdown on up arrow key press 1`] 
       </li>
       
       
-      <li
-        role="none"
-      >
+      <li>
         <a
           href="#"
-          role="menuitem"
           tabindex="0"
         >
           Item 3
@@ -222,12 +201,9 @@ exports[`Dropdown #handleArrowKeyPress opens dropdown on up arrow key press 1`] 
     >
       
       
-      <li
-        role="none"
-      >
+      <li>
         <a
           href="#"
-          role="menuitem"
           tabindex="-1"
         >
           Item 1
@@ -274,12 +250,9 @@ exports[`Dropdown #handleClick opens clicked dropdown 1`] = `
     >
       
       
-      <li
-        role="none"
-      >
+      <li>
         <a
           href="#"
-          role="menuitem"
           tabindex="0"
         >
           Item 1
@@ -287,12 +260,9 @@ exports[`Dropdown #handleClick opens clicked dropdown 1`] = `
       </li>
       
       
-      <li
-        role="none"
-      >
+      <li>
         <a
           href="#"
-          role="menuitem"
           tabindex="0"
         >
           Item 2
@@ -300,12 +270,9 @@ exports[`Dropdown #handleClick opens clicked dropdown 1`] = `
       </li>
       
       
-      <li
-        role="none"
-      >
+      <li>
         <a
           href="#"
-          role="menuitem"
           tabindex="0"
         >
           Item 3
@@ -344,12 +311,9 @@ exports[`Dropdown #handleClick opens clicked dropdown 1`] = `
     >
       
       
-      <li
-        role="none"
-      >
+      <li>
         <a
           href="#"
-          role="menuitem"
           tabindex="-1"
         >
           Item 1
@@ -397,12 +361,9 @@ exports[`Dropdown #handleClose closes dropdown 1`] = `
     >
       
       
-      <li
-        role="none"
-      >
+      <li>
         <a
           href="#"
-          role="menuitem"
           tabindex="-1"
         >
           Item 1
@@ -410,12 +371,9 @@ exports[`Dropdown #handleClose closes dropdown 1`] = `
       </li>
       
       
-      <li
-        role="none"
-      >
+      <li>
         <a
           href="#"
-          role="menuitem"
           tabindex="-1"
         >
           Item 2
@@ -423,12 +381,9 @@ exports[`Dropdown #handleClose closes dropdown 1`] = `
       </li>
       
       
-      <li
-        role="none"
-      >
+      <li>
         <a
           href="#"
-          role="menuitem"
           tabindex="-1"
         >
           Item 3
@@ -467,12 +422,9 @@ exports[`Dropdown #handleClose closes dropdown 1`] = `
     >
       
       
-      <li
-        role="none"
-      >
+      <li>
         <a
           href="#"
-          role="menuitem"
           tabindex="-1"
         >
           Item 1
@@ -520,12 +472,9 @@ exports[`Dropdown #handleEscapeKeyPress closes dropdown 1`] = `
     >
       
       
-      <li
-        role="none"
-      >
+      <li>
         <a
           href="#"
-          role="menuitem"
           tabindex="-1"
         >
           Item 1
@@ -533,12 +482,9 @@ exports[`Dropdown #handleEscapeKeyPress closes dropdown 1`] = `
       </li>
       
       
-      <li
-        role="none"
-      >
+      <li>
         <a
           href="#"
-          role="menuitem"
           tabindex="-1"
         >
           Item 2
@@ -546,12 +492,9 @@ exports[`Dropdown #handleEscapeKeyPress closes dropdown 1`] = `
       </li>
       
       
-      <li
-        role="none"
-      >
+      <li>
         <a
           href="#"
-          role="menuitem"
           tabindex="-1"
         >
           Item 3
@@ -590,12 +533,9 @@ exports[`Dropdown #handleEscapeKeyPress closes dropdown 1`] = `
     >
       
       
-      <li
-        role="none"
-      >
+      <li>
         <a
           href="#"
-          role="menuitem"
           tabindex="-1"
         >
           Item 1
@@ -643,12 +583,9 @@ exports[`Dropdown #handleFirstTabClose & #handleLastTabClose closes dropdown if 
     >
       
       
-      <li
-        role="none"
-      >
+      <li>
         <a
           href="#"
-          role="menuitem"
           tabindex="-1"
         >
           Item 1
@@ -656,12 +593,9 @@ exports[`Dropdown #handleFirstTabClose & #handleLastTabClose closes dropdown if 
       </li>
       
       
-      <li
-        role="none"
-      >
+      <li>
         <a
           href="#"
-          role="menuitem"
           tabindex="-1"
         >
           Item 2
@@ -669,12 +603,9 @@ exports[`Dropdown #handleFirstTabClose & #handleLastTabClose closes dropdown if 
       </li>
       
       
-      <li
-        role="none"
-      >
+      <li>
         <a
           href="#"
-          role="menuitem"
           tabindex="-1"
         >
           Item 3
@@ -713,12 +644,9 @@ exports[`Dropdown #handleFirstTabClose & #handleLastTabClose closes dropdown if 
     >
       
       
-      <li
-        role="none"
-      >
+      <li>
         <a
           href="#"
-          role="menuitem"
           tabindex="-1"
         >
           Item 1
@@ -766,12 +694,9 @@ exports[`Dropdown #handleFirstTabClose & #handleLastTabClose closes dropdown if 
     >
       
       
-      <li
-        role="none"
-      >
+      <li>
         <a
           href="#"
-          role="menuitem"
           tabindex="-1"
         >
           Item 1
@@ -779,12 +704,9 @@ exports[`Dropdown #handleFirstTabClose & #handleLastTabClose closes dropdown if 
       </li>
       
       
-      <li
-        role="none"
-      >
+      <li>
         <a
           href="#"
-          role="menuitem"
           tabindex="-1"
         >
           Item 2
@@ -792,12 +714,9 @@ exports[`Dropdown #handleFirstTabClose & #handleLastTabClose closes dropdown if 
       </li>
       
       
-      <li
-        role="none"
-      >
+      <li>
         <a
           href="#"
-          role="menuitem"
           tabindex="-1"
         >
           Item 3
@@ -836,12 +755,9 @@ exports[`Dropdown #handleFirstTabClose & #handleLastTabClose closes dropdown if 
     >
       
       
-      <li
-        role="none"
-      >
+      <li>
         <a
           href="#"
-          role="menuitem"
           tabindex="-1"
         >
           Item 1
@@ -889,12 +805,9 @@ exports[`Dropdown #handleOffMenuClick closes dropdown 1`] = `
     >
       
       
-      <li
-        role="none"
-      >
+      <li>
         <a
           href="#"
-          role="menuitem"
           tabindex="-1"
         >
           Item 1
@@ -902,12 +815,9 @@ exports[`Dropdown #handleOffMenuClick closes dropdown 1`] = `
       </li>
       
       
-      <li
-        role="none"
-      >
+      <li>
         <a
           href="#"
-          role="menuitem"
           tabindex="-1"
         >
           Item 2
@@ -915,12 +825,9 @@ exports[`Dropdown #handleOffMenuClick closes dropdown 1`] = `
       </li>
       
       
-      <li
-        role="none"
-      >
+      <li>
         <a
           href="#"
-          role="menuitem"
           tabindex="-1"
         >
           Item 3
@@ -959,12 +866,9 @@ exports[`Dropdown #handleOffMenuClick closes dropdown 1`] = `
     >
       
       
-      <li
-        role="none"
-      >
+      <li>
         <a
           href="#"
-          role="menuitem"
           tabindex="-1"
         >
           Item 1
@@ -1010,12 +914,9 @@ exports[`Dropdown API start sets attributes 1`] = `
     >
       
       
-      <li
-        role="none"
-      >
+      <li>
         <a
           href="#"
-          role="menuitem"
           tabindex="-1"
         >
           Item 1
@@ -1023,12 +924,9 @@ exports[`Dropdown API start sets attributes 1`] = `
       </li>
       
       
-      <li
-        role="none"
-      >
+      <li>
         <a
           href="#"
-          role="menuitem"
           tabindex="-1"
         >
           Item 2
@@ -1036,12 +934,9 @@ exports[`Dropdown API start sets attributes 1`] = `
       </li>
       
       
-      <li
-        role="none"
-      >
+      <li>
         <a
           href="#"
-          role="menuitem"
           tabindex="-1"
         >
           Item 3
@@ -1080,12 +975,9 @@ exports[`Dropdown API start sets attributes 1`] = `
     >
       
       
-      <li
-        role="none"
-      >
+      <li>
         <a
           href="#"
-          role="menuitem"
           tabindex="-1"
         >
           Item 1
@@ -1131,12 +1023,9 @@ exports[`Dropdown API stop + #handleClick does not open dropdown 1`] = `
     >
       
       
-      <li
-        role="none"
-      >
+      <li>
         <a
           href="#"
-          role="menuitem"
           tabindex="-1"
         >
           Item 1
@@ -1144,12 +1033,9 @@ exports[`Dropdown API stop + #handleClick does not open dropdown 1`] = `
       </li>
       
       
-      <li
-        role="none"
-      >
+      <li>
         <a
           href="#"
-          role="menuitem"
           tabindex="-1"
         >
           Item 2
@@ -1157,12 +1043,9 @@ exports[`Dropdown API stop + #handleClick does not open dropdown 1`] = `
       </li>
       
       
-      <li
-        role="none"
-      >
+      <li>
         <a
           href="#"
-          role="menuitem"
           tabindex="-1"
         >
           Item 3
@@ -1201,12 +1084,9 @@ exports[`Dropdown API stop + #handleClick does not open dropdown 1`] = `
     >
       
       
-      <li
-        role="none"
-      >
+      <li>
         <a
           href="#"
-          role="menuitem"
           tabindex="-1"
         >
           Item 1
@@ -1253,12 +1133,9 @@ exports[`Dropdown Multiple Dropdowns closes first dropdown if second dropdown is
     >
       
       
-      <li
-        role="none"
-      >
+      <li>
         <a
           href="#"
-          role="menuitem"
           tabindex="-1"
         >
           Item 1
@@ -1266,12 +1143,9 @@ exports[`Dropdown Multiple Dropdowns closes first dropdown if second dropdown is
       </li>
       
       
-      <li
-        role="none"
-      >
+      <li>
         <a
           href="#"
-          role="menuitem"
           tabindex="-1"
         >
           Item 2
@@ -1279,12 +1153,9 @@ exports[`Dropdown Multiple Dropdowns closes first dropdown if second dropdown is
       </li>
       
       
-      <li
-        role="none"
-      >
+      <li>
         <a
           href="#"
-          role="menuitem"
           tabindex="-1"
         >
           Item 3
@@ -1324,12 +1195,9 @@ exports[`Dropdown Multiple Dropdowns closes first dropdown if second dropdown is
     >
       
       
-      <li
-        role="none"
-      >
+      <li>
         <a
           href="#"
-          role="menuitem"
           tabindex="0"
         >
           Item 1

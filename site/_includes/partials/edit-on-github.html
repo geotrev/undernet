@@ -1,0 +1,33 @@
+{% if include.component %}
+<h3>API</h3>
+
+<p>
+  See Download documentation to see how to add the JS to your site, and JavaScript documentation to
+  see general API details.
+</p>
+
+<p>
+  Call one of the following scripts from Undernet's JavaScript (not both!). This should happen only
+  once on page load.
+</p>
+
+<pre>Undernet.start()</pre>
+
+<pre>Undernet.{{ include.component }}.start()</pre>
+
+<p>
+  Alternatively, if you're using a UI framework like React, you can do any of the above API calls
+  but pass a selector string to scope Undernet and its events within the corresponding element:
+</p>
+
+<pre>Undernet.{{ include.component }}.start("#wrapper-element")</pre>
+{% endif %}
+
+<hr />
+
+<p class="has-text-end">
+  Is there information missing?
+  <a href="https://github.com/geotrev/undernet/tree/master/site/{{ page.path }}"
+    >Edit this page on Github!</a
+  >
+</p>

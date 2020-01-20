@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="50px" height="50px" viewBox="0 0 50 50" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <desc>Created with Lunacy</desc>
+  <defs>
+    <path d="M0 0L50 0L50 50L0 50L0 0Z" id="path_1" />
+    <rect width="50" height="50" id="artboard_1" />
+    <clipPath id="clip_1">
+      <use xlink:href="#artboard_1" clip-rule="evenodd" />
+    </clipPath>
+    <clipPath id="clip_2">
+      <use xlink:href="#path_1" />
+    </clipPath>
+  </defs>
+  <g id="configurable" clip-path="url(#clip_1)">
+    <use xlink:href="#artboard_1" stroke="none" fill="#FFFFFF" fill-opacity="0" />
+    <g id="Group-18">
+      <g id="sliders" transform="translate(4 10)">
+        <path d="M0 11L0 0" transform="translate(5 18)" id="Shape" fill="none" stroke="#3E46AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M0 11L0 0" transform="translate(5 0)" id="Shape" fill="none" stroke="#3E46AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M1 14L1 0" transform="translate(15 15)" id="Shape" fill="none" stroke="#3E46AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M0 8L0 0" transform="translate(16 0)" id="Shape" fill="none" stroke="#3E46AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M0 8L0 0" transform="translate(27 21)" id="Shape" fill="none" stroke="#3E46AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M0 15L0 0" transform="translate(27 0)" id="Shape" fill="none" stroke="#3E46AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M0 0L10 0" transform="translate(0 18)" id="Shape" fill="none" stroke="#D15DED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M0 0L10 0" transform="translate(11 8)" id="Shape" fill="none" stroke="#D15DED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M1 17L1 0" transform="translate(37 12)" id="Shape" fill="none" stroke="#3E46AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M1 4L1 0" transform="translate(37 0)" id="Shape" fill="none" stroke="#3E46AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M0 0L10 0" transform="translate(33 5)" id="Shape" fill="none" stroke="#D15DED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M0 0L10 0" transform="translate(22 21)" id="Shape" fill="none" stroke="#D15DED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </g>
+      <g id="Rectangle-6">
+        <g clip-path="url(#clip_2)">
+          <use xlink:href="#path_1" fill="none" stroke="#979797" stroke-opacity="0" stroke-width="2" />
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -66,7 +66,7 @@ export const dom = {
     return parent.querySelector(selector)
   },
   findAll(selector, parent = document) {
-    return [...parent.querySelectorAll(selector)]
+    return Array.apply(null, parent.querySelectorAll(selector))
   },
 
   setStyle(element, property, value) {

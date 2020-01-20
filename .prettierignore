@@ -1,5 +1,11 @@
-/node_modules/
-/build/
-/dist/
-/lib/
-/app/docs/
+node_modules/
+
+# library
+build/
+dist/
+lib/
+
+# jekyll
+site/assets/js/
+site/assets/css/
+_site/

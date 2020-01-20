@@ -1,0 +1,19 @@
+source: site/
+url: "https://undernet.io"
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+      title: A modular, configuration-first front-end framework. No strings.
+      description: Use powerful Sass, CSS, and JavaScript tools to enable better development and user experience.
+  - scope:
+      path: docs
+    values:
+      layout: docs
+
+package:
+  version: 7.1.0
+  cdn_integrity_css: sha256-4OZTlEyn4m2HXABjtnS8fR1ogarzYCnuqwK70n4yn1Y=
+  cdn_integrity_js: sha256-86UWGoynR8Xwn9Z+8o8k+sfoEgVLzhR/d3ylQh9K7BI=
