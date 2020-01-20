@@ -1,0 +1,16 @@
+@import "globals";
+@import "partials/page-header";
+@import "partials/page-footer";
+
+main {
+  display: block;
+}
+
+.has-feather {
+  display: inline-flex;
+  align-items: center;
+
+  svg {
+    @include create-flow-property("margin-left", 5px);
+  }
+}

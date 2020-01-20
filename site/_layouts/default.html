@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% include head.html %}
+    <link rel="stylesheet" href="{% link assets/css/home.scss %}"/>
+  </head>
+  <body>
+    {% include partials/page-header.html %}
+    <main>
+      {{ content }}
+    </main>
+    {% include partials/page-footer.html %}
+  </body>
+</html>

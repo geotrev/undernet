@@ -1,0 +1,31 @@
+<pre>
+&lt;html>
+  &lt;head>
+    &lt;link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/undernet@{{ site.package.version }}/dist/undernet.min.css"
+      integrity="{{ site.package.cdn_integrity_css }}"
+      crossorigin="anonymous"
+    />
+
+    &lt;!-- add other styles/css here -->
+  &lt;/head>
+  &lt;body>
+    &lt;!-- add page content here -->
+
+    &lt;script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/undernet@{{ site.package.version }}/dist/undernet.bundle.min.js"
+      integrity="{{ site.package.cdn_integrity_js }}"
+      crossorigin="anonymous"
+    >&lt;/script>
+    &lt;script type="text/javascript">
+      // Undernet is now  attached to the `window`
+      if (document)
+        document.addEventListener("DOMContentLoaded", function() {
+          Undernet.start()
+        })
+    &lt;/script>
+  &lt;/body>
+&lt;/html>
+</pre>

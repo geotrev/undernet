@@ -1,0 +1,20 @@
+@import "../../src/scss/utilities/functions";
+
+$color-dark-blue: #191b34;
+
+@mixin create-link-color($color: null) {
+  color: $color;
+  opacity: 0.8;
+
+  &:focus,
+  &:active,
+  &:hover {
+    opacity: 1;
+  }
+}
+
+// For testing:
+// $style-scope: "undernet";
+
+@import "../../src/scss/config";
+@import "../../src/scss/utilities/mixins";

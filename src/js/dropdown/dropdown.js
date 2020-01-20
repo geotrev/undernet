@@ -132,8 +132,6 @@ export default class Dropdown {
       return
     }
 
-    dropdownMenuListItems.forEach(item => dom.setAttr(item, Selectors.ROLE, "none"))
-
     const dropdownMenuTriggers = this._getDropdownActions(dropdownAttr)
 
     if (!dropdownMenuTriggers.length) {
@@ -142,7 +140,6 @@ export default class Dropdown {
     }
 
     dropdownMenuTriggers.forEach(trigger => {
-      dom.setAttr(trigger, Selectors.ROLE, "menuitem")
       dom.setAttr(trigger, Selectors.TABINDEX, "-1")
     })
 

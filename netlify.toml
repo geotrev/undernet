@@ -2,10 +2,9 @@
 
 [build]
   base = ""
-  publish = "build"
+  publish = "_site"
   command = "npm run build"
+  environemnt = { NODE_VERSION = "12.14.1", NPM_VERSION = "6.13.4" }
 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+[context.master]
+  command = "npm run build:prod"

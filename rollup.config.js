@@ -1,20 +1,22 @@
-import { terser } from "rollup-plugin-terser"
 import path from "path"
-import resolve from "rollup-plugin-node-resolve"
+import { terser } from "rollup-plugin-terser"
+import resolve from "@rollup/plugin-node-resolve"
 import babel from "rollup-plugin-babel"
 
-const banner = require("./bin/banner")
+const banner = require("./.bin/banner")
 const pkg = require("./package.json")
+
+const absolutePath = dirPath => path.resolve(__dirname, dirPath)
 
 // Base configurations for all bundles
 
 const inputs = {
-  umd: path.join(__dirname, "src/js/index.bundle.js"),
+  umd: absolutePath("src/js/index.bundle.js"),
 }
 
 const outputs = {
-  umd: path.join(__dirname, "dist/undernet.bundle.js"),
-  umdMin: path.join(__dirname, "dist/undernet.bundle.min.js"),
+  umd: absolutePath("dist/undernet.bundle.js"),
+  umdMin: absolutePath("dist/undernet.bundle.min.js"),
 }
 
 const plugins = [
@@ -31,6 +33,8 @@ const plugins = [
 
 const umdOutput = {
   file: outputs.umd,
+  // "iife" isn't used in case folks decide they want
+  // to import the bundle using require/import
   format: "umd",
   name: pkg.name,
   sourcemap: true,

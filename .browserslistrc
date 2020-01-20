@@ -1,3 +1,5 @@
+# This should match autoprefixer.browsers in _config-prod.yml
+
 > 0.2%
 ie 11
 edge >= 15

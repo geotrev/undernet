@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% include head.html %}
+    <link rel="stylesheet" href="{% link assets/css/docs.scss %}"/>
+  </head>
+  <body>
+    {% include partials/page-header.html %}
+    <main>
+      <div class="grid is-fluid has-justify-content-center has-no-p" id="docs">
+        <div class="row">
+          {% include partials/side-navigation.html %}
+          <div class="column is-xs-12 is-xl-10 has-p-lg article-wrapper">
+            {{ content }}
+          </div>
+        </div>
+      </div>
+    </main>
+    {% include partials/page-footer.html %}
+    <script src="/assets/js/docs.js" type="text/javascript"></script>
+  </body>
+</html>

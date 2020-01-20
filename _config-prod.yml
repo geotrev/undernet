@@ -1,0 +1,23 @@
+sass:
+  sass_dir: _sass
+  style: compressed
+  sourcemap: never
+plugins:
+  - jekyll-gzip
+  - jekyll-autoprefixer
+gzip:
+  extensions:
+    - ".html"
+    - ".css"
+    - ".js"
+autoprefixer:
+  # This should match .browserslistrc
+  browsers:
+    - "> 0.2%"
+    - ie 11
+    - edge >= 15
+    - firefox >= 54
+    - chrome >= 51
+    - safari >= 10
+    - ios >= 9
+    - opera >= 38

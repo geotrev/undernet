@@ -1,0 +1,8 @@
+---
+---
+
+User-agent: *
+Sitemap: {{ site.url }}/sitemap.xml
+{% if jekyll.environment != "production" %}
+Disallow: /
+{% endif %}

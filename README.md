@@ -1,4 +1,4 @@
-![Undernet](app/assets/images/github-logo.png?raw=true)
+![Undernet](.bin/github-logo.png?raw=true)
 
 [![CircleCI](https://circleci.com/gh/geotrev/undernet/tree/master.svg?style=svg)](https://circleci.com/gh/geotrev/undernet/tree/master) [![devDependencies Status](https://david-dm.org/geotrev/undernet/dev-status.svg)](https://david-dm.org/geotrev/undernet?type=dev) [![dependencies Status](https://david-dm.org/geotrev/undernet.svg)](https://david-dm.org/geotrev/undernet) [![npm version](https://badge.fury.io/js/undernet.svg)](https://badge.fury.io/js/undernet) ![Code style](https://img.shields.io/badge/code_style-prettier-ff69b4.svg) [![Netlify Status](https://api.netlify.com/api/v1/badges/b895bcd0-9455-4818-a94b-8d33e5907517/deploy-status)](https://app.netlify.com/sites/undernet-prod/deploys)
 
@@ -6,14 +6,14 @@
 
 A modular, configuration-first front-end framework. No strings.
 
-What does Undernet include?
+What does Undernet provide?
 
 - Style defaults for common page elements: buttons, form inputs, typography, and the like.
 - Flex grid for advanced layout options.
 - Interactive components powered by JavaScript.
 - Highly brandable and extendable.
 
-The main site, https://undernet.io, is deployed using [Netlify](https://www.netlify.com/).
+The main site, https://undernet.io is run on Jekyll and hosted using GitHub Pages.
 
 ## Install via npm or yarn
 
@@ -25,58 +25,72 @@ $ npm install -D undernet
 $ yarn add -D undernet
 ```
 
+### Configuration & Setup
+
+See [Download documentation](https://www.undernet.io/docs/overview/download) to learn how to include the framework in various pipelines, ranging from CDN to fine-tuned control with the NPM package or source code.
+
 ### Styles
 
-See [CSS documentation](https://www.undernet.io/docs/overview/css) to setup a custom pipeline with Undernet's SCSS.
+See [CSS documentation](https://www.undernet.io/docs/overview/css) to learn the patterns of Undernet's Sass and classes that power the core of the framework.
 
-### Components / JS
+### JavaScript
 
-See [JS documentation](https://www.undernet.io/docs/overview/javascript) to learn how to setup and use Undernet's API for interactive components.
+See [JS documentation](https://www.undernet.io/docs/overview/javascript) to learn about the JS API and its options, including components and utilities.
 
 Currently available list of components:
 
 - [Modals](https://www.undernet.io/docs/components/modals)
+- [Tooltips](https://www.undernet.io/docs/components/tooltips)
+- [Collapsibles](https://www.undernet.io/docs/components/collapsibles)
 - [Accordions](https://www.undernet.io/docs/components/accordions)
 - [Dropdowns](https://www.undernet.io/docs/components/dropdowns)
-- [Tooltips](https://www.undernet.io/docs/components/tooltips)
 
-Each require a specific HTML structure to allow for proper accessibility and interactivity for the user. Examples included in the links above.
+Each component requires a specific HTML structure to allow for proper accessibility and interactivity for the user. Examples included in the links above.
+
+In addition, there are focus trap and focus ring helpers to assist with accessible behavior for custom needs.
 
 ## Contribute
 
-See CONTRIBUTING.md for more details on git flow and recommendations for pull requests/issues.
+See CONTRIBUTING.md for details on git flow and recommendations for pull requests/issues.
 
-### Fork and clone for development / contributing
+### Fork and clone for development
 
-First fork the project on Github. Then set up locally. Note that NPM is used for all scripts.
+To develop Undernet, it requires dependencies for the framework and the website, which is the demo itself. You'll need node, npm, and ruby. Make sure you have the version specified in `.ruby-version`. I recommend installing with `rvm`, or a combination of tools like `chruby` (to manage versions) and `ruby-install` (to install rubies).
 
 ```sh
 $ git clone git@github.com:USER_NAME/undernet.git
 $ cd undernet/
+$ gem install bundler
 $ npm run setup
 ```
 
-The site is both a demo and marketing tool. It is built with my own webpack setup called [Pulsar](https://github.com/geotrev/pulsar). It's basically just Webpack + React, so don't panic. :)
+The site is built with Jekyll. Example repos showcasing CDN, NPM + React, and raw source (Coming Soon™) will demonstrate how the framework can be used in various ways.
 
-### Run the dev server
+### Run the dev server of the site
 
 ```sh
 $ npm run watch
 ```
 
-### Make a production build (mostly for sanity checks)
+### Watch site scripts (separate terminal session)
+
+```sh
+$ npm run watch:scripts
+```
+
+### Make a production build (including site scripts)
 
 ```sh
 $ npm run build
 ```
 
-### Run Jest tests (for site + framework)
+### Run framework tests (using Jest)
 
 ```sh
 $ npm run test
 ```
 
-### Load tests on file save
+### Run tests in watch mode
 
 ```sh
 $ npm run test:watch
@@ -84,17 +98,23 @@ $ npm run test:watch
 
 ### Building the framework
 
-The site itself is a demo of the framework, so you should be able to work on the framework source itself while the site runs in the background.
+The framework source is built using babel, node-sass, and a few node scripts.
 
-The build environment works in any unix environment where node and npm are available. If you're on Windows, that means you'll need [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10) or an equivalent solution.
+The build environment works in any unix environment where node and npm are available. If you're on Windows, that means you'll need [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10) with node version 10.x or greater.
 
-If you've already run `npm run install`, these commands should Just Work™.
+First, run `npm install` if you haven't already. Then try building the lib and CSS dist:
 
 ```sh
 $ npm run build:dist
 ```
 
-The script processes the SCSS and JS, then compiles the output to the `dist/` folder.
+If you're feeling brave, you can do a full release build to test that assets compile correctly into the `lib/` and `dist/` folders.
+
+Make sure to run this with a clean tree state:
+
+```sh
+$ npm run build:dist:release
+```
 
 ### Rebuild assets on the fly
 
@@ -118,9 +138,9 @@ This will do a few things:
 2. Increment the package by the version you specify, and tag it appropriately
 3. Run a custom node script to update appropriate files with the new version
 4. Build all package assets for publishing
-5. Create new content hashes to be used with cdn subresource integrity links in the docs
+5. Create new content hashes to be used with CDN subresource integrity links in the docs
 6. Add all new build assets to the version commit and open a prompt for the release's commit message
 
-The release commit is usually in this format: `[Version X.X.X] This release does x, y, and z.`
+The release commit should be in this format: `[Version X.X.X] This release does x, y, and z.`
 
-The commit will be ready to merge to master. After that, the repo can be published to npm. I recommend using `npm publish --dry-run` to confirm the output is what you expect. Then remove the flag and a new version is out in the world!
+The state of the branch will be ready to push to `master` and publish via `npm publish`. I recommend using `npm publish --dry-run` to confirm the output is what you expect. Then remove the flag and a new version is out in the world!

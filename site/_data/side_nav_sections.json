@@ -1,0 +1,46 @@
+[
+  {
+    "header": "Overview",
+    "items": [
+      { "name": "Introduction", "url": "/overview/introduction/" },
+      { "name": "Download", "url": "/overview/download/" },
+      { "name": "CSS", "url": "/overview/css/" },
+      { "name": "JavaScript", "url": "/overview/javascript/" }
+    ]
+  },
+  {
+    "header": "Layout",
+    "items": [
+      { "name": "Grid", "url": "/layout/grid/" },
+      { "name": "Alignment", "url": "/layout/alignment/" },
+      { "name": "Offset / Order", "url": "/layout/offset-order/" },
+      { "name": "Spacing", "url": "/layout/spacing/" }
+    ]
+  },
+  {
+    "header": "Elements",
+    "items": [
+      { "name": "Buttons", "url": "/elements/buttons/" },
+      { "name": "Forms", "url": "/elements/forms/" },
+      { "name": "Typography", "url": "/elements/typography/" }
+    ]
+  },
+  {
+    "header": "Components",
+    "items": [
+      { "name": "Collapsibles", "url": "/components/collapsibles/" },
+      { "name": "Accordions", "url": "/components/accordions/" },
+      { "name": "Dropdowns", "url": "/components/dropdowns/" },
+      { "name": "Modals", "url": "/components/modals/" },
+      { "name": "Tooltips", "url": "/components/tooltips/" }
+    ]
+  },
+  {
+    "header": "Utilities",
+    "items": [
+      { "name": "Color", "url": "/utilities/color/" },
+      { "name": "Display", "url": "/utilities/display/" },
+      { "name": "Text", "url": "/utilities/text/" }
+    ]
+  }
+]
