@@ -14,6 +14,6 @@ defaults:
       layout: docs
 
 package:
-  version: 7.0.2
-  cdn_integrity_css: sha256-8AIkNdWWsuSg3sleT26Ed39Kc8GhdXXX0REEdWWxXyI=
-  cdn_integrity_js: sha256-CNNIcn/3mz6tA/3wq12uqGJ44sOdZoaKaPrWwcyJ5nI=
+  version: 7.1.0
+  cdn_integrity_css: sha256-4OZTlEyn4m2HXABjtnS8fR1ogarzYCnuqwK70n4yn1Y=
+  cdn_integrity_js: sha256-86UWGoynR8Xwn9Z+8o8k+sfoEgVLzhR/d3ylQh9K7BI=
