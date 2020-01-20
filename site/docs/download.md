@@ -76,7 +76,8 @@ Note the comment; you can insert or import your variable overrides before the or
 
 The next file should import the core framework, including all elements, components, and class utilities (you can forego any components/elements that aren't relevant to your needs). **Only import this file once at the global level**. Your custom config should be imported at the top.
 
-Create a file called `_undernet.scss` like so:
+Let's call this next
+ file `_custom-undernet.scss`:
 
 ```scss
 @import "path/to/your/config";
@@ -110,7 +111,7 @@ Finally, import `_undernet.scss` to your app's Sass entry file, wherever that mi
 <!-- all your other stylesheets/style tags after -->
 ```
 
-If you used a style scope, you can disregard importing before all other styles.
+If you used a style scope, you can put the import or link tag anywhere, just be conscious of how the style cascade will change if you do so.
 
 ## Source Files
 
