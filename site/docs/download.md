@@ -45,7 +45,7 @@ Again, reference the [JavaScript]({{ site.data.routes.javascript }}) page on exa
 When you import the Sass with NPM, you have two options:
 
 1. Import `undernet.scss` straight into a stylesheet (similar to linking to undernet.css, but it's precompiled).
-2. Import wo separate files: config with Sass helpers and the core framework, with optional style scope. This route enables brand customization.
+2. Import two separate files: a config with Sass helpers, then a file with the core framework with optional style scope. This route enables deep brand customization.
 
 In these examples, the Webpack shorthand `~` is used to access `node_modules`, however any alternative will do fine.
 
