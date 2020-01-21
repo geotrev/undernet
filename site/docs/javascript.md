@@ -11,18 +11,20 @@ The JS API for Undernet is fairly straightforward. The main rule of thumb is to 
 Enabling Undernet, including all its component scripts, is as easy as this:
 
 ```html
-<body>
-  <!-- add page content here -->
-
-  <script src="path/to/undernet.min.js"></script>
-  <script>
-    // Undernet is now attached to the `window`
-    if (document)
-      document.addEventListener("DOMContentLoaded", function() {
-        Undernet.start()
-      })
-  </script>
-</body>
+<!-- At the end of body content -->
+<script
+  type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/undernet@{{ site.package.version }}/dist/undernet.bundle.min.js"
+  integrity="{{ site.package.cdn_integrity_js }}"
+  crossorigin="anonymous"
+></script>
+<script type="text/javascript">
+  // Undernet is now  attached to the `window`
+  if (document)
+    document.addEventListener("DOMContentLoaded", function() {
+      Undernet.start()
+    })
+</script>
 ```
 
 ## Core API
@@ -31,33 +33,37 @@ You can enable and disable all components on the global `Undernet` object using 
 
 ### start
 
+This method starts and sets up events for one or more components on the page.
+
 ```js
-Undernet.start(scopeString, useFocusRing)
+Undernet.start(id, useFocusRing)
 ```
 
-#### `scopeString` (string)
+#### `id` (string)
 
 Default: `undefined`
 
-Limits Undernet's initialization to a specific DOM with selector string `scopeString`. E.g., `#wrapper-element`. Scroll down to learn more.
+Runs a setup of a component with the specified id. If none is found, nothing happens.
 
 #### `useFocusRing` (boolean)
 
 Default: `false`
 
-Enables a utility which adds a distinct focus ring on elements focused while using a keyboard. Scroll down to learn more.
+Enables the focus ring utility. [Learn more](#createfocusring).
 
 ### stop
 
+This method stops and tears down events for one or more components on the page.
+
 ```js
-Undernet.stop(scopeString, disableFocusRing)
+Undernet.stop(id, disableFocusRing)
 ```
 
-#### `scopeString` (string)
+#### `id` (string)
 
 Default: `undefined`
 
-Runs a teardown of components previously initialized via `start(scopeString)`.
+Runs a teardown of a component with the specified id. If none is found, nothing happens.
 
 #### `disableFocusRing` (boolean)
 
@@ -67,7 +73,7 @@ Disables the focus ring utility.
 
 ## Individual Components
 
-You can use the same API above to enable or disable individual components, as well. The main difference is there isn't a second `useFocusRing` parameter.
+You can use the same API above to enable or disable individual components, as well. The main difference is there isn't a second `useFocusRing` or `disableFocusRing` parameter when using this method.
 
 ### start
 
@@ -107,72 +113,81 @@ import { Modals } from "undernet"
 Modals.start()
 ```
 
-## Scope
+## Initialize by ID
 
-By default, the `start` and `stop` methods will search the entire DOM to enable/disable components. This is undesirable in frameworks like React, which are fragment-based. To work around this issue, you can pass a selector string which will keep track of Undernet only within the scope specified.
+By default, using `.start` or `.stop` will cause Undernet to search the entire document for component instances. When using a UI framework such as React, however, that isn't desirable. Instead, you can `start` a single component instance by passing in its component ID, such as `data-accordion='some-unique-id'`.
 
-As a practical but simple example, `start` Undernet or a single component when the React component is mounted, and then `stop` if the React component will be unmounted. Use the ID selector (or class, attribute, etc) of the outermost element for the scope:
+Here's an example of how that looks in practice:
 
 ```js
+import { Accordions } from "undernet"
+const ACCORDION_ID = "sidebar-accordion"
+
 export default function Sidebar(props) {
   useEffect(() => {
-    Collapsibles.start("#sidebar-wrapper")
-    return () => Collapsibles.stop("#sidebar-wrapper")
+    Accordions.start(ACCORDION_ID)
+    return () => Accordions.stop(ACCORDION_ID)
   }, [])
 
-  return <div id="sidebar-wrapper"> ... </div>
+  return (
+    <div data-accordion={ACCORDION_ID} class="accordion">
+      ...
+    </div>
+  )
 }
 ```
 
-Now all Collapsibles used are scoped to the `#sidebar-wrapper` element!
-
-NOTE: Be careful about using Undernet this way if you have child components; calling Undernet in a child will duplicate events and cause bugs.
+When the component mounts, `useEffect` runs one time to `start` the accordion returned in JSX. Then, the `stop` call is made in the return value, aka when the component is about to be unmounted.
 
 ### Handling DOM State
 
-If you're removing/adding nodes from/to the DOM, you'll need to be careful. Undernet isn't smart enough to know that your DOM changed. Luckily most UI frameworks provide lifecycle functionality that tells us the DOM is rendered or about to re-render, so we can piggy-back off that!
+If you're removing/adding nodes from/to the DOM, you'll need to be careful. Undernet isn't smart enough to know that your DOM changed. Luckily most UI frameworks provide lifecycle functionality that tells us the DOM is rendered or about to re-render, so we can use those tools to their fullest extent.
 
 Let's extend the sidebar example from before, but this time we'll toggle its visibility using a button:
 
 ```js
+const ACCORDION_ID = "sidebar-accordion"
+
 export default function Sidebar(props) {
-  // We'll use a state dependency to determine when to `start` Collapsibles
+  // We'll use a state effect to track sidebar visibility
   const [sidebarIsVisible, setSidebarIsVisible] = useState(true)
 
-  // No need to `start` here, but we do want to `stop` on unmount still
+  // Only `stop` when the component will unmount; it won't run
+  // if Accordions.stop has already been called.
   useEffect(() => {
-    return () => Collapsibles.stop("#sidebar-wrapper")
+    return () => Accordions.stop(ACCORDION_ID)
   }, [])
 
-  // Whenever sidebarIsVisible changes, we'll check its value:
-  // If it's not visible, do nothing
-  // Else, it's visible, so start collapsibles in the sidebar scope
+  // Run Accordions.start if the sidebar is toggled to `true`
   useEffect(() => {
-    if (sidebarIsVisible) Collapsibles.start("#sidebar-wrapper")
+    if (sidebarIsVisible) Accordions.start(ACCORDION_ID)
   }, [sidebarIsVisible])
 
-  // If the sidebar is visible on click, stop collapsibles before the sidebar is removed from the DOM
+  // If the sidebar is visible on click, stop Accordions before t
+  // he sidebar is removed from the DOM and sidebarIsVisible is set to `false`
   const handleClick = e => {
-    if (sidebarIsVisible) Collapsibles.stop("#sidebar-wrapper")
+    if (sidebarIsVisible) Accordions.stop(ACCORDION_ID)
     setSidebarIsVisible(!sidebarIsVisible)
   }
 
   return (
     <>
       <button onClick={handleClick}>Toggle Sidebar</button>
-      {sidebarIsVisible && <div id="sidebar-wrapper"> ... </div>}
+      {sidebarIsVisible && (
+        <div data-accordion={ACCORDION_ID} class="accordion">
+          ...
+        </div>
+      )}
     </>
   )
 }
 ```
 
-In this component, we have a button that when clicked will toggle visibility of the sidebar, which has some collapsible instances inside it.
+In this example, we have a button that when clicked will toggle a piece of state, `sidebarIsVisible`, to either `true` or `false`.
 
-`Collapsibles.start` is now dependent on `sidebarIsVisible`, and will call on initial render (and subsequent re-renders) if the state is `true`.
+When the button is clicked and `sidebarIsVisible` is currently `true`, run `Accordion.stop` before the corresponding node is removed from the DOM and `sidebarIsVisible` is set to `false`.
 
-When the button is clicked, we want to stop collapsibles if `sidebarIsVisible` is currently `true`, but before state is flipped in the setter.
-
-The cycle continues for each time the button is clicked.
+`Accordions.start` will run in the opposite case of `sidebarIsVisible` being set to `true` via the same button click.
 
 ## Utilities
 
