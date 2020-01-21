@@ -35,14 +35,14 @@ Undernet.start = (scopeId, enableFocusRing = false) => {
   if (enableFocusRing) focusRing.start()
 }
 
-Undernet.stop = (scopeId, enableFocusRing = false) => {
+Undernet.stop = (scopeId, disableFocusRing = false) => {
   Undernet.Modals.stop(scopeId)
   Undernet.Accordions.stop(scopeId)
   Undernet.Collapsibles.stop(scopeId)
   Undernet.Dropdowns.stop(scopeId)
   Undernet.Tooltips.stop(scopeId)
 
-  if (enableFocusRing) focusRing.stop()
+  if (disableFocusRing) focusRing.stop()
 }
 
 export default Undernet
