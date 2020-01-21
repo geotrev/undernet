@@ -121,4 +121,4 @@ A few key attributes are added for you when the accordion is instantiated. These
 - `collapsible-trigger`: adds styling for a trigger.
 - `collapsible-content`: adds styling for a collapsible content block.
 
-{% include partials/edit-on-github.html component="Collapsibles" %}
+{% include partials/edit-on-github.html component="collapsible" %}

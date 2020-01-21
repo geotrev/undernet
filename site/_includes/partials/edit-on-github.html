@@ -1,4 +1,5 @@
-{% if include.component %}
+{% if include.component %} {% assign api_method = include.component | capitalize | append: "s" %}
+
 <h3>API</h3>
 
 <p>
@@ -13,14 +14,14 @@
 
 <pre>Undernet.start()</pre>
 
-<pre>Undernet.{{ include.component }}.start()</pre>
+<pre>Undernet.{{ api_method }}.start()</pre>
 
 <p>
-  Alternatively, if you're using a UI framework like React, you can do any of the above API calls
-  but pass a selector string to scope Undernet and its events within the corresponding element:
+  Alternatively, if you wish to initialize only a single component instance, you can pass a string
+  denoting the id used in your <code>data-{{ include.component }}</code> attribute:
 </p>
 
-<pre>Undernet.{{ include.component }}.start("#wrapper-element")</pre>
+<pre>Undernet.{{ api_method }}.start("my-id-123")</pre>
 {% endif %}
 
 <hr />

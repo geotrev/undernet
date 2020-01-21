@@ -190,4 +190,4 @@ This component currently does not handle trapping of focus using arrow keys betw
 
 - `accordion`: adds styling to the accordion wrapper.
 
-{% include partials/edit-on-github.html component="Accordions" %}
+{% include partials/edit-on-github.html component="accordion" %}
