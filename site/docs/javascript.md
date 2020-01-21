@@ -39,7 +39,7 @@ Undernet.start(scopeString, useFocusRing)
 
 Default: `undefined`
 
-Limits Undernet's initialization to a specific DOM with selector string `scopeString`. E.g., `#my-element-id`. Scroll down to learn more.
+Limits Undernet's initialization to a specific DOM with selector string `scopeString`. E.g., `#wrapper-element`. Scroll down to learn more.
 
 #### `useFocusRing` (boolean)
 
@@ -50,7 +50,7 @@ Enables a utility which adds a distinct focus ring on elements focused while usi
 ### stop
 
 ```js
-Undernet.stop(scopeString, useFocusRing)
+Undernet.stop(scopeString, disableFocusRing)
 ```
 
 #### `scopeString` (string)
@@ -59,7 +59,7 @@ Default: `undefined`
 
 Runs a teardown of components previously initialized via `start(scopeString)`.
 
-#### `useFocusRing` (boolean)
+#### `disableFocusRing` (boolean)
 
 Default: `false`
 
