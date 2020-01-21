@@ -1,4 +1,4 @@
-import { iOSMobile, dom, isBrowserEnv, log, setComponents } from "../helpers"
+import { iOSMobile, dom, isBrowserEnv, log } from "../helpers"
 import { KeyCodes, Selectors, CssProperties, CssValues, Events, Messages } from "./constants"
 
 const COMPONENT_ROLE = "tooltip"
@@ -18,7 +18,6 @@ export default class Tooltip {
 
     // all tooltips
     this._tooltips = []
-    this._scopes = new Map()
 
     // active tooltip
     this._activeTrigger = null
@@ -27,47 +26,43 @@ export default class Tooltip {
 
   // public
 
-  start(scopeId) {
+  start(id) {
     if (!isBrowserEnv) return
 
-    setComponents({
-      thisArg: this,
-      scopeId,
-      scopeKey: "_scopes",
-      componentAttribute: Selectors.DATA_TOOLTIP,
-      globalKey: "_tooltips",
-      errorMessage: Messages.NO_ID_ERROR,
-    })
+    if (id) {
+      const element = dom.find(`[${Selectors.DATA_TOOLTIP}=${id}]`)
+      this._tooltips.push(element)
+    } else {
+      const elements = dom.findAll(`[${Selectors.DATA_TOOLTIP}]`)
+      this._tooltips = this._tooltips.concat(elements)
+    }
 
-    if (scopeId && this._scopes.has(scopeId)) {
-      this._scopes.get(scopeId).elements.forEach(this._setup)
-    } else if (this._tooltips.length) {
+    if (this._tooltips.length) {
       this._tooltips.forEach(this._setup)
     }
   }
 
-  stop(scopeId) {
+  stop(id) {
     if (!isBrowserEnv) return
 
-    if (scopeId && this._scopes.has(scopeId)) {
-      const { elements } = this._scopes.get(scopeId)
-
-      elements.forEach(instance => {
-        const id = dom.getAttr(instance, Selectors.DATA_TOOLTIP)
-        const tooltip = dom.find(`#${id}`)
-
-        if (!tooltip) {
-          log(Messages.NO_TOOLTIP_ERROR(id))
-          return
-        }
-
-        if (dom.getAttr(tooltip, Selectors.DATA_VISIBLE) !== "true") return
-
-        this._handleClose()
+    if (id) {
+      let index
+      const matches = this._tooltips.filter((tooltip, i) => {
+        if (dom.getAttr(tooltip, Selectors.DATA_TOOLTIP) !== id) return false
+        index = i
+        return true
       })
+      const instance = matches.length ? matches[0] : null
 
-      elements.forEach(this._teardown)
-      this._scopes.delete(scopeId)
+      if (!instance) return
+
+      const instanceId = dom.getAttr(instance, Selectors.DATA_TOOLTIP)
+      const tooltip = dom.find(`#${instanceId}`, instance)
+
+      if (this._activeTooltip && tooltip === this._activeTooltip) this._handleClose()
+
+      this._teardown(instance)
+      this._tooltips.splice(index, 1)
     } else if (this._tooltips.length) {
       if (this._activeTooltip) this._handleClose()
 
@@ -79,27 +74,27 @@ export default class Tooltip {
   // private
 
   _setup(instance) {
-    const tooltipId = dom.getAttr(instance, Selectors.DATA_TOOLTIP)
+    const instanceId = dom.getAttr(instance, Selectors.DATA_TOOLTIP)
 
-    if (!tooltipId) {
+    if (!instanceId) {
       log(Messages.NO_ID_ERROR)
       return
     }
 
-    const trigger = dom.find(this._getTrigger(tooltipId), instance)
-    const tooltip = dom.find(`#${tooltipId}`, instance)
+    const trigger = dom.find(this._getTrigger(instanceId), instance)
+    const tooltip = dom.find(`#${instanceId}`, instance)
 
     if (!trigger) {
-      log(Messages.NO_TRIGGER_ERROR(tooltipId))
+      log(Messages.NO_TRIGGER_ERROR(instanceId))
       return
     }
 
     if (!tooltip) {
-      log(Messages.NO_TOOLTIP_ERROR(tooltipId))
+      log(Messages.NO_TOOLTIP_ERROR(instanceId))
       return
     }
 
-    dom.setAttr(trigger, Selectors.ARIA_DESCRIBEDBY, tooltipId)
+    dom.setAttr(trigger, Selectors.ARIA_DESCRIBEDBY, instanceId)
     dom.setAttr(tooltip, Selectors.ROLE, COMPONENT_ROLE)
 
     trigger.addEventListener(Events.MOUSEOVER, this._handleEvent)
@@ -119,8 +114,8 @@ export default class Tooltip {
 
     this._activeTrigger = event.target
 
-    const tooltipId = this._activeTrigger.getAttribute(Selectors.DATA_TARGET)
-    this._activeTooltip = document.getElementById(tooltipId)
+    const instanceId = this._activeTrigger.getAttribute(Selectors.DATA_TARGET)
+    this._activeTooltip = document.getElementById(instanceId)
 
     if (this._hasInlineClass()) {
       this._alignTooltip(CssProperties.HEIGHT)

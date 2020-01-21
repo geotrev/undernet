@@ -63,6 +63,8 @@ const MobileMenu = () => {
 document.addEventListener("DOMContentLoaded", () => {
   SideNavAccordion().init()
   Undernet.start(null, true)
+  // Undernet.Tooltips.start("new-tooltip")
+  // Undernet.Tooltips.stop("new-tooltip")
   // Test scoping:
   // Undernet.start(".article-wrapper", true)
   // Undernet.start("#side-nav", true)
