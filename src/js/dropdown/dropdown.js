@@ -1,12 +1,4 @@
-import {
-  iOSMobile,
-  dom,
-  isBrowserEnv,
-  createFocusTrap,
-  focusOnce,
-  log,
-  setComponents,
-} from "../helpers"
+import { iOSMobile, dom, isBrowserEnv, createFocusTrap, focusOnce, log, isString } from "../helpers"
 import { KeyCodes, Selectors, Events, CssProperties, CssValues, Messages } from "./constants"
 
 /**
@@ -52,44 +44,45 @@ export default class Dropdown {
 
   // public
 
-  start(scopeId) {
+  start(id) {
     if (!isBrowserEnv) return
 
-    setComponents({
-      thisArg: this,
-      scopeId,
-      scopeKey: "_scopes",
-      componentAttribute: Selectors.DATA_DROPDOWN,
-      globalKey: "_dropdowns",
-      errorMessage: Messages.NO_DROPDOWN_ID_ERROR,
-    })
+    if (id && isString(id)) {
+      const instance = dom.find(`[${Selectors.DATA_DROPDOWN}='${id}']`)
+      if (!instance) return
 
-    if (scopeId && this._scopes.has(scopeId)) {
-      this._scopes.get(scopeId).elements.forEach(this._setup)
-    } else if (this._dropdowns.length) {
+      this._dropdowns.push(instance)
+      this._setup(instance)
+    } else if (!id) {
+      const instances = dom.findAll(`[${Selectors.DATA_DROPDOWN}]`)
+      if (!instances.length) return
+
+      this._dropdowns = this._dropdowns.concat(instances)
       this._dropdowns.forEach(this._setup)
     }
   }
 
-  stop(scopeId) {
+  stop(id) {
     if (!isBrowserEnv) return
 
-    if (scopeId && this._scopes.has(scopeId)) {
-      const { elements } = this._scopes.get(scopeId)
-
-      elements.forEach(instance => {
-        const dropdown = dom.find(`${this._dropdownMenuClassName}`, instance)
-
-        if (dom.getAttr(dropdown, Selectors.DATA_VISIBLE) === "true") {
-          this._closeActiveDropdownMenu()
-        }
+    if (id && isString(id)) {
+      let index
+      const matches = this._dropdowns.filter((instance, i) => {
+        if (dom.getAttr(instance, Selectors.DATA_DROPDOWN) !== id) return false
+        index = i
+        return true
       })
+      const instance = matches.length ? matches[0] : null
 
-      elements.forEach(this._teardown)
-      this._scopes.delete(scopeId)
-    } else if (!scopeId && this._dropdowns.length) {
+      if (!instance) return
+      if (this._activeDropdown && instance === this._activeDropdown) this._closeActiveDropdownMenu()
+
+      this._teardown(instance)
+      this._dropdowns.splice(index, 1)
+    } else if (!id && this._dropdowns.length) {
       if (this._activeDropdown) this._closeActiveDropdownMenu()
       this._dropdowns.forEach(this._teardown)
+      this._dropdowns = []
     }
   }
 
@@ -104,7 +97,7 @@ export default class Dropdown {
     }
 
     const dropdownAttr = `[${Selectors.DATA_DROPDOWN}="${dropdownId}"]`
-    const dropdownTrigger = dom.find(`${dropdownAttr} > ${this._dropdownTargetAttr}`)
+    const dropdownTrigger = dom.find(`${dropdownAttr} > [${Selectors.DATA_TARGET}]`)
 
     if (!dom.getAttr(dropdownTrigger, Selectors.DATA_PARENT)) {
       log(Messages.NO_PARENT_ERROR)

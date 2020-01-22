@@ -1,4 +1,4 @@
-import { iOSMobile, dom, isBrowserEnv, log } from "../helpers"
+import { iOSMobile, dom, isBrowserEnv, log, isString } from "../helpers"
 import { KeyCodes, Selectors, CssProperties, CssValues, Events, Messages } from "./constants"
 
 const COMPONENT_ROLE = "tooltip"
@@ -21,7 +21,7 @@ export default class Tooltip {
 
     // active tooltip
     this._activeTrigger = null
-    this._activeTooltip = null
+    this._activeTooltipBox = null
   }
 
   // public
@@ -29,15 +29,17 @@ export default class Tooltip {
   start(id) {
     if (!isBrowserEnv) return
 
-    if (id) {
-      const element = dom.find(`[${Selectors.DATA_TOOLTIP}=${id}]`)
-      this._tooltips.push(element)
-    } else {
-      const elements = dom.findAll(`[${Selectors.DATA_TOOLTIP}]`)
-      this._tooltips = this._tooltips.concat(elements)
-    }
+    if (id && isString(id)) {
+      const instance = dom.find(`[${Selectors.DATA_TOOLTIP}='${id}']`)
+      if (!instance) return
 
-    if (this._tooltips.length) {
+      this._tooltips.push(instance)
+      this._setup(instance)
+    } else if (!id) {
+      const instances = dom.findAll(`[${Selectors.DATA_TOOLTIP}]`)
+      if (!instances.length) return
+
+      this._tooltips = this._tooltips.concat(instances)
       this._tooltips.forEach(this._setup)
     }
   }
@@ -45,7 +47,7 @@ export default class Tooltip {
   stop(id) {
     if (!isBrowserEnv) return
 
-    if (id) {
+    if (id && isString(id)) {
       let index
       const matches = this._tooltips.filter((tooltip, i) => {
         if (dom.getAttr(tooltip, Selectors.DATA_TOOLTIP) !== id) return false
@@ -55,17 +57,12 @@ export default class Tooltip {
       const instance = matches.length ? matches[0] : null
 
       if (!instance) return
-
-      const instanceId = dom.getAttr(instance, Selectors.DATA_TOOLTIP)
-      const tooltip = dom.find(`#${instanceId}`, instance)
-
-      if (this._activeTooltip && tooltip === this._activeTooltip) this._handleClose()
+      if (this._activeTooltip && instance === this._activeTooltip) this._handleClose()
 
       this._teardown(instance)
       this._tooltips.splice(index, 1)
-    } else if (this._tooltips.length) {
+    } else if (!id && this._tooltips.length) {
       if (this._activeTooltip) this._handleClose()
-
       this._tooltips.forEach(this._teardown)
       this._tooltips = []
     }
@@ -110,12 +107,13 @@ export default class Tooltip {
   }
 
   _handleEvent(event) {
-    if (this._activeTooltip || this._activeTrigger) this._handleClose()
+    if (this._activeTooltipBox || this._activeTrigger) this._handleClose()
 
     this._activeTrigger = event.target
 
-    const instanceId = this._activeTrigger.getAttribute(Selectors.DATA_TARGET)
-    this._activeTooltip = document.getElementById(instanceId)
+    const id = this._activeTrigger.getAttribute(Selectors.DATA_TARGET)
+    this._activeTooltip = dom.find(`[${Selectors.DATA_TOOLTIP}='${id}']`)
+    this._activeTooltipBox = document.getElementById(id)
 
     if (this._hasInlineClass()) {
       this._alignTooltip(CssProperties.HEIGHT)
@@ -128,23 +126,24 @@ export default class Tooltip {
   }
 
   _handleClose() {
-    if (this._activeTooltip) this._setHideState()
+    if (this._activeTooltipBox) this._setHideState()
 
     this._startOpenEvents()
     this._resetProperties()
   }
 
   _resetProperties() {
-    this._activeTrigger = null
     this._activeTooltip = null
+    this._activeTrigger = null
+    this._activeTooltipBox = null
   }
 
   _setVisibleState() {
-    dom.setAttr(this._activeTooltip, Selectors.DATA_VISIBLE, "true")
+    dom.setAttr(this._activeTooltipBox, Selectors.DATA_VISIBLE, "true")
   }
 
   _setHideState() {
-    dom.setAttr(this._activeTooltip, Selectors.DATA_VISIBLE, "false")
+    dom.setAttr(this._activeTooltipBox, Selectors.DATA_VISIBLE, "false")
   }
 
   _startCloseEvents() {
@@ -177,7 +176,7 @@ export default class Tooltip {
 
   _alignTooltip(property) {
     const triggerSize = this._getSize(this._activeTrigger, property)
-    const tooltipSize = this._getSize(this._activeTooltip, property)
+    const tooltipSize = this._getSize(this._activeTooltipBox, property)
     const triggerIsBigger = triggerSize > tooltipSize
 
     const offset = triggerIsBigger
@@ -185,9 +184,9 @@ export default class Tooltip {
       : (tooltipSize - triggerSize) / -2
 
     if (property === CssProperties.HEIGHT) {
-      dom.setStyle(this._activeTooltip, CssProperties.TOP, `${offset}px`)
+      dom.setStyle(this._activeTooltipBox, CssProperties.TOP, `${offset}px`)
     } else {
-      dom.setStyle(this._activeTooltip, CssProperties.LEFT, `${offset}px`)
+      dom.setStyle(this._activeTooltipBox, CssProperties.LEFT, `${offset}px`)
     }
   }
 
@@ -201,7 +200,7 @@ export default class Tooltip {
 
   _hasInlineClass() {
     return dom.hasClass(
-      this._activeTooltip,
+      this._activeTooltipBox,
       Selectors.DROP_INLINE_START_CLASS,
       Selectors.DROP_INLINE_END_CLASS
     )
