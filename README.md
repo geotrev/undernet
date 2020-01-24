@@ -13,7 +13,7 @@ What does Undernet provide?
 - Interactive components powered by JavaScript.
 - Highly brandable and extendable.
 
-The main site, https://undernet.io is run on Jekyll and hosted using GitHub Pages.
+The main site, https://undernet.io is run on Jekyll and hosted using Netlify.
 
 ## Install via npm or yarn
 
