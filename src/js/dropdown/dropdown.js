@@ -21,7 +21,6 @@ export default class Dropdown {
 
     // all dropdowns
     this._dropdowns = []
-    this._scopes = new Map()
 
     // active dropdown
     this._activeDropdown = null
@@ -51,14 +50,19 @@ export default class Dropdown {
       const instance = dom.find(`[${Selectors.DATA_DROPDOWN}='${id}']`)
       if (!instance) return
 
-      this._dropdowns.push(instance)
-      this._setup(instance)
-    } else if (!id) {
+      const validComponent = [instance].filter(this._setup)[0]
+      if (!validComponent) return
+
+      this._dropdowns.push(validComponent)
+    } else if (!id && !this._dropdowns.length) {
       const instances = dom.findAll(`[${Selectors.DATA_DROPDOWN}]`)
       if (!instances.length) return
 
-      this._dropdowns = this._dropdowns.concat(instances)
-      this._dropdowns.forEach(this._setup)
+      const validComponents = instances.filter(this._setup)
+      this._dropdowns = this._dropdowns.concat(validComponents)
+    } else {
+      // attempted to .start() when .stop() wasn't run,
+      // OR tried to instantiate a component that's already active.
     }
   }
 
@@ -66,19 +70,18 @@ export default class Dropdown {
     if (!isBrowserEnv) return
 
     if (id && isString(id)) {
-      let index
-      const matches = this._dropdowns.filter((instance, i) => {
-        if (dom.getAttr(instance, Selectors.DATA_DROPDOWN) !== id) return false
-        index = i
+      let targetIndex
+      const instance = this._dropdowns.filter((activeInstance, index) => {
+        if (dom.getAttr(activeInstance, Selectors.DATA_DROPDOWN) !== id) return false
+        targetIndex = index
         return true
-      })
-      const instance = matches.length ? matches[0] : null
+      })[0]
 
       if (!instance) return
       if (this._activeDropdown && instance === this._activeDropdown) this._closeActiveDropdownMenu()
 
       this._teardown(instance)
-      this._dropdowns.splice(index, 1)
+      this._dropdowns.splice(targetIndex, 1)
     } else if (!id && this._dropdowns.length) {
       if (this._activeDropdown) this._closeActiveDropdownMenu()
       this._dropdowns.forEach(this._teardown)
@@ -93,7 +96,7 @@ export default class Dropdown {
 
     if (!dropdownId) {
       log(Messages.NO_DROPDOWN_ID_ERROR)
-      return
+      return false
     }
 
     const dropdownAttr = `[${Selectors.DATA_DROPDOWN}="${dropdownId}"]`
@@ -101,14 +104,14 @@ export default class Dropdown {
 
     if (!dom.getAttr(dropdownTrigger, Selectors.DATA_PARENT)) {
       log(Messages.NO_PARENT_ERROR)
-      return
+      return false
     }
 
     const dropdownMenu = dom.find(`${dropdownAttr} > ${this._dropdownMenuClassName}`)
 
     if (!dropdownMenu) {
       log(Messages.NO_MENU_ERROR(dropdownAttr))
-      return
+      return false
     }
 
     dom.setAttr(dropdownMenu, Selectors.ARIA_LABELLEDBY, dropdownTrigger.id)
@@ -122,14 +125,14 @@ export default class Dropdown {
 
     if (!dropdownMenuListItems.length) {
       log(Messages.NO_DROPDOWN_ITEMS_ERROR(dropdownAttr))
-      return
+      return false
     }
 
     const dropdownMenuTriggers = this._getDropdownActions(dropdownAttr)
 
     if (!dropdownMenuTriggers.length) {
       log(Messages.NO_DROPDOWN_ACTIONS_ERROR(dropdownAttr))
-      return
+      return false
     }
 
     dropdownMenuTriggers.forEach(trigger => {
@@ -138,6 +141,8 @@ export default class Dropdown {
 
     dropdownTrigger.addEventListener(Events.CLICK, this._handleClick)
     dropdownTrigger.addEventListener(Events.KEYDOWN, this._handleArrowKeyPress)
+
+    return true
   }
 
   _teardown(instance) {

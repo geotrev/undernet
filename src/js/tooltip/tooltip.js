@@ -33,14 +33,19 @@ export default class Tooltip {
       const instance = dom.find(`[${Selectors.DATA_TOOLTIP}='${id}']`)
       if (!instance) return
 
-      this._tooltips.push(instance)
-      this._setup(instance)
-    } else if (!id) {
+      const validComponent = [instance].filter(this._setup)[0]
+      if (!validComponent) return
+
+      this._tooltips.push(validComponent)
+    } else if (!id && !this._tooltips.length) {
       const instances = dom.findAll(`[${Selectors.DATA_TOOLTIP}]`)
       if (!instances.length) return
 
-      this._tooltips = this._tooltips.concat(instances)
-      this._tooltips.forEach(this._setup)
+      const validComponents = instances.filter(this._setup)
+      this._tooltips = this._tooltips.concat(validComponents)
+    } else {
+      // attempted to .start() when .stop() wasn't run,
+      // OR tried to instantiate a component that's already active.
     }
   }
 
@@ -48,21 +53,21 @@ export default class Tooltip {
     if (!isBrowserEnv) return
 
     if (id && isString(id)) {
-      let index
-      const matches = this._tooltips.filter((tooltip, i) => {
-        if (dom.getAttr(tooltip, Selectors.DATA_TOOLTIP) !== id) return false
-        index = i
+      let targetIndex
+      const instance = this._tooltips.filter((activeInstance, index) => {
+        if (dom.getAttr(activeInstance, Selectors.DATA_TOOLTIP) !== id) return false
+        targetIndex = index
         return true
-      })
-      const instance = matches.length ? matches[0] : null
+      })[0]
 
       if (!instance) return
       if (this._activeTooltip && instance === this._activeTooltip) this._handleClose()
 
       this._teardown(instance)
-      this._tooltips.splice(index, 1)
+      this._tooltips.splice(targetIndex, 1)
     } else if (!id && this._tooltips.length) {
       if (this._activeTooltip) this._handleClose()
+
       this._tooltips.forEach(this._teardown)
       this._tooltips = []
     }
@@ -75,7 +80,7 @@ export default class Tooltip {
 
     if (!instanceId) {
       log(Messages.NO_ID_ERROR)
-      return
+      return false
     }
 
     const trigger = dom.find(this._getTrigger(instanceId), instance)
@@ -83,12 +88,12 @@ export default class Tooltip {
 
     if (!trigger) {
       log(Messages.NO_TRIGGER_ERROR(instanceId))
-      return
+      return false
     }
 
     if (!tooltip) {
       log(Messages.NO_TOOLTIP_ERROR(instanceId))
-      return
+      return false
     }
 
     dom.setAttr(trigger, Selectors.ARIA_DESCRIBEDBY, instanceId)
@@ -96,6 +101,8 @@ export default class Tooltip {
 
     trigger.addEventListener(Events.MOUSEOVER, this._handleEvent)
     trigger.addEventListener(Events.FOCUS, this._handleEvent)
+
+    return true
   }
 
   _teardown(instance) {
