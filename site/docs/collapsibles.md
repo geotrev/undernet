@@ -6,9 +6,7 @@ permalink: /components/:basename
 
 # {{ page.title }}
 
-Use a collapsible to hide or show content.
-
-If you wish to wrap multiple collapsibles together like an accordion, head over to the [accordion documentation]({{ site.data.routes.accordions }}) to learn how.
+Use a collapsible to hide or show a single panel of content.
 
 ## Basic Collapsible
 
@@ -32,13 +30,13 @@ Check out this example collapsible:
 <div class="collapsible" data-collapsible="collapsible-id">
   <h5>
     <button class="collapsible-trigger" id="collapsible-trigger-id" data-target="collapsible-id">
-      Accordion Button 1
+      Press to collapse
     </button>
   </h5>
   <div class="collapsible-content" id="collapsible-id">
     <p class="has-p">
-      Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna ipsum ut
-      voluptate.
+      It's just lorem ipsum. Consectetur eiusmod laboris in non id tempor exercitation ipsum
+      cupidatat magna ipsum ut voluptate. <a>A link,</a> and <a>another link!</a>
     </p>
   </div>
 </div>
@@ -99,13 +97,13 @@ A collapsible needs a few attributes and classes to work correctly. A strict HTM
 
 #### Primary Attributes
 
-- `data-collapsible`: an attribute for a collapsible component within a `data-accordion` wrapper. It should have a unique value matching a trigger's `data-target` attribute.
+- `data-collapsible`: the main attribute for a collapsible component. It should have a unique value matching its trigger's `data-target` attribute.
 - `data-target`: an attribute on a trigger. It should have a value equal to the collapsible content's `id` attribute.
 - `data-visible`: an attribute denoting if collapsible content is visible; `false` by default. Set to `true` if you want the collapsible to be expanded on page load.
 
 #### Accessibility
 
-A few key attributes are added for you when the accordion is instantiated. These help assistive technologies know how to treat and navigate through the component.
+A few key attributes are added for you when the collapsible is instantiated. These help assistive technologies know how to treat and navigate through the component.
 
 - **Header:** The collapsible trigger must have a header element that reflects the correct hierarchy of the page (`h1`, `h2`, etc...).
 - `aria-labelledby`: an attribute added to collapsible content, telling assistive technologies the content is associated with its corresponding trigger.

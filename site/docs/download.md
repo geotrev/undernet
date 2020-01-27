@@ -76,8 +76,7 @@ Note the comment; you can insert or import your variable overrides before the or
 
 The next file should import the core framework, including all elements, components, and class utilities (you can forego any components/elements that aren't relevant to your needs). **Only import this file once at the global level**. Your custom config should be imported at the top.
 
-Let's call this next
- file `_custom-undernet.scss`:
+Let's call this next file `_custom-undernet.scss`:
 
 ```scss
 @import "path/to/your/config";
@@ -88,9 +87,9 @@ Let's call this next
 @import "~undernet/src/scss/elements/typography";
 @import "~undernet/src/scss/elements/button";
 @import "~undernet/src/scss/elements/form";
+@import "~undernet/src/scss/components/collapsible";
 @import "~undernet/src/scss/components/dropdown";
 @import "~undernet/src/scss/components/modal";
-@import "~undernet/src/scss/components/accordion";
 @import "~undernet/src/scss/components/tooltip";
 @import "~undernet/src/scss/utilities/classes";
 // }

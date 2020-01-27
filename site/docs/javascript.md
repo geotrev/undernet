@@ -79,22 +79,22 @@ You can use the same API above to enable or disable individual components, as we
 
 ```js
 Undernet.Modals.start()
-Undernet.Accordions.start("#wrapper-element")
+Undernet.Collapsibles.start("#wrapper-element")
 
 // or, if you're using named imports via npm:
 Modals.start()
-Accordions.start("#wrapper-element")
+Collapsibles.start("#wrapper-element")
 ```
 
 ### stop
 
 ```js
 Undernet.Modals.stop()
-Undernet.Accordions.stop("#wrapper-element")
+Undernet.Collapsibles.stop("#wrapper-element")
 
 // or, if you're using named imports via npm:
 Modals.stop()
-Accordions.stop("#wrapper-element")
+Collapsibles.stop("#wrapper-element")
 ```
 
 ## Using Modules
@@ -115,29 +115,29 @@ Modals.start()
 
 ## Initialize by ID
 
-By default, using `.start` or `.stop` will cause Undernet to search the entire document for component instances. When using a UI framework such as React, however, that isn't desirable. Instead, you can `start` a single component instance by passing in its component ID, such as `data-accordion='some-unique-id'`.
+By default, using `.start` or `.stop` will cause Undernet to search the entire document for component instances. When using a UI framework such as React, however, that isn't desirable. Instead, you can `start` a single component instance by passing in its component ID, such as `data-collapsible='some-unique-id'`.
 
 Here's an example of how that looks in practice:
 
 ```js
-import { Accordions } from "undernet"
-const ACCORDION_ID = "sidebar-accordion"
+import { Collapsibles } from "undernet"
+const COLLAPSIBLE_ID = "sidebar-collapsible"
 
 export default function Sidebar(props) {
   useEffect(() => {
-    Accordions.start(ACCORDION_ID)
-    return () => Accordions.stop(ACCORDION_ID)
+    Collapsibles.start(COLLAPSIBLE_ID)
+    return () => Collapsibles.stop(COLLAPSIBLE_ID)
   }, [])
 
   return (
-    <div data-accordion={ACCORDION_ID} class="accordion">
+    <div data-collapsible={COLLAPSIBLE_ID} class="collapsible">
       ...
     </div>
   )
 }
 ```
 
-When the component mounts, `useEffect` runs one time to `start` the accordion returned in JSX. Then, the `stop` call is made in the return value, aka when the component is about to be unmounted.
+When the component mounts, `useEffect` runs one time to `start` the collapsible returned in JSX. Then, the `stop` call is made in the return value, aka when the component is about to be unmounted.
 
 ### Handling DOM State
 
@@ -146,27 +146,27 @@ If you're removing/adding nodes from/to the DOM, you'll need to be careful. Unde
 Let's extend the sidebar example from before, but this time we'll toggle its visibility using a button:
 
 ```js
-const ACCORDION_ID = "sidebar-accordion"
+const COLLAPSIBLE_ID = "sidebar-collapsible"
 
 export default function Sidebar(props) {
   // We'll use a state effect to track sidebar visibility
   const [sidebarIsVisible, setSidebarIsVisible] = useState(true)
 
   // Only `stop` when the component will unmount; it won't run
-  // if Accordions.stop has already been called.
+  // if Collapsibles.stop has already been called.
   useEffect(() => {
-    return () => Accordions.stop(ACCORDION_ID)
+    return () => Collapsibles.stop(COLLAPSIBLE_ID)
   }, [])
 
-  // Run Accordions.start if the sidebar is toggled to `true`
+  // Run Collapsibles.start if the sidebar is toggled to `true`
   useEffect(() => {
-    if (sidebarIsVisible) Accordions.start(ACCORDION_ID)
+    if (sidebarIsVisible) Collapsibles.start(COLLAPSIBLE_ID)
   }, [sidebarIsVisible])
 
-  // If the sidebar is visible on click, stop Accordions before t
+  // If the sidebar is visible on click, stop Collapsibles before t
   // he sidebar is removed from the DOM and sidebarIsVisible is set to `false`
   const handleClick = e => {
-    if (sidebarIsVisible) Accordions.stop(ACCORDION_ID)
+    if (sidebarIsVisible) Collapsibles.stop(COLLAPSIBLE_ID)
     setSidebarIsVisible(!sidebarIsVisible)
   }
 
@@ -174,7 +174,7 @@ export default function Sidebar(props) {
     <>
       <button onClick={handleClick}>Toggle Sidebar</button>
       {sidebarIsVisible && (
-        <div data-accordion={ACCORDION_ID} class="accordion">
+        <div data-collapsible={COLLAPSIBLE_ID} class="collapsible">
           ...
         </div>
       )}
@@ -185,9 +185,9 @@ export default function Sidebar(props) {
 
 In this example, we have a button that when clicked will toggle a piece of state, `sidebarIsVisible`, to either `true` or `false`.
 
-When the button is clicked and `sidebarIsVisible` is currently `true`, run `Accordion.stop` before the corresponding node is removed from the DOM and `sidebarIsVisible` is set to `false`.
+When the button is clicked and `sidebarIsVisible` is currently `true`, run `Collapsible.stop` before the corresponding node is removed from the DOM and `sidebarIsVisible` is set to `false`.
 
-`Accordions.start` will run in the opposite case of `sidebarIsVisible` being set to `true` via the same button click.
+`Collapsibles.start` will run in the opposite case of `sidebarIsVisible` being set to `true` via the same button click.
 
 ## Utilities
 

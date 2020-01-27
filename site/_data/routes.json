@@ -16,7 +16,6 @@
   "typography": "/elements/typography/",
 
   "collapsibles": "/components/collapsibles/",
-  "accordions": "/components/accordions/",
   "dropdowns": "/components/dropdowns/",
   "modals": "/components/modals/",
   "tooltips": "/components/tooltips/",

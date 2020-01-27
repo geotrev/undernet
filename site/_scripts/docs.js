@@ -4,7 +4,7 @@ import { throttle } from "lodash-es"
 const DISPLAY_NONE_CLASS = "is-d-none"
 const ARIA_EXPANDED_ATTR = "aria-expanded"
 
-const SideNavAccordion = () => {
+const SidebarCollapsibles = () => {
   const { pathname } = window.location
   const [collapsibleId, pageName] = pathname.split("/").slice(1)
 
@@ -61,7 +61,7 @@ const MobileMenu = () => {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  SideNavAccordion().init()
+  SidebarCollapsibles().init()
   Undernet.start(null, true)
   // Undernet.COMPONENT_NAME.start("new-tooltip")
   // Undernet.COMPONENT_NAME.stop("new-tooltip")

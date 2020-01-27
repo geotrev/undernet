@@ -42,7 +42,6 @@ Currently available list of components:
 - [Modals](https://www.undernet.io/components/modals)
 - [Tooltips](https://www.undernet.io/components/tooltips)
 - [Collapsibles](https://www.undernet.io/components/collapsibles)
-- [Accordions](https://www.undernet.io/components/accordions)
 - [Dropdowns](https://www.undernet.io/components/dropdowns)
 
 Each component requires a specific HTML structure to allow for proper accessibility and interactivity for the user. Examples included in the links above.

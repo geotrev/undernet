@@ -29,7 +29,6 @@
     "header": "Components",
     "items": [
       { "name": "Collapsibles", "url": "/components/collapsibles/" },
-      { "name": "Accordions", "url": "/components/accordions/" },
       { "name": "Dropdowns", "url": "/components/dropdowns/" },
       { "name": "Modals", "url": "/components/modals/" },
       { "name": "Tooltips", "url": "/components/tooltips/" }
