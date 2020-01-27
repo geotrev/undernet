@@ -8,4 +8,5 @@ lib/
 # jekyll
 site/assets/js/
 site/assets/css/
+site/**/*.html
 _site/

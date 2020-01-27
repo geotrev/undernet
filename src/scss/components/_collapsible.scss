@@ -3,10 +3,6 @@
 }
 
 .collapsible {
-  @if $accordion-collapse-gap {
-    margin-bottom: $accordion-collapse-gap;
-  }
-
   h1,
   h2,
   h3,

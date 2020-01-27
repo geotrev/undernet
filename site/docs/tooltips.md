@@ -1,5 +1,5 @@
 ---
-title: Modals
+title: Tooltips
 description: A component for showing basic text content in a small popup box.
 permalink: /components/:basename
 ---
@@ -238,4 +238,4 @@ Optional:
 - `is-drop-inline-end`: positions the tooltip to inline-end when open.
 - `is-drop-block-end`: positions the tooltip to block-end when open.
 
-{% include partials/edit-on-github.html component="Tooltips" %}
+{% include partials/edit-on-github.html component="tooltip" %}

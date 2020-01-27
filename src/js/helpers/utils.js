@@ -41,6 +41,11 @@ const Messages = {
 export const log = (message, type = "error") => console[type](message)
 
 /**
+ * Check if a value is type "string".
+ */
+export const isString = value => typeof value === "string"
+
+/**
  * Check if window exists. If it doesn't, we're probably in a non-test node environment.
  */
 export const isBrowserEnv = typeof window !== "undefined"

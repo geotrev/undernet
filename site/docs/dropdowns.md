@@ -425,4 +425,4 @@ Optional:
 - `is-drop-inline-end`: positions the menu to inline-end when open.
 - `is-drop-block-start`: positions the menu to block-start when open.
 
-{% include partials/edit-on-github.html component="Dropdowns" %}
+{% include partials/edit-on-github.html component="dropdown" %}

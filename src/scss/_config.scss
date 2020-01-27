@@ -24,9 +24,8 @@
 // ------------------
 // 11. Modals
 // 12. Collapse
-// 13. Accordions
-// 14. Dropdowns
-// 15. Tooltips
+// 13. Dropdowns
+// 14. Tooltips
 
 // -------------------------
 
@@ -830,17 +829,7 @@ $collapsible-trigger-bg: lighten($color-gray900, 10%) !default;
 $collapsible-trigger-bg-hover: lighten($color-gray900, 8%) !default;
 $collapsible-trigger-font-size: $global-font-size !default;
 
-// 13. Accordions
-
-$accordion-border: $global-border-width solid $color-gray900 !default;
-$accordion-border-radius: $global-border-radius !default;
-$accordion-collapse-divider: $accordion-border !default;
-
-// Create space between each collapse within the accordion.
-
-$accordion-collapse-gap: 0 !default;
-
-// 14. Dropdowns
+// 13. Dropdowns
 // -------------
 
 // Enables arrow pointing to trigger element.
@@ -875,7 +864,7 @@ $dropdown-header-font-size: 14px !default;
 $dropdown-header-padding: 12px !default;
 $dropdown-header-color: $color-gray800 !default;
 
-// 15. Tooltips
+// 14. Tooltips
 // ------------
 
 // Enables arrow pointing to trigger element.

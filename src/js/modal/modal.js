@@ -6,7 +6,7 @@ import {
   createFocusTrap,
   focusOnce,
   log,
-  setComponents,
+  isString,
 } from "../helpers"
 import { KeyCodes, Selectors, CssProperties, CssValues, Events, Messages } from "./constants"
 
@@ -28,7 +28,6 @@ export default class Modal {
 
     // all modals
     this._modals = []
-    this._scopes = new Map()
 
     // active modal
     this._activeModalTrigger = null
@@ -45,41 +44,51 @@ export default class Modal {
 
   // public
 
-  start(scopeId) {
+  start(id) {
     if (!isBrowserEnv) return
 
-    setComponents({
-      thisArg: this,
-      scopeId,
-      scopeKey: "_scopes",
-      componentAttribute: Selectors.DATA_MODAL,
-      globalKey: "_modals",
-      errorMessage: Messages.NO_ID_ERROR,
-    })
+    if (id && isString(id)) {
+      const instance = dom.find(`[${Selectors.DATA_MODAL}='${id}']`)
+      if (!instance) return
 
-    if (scopeId && this._scopes.has(scopeId)) {
-      this._scopes.get(scopeId).elements.forEach(this._setup)
-    } else if (this._modals.length) {
-      this._modals.forEach(this._setup)
+      const validComponent = [instance].filter(this._setup)[0]
+      if (!validComponent) return
+
+      this._modals.push(validComponent)
+    } else if (!id && !this._modals.length) {
+      const instances = dom.findAll(`[${Selectors.DATA_MODAL}]`)
+      if (!instances.length) return
+
+      const validComponents = instances.filter(this._setup)
+      this._modals = this._modals.concat(validComponents)
+    } else {
+      // attempted to .start() when .stop() wasn't run,
+      // OR tried to instantiate a component that's already active.
     }
   }
 
-  stop(scopeId) {
+  stop(id) {
     if (!isBrowserEnv) return
 
-    if (scopeId && this._scopes.has(scopeId)) {
-      const { elements } = this._scopes.get(scopeId)
+    if (id && isString(id)) {
+      let targetIndex
+      const instance = this._modals.filter((activeInstance, index) => {
+        if (dom.getAttr(activeInstance, Selectors.DATA_MODAL) !== id) return false
+        targetIndex = index
+        return true
+      })[0]
 
-      elements.forEach(instance => {
-        if (dom.getAttr(instance, Selectors.DATA_VISIBLE) !== "true") return
+      if (!instance) return
+      if (this._activeModalOverlay && instance === this._activeModalOverlay)
         this._closeActiveModal()
-      })
 
-      elements.forEach(this._teardown)
-      this._scopes.delete(scopeId)
-    } else if (this._modals.length) {
-      if (this._activeModal) this._closeActiveModal()
+      this._teardown(instance)
+      this._modals.splice(targetIndex, 1)
+    } else if (!id && this._modals.length) {
+      if (this._activeModalOverlay) this._closeActiveModal()
+
       this._modals.forEach(this._teardown)
+      this._modals = []
     }
   }
 
@@ -90,7 +99,7 @@ export default class Modal {
 
     if (!modalId) {
       log(Messages.NO_ID_ERROR)
-      return
+      return false
     }
 
     const modalWrapperAttr = `[${Selectors.DATA_MODAL}='${modalId}']`
@@ -104,7 +113,7 @@ export default class Modal {
 
     if (!modal) {
       log(Messages.NO_MODAL_DIALOG_ERROR(modalId))
-      return
+      return false
     }
 
     dom.setAttr(modalWrapper, Selectors.ARIA_HIDDEN, "true")
@@ -116,10 +125,11 @@ export default class Modal {
 
     if (!trigger) {
       log(Messages.NO_TRIGGER_ERROR(modalId))
-      return
+      return false
     }
 
     trigger.addEventListener(Events.CLICK, this._handleClick)
+    return true
   }
 
   _teardown(instance) {
@@ -181,6 +191,7 @@ export default class Modal {
   _resetProperties() {
     // Overlay and overlay attribute properties are reset in setPaddingOffsetTimeout
 
+    this._activeModalOverlay = null
     this._activeModalTrigger = null
     this._activeModal = null
     this._activeModalId = ""
@@ -273,11 +284,13 @@ export default class Modal {
   _setPaddingOffsetTimeout() {
     const DISMISS_SCROLLBAR_PADDING_DELAY = 500
 
+    // This is cached because _activeModalOverlay will
+    // be purged before the timeout is elapsed
+    const overlay = this._activeModalOverlay
+
     dom.setStyle(this._activeModalOverlay, CssProperties.PADDING_LEFT, `${this._scrollbarOffset}px`)
     setTimeout(() => {
-      dom.setStyle(this._activeModalOverlay, CssProperties.PADDING_LEFT, "")
-      this._activeModalOverlay = null
-      this._activeModalOverlayAttr = null
+      dom.setStyle(overlay, CssProperties.PADDING_LEFT, "")
     }, DISMISS_SCROLLBAR_PADDING_DELAY)
   }
 

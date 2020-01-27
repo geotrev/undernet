@@ -7,7 +7,7 @@
       </button>
     </div>
 
-    <nav class="row side-nav-menu accordion has-p-lg" data-accordion="nav-accordion" id="nav-accordion-menu">
+    <nav class="row side-nav-menu has-p-lg" id="nav-accordion-menu">
       <p class="version-text has-no-p has-gray800-text-color is-xs-12 column">
         Version
         {{ site.package.version }}
@@ -18,7 +18,7 @@
 
         <div class="collapsible is-xs-12 column has-no-p" data-collapsible="{{ collapsible_id }}" data-visible="false">
           <h4 class="paragraph">
-            <button class="collapsible-trigger" data-parent="nav-accordion" data-target="{{ collapsible_id }}" id="nav-collapsible-trigger-{{ forloop.index }}">
+            <button class="collapsible-trigger" data-target="{{ collapsible_id }}" id="nav-collapsible-trigger-{{ forloop.index }}">
               {{ section.header }}
             </button>
           </h4>
