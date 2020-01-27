@@ -63,10 +63,8 @@ const MobileMenu = () => {
 document.addEventListener("DOMContentLoaded", () => {
   SidebarCollapsibles().init()
   Undernet.start(null, true)
-  // Undernet.COMPONENT_NAME.start("new-tooltip")
-  // Undernet.COMPONENT_NAME.stop("new-tooltip")
-  // Test scoping:
-  // Undernet.start(".article-wrapper", true)
-  // Undernet.start("#side-nav", true)
+  // Undernet.stop()
+  // Undernet.Collapsibles.start("collapsible-1")
+  // Undernet.Collapsibles.stop("collapsible-1")
   MobileMenu().init()
 })

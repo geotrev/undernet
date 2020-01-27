@@ -284,11 +284,13 @@ export default class Modal {
   _setPaddingOffsetTimeout() {
     const DISMISS_SCROLLBAR_PADDING_DELAY = 500
 
+    // This is cached because _activeModalOverlay will
+    // be purged before the timeout is elapsed
+    const overlay = this._activeModalOverlay
+
     dom.setStyle(this._activeModalOverlay, CssProperties.PADDING_LEFT, `${this._scrollbarOffset}px`)
     setTimeout(() => {
-      dom.setStyle(this._activeModalOverlay, CssProperties.PADDING_LEFT, "")
-      this._activeModalOverlay = null
-      this._activeModalOverlayAttr = null
+      dom.setStyle(overlay, CssProperties.PADDING_LEFT, "")
     }, DISMISS_SCROLLBAR_PADDING_DELAY)
   }
 
