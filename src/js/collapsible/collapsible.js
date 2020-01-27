@@ -4,7 +4,7 @@ import {
   isBrowserEnv,
   getPageBaseFontSize,
   log,
-  setComponents,
+  isString,
 } from "../helpers"
 
 import { Selectors, CssProperties, Events, Messages } from "./constants"
@@ -20,100 +20,68 @@ export default class Collapsible {
   constructor() {
     // events
     this._handleClick = this._handleClick.bind(this)
-    this._setCollapsibles = this._setCollapsibles.bind(this)
     this._setup = this._setup.bind(this)
     this._teardown = this._teardown.bind(this)
 
     // all accordions
     this._collapsibles = []
     this._collapsibleTriggers = []
-    this._collapsibleScopes = new Map()
 
     // active accordion
     this._activeCollapsible = {}
     this._activeTrigger = {}
     this._activeContent = {}
-    this._activeCollapsibleId = ""
+    this._activeId = ""
     this._nextAriaExpandedState = ""
     this._nextAriaHiddenState = ""
   }
 
   // public
 
-  /**
-   * Starts component instances.
-   *
-   * @param {{ controlled: Boolean, onClick: Function }} options
-   */
-  start(scopeId, options = {}) {
+  start(id) {
     if (!isBrowserEnv) return
 
-    const { controlled, onClick } = options
-    const filterFn = elements => this._setCollapsibles(elements, controlled)
+    if (id && isString(id)) {
+      const instance = dom.find(`[${Selectors.DATA_COLLAPSIBLE}='${id}']`)
+      if (!instance) return
 
-    setComponents({
-      thisArg: this,
-      scopeId,
-      scopeKey: "_collapsibleScopes",
-      componentAttribute: Selectors.DATA_COLLAPSIBLE,
-      globalKey: "_collapsibles",
-      errorMessage: Messages.NO_COLLAPSIBLE_ID_ERROR,
-      filterFn,
-    })
+      const validComponent = [instance].filter(this._setup)[0]
+      if (!validComponent) return
 
-    this._handleClickFn = onClick || this._handleClick.bind(this)
+      this._collapsibles.push(validComponent)
+    } else if (!id && !this._collapsibles.length) {
+      const instances = dom.findAll(`[${Selectors.DATA_COLLAPSIBLE}]`)
+      if (!instances.length) return
 
-    if (scopeId && this._collapsibleScopes.has(scopeId)) {
-      this._collapsibleScopes.get(scopeId).elements.forEach(this._setup)
-    } else if (this._collapsibles.length) {
-      this._collapsibles.forEach(this._setup)
+      const validComponents = instances.filter(this._setup)
+      this._collapsibles = this._collapsibles.concat(validComponents)
+    } else {
+      // attempted to .start() when .stop() wasn't run,
+      // OR tried to instantiate a component that's already active.
     }
   }
 
-  stop(scopeId) {
+  stop(id) {
     if (!isBrowserEnv) return
 
-    if (scopeId && this._collapsibleScopes.has(scopeId)) {
-      this._collapsibleScopes.get(scopeId).elements.forEach(this._teardown)
-      this._collapsibleScopes.delete(scopeId)
-    } else if (this._collapsibles.length) {
+    if (id && isString(id)) {
+      let targetIndex
+      const instance = this._collapsibles.filter((activeInstance, index) => {
+        if (dom.getAttr(activeInstance, Selectors.DATA_COLLAPSIBLE) !== id) return false
+        targetIndex = index
+        return true
+      })[0]
+
+      if (!instance) return
+      if (this._activeTooltip && instance === this._activeTooltip) this._handleClose()
+
+      this._teardown(instance)
+      this._collapsibles.splice(targetIndex, 1)
+    } else if (!id && this._collapsibles.length) {
+      if (this._activeTooltip) this._handleClose()
+
       this._collapsibles.forEach(this._teardown)
       this._collapsibles = []
-    }
-  }
-
-  /**
-   * Toggles the collapsible.
-   *
-   * @param {{ collapsible: Element, trigger: Element, content: Element, id: String, nextAriaExpandState: String, nextAriaHiddenState: String }} metadata
-   */
-  toggleCollapsible(metadata = {}) {
-    const { collapsible, trigger, content, id, nextAriaExpandState, nextAriaHiddenState } = metadata
-
-    const collapsibleId = id || this._activeCollapsibleId
-    const collapsibleInstance = collapsible || this._activeCollapsible
-    const triggerInstance = trigger || this._activeTrigger
-    const contentInstance = content || this._activeContent
-    const nextAriaExpandStateValue = nextAriaExpandState || this._nextAriaExpandedState
-    const nextAriaHiddenStateValue = nextAriaHiddenState || this._nextAriaHiddenState
-
-    dom.setAttr(collapsibleInstance, Selectors.DATA_VISIBLE, nextAriaExpandStateValue)
-    dom.setAttr(triggerInstance, Selectors.ARIA_EXPANDED, nextAriaExpandStateValue)
-    dom.setAttr(contentInstance, Selectors.ARIA_HIDDEN, nextAriaHiddenStateValue)
-
-    getFocusableElements(`#${collapsibleId}`).forEach(element => {
-      const value = nextAriaExpandStateValue === "true" ? "0" : "-1"
-      dom.setAttr(element, Selectors.TABINDEX, value)
-    })
-
-    if (dom.getStyle(contentInstance, CssProperties.MAX_HEIGHT)) {
-      dom.setStyle(contentInstance, CssProperties.MAX_HEIGHT, null)
-    } else {
-      dom.setStyle(
-        contentInstance,
-        CssProperties.MAX_HEIGHT,
-        this._getFontSizeEm(contentInstance.scrollHeight)
-      )
     }
   }
 
@@ -121,17 +89,28 @@ export default class Collapsible {
 
   _setup(instance) {
     const { trigger, id } = this._getCollapsibleData(instance)
+
+    if (!id) {
+      log(Messages.NO_COLLAPSIBLE_ID_ERROR)
+      return false
+    }
+
+    if (!trigger) {
+      log(Messages.NO_TRIGGER_ERROR(id))
+      return false
+    }
+
     const collapsibleContentId = `#${id}`
     const collapsibleContent = dom.find(collapsibleContentId, instance)
 
     if (!collapsibleContent) {
       log(Messages.NO_CONTENT_ERROR(id))
-      return
+      return false
     }
 
     if (!trigger.id) {
       log(Messages.NO_TRIGGER_ID_ERROR(id))
-      return
+      return false
     }
 
     dom.setAttr(trigger, Selectors.ARIA_CONTROLS, id)
@@ -163,12 +142,14 @@ export default class Collapsible {
     }
 
     this._collapsibleTriggers.push(trigger)
-    trigger.addEventListener(Events.CLICK, this._handleClickFn)
+    trigger.addEventListener(Events.CLICK, this._handleClick)
+
+    return true
   }
 
   _teardown(instance) {
     const { trigger } = this._getCollapsibleData(instance)
-    trigger.removeEventListener(Events.CLICK, this._handleClickFn)
+    trigger.removeEventListener(Events.CLICK, this._handleClick)
   }
 
   _handleClick(event) {
@@ -180,11 +161,32 @@ export default class Collapsible {
     this._setActiveCollapsible()
     this._setActiveContent()
     this._setNextVisibleState()
-    this.toggleCollapsible()
+    this._toggleCollapsible()
 
     this._activeCollapsible = null
     this._activeTrigger = null
     this._activeContent = null
+  }
+
+  _toggleCollapsible() {
+    dom.setAttr(this._activeCollapsible, Selectors.DATA_VISIBLE, this._nextAriaExpandedState)
+    dom.setAttr(this._activeTrigger, Selectors.ARIA_EXPANDED, this._nextAriaExpandedState)
+    dom.setAttr(this._activeContent, Selectors.ARIA_HIDDEN, this._nextAriaHiddenState)
+
+    getFocusableElements(`#${this._activeId}`).forEach(element => {
+      const value = this._nextAriaExpandedState === "true" ? "0" : "-1"
+      dom.setAttr(element, Selectors.TABINDEX, value)
+    })
+
+    if (dom.getStyle(this._activeContent, CssProperties.MAX_HEIGHT)) {
+      dom.setStyle(this._activeContent, CssProperties.MAX_HEIGHT, null)
+    } else {
+      dom.setStyle(
+        this._activeContent,
+        CssProperties.MAX_HEIGHT,
+        this._getFontSizeEm(this._activeContent.scrollHeight)
+      )
+    }
   }
 
   _getCollapsibleData(instance) {
@@ -195,33 +197,8 @@ export default class Collapsible {
     return { id, trigger }
   }
 
-  _setCollapsibles(elements, controlled) {
-    return elements.filter(instance => {
-      const id = dom.getAttr(instance, Selectors.DATA_COLLAPSIBLE)
-
-      if (!id) {
-        log(Messages.NO_COLLAPSIBLE_ID_ERROR)
-        return false
-      }
-
-      const collapsibleTriggerTargetAttr = this._getTargetAttr(id)
-      const trigger = dom.find(collapsibleTriggerTargetAttr, instance)
-
-      if (!trigger) {
-        log(Messages.NO_TRIGGER_ERROR(id))
-        return false
-      }
-
-      if (controlled) {
-        return dom.hasAttr(trigger, Selectors.DATA_PARENT)
-      }
-
-      return !dom.hasAttr(trigger, Selectors.DATA_PARENT)
-    })
-  }
-
   _setActiveContent() {
-    this._activeContent = dom.find(`#${this._activeCollapsibleId}`)
+    this._activeContent = dom.find(`#${this._activeId}`)
   }
 
   _setNextVisibleState() {
@@ -231,13 +208,11 @@ export default class Collapsible {
   }
 
   _setIds() {
-    this._activeCollapsibleId = dom.getAttr(this._activeTrigger, Selectors.DATA_TARGET)
+    this._activeId = dom.getAttr(this._activeTrigger, Selectors.DATA_TARGET)
   }
 
   _setActiveCollapsible() {
-    this._activeCollapsible = dom.find(
-      `[${Selectors.DATA_COLLAPSIBLE}='${this._activeCollapsibleId}']`
-    )
+    this._activeCollapsible = dom.find(`[${Selectors.DATA_COLLAPSIBLE}='${this._activeId}']`)
   }
 
   _getTargetAttr(id) {
