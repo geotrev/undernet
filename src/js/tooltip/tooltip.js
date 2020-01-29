@@ -1,4 +1,4 @@
-import { iOSMobile, dom, isBrowserEnv, log, isString } from "../helpers"
+import { iOSMobile, dom, log, startComponent, stopComponent } from "../helpers"
 import { KeyCodes, Selectors, CssProperties, CssValues, Events, Messages } from "./constants"
 
 const COMPONENT_ROLE = "tooltip"
@@ -17,7 +17,7 @@ export default class Tooltip {
     this._teardown = this._teardown.bind(this)
 
     // all tooltips
-    this._tooltips = []
+    this._components = []
 
     // active tooltip
     this._activeTrigger = null
@@ -27,50 +27,17 @@ export default class Tooltip {
   // public
 
   start(id) {
-    if (!isBrowserEnv) return
-
-    if (id && isString(id)) {
-      const instance = dom.find(`[${Selectors.DATA_TOOLTIP}='${id}']`)
-      if (!instance) return
-
-      const validComponent = [instance].filter(this._setup)[0]
-      if (!validComponent) return
-
-      this._tooltips.push(validComponent)
-    } else if (!id && !this._tooltips.length) {
-      const instances = dom.findAll(`[${Selectors.DATA_TOOLTIP}]`)
-      if (!instances.length) return
-
-      const validComponents = instances.filter(this._setup)
-      this._tooltips = this._tooltips.concat(validComponents)
-    } else {
-      // attempted to .start() when .stop() wasn't run,
-      // OR tried to instantiate a component that's already active.
-    }
+    startComponent({ id, attribute: Selectors.DATA_TOOLTIP, thisArg: this })
   }
 
   stop(id) {
-    if (!isBrowserEnv) return
-
-    if (id && isString(id)) {
-      let targetIndex
-      const instance = this._tooltips.filter((activeInstance, index) => {
-        if (dom.getAttr(activeInstance, Selectors.DATA_TOOLTIP) !== id) return false
-        targetIndex = index
-        return true
-      })[0]
-
-      if (!instance) return
-      if (this._activeTooltip && instance === this._activeTooltip) this._handleClose()
-
-      this._teardown(instance)
-      this._tooltips.splice(targetIndex, 1)
-    } else if (!id && this._tooltips.length) {
-      if (this._activeTooltip) this._handleClose()
-
-      this._tooltips.forEach(this._teardown)
-      this._tooltips = []
-    }
+    stopComponent({
+      id,
+      attribute: Selectors.DATA_TOOLTIP,
+      thisArg: this,
+      activeNodeKey: "_activeTooltip",
+      cancelActiveFn: "_handleClose",
+    })
   }
 
   // private

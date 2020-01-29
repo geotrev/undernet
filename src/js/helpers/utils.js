@@ -41,11 +41,6 @@ const Messages = {
 export const log = (message, type = "error") => console[type](message)
 
 /**
- * Check if a value is type "string".
- */
-export const isString = value => typeof value === "string"
-
-/**
  * Check if window exists. If it doesn't, we're probably in a non-test node environment.
  */
 export const isBrowserEnv = typeof window !== "undefined"
@@ -344,6 +339,10 @@ export const getPageBaseFontSize = () => {
   return bodySize
 }
 
+/**
+ * Focus a single element one time and teardown when unfocused.
+ * @param {Object} element
+ */
 export const focusOnce = element => {
   const handleBlur = ({ target }) => {
     dom.removeAttr(target, Selectors.TABINDEX)
@@ -353,4 +352,87 @@ export const focusOnce = element => {
   dom.setAttr(element, Selectors.TABINDEX, "-1")
   element.focus()
   element.addEventListener(Events.BLUR, handleBlur)
+}
+
+/**
+ * Check if a value is type "string".
+ * @param {*} value
+ * @returns {boolean}
+ */
+const isString = value => typeof value === "string"
+
+/**
+ * Check if a value is type "function".
+ * @param {*} value
+ * @returns {boolean}
+ */
+const isFunction = value => typeof value === "function"
+
+/**
+ * Initialize an Undernet component globally or by id.
+ * @param {Object} metadata
+ * @property {string} id
+ * @property {string} attribute
+ * @property {Object} thisArg
+ */
+export const startComponent = (metadata = {}) => {
+  if (!isBrowserEnv) return
+
+  const { id, attribute, thisArg } = metadata
+
+  if (id && isString(id)) {
+    const instance = dom.find(`[${attribute}='${id}']`)
+    if (!instance) return
+
+    const validComponent = [instance].filter(thisArg._setup)[0]
+    if (!validComponent) return
+
+    thisArg._components.push(validComponent)
+  } else if (!id && !thisArg._components.length) {
+    const instances = dom.findAll(`[${attribute}]`)
+    if (!instances.length) return
+
+    const validComponents = instances.filter(thisArg._setup)
+    thisArg._components = thisArg._components.concat(validComponents)
+  } else {
+    // attempted to .start() when .stop() wasn't run,
+    // OR tried to instantiate a component that's already active.
+  }
+}
+
+/**
+ * Teardown an Undernet component globally or by id.
+ * @param {Object} metadata
+ * @property {string} id
+ * @property {string} attribute
+ * @property {Object} thisArg
+ * @property {string} activeNodeKey
+ * @property {*=} cancelActiveFn
+ */
+export const stopComponent = (metadata = {}) => {
+  if (!isBrowserEnv) return
+
+  const { id, attribute, thisArg, activeNodeKey, cancelActiveFn } = metadata
+
+  if (id && isString(id)) {
+    let targetIndex
+    const instance = thisArg._components.filter((activeInstance, index) => {
+      if (dom.getAttr(activeInstance, attribute) !== id) return false
+      targetIndex = index
+      return true
+    })[0]
+
+    if (!instance) return
+
+    if (thisArg[activeNodeKey] && instance === thisArg[activeNodeKey] && isFunction(cancelActiveFn))
+      thisArg[cancelActiveFn]()
+
+    thisArg._teardown(instance)
+    thisArg._components.splice(targetIndex, 1)
+  } else if (!id && thisArg._components.length) {
+    if (thisArg[activeNodeKey] && isFunction(cancelActiveFn)) thisArg[cancelActiveFn]()
+
+    thisArg._components.forEach(thisArg._teardown)
+    thisArg._components = []
+  }
 }

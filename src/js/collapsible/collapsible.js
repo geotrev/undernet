@@ -1,10 +1,10 @@
 import {
   getFocusableElements,
   dom,
-  isBrowserEnv,
   getPageBaseFontSize,
   log,
-  isString,
+  startComponent,
+  stopComponent,
 } from "../helpers"
 
 import { Selectors, CssProperties, Events, Messages } from "./constants"
@@ -24,8 +24,7 @@ export default class Collapsible {
     this._teardown = this._teardown.bind(this)
 
     // all accordions
-    this._collapsibles = []
-    this._collapsibleTriggers = []
+    this._components = []
 
     // active accordion
     this._activeCollapsible = {}
@@ -39,50 +38,16 @@ export default class Collapsible {
   // public
 
   start(id) {
-    if (!isBrowserEnv) return
-
-    if (id && isString(id)) {
-      const instance = dom.find(`[${Selectors.DATA_COLLAPSIBLE}='${id}']`)
-      if (!instance) return
-
-      const validComponent = [instance].filter(this._setup)[0]
-      if (!validComponent) return
-
-      this._collapsibles.push(validComponent)
-    } else if (!id && !this._collapsibles.length) {
-      const instances = dom.findAll(`[${Selectors.DATA_COLLAPSIBLE}]`)
-      if (!instances.length) return
-
-      const validComponents = instances.filter(this._setup)
-      this._collapsibles = this._collapsibles.concat(validComponents)
-    } else {
-      // attempted to .start() when .stop() wasn't run,
-      // OR tried to instantiate a component that's already active.
-    }
+    startComponent({ id, attribute: Selectors.DATA_COLLAPSIBLE, thisArg: this })
   }
 
   stop(id) {
-    if (!isBrowserEnv) return
-
-    if (id && isString(id)) {
-      let targetIndex
-      const instance = this._collapsibles.filter((activeInstance, index) => {
-        if (dom.getAttr(activeInstance, Selectors.DATA_COLLAPSIBLE) !== id) return false
-        targetIndex = index
-        return true
-      })[0]
-
-      if (!instance) return
-      if (this._activeTooltip && instance === this._activeTooltip) this._handleClose()
-
-      this._teardown(instance)
-      this._collapsibles.splice(targetIndex, 1)
-    } else if (!id && this._collapsibles.length) {
-      if (this._activeTooltip) this._handleClose()
-
-      this._collapsibles.forEach(this._teardown)
-      this._collapsibles = []
-    }
+    stopComponent({
+      id,
+      attribute: Selectors.DATA_COLLAPSIBLE,
+      thisArg: this,
+      activeNodeKey: "_activeCollapsible",
+    })
   }
 
   // private
@@ -141,7 +106,6 @@ export default class Collapsible {
       })
     }
 
-    this._collapsibleTriggers.push(trigger)
     trigger.addEventListener(Events.CLICK, this._handleClick)
 
     return true
@@ -191,8 +155,7 @@ export default class Collapsible {
 
   _getCollapsibleData(instance) {
     const id = dom.getAttr(instance, Selectors.DATA_COLLAPSIBLE)
-    const collapsibleTriggerTargetAttr = this._getTargetAttr(id)
-    const trigger = dom.find(collapsibleTriggerTargetAttr, instance)
+    const trigger = dom.find(`[${Selectors.DATA_TARGET}='${id}']`, instance)
 
     return { id, trigger }
   }
@@ -213,10 +176,6 @@ export default class Collapsible {
 
   _setActiveCollapsible() {
     this._activeCollapsible = dom.find(`[${Selectors.DATA_COLLAPSIBLE}='${this._activeId}']`)
-  }
-
-  _getTargetAttr(id) {
-    return `[${Selectors.DATA_TARGET}='${id}']`
   }
 
   _getFontSizeEm(pixels) {
