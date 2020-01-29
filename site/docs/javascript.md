@@ -217,8 +217,8 @@ It's instantiated the same way as `createFocusRing`, but takes two parameters:
 
 ```js
 import { createFocusTrap } from "undernet"
-const focusTrap = createFocusTrap()
-focusTrap.start(selector, options)
+const focusTrap = createFocusTrap(selector, options)
+focusTrap.start()
 ```
 
 #### `selector` (string)
@@ -228,7 +228,7 @@ focusTrap.start(selector, options)
 A string to be queried in the DOM; it will be treated as the container of possible focusable elements. If this is the only parameter given, `tab` and `shift+tab` will be the key-bindings used for trapping.
 
 ```js
-focusTrap.start(".wrapper-element")
+const focusTrap = createFocusTrap(".wrapper-element")
 ```
 
 #### `options` (object)
@@ -244,7 +244,7 @@ Default: `false`
 Trap focus using up and down arrows.
 
 ```js
-focusRing.start(".wrapper-element", { useArrows: true })
+const focusTrap = createFocusTrap(".wrapper-element", { useArrows: true })
 ```
 
 ##### `options.children` (array)
@@ -255,7 +255,7 @@ Provide a custom array of elements to trap focus within. This overrides the elem
 
 ```js
 const children = document.querySelectorAll(".my-focusable-element")
-focusTrap.start(".wrapper-element", { children })
+const focusTrap = createFocusTrap(".wrapper-element", { children })
 ```
 
 NOTE: You should still pass a selector string for the wrapper as a fallback, in case `children` comes back empty and you aren't using a guard for that case explicitly.
@@ -267,7 +267,9 @@ Default: `["a", "button", "input", "object", "select", "textarea", "[tabindex]"]
 Override the default matchers for focusable elements. Elements with `is-visually-hidden` are _always_ excluded from the resulting focusable elements.
 
 ```js
-focusRing.start(".wrapper-element", { matchers: ["button", "input", ".elements-with-this-class"] })
+const focusTrap = createFocusTrap(".wrapper-element", {
+  matchers: ["button", "input", ".elements-with-this-class"],
+})
 ```
 
 {% include partials/edit-on-github.html %}
