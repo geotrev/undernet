@@ -8,3 +8,6 @@
 
 [context.master]
   command = "npm run build:prod"
+
+[context.develop]
+  command = "npm run build:prod"
