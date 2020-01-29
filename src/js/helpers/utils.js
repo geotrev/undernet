@@ -339,6 +339,10 @@ export const getPageBaseFontSize = () => {
   return bodySize
 }
 
+/**
+ * Focus a single element one time and teardown when unfocused.
+ * @param {Object} element
+ */
 export const focusOnce = element => {
   const handleBlur = ({ target }) => {
     dom.removeAttr(target, Selectors.TABINDEX)
@@ -351,123 +355,84 @@ export const focusOnce = element => {
 }
 
 /**
- * Filters an array of elements by if a given attribute has a value.
- *
- * @param {Element[]} elements
- * @param {String} attribute
- * @param {String} errorMessage
+ * Check if a value is type "string".
+ * @param {*} value
+ * @returns {boolean}
  */
-const filterByAttrValue = (elements, attribute, error) => {
-  return elements.filter(element => {
-    const value = dom.getAttr(element, attribute)
-
-    if (!value) {
-      log(error)
-      return false
-    }
-
-    return true
-  })
-}
+const isString = value => typeof value === "string"
 
 /**
- * Options necessary to set a library of components on a class instance.
- *
- * @typedef {Object} SetComponentsOptions
- * @param {Object} options.thisArg
- * @param {String} options.scopeId
- * @param {String} options.scopeKey
- * @param {String} options.componentAttribute
- * @param {String} options.globalKey
- * @param {String} options.errorMessage
- * @param {Function=} options.filterFn
+ * Check if a value is type "function".
+ * @param {*} value
+ * @returns {boolean}
  */
+const isFunction = value => typeof value === "function"
 
 /**
- * Assigns queried elements to a scope.
- *
- * @param {SetComponentsOptions} options
+ * Initialize an Undernet component globally or by id.
+ * @param {Object} metadata
+ * @property {string} id
+ * @property {string} attribute
+ * @property {Object} thisArg
  */
-const assignScope = (options = {}) => {
-  const {
-    thisArg,
-    scopeId,
-    scopeKey,
-    componentAttribute,
-    globalKey,
-    errorMessage,
-    filterFn,
-  } = options
+export const startComponent = (metadata = {}) => {
+  if (!isBrowserEnv) return
 
-  const scope = thisArg[scopeKey].get(scopeId)
+  const { id, attribute, thisArg } = metadata
 
-  // `globalKey` is used to separate components that extend
-  // from others, such as Accordion extending Collapsible.
-  if (!scope || (scope && scope.globalKey !== globalKey)) {
-    const parent = dom.find(scopeId)
+  if (id && isString(id)) {
+    const instance = dom.find(`[${attribute}='${id}']`)
+    if (!instance) return
 
-    if (!parent) {
-      log(Messages.NO_PARENT_FOUND_IN_SCOPE(scopeId))
-      return
-    }
+    const validComponent = [instance].filter(thisArg._setup)[0]
+    if (!validComponent) return
 
-    let elements = dom.findAll(`[${componentAttribute}]`, parent)
+    thisArg._components.push(validComponent)
+  } else if (!id && !thisArg._components.length) {
+    const instances = dom.findAll(`[${attribute}]`)
+    if (!instances.length) return
 
-    if (typeof filterFn === "function") {
-      elements = filterFn(elements)
-    } else {
-      elements = filterByAttrValue(elements, componentAttribute, errorMessage)
-    }
-
-    if (!elements || !elements.length) return
-
-    thisArg[scopeKey].set(scopeId, { elements, parent, globalKey })
+    const validComponents = instances.filter(thisArg._setup)
+    thisArg._components = thisArg._components.concat(validComponents)
   } else {
-    log(Messages.DUPLICATE_SCOPE_ERROR(scopeId))
+    // attempted to .start() when .stop() wasn't run,
+    // OR tried to instantiate a component that's already active.
   }
 }
 
 /**
- * Assigns queried elements to the global scope.
- *
- * @param {SetComponentsOptions} options
+ * Teardown an Undernet component globally or by id.
+ * @param {Object} metadata
+ * @property {string} id
+ * @property {string} attribute
+ * @property {Object} thisArg
+ * @property {string} activeNodeKey
+ * @property {*=} cancelActiveFn
  */
-const assignGlobal = (options = {}) => {
-  const { thisArg, scopeKey, componentAttribute, globalKey, errorMessage, filterFn } = options
-  const scopes = thisArg[scopeKey]
-  let elements = dom.findAll(`[${componentAttribute}]`)
+export const stopComponent = (metadata = {}) => {
+  if (!isBrowserEnv) return
 
-  if (typeof filterFn === "function") elements = filterFn(elements)
+  const { id, attribute, thisArg, activeNodeKey, cancelActiveFn } = metadata
 
-  if (elements.length && scopes.size) {
-    scopes.forEach(scope => {
-      elements = elements.filter(component => {
-        const componentId = dom.getAttr(component, componentAttribute)
+  if (id && isString(id)) {
+    let targetIndex
+    const instance = thisArg._components.filter((activeInstance, index) => {
+      if (dom.getAttr(activeInstance, attribute) !== id) return false
+      targetIndex = index
+      return true
+    })[0]
 
-        if (!componentId) {
-          log(errorMessage)
-          return false
-        }
+    if (!instance) return
 
-        return Boolean(!dom.find(`[${componentAttribute}='${componentId}']`, scope.parent))
-      })
-    })
-  } else {
-    elements = filterByAttrValue(elements, componentAttribute, errorMessage)
-  }
+    if (thisArg[activeNodeKey] && instance === thisArg[activeNodeKey] && isFunction(cancelActiveFn))
+      thisArg[cancelActiveFn]()
 
-  thisArg[globalKey] = elements
-}
+    thisArg._teardown(instance)
+    thisArg._components.splice(targetIndex, 1)
+  } else if (!id && thisArg._components.length) {
+    if (thisArg[activeNodeKey] && isFunction(cancelActiveFn)) thisArg[cancelActiveFn]()
 
-/**
- * Set either a scope or global component library on a class instance.
- *
- * @param {SetComponentsOptions} options
- */
-export const setComponents = (options = {}) => {
-  if (options.scopeId) {
-    assignScope(options)
-  } else {
-    assignGlobal(options)
+    thisArg._components.forEach(thisArg._teardown)
+    thisArg._components = []
   }
 }

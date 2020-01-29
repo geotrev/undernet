@@ -45,7 +45,7 @@ Again, reference the [JavaScript]({{ site.data.routes.javascript }}) page on exa
 When you import the Sass with NPM, you have two options:
 
 1. Import `undernet.scss` straight into a stylesheet (similar to linking to undernet.css, but it's precompiled).
-2. Import wo separate files: config with Sass helpers and the core framework, with optional style scope. This route enables brand customization.
+2. Import two separate files: a config with Sass helpers, then a file with the core framework with optional style scope. This route enables deep brand customization.
 
 In these examples, the Webpack shorthand `~` is used to access `node_modules`, however any alternative will do fine.
 
@@ -76,7 +76,7 @@ Note the comment; you can insert or import your variable overrides before the or
 
 The next file should import the core framework, including all elements, components, and class utilities (you can forego any components/elements that aren't relevant to your needs). **Only import this file once at the global level**. Your custom config should be imported at the top.
 
-Create a file called `_undernet.scss` like so:
+Let's call this next file `_custom-undernet.scss`:
 
 ```scss
 @import "path/to/your/config";
@@ -87,9 +87,9 @@ Create a file called `_undernet.scss` like so:
 @import "~undernet/src/scss/elements/typography";
 @import "~undernet/src/scss/elements/button";
 @import "~undernet/src/scss/elements/form";
+@import "~undernet/src/scss/components/collapsible";
 @import "~undernet/src/scss/components/dropdown";
 @import "~undernet/src/scss/components/modal";
-@import "~undernet/src/scss/components/accordion";
 @import "~undernet/src/scss/components/tooltip";
 @import "~undernet/src/scss/utilities/classes";
 // }
@@ -110,7 +110,7 @@ Finally, import `_undernet.scss` to your app's Sass entry file, wherever that mi
 <!-- all your other stylesheets/style tags after -->
 ```
 
-If you used a style scope, you can disregard importing before all other styles.
+If you used a style scope, you can put the import or link tag anywhere, just be conscious of how the style cascade will change if you do so.
 
 ## Source Files
 

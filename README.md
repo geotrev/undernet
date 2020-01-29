@@ -13,7 +13,7 @@ What does Undernet provide?
 - Interactive components powered by JavaScript.
 - Highly brandable and extendable.
 
-The main site, https://undernet.io is run on Jekyll and hosted using GitHub Pages.
+The main site, https://undernet.io is run on Jekyll and hosted using Netlify.
 
 ## Install via npm or yarn
 
@@ -27,23 +27,22 @@ $ yarn add -D undernet
 
 ### Configuration & Setup
 
-See [Download documentation](https://www.undernet.io/docs/overview/download) to learn how to include the framework in various pipelines, ranging from CDN to fine-tuned control with the NPM package or source code.
+See [Download documentation](https://www.undernet.io/overview/download) to learn how to include the framework in various pipelines, ranging from CDN to fine-tuned control with the NPM package or source code.
 
 ### Styles
 
-See [CSS documentation](https://www.undernet.io/docs/overview/css) to learn the patterns of Undernet's Sass and classes that power the core of the framework.
+See [CSS documentation](https://www.undernet.io/overview/css) to learn the patterns of Undernet's Sass and classes that power the core of the framework.
 
 ### JavaScript
 
-See [JS documentation](https://www.undernet.io/docs/overview/javascript) to learn about the JS API and its options, including components and utilities.
+See [JS documentation](https://www.undernet.io/overview/javascript) to learn about the JS API and its options, including components and utilities.
 
 Currently available list of components:
 
-- [Modals](https://www.undernet.io/docs/components/modals)
-- [Tooltips](https://www.undernet.io/docs/components/tooltips)
-- [Collapsibles](https://www.undernet.io/docs/components/collapsibles)
-- [Accordions](https://www.undernet.io/docs/components/accordions)
-- [Dropdowns](https://www.undernet.io/docs/components/dropdowns)
+- [Modals](https://www.undernet.io/components/modals)
+- [Tooltips](https://www.undernet.io/components/tooltips)
+- [Collapsibles](https://www.undernet.io/components/collapsibles)
+- [Dropdowns](https://www.undernet.io/components/dropdowns)
 
 Each component requires a specific HTML structure to allow for proper accessibility and interactivity for the user. Examples included in the links above.
 

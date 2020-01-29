@@ -95,11 +95,6 @@
 
     // collapsible overrides
 
-    &[data-accordion] {
-      border: none;
-      border-radius: 0;
-    }
-
     [data-target] {
       @include create-link-color($color-gray400);
       background: transparent;

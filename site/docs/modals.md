@@ -207,4 +207,4 @@ The below attributes you should add to elements yourself. They increase the cont
 
 Edit much of the styling within `_config.scss`.
 
-{% include partials/edit-on-github.html component="Modals" %}
+{% include partials/edit-on-github.html component="modal" %}

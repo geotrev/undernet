@@ -2,11 +2,11 @@ import {
   iOSMobile,
   getFocusableElements,
   dom,
-  isBrowserEnv,
   createFocusTrap,
   focusOnce,
   log,
-  setComponents,
+  startComponent,
+  stopComponent,
 } from "../helpers"
 import { KeyCodes, Selectors, CssProperties, CssValues, Events, Messages } from "./constants"
 
@@ -20,21 +20,20 @@ const COMPONENT_ROLE = "dialog"
 export default class Modal {
   constructor() {
     this._handleClick = this._handleClick.bind(this)
-    this._handleCloseClick = this._handleCloseClick.bind(this)
+    this._handleClose = this._handleClose.bind(this)
     this._handleOverlayClick = this._handleOverlayClick.bind(this)
     this._handleEscapeKeyPress = this._handleEscapeKeyPress.bind(this)
     this._setup = this._setup.bind(this)
     this._teardown = this._teardown.bind(this)
 
     // all modals
-    this._modals = []
-    this._scopes = new Map()
+    this._components = []
 
     // active modal
     this._activeModalTrigger = null
-    this._activeModalOverlayAttr = ""
-    this._activeModalOverlay = null
+    this._activeModalAttr = ""
     this._activeModal = null
+    this._activeModalContent = null
     this._activeModalId = ""
     this._activeModalSelector = ""
     this._activeModalCloseTriggers = []
@@ -45,42 +44,18 @@ export default class Modal {
 
   // public
 
-  start(scopeId) {
-    if (!isBrowserEnv) return
-
-    setComponents({
-      thisArg: this,
-      scopeId,
-      scopeKey: "_scopes",
-      componentAttribute: Selectors.DATA_MODAL,
-      globalKey: "_modals",
-      errorMessage: Messages.NO_ID_ERROR,
-    })
-
-    if (scopeId && this._scopes.has(scopeId)) {
-      this._scopes.get(scopeId).elements.forEach(this._setup)
-    } else if (this._modals.length) {
-      this._modals.forEach(this._setup)
-    }
+  start(id) {
+    startComponent({ id, attribute: Selectors.DATA_MODAL, thisArg: this })
   }
 
-  stop(scopeId) {
-    if (!isBrowserEnv) return
-
-    if (scopeId && this._scopes.has(scopeId)) {
-      const { elements } = this._scopes.get(scopeId)
-
-      elements.forEach(instance => {
-        if (dom.getAttr(instance, Selectors.DATA_VISIBLE) !== "true") return
-        this._closeActiveModal()
-      })
-
-      elements.forEach(this._teardown)
-      this._scopes.delete(scopeId)
-    } else if (this._modals.length) {
-      if (this._activeModal) this._closeActiveModal()
-      this._modals.forEach(this._teardown)
-    }
+  stop(id) {
+    stopComponent({
+      id,
+      attribute: Selectors.DATA_MODAL,
+      thisArg: this,
+      activeNodeKey: "_activeModal",
+      cancelActiveFn: "_closeActiveModal",
+    })
   }
 
   // private
@@ -90,36 +65,37 @@ export default class Modal {
 
     if (!modalId) {
       log(Messages.NO_ID_ERROR)
-      return
+      return false
     }
 
-    const modalWrapperAttr = `[${Selectors.DATA_MODAL}='${modalId}']`
-    const modalWrapper = dom.find(modalWrapperAttr)
+    const modalAttr = `[${Selectors.DATA_MODAL}='${modalId}']`
+    const modal = dom.find(modalAttr)
 
-    getFocusableElements(modalWrapperAttr).forEach(element =>
+    getFocusableElements(modalAttr).forEach(element =>
       dom.setAttr(element, Selectors.TABINDEX, "-1")
     )
 
-    const modal = dom.find(`[${Selectors.DATA_PARENT}='${modalId}']`, instance)
+    const modalContent = dom.find(`[${Selectors.DATA_PARENT}='${modalId}']`, instance)
 
-    if (!modal) {
+    if (!modalContent) {
       log(Messages.NO_MODAL_DIALOG_ERROR(modalId))
-      return
+      return false
     }
 
-    dom.setAttr(modalWrapper, Selectors.ARIA_HIDDEN, "true")
-    dom.setAttr(modalWrapper, Selectors.DATA_VISIBLE, "false")
-    dom.setAttr(modal, Selectors.ARIA_MODAL, "true")
-    dom.setAttr(modal, Selectors.ROLE, COMPONENT_ROLE)
+    dom.setAttr(modal, Selectors.ARIA_HIDDEN, "true")
+    dom.setAttr(modal, Selectors.DATA_VISIBLE, "false")
+    dom.setAttr(modalContent, Selectors.ARIA_MODAL, "true")
+    dom.setAttr(modalContent, Selectors.ROLE, COMPONENT_ROLE)
 
     const trigger = dom.find(`[${Selectors.DATA_TARGET}='${modalId}']`)
 
     if (!trigger) {
       log(Messages.NO_TRIGGER_ERROR(modalId))
-      return
+      return false
     }
 
     trigger.addEventListener(Events.CLICK, this._handleClick)
+    return true
   }
 
   _teardown(instance) {
@@ -135,32 +111,32 @@ export default class Modal {
     this._activeModalTrigger = event.target
 
     this._setActiveModalId()
-    this._setActiveModalOverlay()
     this._setActiveModal()
+    this._setActiveModalContent()
     this._setScrollbarOffset()
     this._setScrollStop()
 
     this._focusTrap = createFocusTrap(this._activeModalSelector)
     this._focusTrap.start()
 
-    this._changeDialogVisibility(true)
+    this._toggleVisibility(true)
     this._changeTabindexOnChildren("0")
     this._setCloseTriggers()
-    this._focusModalDialog()
+    this._focusModalContent()
 
     // Focusing the modal dialog causes a focus change if the container is larger than the window height
-    this._activeModalOverlay.scrollTop = 0
+    this._activeModal.scrollTop = 0
 
     this._startEvents()
   }
 
-  _handleCloseClick(event) {
+  _handleClose(event) {
     event.preventDefault()
     this._closeActiveModal()
   }
 
   _closeActiveModal() {
-    this._changeDialogVisibility(false)
+    this._toggleVisibility(false)
     this._focusModalTrigger()
     this._unsetScrollStop()
     this._unsetScrollbarOffset()
@@ -170,7 +146,7 @@ export default class Modal {
     this._changeTabindexOnChildren("-1")
 
     this._activeModalCloseTriggers.forEach(trigger => {
-      trigger.removeEventListener(Events.CLICK, this._handleCloseClick)
+      trigger.removeEventListener(Events.CLICK, this._handleClose)
       dom.setAttr(trigger, Selectors.TABINDEX, "-1")
     })
 
@@ -179,10 +155,9 @@ export default class Modal {
   }
 
   _resetProperties() {
-    // Overlay and overlay attribute properties are reset in setPaddingOffsetTimeout
-
-    this._activeModalTrigger = null
     this._activeModal = null
+    this._activeModalTrigger = null
+    this._activeModalContent = null
     this._activeModalId = ""
     this._activeModalSelector = ""
     this._activeModalCloseTriggers = []
@@ -192,7 +167,7 @@ export default class Modal {
   }
 
   _changeTabindexOnChildren(value) {
-    const elements = getFocusableElements(this._activeModalOverlayAttr)
+    const elements = getFocusableElements(this._activeModalAttr)
     if (!elements.length) return
 
     elements.forEach(element => dom.setAttr(element, Selectors.TABINDEX, value))
@@ -208,23 +183,23 @@ export default class Modal {
     this._activeModalId = dom.getAttr(this._activeModalTrigger, Selectors.DATA_TARGET)
   }
 
-  _setActiveModalOverlay() {
-    this._activeModalOverlayAttr = `[${Selectors.DATA_MODAL}='${this._activeModalId}']`
-    this._activeModalOverlay = dom.find(`[${Selectors.DATA_MODAL}='${this._activeModalId}']`)
-  }
-
   _setActiveModal() {
-    this._activeModalSelector = `[${Selectors.DATA_PARENT}='${this._activeModalId}']`
-    this._activeModal = dom.find(this._activeModalSelector, this._activeModalOverlay)
+    this._activeModalAttr = `[${Selectors.DATA_MODAL}='${this._activeModalId}']`
+    this._activeModal = dom.find(`[${Selectors.DATA_MODAL}='${this._activeModalId}']`)
   }
 
-  _changeDialogVisibility(isVisible) {
-    dom.setAttr(this._activeModalOverlay, Selectors.ARIA_HIDDEN, isVisible ? "false" : "true")
-    dom.setAttr(this._activeModalOverlay, Selectors.DATA_VISIBLE, isVisible ? "true" : "false")
+  _setActiveModalContent() {
+    this._activeModalSelector = `[${Selectors.DATA_PARENT}='${this._activeModalId}']`
+    this._activeModalContent = dom.find(this._activeModalSelector, this._activeModal)
+  }
+
+  _toggleVisibility(isVisible) {
+    dom.setAttr(this._activeModal, Selectors.ARIA_HIDDEN, isVisible ? "false" : "true")
+    dom.setAttr(this._activeModal, Selectors.DATA_VISIBLE, isVisible ? "true" : "false")
 
     if (iOSMobile) {
       dom.setStyle(
-        this._activeModalOverlay,
+        this._activeModal,
         CssProperties.CURSOR,
         isVisible ? CssValues.POINTER : CssValues.AUTO
       )
@@ -236,12 +211,12 @@ export default class Modal {
     document.addEventListener(Events.CLICK, this._handleOverlayClick)
 
     this._activeModalCloseTriggers.forEach(trigger => {
-      trigger.addEventListener(Events.CLICK, this._handleCloseClick)
+      trigger.addEventListener(Events.CLICK, this._handleClose)
     })
   }
 
-  _focusModalDialog() {
-    focusOnce(this._activeModal)
+  _focusModalContent() {
+    focusOnce(this._activeModalContent)
   }
 
   _getScrollbarOffset() {
@@ -263,7 +238,7 @@ export default class Modal {
   }
 
   _unsetScrollbarOffset() {
-    if (!this._activeModalOverlay) return
+    if (!this._activeModal) return
     const originalPaddingRight = this._originalPagePadding
 
     this._setPaddingOffsetTimeout()
@@ -273,23 +248,25 @@ export default class Modal {
   _setPaddingOffsetTimeout() {
     const DISMISS_SCROLLBAR_PADDING_DELAY = 500
 
-    dom.setStyle(this._activeModalOverlay, CssProperties.PADDING_LEFT, `${this._scrollbarOffset}px`)
+    // This is cached because _activeModal will
+    // be purged before the timeout is elapsed
+    const modal = this._activeModal
+
+    dom.setStyle(this._activeModal, CssProperties.PADDING_LEFT, `${this._scrollbarOffset}px`)
     setTimeout(() => {
-      dom.setStyle(this._activeModalOverlay, CssProperties.PADDING_LEFT, "")
-      this._activeModalOverlay = null
-      this._activeModalOverlayAttr = null
+      dom.setStyle(modal, CssProperties.PADDING_LEFT, "")
     }, DISMISS_SCROLLBAR_PADDING_DELAY)
   }
 
   _handleOverlayClick(event) {
-    if (event.target === this._activeModalOverlay) {
-      this._handleCloseClick(event)
+    if (event.target === this._activeModal) {
+      this._handleClose(event)
     }
   }
 
   _handleEscapeKeyPress(event) {
     if (event.which === KeyCodes.ESCAPE) {
-      this._handleCloseClick(event)
+      this._handleClose(event)
     }
   }
 
