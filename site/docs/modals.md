@@ -6,7 +6,11 @@ permalink: /components/:basename
 
 # {{ page.title }}
 
-Use modals to focus the user experience on a critical task or set of information. Modals have simple base styling, with the contents using a semantic markup structure. You can use utility classes or your own custom CSS to style the modal content (including header, footer, and content).
+Use modals to focus the user experience on a critical task or set of information.
+
+Modals have simple base styling, with the contents using a semantic markup structure. You can use utility classes or your own custom CSS to style the modal content (including header, footer, and content) further.
+
+You can ditch the `modal-header`, `modal-body`, and `modal-footer` classes altogether if you wish to have even more control of the content. These classes are, however, customizable via Sass and should fit most common use-cases.
 
 Try to keep the modal dialog as high in the document tree as possible. While the dialog is styled in a way to make it mostly capable of being nested in divs or other wrappers, doing so comes with a risk of interfering with the fullscreen effect of the dialog.
 
@@ -20,7 +24,7 @@ Check out this example modal:
 
 <div class="modal-overlay" data-modal="new-modal">
   <div class="modal-dialog" data-parent="new-modal" aria-labelledby="header-id">
-    <header class="is-d-flex has-justify-content-space-between has-align-items-center">
+    <header class="modal-header">
       <h2 class="h5 has-no-m" id="header-id">
         Modal Header
       </h2>
@@ -28,10 +32,10 @@ Check out this example modal:
         Close
       </a>
     </header>
-    <section>
+    <section class="modal-body">
       <p>Some modal content here</p>
     </section>
-    <footer class="is-d-flex has-justify-content-flex-end">
+    <footer class="modal-footer">
       <a class="button has-no-m-block-end has-m-inline-end-sm" data-close href="#">
         Cancel
       </a>
@@ -47,7 +51,7 @@ Check out this example modal:
 
 <div class="modal-overlay" data-modal="modal-id">
   <div class="modal-dialog" data-parent="modal-id" aria-labelledby="header-id">
-    <header class="is-d-flex has-justify-content-space-between has-align-items-center">
+    <header class="modal-header">
       <h2 class="h5 has-no-m" id="header-id">
         Modal Header
       </h2>
@@ -55,10 +59,10 @@ Check out this example modal:
         Close
       </a>
     </header>
-    <section>
+    <section class="modal-body">
       <p>Some modal content here</p>
     </section>
-    <footer class="is-d-flex has-justify-content-flex-end">
+    <footer class="modal-footer">
       <a class="button has-no-m-block-end has-m-inline-end-sm" data-close href="#">
         Cancel
       </a>
@@ -78,7 +82,7 @@ The modal will be able to handle long-content with ease, turning the overlay int
 
 <div class="modal-overlay" data-modal="new-modal-3">
   <div class="modal-dialog" data-parent="new-modal-3" aria-labelledby="header-id">
-    <header class="is-d-flex has-justify-content-space-between has-align-items-center">
+    <header class="modal-header">
       <h2 class="h5 has-no-m" id="header-id">
         Modal Header
       </h2>
@@ -86,10 +90,10 @@ The modal will be able to handle long-content with ease, turning the overlay int
         Close
       </a>
     </header>
-    <section>
+    <section class="modal-body">
       Run up and down stairs kitty power and milk the cow. Love i like cats because they are fat and fluffy. Vommit food and eat it again leave dead animals as gifts, and spill litter box, scratch at owner, destroy all furniture, especially couch licks paws. Eat from dog's food loved it, hated it, loved it, hated it. Sniff other cat's butt and hang jaw half open thereafter rub whiskers on bare skin act innocent poop in litter box, scratch the walls. Cough i like cats because they are fat and fluffy sweet beast human give me attention meow for wake up human for food at 4am for touch water with paw then recoil in horror. Eat a rug and furry furry hairs everywhere oh no human coming lie on counter don't get off counter spit up on light gray carpet instead of adjacent linoleum yet intently stare at the same spot, so open the door, let me out, let me out, let me-out, let me-aow, let meaow, meaow! cry louder at reflection but mice. Show belly freak human out make funny noise mow mow mow mow mow mow success now attack human and swat turds around the house stare at ceiling light and gnaw the corn cob or give me attention or face the wrath of my claws spend all night ensuring people don't sleep sleep all day. Lick human with sandpaper tongue. Sit and stare mew licks your face ooh, are those your $250 dollar sandals? lemme use that as my litter box. Damn that dog dream about hunting birds or mesmerizing birds or push your water glass on the floor but meow all night, purrrrrr. Small kitty warm kitty little balls of fur fooled again thinking the dog likes me. I like fish russian blue and i could pee on this if i had the energy tuxedo cats always looking dapper howl on top of tall thing. I like frogs and 0 gravity meow for food, then when human fills food dish, take a few bites of food and continue meowing, yet allways wanting food and behind the couch, and kitty loves pigs or be a nyan cat, feel great about it, be annoying 24/7 poop rainbows in litter box all day. Hopped up on catnip leave fur on owners clothes drink water out of the faucet and lay on arms while you're using the keyboard refuse to drink water except out of someone's glass pooping rainbow while flying in a toasted bread costume in space. Lick butt and make a weird face. Present belly, scratch hand when stroked cat dog hate mouse eat string barf pillow no baths hate everything, yet kitty scratches couch bad kitty or sniff sniff and i like frogs and 0 gravity yet chirp at birds leave fur on owners clothes. Claw your carpet in places everyone can see - why hide my amazing artistic clawing skills? rub face on owner sit in box, milk the cow fight an alligator and win be a nyan cat, feel great about it, be annoying 24/7 poop rainbows in litter box all day intently stare at the same spot. Demand to have some of whatever the human is cooking, then sniff the offering and walk away i shredded your linens for you and wake up human for food at 4am, meow all night having their mate disturbing sleeping humans groom forever, stretch tongue and leave it slightly out, blep. All of a sudden cat goes crazy leave fur on owners clothes but steal the warm chair right after you get up for rub face on everything i like big cats and i can not lie. Sleep in the bathroom sink stuff and things or mice kitten is playing with dead mouse. Take a big fluffing crap 💩 meowing chowing and wowing cat is love, cat is life. Why must they do that chase laser loved it, hated it, loved it, hated it. My left donut is missing, as is my right stares at human while pushing stuff off a table yet lick master's hand at first then bite because im moody. Unwrap toilet paper lick arm hair but bathe private parts with tongue then lick owner's face reward the chosen human with a slow blink, soft kitty warm kitty little ball of furr. Demand to have some of whatever the human is cooking, then sniff the offering and walk away mew. Stick butt in face poop in the plant pot stuff and things stuff and things, for eat the rubberband.
     </section>
-    <footer class="is-d-flex has-justify-content-flex-end">
+    <footer class="modal-footer">
       <a class="button has-no-m-block-end has-m-inline-end-sm" data-close href="#">
         Cancel
       </a>
@@ -102,15 +106,15 @@ The modal will be able to handle long-content with ease, turning the overlay int
 
 ## Dialog Positioning
 
-By adding flex modifier classes onto the overlay, you can position the dialog within its overlay.
+By adding flex modifier classes onto the overlay, you can further stylize the positioning of the dialog.
 
-For example, to center the dialog, add `is-d-flex has-align-items-center` to the overlay (wrapper) element.
+For example, to vertically center the dialog, add the `has-align-items-center` class to the overlay element.
 
 <button data-target="new-modal-2">Open centered modal</button>
 
 <div class="modal-overlay is-d-flex has-align-items-center" data-modal="new-modal-2">
   <div class="modal-dialog" data-parent="new-modal-2" aria-labelledby="header-id-2">
-    <header class="is-d-flex has-justify-content-space-between has-align-items-center">
+    <header class="modal-header">
       <h2 class="h5 has-no-m" id="header-id">
         Modal Header
       </h2>
@@ -118,10 +122,10 @@ For example, to center the dialog, add `is-d-flex has-align-items-center` to the
         Close
       </a>
     </header>
-    <section>
+    <section class="modal-body">
       <p>Some modal content here</p>
     </section>
-    <footer class="is-d-flex has-justify-content-flex-end">
+    <footer class="modal-footer">
       <a class="button has-no-m-block-end has-m-inline-end-sm" data-close href="#">
         Cancel
       </a>
@@ -146,7 +150,7 @@ Learn more about [alignment]({{ site.data.routes.alignment }}) and [display]({{ 
 
 ## Requirements
 
-Two main pieces are required: an API call and correct HTML markup.
+Two main pieces are required: a single line of JS and correct HTML markup.
 
 ### HTML
 
@@ -167,7 +171,7 @@ For the modal itself, you can add a few more things.
 ```html
 <div class="modal-overlay" data-modal="modal-id">
   <div class="modal-dialog" data-parent="modal-id" aria-labelledby="header-id">
-    <header>
+    <header class="modal-header">
       <h2 id="header-id">
         Modal Header
       </h2>
@@ -175,10 +179,10 @@ For the modal itself, you can add a few more things.
         Close
       </a>
     </header>
-    <section>
+    <section class="modal-body">
       ...
     </section>
-    <footer>
+    <footer class="modal-footer">
       <a data-close href="#">...</a>
     </footer>
   </div>
@@ -189,7 +193,7 @@ While optional, using `header` and `footer` elements provides semantic meaning f
 
 - `data-modal`: an attribute with a value matching its trigger element's `data-target` attribute.
 - `data-parent`: an attribute pointing to the modal wrapper. It should equal the value of the element with `data-modal`.
-- `data-close`: an attribute indicating a button or link will close the active modal dialog.
+- `data-close`: an attribute indicating a button or link will close the active modal dialog if clicked.
 
 #### Accessibility
 

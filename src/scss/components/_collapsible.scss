@@ -13,38 +13,6 @@
     margin: 0;
   }
 
-  .collapsible-trigger {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    text-decoration: none;
-    align-items: center;
-    width: 100%;
-    border: none;
-    color: $collapsible-trigger-color;
-    background: $collapsible-trigger-bg;
-    margin: 0;
-    font-size: $collapsible-trigger-font-size;
-
-    &:hover,
-    &:focus {
-      color: $collapsible-trigger-color-hover;
-      background: $collapsible-trigger-bg-hover;
-    }
-
-    &::after {
-      font-size: 12px;
-      font-weight: $collapsible-indicator-weight;
-      transition: $collapsible-transition-duration $collapsible-transition-ease;
-
-      @if custom-indicators-configured() {
-        content: $collapsible-indicator-open;
-      } @else if $collapsible-indicator {
-        content: $collapsible-indicator;
-      }
-    }
-  }
-
   &[data-visible="false"] .collapsible-trigger::after {
     transform: $collapsible-indicator-transform;
 
@@ -52,12 +20,44 @@
       content: $collapsible-indicator-closed;
     }
   }
+}
 
-  .collapsible-content {
-    overflow: hidden;
-    padding: 0;
-    margin: 0;
-    max-height: 0;
-    transition: max-height $collapsible-transition-duration $collapsible-transition-ease;
+.collapsible-trigger {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  text-decoration: none;
+  align-items: center;
+  width: 100%;
+  border: none;
+  color: $collapsible-trigger-color;
+  background: $collapsible-trigger-bg;
+  margin: 0;
+  font-size: $collapsible-trigger-font-size;
+
+  &:hover,
+  &:focus {
+    color: $collapsible-trigger-color-hover;
+    background: $collapsible-trigger-bg-hover;
   }
+
+  &::after {
+    font-size: 12px;
+    font-weight: $collapsible-indicator-weight;
+    transition: $collapsible-transition-duration $collapsible-transition-ease;
+
+    @if custom-indicators-configured() {
+      content: $collapsible-indicator-open;
+    } @else if $collapsible-indicator {
+      content: $collapsible-indicator;
+    }
+  }
+}
+
+.collapsible-content {
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  max-height: 0;
+  transition: max-height $collapsible-transition-duration $collapsible-transition-ease;
 }

@@ -19,46 +19,62 @@
     opacity: 1;
     pointer-events: auto;
   }
+}
 
-  .modal-dialog {
-    background: $modal-dialog-bg-color;
-    width: $modal-dialog-width-narrow;
-    max-width: $modal-dialog-max-width;
-    position: relative;
-    flex-flow: column nowrap;
-    display: flex;
-    cursor: default;
-    margin: $modal-dialog-margin-narrow;
-    border-radius: $modal-dialog-border-radius;
+.modal-dialog {
+  background: $modal-dialog-bg-color;
+  width: $modal-dialog-width-narrow;
+  max-width: $modal-dialog-max-width;
+  position: relative;
+  flex-flow: column nowrap;
+  display: flex;
+  cursor: default;
+  margin: $modal-dialog-margin-narrow;
+  border-radius: $modal-dialog-border-radius;
 
-    // windows high contrast mode
-    border: 1px solid transparent;
+  // windows high contrast mode
+  border: 1px solid transparent;
 
-    @media screen and (min-width: breakpoint-value($modal-breakpoint-inline)) and (min-height: breakpoint-value($modal-breakpoint-block)) {
-      width: $modal-dialog-width;
-      margin: $modal-dialog-margin;
-    }
+  @media screen and (min-width: breakpoint-value($modal-breakpoint-inline)) and (min-height: breakpoint-value($modal-breakpoint-block)) {
+    width: $modal-dialog-width;
+    margin: $modal-dialog-margin;
+  }
+}
 
-    header {
-      @if str-index($modal-header-border-position, "end") {
-        border-bottom: $modal-header-border;
-      } @else {
-        border-top: $modal-header-border;
-      }
-    }
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-    header,
-    section,
-    footer {
-      padding: $modal-dialog-padding;
-    }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @include create-truncation();
+  }
 
-    footer {
-      @if str-index($modal-footer-border-position, "end") {
-        border-bottom: $modal-footer-border;
-      } @else {
-        border-top: $modal-footer-border;
-      }
-    }
+  @if str-index($modal-header-border-position, "end") {
+    border-bottom: $modal-header-border;
+  } @else {
+    border-top: $modal-header-border;
+  }
+}
+
+.modal-header,
+.modal-body,
+.modal-footer {
+  padding: $modal-dialog-padding;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+
+  @if str-index($modal-footer-border-position, "end") {
+    border-bottom: $modal-footer-border;
+  } @else {
+    border-top: $modal-footer-border;
   }
 }

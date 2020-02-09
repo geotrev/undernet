@@ -199,7 +199,7 @@ Have the tooltip appear from inline-start, inline-end, or block-end position by 
 
 ## Requirements
 
-Two main pieces are required: an API call and correct HTML markup.
+Two main pieces are required: a single line of JS and correct HTML markup.
 
 ### HTML
 

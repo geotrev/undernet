@@ -351,7 +351,7 @@ Learn more about [Spacing](/docs/layout/spacing) and [Color](/docs/utilities/col
 
 ## Requirements
 
-Two main pieces are required: an API call and correct HTML markup.
+Two main pieces are required: a single line of JS and correct HTML markup.
 
 ### HTML
 

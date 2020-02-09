@@ -4,7 +4,7 @@
   background: transparent;
 
   @include create-breakpoint(xl) {
-    border-right: 3px solid $color-gray900;
+    @include create-flow-property("border-right", 3px solid $color-gray900);
   }
 }
 

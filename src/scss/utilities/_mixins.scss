@@ -25,6 +25,12 @@
   }
 }
 
+@mixin create-truncation() {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 @mixin create-breakpoint($size) {
   @media screen and (min-width: #{breakpoint-value($size)}) {
     @content;
