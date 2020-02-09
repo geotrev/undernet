@@ -59,6 +59,11 @@ export default class Collapsible {
       return false
     }
 
+    if (!trigger.id) {
+      log(Messages.NO_TRIGGER_ID_ERROR(id))
+      return false
+    }
+
     const contentId = `#${id}`
     const content = dom.find(contentId, instance)
 
@@ -67,25 +72,21 @@ export default class Collapsible {
       return false
     }
 
-    if (!trigger.id) {
-      log(Messages.NO_TRIGGER_ID_ERROR(id))
-      return false
-    }
-
     dom.setAttr(trigger, Selectors.ARIA_CONTROLS, id)
     dom.setAttr(content, Selectors.ARIA_LABELLEDBY, trigger.id)
 
-    const contentIsHidden = dom.getAttr(instance, Selectors.DATA_VISIBLE) === "false"
+    const contentIsVisible = dom.getAttr(instance, Selectors.DATA_VISIBLE) === "true"
 
-    if (contentIsHidden) {
-      dom.setAttr(trigger, Selectors.ARIA_EXPANDED, "false")
-      dom.setAttr(content, Selectors.ARIA_HIDDEN, "true")
-    } else {
+    if (contentIsVisible) {
       dom.setAttr(instance, Selectors.DATA_VISIBLE, "true")
-      dom.setStyle(content, CssProperties.HEIGHT, `${content.scrollHeight}px`)
-      dom.setStyle(content, CssProperties.VISIBILITY, CssValues.VISIBLE)
       dom.setAttr(trigger, Selectors.ARIA_EXPANDED, "true")
       dom.setAttr(content, Selectors.ARIA_HIDDEN, "false")
+      dom.setStyle(content, CssProperties.HEIGHT, `${content.scrollHeight}px`)
+      dom.setStyle(content, CssProperties.VISIBILITY, CssValues.VISIBLE)
+    } else {
+      dom.setAttr(instance, Selectors.DATA_VISIBLE, "false")
+      dom.setAttr(trigger, Selectors.ARIA_EXPANDED, "false")
+      dom.setAttr(content, Selectors.ARIA_HIDDEN, "true")
     }
 
     requestAnimationFrame(() => {
@@ -144,15 +145,11 @@ export default class Collapsible {
   }
 
   _expandPanel(height) {
-    const transitionValue = dom.getStyle(this._activeContent, CssProperties.TRANSITION)
-    dom.setStyle(this._activeContent, CssProperties.TRANSITION, "")
-
-    requestAnimationFrame(() => {
+    return requestAnimationFrame(() => {
       dom.setStyle(this._activeContent, CssProperties.HEIGHT, height)
-      dom.setStyle(this._activeContent, CssProperties.TRANSITION, transitionValue)
 
       requestAnimationFrame(() => {
-        dom.setStyle(this._activeContent, CssProperties.HEIGHT, CssValues.ZERO_PX)
+        dom.setStyle(this._activeContent, CssProperties.HEIGHT, null)
         dom.setStyle(this._activeContent, CssProperties.VISIBILITY, CssValues.HIDDEN)
       })
     })

@@ -17,7 +17,6 @@ export const Selectors = {
 
 export const CssProperties = {
   HEIGHT: "height",
-  TRANSITION: "transition",
   VISIBILITY: "visibility",
 }
 
@@ -25,7 +24,6 @@ export const CssValues = {
   AUTO: "auto",
   HIDDEN: "hidden",
   VISIBLE: "visible",
-  ZERO_PX: "0px",
 }
 
 export const Events = {

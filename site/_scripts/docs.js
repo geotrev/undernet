@@ -1,5 +1,6 @@
 import Undernet from "undernet"
 import { throttle } from "lodash-es"
+import "./_jump-nav"
 
 const DISPLAY_NONE_CLASS = "is-d-none"
 const ARIA_EXPANDED_ATTR = "aria-expanded"

@@ -39,8 +39,8 @@ describe("Collapsible", () => {
       expect(wrapper).toMatchSnapshot()
     })
 
-    it("does not open collapsible by default if [data-visible='false'] is set", () => {
-      find("[data-collapsible]").setAttribute("data-visible", "false")
+    it("opens collapsible by default if [data-visible='true'] is set", () => {
+      find("[data-collapsible]").setAttribute("data-visible", "true")
       // When
       Undernet.Collapsibles.start()
       // Then

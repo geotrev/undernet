@@ -20,16 +20,14 @@ const Events = {
 
 const Messages = {
   NO_SELECTOR_STRING_OR_CHILDREN_ERROR:
-    "createFocusTrap must be given one or both of: first parameter (as selector string) and/or options.children (array of elements).",
+    "createFocusTrap must be given one or both of: first parameter (as selector string)" +
+    " and/or options.children (array of elements).",
   OPTION_MATCHERS_DATA_TYPE_ERROR:
     "Invalid data type given to options.matchers for createFocusTrap. Expected: Array.",
   INCORRECT_MATCHER_TYPE_ERROR: type =>
     `Invalid matcher given to options.matchers for createFocusTrap. Expected: String. Recieved: ${type}.`,
   NO_MATCHER_LENGTH_ERROR:
     "Invalid value given to options.matchers for createFocusTrap; value must be an array with at least one selector string",
-  NO_PARENT_FOUND_IN_SCOPE: id => `Element couldn't be found with selector string: '${id}'`,
-  DUPLICATE_SCOPE_ERROR: id =>
-    `You tried to start an Undernet component with scope '${id}', but that scope is already active.\n\nYou must call COMPONENT_NAME.stop(scopeSelector) first, then.`,
 }
 
 /**
