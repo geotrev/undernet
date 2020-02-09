@@ -1,6 +1,8 @@
 export const Selectors = {
   // unique
   DATA_COLLAPSIBLE: "data-collapsible",
+  TRIGGER_READY_CLASS: "collapsible-trigger-ready",
+  CONTENT_READY_CLASS: "collapsible-content-ready",
   // common
   DATA_VISIBLE: "data-visible",
   DATA_TARGET: "data-target",
@@ -15,11 +17,20 @@ export const Selectors = {
 
 export const CssProperties = {
   HEIGHT: "height",
-  TRANSITION_DURATION: "transition-duration",
+  TRANSITION: "transition",
+  VISIBILITY: "visibility",
+}
+
+export const CssValues = {
+  AUTO: "auto",
+  HIDDEN: "hidden",
+  VISIBLE: "visible",
+  ZERO_PX: "0px",
 }
 
 export const Events = {
   CLICK: "click",
+  TRANSITIONEND: "transitionend",
 }
 
 export const Messages = {

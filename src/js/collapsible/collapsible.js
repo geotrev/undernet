@@ -1,14 +1,6 @@
-import {
-  getFocusableElements,
-  dom,
-  getPageBaseFontSize,
-  log,
-  startComponent,
-  stopComponent,
-  throttle,
-} from "../helpers"
+import { dom, log, startComponent, stopComponent, throttle } from "../helpers"
 
-import { Selectors, CssProperties, Events, Messages } from "./constants"
+import { Selectors, CssProperties, CssValues, Events, Messages } from "./constants"
 
 // COMPONENT_ROLE is described using `aria-controls` for the collapsible UI pattern.
 
@@ -20,7 +12,8 @@ import { Selectors, CssProperties, Events, Messages } from "./constants"
 export default class Collapsible {
   constructor() {
     // events
-    this._handleClick = throttle(this._handleClick.bind(this), 400)
+    this._handleClick = throttle(this._handleClick.bind(this), 300)
+    this._handleTransitionEnd = this._handleTransitionEnd.bind(this)
     this._setup = this._setup.bind(this)
     this._teardown = this._teardown.bind(this)
 
@@ -82,21 +75,22 @@ export default class Collapsible {
     dom.setAttr(trigger, Selectors.ARIA_CONTROLS, id)
     dom.setAttr(content, Selectors.ARIA_LABELLEDBY, trigger.id)
 
-    const contentShouldExpand = dom.getAttr(instance, Selectors.DATA_VISIBLE)
+    const contentIsHidden = dom.getAttr(instance, Selectors.DATA_VISIBLE) === "false"
 
-    if (contentShouldExpand === "false") {
+    if (contentIsHidden) {
       dom.setAttr(trigger, Selectors.ARIA_EXPANDED, "false")
       dom.setAttr(content, Selectors.ARIA_HIDDEN, "true")
     } else {
       dom.setAttr(instance, Selectors.DATA_VISIBLE, "true")
-      dom.setStyle(content, CssProperties.HEIGHT, this._getFontSizeEm(content.scrollHeight))
+      dom.setStyle(content, CssProperties.HEIGHT, `${content.scrollHeight}px`)
+      dom.setStyle(content, CssProperties.VISIBILITY, CssValues.VISIBLE)
       dom.setAttr(trigger, Selectors.ARIA_EXPANDED, "true")
       dom.setAttr(content, Selectors.ARIA_HIDDEN, "false")
     }
 
     requestAnimationFrame(() => {
-      dom.addClass(trigger, "collapsible-trigger-ready")
-      dom.addClass(content, "collapsible-content-ready")
+      dom.addClass(trigger, Selectors.TRIGGER_READY_CLASS)
+      dom.addClass(content, Selectors.CONTENT_READY_CLASS)
     })
 
     trigger.addEventListener(Events.CLICK, this._handleClick)
@@ -121,8 +115,11 @@ export default class Collapsible {
     this._toggleCollapsible()
 
     this._activeCollapsible = null
-    this._activeTrigger = null
-    this._activeContent = null
+  }
+
+  _handleTransitionEnd() {
+    dom.setStyle(this._activeContent, CssProperties.HEIGHT, CssValues.AUTO)
+    this._activeContent.removeEventListener(Events.TRANSITIONEND, this._handleTransitionEnd)
   }
 
   _toggleCollapsible() {
@@ -130,20 +127,35 @@ export default class Collapsible {
     dom.setAttr(this._activeTrigger, Selectors.ARIA_EXPANDED, this._nextAriaExpandedState)
     dom.setAttr(this._activeContent, Selectors.ARIA_HIDDEN, this._nextAriaHiddenState)
 
-    getFocusableElements(`#${this._activeId}`).forEach(element => {
-      const value = this._nextAriaExpandedState === "true" ? "0" : "-1"
-      dom.setAttr(element, Selectors.TABINDEX, value)
-    })
+    const fullHeightValue = `${this._activeContent.scrollHeight}px`
 
-    if (dom.getStyle(this._activeContent, CssProperties.HEIGHT)) {
-      dom.setStyle(this._activeContent, CssProperties.HEIGHT, null)
-    } else {
-      dom.setStyle(
-        this._activeContent,
-        CssProperties.HEIGHT,
-        this._getFontSizeEm(this._activeContent.scrollHeight)
-      )
+    if (dom.getAttr(this._activeCollapsible, Selectors.DATA_VISIBLE) === "false") {
+      return this._expandPanel(fullHeightValue)
     }
+
+    this._collapsePanel(fullHeightValue)
+  }
+
+  _collapsePanel(height) {
+    dom.setStyle(this._activeContent, CssProperties.HEIGHT, height)
+    dom.setStyle(this._activeContent, CssProperties.VISIBILITY, CssValues.VISIBLE)
+
+    this._activeContent.addEventListener(Events.TRANSITIONEND, this._handleTransitionEnd)
+  }
+
+  _expandPanel(height) {
+    const transitionValue = dom.getStyle(this._activeContent, CssProperties.TRANSITION)
+    dom.setStyle(this._activeContent, CssProperties.TRANSITION, "")
+
+    requestAnimationFrame(() => {
+      dom.setStyle(this._activeContent, CssProperties.HEIGHT, height)
+      dom.setStyle(this._activeContent, CssProperties.TRANSITION, transitionValue)
+
+      requestAnimationFrame(() => {
+        dom.setStyle(this._activeContent, CssProperties.HEIGHT, CssValues.ZERO_PX)
+        dom.setStyle(this._activeContent, CssProperties.VISIBILITY, CssValues.HIDDEN)
+      })
+    })
   }
 
   _getCollapsibleData(instance) {
@@ -169,9 +181,5 @@ export default class Collapsible {
 
   _setActiveCollapsible() {
     this._activeCollapsible = dom.find(`[${Selectors.DATA_COLLAPSIBLE}='${this._activeId}']`)
-  }
-
-  _getFontSizeEm(pixels) {
-    return `${pixels / getPageBaseFontSize()}rem`
   }
 }

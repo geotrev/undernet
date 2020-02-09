@@ -330,36 +330,6 @@ export const createFocusRing = () => {
 }
 
 /**
- * Get the computed font-size of the page body as a number.
- *
- * ```js
- * const size = getPageBaseFontSize()
- * element.style.lineHeight = `${size * 2}px`
- * ```
- *
- * @returns {Number}
- */
-export const getPageBaseFontSize = () => {
-  if (!isBrowserEnv) return
-
-  const BODY_TAG = "body"
-  const FONT_SIZE_PROPERTY = "font-size"
-  const PX_SUBSTRING = "px"
-  const FONT_SIZE_VALUE_FALLBACK = 16
-
-  const body = dom.find(BODY_TAG)
-  const computedFontSize = window.getComputedStyle(body).getPropertyValue(FONT_SIZE_PROPERTY)
-  let bodySize = FONT_SIZE_VALUE_FALLBACK
-
-  if (computedFontSize) {
-    const indexOfPx = computedFontSize.indexOf(PX_SUBSTRING)
-    bodySize = parseFloat(computedFontSize.slice(0, indexOfPx))
-  }
-
-  return bodySize
-}
-
-/**
  * Focus a single element one time and teardown when unfocused.
  * @param {Object} element
  */
