@@ -820,7 +820,7 @@ $collapsible-indicator-weight: bold !default;
 
 // Transition duration and easing function during visible state change.
 
-$collapsible-transition-duration: 0.5s !default;
+$collapsible-transition-duration: 400ms !default;
 $collapsible-transition-ease: $global-ease !default;
 
 $collapsible-trigger-color: $color-primary !default;

@@ -34,7 +34,6 @@ const Messages = {
 
 /**
  * Log a console message.
- *
  * @param {String} message
  * @param {String} type
  */
@@ -44,6 +43,27 @@ export const log = (message, type = "error") => console[type](message)
  * Check if window exists. If it doesn't, we're probably in a non-test node environment.
  */
 export const isBrowserEnv = typeof window !== "undefined"
+
+/**
+ * Simple throttle utility.
+ * @param {Function} fn - function to throttle
+ * @param {number} limit - in milliseconds
+ */
+export function throttle(fn, limit) {
+  let timeout = null
+
+  function clear() {
+    clearTimeout(timeout)
+    timeout = null
+  }
+
+  return function() {
+    if (timeout) return
+
+    fn.apply(this, arguments)
+    timeout = setTimeout(clear, limit)
+  }
+}
 
 /**
  * Simple DOM manipulator methods. These aren't chainable.

@@ -5,6 +5,7 @@ import {
   log,
   startComponent,
   stopComponent,
+  throttle,
 } from "../helpers"
 
 import { Selectors, CssProperties, Events, Messages } from "./constants"
@@ -19,7 +20,7 @@ import { Selectors, CssProperties, Events, Messages } from "./constants"
 export default class Collapsible {
   constructor() {
     // events
-    this._handleClick = this._handleClick.bind(this)
+    this._handleClick = throttle(this._handleClick.bind(this), 400)
     this._setup = this._setup.bind(this)
     this._teardown = this._teardown.bind(this)
 
