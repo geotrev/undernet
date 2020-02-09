@@ -66,10 +66,10 @@ export default class Collapsible {
       return false
     }
 
-    const collapsibleContentId = `#${id}`
-    const collapsibleContent = dom.find(collapsibleContentId, instance)
+    const contentId = `#${id}`
+    const content = dom.find(contentId, instance)
 
-    if (!collapsibleContent) {
+    if (!content) {
       log(Messages.NO_CONTENT_ERROR(id))
       return false
     }
@@ -80,32 +80,24 @@ export default class Collapsible {
     }
 
     dom.setAttr(trigger, Selectors.ARIA_CONTROLS, id)
-    dom.setAttr(collapsibleContent, Selectors.ARIA_LABELLEDBY, trigger.id)
+    dom.setAttr(content, Selectors.ARIA_LABELLEDBY, trigger.id)
 
-    const collapsibleContentFocusableChildren = getFocusableElements(collapsibleContentId)
     const contentShouldExpand = dom.getAttr(instance, Selectors.DATA_VISIBLE)
 
     if (contentShouldExpand === "false") {
       dom.setAttr(trigger, Selectors.ARIA_EXPANDED, "false")
-      dom.setAttr(collapsibleContent, Selectors.ARIA_HIDDEN, "true")
-
-      collapsibleContentFocusableChildren.forEach(element => {
-        dom.setAttr(element, Selectors.TABINDEX, "-1")
-      })
+      dom.setAttr(content, Selectors.ARIA_HIDDEN, "true")
     } else {
       dom.setAttr(instance, Selectors.DATA_VISIBLE, "true")
-      dom.setStyle(
-        collapsibleContent,
-        CssProperties.MAX_HEIGHT,
-        this._getFontSizeEm(collapsibleContent.scrollHeight)
-      )
+      dom.setStyle(content, CssProperties.HEIGHT, this._getFontSizeEm(content.scrollHeight))
       dom.setAttr(trigger, Selectors.ARIA_EXPANDED, "true")
-      dom.setAttr(collapsibleContent, Selectors.ARIA_HIDDEN, "false")
-
-      collapsibleContentFocusableChildren.forEach(element => {
-        dom.setAttr(element, Selectors.TABINDEX, "0")
-      })
+      dom.setAttr(content, Selectors.ARIA_HIDDEN, "false")
     }
+
+    requestAnimationFrame(() => {
+      dom.addClass(trigger, "collapsible-trigger-ready")
+      dom.addClass(content, "collapsible-content-ready")
+    })
 
     trigger.addEventListener(Events.CLICK, this._handleClick)
 
@@ -143,12 +135,12 @@ export default class Collapsible {
       dom.setAttr(element, Selectors.TABINDEX, value)
     })
 
-    if (dom.getStyle(this._activeContent, CssProperties.MAX_HEIGHT)) {
-      dom.setStyle(this._activeContent, CssProperties.MAX_HEIGHT, null)
+    if (dom.getStyle(this._activeContent, CssProperties.HEIGHT)) {
+      dom.setStyle(this._activeContent, CssProperties.HEIGHT, null)
     } else {
       dom.setStyle(
         this._activeContent,
-        CssProperties.MAX_HEIGHT,
+        CssProperties.HEIGHT,
         this._getFontSizeEm(this._activeContent.scrollHeight)
       )
     }

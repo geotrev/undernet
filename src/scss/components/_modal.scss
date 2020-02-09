@@ -12,11 +12,17 @@
   bottom: 0;
   left: 0;
   right: 0;
-  transition: opacity $modal-transition-duration $modal-transition-ease;
+
+  // default hidden
+  transition-property: opacity, visibility;
+  transition-duration: $modal-transition-duration;
+  transition-timing-function: $modal-transition-ease;
   pointer-events: none;
+  visibility: hidden;
 
   &[data-visible="true"] {
     opacity: 1;
+    visibility: visible;
     pointer-events: auto;
   }
 }

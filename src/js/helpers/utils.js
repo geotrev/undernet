@@ -45,23 +45,23 @@ export const log = (message, type = "error") => console[type](message)
 export const isBrowserEnv = typeof window !== "undefined"
 
 /**
- * Simple throttle utility.
- * @param {Function} fn - function to throttle
- * @param {number} limit - in milliseconds
+ * Simple throttle utility. It is leading but not trailing.
+ * @param {*} callback - function to throttle
+ * @param {number} limit - time to throttle by in milliseconds
  */
-export function throttle(fn, limit) {
-  let timeout = null
+export function throttle(callback, limit) {
+  let timeout = false
 
   function clear() {
-    clearTimeout(timeout)
-    timeout = null
+    timeout = false
   }
 
   return function() {
     if (timeout) return
 
-    fn.apply(this, arguments)
-    timeout = setTimeout(clear, limit)
+    callback.apply(this, arguments)
+    timeout = true
+    setTimeout(clear, limit)
   }
 }
 

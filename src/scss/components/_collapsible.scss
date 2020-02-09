@@ -14,10 +14,10 @@
   }
 
   &[data-visible="false"] .collapsible-trigger::after {
-    transform: $collapsible-indicator-transform;
-
     @if custom-indicators-configured() {
       content: $collapsible-indicator-closed;
+    } @else if $collapsible-indicator {
+      transform: $collapsible-indicator-transform;
     }
   }
 }
@@ -44,7 +44,6 @@
   &::after {
     font-size: 12px;
     font-weight: $collapsible-indicator-weight;
-    transition: $collapsible-transition-duration $collapsible-transition-ease;
 
     @if custom-indicators-configured() {
       content: $collapsible-indicator-open;
@@ -52,12 +51,21 @@
       content: $collapsible-indicator;
     }
   }
+
+  &.collapsible-trigger-ready::after {
+    transition: transform $collapsible-transition-duration $collapsible-transition-ease;
+  }
 }
 
 .collapsible-content {
   overflow: hidden;
   padding: 0;
   margin: 0;
-  max-height: 0;
-  transition: max-height $collapsible-transition-duration $collapsible-transition-ease;
+  height: 0;
+
+  &.collapsible-content-ready {
+    transition-property: visibility, height;
+    transition-duration: $collapsible-transition-duration;
+    transition-timing-function: $collapsible-transition-ease;
+  }
 }

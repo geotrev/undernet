@@ -14,7 +14,8 @@ export const Selectors = {
 }
 
 export const CssProperties = {
-  MAX_HEIGHT: "maxHeight",
+  HEIGHT: "height",
+  TRANSITION_DURATION: "transition-duration",
 }
 
 export const Events = {
