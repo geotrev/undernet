@@ -22,8 +22,11 @@
 
   &[data-visible="true"] {
     opacity: 1;
-    visibility: visible;
     pointer-events: auto;
+  }
+
+  &.is-visible {
+    visibility: visible;
   }
 }
 
@@ -58,7 +61,7 @@
   h4,
   h5,
   h6 {
-    @include create-truncation();
+    @include create-truncation;
   }
 
   @if str-index($modal-header-border-position, "end") {

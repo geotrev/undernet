@@ -16,7 +16,8 @@ export const Selectors = {
   ROLE: "role",
   TABINDEX: "tabindex",
   // classes
-  NO_SCROLL: "no-scroll",
+  NO_SCROLL_CLASS: "no-scroll",
+  IS_VISIBLE_CLASS: "is-visible",
 }
 
 export const CssProperties = {
@@ -35,6 +36,7 @@ export const Events = {
   CLICK: "click",
   RESIZE: "resize",
   BLUR: "blur",
+  TRANSITIONEND: "transitionend",
 }
 
 export const Messages = {

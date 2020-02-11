@@ -329,7 +329,7 @@ export const createFocusRing = () => {
 
 /**
  * Focus a single element one time and teardown when unfocused.
- * @param {Object} element
+ * @param {HTMLElement} element
  */
 export const focusOnce = element => {
   const handleBlur = ({ target }) => {
@@ -372,7 +372,7 @@ export const startComponent = (metadata = {}) => {
     const instance = dom.find(`[${attribute}='${id}']`)
     if (!instance) return
 
-    const validComponent = [instance].filter(thisArg._setup)[0]
+    const validComponent = [instance].filter(thisArg._validate)[0]
     if (!validComponent) return
 
     thisArg._components.push(validComponent)
@@ -380,7 +380,7 @@ export const startComponent = (metadata = {}) => {
     const instances = dom.findAll(`[${attribute}]`)
     if (!instances.length) return
 
-    const validComponents = instances.filter(thisArg._setup)
+    const validComponents = instances.filter(thisArg._validate)
     thisArg._components = thisArg._components.concat(validComponents)
   } else {
     // attempted to .start() when .stop() wasn't run,

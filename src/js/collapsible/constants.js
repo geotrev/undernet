@@ -1,8 +1,6 @@
 export const Selectors = {
   // unique
   DATA_COLLAPSIBLE: "data-collapsible",
-  TRIGGER_READY_CLASS: "collapsible-trigger-ready",
-  CONTENT_READY_CLASS: "collapsible-content-ready",
   // common
   DATA_VISIBLE: "data-visible",
   DATA_TARGET: "data-target",
@@ -13,6 +11,9 @@ export const Selectors = {
   ARIA_HIDDEN: "aria-hidden",
   ARIA_LABELLEDBY: "aria-labelledby",
   TABINDEX: "tabindex",
+  // classes
+  TRIGGER_READY_CLASS: "collapsible-trigger-ready",
+  CONTENT_READY_CLASS: "collapsible-content-ready",
 }
 
 export const CssProperties = {

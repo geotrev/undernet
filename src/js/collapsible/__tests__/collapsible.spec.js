@@ -61,10 +61,20 @@ describe("Collapsible", () => {
   })
 
   describe("#handleClick", () => {
-    it("toggles collapsible on click", () => {
+    it("toggles collapsible open on click", () => {
       const trigger = find("button")
       // When
       Undernet.Collapsibles.start()
+      trigger.click()
+      // Then
+      expect(wrapper).toMatchSnapshot()
+    })
+
+    it("toggles collapsible closed on click", () => {
+      const trigger = find("button")
+      // When
+      Undernet.Collapsibles.start()
+      trigger.click()
       trigger.click()
       // Then
       expect(wrapper).toMatchSnapshot()

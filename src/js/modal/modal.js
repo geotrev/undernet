@@ -20,10 +20,11 @@ const COMPONENT_ROLE = "dialog"
 export default class Modal {
   constructor() {
     this._handleClick = this._handleClick.bind(this)
+    this._handleTransitionEnd = this._handleTransitionEnd.bind(this)
     this._handleClose = this._handleClose.bind(this)
     this._handleOverlayClick = this._handleOverlayClick.bind(this)
     this._handleEscapeKeyPress = this._handleEscapeKeyPress.bind(this)
-    this._setup = this._setup.bind(this)
+    this._validate = this._validate.bind(this)
     this._teardown = this._teardown.bind(this)
 
     // all modals
@@ -60,7 +61,7 @@ export default class Modal {
 
   // private
 
-  _setup(instance) {
+  _validate(instance) {
     const modalId = dom.getAttr(instance, Selectors.DATA_MODAL)
 
     if (!modalId) {
@@ -80,7 +81,6 @@ export default class Modal {
 
     dom.setAttr(modal, Selectors.ARIA_HIDDEN, "true")
     dom.setAttr(modal, Selectors.DATA_VISIBLE, "false")
-    dom.setAttr(modalContent, Selectors.TABINDEX, "-1")
     dom.setAttr(modalContent, Selectors.ARIA_MODAL, "true")
     dom.setAttr(modalContent, Selectors.ROLE, COMPONENT_ROLE)
 
@@ -107,7 +107,7 @@ export default class Modal {
 
     this._activeModalTrigger = event.target
 
-    this._setActiveModalId()
+    this._setActiveId()
     this._setActiveModal()
     this._setActiveModalContent()
     this._setScrollbarOffset()
@@ -120,9 +120,6 @@ export default class Modal {
     this._setFocusableChildren()
     this._setCloseTriggers()
 
-    // Focusing the modal dialog causes a focus change if the container is larger than the window height
-    this._activeModal.scrollTop = 0
-
     this._startEvents()
   }
 
@@ -133,7 +130,7 @@ export default class Modal {
 
   _closeActiveModal() {
     this._toggleVisibility(false)
-    this._focusModalTrigger()
+    this._focusTrigger()
     this._unsetScrollStop()
     this._unsetScrollbarOffset()
 
@@ -173,7 +170,7 @@ export default class Modal {
     )
   }
 
-  _setActiveModalId() {
+  _setActiveId() {
     this._activeModalId = dom.getAttr(this._activeModalTrigger, Selectors.DATA_TARGET)
   }
 
@@ -187,9 +184,25 @@ export default class Modal {
     this._activeModalContent = dom.find(this._activeModalContentSelector, this._activeModal)
   }
 
+  _handleTransitionEnd() {
+    this._activeModal.removeEventListener(Events.TRANSITIONEND, this._handleTransitionEnd)
+    this._focusContent()
+
+    // Setting `scrollTop` to `0` unshifts the
+    // scroll caused by focusing the dialog element
+    this._activeModal.scrollTop = 0
+  }
+
   _toggleVisibility(isVisible) {
     dom.setAttr(this._activeModal, Selectors.ARIA_HIDDEN, isVisible ? "false" : "true")
     dom.setAttr(this._activeModal, Selectors.DATA_VISIBLE, isVisible ? "true" : "false")
+
+    if (isVisible) {
+      dom.addClass(this._activeModal, Selectors.IS_VISIBLE_CLASS)
+      this._activeModal.addEventListener(Events.TRANSITIONEND, this._handleTransitionEnd)
+    } else {
+      dom.removeClass(this._activeModal, Selectors.IS_VISIBLE_CLASS)
+    }
 
     if (iOSMobile) {
       dom.setStyle(
@@ -260,17 +273,21 @@ export default class Modal {
     }
   }
 
-  _focusModalTrigger() {
+  _focusContent() {
+    focusOnce(this._activeModalContent)
+  }
+
+  _focusTrigger() {
     focusOnce(this._activeModalTrigger)
   }
 
   _unsetScrollStop() {
-    dom.removeClass(document.body, Selectors.NO_SCROLL)
-    dom.removeClass(document.documentElement, Selectors.NO_SCROLL)
+    dom.removeClass(document.body, Selectors.NO_SCROLL_CLASS)
+    dom.removeClass(document.documentElement, Selectors.NO_SCROLL_CLASS)
   }
 
   _setScrollStop() {
-    dom.addClass(document.body, Selectors.NO_SCROLL)
-    dom.addClass(document.documentElement, Selectors.NO_SCROLL)
+    dom.addClass(document.body, Selectors.NO_SCROLL_CLASS)
+    dom.addClass(document.documentElement, Selectors.NO_SCROLL_CLASS)
   }
 }

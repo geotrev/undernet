@@ -1,6 +1,69 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Collapsible #handleClick toggles collapsible on click 1`] = `
+exports[`Collapsible #handleClick toggles collapsible closed on click 1`] = `
+<body>
+  
+  
+  <div
+    class="collapsible"
+    data-collapsible="collapsible-id"
+    data-visible="false"
+  >
+    
+    
+    <h5>
+      
+      
+      <button
+        aria-controls="collapsible-id"
+        aria-expanded="false"
+        class="collapsible-trigger"
+        data-target="collapsible-id"
+        id="collapsible-trigger-id"
+      >
+        
+        Collapsible Trigger
+      
+      </button>
+      
+    
+    </h5>
+    
+    
+    <div
+      aria-hidden="true"
+      aria-labelledby="collapsible-trigger-id"
+      class="collapsible-content"
+      id="collapsible-id"
+    >
+      
+      
+      <p
+        class="has-p"
+      >
+        
+        Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
+        ipsum ut voluptate. 
+        <a
+          href="#"
+        >
+          E pluribus unum.
+        </a>
+        
+      
+      </p>
+      
+    
+    </div>
+    
+  
+  </div>
+  
+
+</body>
+`;
+
+exports[`Collapsible #handleClick toggles collapsible open on click 1`] = `
 <body>
   
   

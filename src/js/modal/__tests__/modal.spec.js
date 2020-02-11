@@ -5,10 +5,10 @@ import { KeyCodes, Messages } from "../constants"
 const dom = `
   <button data-target="modal-id">Open modal</button>
 
-  <div className="modal-overlay" data-modal="modal-id">
-    <div className="modal-dialog" data-parent="modal-id" aria-labelledby="header-id">
+  <div class="modal-overlay" data-modal="modal-id">
+    <div class="modal-dialog" data-parent="modal-id" aria-labelledby="header-id">
       <header>
-        <h2 className="h6 has-no-m-block-start" id="header-id">
+        <h2 class="h6 has-no-m-block-start" id="header-id">
           Modal Header
         </h2>
         <a data-close href="#">
@@ -19,10 +19,10 @@ const dom = `
         <p>Some modal content here</p>
       </section>
       <footer>
-        <a className="button" data-close href="#">
+        <a class="button" data-close href="#">
           Cancel
         </a>
-        <a className="primary button" href="#">
+        <a class="primary button" href="#">
           OK
         </a>
       </footer>
@@ -34,11 +34,16 @@ console.error = jest.fn()
 
 const activeElement = () => document.activeElement
 
-describe("Modal", () => {
-  afterEach(() => {
-    Undernet.Modals.stop()
-  })
+const mockTransitionEnd = () => {
+  const modal = find("[data-modal='modal-id']")
+  const spy = jest.spyOn(modal, "addEventListener")
 
+  spy.mockImplementation((event, fn) => (event === "transitionend" ? fn() : fn))
+
+  return spy
+}
+
+describe("Modal", () => {
   describe("API start", () => {
     it("sets attributes", () => {
       // Given
@@ -47,6 +52,7 @@ describe("Modal", () => {
       Undernet.Modals.start()
       // Then
       expect(wrapper).toMatchSnapshot()
+      Undernet.Modals.stop()
     })
   })
 
@@ -54,6 +60,8 @@ describe("Modal", () => {
     it("does not open modal", () => {
       // Given
       const wrapper = renderDOM(dom)
+      const spy = mockTransitionEnd()
+
       const trigger = find("[data-target='modal-id']")
       // When
       Undernet.Modals.start()
@@ -61,19 +69,27 @@ describe("Modal", () => {
       trigger.click()
       // Then
       expect(wrapper).toMatchSnapshot()
+      spy.mockRestore()
+      Undernet.Modals.stop()
     })
   })
 
   describe("#handleClick", () => {
-    let wrapper
+    let wrapper, spy
 
     beforeEach(() => {
       wrapper = renderDOM(dom)
+      spy = mockTransitionEnd()
 
       const trigger = find("[data-target='modal-id']")
 
       Undernet.Modals.start()
       trigger.click()
+    })
+
+    afterEach(() => {
+      spy.mockRestore()
+      Undernet.Modals.stop()
     })
 
     it("opens modal", () => {
@@ -87,19 +103,23 @@ describe("Modal", () => {
   })
 
   describe("#handleClose", () => {
-    let wrapper
-    let trigger
-    let closeButton
+    let wrapper, trigger, spy
 
     beforeEach(() => {
       wrapper = renderDOM(dom)
 
+      spy = mockTransitionEnd()
       trigger = find("[data-target='modal-id']")
-      closeButton = find("header [data-close]")
+      const closeButton = find("header [data-close]")
 
       Undernet.Modals.start()
       trigger.click()
       closeButton.click()
+    })
+
+    afterEach(() => {
+      spy.mockRestore()
+      Undernet.Modals.stop()
     })
 
     it("closes modal", () => {
@@ -109,17 +129,13 @@ describe("Modal", () => {
     it("sets focus to modal trigger", () => {
       expect(activeElement()).toEqual(trigger)
     })
-
-    it("removes tabindex when trigger loses focus", () => {
-      trigger.blur()
-      expect(trigger.hasAttribute("tabindex")).toBe(false)
-    })
   })
 
   describe("#handleOverlayClick", () => {
     it("closes modal", () => {
       // Given
       const wrapper = renderDOM(dom)
+      const spy = mockTransitionEnd()
       const trigger = find("[data-target='modal-id']")
       // When
       Undernet.Modals.start()
@@ -127,6 +143,8 @@ describe("Modal", () => {
       find("[data-modal='modal-id']").click()
       // Then
       expect(wrapper).toMatchSnapshot()
+      spy.mockRestore()
+      Undernet.Modals.stop()
     })
   })
 
@@ -134,6 +152,7 @@ describe("Modal", () => {
     it("closes modal", () => {
       // Given
       const wrapper = renderDOM(dom)
+      const spy = mockTransitionEnd()
       const trigger = find("[data-target='modal-id']")
       // When
       Undernet.Modals.start()
@@ -141,6 +160,8 @@ describe("Modal", () => {
       simulateKeyboardEvent(KeyCodes.ESCAPE)
       // Then
       expect(wrapper).toMatchSnapshot()
+      spy.mockRestore()
+      Undernet.Modals.stop()
     })
   })
 
@@ -148,6 +169,8 @@ describe("Modal", () => {
     it("sets focus back to modal trigger", () => {
       // Given
       renderDOM(dom)
+
+      const spy = mockTransitionEnd()
       const trigger = find("[data-target='modal-id']")
       const closeButton = find("header [data-close]")
       // When
@@ -156,22 +179,29 @@ describe("Modal", () => {
       closeButton.click()
       // Then
       expect(activeElement()).toEqual(trigger)
+      spy.mockRestore()
+      Undernet.Modals.stop()
     })
   })
 
   describe("#handleScrollRestore", () => {
-    let trigger
-    let closeButton
+    let spy
 
     beforeEach(() => {
       renderDOM(dom)
 
-      trigger = find("[data-target='modal-id']")
-      closeButton = find("header [data-close]")
+      spy = mockTransitionEnd()
+      const trigger = find("[data-target='modal-id']")
+      const closeButton = find("header [data-close]")
 
       Undernet.Modals.start()
       trigger.click()
       closeButton.click()
+    })
+
+    afterEach(() => {
+      spy.mockRestore()
+      Undernet.Modals.stop()
     })
 
     it("removes 'no-scroll' class from <body>", () => {
@@ -184,12 +214,21 @@ describe("Modal", () => {
   })
 
   describe("#handleScrollStop", () => {
+    let spy
+
     beforeEach(() => {
       renderDOM(dom)
+
+      spy = mockTransitionEnd()
       const trigger = find("[data-target='modal-id']")
 
       Undernet.Modals.start()
       trigger.click()
+    })
+
+    afterEach(() => {
+      spy.mockRestore()
+      Undernet.Modals.stop()
     })
 
     it("sets 'no-scroll' class to <body>", () => {

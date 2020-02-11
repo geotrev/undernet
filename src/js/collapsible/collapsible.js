@@ -14,7 +14,7 @@ export default class Collapsible {
     // events
     this._handleClick = throttle(this._handleClick.bind(this), 300)
     this._handleTransitionEnd = this._handleTransitionEnd.bind(this)
-    this._setup = this._setup.bind(this)
+    this._validate = this._validate.bind(this)
     this._teardown = this._teardown.bind(this)
 
     // all accordions
@@ -46,7 +46,7 @@ export default class Collapsible {
 
   // private
 
-  _setup(instance) {
+  _validate(instance) {
     const { trigger, id } = this._getCollapsibleData(instance)
 
     if (!id) {

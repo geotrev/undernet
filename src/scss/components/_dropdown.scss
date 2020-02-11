@@ -1,18 +1,3 @@
-.dropdown {
-  position: relative;
-  display: inline-block;
-
-  > [data-target] {
-    display: inline-flex;
-    align-items: center;
-  }
-
-  &[data-visible="true"] > .dropdown-menu {
-    opacity: 1;
-    pointer-events: auto;
-  }
-}
-
 .dropdown-menu {
   @include create-flow-property("padding-left", 0);
   position: absolute;
@@ -158,5 +143,20 @@
       padding: $dropdown-header-padding;
       color: $dropdown-header-color;
     }
+  }
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+
+  > [data-target] {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  &[data-visible="true"] > .dropdown-menu {
+    opacity: 1;
+    pointer-events: auto;
   }
 }

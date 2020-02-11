@@ -2,26 +2,6 @@
   @return $collapsible-indicator-open != "" and $collapsible-indicator-closed != "";
 }
 
-.collapsible {
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    padding: 0;
-    margin: 0;
-  }
-
-  &[data-visible="false"] .collapsible-trigger::after {
-    @if custom-indicators-configured() {
-      content: $collapsible-indicator-closed;
-    } @else if $collapsible-indicator {
-      transform: $collapsible-indicator-transform;
-    }
-  }
-}
-
 .collapsible-trigger {
   display: flex;
   flex-flow: row nowrap;
@@ -54,6 +34,26 @@
 
   &.collapsible-trigger-ready::after {
     transition: transform $collapsible-transition-duration $collapsible-transition-ease;
+  }
+}
+
+.collapsible {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    padding: 0;
+    margin: 0;
+  }
+
+  &[data-visible="false"] .collapsible-trigger::after {
+    @if custom-indicators-configured() {
+      content: $collapsible-indicator-closed;
+    } @else if $collapsible-indicator {
+      transform: $collapsible-indicator-transform;
+    }
   }
 }
 
