@@ -51,7 +51,7 @@ The tooltip itself is just a div, so you can add any HTML you would normally use
   <button class="tooltip-trigger" data-target="tooltip-id-2">Tooltip With More HTML</button>
   <div class="tooltip-box" id="tooltip-id-2">
     <em>This</em> <b>is a</b> <u>tooltip</u>. <br />
-    It has a line-rea
+    It has a line-break
   </div>
 </span>
 ```
