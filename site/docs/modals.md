@@ -10,8 +10,6 @@ Use modals to focus the user experience on a critical task or set of information
 
 Modals have simple base styling, with the contents using a semantic markup structure. You can use utility classes or your own custom CSS to style the modal content (including header, footer, and content) further.
 
-You can ditch the `modal-header`, `modal-body`, and `modal-footer` classes altogether if you wish to have even more control of the content. These classes are, however, customizable via Sass and should fit most common use-cases.
-
 Try to keep the modal dialog as high in the document tree as possible. While the dialog is styled in a way to make it mostly capable of being nested in divs or other wrappers, doing so comes with a risk of interfering with the fullscreen effect of the dialog.
 
 Worth noting: there can only be one modal open at a time. Stacked modals are not supported.
@@ -73,6 +71,8 @@ Check out this example modal:
   </div>
 </div>
 ```
+
+You can ditch the `modal-header`, `modal-body`, and `modal-footer` classes altogether if you wish to have even more control of the content. These classes are, however, customizable via Sass and should fit most common use-cases.
 
 ## Long Content
 
