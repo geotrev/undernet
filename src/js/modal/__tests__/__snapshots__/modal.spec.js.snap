@@ -17,7 +17,7 @@ exports[`Modal #handleClick opens modal 1`] = `
   
   <div
     aria-hidden="false"
-    classname="modal-overlay"
+    class="modal-overlay is-visible"
     data-modal="modal-id"
     data-visible="true"
   >
@@ -26,7 +26,7 @@ exports[`Modal #handleClick opens modal 1`] = `
     <div
       aria-labelledby="header-id"
       aria-modal="true"
-      classname="modal-dialog"
+      class="modal-dialog"
       data-parent="modal-id"
       role="dialog"
       tabindex="-1"
@@ -37,7 +37,7 @@ exports[`Modal #handleClick opens modal 1`] = `
         
         
         <h2
-          classname="h6 has-no-m-block-start"
+          class="h6 has-no-m-block-start"
           id="header-id"
         >
           
@@ -81,7 +81,7 @@ exports[`Modal #handleClick opens modal 1`] = `
         
         
         <a
-          classname="button"
+          class="button"
           data-close=""
           href="#"
           tabindex="0"
@@ -93,7 +93,7 @@ exports[`Modal #handleClick opens modal 1`] = `
         
         
         <a
-          classname="primary button"
+          class="primary button"
           href="#"
           tabindex="0"
         >
@@ -133,7 +133,7 @@ exports[`Modal #handleClose closes modal 1`] = `
   
   <div
     aria-hidden="true"
-    classname="modal-overlay"
+    class="modal-overlay"
     data-modal="modal-id"
     data-visible="false"
     style="padding-left: 1024px;"
@@ -143,7 +143,7 @@ exports[`Modal #handleClose closes modal 1`] = `
     <div
       aria-labelledby="header-id"
       aria-modal="true"
-      classname="modal-dialog"
+      class="modal-dialog"
       data-parent="modal-id"
       role="dialog"
     >
@@ -153,7 +153,7 @@ exports[`Modal #handleClose closes modal 1`] = `
         
         
         <h2
-          classname="h6 has-no-m-block-start"
+          class="h6 has-no-m-block-start"
           id="header-id"
         >
           
@@ -165,7 +165,7 @@ exports[`Modal #handleClose closes modal 1`] = `
         <a
           data-close=""
           href="#"
-          tabindex="-1"
+          tabindex="0"
         >
           
           
@@ -197,10 +197,10 @@ exports[`Modal #handleClose closes modal 1`] = `
         
         
         <a
-          classname="button"
+          class="button"
           data-close=""
           href="#"
-          tabindex="-1"
+          tabindex="0"
         >
           
           Cancel
@@ -209,9 +209,9 @@ exports[`Modal #handleClose closes modal 1`] = `
         
         
         <a
-          classname="primary button"
+          class="primary button"
           href="#"
-          tabindex="-1"
+          tabindex="0"
         >
           
           OK
@@ -249,7 +249,7 @@ exports[`Modal #handleEscapeKeyPress closes modal 1`] = `
   
   <div
     aria-hidden="true"
-    classname="modal-overlay"
+    class="modal-overlay"
     data-modal="modal-id"
     data-visible="false"
     style="padding-left: 1024px;"
@@ -259,7 +259,7 @@ exports[`Modal #handleEscapeKeyPress closes modal 1`] = `
     <div
       aria-labelledby="header-id"
       aria-modal="true"
-      classname="modal-dialog"
+      class="modal-dialog"
       data-parent="modal-id"
       role="dialog"
     >
@@ -269,7 +269,7 @@ exports[`Modal #handleEscapeKeyPress closes modal 1`] = `
         
         
         <h2
-          classname="h6 has-no-m-block-start"
+          class="h6 has-no-m-block-start"
           id="header-id"
         >
           
@@ -281,7 +281,7 @@ exports[`Modal #handleEscapeKeyPress closes modal 1`] = `
         <a
           data-close=""
           href="#"
-          tabindex="-1"
+          tabindex="0"
         >
           
           
@@ -313,10 +313,10 @@ exports[`Modal #handleEscapeKeyPress closes modal 1`] = `
         
         
         <a
-          classname="button"
+          class="button"
           data-close=""
           href="#"
-          tabindex="-1"
+          tabindex="0"
         >
           
           Cancel
@@ -325,9 +325,9 @@ exports[`Modal #handleEscapeKeyPress closes modal 1`] = `
         
         
         <a
-          classname="primary button"
+          class="primary button"
           href="#"
-          tabindex="-1"
+          tabindex="0"
         >
           
           OK
@@ -365,7 +365,7 @@ exports[`Modal #handleOverlayClick closes modal 1`] = `
   
   <div
     aria-hidden="true"
-    classname="modal-overlay"
+    class="modal-overlay"
     data-modal="modal-id"
     data-visible="false"
     style="padding-left: 1024px;"
@@ -375,7 +375,7 @@ exports[`Modal #handleOverlayClick closes modal 1`] = `
     <div
       aria-labelledby="header-id"
       aria-modal="true"
-      classname="modal-dialog"
+      class="modal-dialog"
       data-parent="modal-id"
       role="dialog"
     >
@@ -385,7 +385,7 @@ exports[`Modal #handleOverlayClick closes modal 1`] = `
         
         
         <h2
-          classname="h6 has-no-m-block-start"
+          class="h6 has-no-m-block-start"
           id="header-id"
         >
           
@@ -397,7 +397,7 @@ exports[`Modal #handleOverlayClick closes modal 1`] = `
         <a
           data-close=""
           href="#"
-          tabindex="-1"
+          tabindex="0"
         >
           
           
@@ -429,10 +429,10 @@ exports[`Modal #handleOverlayClick closes modal 1`] = `
         
         
         <a
-          classname="button"
+          class="button"
           data-close=""
           href="#"
-          tabindex="-1"
+          tabindex="0"
         >
           
           Cancel
@@ -441,9 +441,9 @@ exports[`Modal #handleOverlayClick closes modal 1`] = `
         
         
         <a
-          classname="primary button"
+          class="primary button"
           href="#"
-          tabindex="-1"
+          tabindex="0"
         >
           
           OK
@@ -477,7 +477,7 @@ exports[`Modal API start sets attributes 1`] = `
   
   <div
     aria-hidden="true"
-    classname="modal-overlay"
+    class="modal-overlay"
     data-modal="modal-id"
     data-visible="false"
   >
@@ -486,7 +486,7 @@ exports[`Modal API start sets attributes 1`] = `
     <div
       aria-labelledby="header-id"
       aria-modal="true"
-      classname="modal-dialog"
+      class="modal-dialog"
       data-parent="modal-id"
       role="dialog"
     >
@@ -496,7 +496,7 @@ exports[`Modal API start sets attributes 1`] = `
         
         
         <h2
-          classname="h6 has-no-m-block-start"
+          class="h6 has-no-m-block-start"
           id="header-id"
         >
           
@@ -508,7 +508,6 @@ exports[`Modal API start sets attributes 1`] = `
         <a
           data-close=""
           href="#"
-          tabindex="-1"
         >
           
           
@@ -540,10 +539,9 @@ exports[`Modal API start sets attributes 1`] = `
         
         
         <a
-          classname="button"
+          class="button"
           data-close=""
           href="#"
-          tabindex="-1"
         >
           
           Cancel
@@ -552,9 +550,8 @@ exports[`Modal API start sets attributes 1`] = `
         
         
         <a
-          classname="primary button"
+          class="primary button"
           href="#"
-          tabindex="-1"
         >
           
           OK
@@ -588,7 +585,7 @@ exports[`Modal API stop + #handleClick does not open modal 1`] = `
   
   <div
     aria-hidden="true"
-    classname="modal-overlay"
+    class="modal-overlay"
     data-modal="modal-id"
     data-visible="false"
   >
@@ -597,7 +594,7 @@ exports[`Modal API stop + #handleClick does not open modal 1`] = `
     <div
       aria-labelledby="header-id"
       aria-modal="true"
-      classname="modal-dialog"
+      class="modal-dialog"
       data-parent="modal-id"
       role="dialog"
     >
@@ -607,7 +604,7 @@ exports[`Modal API stop + #handleClick does not open modal 1`] = `
         
         
         <h2
-          classname="h6 has-no-m-block-start"
+          class="h6 has-no-m-block-start"
           id="header-id"
         >
           
@@ -619,7 +616,6 @@ exports[`Modal API stop + #handleClick does not open modal 1`] = `
         <a
           data-close=""
           href="#"
-          tabindex="-1"
         >
           
           
@@ -651,10 +647,9 @@ exports[`Modal API stop + #handleClick does not open modal 1`] = `
         
         
         <a
-          classname="button"
+          class="button"
           data-close=""
           href="#"
-          tabindex="-1"
         >
           
           Cancel
@@ -663,9 +658,8 @@ exports[`Modal API stop + #handleClick does not open modal 1`] = `
         
         
         <a
-          classname="primary button"
+          class="primary button"
           href="#"
-          tabindex="-1"
         >
           
           OK

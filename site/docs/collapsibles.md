@@ -15,12 +15,12 @@ Check out this example collapsible:
 <div class="collapsible" data-collapsible="collapsible-1">
   <h5>
     <button class="collapsible-trigger" id="trigger-1" data-target="collapsible-1">
-      Press to collapse
+      Press to expand
     </button>
   </h5>
   <div class="collapsible-content" id="collapsible-1">
     <p class="has-p">
-      It's just lorem ipsum. Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna ipsum ut voluptate. <a>A link,</a> and <a>another link!</a>
+      It's just lorem ipsum. Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna ipsum ut voluptate. <a href="#">A link,</a> and <a href="#">another link!</a>
     </p>
   </div>
 </div>
@@ -43,9 +43,9 @@ Check out this example collapsible:
 
 ## Controlling Visibility
 
-Any given collapsible's content will be expanded by default. To force the content to be hidden at page load, add `data-visible="false"` on the wrapper.
+Any given collapsible's content will be hidden by default. To force the content to be visible at page load, add `data-visible="true"` on the wrapper.
 
-<div class="collapsible" data-visible="false" data-collapsible="collapsible-2">
+<div class="collapsible" data-visible="true" data-collapsible="collapsible-2">
   <h5>
     <button class="collapsible-trigger" id="trigger-2" data-target="collapsible-2">
       Open for cake
@@ -53,7 +53,8 @@ Any given collapsible's content will be expanded by default. To force the conten
   </h5>
   <div class="collapsible-content" id="collapsible-2">
     <p class="has-p">
-      Sorry, just gibberish. Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna ipsum ut voluptate. <a>A link,</a> and <a>another link!</a>
+      Sorry, just gibberish. Consectetur eiusmod laboris in non id tempor exercitation ipsum
+      cupidatat magna ipsum ut voluptate. <a>A link,</a> and <a>another link!</a>
     </p>
   </div>
 </div>

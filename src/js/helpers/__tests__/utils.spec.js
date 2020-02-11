@@ -1,11 +1,5 @@
 import { find, renderDOM, simulateKeyboardEvent } from "../test"
-import {
-  dom,
-  getFocusableElements,
-  createFocusTrap,
-  focusOnce,
-  getPageBaseFontSize,
-} from "../utils"
+import { dom, getFocusableElements, createFocusTrap, focusOnce } from "../utils"
 
 const testDOM = `<div data-tester="true" tabindex="-1" data-removable class="wrapper">
     <p>Hello world! <a tabindex="-1" class="first-focusable" href="#">this link is focusable</a></p>
@@ -371,16 +365,6 @@ describe("getFocusableElements(container)", () => {
   })
 
   it("returns custom list of elements if matchers given", () => {})
-})
-
-describe("getPageBaseFontSize", () => {
-  it("returns body font size as number literal", () => {
-    // Given
-    renderDOM(testDOM)
-    find("body").style.fontSize = "16px"
-    // Then
-    expect(getPageBaseFontSize()).toBe(16)
-  })
 })
 
 describe("focusOnce(element)", () => {

@@ -20,21 +20,18 @@ const Events = {
 
 const Messages = {
   NO_SELECTOR_STRING_OR_CHILDREN_ERROR:
-    "createFocusTrap must be given one or both of: first parameter (as selector string) and/or options.children (array of elements).",
+    "createFocusTrap must be given one or both of: first parameter (as selector string)" +
+    " and/or options.children (array of elements).",
   OPTION_MATCHERS_DATA_TYPE_ERROR:
     "Invalid data type given to options.matchers for createFocusTrap. Expected: Array.",
   INCORRECT_MATCHER_TYPE_ERROR: type =>
     `Invalid matcher given to options.matchers for createFocusTrap. Expected: String. Recieved: ${type}.`,
   NO_MATCHER_LENGTH_ERROR:
     "Invalid value given to options.matchers for createFocusTrap; value must be an array with at least one selector string",
-  NO_PARENT_FOUND_IN_SCOPE: id => `Element couldn't be found with selector string: '${id}'`,
-  DUPLICATE_SCOPE_ERROR: id =>
-    `You tried to start an Undernet component with scope '${id}', but that scope is already active.\n\nYou must call COMPONENT_NAME.stop(scopeSelector) first, then.`,
 }
 
 /**
  * Log a console message.
- *
  * @param {String} message
  * @param {String} type
  */
@@ -44,6 +41,27 @@ export const log = (message, type = "error") => console[type](message)
  * Check if window exists. If it doesn't, we're probably in a non-test node environment.
  */
 export const isBrowserEnv = typeof window !== "undefined"
+
+/**
+ * Simple throttle utility. It is leading but not trailing.
+ * @param {*} callback - function to throttle
+ * @param {number} limit - time to throttle by in milliseconds
+ */
+export function throttle(callback, limit) {
+  let timeout = false
+
+  function clear() {
+    timeout = false
+  }
+
+  return function() {
+    if (timeout) return
+
+    callback.apply(this, arguments)
+    timeout = true
+    setTimeout(clear, limit)
+  }
+}
 
 /**
  * Simple DOM manipulator methods. These aren't chainable.
@@ -310,38 +328,8 @@ export const createFocusRing = () => {
 }
 
 /**
- * Get the computed font-size of the page body as a number.
- *
- * ```js
- * const size = getPageBaseFontSize()
- * element.style.lineHeight = `${size * 2}px`
- * ```
- *
- * @returns {Number}
- */
-export const getPageBaseFontSize = () => {
-  if (!isBrowserEnv) return
-
-  const BODY_TAG = "body"
-  const FONT_SIZE_PROPERTY = "font-size"
-  const PX_SUBSTRING = "px"
-  const FONT_SIZE_VALUE_FALLBACK = 16
-
-  const body = dom.find(BODY_TAG)
-  const computedFontSize = window.getComputedStyle(body).getPropertyValue(FONT_SIZE_PROPERTY)
-  let bodySize = FONT_SIZE_VALUE_FALLBACK
-
-  if (computedFontSize) {
-    const indexOfPx = computedFontSize.indexOf(PX_SUBSTRING)
-    bodySize = parseFloat(computedFontSize.slice(0, indexOfPx))
-  }
-
-  return bodySize
-}
-
-/**
  * Focus a single element one time and teardown when unfocused.
- * @param {Object} element
+ * @param {HTMLElement} element
  */
 export const focusOnce = element => {
   const handleBlur = ({ target }) => {
@@ -384,7 +372,7 @@ export const startComponent = (metadata = {}) => {
     const instance = dom.find(`[${attribute}='${id}']`)
     if (!instance) return
 
-    const validComponent = [instance].filter(thisArg._setup)[0]
+    const validComponent = [instance].filter(thisArg._validate)[0]
     if (!validComponent) return
 
     thisArg._components.push(validComponent)
@@ -392,7 +380,7 @@ export const startComponent = (metadata = {}) => {
     const instances = dom.findAll(`[${attribute}]`)
     if (!instances.length) return
 
-    const validComponents = instances.filter(thisArg._setup)
+    const validComponents = instances.filter(thisArg._validate)
     thisArg._components = thisArg._components.concat(validComponents)
   } else {
     // attempted to .start() when .stop() wasn't run,

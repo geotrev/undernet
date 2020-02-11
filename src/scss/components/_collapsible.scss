@@ -2,26 +2,6 @@
   @return $collapsible-indicator-open != "" and $collapsible-indicator-closed != "";
 }
 
-.collapsible {
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    padding: 0;
-    margin: 0;
-  }
-
-  &[data-visible="false"] .collapsible-trigger::after {
-    transform: $collapsible-indicator-transform;
-
-    @if custom-indicators-configured() {
-      content: $collapsible-indicator-closed;
-    }
-  }
-}
-
 .collapsible-trigger {
   display: flex;
   flex-flow: row nowrap;
@@ -44,7 +24,6 @@
   &::after {
     font-size: 12px;
     font-weight: $collapsible-indicator-weight;
-    transition: $collapsible-transition-duration $collapsible-transition-ease;
 
     @if custom-indicators-configured() {
       content: $collapsible-indicator-open;
@@ -52,12 +31,42 @@
       content: $collapsible-indicator;
     }
   }
+
+  &.collapsible-trigger-ready::after {
+    transition: transform $collapsible-transition-duration $collapsible-transition-ease;
+  }
+}
+
+.collapsible {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    padding: 0;
+    margin: 0;
+  }
+
+  &[data-visible="false"] .collapsible-trigger::after {
+    @if custom-indicators-configured() {
+      content: $collapsible-indicator-closed;
+    } @else if $collapsible-indicator {
+      transform: $collapsible-indicator-transform;
+    }
+  }
 }
 
 .collapsible-content {
   overflow: hidden;
+  visibility: hidden;
   padding: 0;
   margin: 0;
-  max-height: 0;
-  transition: max-height $collapsible-transition-duration $collapsible-transition-ease;
+  height: 0;
+
+  &.collapsible-content-ready {
+    transition-property: visibility, height;
+    transition-duration: $collapsible-transition-duration;
+    transition-timing-function: $collapsible-transition-ease;
+  }
 }

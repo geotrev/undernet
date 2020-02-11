@@ -146,7 +146,7 @@ module.exports = {
     "require-await": ERROR,
     "require-unicode-regexp": OFF,
     "vars-on-top": ERROR,
-    "wrap-iife": ERROR,
+    "wrap-iife": [ERROR, "outside"],
     yoda: [ERROR, "never", { exceptRange: true }],
 
     // variables

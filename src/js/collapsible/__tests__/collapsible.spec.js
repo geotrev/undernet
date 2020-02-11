@@ -39,8 +39,8 @@ describe("Collapsible", () => {
       expect(wrapper).toMatchSnapshot()
     })
 
-    it("does not open collapsible by default if [data-visible='false'] is set", () => {
-      find("[data-collapsible]").setAttribute("data-visible", "false")
+    it("opens collapsible by default if [data-visible='true'] is set", () => {
+      find("[data-collapsible]").setAttribute("data-visible", "true")
       // When
       Undernet.Collapsibles.start()
       // Then
@@ -61,10 +61,20 @@ describe("Collapsible", () => {
   })
 
   describe("#handleClick", () => {
-    it("toggles collapsible on click", () => {
+    it("toggles collapsible open on click", () => {
       const trigger = find("button")
       // When
       Undernet.Collapsibles.start()
+      trigger.click()
+      // Then
+      expect(wrapper).toMatchSnapshot()
+    })
+
+    it("toggles collapsible closed on click", () => {
+      const trigger = find("button")
+      // When
+      Undernet.Collapsibles.start()
+      trigger.click()
       trigger.click()
       // Then
       expect(wrapper).toMatchSnapshot()

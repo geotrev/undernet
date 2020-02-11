@@ -13,7 +13,7 @@ export default class Tooltip {
     this._handleEvent = this._handleEvent.bind(this)
     this._handleClose = this._handleClose.bind(this)
     this._handleEscapeKeyPress = this._handleEscapeKeyPress.bind(this)
-    this._setup = this._setup.bind(this)
+    this._validate = this._validate.bind(this)
     this._teardown = this._teardown.bind(this)
 
     // all tooltips
@@ -42,7 +42,7 @@ export default class Tooltip {
 
   // private
 
-  _setup(instance) {
+  _validate(instance) {
     const instanceId = dom.getAttr(instance, Selectors.DATA_TOOLTIP)
 
     if (!instanceId) {

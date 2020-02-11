@@ -11,14 +11,25 @@ export const Selectors = {
   ARIA_HIDDEN: "aria-hidden",
   ARIA_LABELLEDBY: "aria-labelledby",
   TABINDEX: "tabindex",
+  // classes
+  TRIGGER_READY_CLASS: "collapsible-trigger-ready",
+  CONTENT_READY_CLASS: "collapsible-content-ready",
 }
 
 export const CssProperties = {
-  MAX_HEIGHT: "maxHeight",
+  HEIGHT: "height",
+  VISIBILITY: "visibility",
+}
+
+export const CssValues = {
+  AUTO: "auto",
+  HIDDEN: "hidden",
+  VISIBLE: "visible",
 }
 
 export const Events = {
   CLICK: "click",
+  TRANSITIONEND: "transitionend",
 }
 
 export const Messages = {
