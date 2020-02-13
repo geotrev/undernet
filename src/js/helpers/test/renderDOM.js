@@ -1,5 +1,3 @@
-import { find } from "./find"
-
 /**
  * Renders DOM instance to assert against. Returns function that, when called, returns the <body> element.
  *
@@ -8,5 +6,5 @@ import { find } from "./find"
  */
 export const renderDOM = dom => {
   document.body.innerHTML = dom
-  return find("body")
+  return document.querySelector("body")
 }

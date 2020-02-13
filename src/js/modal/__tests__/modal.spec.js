@@ -1,5 +1,5 @@
 import Undernet from "../../"
-import { find, renderDOM, simulateKeyboardEvent } from "../../helpers/test"
+import { renderDOM, simulateKeyboardEvent } from "../../helpers/test"
 import { KeyCodes, Messages } from "../constants"
 
 const dom = `
@@ -35,7 +35,7 @@ console.error = jest.fn()
 const activeElement = () => document.activeElement
 
 const mockTransitionEnd = () => {
-  const modal = find("[data-modal='modal-id']")
+  const modal = document.querySelector("[data-modal='modal-id']")
   const spy = jest.spyOn(modal, "addEventListener")
 
   spy.mockImplementation((event, fn) => (event === "transitionend" ? fn() : fn))
@@ -62,7 +62,7 @@ describe("Modal", () => {
       const wrapper = renderDOM(dom)
       const spy = mockTransitionEnd()
 
-      const trigger = find("[data-target='modal-id']")
+      const trigger = document.querySelector("[data-target='modal-id']")
       // When
       Undernet.Modals.start()
       Undernet.Modals.stop()
@@ -81,7 +81,7 @@ describe("Modal", () => {
       wrapper = renderDOM(dom)
       spy = mockTransitionEnd()
 
-      const trigger = find("[data-target='modal-id']")
+      const trigger = document.querySelector("[data-target='modal-id']")
 
       Undernet.Modals.start()
       trigger.click()
@@ -97,7 +97,7 @@ describe("Modal", () => {
     })
 
     it("sets focus to modal dialog", () => {
-      const modalDialog = find("[data-parent]")
+      const modalDialog = document.querySelector("[data-parent]")
       expect(activeElement()).toEqual(modalDialog)
     })
   })
@@ -109,8 +109,8 @@ describe("Modal", () => {
       wrapper = renderDOM(dom)
 
       spy = mockTransitionEnd()
-      trigger = find("[data-target='modal-id']")
-      const closeButton = find("header [data-close]")
+      trigger = document.querySelector("[data-target='modal-id']")
+      const closeButton = document.querySelector("header [data-close]")
 
       Undernet.Modals.start()
       trigger.click()
@@ -136,11 +136,11 @@ describe("Modal", () => {
       // Given
       const wrapper = renderDOM(dom)
       const spy = mockTransitionEnd()
-      const trigger = find("[data-target='modal-id']")
+      const trigger = document.querySelector("[data-target='modal-id']")
       // When
       Undernet.Modals.start()
       trigger.click()
-      find("[data-modal='modal-id']").click()
+      document.querySelector("[data-modal='modal-id']").click()
       // Then
       expect(wrapper).toMatchSnapshot()
       spy.mockRestore()
@@ -153,7 +153,7 @@ describe("Modal", () => {
       // Given
       const wrapper = renderDOM(dom)
       const spy = mockTransitionEnd()
-      const trigger = find("[data-target='modal-id']")
+      const trigger = document.querySelector("[data-target='modal-id']")
       // When
       Undernet.Modals.start()
       trigger.click()
@@ -171,8 +171,8 @@ describe("Modal", () => {
       renderDOM(dom)
 
       const spy = mockTransitionEnd()
-      const trigger = find("[data-target='modal-id']")
-      const closeButton = find("header [data-close]")
+      const trigger = document.querySelector("[data-target='modal-id']")
+      const closeButton = document.querySelector("header [data-close]")
       // When
       Undernet.Modals.start()
       trigger.click()
@@ -191,8 +191,8 @@ describe("Modal", () => {
       renderDOM(dom)
 
       spy = mockTransitionEnd()
-      const trigger = find("[data-target='modal-id']")
-      const closeButton = find("header [data-close]")
+      const trigger = document.querySelector("[data-target='modal-id']")
+      const closeButton = document.querySelector("header [data-close]")
 
       Undernet.Modals.start()
       trigger.click()
@@ -205,11 +205,11 @@ describe("Modal", () => {
     })
 
     it("removes 'no-scroll' class from <body>", () => {
-      expect(find("body").className).toBe("")
+      expect(document.querySelector("body").className).toBe("")
     })
 
     it("removes 'no-scroll' class from <html>", () => {
-      expect(find("html").className).toBe("")
+      expect(document.querySelector("html").className).toBe("")
     })
   })
 
@@ -220,7 +220,7 @@ describe("Modal", () => {
       renderDOM(dom)
 
       spy = mockTransitionEnd()
-      const trigger = find("[data-target='modal-id']")
+      const trigger = document.querySelector("[data-target='modal-id']")
 
       Undernet.Modals.start()
       trigger.click()
@@ -232,11 +232,11 @@ describe("Modal", () => {
     })
 
     it("sets 'no-scroll' class to <body>", () => {
-      expect(find("body").className).toBe("no-scroll")
+      expect(document.querySelector("body").className).toBe("no-scroll")
     })
 
     it("sets 'no-scroll' class to <html>", () => {
-      expect(find("html").className).toBe("no-scroll")
+      expect(document.querySelector("html").className).toBe("no-scroll")
     })
   })
 })

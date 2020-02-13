@@ -28,13 +28,9 @@ export const Events = {
   BLUR: "blur",
 }
 
-export const CssProperties = {
-  CURSOR: "cursor",
-}
+export const CssProperties = { CURSOR: "cursor" }
 
-export const CssValues = {
-  POINTER: "pointer",
-}
+export const CssValues = { POINTER: "pointer" }
 
 export const Messages = {
   NO_DROPDOWN_ID_ERROR:
