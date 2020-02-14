@@ -18,17 +18,12 @@ export const Selectors = {
   // classes
   NO_SCROLL_CLASS: "no-scroll",
   IS_VISIBLE_CLASS: "is-visible",
+  OVERLAY_OPEN: "overlay-open",
 }
 
 export const CssProperties = {
   PADDING_RIGHT: "paddingRight",
   PADDING_LEFT: "paddingLeft",
-  CURSOR: "cursor",
-}
-
-export const CssValues = {
-  AUTO: "auto",
-  POINTER: "pointer",
 }
 
 export const Events = {

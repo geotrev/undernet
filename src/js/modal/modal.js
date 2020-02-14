@@ -7,7 +7,7 @@ import {
   queryAll,
   ComponentEngine,
 } from "../helpers"
-import { KeyCodes, Selectors, CssProperties, CssValues, Events, Messages } from "./constants"
+import { KeyCodes, Selectors, CssProperties, Events, Messages } from "./constants"
 
 const COMPONENT_ROLE = "dialog"
 
@@ -19,7 +19,8 @@ const COMPONENT_ROLE = "dialog"
 export default class Modal {
   constructor() {
     this._handleClick = this._handleClick.bind(this)
-    this._handleTransitionEnd = this._handleTransitionEnd.bind(this)
+    this._handleOpenTransition = this._handleOpenTransition.bind(this)
+    this._handleCloseTransition = this._handleCloseTransition.bind(this)
     this._handleClose = this._handleClose.bind(this)
     this._handleOverlayClick = this._handleOverlayClick.bind(this)
     this._handleEscapeKeyPress = this._handleEscapeKeyPress.bind(this)
@@ -181,13 +182,19 @@ export default class Modal {
     this._activeModalContent = this._activeModal.querySelector(this._activeModalContentSelector)
   }
 
-  _handleTransitionEnd() {
-    this._activeModal.removeEventListener(Events.TRANSITIONEND, this._handleTransitionEnd)
+  _handleOpenTransition() {
+    this._activeModal.removeEventListener(Events.TRANSITIONEND, this._handleOpenTransition)
     this._focusContent()
 
     // Setting `scrollTop` to `0` unshifts the
     // scroll caused by focusing the dialog element
     this._activeModal.scrollTop = 0
+  }
+
+  _handleCloseTransition() {
+    this._modalCache.style[CssProperties.PADDING_LEFT] = ""
+    this._modalCache.removeEventListener(Events.TRANSITIONEND, this._handleCloseTransition)
+    this._modalCache = null
   }
 
   _toggleVisibility(isVisible) {
@@ -196,13 +203,12 @@ export default class Modal {
 
     if (isVisible) {
       this._activeModal.classList.add(Selectors.IS_VISIBLE_CLASS)
-      this._activeModal.addEventListener(Events.TRANSITIONEND, this._handleTransitionEnd)
+      this._activeModal.addEventListener(Events.TRANSITIONEND, this._handleOpenTransition)
     } else {
+      this._modalCache = this._activeModal
       this._activeModal.classList.remove(Selectors.IS_VISIBLE_CLASS)
+      this._activeModal.addEventListener(Events.TRANSITIONEND, this._handleCloseTransition)
     }
-
-    if (isiOSMobile)
-      this._activeModal.style[CssProperties.CURSOR] = isVisible ? CssValues.POINTER : CssValues.AUTO
   }
 
   _startEvents() {
@@ -236,21 +242,8 @@ export default class Modal {
     if (!this._activeModal) return
     const originalPaddingRight = this._originalPagePadding
 
-    this._setPaddingOffsetTimeout()
-    document.body.style[CssProperties.PADDING_RIGHT] = originalPaddingRight
-  }
-
-  _setPaddingOffsetTimeout() {
-    const DISMISS_SCROLLBAR_PADDING_DELAY = 500
-
-    // This is cached because _activeModal will
-    // be purged before the timeout is elapsed
     this._activeModal.style[CssProperties.PADDING_LEFT] = `${this._scrollbarOffset}px`
-
-    const modal = this._activeModal
-    setTimeout(() => {
-      modal.style[CssProperties.PADDING_LEFT] = ""
-    }, DISMISS_SCROLLBAR_PADDING_DELAY)
+    document.body.style[CssProperties.PADDING_RIGHT] = originalPaddingRight
   }
 
   _handleOverlayClick(event) {
@@ -274,11 +267,13 @@ export default class Modal {
   }
 
   _unsetScrollStop() {
+    if (isiOSMobile) document.body.classList.remove(Selectors.OVERLAY_OPEN)
     document.body.classList.remove(Selectors.NO_SCROLL_CLASS)
     document.documentElement.classList.remove(Selectors.NO_SCROLL_CLASS)
   }
 
   _setScrollStop() {
+    if (isiOSMobile) document.body.classList.add(Selectors.OVERLAY_OPEN)
     document.body.classList.add(Selectors.NO_SCROLL_CLASS)
     document.documentElement.classList.add(Selectors.NO_SCROLL_CLASS)
   }

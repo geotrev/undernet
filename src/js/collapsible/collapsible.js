@@ -12,8 +12,8 @@ import { Selectors, CssProperties, CssValues, Events, Messages } from "./constan
 export default class Collapsible {
   constructor() {
     // events
-    this._handleClick = throttle(this._handleClick.bind(this), 300)
-    this._handleTransitionEnd = this._handleTransitionEnd.bind(this)
+    this._handleClick = throttle(this._handleClick.bind(this), 500)
+    this._handleExpandTransition = this._handleExpandTransition.bind(this)
     this._validate = this._validate.bind(this)
     this._teardown = this._teardown.bind(this)
 
@@ -118,9 +118,9 @@ export default class Collapsible {
     this._activeCollapsible = null
   }
 
-  _handleTransitionEnd() {
+  _handleExpandTransition() {
     this._activeContent.style[CssProperties.HEIGHT] = CssValues.AUTO
-    this._activeContent.removeEventListener(Events.TRANSITIONEND, this._handleTransitionEnd)
+    this._activeContent.removeEventListener(Events.TRANSITIONEND, this._handleExpandTransition)
   }
 
   _toggleCollapsible() {
@@ -131,20 +131,19 @@ export default class Collapsible {
     const fullHeightValue = `${this._activeContent.scrollHeight}px`
 
     if (this._activeCollapsible.getAttribute(Selectors.DATA_VISIBLE) === "false") {
-      return this._expandPanel(fullHeightValue)
+      return this._collapsePanel(fullHeightValue)
     }
 
-    this._collapsePanel(fullHeightValue)
-  }
-
-  _collapsePanel(height) {
-    this._activeContent.style[CssProperties.HEIGHT] = height
-    this._activeContent.classList.add(Selectors.IS_VISIBLE_CLASS)
-
-    this._activeContent.addEventListener(Events.TRANSITIONEND, this._handleTransitionEnd)
+    this._expandPanel(fullHeightValue)
   }
 
   _expandPanel(height) {
+    this._activeContent.style[CssProperties.HEIGHT] = height
+    this._activeContent.classList.add(Selectors.IS_VISIBLE_CLASS)
+    this._activeContent.addEventListener(Events.TRANSITIONEND, this._handleExpandTransition)
+  }
+
+  _collapsePanel(height) {
     return requestAnimationFrame(() => {
       this._activeContent.style[CssProperties.HEIGHT] = height
 
