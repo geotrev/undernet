@@ -20,7 +20,7 @@ Check out this example collapsible:
   </h5>
   <div class="collapsible-content" id="collapsible-1">
     <p class="has-p">
-      It's just lorem ipsum. Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna ipsum ut voluptate. <a href="#">A link,</a> and <a href="#">another link!</a>
+      It's just lorem ipsum. Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna ipsum ut voluptate. <a href="#0">A link, </a>and <a href="#0">another link!</a>
     </p>
   </div>
 </div>
@@ -35,7 +35,7 @@ Check out this example collapsible:
   <div class="collapsible-content" id="collapsible-id">
     <p class="has-p">
       It's just lorem ipsum. Consectetur eiusmod laboris in non id tempor exercitation ipsum
-      cupidatat magna ipsum ut voluptate. <a>A link,</a> and <a>another link!</a>
+      cupidatat magna ipsum ut voluptate. <a href="#">A link, </a>and <a href="#">another link!</a>
     </p>
   </div>
 </div>
@@ -54,7 +54,7 @@ Any given collapsible's content will be hidden by default. To force the content 
   <div class="collapsible-content" id="collapsible-2">
     <p class="has-p">
       Sorry, just gibberish. Consectetur eiusmod laboris in non id tempor exercitation ipsum
-      cupidatat magna ipsum ut voluptate. <a>A link,</a> and <a>another link!</a>
+      cupidatat magna ipsum ut voluptate. <a href="#0">A link,</a> and <a href="#0">another link!</a>
     </p>
   </div>
 </div>
