@@ -14,19 +14,14 @@ export const Selectors = {
   // classes
   DROP_INLINE_START_CLASS: "is-drop-inline-start",
   DROP_INLINE_END_CLASS: "is-drop-inline-end",
+  OVERLAY_OPEN: "overlay-open",
 }
 
 export const CssProperties = {
   HEIGHT: "height",
   WIDTH: "width",
-  CURSOR: "cursor",
   TOP: "top",
   LEFT: "left",
-}
-
-export const CssValues = {
-  POINTER: "pointer",
-  AUTO: "auto",
 }
 
 export const Events = {

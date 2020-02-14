@@ -1,5 +1,5 @@
-import { iOSMobile, dom, log, startComponent, stopComponent } from "../helpers"
-import { KeyCodes, Selectors, CssProperties, CssValues, Events, Messages } from "./constants"
+import { isiOSMobile, log, ComponentEngine } from "../helpers"
+import { KeyCodes, Selectors, CssProperties, Events, Messages } from "./constants"
 
 const COMPONENT_ROLE = "tooltip"
 
@@ -27,11 +27,11 @@ export default class Tooltip {
   // public
 
   start(id) {
-    startComponent({ id, attribute: Selectors.DATA_TOOLTIP, thisArg: this })
+    ComponentEngine.start({ id, attribute: Selectors.DATA_TOOLTIP, thisArg: this })
   }
 
   stop(id) {
-    stopComponent({
+    ComponentEngine.stop({
       id,
       attribute: Selectors.DATA_TOOLTIP,
       thisArg: this,
@@ -43,15 +43,15 @@ export default class Tooltip {
   // private
 
   _validate(instance) {
-    const instanceId = dom.getAttr(instance, Selectors.DATA_TOOLTIP)
+    const instanceId = instance.getAttribute(Selectors.DATA_TOOLTIP)
 
     if (!instanceId) {
       log(Messages.NO_ID_ERROR)
       return false
     }
 
-    const trigger = dom.find(this._getTrigger(instanceId), instance)
-    const tooltip = dom.find(`#${instanceId}`, instance)
+    const trigger = instance.querySelector(this._getTrigger(instanceId))
+    const tooltip = instance.querySelector(`#${instanceId}`)
 
     if (!trigger) {
       log(Messages.NO_TRIGGER_ERROR(instanceId))
@@ -63,8 +63,8 @@ export default class Tooltip {
       return false
     }
 
-    dom.setAttr(trigger, Selectors.ARIA_DESCRIBEDBY, instanceId)
-    dom.setAttr(tooltip, Selectors.ROLE, COMPONENT_ROLE)
+    trigger.setAttribute(Selectors.ARIA_DESCRIBEDBY, instanceId)
+    tooltip.setAttribute(Selectors.ROLE, COMPONENT_ROLE)
 
     trigger.addEventListener(Events.MOUSEOVER, this._handleEvent)
     trigger.addEventListener(Events.FOCUS, this._handleEvent)
@@ -73,21 +73,21 @@ export default class Tooltip {
   }
 
   _teardown(instance) {
-    const id = dom.getAttr(instance, Selectors.DATA_TOOLTIP)
-    const trigger = dom.find(this._getTrigger(id), instance)
+    const id = instance.getAttribute(Selectors.DATA_TOOLTIP)
+    const trigger = instance.querySelector(this._getTrigger(id))
 
     trigger.removeEventListener(Events.MOUSEOVER, this._handleEvent)
     trigger.removeEventListener(Events.FOCUS, this._handleEvent)
   }
 
   _handleEvent(event) {
-    if (this._activeTooltipBox || this._activeTrigger) this._handleClose()
+    if (this._activeTooltip) this._handleClose()
 
     this._activeTrigger = event.target
 
     const id = this._activeTrigger.getAttribute(Selectors.DATA_TARGET)
-    this._activeTooltip = dom.find(`[${Selectors.DATA_TOOLTIP}='${id}']`)
-    this._activeTooltipBox = document.getElementById(id)
+    this._activeTooltip = document.querySelector(`[${Selectors.DATA_TOOLTIP}='${id}']`)
+    this._activeTooltipBox = document.querySelector(`#${id}`)
 
     if (this._hasInlineClass()) {
       this._alignTooltip(CssProperties.HEIGHT)
@@ -113,11 +113,11 @@ export default class Tooltip {
   }
 
   _setVisibleState() {
-    dom.setAttr(this._activeTooltipBox, Selectors.DATA_VISIBLE, "true")
+    this._activeTooltipBox.setAttribute(Selectors.DATA_VISIBLE, "true")
   }
 
   _setHideState() {
-    dom.setAttr(this._activeTooltipBox, Selectors.DATA_VISIBLE, "false")
+    this._activeTooltipBox.setAttribute(Selectors.DATA_VISIBLE, "false")
   }
 
   _startCloseEvents() {
@@ -127,7 +127,7 @@ export default class Tooltip {
     this._activeTrigger.addEventListener(Events.BLUR, this._handleClose)
     document.addEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
 
-    if (iOSMobile) dom.setStyle(document.body, CssProperties.CURSOR, CssValues.POINTER)
+    if (isiOSMobile) document.body.classList.add(Selectors.OVERLAY_OPEN)
   }
 
   _handleEscapeKeyPress(event) {
@@ -145,7 +145,7 @@ export default class Tooltip {
     this._activeTrigger.addEventListener(Events.FOCUS, this._handleEvent)
     document.removeEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
 
-    if (iOSMobile) dom.setStyle(document.body, CssProperties.CURSOR, CssValues.AUTO)
+    if (isiOSMobile) document.body.classList.remove(Selectors.OVERLAY_OPEN)
   }
 
   _alignTooltip(property) {
@@ -158,9 +158,9 @@ export default class Tooltip {
       : (tooltipSize - triggerSize) / -2
 
     if (property === CssProperties.HEIGHT) {
-      dom.setStyle(this._activeTooltipBox, CssProperties.TOP, `${offset}px`)
+      this._activeTooltipBox.style[CssProperties.TOP] = `${offset}px`
     } else {
-      dom.setStyle(this._activeTooltipBox, CssProperties.LEFT, `${offset}px`)
+      this._activeTooltipBox.style[CssProperties.LEFT] = `${offset}px`
     }
   }
 
@@ -173,10 +173,11 @@ export default class Tooltip {
   }
 
   _hasInlineClass() {
-    return dom.hasClass(
-      this._activeTooltipBox,
-      Selectors.DROP_INLINE_START_CLASS,
-      Selectors.DROP_INLINE_END_CLASS
+    const classList = this._activeTooltipBox.classList
+
+    return (
+      classList.contains(Selectors.DROP_INLINE_START_CLASS) ||
+      classList.contains(Selectors.DROP_INLINE_END_CLASS)
     )
   }
 }

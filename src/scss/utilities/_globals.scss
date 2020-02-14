@@ -2,6 +2,10 @@
   overflow: hidden !important;
 }
 
+.overlay-open {
+  cursor: pointer;
+}
+
 $inputs: "";
 
 @each $type in $form-input-field-types {

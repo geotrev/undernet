@@ -1,4 +1,4 @@
-import { dom, log, startComponent, stopComponent, throttle } from "../helpers"
+import { log, ComponentEngine, throttle } from "../helpers"
 
 import { Selectors, CssProperties, CssValues, Events, Messages } from "./constants"
 
@@ -12,8 +12,8 @@ import { Selectors, CssProperties, CssValues, Events, Messages } from "./constan
 export default class Collapsible {
   constructor() {
     // events
-    this._handleClick = throttle(this._handleClick.bind(this), 300)
-    this._handleTransitionEnd = this._handleTransitionEnd.bind(this)
+    this._handleClick = throttle(this._handleClick.bind(this), 500)
+    this._handleExpandTransition = this._handleExpandTransition.bind(this)
     this._validate = this._validate.bind(this)
     this._teardown = this._teardown.bind(this)
 
@@ -32,11 +32,11 @@ export default class Collapsible {
   // public
 
   start(id) {
-    startComponent({ id, attribute: Selectors.DATA_COLLAPSIBLE, thisArg: this })
+    ComponentEngine.start({ id, attribute: Selectors.DATA_COLLAPSIBLE, thisArg: this })
   }
 
   stop(id) {
-    stopComponent({
+    ComponentEngine.stop({
       id,
       attribute: Selectors.DATA_COLLAPSIBLE,
       thisArg: this,
@@ -65,33 +65,33 @@ export default class Collapsible {
     }
 
     const contentId = `#${id}`
-    const content = dom.find(contentId, instance)
+    const content = instance.querySelector(contentId)
 
     if (!content) {
       log(Messages.NO_CONTENT_ERROR(id))
       return false
     }
 
-    dom.setAttr(trigger, Selectors.ARIA_CONTROLS, id)
-    dom.setAttr(content, Selectors.ARIA_LABELLEDBY, trigger.id)
+    trigger.setAttribute(Selectors.ARIA_CONTROLS, id)
+    content.setAttribute(Selectors.ARIA_LABELLEDBY, trigger.id)
 
-    const contentIsVisible = dom.getAttr(instance, Selectors.DATA_VISIBLE) === "true"
+    const contentIsVisible = instance.getAttribute(Selectors.DATA_VISIBLE) === "true"
 
     if (contentIsVisible) {
-      dom.setAttr(instance, Selectors.DATA_VISIBLE, "true")
-      dom.setAttr(trigger, Selectors.ARIA_EXPANDED, "true")
-      dom.setAttr(content, Selectors.ARIA_HIDDEN, "false")
-      dom.setStyle(content, CssProperties.HEIGHT, `${content.scrollHeight}px`)
-      dom.setStyle(content, CssProperties.VISIBILITY, CssValues.VISIBLE)
+      instance.setAttribute(Selectors.DATA_VISIBLE, "true")
+      trigger.setAttribute(Selectors.ARIA_EXPANDED, "true")
+      content.setAttribute(Selectors.ARIA_HIDDEN, "false")
+      content.style[CssProperties.HEIGHT] = `${content.scrollHeight}px`
+      content.classList.add(Selectors.IS_VISIBLE_CLASS)
     } else {
-      dom.setAttr(instance, Selectors.DATA_VISIBLE, "false")
-      dom.setAttr(trigger, Selectors.ARIA_EXPANDED, "false")
-      dom.setAttr(content, Selectors.ARIA_HIDDEN, "true")
+      instance.setAttribute(Selectors.DATA_VISIBLE, "false")
+      trigger.setAttribute(Selectors.ARIA_EXPANDED, "false")
+      content.setAttribute(Selectors.ARIA_HIDDEN, "true")
     }
 
     requestAnimationFrame(() => {
-      dom.addClass(trigger, Selectors.TRIGGER_READY_CLASS)
-      dom.addClass(content, Selectors.CONTENT_READY_CLASS)
+      trigger.classList.add(Selectors.IS_READY_CLASS)
+      content.classList.add(Selectors.IS_READY_CLASS)
     })
 
     trigger.addEventListener(Events.CLICK, this._handleClick)
@@ -118,65 +118,66 @@ export default class Collapsible {
     this._activeCollapsible = null
   }
 
-  _handleTransitionEnd() {
-    dom.setStyle(this._activeContent, CssProperties.HEIGHT, CssValues.AUTO)
-    this._activeContent.removeEventListener(Events.TRANSITIONEND, this._handleTransitionEnd)
+  _handleExpandTransition() {
+    this._activeContent.style[CssProperties.HEIGHT] = CssValues.AUTO
+    this._activeContent.removeEventListener(Events.TRANSITIONEND, this._handleExpandTransition)
   }
 
   _toggleCollapsible() {
-    dom.setAttr(this._activeCollapsible, Selectors.DATA_VISIBLE, this._nextAriaExpandedState)
-    dom.setAttr(this._activeTrigger, Selectors.ARIA_EXPANDED, this._nextAriaExpandedState)
-    dom.setAttr(this._activeContent, Selectors.ARIA_HIDDEN, this._nextAriaHiddenState)
+    this._activeCollapsible.setAttribute(Selectors.DATA_VISIBLE, this._nextAriaExpandedState)
+    this._activeTrigger.setAttribute(Selectors.ARIA_EXPANDED, this._nextAriaExpandedState)
+    this._activeContent.setAttribute(Selectors.ARIA_HIDDEN, this._nextAriaHiddenState)
 
     const fullHeightValue = `${this._activeContent.scrollHeight}px`
 
-    if (dom.getAttr(this._activeCollapsible, Selectors.DATA_VISIBLE) === "false") {
-      return this._expandPanel(fullHeightValue)
+    if (this._activeCollapsible.getAttribute(Selectors.DATA_VISIBLE) === "false") {
+      return this._collapsePanel(fullHeightValue)
     }
 
-    this._collapsePanel(fullHeightValue)
-  }
-
-  _collapsePanel(height) {
-    dom.setStyle(this._activeContent, CssProperties.HEIGHT, height)
-    dom.setStyle(this._activeContent, CssProperties.VISIBILITY, CssValues.VISIBLE)
-
-    this._activeContent.addEventListener(Events.TRANSITIONEND, this._handleTransitionEnd)
+    this._expandPanel(fullHeightValue)
   }
 
   _expandPanel(height) {
+    this._activeContent.style[CssProperties.HEIGHT] = height
+    this._activeContent.classList.add(Selectors.IS_VISIBLE_CLASS)
+    this._activeContent.addEventListener(Events.TRANSITIONEND, this._handleExpandTransition)
+  }
+
+  _collapsePanel(height) {
     return requestAnimationFrame(() => {
-      dom.setStyle(this._activeContent, CssProperties.HEIGHT, height)
+      this._activeContent.style[CssProperties.HEIGHT] = height
 
       requestAnimationFrame(() => {
-        dom.setStyle(this._activeContent, CssProperties.HEIGHT, null)
-        dom.setStyle(this._activeContent, CssProperties.VISIBILITY, CssValues.HIDDEN)
+        this._activeContent.style[CssProperties.HEIGHT] = null
+        this._activeContent.classList.remove(Selectors.IS_VISIBLE_CLASS)
       })
     })
   }
 
   _getCollapsibleData(instance) {
-    const id = dom.getAttr(instance, Selectors.DATA_COLLAPSIBLE)
-    const trigger = dom.find(`[${Selectors.DATA_TARGET}='${id}']`, instance)
+    const id = instance.getAttribute(Selectors.DATA_COLLAPSIBLE)
+    const trigger = instance.querySelector(`[${Selectors.DATA_TARGET}='${id}']`)
 
     return { id, trigger }
   }
 
   _setActiveContent() {
-    this._activeContent = dom.find(`#${this._activeId}`)
+    this._activeContent = this._activeCollapsible.querySelector(`#${this._activeId}`)
   }
 
   _setNextVisibleState() {
-    const currentVisibleState = dom.getAttr(this._activeCollapsible, Selectors.DATA_VISIBLE)
+    const currentVisibleState = this._activeCollapsible.getAttribute(Selectors.DATA_VISIBLE)
     this._nextAriaExpandedState = currentVisibleState === "true" ? "false" : "true"
     this._nextAriaHiddenState = currentVisibleState === "false" ? "false" : "true"
   }
 
   _setIds() {
-    this._activeId = dom.getAttr(this._activeTrigger, Selectors.DATA_TARGET)
+    this._activeId = this._activeTrigger.getAttribute(Selectors.DATA_TARGET)
   }
 
   _setActiveCollapsible() {
-    this._activeCollapsible = dom.find(`[${Selectors.DATA_COLLAPSIBLE}='${this._activeId}']`)
+    this._activeCollapsible = document.querySelector(
+      `[${Selectors.DATA_COLLAPSIBLE}='${this._activeId}']`
+    )
   }
 }

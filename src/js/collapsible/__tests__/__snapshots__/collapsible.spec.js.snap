@@ -96,9 +96,9 @@ exports[`Collapsible #handleClick toggles collapsible open on click 1`] = `
     <div
       aria-hidden="false"
       aria-labelledby="collapsible-trigger-id"
-      class="collapsible-content"
+      class="collapsible-content is-visible"
       id="collapsible-id"
-      style="height: 0px; visibility: visible;"
+      style="height: 0px;"
     >
       
       
@@ -160,9 +160,9 @@ exports[`Collapsible API start opens collapsible by default if [data-visible='tr
     <div
       aria-hidden="false"
       aria-labelledby="collapsible-trigger-id"
-      class="collapsible-content"
+      class="collapsible-content is-visible"
       id="collapsible-id"
-      style="height: 0px; visibility: visible;"
+      style="height: 0px;"
     >
       
       

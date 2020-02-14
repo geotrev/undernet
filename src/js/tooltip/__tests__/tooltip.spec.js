@@ -1,5 +1,5 @@
 import Undernet from "../../"
-import { find, renderDOM, simulateMouseEvent, simulateKeyboardEvent } from "../../helpers/test"
+import { renderDOM, simulateMouseEvent, simulateKeyboardEvent } from "../../helpers/test"
 import { KeyCodes, Messages, Selectors } from "../constants"
 
 const dom = `
@@ -41,7 +41,7 @@ describe("Tooltip", () => {
 
     beforeEach(() => {
       wrapper = renderDOM(dom)
-      trigger = find("[data-target='tooltip-id-1']")
+      trigger = document.querySelector("[data-target='tooltip-id-1']")
 
       Undernet.Tooltips.start()
       Undernet.Tooltips.stop()
@@ -64,7 +64,7 @@ describe("Tooltip", () => {
 
     beforeEach(() => {
       wrapper = renderDOM(dom)
-      trigger = find("[data-target='tooltip-id-1']")
+      trigger = document.querySelector("[data-target='tooltip-id-1']")
 
       Undernet.Tooltips.start()
     })
@@ -87,8 +87,8 @@ describe("Tooltip", () => {
 
     beforeEach(() => {
       wrapper = renderDOM(dom)
-      trigger1 = find("[data-target='tooltip-id-1']")
-      trigger2 = find("[data-target='tooltip-id-2']")
+      trigger1 = document.querySelector("[data-target='tooltip-id-1']")
+      trigger2 = document.querySelector("[data-target='tooltip-id-2']")
 
       Undernet.Tooltips.start()
     })
@@ -130,7 +130,7 @@ describe("Tooltip", () => {
     it("closes tooltip", () => {
       // Given
       const wrapper = renderDOM(dom)
-      const trigger = find("[data-target='tooltip-id-1']")
+      const trigger = document.querySelector("[data-target='tooltip-id-1']")
       // When
       Undernet.Tooltips.start()
       trigger.focus()
@@ -147,8 +147,8 @@ describe("Tooltip", () => {
 
     beforeEach(() => {
       wrapper = renderDOM(dom)
-      trigger1 = find("[data-target='tooltip-id-1']")
-      tooltip = find("#tooltip-id-1")
+      trigger1 = document.querySelector("[data-target='tooltip-id-1']")
+      tooltip = document.querySelector("#tooltip-id-1")
 
       Undernet.Tooltips.start()
     })

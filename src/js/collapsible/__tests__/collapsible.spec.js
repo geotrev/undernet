@@ -1,5 +1,5 @@
 import Undernet from "../.."
-import { find, renderDOM } from "../../helpers/test"
+import { renderDOM } from "../../helpers/test"
 import { Messages } from "../constants"
 
 const dom = `
@@ -40,7 +40,7 @@ describe("Collapsible", () => {
     })
 
     it("opens collapsible by default if [data-visible='true'] is set", () => {
-      find("[data-collapsible]").setAttribute("data-visible", "true")
+      document.querySelector("[data-collapsible]").setAttribute("data-visible", "true")
       // When
       Undernet.Collapsibles.start()
       // Then
@@ -50,7 +50,7 @@ describe("Collapsible", () => {
 
   describe("API stop + #handleClick", () => {
     it("does not toggle collapsible on click", () => {
-      const trigger = find("button")
+      const trigger = document.querySelector("button")
       // When
       Undernet.Collapsibles.start()
       Undernet.Collapsibles.stop()
@@ -62,7 +62,7 @@ describe("Collapsible", () => {
 
   describe("#handleClick", () => {
     it("toggles collapsible open on click", () => {
-      const trigger = find("button")
+      const trigger = document.querySelector("button")
       // When
       Undernet.Collapsibles.start()
       trigger.click()
@@ -71,7 +71,7 @@ describe("Collapsible", () => {
     })
 
     it("toggles collapsible closed on click", () => {
-      const trigger = find("button")
+      const trigger = document.querySelector("button")
       // When
       Undernet.Collapsibles.start()
       trigger.click()

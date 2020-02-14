@@ -1,4 +1,4 @@
-import { focusOnce } from "undernet/helpers/utils"
+import { focusOnce } from "undernet/helpers/focus-once"
 
 const headerJumpBtn = document.getElementById("header-jump-button")
 const footerJumpBtn = document.getElementById("footer-jump-button")

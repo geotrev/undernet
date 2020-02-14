@@ -32,7 +32,7 @@
     }
   }
 
-  &.collapsible-trigger-ready::after {
+  &.is-ready::after {
     transition: transform $collapsible-transition-duration $collapsible-transition-ease;
   }
 }
@@ -64,7 +64,11 @@
   margin: 0;
   height: 0;
 
-  &.collapsible-content-ready {
+  &.is-visible {
+    visibility: visible;
+  }
+
+  &.is-ready {
     transition-property: visibility, height;
     transition-duration: $collapsible-transition-duration;
     transition-timing-function: $collapsible-transition-ease;
