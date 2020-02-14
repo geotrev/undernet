@@ -4,6 +4,7 @@ import {
   createFocusTrap,
   focusOnce,
   log,
+  queryAll,
   ComponentEngine,
 } from "../helpers"
 import { KeyCodes, Selectors, CssProperties, CssValues, Events, Messages } from "./constants"
@@ -161,7 +162,7 @@ export default class Modal {
   }
 
   _setCloseTriggers() {
-    this._activeModalCloseTriggers = document.querySelectorAll(
+    this._activeModalCloseTriggers = queryAll(
       `${this._activeModalContentSelector} [${Selectors.DATA_CLOSE}]`
     )
   }

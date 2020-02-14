@@ -805,9 +805,9 @@ $collapsible-indicator: "\25B2" !default;
 // OPTION: Comment out the indicator variable above, then uncomment
 //         the two below to declare different icons for visible state.
 //
-//         Try:
-//           - "\002B" for open
-//           - "\2212" for closed
+// Try this:
+// $collapsible-indicator-open: "\002B";
+// $collapsible-indicator-closed: "\2212";
 //
 // WARNING: If you use words, make sure to set
 //          `$collapsible-indicator-transform` to "none".

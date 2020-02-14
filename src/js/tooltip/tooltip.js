@@ -1,5 +1,5 @@
 import { isiOSMobile, log, ComponentEngine } from "../helpers"
-import { KeyCodes, Selectors, CssProperties, CssValues, Events, Messages } from "./constants"
+import { KeyCodes, Selectors, CssProperties, Events, Messages } from "./constants"
 
 const COMPONENT_ROLE = "tooltip"
 
@@ -127,7 +127,7 @@ export default class Tooltip {
     this._activeTrigger.addEventListener(Events.BLUR, this._handleClose)
     document.addEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
 
-    if (isiOSMobile) document.body.style[CssProperties.CURSOR] = CssValues.POINTER
+    if (isiOSMobile) document.body.classList.add(Selectors.OVERLAY_OPEN)
   }
 
   _handleEscapeKeyPress(event) {
@@ -145,7 +145,7 @@ export default class Tooltip {
     this._activeTrigger.addEventListener(Events.FOCUS, this._handleEvent)
     document.removeEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
 
-    if (isiOSMobile) document.body.style[CssProperties.CURSOR] = CssValues.AUTO
+    if (isiOSMobile) document.body.classList.remove(Selectors.OVERLAY_OPEN)
   }
 
   _alignTooltip(property) {

@@ -20,6 +20,8 @@ export const Selectors = {
   ARIA_CONTROLS: "aria-controls",
   ARIA_LABELLEDBY: "aria-labelledby",
   ARIA_EXPANDED: "aria-expanded",
+  // classes
+  OVERLAY_OPEN: "overlay-open",
 }
 
 export const Events = {
@@ -27,10 +29,6 @@ export const Events = {
   CLICK: "click",
   BLUR: "blur",
 }
-
-export const CssProperties = { CURSOR: "cursor" }
-
-export const CssValues = { POINTER: "pointer" }
 
 export const Messages = {
   NO_DROPDOWN_ID_ERROR:

@@ -1,5 +1,5 @@
-import { isiOSMobile, createFocusTrap, focusOnce, log, ComponentEngine } from "../helpers"
-import { KeyCodes, Selectors, Events, CssProperties, CssValues, Messages } from "./constants"
+import { isiOSMobile, createFocusTrap, focusOnce, queryAll, log, ComponentEngine } from "../helpers"
+import { KeyCodes, Selectors, Events, Messages } from "./constants"
 
 /**
  * Class that instantiates or destroys all instances of dropdown components on a page.
@@ -147,7 +147,7 @@ export default class Dropdown {
       this._firstDropdownAction.focus()
     }
 
-    if (isiOSMobile) document.body.style[CssProperties.CURSOR] = CssValues.POINTER
+    if (isiOSMobile) document.body.classList.add(Selectors.OVERLAY_OPEN)
   }
 
   _handleClose() {
@@ -156,7 +156,7 @@ export default class Dropdown {
   }
 
   _closeActiveDropdown() {
-    if (isiOSMobile) document.body.style[CssProperties.CURSOR] = ""
+    if (isiOSMobile) document.body.classList.remove(Selectors.OVERLAY_OPEN)
 
     this._activeDropdown.setAttribute(Selectors.DATA_VISIBLE, "false")
     this._activeTrigger.setAttribute(Selectors.ARIA_EXPANDED, "false")
@@ -294,7 +294,7 @@ export default class Dropdown {
   }
 
   _getDropdownActions(dropdownAttr, menuId) {
-    return document.querySelectorAll(
+    return queryAll(
       `${dropdownAttr} > ${menuId} > li > a, ${dropdownAttr} > ${menuId} > li > button`
     )
   }
