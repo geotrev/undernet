@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Collapsible #handleClick toggles collapsible on click 1`] = `
+exports[`Collapsible #handleClick toggles collapsible closed on click 1`] = `
 <body>
   
   
@@ -35,7 +35,6 @@ exports[`Collapsible #handleClick toggles collapsible on click 1`] = `
       aria-labelledby="collapsible-trigger-id"
       class="collapsible-content"
       id="collapsible-id"
-      style=""
     >
       
       
@@ -47,7 +46,6 @@ exports[`Collapsible #handleClick toggles collapsible on click 1`] = `
         ipsum ut voluptate. 
         <a
           href="#"
-          tabindex="-1"
         >
           E pluribus unum.
         </a>
@@ -65,14 +63,14 @@ exports[`Collapsible #handleClick toggles collapsible on click 1`] = `
 </body>
 `;
 
-exports[`Collapsible API start does not open collapsible by default if [data-visible='false'] is set 1`] = `
+exports[`Collapsible #handleClick toggles collapsible open on click 1`] = `
 <body>
   
   
   <div
     class="collapsible"
     data-collapsible="collapsible-id"
-    data-visible="false"
+    data-visible="true"
   >
     
     
@@ -81,7 +79,7 @@ exports[`Collapsible API start does not open collapsible by default if [data-vis
       
       <button
         aria-controls="collapsible-id"
-        aria-expanded="false"
+        aria-expanded="true"
         class="collapsible-trigger"
         data-target="collapsible-id"
         id="collapsible-trigger-id"
@@ -96,10 +94,11 @@ exports[`Collapsible API start does not open collapsible by default if [data-vis
     
     
     <div
-      aria-hidden="true"
+      aria-hidden="false"
       aria-labelledby="collapsible-trigger-id"
-      class="collapsible-content"
+      class="collapsible-content is-visible"
       id="collapsible-id"
+      style="height: 0px;"
     >
       
       
@@ -111,7 +110,70 @@ exports[`Collapsible API start does not open collapsible by default if [data-vis
         ipsum ut voluptate. 
         <a
           href="#"
-          tabindex="-1"
+        >
+          E pluribus unum.
+        </a>
+        
+      
+      </p>
+      
+    
+    </div>
+    
+  
+  </div>
+  
+
+</body>
+`;
+
+exports[`Collapsible API start opens collapsible by default if [data-visible='true'] is set 1`] = `
+<body>
+  
+  
+  <div
+    class="collapsible"
+    data-collapsible="collapsible-id"
+    data-visible="true"
+  >
+    
+    
+    <h5>
+      
+      
+      <button
+        aria-controls="collapsible-id"
+        aria-expanded="true"
+        class="collapsible-trigger"
+        data-target="collapsible-id"
+        id="collapsible-trigger-id"
+      >
+        
+        Collapsible Trigger
+      
+      </button>
+      
+    
+    </h5>
+    
+    
+    <div
+      aria-hidden="false"
+      aria-labelledby="collapsible-trigger-id"
+      class="collapsible-content is-visible"
+      id="collapsible-id"
+      style="height: 0px;"
+    >
+      
+      
+      <p
+        class="has-p"
+      >
+        
+        Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna
+        ipsum ut voluptate. 
+        <a
+          href="#"
         >
           E pluribus unum.
         </a>
@@ -136,7 +198,7 @@ exports[`Collapsible API start sets attributes 1`] = `
   <div
     class="collapsible"
     data-collapsible="collapsible-id"
-    data-visible="true"
+    data-visible="false"
   >
     
     
@@ -145,7 +207,7 @@ exports[`Collapsible API start sets attributes 1`] = `
       
       <button
         aria-controls="collapsible-id"
-        aria-expanded="true"
+        aria-expanded="false"
         class="collapsible-trigger"
         data-target="collapsible-id"
         id="collapsible-trigger-id"
@@ -160,11 +222,10 @@ exports[`Collapsible API start sets attributes 1`] = `
     
     
     <div
-      aria-hidden="false"
+      aria-hidden="true"
       aria-labelledby="collapsible-trigger-id"
       class="collapsible-content"
       id="collapsible-id"
-      style="max-height: 0rem;"
     >
       
       
@@ -176,7 +237,6 @@ exports[`Collapsible API start sets attributes 1`] = `
         ipsum ut voluptate. 
         <a
           href="#"
-          tabindex="0"
         >
           E pluribus unum.
         </a>
@@ -201,7 +261,7 @@ exports[`Collapsible API stop + #handleClick does not toggle collapsible on clic
   <div
     class="collapsible"
     data-collapsible="collapsible-id"
-    data-visible="true"
+    data-visible="false"
   >
     
     
@@ -210,7 +270,7 @@ exports[`Collapsible API stop + #handleClick does not toggle collapsible on clic
       
       <button
         aria-controls="collapsible-id"
-        aria-expanded="true"
+        aria-expanded="false"
         class="collapsible-trigger"
         data-target="collapsible-id"
         id="collapsible-trigger-id"
@@ -225,11 +285,10 @@ exports[`Collapsible API stop + #handleClick does not toggle collapsible on clic
     
     
     <div
-      aria-hidden="false"
+      aria-hidden="true"
       aria-labelledby="collapsible-trigger-id"
       class="collapsible-content"
       id="collapsible-id"
-      style="max-height: 0rem;"
     >
       
       
@@ -241,7 +300,6 @@ exports[`Collapsible API stop + #handleClick does not toggle collapsible on clic
         ipsum ut voluptate. 
         <a
           href="#"
-          tabindex="0"
         >
           E pluribus unum.
         </a>

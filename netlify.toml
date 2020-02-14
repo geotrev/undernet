@@ -6,8 +6,11 @@
   command = "npm run build"
   environemnt = { NODE_VERSION = "12.14.1", NPM_VERSION = "6.13.4" }
 
-[context.master]
+[context.branch-deploy]
+  command = "npm run build"
+
+[context.deploy-preview]
   command = "npm run build:prod"
 
-[context.develop]
+[context.master]
   command = "npm run build:prod"

@@ -15,17 +15,16 @@ Check out this example collapsible:
 <div class="collapsible" data-collapsible="collapsible-1">
   <h5>
     <button class="collapsible-trigger" id="trigger-1" data-target="collapsible-1">
-      Press to collapse
+      Press to expand
     </button>
   </h5>
   <div class="collapsible-content" id="collapsible-1">
     <p class="has-p">
-      It's just lorem ipsum. Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna ipsum ut voluptate. <a>A link,</a> and <a>another link!</a>
+      It's just lorem ipsum. Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna ipsum ut voluptate. <a href="#">A link,</a> and <a href="#">another link!</a>
     </p>
   </div>
 </div>
 <br/>
-
 ```html
 <div class="collapsible" data-collapsible="collapsible-id">
   <h5>
@@ -42,15 +41,11 @@ Check out this example collapsible:
 </div>
 ```
 
-Avoid adding margin or padding directly to the collapsible content element; this may change the calculated dimensions and break the collapse behavior.
-
-Instead, add a new element inside with its own margin/padding.
-
 ## Controlling Visibility
 
-Any given collapsible's content will be expanded by default. To force the content to be hidden, add `data-visible="false"` on the wrapper.
+Any given collapsible's content will be hidden by default. To force the content to be visible at page load, add `data-visible="true"` on the wrapper.
 
-<div class="collapsible" data-visible="false" data-collapsible="collapsible-2">
+<div class="collapsible" data-visible="true" data-collapsible="collapsible-2">
   <h5>
     <button class="collapsible-trigger" id="trigger-2" data-target="collapsible-2">
       Open for cake
@@ -58,17 +53,29 @@ Any given collapsible's content will be expanded by default. To force the conten
   </h5>
   <div class="collapsible-content" id="collapsible-2">
     <p class="has-p">
-      Sorry, just gibberish. Consectetur eiusmod laboris in non id tempor exercitation ipsum cupidatat magna ipsum ut voluptate. <a>A link,</a> and <a>another link!</a>
+      Sorry, just gibberish. Consectetur eiusmod laboris in non id tempor exercitation ipsum
+      cupidatat magna ipsum ut voluptate. <a>A link,</a> and <a>another link!</a>
     </p>
   </div>
 </div>
 <br/>
-
 ```html
 <div class="collapsible" data-collapsible="collapsible-id" data-visible="false">
   ...
 </div>
 ```
+
+## Trigger & Content
+
+You can use any trigger element you want for custom styling, although Undernet's own `collapsible-trigger` class can get you started. Just be sure to add the correct `data-*` attributes and you're good to go.
+
+Similarly, you can replace the content element with any element you want as long as its `id` matches the trigger's `data-target` attribute. You shouldn't need to remove the `collapsible-content` class as its only purpose is visibility control.
+
+Lastly, avoid adding margin or padding directly to the `collapsible-content` element; this will change collapse spacing and potentially break visibility. Instead, add a new element inside with its own margin/padding, as shown in the above examples.
+
+## Disabled State
+
+Handle the disabled state using `aria-disabled` on the trigger. Avoid using the `disabled` attribute as it is not consistent between screen readers. Undernet will detect `aria-disabled` and mark the element and behavior appropriately.
 
 ## Focusable Content
 
@@ -76,7 +83,7 @@ If you include links, buttons, or other focusable elements within collapsible co
 
 ## Requirements
 
-Two main pieces are required: an API call and correct HTML markup.
+Two main pieces are required: a single line of JS and correct HTML markup.
 
 ### HTML
 

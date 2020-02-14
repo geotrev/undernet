@@ -12,53 +12,78 @@
   bottom: 0;
   left: 0;
   right: 0;
-  transition: opacity $modal-transition-duration $modal-transition-ease;
+
+  // default hidden
+  transition-property: opacity, visibility;
+  transition-duration: $modal-transition-duration;
+  transition-timing-function: $modal-transition-ease;
   pointer-events: none;
+  visibility: hidden;
 
   &[data-visible="true"] {
     opacity: 1;
     pointer-events: auto;
   }
 
-  .modal-dialog {
-    background: $modal-dialog-bg-color;
-    width: $modal-dialog-width-narrow;
-    max-width: $modal-dialog-max-width;
-    position: relative;
-    flex-flow: column nowrap;
-    display: flex;
-    cursor: default;
-    margin: $modal-dialog-margin-narrow;
-    border-radius: $modal-dialog-border-radius;
+  &.is-visible {
+    visibility: visible;
+  }
+}
 
-    // windows high contrast mode
-    border: 1px solid transparent;
+.modal-dialog {
+  background: $modal-dialog-bg-color;
+  width: $modal-dialog-width-narrow;
+  max-width: $modal-dialog-max-width;
+  position: relative;
+  flex-flow: column nowrap;
+  display: flex;
+  cursor: default;
+  margin: $modal-dialog-margin-narrow;
+  border-radius: $modal-dialog-border-radius;
 
-    @media screen and (min-width: breakpoint-value($modal-breakpoint-inline)) and (min-height: breakpoint-value($modal-breakpoint-block)) {
-      width: $modal-dialog-width;
-      margin: $modal-dialog-margin;
-    }
+  // windows high contrast mode
+  border: 1px solid transparent;
 
-    header {
-      @if str-index($modal-header-border-position, "end") {
-        border-bottom: $modal-header-border;
-      } @else {
-        border-top: $modal-header-border;
-      }
-    }
+  @media screen and (min-width: breakpoint-value($modal-breakpoint-inline)) and (min-height: breakpoint-value($modal-breakpoint-block)) {
+    width: $modal-dialog-width;
+    margin: $modal-dialog-margin;
+  }
+}
 
-    header,
-    section,
-    footer {
-      padding: $modal-dialog-padding;
-    }
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-    footer {
-      @if str-index($modal-footer-border-position, "end") {
-        border-bottom: $modal-footer-border;
-      } @else {
-        border-top: $modal-footer-border;
-      }
-    }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @include create-truncation;
+  }
+
+  @if str-index($modal-header-border-position, "end") {
+    border-bottom: $modal-header-border;
+  } @else {
+    border-top: $modal-header-border;
+  }
+}
+
+.modal-header,
+.modal-body,
+.modal-footer {
+  padding: $modal-dialog-padding;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+
+  @if str-index($modal-footer-border-position, "end") {
+    border-bottom: $modal-footer-border;
+  } @else {
+    border-top: $modal-footer-border;
   }
 }

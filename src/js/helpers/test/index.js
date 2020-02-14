@@ -1,4 +1,3 @@
-export * from "./find"
-export * from "./simulateKeyboardEvent"
-export * from "./simulateMouseEvent"
-export * from "./renderDOM"
+export { simulateMouseEvent } from "./simulateMouseEvent"
+export { simulateKeyboardEvent } from "./simulateKeyboardEvent"
+export { renderDOM } from "./renderDOM"
