@@ -20,6 +20,15 @@ const Selectors = {
 
 console.error = jest.fn()
 
+describe("ComponentEngine", () => {
+  describe("start(metadata = {})", () => {})
+  describe("stop(metadata = {})", () => {})
+})
+
+describe("createFocusRing()", () => {})
+
+describe("throttle", () => {})
+
 describe("createFocusTrap(container, options = {})", () => {
   const CONTAINER_SELECTOR = ".wrapper"
   let firstFocusableElement
