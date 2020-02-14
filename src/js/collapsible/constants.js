@@ -12,8 +12,8 @@ export const Selectors = {
   ARIA_LABELLEDBY: "aria-labelledby",
   TABINDEX: "tabindex",
   // classes
-  TRIGGER_READY_CLASS: "collapsible-trigger-ready",
-  CONTENT_READY_CLASS: "collapsible-content-ready",
+  IS_READY_CLASS: "is-ready",
+  IS_VISIBLE_CLASS: "is-visible",
 }
 
 export const CssProperties = {

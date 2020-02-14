@@ -82,7 +82,7 @@ export default class Collapsible {
       trigger.setAttribute(Selectors.ARIA_EXPANDED, "true")
       content.setAttribute(Selectors.ARIA_HIDDEN, "false")
       content.style[CssProperties.HEIGHT] = `${content.scrollHeight}px`
-      content.style[CssProperties.VISIBILITY] = CssValues.VISIBLE
+      content.classList.add(Selectors.IS_VISIBLE_CLASS)
     } else {
       instance.setAttribute(Selectors.DATA_VISIBLE, "false")
       trigger.setAttribute(Selectors.ARIA_EXPANDED, "false")
@@ -90,8 +90,8 @@ export default class Collapsible {
     }
 
     requestAnimationFrame(() => {
-      trigger.classList.add(Selectors.TRIGGER_READY_CLASS)
-      content.classList.add(Selectors.CONTENT_READY_CLASS)
+      trigger.classList.add(Selectors.IS_READY_CLASS)
+      content.classList.add(Selectors.IS_READY_CLASS)
     })
 
     trigger.addEventListener(Events.CLICK, this._handleClick)
@@ -139,7 +139,7 @@ export default class Collapsible {
 
   _collapsePanel(height) {
     this._activeContent.style[CssProperties.HEIGHT] = height
-    this._activeContent.style[CssProperties.VISIBILITY] = CssValues.VISIBLE
+    this._activeContent.classList.add(Selectors.IS_VISIBLE_CLASS)
 
     this._activeContent.addEventListener(Events.TRANSITIONEND, this._handleTransitionEnd)
   }
@@ -150,7 +150,7 @@ export default class Collapsible {
 
       requestAnimationFrame(() => {
         this._activeContent.style[CssProperties.HEIGHT] = null
-        this._activeContent.style[CssProperties.VISIBILITY] = CssValues.HIDDEN
+        this._activeContent.classList.remove(Selectors.IS_VISIBLE_CLASS)
       })
     })
   }
