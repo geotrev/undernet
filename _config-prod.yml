@@ -3,13 +3,7 @@ sass:
   style: compressed
   sourcemap: never
 plugins:
-  - jekyll-gzip
   - jekyll-autoprefixer
-gzip:
-  extensions:
-    - ".html"
-    - ".css"
-    - ".js"
 autoprefixer:
   # This should match .browserslistrc
   browsers:
