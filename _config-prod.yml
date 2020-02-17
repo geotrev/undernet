@@ -13,11 +13,10 @@ gzip:
 autoprefixer:
   # This should match .browserslistrc
   browsers:
-    - "> 0.2%"
-    - ie 11
-    - edge >= 15
-    - firefox >= 54
-    - chrome >= 51
-    - safari >= 10
-    - ios >= 9
-    - opera >= 38
+    - Chrome >= 69
+    - Firefox >= 54
+    - iOS >= 12.2
+    - Opera >= 56
+    - Safari >= 12.1
+    - not Explorer > 0
+    - not Edge > 0

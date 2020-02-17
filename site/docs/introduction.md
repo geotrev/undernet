@@ -29,14 +29,12 @@ Undernet can both be a prototyping tool _or_ the basis for your web app. You can
 
 ### Support
 
-Undernet's CSS and JavaScript will work in _recent versions_ these browsers:
+Undernet's CSS and JavaScript will work in _recent versions_ these browsers, including Android and iOS versions:
 
 - Chrome ✓
 - Firefox ✓
 - Safari ✓
 - Opera ✓
-
-The framework is also tested in and supports **Internet Explorer 11** and **Edge** on Windows. Support for IE11 and Edge may drop in the near future as chromium Edge is rolled out.
 
 ## Contribute
 
