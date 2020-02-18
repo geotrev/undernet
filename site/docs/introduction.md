@@ -18,14 +18,14 @@ Undernet was created with the goal of simplifying the development experience, al
 
 Over time, lots of new features have been added. These include lots of helper CSS classes and Sass utilities to empower developers in building their interfaces.
 
-Undernet can both be a prototyping tool _or_ the basis for your web app. You can easily pick and choose which elements and components to include, reducing the size of the overall bundle.
+Undernet can both be a prototyping tool _or_ the basis for your web app. You can easily pick and choose which modules to include, reducing the size of the overall bundle.
 
 ### Core Principles
 
 - 🧩 **Configurable:** The framework comes with a configuration file enabling full brand control, from global, to element, to component styling.
 - ♿ **Accessible:** Accessibility is baked into all facets of Underneet; theree's no excuse why everyone can't use your interface.
-- 📦 **Modular:** Undernet can act independently from your core stylesheet and be added to to existing projects using a style [scope]({{ site.data.routes.css }}#style-scope).
-- 🚲 **Flexible:** Installation options range from CDN to hosting the source files yourself.
+- 📦 **Modular:** Undernet can act independently from your core stylesheet and be added to existing projects using a style [scope]({{ site.data.routes.css }}#style-scope).
+- 🚲 **Flexible:** Installation options range from NPM, CDN, to self-hosting the source files.
 
 ### Support
 
