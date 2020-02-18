@@ -23,7 +23,7 @@ Undernet can both be a prototyping tool _or_ the basis for your web app. You can
 ### Core Principles
 
 - 🧩 **Configurable:** The framework comes with a configuration file enabling full brand control, from global, to element, to component styling.
-- ♿ **Accessible:** Accessibility is baked into all facets of Underneet; theree's no excuse why everyone can't use your interface.
+- ♿ **Accessible:** Accessibility is baked into all facets of Undernet; everyone can use your app or website out of the box.
 - 📦 **Modular:** Undernet can act independently from your core stylesheet and be added to existing projects using a style [scope]({{ site.data.routes.css }}#style-scope).
 - 🚲 **Flexible:** Installation options range from NPM, CDN, to self-hosting the source files.
 
