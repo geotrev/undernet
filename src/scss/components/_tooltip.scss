@@ -49,9 +49,9 @@
 
     &.is-drop-inline-end {
       @include create-flow-property("left", 100%);
-      @include create-flow-property("margin-left", $global-arrow-size);
-      margin-top: 0;
-      margin-bottom: 0;
+      margin-inline-start: $global-arrow-size;
+      margin-block-start: 0;
+      margin-block-end: 0;
       bottom: auto;
       top: 0; // This is a fallback.
 
@@ -65,9 +65,9 @@
     &.is-drop-inline-start {
       @include create-flow-property("right", 100%);
       @include create-flow-property("left", auto);
-      @include create-flow-property("margin-right", $global-arrow-size);
-      margin-top: 0;
-      margin-bottom: 0;
+      margin-inline-end: $global-arrow-size;
+      margin-block-start: 0;
+      margin-block-end: 0;
       bottom: auto;
       top: 0; // This is a fallback.
 

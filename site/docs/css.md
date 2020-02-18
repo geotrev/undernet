@@ -29,7 +29,7 @@ All Sass variables have names with a pattern of: `grouping-noun-value-state`. `g
 Here's a few examples:
 
 - `$grid-padding`: Grouping = `grid`; Noun = `padding`
-- `$type-p-margin-bottom`: Grouping = `type`; Noun = `p`; Noun = `margin-bottom`
+- `$type-p-margin-block-end`: Grouping = `type`; Noun = `p`; Noun = `margin-block-end`
 - `$button-base-states`: Grouping = `button`; Noun = `base-states`
 - `$link-text-decoration-hover`: Grouping = `link`; Noun = `text-decoration`; State = `hover`
 - `$modal-dialog-margin-narrow`: Grouping = `modal-dialog`; Noun = `margin`; State = `narrow`

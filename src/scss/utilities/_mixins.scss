@@ -60,7 +60,7 @@
 
     @if $grid-column-offset-classes-enabled {
       .is-#{$size}-offset-#{$i} {
-        @include create-flow-property("margin-left", percentage($i / $grid-columns));
+        margin-inline-start: percentage($i / $grid-columns);
       }
     }
 
@@ -118,10 +118,10 @@ $arrow-fill-position: $global-arrow-size * -2 + 1.5px;
 $arrow-border-position: $global-arrow-size * -2;
 
 @mixin create-arrow-base-styles {
-  border-left: $global-arrow-size solid transparent;
-  border-right: $global-arrow-size solid transparent;
-  border-bottom: $global-arrow-size solid transparent;
-  border-top: $global-arrow-size solid transparent;
+  border-inline-start: $global-arrow-size solid transparent;
+  border-inline-end: $global-arrow-size solid transparent;
+  border-block-end: $global-arrow-size solid transparent;
+  border-block-start: $global-arrow-size solid transparent;
   content: "";
   position: absolute;
 }
@@ -134,7 +134,7 @@ $arrow-border-position: $global-arrow-size * -2;
       @include create-flow-property("right", auto);
       top: $arrow-fill-position;
       bottom: auto;
-      border-bottom: $global-arrow-size solid $fill-color;
+      border-block-end: $global-arrow-size solid $fill-color;
     }
 
     &::before {
@@ -143,7 +143,7 @@ $arrow-border-position: $global-arrow-size * -2;
       @include create-flow-property("right", auto);
       top: $arrow-border-position;
       bottom: auto;
-      border-bottom: $global-arrow-size solid $border-color;
+      border-block-end: $global-arrow-size solid $border-color;
     }
   }
 }
@@ -156,7 +156,7 @@ $arrow-border-position: $global-arrow-size * -2;
       @include create-flow-property("right", auto);
       bottom: $arrow-fill-position;
       top: auto;
-      border-top: $global-arrow-size solid $fill-color;
+      border-block-start: $global-arrow-size solid $fill-color;
     }
 
     &::before {
@@ -165,7 +165,7 @@ $arrow-border-position: $global-arrow-size * -2;
       @include create-flow-property("right", auto);
       bottom: $arrow-border-position;
       top: auto;
-      border-top: $global-arrow-size solid $border-color;
+      border-block-start: $global-arrow-size solid $border-color;
     }
   }
 }
@@ -174,18 +174,18 @@ $arrow-border-position: $global-arrow-size * -2;
   @include with-arrow-enabled {
     &::after {
       @include create-arrow-base-styles;
-      @include create-flow-property("border-left", $global-arrow-size solid $fill-color);
       @include create-flow-property("right", $arrow-fill-position);
       @include create-flow-property("left", auto);
+      border-inline-start: $global-arrow-size solid $fill-color;
       top: $edge-offset;
       bottom: auto;
     }
 
     &::before {
       @include create-arrow-base-styles;
-      @include create-flow-property("border-left", $global-arrow-size solid $border-color);
       @include create-flow-property("right", $arrow-border-position);
       @include create-flow-property("left", auto);
+      border-inline-start: $global-arrow-size solid $border-color;
       top: $edge-offset;
       bottom: auto;
     }
@@ -196,18 +196,18 @@ $arrow-border-position: $global-arrow-size * -2;
   @include with-arrow-enabled {
     &::after {
       @include create-arrow-base-styles;
-      @include create-flow-property("border-right", $global-arrow-size solid $fill-color);
       @include create-flow-property("left", $arrow-fill-position);
       @include create-flow-property("right", auto);
+      border-inline-end: $global-arrow-size solid $fill-color;
       top: $edge-offset;
       bottom: auto;
     }
 
     &::before {
       @include create-arrow-base-styles;
-      @include create-flow-property("border-right", $global-arrow-size solid $border-color);
       @include create-flow-property("left", $arrow-border-position);
       @include create-flow-property("right", auto);
+      border-inline-end: $global-arrow-size solid $border-color;
       top: $edge-offset;
       bottom: auto;
     }

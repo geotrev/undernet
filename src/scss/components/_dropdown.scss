@@ -1,5 +1,5 @@
 .dropdown-menu {
-  @include create-flow-property("padding-left", 0);
+  padding-inline-start: 0;
   position: absolute;
   display: block;
   opacity: 0;
@@ -31,7 +31,7 @@
       &.is-drop-block-start {
         bottom: 100%;
         top: auto;
-        margin-bottom: $global-space;
+        margin-block-end: $global-space;
 
         @include create-down-arrow(
           $dropdown-arrow-offset,
@@ -42,7 +42,7 @@
 
       &.is-drop-inline-start {
         @include create-flow-property("right", 100%);
-        @include create-flow-property("margin-right", $global-space);
+        margin-inline-end: $global-space;
         top: 0;
 
         @include create-right-arrow(
@@ -54,7 +54,7 @@
 
       &.is-drop-inline-end {
         @include create-flow-property("left", 100%);
-        @include create-flow-property("margin-left", $global-space);
+        margin-inline-start: $global-space;
         top: 0;
 
         @include create-left-arrow(
@@ -116,7 +116,7 @@
 
     a,
     button {
-      @include create-flow-property("text-align", left);
+      text-align: start;
       background: transparent;
       border-radius: 0;
       border: none;

@@ -21,7 +21,7 @@
 // `text-align` modifiers
 
 .has-text-start {
-  @include create-flow-property("text-align", left !important);
+  text-align: start !important;
 }
 
 .has-text-center {
@@ -29,7 +29,7 @@
 }
 
 .has-text-end {
-  @include create-flow-property("text-align", right !important);
+  text-align: end !important;
 }
 
 // `color` modifier for text and backgrounds
@@ -136,12 +136,7 @@
   margin: $global-space !important;
 }
 
-$flow-map: (
-  "inline-start": "left",
-  "inline-end": "right",
-  "block-start": "top",
-  "block-end": "bottom"
-);
+$flow-map: ("inline-start" "inline-end" "block-start" "block-end");
 
 $spacing-map: (
   "m": "margin",
@@ -152,17 +147,11 @@ $spacing-map: (
 // e.g., `has-p-inline-start`
 // or `has-m-block-end`
 
-@each $spacing-key, $spacing-name in $spacing-map {
-  @each $flow-name, $flow-value in $flow-map {
-    @if $flow-value == "left" or $flow-value == "right" {
-      .has-#{$spacing-key}-#{$flow-name} {
-        @include create-flow-property("#{$spacing-name}-#{$flow-value}", $global-space !important);
-      }
-    } @else {
-      .has-#{$spacing-key}-#{$flow-name} {
-        #{$spacing-name}-#{$flow-value}: $global-space !important;
-      }
-    } // end @if
+@each $spacing-key, $spacing-value in $spacing-map {
+  @each $flow-name in $flow-map {
+    .has-#{$spacing-key}-#{$flow-name} {
+      #{$spacing-value}-#{$flow-name}: $global-space !important;
+    }
   } // end @each
 } // end @each
 
@@ -180,21 +169,12 @@ $spacing-map: (
   }
 
   // 2
-  @each $spacing-key, $spacing-name in $spacing-map {
-    @each $flow-name, $flow-value in $flow-map {
-      @if $flow-value == "left" or $flow-value == "right" {
-        .has-#{$spacing-key}-#{$flow-name}-#{$increment-size} {
-          @include create-flow-property(
-            "#{$spacing-name}-#{$flow-value}",
-            $increment-value !important
-          );
-        }
-      } @else {
-        .has-#{$spacing-key}-#{$flow-name}-#{$increment-size} {
-          #{$spacing-name}-#{$flow-value}: $increment-value !important;
-        }
+  @each $spacing-key, $spacing-value in $spacing-map {
+    @each $flow-name in $flow-map {
+      .has-#{$spacing-key}-#{$flow-name}-#{$increment-size} {
+        #{$spacing-value}-#{$flow-name}: $increment-value !important;
       }
-    } // end @if
+    } // end @each
   } // end @each
 } // end @each
 
@@ -210,24 +190,18 @@ $spacing-map: (
 
 // `margin` and `padding` modifiers remove from a single side only
 
-@each $spacing-key, $spacing-name in $spacing-map {
-  @each $flow-name, $flow-value in $flow-map {
-    @if $flow-value == "left" or $flow-value == "right" {
-      .has-no-#{$spacing-key}-#{$flow-name} {
-        @include create-flow-property("#{$spacing-name}-#{$flow-value}", 0 !important);
-      }
-    } @else {
-      .has-no-#{$spacing-key}-#{$flow-name} {
-        #{$spacing-name}-#{$flow-value}: 0 !important;
-      }
-    } // end @if
+@each $spacing-key, $spacing-value in $spacing-map {
+  @each $flow-name in $flow-map {
+    .has-no-#{$spacing-key}-#{$flow-name} {
+      #{$spacing-value}-#{$flow-name}: 0 !important;
+    }
   } // end @each
 } // end @each
 
 // List style modifier
 
 .has-unstyled-list {
-  @include create-flow-property("padding-left", 0 !important);
+  padding-inline-start: 0 !important;
   list-style-type: none !important;
 }
 
@@ -248,16 +222,6 @@ $spacing-map: (
   width: 1px !important;
 }
 
-%not-visually-hidden {
-  clip: auto !important;
-  height: auto !important;
-  margin: 0 !important;
-  overflow: visible !important;
-  position: static !important;
-  white-space: normal !important;
-  width: auto !important;
-}
-
 .is-visually-hidden {
   @extend %visually-hidden;
 }
@@ -271,18 +235,12 @@ $spacing-map: (
 
   &:active,
   &:focus {
-    @extend %not-visually-hidden;
-  }
-}
-
-// Revert `is-visually-hidden` class.
-// Will always ensure an element is normally visible even if hidden classes are present.
-
-.is-not-visually-hidden {
-  @extend %not-visually-hidden;
-
-  &:active,
-  &:focus {
-    @extend %not-visually-hidden;
+    clip: auto !important;
+    height: auto !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    position: static !important;
+    white-space: normal !important;
+    width: auto !important;
   }
 }

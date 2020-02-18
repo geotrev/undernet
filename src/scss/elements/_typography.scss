@@ -13,8 +13,8 @@ mark {
 
 ul,
 ol {
-  @include create-flow-property("padding-left", $type-list-padding-start);
-  padding-bottom: $type-list-padding-bottom;
+  padding-inline-start: $type-list-padding-start;
+  padding-block-end: $type-list-padding-block-end;
   margin: $type-list-margin;
   font-family: $type-list-font;
 
@@ -63,7 +63,7 @@ p,
   font-style: $type-p-font-style;
   font-weight: $type-p-font-weight;
   line-height: $type-p-line-height;
-  margin-bottom: $type-p-margin-bottom;
+  margin-block-end: $type-p-margin-block-end;
   color: $type-p-color;
 }
 
@@ -135,5 +135,5 @@ u,
 hr {
   margin: $hr-margin;
   border-width: 0;
-  border-top: $hr-border;
+  border-block-start: $hr-border;
 }

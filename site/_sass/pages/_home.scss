@@ -19,7 +19,7 @@
       margin: 0 8px;
 
       @include create-breakpoint-down(lg) {
-        margin-bottom: 24px;
+        margin-block-end: 24px;
       }
     }
   }
@@ -31,7 +31,7 @@
     background-size: cover;
 
     h1 {
-      margin-bottom: 0;
+      margin-block-end: 0;
     }
 
     h2 {

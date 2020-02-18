@@ -8,13 +8,11 @@ permalink: /layout/:basename
 
 Undernet has reductive and additive spacing utility classes. They utilize [logical property syntax](https://www.smashingmagazine.com/2018/03/understanding-logical-properties-values/) to indicate the direction the modifier will be applied.
 
-In other words, for pages with languages reading right-to-left (e.g., have `dir="rtl"` on the page `html` tag), a modifier like `has-p-inline-start` will apply `padding-right` to the element. However, in a left-to-right page, the same class name will apply `padding-left` to reflect the opposite page flow.
+This means for pages with languages reading left-to-right, a modifier like `has-p-inline-start` will apply left padding to its element. However, in a right-to-left page (e.g., `dir="rtl"` is on `html`), the modifier class will apply right padding to reflect the opposite page flow. **This happens automatically.**
 
-It's worth [reading about the pattern](https://css-tricks.com/css-logical-properties/) to fully grasp it, and it will help you think in terms of direction-agnostic content, as not all languages are left-to-right!
+It's worth [reading about the pattern](https://css-tricks.com/css-logical-properties/) as it may not appear intuitive at first. However it will help you think in terms of direction-agnostic content as localization will always be a core concern for digital products.
 
-The CSS properties which make the methodology automatic are [not fully supported](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Logical_Properties) in IE11 or Edge, so it's been (more or less) polyfilled in Undernet in preparation for the next generation of CSS. The future is now!
-
-Note: All spacing modifiers use an abbreviated syntax of `p` (for 'padding') and `m` (for 'margin').
+Worth noting is that some CSS properties which make up logical properties are [not fully supported](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Logical_Properties), so some of them use a mixin called `create-flow-property` to make compatible those properties for things like absolute positioning (`left`, `right`, etc.).
 
 ## Additive
 

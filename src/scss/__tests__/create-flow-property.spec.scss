@@ -2,12 +2,11 @@
 @import "test-globals";
 
 @include describe("mixins#create-flow-property") {
-  @include it("returns rtl equivalents with left or right directional properties") {
+  @include it("returns both rtl and ltr properties") {
     @include assert {
       @include output(false) {
         .wrapper {
-          @include create-flow-property(text-align, left);
-          @include create-flow-property(margin-left, 16px);
+          @include create-flow-property("text-align", left);
         }
       }
 
@@ -19,13 +18,25 @@
         html[dir="rtl"] .wrapper {
           text-align: right;
         }
+      }
+    }
+  }
 
+  @include it("returns both rtl and ltr values") {
+    @include assert {
+      @include output(false) {
+        .wrapper {
+          @include create-flow-property("left", 16px);
+        }
+      }
+
+      @include expect(false) {
         html:not([dir="rtl"]) .wrapper {
-          margin-left: 16px;
+          left: 16px;
         }
 
         html[dir="rtl"] .wrapper {
-          margin-right: 16px;
+          right: 16px;
         }
       }
     }

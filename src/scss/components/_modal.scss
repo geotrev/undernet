@@ -65,9 +65,9 @@
   }
 
   @if str-index($modal-header-border-position, "end") {
-    border-bottom: $modal-header-border;
+    border-block-end: $modal-header-border;
   } @else {
-    border-top: $modal-header-border;
+    border-block-start: $modal-header-border;
   }
 }
 
@@ -82,8 +82,8 @@
   justify-content: flex-end;
 
   @if str-index($modal-footer-border-position, "end") {
-    border-bottom: $modal-footer-border;
+    border-block-end: $modal-footer-border;
   } @else {
-    border-top: $modal-footer-border;
+    border-block-start: $modal-footer-border;
   }
 }

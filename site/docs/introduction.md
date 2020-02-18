@@ -12,6 +12,10 @@ The framework is extremely light, carrying no external dependencies. It's availa
 
 Head over to the [download page]({{ site.data.routes.download }}) to see how you can add Undernet to your project, then learn the [JavaScript]({{ site.data.routes.javascript }}) and [CSS]({{ site.data.routes.css }}) patterns that make using the framework a breeze.
 
+Worth noting is that most direction-based CSS in Undernet utilizes native logical properties.
+
+This means for pages with languages reading left-to-right, a padding modifier class like `has-p-inline-start` will apply left padding to its element, but in a right-to-left page (e.g., `dir="rtl"` is on `html`), the same modifier will apply right padding to reflect the opposite page flow. **This happens automatically** and is native to [nearly all main browsers](https://www.smashingmagazine.com/2018/03/understanding-logical-properties-values/).
+
 ## About Undernet
 
 Undernet was created with the goal of simplifying the development experience, allowing the developer to write less CSS, as well as giving an easy JavaScript API for using common interactive UI patterns.
@@ -29,12 +33,14 @@ Undernet can both be a prototyping tool _or_ the basis for your web app. You can
 
 ### Support
 
-Undernet's CSS and JavaScript will work in _recent versions_ these browsers, including Android and iOS versions:
+Undernet's CSS and JavaScript will work in _recent versions_ these browsers, including Android and iOS versions.
 
 - Chrome ✓
 - Firefox ✓
 - Safari ✓
 - Opera ✓
+
+There is only one exception and that's Opera Mini, which has yet to adopt CSS logical properties.
 
 ## Contribute
 

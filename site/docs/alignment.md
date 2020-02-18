@@ -36,32 +36,32 @@ To manually arrange children in a container as in a row or in a column, you can 
 To manually apply a `justify-content` property to an element's horizontal position (or vertical if the container is a flex column), use the helper class `has-justify-content-X`, where `X` is the position you want.
 
 <div class="row">
-  <div class="is-lg-3 is-sm-6 is-xs-12 column">
+  <div class="is-sm-6 is-xs-12 column">
     <p><code>.has-justify-content-flex-start</code></p>
     <div class="static-box is-d-flex filler-bg has-justify-content-flex-start">
       <div class="filler has-p has-m-xs has-shrink-1"></div>
     </div>
   </div>
-  <div class="is-lg-3 is-sm-6 is-xs-12 column">
+  <div class="is-sm-6 is-xs-12 column">
     <p><code>.has-justify-content-center</code></p>
     <div class="static-box is-d-flex filler-bg has-justify-content-center">
       <div class="filler has-p has-m-xs has-shrink-1"></div>
     </div>
   </div>
-  <div class="is-lg-3 is-sm-6 is-xs-12 column">
+  <div class="is-sm-6 is-xs-12 column">
     <p><code>.has-justify-content-flex-end</code></p>
     <div class="static-box is-d-flex filler-bg has-justify-content-flex-end">
       <div class="filler has-p has-m-xs has-shrink-1"></div>
     </div>
   </div>
-  <div class="is-lg-3 is-sm-6 is-xs-12 column">
+  <div class="is-sm-6 is-xs-12 column">
     <p><code>.has-justify-content-space-around</code></p>
     <div class="static-box is-d-flex filler-bg has-justify-content-space-around">
       <div class="filler has-p has-m-xs has-shrink-1"></div>
       <div class="filler has-p has-m-xs has-shrink-1"></div>
     </div>
   </div>
-  <div class="is-lg-3 is-sm-6 is-xs-12 column">
+  <div class="is-sm-6 is-xs-12 column">
     <p><code>.has-justify-content-space-between</code></p>
     <div class="static-box is-d-flex filler-bg has-justify-content-space-between">
       <div class="filler has-p has-m-xs has-shrink-1"></div>
@@ -106,42 +106,42 @@ To manually apply `align-items` or `align-content` properties to an element for 
 ### align-content
 
 <div class="row">
-  <div class="is-lg-3 is-sm-6 is-xs-12 column">
+  <div class="is-sm-6 is-xs-12 column">
     <p><code>.has-align-content-flex-start</code></p>
     <div class="static-height row filler-bg has-align-content-flex-start">
       <div class="filler is-xs-12 column has-p has-m-xs has-shrink-1 has-no-m-inline-start has-no-m-inline-end"></div>
       <div class="filler is-xs-12 column has-p has-m-xs has-shrink-1 has-no-m-inline-start has-no-m-inline-end"></div>
     </div>
   </div>
-  <div class="is-lg-3 is-sm-6 is-xs-12 column">
+  <div class="is-sm-6 is-xs-12 column">
     <p><code>.has-align-content-center</code></p>
     <div class="static-height row filler-bg has-align-content-center">
       <div class="filler is-xs-12 column has-p has-m-xs has-shrink-1 has-no-m-inline-start has-no-m-inline-end"></div>
       <div class="filler is-xs-12 column has-p has-m-xs has-shrink-1 has-no-m-inline-start has-no-m-inline-end"></div>
     </div>
   </div>
-  <div class="is-lg-3 is-sm-6 is-xs-12 column">
+  <div class="is-sm-6 is-xs-12 column">
     <p><code>.has-align-content-flex-end</code></p>
     <div class="static-height row filler-bg has-align-content-flex-end">
       <div class="filler is-xs-12 column has-p has-m-xs has-shrink-1 has-no-m-inline-start has-no-m-inline-end"></div>
       <div class="filler is-xs-12 column has-p has-m-xs has-shrink-1 has-no-m-inline-start has-no-m-inline-end"></div>
     </div>
   </div>
-  <div class="is-lg-3 is-sm-6 is-xs-12 column">
+  <div class="is-sm-6 is-xs-12 column">
     <p><code>.has-align-content-space-around</code></p>
     <div class="static-height row filler-bg has-align-content-space-around">
       <div class="filler is-xs-12 column has-p has-m-xs has-shrink-1 has-no-m-inline-start has-no-m-inline-end"></div>
       <div class="filler is-xs-12 column has-p has-m-xs has-shrink-1 has-no-m-inline-start has-no-m-inline-end"></div>
     </div>
   </div>
-  <div class="is-lg-3 is-sm-6 is-xs-12 column">
+  <div class="is-sm-6 is-xs-12 column">
     <p><code>.has-align-content-space-between</code></p>
     <div class="static-height row filler-bg has-align-content-space-between">
       <div class="filler is-xs-12 column has-p has-m-xs has-shrink-1 has-no-m-inline-start has-no-m-inline-end"></div>
       <div class="filler is-xs-12 column has-p has-m-xs has-shrink-1 has-no-m-inline-start has-no-m-inline-end"></div>
     </div>
   </div>
-  <div class="is-lg-3 is-sm-6 is-xs-12 column">
+  <div class="is-sm-6 is-xs-12 column">
     <p><code>.has-align-content-stretch</code></p>
     <div class="static-height row filler-bg has-align-content-stretch">
       <div class="filler is-xs-12 column has-p has-m-xs has-shrink-1 has-no-m-inline-start has-no-m-inline-end"></div>

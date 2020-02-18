@@ -33,8 +33,8 @@ $column: map-get($grid-classes, column);
 
   @each $name, $padding in $grid-sections {
     &.is-section-#{$name} {
-      padding-top: $padding;
-      padding-bottom: $padding;
+      padding-block-start: $padding;
+      padding-block-end: $padding;
     }
   }
 

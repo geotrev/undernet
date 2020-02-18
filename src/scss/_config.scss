@@ -370,7 +370,7 @@ $type-p-font-size: $global-font-size !default;
 $type-p-font-style: normal !default;
 $type-p-font-weight: normal !default;
 $type-p-line-height: $global-line-height !default;
-$type-p-margin-bottom: $global-font-size !default;
+$type-p-margin-block-end: $global-font-size !default;
 
 // Monospace text tag base styling.
 // E.g., <pre>, <code>, <kbd>, <samp>, <tt>
@@ -409,7 +409,7 @@ $type-underline-text-decoration: underline !default;
 $type-ul-list-style: disc !default;
 $type-ol-list-style: decimal !default;
 
-$type-list-padding-bottom: $global-space !default;
+$type-list-padding-block-end: $global-space !default;
 $type-list-padding-start: 22px !default;
 $type-list-margin: 0 !default;
 $type-list-font: $global-font-sans !default;
