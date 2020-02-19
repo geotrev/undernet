@@ -3,18 +3,12 @@ import { renderDOM, simulateKeyboardEvent } from "../../helpers/test"
 import { KeyCodes, Messages } from "../constants"
 
 const dom = `
-  <div data-dropdown="dropdown-id-1" class="dropdown">
-    <button id="trigger-id-1" data-parent="dropdown-id-1" data-target="new-dropdown">Open Dropdown</button>
-    <ul id="new-dropdown" class="dropdown-menu">
+  <div data-dropdown="dropdown-1" class="dropdown">
+    <button id="trigger-id-1" data-parent="dropdown-1" data-target="dropdown-menu-1">Open Dropdown</button>
+    <ul id="dropdown-menu-1" class="dropdown-menu">
       <li><a href="#">Item 1</a></li>
       <li><a href="#">Item 2</a></li>
       <li><a href="#">Item 3</a></li>
-    </ul>
-  </div>
-  <div data-dropdown="dropdown2" class="dropdown">
-    <button id="trigger-id-2" data-parent="dropdown2" data-target="dropdown-id-2">Open Dropdown 2</button>
-    <ul id="dropdown-id-2" class="dropdown-menu">
-      <li><a href="#">Item 1</a></li>
     </ul>
   </div>
 `
@@ -22,10 +16,6 @@ const dom = `
 console.error = jest.fn()
 
 describe("Dropdown", () => {
-  afterEach(() => {
-    Undernet.Dropdowns.stop()
-  })
-
   describe("API start", () => {
     it("sets attributes", () => {
       // Given
@@ -34,6 +24,7 @@ describe("Dropdown", () => {
       Undernet.Dropdowns.start()
       // Then
       expect(wrapper).toMatchSnapshot()
+      Undernet.Dropdowns.stop()
     })
   })
 
@@ -52,23 +43,25 @@ describe("Dropdown", () => {
   })
 
   describe("#handleClick", () => {
-    let wrapper
+    let wrapper, firstItem
 
     beforeEach(() => {
       wrapper = renderDOM(dom)
 
       const trigger = document.querySelector("#trigger-id-1")
+      firstItem = document.querySelector("#dropdown-menu-1 a")
 
       Undernet.Dropdowns.start()
       trigger.click()
     })
+
+    afterEach(() => Undernet.Dropdowns.stop())
 
     it("opens clicked dropdown", () => {
       expect(wrapper).toMatchSnapshot()
     })
 
     it("sets focus to the first dropdown link", () => {
-      const firstItem = document.querySelector("#new-dropdown a")
       expect(document.activeElement).toEqual(firstItem)
     })
   })
@@ -80,12 +73,14 @@ describe("Dropdown", () => {
       wrapper = renderDOM(dom)
 
       trigger = document.querySelector("#trigger-id-1")
-      const items = document.querySelectorAll("#new-dropdown a")
+      const items = document.querySelectorAll("#dropdown-menu-1 a")
       firstItem = items[0]
       lastItem = items[items.length - 1]
 
       Undernet.Dropdowns.start()
     })
+
+    afterEach(() => Undernet.Dropdowns.stop())
 
     it("opens dropdown on down arrow key press", () => {
       // When
@@ -123,13 +118,15 @@ describe("Dropdown", () => {
       wrapper = renderDOM(dom)
 
       const trigger = document.querySelector("#trigger-id-1")
-      const items = document.querySelectorAll("#new-dropdown a")
+      const items = document.querySelectorAll("#dropdown-menu-1 a")
       firstItem = items[0]
       lastItem = items[items.length - 1]
 
       Undernet.Dropdowns.start()
       trigger.click()
     })
+
+    afterEach(() => Undernet.Dropdowns.stop())
 
     it("closes dropdown if shift + tab key is pressed in open menu while first child is focused", () => {
       // When
@@ -157,8 +154,10 @@ describe("Dropdown", () => {
 
       Undernet.Dropdowns.start()
       trigger.click()
-      document.querySelector("#new-dropdown a").click()
+      document.querySelector("#dropdown-menu-1 a").click()
     })
+
+    afterEach(() => Undernet.Dropdowns.stop())
 
     it("closes dropdown", () => {
       expect(wrapper).toMatchSnapshot()
@@ -166,11 +165,6 @@ describe("Dropdown", () => {
 
     it("sets focus back to dropdown button", () => {
       expect(document.activeElement).toEqual(trigger)
-    })
-
-    it("removes tabindex when trigger loses focus", () => {
-      trigger.blur()
-      expect(trigger.hasAttribute("tabindex")).toBe(false)
     })
   })
 
@@ -185,6 +179,7 @@ describe("Dropdown", () => {
       simulateKeyboardEvent(KeyCodes.ESCAPE)
       // Then
       expect(wrapper).toMatchSnapshot()
+      Undernet.Dropdowns.stop()
     })
   })
 
@@ -199,6 +194,7 @@ describe("Dropdown", () => {
       document.querySelector("body").click()
       // Then
       expect(wrapper).toMatchSnapshot()
+      Undernet.Dropdowns.stop()
     })
   })
 
@@ -213,6 +209,7 @@ describe("Dropdown", () => {
       simulateKeyboardEvent(KeyCodes.ESCAPE)
       // Then
       expect(document.activeElement).toEqual(trigger)
+      Undernet.Dropdowns.stop()
     })
   })
 
@@ -220,7 +217,15 @@ describe("Dropdown", () => {
     let wrapper
 
     beforeEach(() => {
-      wrapper = renderDOM(dom)
+      const newDOM = dom.concat(`
+        <div data-dropdown="dropdown-2" class="dropdown">
+          <button id="trigger-id-2" data-parent="dropdown-2" data-target="dropdown-menu-2">Open Dropdown 2</button>
+          <ul id="dropdown-menu-2" class="dropdown-menu">
+            <li><a href="#">Item 1</a></li>
+          </ul>
+        </div>
+      `)
+      wrapper = renderDOM(newDOM)
 
       const trigger1 = document.querySelector("#trigger-id-1")
       const trigger2 = document.querySelector("#trigger-id-2")
@@ -230,12 +235,14 @@ describe("Dropdown", () => {
       trigger2.click()
     })
 
+    afterEach(() => Undernet.Dropdowns.stop())
+
     it("closes first dropdown if second dropdown is clicked", () => {
       expect(wrapper).toMatchSnapshot()
     })
 
     it("sets focus to first dropdown item of second dropdown", () => {
-      const firstItem = document.querySelector("#dropdown-id-2 a")
+      const firstItem = document.querySelector("#dropdown-menu-2 a")
       expect(document.activeElement).toEqual(firstItem)
     })
   })

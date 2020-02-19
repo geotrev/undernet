@@ -1,4 +1,5 @@
-import { isiOSMobile, createFocusTrap, focusOnce, queryAll, log, ComponentEngine } from "../helpers"
+import { internal, isiOSMobile, createFocusTrap, focusOnce, queryAll, log } from "../helpers"
+import { Component } from "../base"
 import { KeyCodes, Selectors, Events, Messages } from "./constants"
 
 /**
@@ -6,9 +7,17 @@ import { KeyCodes, Selectors, Events, Messages } from "./constants"
  *
  * @module Dropdown
  */
-export default class Dropdown {
+export default class Dropdown extends Component {
   constructor() {
-    // events
+    super()
+
+    // lifecycle
+    this[internal.activeComponent.method] = null
+    this[internal.validate.method] = this._validate.bind(this)
+    this[internal.teardown.method] = this._teardown.bind(this)
+    this[internal.cancelActiveComponent.method] = this._cancelActiveComponent.bind(this)
+
+    // actions
     this._handleClick = this._handleClick.bind(this)
     this._handleFirstTabClose = this._handleFirstTabClose.bind(this)
     this._handleLastTabClose = this._handleLastTabClose.bind(this)
@@ -16,17 +25,11 @@ export default class Dropdown {
     this._handleClose = this._handleClose.bind(this)
     this._handleEscapeKeyPress = this._handleEscapeKeyPress.bind(this)
     this._handleOffMenuClick = this._handleOffMenuClick.bind(this)
-    this._validate = this._validate.bind(this)
-    this._teardown = this._teardown.bind(this)
-
-    // all dropdowns
-    this._components = []
 
     // active dropdown
     this._activeDropdownId = ""
     this._activeDropdownAttr = ""
     this._activeDropdownMenuId = ""
-    this._activeDropdown = null
     this._activeTrigger = null
     this._activeDropdownMenu = null
     this._firstDropdownAction = null
@@ -44,17 +47,11 @@ export default class Dropdown {
   // public
 
   start(id) {
-    ComponentEngine.start({ id, attribute: Selectors.DATA_DROPDOWN, thisArg: this })
+    this[internal.start]({ id, attribute: Selectors.DATA_DROPDOWN })
   }
 
   stop(id) {
-    ComponentEngine.stop({
-      id,
-      attribute: Selectors.DATA_DROPDOWN,
-      thisArg: this,
-      activeNodeKey: "_activeDropdown",
-      cancelActiveFn: "_closeActiveDropdown",
-    })
+    this[internal.stop]({ id, attribute: Selectors.DATA_DROPDOWN })
   }
 
   // private
@@ -152,13 +149,13 @@ export default class Dropdown {
 
   _handleClose() {
     if (this._allowFocusReturn) this._handleReturnFocus()
-    this._closeActiveDropdown()
+    this._cancelActiveComponent()
   }
 
-  _closeActiveDropdown() {
+  _cancelActiveComponent() {
     if (isiOSMobile) document.body.classList.remove(Selectors.OVERLAY_OPEN)
 
-    this._activeDropdown.setAttribute(Selectors.DATA_VISIBLE, "false")
+    this[internal.activeComponent.method].setAttribute(Selectors.DATA_VISIBLE, "false")
     this._activeTrigger.setAttribute(Selectors.ARIA_EXPANDED, "false")
 
     this._activeTrigger.removeEventListener(Events.CLICK, this._handleClose)
@@ -180,10 +177,10 @@ export default class Dropdown {
   }
 
   _resetProperties() {
+    this[internal.activeComponent.method] = null
     this._activeDropdownId = ""
     this._activeDropdownAttr = ""
     this._activeDropdownMenuId = ""
-    this._activeDropdown = null
     this._activeTrigger = null
     this._activeDropdownMenu = null
     this._firstDropdownAction = null
@@ -231,17 +228,19 @@ export default class Dropdown {
 
   _setVisibleState() {
     this._activeTrigger.setAttribute(Selectors.ARIA_EXPANDED, "true")
-    this._activeDropdown.setAttribute(Selectors.DATA_VISIBLE, "true")
+    this[internal.activeComponent.method].setAttribute(Selectors.DATA_VISIBLE, "true")
   }
 
   _setActiveDropdownMenu() {
     this._activeDropdownMenuId = this._activeTrigger.getAttribute(Selectors.DATA_TARGET)
-    this._activeDropdownMenu = this._activeDropdown.querySelector(`#${this._activeDropdownMenuId}`)
+    this._activeDropdownMenu = this[internal.activeComponent.method].querySelector(
+      `#${this._activeDropdownMenuId}`
+    )
   }
 
   _setActiveDropdown() {
     this._activeDropdownAttr = `[${Selectors.DATA_DROPDOWN}="${this._activeDropdownId}"]`
-    this._activeDropdown = document.querySelector(this._activeDropdownAttr)
+    this[internal.activeComponent.method] = document.querySelector(this._activeDropdownAttr)
   }
 
   _closeOpenDropdowns(event) {

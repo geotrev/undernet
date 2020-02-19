@@ -9,7 +9,6 @@ export const KeyCodes = {
 export const Selectors = {
   // unique
   DATA_DROPDOWN: "data-dropdown",
-  DROPDOWN_MENU_CLASS: "dropdown-menu",
   // common
   DATA_TARGET: "data-target",
   DATA_PARENT: "data-parent",
@@ -22,6 +21,7 @@ export const Selectors = {
   ARIA_EXPANDED: "aria-expanded",
   // classes
   OVERLAY_OPEN: "overlay-open",
+  DROPDOWN_MENU_CLASS: "dropdown-menu",
 }
 
 export const Events = {

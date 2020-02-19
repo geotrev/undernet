@@ -6,17 +6,17 @@ exports[`Dropdown #handleArrowKeyPress opens dropdown on down arrow key press 1`
   
   <div
     class="dropdown"
-    data-dropdown="dropdown-id-1"
+    data-dropdown="dropdown-1"
     data-visible="true"
   >
     
     
     <button
-      aria-controls="new-dropdown"
+      aria-controls="dropdown-menu-1"
       aria-expanded="true"
       aria-haspopup="true"
-      data-parent="dropdown-id-1"
-      data-target="new-dropdown"
+      data-parent="dropdown-1"
+      data-target="dropdown-menu-1"
       id="trigger-id-1"
     >
       Open Dropdown
@@ -26,7 +26,7 @@ exports[`Dropdown #handleArrowKeyPress opens dropdown on down arrow key press 1`
     <ul
       aria-labelledby="trigger-id-1"
       class="dropdown-menu"
-      id="new-dropdown"
+      id="dropdown-menu-1"
     >
       
       
@@ -56,47 +56,6 @@ exports[`Dropdown #handleArrowKeyPress opens dropdown on down arrow key press 1`
           tabindex="0"
         >
           Item 3
-        </a>
-      </li>
-      
-    
-    </ul>
-    
-  
-  </div>
-  
-  
-  <div
-    class="dropdown"
-    data-dropdown="dropdown2"
-  >
-    
-    
-    <button
-      aria-controls="dropdown-id-2"
-      aria-expanded="false"
-      aria-haspopup="true"
-      data-parent="dropdown2"
-      data-target="dropdown-id-2"
-      id="trigger-id-2"
-    >
-      Open Dropdown 2
-    </button>
-    
-    
-    <ul
-      aria-labelledby="trigger-id-2"
-      class="dropdown-menu"
-      id="dropdown-id-2"
-    >
-      
-      
-      <li>
-        <a
-          href="#"
-          tabindex="-1"
-        >
-          Item 1
         </a>
       </li>
       
@@ -116,17 +75,17 @@ exports[`Dropdown #handleArrowKeyPress opens dropdown on up arrow key press 1`] 
   
   <div
     class="dropdown"
-    data-dropdown="dropdown-id-1"
+    data-dropdown="dropdown-1"
     data-visible="true"
   >
     
     
     <button
-      aria-controls="new-dropdown"
+      aria-controls="dropdown-menu-1"
       aria-expanded="true"
       aria-haspopup="true"
-      data-parent="dropdown-id-1"
-      data-target="new-dropdown"
+      data-parent="dropdown-1"
+      data-target="dropdown-menu-1"
       id="trigger-id-1"
     >
       Open Dropdown
@@ -136,7 +95,7 @@ exports[`Dropdown #handleArrowKeyPress opens dropdown on up arrow key press 1`] 
     <ul
       aria-labelledby="trigger-id-1"
       class="dropdown-menu"
-      id="new-dropdown"
+      id="dropdown-menu-1"
     >
       
       
@@ -166,47 +125,6 @@ exports[`Dropdown #handleArrowKeyPress opens dropdown on up arrow key press 1`] 
           tabindex="0"
         >
           Item 3
-        </a>
-      </li>
-      
-    
-    </ul>
-    
-  
-  </div>
-  
-  
-  <div
-    class="dropdown"
-    data-dropdown="dropdown2"
-  >
-    
-    
-    <button
-      aria-controls="dropdown-id-2"
-      aria-expanded="false"
-      aria-haspopup="true"
-      data-parent="dropdown2"
-      data-target="dropdown-id-2"
-      id="trigger-id-2"
-    >
-      Open Dropdown 2
-    </button>
-    
-    
-    <ul
-      aria-labelledby="trigger-id-2"
-      class="dropdown-menu"
-      id="dropdown-id-2"
-    >
-      
-      
-      <li>
-        <a
-          href="#"
-          tabindex="-1"
-        >
-          Item 1
         </a>
       </li>
       
@@ -226,17 +144,17 @@ exports[`Dropdown #handleClick opens clicked dropdown 1`] = `
   
   <div
     class="dropdown"
-    data-dropdown="dropdown-id-1"
+    data-dropdown="dropdown-1"
     data-visible="true"
   >
     
     
     <button
-      aria-controls="new-dropdown"
+      aria-controls="dropdown-menu-1"
       aria-expanded="true"
       aria-haspopup="true"
-      data-parent="dropdown-id-1"
-      data-target="new-dropdown"
+      data-parent="dropdown-1"
+      data-target="dropdown-menu-1"
       id="trigger-id-1"
     >
       Open Dropdown
@@ -246,7 +164,7 @@ exports[`Dropdown #handleClick opens clicked dropdown 1`] = `
     <ul
       aria-labelledby="trigger-id-1"
       class="dropdown-menu"
-      id="new-dropdown"
+      id="dropdown-menu-1"
     >
       
       
@@ -276,47 +194,6 @@ exports[`Dropdown #handleClick opens clicked dropdown 1`] = `
           tabindex="0"
         >
           Item 3
-        </a>
-      </li>
-      
-    
-    </ul>
-    
-  
-  </div>
-  
-  
-  <div
-    class="dropdown"
-    data-dropdown="dropdown2"
-  >
-    
-    
-    <button
-      aria-controls="dropdown-id-2"
-      aria-expanded="false"
-      aria-haspopup="true"
-      data-parent="dropdown2"
-      data-target="dropdown-id-2"
-      id="trigger-id-2"
-    >
-      Open Dropdown 2
-    </button>
-    
-    
-    <ul
-      aria-labelledby="trigger-id-2"
-      class="dropdown-menu"
-      id="dropdown-id-2"
-    >
-      
-      
-      <li>
-        <a
-          href="#"
-          tabindex="-1"
-        >
-          Item 1
         </a>
       </li>
       
@@ -336,17 +213,17 @@ exports[`Dropdown #handleClose closes dropdown 1`] = `
   
   <div
     class="dropdown"
-    data-dropdown="dropdown-id-1"
+    data-dropdown="dropdown-1"
     data-visible="false"
   >
     
     
     <button
-      aria-controls="new-dropdown"
+      aria-controls="dropdown-menu-1"
       aria-expanded="false"
       aria-haspopup="true"
-      data-parent="dropdown-id-1"
-      data-target="new-dropdown"
+      data-parent="dropdown-1"
+      data-target="dropdown-menu-1"
       id="trigger-id-1"
       tabindex="-1"
     >
@@ -357,7 +234,7 @@ exports[`Dropdown #handleClose closes dropdown 1`] = `
     <ul
       aria-labelledby="trigger-id-1"
       class="dropdown-menu"
-      id="new-dropdown"
+      id="dropdown-menu-1"
     >
       
       
@@ -387,47 +264,6 @@ exports[`Dropdown #handleClose closes dropdown 1`] = `
           tabindex="-1"
         >
           Item 3
-        </a>
-      </li>
-      
-    
-    </ul>
-    
-  
-  </div>
-  
-  
-  <div
-    class="dropdown"
-    data-dropdown="dropdown2"
-  >
-    
-    
-    <button
-      aria-controls="dropdown-id-2"
-      aria-expanded="false"
-      aria-haspopup="true"
-      data-parent="dropdown2"
-      data-target="dropdown-id-2"
-      id="trigger-id-2"
-    >
-      Open Dropdown 2
-    </button>
-    
-    
-    <ul
-      aria-labelledby="trigger-id-2"
-      class="dropdown-menu"
-      id="dropdown-id-2"
-    >
-      
-      
-      <li>
-        <a
-          href="#"
-          tabindex="-1"
-        >
-          Item 1
         </a>
       </li>
       
@@ -558,17 +394,17 @@ exports[`Dropdown #handleFirstTabClose & #handleLastTabClose closes dropdown if 
   
   <div
     class="dropdown"
-    data-dropdown="dropdown-id-1"
+    data-dropdown="dropdown-1"
     data-visible="false"
   >
     
     
     <button
-      aria-controls="new-dropdown"
+      aria-controls="dropdown-menu-1"
       aria-expanded="false"
       aria-haspopup="true"
-      data-parent="dropdown-id-1"
-      data-target="new-dropdown"
+      data-parent="dropdown-1"
+      data-target="dropdown-menu-1"
       id="trigger-id-1"
       tabindex="-1"
     >
@@ -579,7 +415,7 @@ exports[`Dropdown #handleFirstTabClose & #handleLastTabClose closes dropdown if 
     <ul
       aria-labelledby="trigger-id-1"
       class="dropdown-menu"
-      id="new-dropdown"
+      id="dropdown-menu-1"
     >
       
       
@@ -609,47 +445,6 @@ exports[`Dropdown #handleFirstTabClose & #handleLastTabClose closes dropdown if 
           tabindex="-1"
         >
           Item 3
-        </a>
-      </li>
-      
-    
-    </ul>
-    
-  
-  </div>
-  
-  
-  <div
-    class="dropdown"
-    data-dropdown="dropdown2"
-  >
-    
-    
-    <button
-      aria-controls="dropdown-id-2"
-      aria-expanded="false"
-      aria-haspopup="true"
-      data-parent="dropdown2"
-      data-target="dropdown-id-2"
-      id="trigger-id-2"
-    >
-      Open Dropdown 2
-    </button>
-    
-    
-    <ul
-      aria-labelledby="trigger-id-2"
-      class="dropdown-menu"
-      id="dropdown-id-2"
-    >
-      
-      
-      <li>
-        <a
-          href="#"
-          tabindex="-1"
-        >
-          Item 1
         </a>
       </li>
       
@@ -669,17 +464,17 @@ exports[`Dropdown #handleFirstTabClose & #handleLastTabClose closes dropdown if 
   
   <div
     class="dropdown"
-    data-dropdown="dropdown-id-1"
+    data-dropdown="dropdown-1"
     data-visible="false"
   >
     
     
     <button
-      aria-controls="new-dropdown"
+      aria-controls="dropdown-menu-1"
       aria-expanded="false"
       aria-haspopup="true"
-      data-parent="dropdown-id-1"
-      data-target="new-dropdown"
+      data-parent="dropdown-1"
+      data-target="dropdown-menu-1"
       id="trigger-id-1"
       tabindex="-1"
     >
@@ -690,7 +485,7 @@ exports[`Dropdown #handleFirstTabClose & #handleLastTabClose closes dropdown if 
     <ul
       aria-labelledby="trigger-id-1"
       class="dropdown-menu"
-      id="new-dropdown"
+      id="dropdown-menu-1"
     >
       
       
@@ -720,47 +515,6 @@ exports[`Dropdown #handleFirstTabClose & #handleLastTabClose closes dropdown if 
           tabindex="-1"
         >
           Item 3
-        </a>
-      </li>
-      
-    
-    </ul>
-    
-  
-  </div>
-  
-  
-  <div
-    class="dropdown"
-    data-dropdown="dropdown2"
-  >
-    
-    
-    <button
-      aria-controls="dropdown-id-2"
-      aria-expanded="false"
-      aria-haspopup="true"
-      data-parent="dropdown2"
-      data-target="dropdown-id-2"
-      id="trigger-id-2"
-    >
-      Open Dropdown 2
-    </button>
-    
-    
-    <ul
-      aria-labelledby="trigger-id-2"
-      class="dropdown-menu"
-      id="dropdown-id-2"
-    >
-      
-      
-      <li>
-        <a
-          href="#"
-          tabindex="-1"
-        >
-          Item 1
         </a>
       </li>
       
@@ -891,16 +645,16 @@ exports[`Dropdown API start sets attributes 1`] = `
   
   <div
     class="dropdown"
-    data-dropdown="dropdown-id-1"
+    data-dropdown="dropdown-1"
   >
     
     
     <button
-      aria-controls="new-dropdown"
+      aria-controls="dropdown-menu-1"
       aria-expanded="false"
       aria-haspopup="true"
-      data-parent="dropdown-id-1"
-      data-target="new-dropdown"
+      data-parent="dropdown-1"
+      data-target="dropdown-menu-1"
       id="trigger-id-1"
     >
       Open Dropdown
@@ -910,7 +664,7 @@ exports[`Dropdown API start sets attributes 1`] = `
     <ul
       aria-labelledby="trigger-id-1"
       class="dropdown-menu"
-      id="new-dropdown"
+      id="dropdown-menu-1"
     >
       
       
@@ -940,47 +694,6 @@ exports[`Dropdown API start sets attributes 1`] = `
           tabindex="-1"
         >
           Item 3
-        </a>
-      </li>
-      
-    
-    </ul>
-    
-  
-  </div>
-  
-  
-  <div
-    class="dropdown"
-    data-dropdown="dropdown2"
-  >
-    
-    
-    <button
-      aria-controls="dropdown-id-2"
-      aria-expanded="false"
-      aria-haspopup="true"
-      data-parent="dropdown2"
-      data-target="dropdown-id-2"
-      id="trigger-id-2"
-    >
-      Open Dropdown 2
-    </button>
-    
-    
-    <ul
-      aria-labelledby="trigger-id-2"
-      class="dropdown-menu"
-      id="dropdown-id-2"
-    >
-      
-      
-      <li>
-        <a
-          href="#"
-          tabindex="-1"
-        >
-          Item 1
         </a>
       </li>
       
@@ -1000,16 +713,16 @@ exports[`Dropdown API stop + #handleClick does not open dropdown 1`] = `
   
   <div
     class="dropdown"
-    data-dropdown="dropdown-id-1"
+    data-dropdown="dropdown-1"
   >
     
     
     <button
-      aria-controls="new-dropdown"
+      aria-controls="dropdown-menu-1"
       aria-expanded="false"
       aria-haspopup="true"
-      data-parent="dropdown-id-1"
-      data-target="new-dropdown"
+      data-parent="dropdown-1"
+      data-target="dropdown-menu-1"
       id="trigger-id-1"
     >
       Open Dropdown
@@ -1019,7 +732,7 @@ exports[`Dropdown API stop + #handleClick does not open dropdown 1`] = `
     <ul
       aria-labelledby="trigger-id-1"
       class="dropdown-menu"
-      id="new-dropdown"
+      id="dropdown-menu-1"
     >
       
       
@@ -1049,47 +762,6 @@ exports[`Dropdown API stop + #handleClick does not open dropdown 1`] = `
           tabindex="-1"
         >
           Item 3
-        </a>
-      </li>
-      
-    
-    </ul>
-    
-  
-  </div>
-  
-  
-  <div
-    class="dropdown"
-    data-dropdown="dropdown2"
-  >
-    
-    
-    <button
-      aria-controls="dropdown-id-2"
-      aria-expanded="false"
-      aria-haspopup="true"
-      data-parent="dropdown2"
-      data-target="dropdown-id-2"
-      id="trigger-id-2"
-    >
-      Open Dropdown 2
-    </button>
-    
-    
-    <ul
-      aria-labelledby="trigger-id-2"
-      class="dropdown-menu"
-      id="dropdown-id-2"
-    >
-      
-      
-      <li>
-        <a
-          href="#"
-          tabindex="-1"
-        >
-          Item 1
         </a>
       </li>
       
@@ -1109,17 +781,17 @@ exports[`Dropdown Multiple Dropdowns closes first dropdown if second dropdown is
   
   <div
     class="dropdown"
-    data-dropdown="dropdown-id-1"
+    data-dropdown="dropdown-1"
     data-visible="false"
   >
     
     
     <button
-      aria-controls="new-dropdown"
+      aria-controls="dropdown-menu-1"
       aria-expanded="false"
       aria-haspopup="true"
-      data-parent="dropdown-id-1"
-      data-target="new-dropdown"
+      data-parent="dropdown-1"
+      data-target="dropdown-menu-1"
       id="trigger-id-1"
     >
       Open Dropdown
@@ -1129,7 +801,7 @@ exports[`Dropdown Multiple Dropdowns closes first dropdown if second dropdown is
     <ul
       aria-labelledby="trigger-id-1"
       class="dropdown-menu"
-      id="new-dropdown"
+      id="dropdown-menu-1"
     >
       
       
@@ -1168,33 +840,34 @@ exports[`Dropdown Multiple Dropdowns closes first dropdown if second dropdown is
   
   </div>
   
-  
+
+        
   <div
     class="dropdown"
-    data-dropdown="dropdown2"
+    data-dropdown="dropdown-2"
     data-visible="true"
   >
     
-    
+          
     <button
-      aria-controls="dropdown-id-2"
+      aria-controls="dropdown-menu-2"
       aria-expanded="true"
       aria-haspopup="true"
-      data-parent="dropdown2"
-      data-target="dropdown-id-2"
+      data-parent="dropdown-2"
+      data-target="dropdown-menu-2"
       id="trigger-id-2"
     >
       Open Dropdown 2
     </button>
     
-    
+          
     <ul
       aria-labelledby="trigger-id-2"
       class="dropdown-menu"
-      id="dropdown-id-2"
+      id="dropdown-menu-2"
     >
       
-      
+            
       <li>
         <a
           href="#"
@@ -1204,12 +877,12 @@ exports[`Dropdown Multiple Dropdowns closes first dropdown if second dropdown is
         </a>
       </li>
       
-    
+          
     </ul>
     
-  
+        
   </div>
   
-
+      
 </body>
 `;

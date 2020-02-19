@@ -6,10 +6,14 @@ export const KeyCodes = {
 }
 
 export const Selectors = {
-  FOCUSABLE_TAGS: ["a", "button", "input", "object", "select", "textarea", "[tabindex]"],
+  // attributes
+  TABINDEX: "tabindex",
+  // classes
+  OVERLAY_OPEN: "overlay-open",
   KEYBOARD_CLASS: "using-keyboard",
   NOT_VISUALLY_HIDDEN_CLASS: ":not(.is-visually-hidden)",
-  TABINDEX: "tabindex",
+  // misc
+  FOCUSABLE_TAGS: ["a", "button", "input", "object", "select", "textarea", "[tabindex]"],
 }
 
 export const Events = {
