@@ -61,6 +61,8 @@ input[type="checkbox"] {
   font-family: $form-font-family;
   margin: $form-input-check-margin;
   padding: $form-input-check-padding;
+  width: $form-input-check-width;
+  height: $form-input-check-height;
 }
 
 @each $type in $form-input-field-types {

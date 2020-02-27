@@ -731,6 +731,8 @@ $form-input-disabled-resize: none !default;
 // Check-style input type base styling.
 // E.g., type="radio", type="checkbox"
 
+$form-input-check-width: 14px !default;
+$form-input-check-height: 14px !default;
 $form-input-check-label-padding: 0 0 $global-space 0 !default;
 $form-input-check-padding: 0 !default;
 $form-input-check-margin: 0 12px 0 0 !default;
