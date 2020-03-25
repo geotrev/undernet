@@ -6,7 +6,7 @@ permalink: /overview/:basename
 
 # {{ page.title }}
 
-The JS API for Undernet is fairly straightforward. The main rule of thumb is to only use the JS when you know the DOM is ready.
+The JS API for Undernet is fairly straightforward. The main rule of thumb is to only use the JS when you know the DOM is ready. You can choose to start [all components on the page](#core-api) or simply [choose one by its id](#handling-single-components).
 
 Enabling Undernet, including all its component scripts, is as easy as this:
 
@@ -31,7 +31,7 @@ Enabling Undernet, including all its component scripts, is as easy as this:
 
 You can enable and disable all components on the global `Undernet` object using the `start` and `stop` methods.
 
-### start
+### `start`
 
 This method starts and sets up events for one or more components on the page.
 
@@ -39,63 +39,43 @@ This method starts and sets up events for one or more components on the page.
 Undernet.start(id, useFocusRing)
 ```
 
-#### `id` (string)
+#### Parameters
+
+##### `id` (string)
 
 Default: `undefined`
 
-Runs a setup of a component with the specified id. If none is found, nothing happens.
+Initializes one of each component with the specified `data-*` attribute value (e.g., its component id). If a component isn't found, nothing happens.
 
-#### `useFocusRing` (boolean)
+##### `useFocusRing` (boolean)
 
 Default: `false`
 
 Enables the focus ring utility. [Learn more](#createfocusring).
 
-### stop
+### `stop`
 
-This method stops and tears down events for one or more components on the page.
+This method tears down events for one or more components on the page. If the component has an overlay of any kind, such as a dropdown or modal, the overlay is closed before the teardown.
 
 ```js
 Undernet.stop(id, disableFocusRing)
 ```
 
-#### `id` (string)
+#### Parameters
+
+##### `id` (string)
 
 Default: `undefined`
 
-Runs a teardown of a component with the specified id. If none is found, nothing happens.
+Runs a teardown of one of each component with the specified `data-*` attribute value (e.g., its component id). If a component isn't found, nothing happens.
 
-#### `disableFocusRing` (boolean)
+##### `disableFocusRing` (boolean)
 
 Default: `false`
 
-Disables the focus ring utility.
+Disables the focus ring utility and removes the `using-keyboard` class from the page.
 
-## Individual Components
-
-You can use the same API above to enable or disable individual components, as well. The main difference is there isn't a second `useFocusRing` or `disableFocusRing` parameter when using this method.
-
-### start
-
-```js
-Undernet.Modals.start()
-Undernet.Collapsibles.start("#wrapper-element")
-
-// or, if you're using named imports via npm:
-Modals.start()
-Collapsibles.start("#wrapper-element")
-```
-
-### stop
-
-```js
-Undernet.Modals.stop()
-Undernet.Collapsibles.stop("#wrapper-element")
-
-// or, if you're using named imports via npm:
-Modals.stop()
-Collapsibles.stop("#wrapper-element")
-```
+---
 
 ## Using Modules
 
@@ -113,11 +93,13 @@ import { Modals } from "undernet"
 Modals.start()
 ```
 
-## Initialize by ID
+---
 
-By default, using `.start` or `.stop` will cause Undernet to search the entire document for component instances. When using a UI framework such as React, however, that isn't desirable. Instead, you can `start` a single component instance by passing in its component ID, such as `data-collapsible='some-unique-id'`.
+## Handling Single Components
 
-Here's an example of how that looks in practice:
+By default, using `start` or `stop` will cause Undernet to search the entire `document` for components. When using a UI framework such as React, however, that isn't desirable. Instead, you can start/stop a single component instance by passing the unique component id to the API call (e.g., `data-collapsible='some-unique-id'` would be initialized by `start('some-unique-id)`).
+
+Here's an example of how that looks in practice with React hooks:
 
 ```js
 import { Collapsibles } from "undernet"
@@ -137,11 +119,11 @@ export default function Sidebar(props) {
 }
 ```
 
-When the component mounts, `useEffect` runs one time to `start` the collapsible returned in JSX. Then, the `stop` call is made in the return value, aka when the component is about to be unmounted.
+When the component mounts, `useEffect` triggers `start` on the collapsible returned in JSX. Then, the `stop` call is made in the effect's return value, or when the component is about to be unmounted.
 
 ### Handling DOM State
 
-If you're removing/adding nodes from/to the DOM, you'll need to be careful. Undernet isn't smart enough to know that your DOM changed. Luckily most UI frameworks provide lifecycle functionality that tells us the DOM is rendered or about to re-render, so we can use those tools to their fullest extent.
+If you're removing/adding nodes from/to the DOM, you'll need to be careful. Undernet isn't smart enough to know that your DOM changed. Luckily most UI frameworks provide render-tied lifecycle hooks, so we can piggy back off of those!
 
 Let's extend the sidebar example from before, but this time we'll toggle its visibility using a button:
 
@@ -149,22 +131,20 @@ Let's extend the sidebar example from before, but this time we'll toggle its vis
 const COLLAPSIBLE_ID = "sidebar-collapsible"
 
 export default function Sidebar(props) {
-  // We'll use a state effect to track sidebar visibility
+  // 1
   const [sidebarIsVisible, setSidebarIsVisible] = useState(true)
 
-  // Only `stop` when the component will unmount; it won't run
-  // if Collapsibles.stop has already been called.
+  // 2
   useEffect(() => {
     return () => Collapsibles.stop(COLLAPSIBLE_ID)
   }, [])
 
-  // Run Collapsibles.start if the sidebar is toggled to `true`
+  // 4
   useEffect(() => {
     if (sidebarIsVisible) Collapsibles.start(COLLAPSIBLE_ID)
   }, [sidebarIsVisible])
 
-  // If the sidebar is visible on click, stop Collapsibles before t
-  // he sidebar is removed from the DOM and sidebarIsVisible is set to `false`
+  // 3
   const handleClick = e => {
     if (sidebarIsVisible) Collapsibles.stop(COLLAPSIBLE_ID)
     setSidebarIsVisible(!sidebarIsVisible)
@@ -183,19 +163,27 @@ export default function Sidebar(props) {
 }
 ```
 
-In this example, we have a button that when clicked will toggle a piece of state, `sidebarIsVisible`, to either `true` or `false`.
+Using the comments above, here are the steps that occur:
 
-When the button is clicked and `sidebarIsVisible` is currently `true`, run `Collapsible.stop` before the corresponding node is removed from the DOM and `sidebarIsVisible` is set to `false`.
+1. We create a state variable and state setter to indicate when the sidebar collapsible is visible. **The sidebar is visible by default.**
 
-`Collapsibles.start` will run in the opposite case of `sidebarIsVisible` being set to `true` via the same button click.
+2. When the component mounts, we simply return the `stop` call, as we'll be handling `start` elsewhere. In this case, `stop` will be called when the component is unmounted. Calling `stop` even if the component isn't visible is perfectly safe.
+
+3. Every time the toggle button is clicked, we check if the sidebar is visible. If it is, we call `stop` on the collapsible to clean up events in preparation for removing the component HTML from the page. Then, we set `sidebarIsVisible` to its opposite boolean value.
+
+4. Finally, a `useEffect` block runs because `sidebarIsVisible` was updated. If the new value is `true`, or the sidebar was newly made visible on the page, we run `start` to make the collapsible work again. Otherwise nothing happens.
+
+---
 
 ## Utilities
 
-Undernet comes with two utilities out of the box: `createFocusRing` and `createFocusTrap`. They can be initialized with `start` and `stop` methods. The only difference is there is no scope available.
+Undernet comes with two utilities out of the box: `createFocusRing` and `createFocusTrap`. They can be initialized with `start` and `stop` methods as well. The signature of these utilities are different, however.
 
 ### createFocusRing
 
-This will create global event listeners on the page for keyboard and mouse behavior.
+Create global event listeners on the page for keyboard and mouse behavior.
+
+This function takes no arguments.
 
 ```js
 import { createFocusRing } from "undernet"
@@ -203,17 +191,19 @@ const focusRing = createFocusRing()
 focusRing.start()
 ```
 
-If tab, space, or arrow keys are being used, you're in "keyboard mode," enabling a bright focus ring around the actively focused element.
+If `tab`, `space`, `enter`, or arrow keys are being used, you're in "keyboard mode," enabling a bright focus ring around the actively focused element.
 
 As soon as a mouse is in use again, the ring goes away.
 
-If you use the utility, whether through this utility or `Undernet.start` or `Undernet.stop`, only initialize it **once** on a page. Enabling it multiple times will create inconsistent results.
+If you use the utility, whether through this utility or `Undernet.start`, only initialize it **once** on a page. Enabling it multiple times will create inconsistent behavior.
 
 ### createFocusTrap
 
+Create a focus trap within an container, optionally with custom behavior.
+
 This utility is offered in case you need the functionality outside of the components provided in Undernet.
 
-It's instantiated the same way as `createFocusRing`, but takes two parameters:
+The function takes two arguments.
 
 ```js
 import { createFocusTrap } from "undernet"
@@ -228,7 +218,7 @@ focusTrap.start()
 A string to be queried in the DOM; it will be treated as the container of possible focusable elements. If this is the only parameter given, `tab` and `shift+tab` will be the key-bindings used for trapping.
 
 ```js
-const focusTrap = createFocusTrap(".wrapper-element")
+const focusTrap = createFocusTrap(".some-wrapper-element")
 ```
 
 #### `options` (object)
@@ -244,7 +234,7 @@ Default: `false`
 Trap focus using up and down arrows.
 
 ```js
-const focusTrap = createFocusTrap(".wrapper-element", { useArrows: true })
+const focusTrap = createFocusTrap(".some-wrapper-element", { useArrows: true })
 ```
 
 ##### `options.children` (array)
@@ -254,11 +244,11 @@ Default: `[]`
 Provide a custom array of elements to trap focus within. This overrides the element querying functionality of the utility.
 
 ```js
-const children = document.querySelectorAll(".my-focusable-element")
+const children = document.querySelectorAll(".focusable-element-class")
 const focusTrap = createFocusTrap(".wrapper-element", { children })
 ```
 
-NOTE: You should still pass a selector string for the wrapper as a fallback, in case `children` comes back empty and you aren't using a guard for that case explicitly.
+NOTE: You should still pass a selector string for the wrapper as a fallback, in case `children` comes back empty. The main benefit being the selector will bail gracefully if there are still no children to trap focus on.
 
 ##### `options.matchers` (array)
 

@@ -22,6 +22,8 @@ Note that if you plan to link to and start Undernet via `<script>` tag, it's rec
 
 Head over to the [JavaScript]({{ site.data.routes.javascript }}) page to see more examples, including in UI frameworks like React.
 
+---
+
 ## NPM or Yarn
 
 Install and setup with npm or yarn.
@@ -111,6 +113,8 @@ Finally, import `_undernet.scss` to your app's Sass entry file, wherever that mi
 ```
 
 If you used a style scope, you can put the import or link tag anywhere, just be conscious of how the style cascade will change if you do so.
+
+---
 
 ## Source Files
 
