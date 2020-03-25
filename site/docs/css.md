@@ -18,6 +18,8 @@ You can customize three categories of framework styling:
 2. **Elements** - Styles on tags such as buttons, inputs, and headers; limited only to single HTML elements.
 3. **Components** - Composed HTML for UI patterns, some of which are interactive with JavaScript.
 
+---
+
 ## Naming Patterns
 
 Variables, functions, mixins, and classes each follow patterns to provide better understanding of the utility's intention.
@@ -72,6 +74,8 @@ Here's a few examples:
 - `has-font-size-sm`: modifies the element to have a `sm` font-size.
 - `has-padding-block-start-md`: modifies the element to have `md` spacing from the `block-start` position.
 - `is-drop-inline-end`: modifies a `dropdown-menu` to "drop" from the `inline-end` position.
+
+---
 
 ## Style Scope
 
