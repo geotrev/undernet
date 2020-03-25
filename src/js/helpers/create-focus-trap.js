@@ -28,6 +28,7 @@ import { getFocusableElements } from "./dom"
  */
 export const createFocusTrap = (selectorString, options = {}) => {
   if (!isBrowserEnv) return
+  let focusTrapActive = false
   const { useArrows, children, matchers = Selectors.FOCUSABLE_TAGS } = options
 
   if (!selectorString && !children.length) {
@@ -123,6 +124,13 @@ export const createFocusTrap = (selectorString, options = {}) => {
 
   return {
     start() {
+      // Already active, exit
+      if (focusTrapActive) return
+
+      // Now active
+      focusTrapActive = true
+
+      // Handle focus listeners
       if (useArrows) {
         document.addEventListener(Events.KEYDOWN, handleFocusTrapWithArrows)
       } else {
@@ -130,6 +138,13 @@ export const createFocusTrap = (selectorString, options = {}) => {
       }
     },
     stop() {
+      // Nothing to stop, exit
+      if (!focusTrapActive) return
+
+      // Now inactive
+      focusTrapActive = false
+
+      // Remove focus listeners
       if (useArrows) {
         document.removeEventListener(Events.KEYDOWN, handleFocusTrapWithArrows)
       } else {

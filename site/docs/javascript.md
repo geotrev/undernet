@@ -39,7 +39,7 @@ This method starts and sets up events for one or more components on the page.
 Undernet.start(id, useFocusRing)
 ```
 
-#### Parameters
+#### Arguments
 
 ##### `id` (string)
 
@@ -61,7 +61,7 @@ This method tears down events for one or more components on the page. If the com
 Undernet.stop(id, disableFocusRing)
 ```
 
-#### Parameters
+#### Arguments
 
 ##### `id` (string)
 
@@ -183,8 +183,6 @@ Undernet comes with two utilities out of the box: `createFocusRing` and `createF
 
 Create global event listeners on the page for keyboard and mouse behavior.
 
-This function takes no arguments.
-
 ```js
 import { createFocusRing } from "undernet"
 const focusRing = createFocusRing()
@@ -195,7 +193,15 @@ If `tab`, `space`, `enter`, or arrow keys are being used, you're in "keyboard mo
 
 As soon as a mouse is in use again, the ring goes away.
 
-If you use the utility, whether through this utility or `Undernet.start`, only initialize it **once** on a page. Enabling it multiple times will create inconsistent behavior.
+#### Methods
+
+##### `start`
+
+Begin listening for keyboard/mouse.
+
+##### `stop`
+
+Stop listening for keyboard/mouse.
 
 ### createFocusTrap
 
@@ -211,7 +217,9 @@ const focusTrap = createFocusTrap(selector, options)
 focusTrap.start()
 ```
 
-#### `selector` (string)
+#### Arguments
+
+##### `selector` (string)
 
 **Required**
 
@@ -221,13 +229,13 @@ A string to be queried in the DOM; it will be treated as the container of possib
 const focusTrap = createFocusTrap(".some-wrapper-element")
 ```
 
-#### `options` (object)
+##### `options` (object)
 
 Default: `{}`
 
 Customize trapping behavior using the below options.
 
-##### `options.useArrows` (boolean)
+###### `options.useArrows` (boolean)
 
 Default: `false`
 
@@ -237,7 +245,7 @@ Trap focus using up and down arrows.
 const focusTrap = createFocusTrap(".some-wrapper-element", { useArrows: true })
 ```
 
-##### `options.children` (array)
+###### `options.children` (array)
 
 Default: `[]`
 
@@ -250,7 +258,7 @@ const focusTrap = createFocusTrap(".wrapper-element", { children })
 
 NOTE: You should still pass a selector string for the wrapper as a fallback, in case `children` comes back empty. The main benefit being the selector will bail gracefully if there are still no children to trap focus on.
 
-##### `options.matchers` (array)
+###### `options.matchers` (array)
 
 Default: `["a", "button", "input", "object", "select", "textarea", "[tabindex]"]`
 
@@ -261,5 +269,15 @@ const focusTrap = createFocusTrap(".wrapper-element", {
   matchers: ["button", "input", ".elements-with-this-class"],
 })
 ```
+
+#### Methods
+
+##### `start`
+
+Begin trapping.
+
+##### `stop`
+
+Stop trapping.
 
 {% include partials/edit-on-github.html %}
