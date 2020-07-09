@@ -31,7 +31,22 @@ Check out this example modal:
       </a>
     </header>
     <section class="modal-body">
-      <p>Some modal content here</p>
+      <p>Some modal content goes here.</p>
+      <p>You can even put dropdowns and tooltips in modals!</p>
+      <div data-dropdown="dropdown1" class="dropdown">
+        <button id="dropdown-button-id" data-parent="dropdown1" data-target="dropdown-menu-id">Open Dropdown</button>
+        <ul id="dropdown-menu-id" class="dropdown-menu">
+          <li><a href="#0">Item 1</a></li>
+          <li><a href="#0">Item 2</a></li>
+          <li><a href="#0">Item 3</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="tooltip" data-tooltip="new-tooltip10">
+          <button class="tooltip-trigger" data-target="new-tooltip10">Tooltip With HTML</button>
+          <div class="tooltip-box" id="new-tooltip10"><em>This</em> <b>is a</b> <u>tooltip</u>.</div>
+        </span>
+      </div>
     </section>
     <footer class="modal-footer">
       <a class="button has-no-m-block-end has-m-inline-end-sm" data-close href="#">
