@@ -1,3 +1,7 @@
+/**
+ * @jest-environment node
+ */
+
 const path = require("path")
 const sassTrue = require("sass-true")
 const glob = require("glob")
