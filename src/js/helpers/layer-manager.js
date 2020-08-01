@@ -9,7 +9,7 @@ class LayerManager {
 
   add(layer = {}) {
     if (!this._isValidLayer(layer)) return
-    this.this._eventsReducer("add", layer.events)
+    this._eventsReducer("add", layer.events)
     this.layers.push(layer)
   }
 
@@ -24,10 +24,11 @@ class LayerManager {
       this._eventsReducer("remove", layer.events)
     } else {
       this._forEachReverse(this.layers, (layer, index) => {
-        if (layer.id !== targetId) return
-        this.layers.splice(index, 1)
-        this._eventsReducer("remove", layer.events)
-        return false
+        if (layer.id === targetId) {
+          this.layers.splice(index, 1)
+          this._eventsReducer("remove", layer.events)
+          return false
+        }
       })
     }
   }
@@ -115,4 +116,9 @@ class LayerManager {
   }
 }
 
-export default new LayerManager()
+const layerManager = new LayerManager()
+
+// Debug:
+// window.layerManager = layerManager
+
+export { layerManager }

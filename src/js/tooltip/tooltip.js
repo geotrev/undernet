@@ -1,4 +1,4 @@
-import { isiOSMobile, log, ComponentEngine } from "../helpers"
+import { isiOSMobile, log, ComponentEngine, layerManager } from "../helpers"
 import { KeyCodes, Selectors, CssProperties, Events, Messages } from "./constants"
 
 const COMPONENT_ROLE = "tooltip"
@@ -12,7 +12,7 @@ export default class Tooltip {
   constructor() {
     this._handleEvent = this._handleEvent.bind(this)
     this._handleClose = this._handleClose.bind(this)
-    this._handleEscapeKeyPress = this._handleEscapeKeyPress.bind(this)
+    this._handleLayerDismiss = this._handleLayerDismiss.bind(this)
     this._validate = this._validate.bind(this)
     this._teardown = this._teardown.bind(this)
 
@@ -101,7 +101,7 @@ export default class Tooltip {
 
   _handleClose() {
     if (this._activeTooltipBox) this._setHideState()
-
+    layerManager.remove(this._activeTooltip.getAttribute(Selectors.DATA_TOOLTIP))
     this._startOpenEvents()
     this._resetProperties()
   }
@@ -125,15 +125,14 @@ export default class Tooltip {
     this._activeTrigger.removeEventListener(Events.FOCUS, this._handleEvent)
     this._activeTrigger.addEventListener(Events.MOUSEOUT, this._handleClose)
     this._activeTrigger.addEventListener(Events.BLUR, this._handleClose)
-    document.addEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
+
+    layerManager.add({
+      events: ["keydown"],
+      id: this._activeTooltip.getAttribute(Selectors.DATA_TOOLTIP),
+      callback: this._handleLayerDismiss,
+    })
 
     if (isiOSMobile) document.body.classList.add(Selectors.OVERLAY_OPEN)
-  }
-
-  _handleEscapeKeyPress(event) {
-    if (event.which === KeyCodes.ESCAPE) {
-      this._handleClose()
-    }
   }
 
   _startOpenEvents() {
@@ -146,6 +145,11 @@ export default class Tooltip {
     document.removeEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
 
     if (isiOSMobile) document.body.classList.remove(Selectors.OVERLAY_OPEN)
+  }
+
+  _handleLayerDismiss(event) {
+    if (event.which !== KeyCodes.ESCAPE) return
+    this._handleClose()
   }
 
   _alignTooltip(property) {

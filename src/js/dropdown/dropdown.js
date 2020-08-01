@@ -1,4 +1,12 @@
-import { isiOSMobile, createFocusTrap, focusOnce, queryAll, log, ComponentEngine } from "../helpers"
+import {
+  isiOSMobile,
+  createFocusTrap,
+  focusOnce,
+  queryAll,
+  log,
+  ComponentEngine,
+  layerManager,
+} from "../helpers"
 import { KeyCodes, Selectors, Events, Messages } from "./constants"
 
 /**
@@ -13,9 +21,8 @@ export default class Dropdown {
     this._handleFirstTabClose = this._handleFirstTabClose.bind(this)
     this._handleLastTabClose = this._handleLastTabClose.bind(this)
     this._handleArrowKeyPress = this._handleArrowKeyPress.bind(this)
+    this._handleLayerDismiss = this._handleLayerDismiss.bind(this)
     this._handleClose = this._handleClose.bind(this)
-    this._handleEscapeKeyPress = this._handleEscapeKeyPress.bind(this)
-    this._handleOffMenuClick = this._handleOffMenuClick.bind(this)
     this._validate = this._validate.bind(this)
     this._teardown = this._teardown.bind(this)
 
@@ -156,6 +163,7 @@ export default class Dropdown {
   }
 
   _closeActiveDropdown() {
+    layerManager.remove(this._activeDropdownId)
     if (isiOSMobile) document.body.classList.remove(Selectors.OVERLAY_OPEN)
 
     this._activeDropdown.setAttribute(Selectors.DATA_VISIBLE, "false")
@@ -163,8 +171,6 @@ export default class Dropdown {
 
     this._activeTrigger.removeEventListener(Events.CLICK, this._handleClose)
     this._activeTrigger.addEventListener(Events.CLICK, this._handleClick)
-    document.removeEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
-    document.removeEventListener(Events.CLICK, this._handleOffMenuClick)
     this._firstDropdownAction.removeEventListener(Events.KEYDOWN, this._handleFirstTabClose)
     this._lastDropdownAction.removeEventListener(Events.KEYDOWN, this._handleLastTabClose)
 
@@ -200,8 +206,12 @@ export default class Dropdown {
   _startActiveDropdownEvents() {
     this._activeTrigger.removeEventListener(Events.CLICK, this._handleClick)
     this._activeTrigger.addEventListener(Events.CLICK, this._handleClose)
-    document.addEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
-    document.addEventListener(Events.CLICK, this._handleOffMenuClick)
+
+    layerManager.add({
+      events: ["click", "keydown"],
+      id: this._activeDropdownId,
+      callback: this._handleLayerDismiss,
+    })
 
     this._activeDropdownActions = this._getDropdownActions(
       this._activeDropdownAttr,
@@ -250,6 +260,14 @@ export default class Dropdown {
     this._allowFocusReturn = false
     this._handleClose(event)
     this._allowFocusReturn = true
+  }
+
+  _handleLayerDismiss(event) {
+    if (event.type === "click") {
+      this._handleOffMenuClick(event)
+    } else if (event.type === "keydown") {
+      this._handleEscapeKeyPress(event)
+    }
   }
 
   _handleFirstTabClose(event) {

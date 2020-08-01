@@ -6,6 +6,7 @@ import {
   log,
   queryAll,
   ComponentEngine,
+  layerManager,
 } from "../helpers"
 import { KeyCodes, Selectors, CssProperties, Events, Messages } from "./constants"
 
@@ -21,9 +22,8 @@ export default class Modal {
     this._handleClick = this._handleClick.bind(this)
     this._handleOpenTransition = this._handleOpenTransition.bind(this)
     this._handleCloseTransition = this._handleCloseTransition.bind(this)
+    this._handleLayerDismiss = this._handleLayerDismiss.bind(this)
     this._handleClose = this._handleClose.bind(this)
-    this._handleOverlayClick = this._handleOverlayClick.bind(this)
-    this._handleEscapeKeyPress = this._handleEscapeKeyPress.bind(this)
     this._validate = this._validate.bind(this)
     this._teardown = this._teardown.bind(this)
 
@@ -127,6 +127,8 @@ export default class Modal {
   }
 
   _closeActiveModal() {
+    layerManager.remove(this._activeModalId)
+
     this._toggleVisibility(false)
     this._focusTrigger()
     this._unsetScrollStop()
@@ -212,8 +214,14 @@ export default class Modal {
   }
 
   _startEvents() {
-    document.addEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
-    document.addEventListener(Events.CLICK, this._handleOverlayClick)
+    // document.addEventListener(Events.KEYDOWN, this._handleEscapeKeyPress)
+    // document.addEventListener(Events.CLICK, this._handleOverlayClick)
+
+    layerManager.add({
+      events: ["keydown", "click"],
+      id: this._activeModalId,
+      callback: this._handleLayerDismiss,
+    })
 
     this._activeModalCloseTriggers.forEach(trigger => {
       trigger.addEventListener(Events.CLICK, this._handleClose)
@@ -244,6 +252,14 @@ export default class Modal {
 
     this._activeModal.style[CssProperties.PADDING_LEFT] = `${this._scrollbarOffset}px`
     document.body.style[CssProperties.PADDING_RIGHT] = originalPaddingRight
+  }
+
+  _handleLayerDismiss(event) {
+    if (event.type === "click") {
+      this._handleOverlayClick(event)
+    } else if (event.type === "keydown") {
+      this._handleEscapeKeyPress(event)
+    }
   }
 
   _handleOverlayClick(event) {
